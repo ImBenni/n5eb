@@ -1,0 +1,250 @@
+{{#*inline "skill-prof"}}
+    <li data-key="{{ @key }}" {{~#if reference}} data-reference-tooltip="{{ reference }}"{{/if}}>
+        <proficiency-cycle type="skill" name="{{ path }}.value" data-tooltip="{{ hover }}"
+                           value="{{#if @root.editable}}{{ baseValue }}{{else}}{{ value }}{{/if}}"
+                           aria-label="{{ localize hover }}" {{disabled (not @root.editable)}}></proficiency-cycle>
+        {{#if @root.editable}}
+        <select name="{{ path }}.ability" class="ability roboto-upper unselect">
+            {{ selectOptions @root.config.abilities selected=baseAbility labelAttr="abbreviation" }}
+        </select>
+        {{else}}
+        <div class="ability roboto-upper">{{ abbreviation }}</div>
+        {{/if}}
+        <a class="name {{ @root.rollableClass }} {{ roll }}">{{ label }}</a>
+        <div class="bonus">{{ n5eb-formatModifier total }}</div>
+        {{#if @root.editable}}
+        <a class="config-button" data-action="{{ type }}" data-tooltip="{{ config }}"
+           aria-label="{{ localize config }}">
+            <i class="fas fa-cog"></i>
+        </a>
+        {{else if hasPassive}}
+        <div class="passive">{{ passive }}</div>
+        {{/if}}
+    </li>
+{{/inline}}
+
+{{#*inline "ability-prof"}}
+    <li data-ability="{{ @key }}" class="{{ class }}">
+        {{#if isConcentration}}
+        <n5eb-icon src="systems/n5eb/icons/svg/statuses/concentrating.svg"></n5eb-icon>
+        {{else}}
+        <proficiency-cycle type="ability" name="{{ path }}.proficient" data-tooltip="{{ hover }}"
+                           value="{{#if @root.editable}}{{ baseProf }}{{else}}{{ proficient }}{{/if}}"
+                           aria-label="{{ localize hover }}" {{ disabled (not @root.editable) }}></proficiency-cycle>
+        {{/if}}
+        <a class="name saving-throw full {{ @root.rollableClass }}">{{ label }}</a>
+        <a class="name saving-throw abbr {{ @root.rollableClass }}">{{ abbr }}</a>
+        <div class="bonus">{{ n5eb-formatModifier save }}</div>
+        {{#if @root.editable}}
+        <a class="config-button" data-action="ability" data-tooltip="{{ config }}" aria-label="{{ localize config }}">
+            <i class="fas fa-cog"></i>
+        </a>
+        {{/if}}
+    </li>
+{{/inline}}
+
+<div class="tab details col-2" data-group="primary" data-tab="details">
+
+    {{!-- Skills & Tools --}}
+    <div class="left">
+
+        {{!-- Skills --}}
+        <filigree-box class="skills">
+            <h3>
+                <i class="fas fa-briefcase"></i>
+                <span class="roboto-upper">{{ localize "N5EB.Skills" }}</span>
+            </h3>
+            <ul>
+                {{#each config.skills}}
+                {{#with (lookup @root.skills @key)}}
+                    {{> "skill-prof" path=(concat "system.skills." @key) config="N5EB.SkillConfigure"
+                        type="skill" hasPassive=true roll="skill-name" }}
+                {{/with}}
+                {{/each}}
+            </ul>
+        </filigree-box>
+
+        {{!-- Tools --}}
+        <filigree-box class="tools">
+            {{#if editable}}
+            <a class="trait-selector" data-trait="tool"
+               data-tooltip="{{ localize "N5EB.TraitConfig" trait=(localize "N5EB.TraitToolProf") }}"
+               aria-label="{{ localize "N5EB.TraitConfig" trait=(localize "N5EB.TraitToolProf") }}">
+                <i class="fas fa-cog"></i>
+            </a>
+            {{/if}}
+            <h3>
+                <i class="fas fa-hammer"></i>
+                <span class="roboto-upper">{{ localize "TYPES.Item.toolPl" }}</span>
+            </h3>
+            <ul>
+                {{#each tools}}
+                    {{> "skill-prof" path=(concat "system.tools." @key) config="N5EB.ToolConfigure"
+                        type="tool" hasPassive=false roll="tool-name" }}
+                {{/each}}
+            </ul>
+        </filigree-box>
+
+    </div>
+
+    {{!-- Background, Saving Throws, Proficiencies, & Senses --}}
+    <div class="right">
+
+        {{!-- Background & Saving Throws --}}
+        <div class="top flexrow">
+
+            {{!-- Saving Throws --}}
+            <filigree-box class="saves">
+                <h3>
+                    <i class="fas fa-shield-heart"></i>
+                    <span class="roboto-upper">{{ localize "N5EB.ClassSaves" }}</span>
+                </h3>
+                <ul>
+                    {{#each saves}}
+                        {{> "ability-prof" path=(concat "system.abilities." @key)
+                            config=(localize "N5EB.AbilityConfigure" ability=label) }}
+                    {{/each}}
+                </ul>
+            </filigree-box>
+
+            {{!-- Background --}}
+            <div class="pills-lg">
+                {{#with creatureType}}
+                <div class="pill-lg texture type" {{#if reference}}data-reference-tooltip="{{reference}}"{{/if}}>
+                    <div class="gold-icon creature-type {{ class }}" style="background-image: url('{{ icon }}');"></div>
+                    <div class="name name-stacked">
+                        <span class="title">
+                            {{ localize title }}
+                        </span>
+                        <span class="subtitle">{{ subtitle }}</span>
+                    </div>
+                    {{#if (and @root.editable @root.race)}}
+                    <a class="config-button" data-action="type" data-tooltip="N5EB.CreatureTypeConfig"
+                       aria-label="{{ localize "N5EB.CreatureTypeConfig" }}">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                    {{/if}}
+                </div>
+                {{/with}}
+                {{#if race}}
+                <div class="pill-lg texture race item-tooltip" data-action="edit"
+                     data-item-id="{{ system.details.race.id }}"
+                     aria-label="{{#if actor.isOwner}}{{ localize "N5EB.ItemEdit" }}{{else}}{{ localize "N5EB.ItemView" }}{{/if}}">
+                    {{#if system.details.race.img}}
+                    <img class="gold-icon" src="{{ system.details.race.img }}" alt="{{ system.details.race.name }}">
+                    {{/if}}
+                    <div class="name name-stacked">
+                        <span class="title">{{ system.details.race.name }}</span>
+                        {{#if editable}}
+                        <select class="actor-size unselect" name="system.traits.size">
+                            {{ selectOptions config.actorSizes selected=source.traits.size labelAttr="label" }}
+                        </select>
+                        {{else}}
+                        <span class="subtitle">{{ size.label }}</span>
+                        {{/if}}
+                    </div>
+                    {{#if editable}}
+                    <a class="item-control item-action" data-action="delete" data-tooltip="N5EB.ItemDelete"
+                       aria-label="{{ localize "N5EB.ItemDelete" }}" data-tooltip-class data-tooltip-direction>
+                        <i class="fas fa-trash"></i>
+                    </a>
+                    {{/if}}
+                </div>
+                {{else if actor.isOwner}}
+                <div class="pill-lg empty roboto-upper" data-action="findItem" data-item-type="race">
+                    {{ localize "N5EB.RaceAdd" }}
+                </div>
+                {{/if}}
+                {{#if background}}
+                <div class="pill-lg texture background item-tooltip" data-action="edit"
+                     data-item-id="{{ system.details.background.id }}"
+                     aria-label="{{#if actor.isOwner}}{{ localize "N5EB.ItemEdit" }}{{else}}{{ localize "N5EB.ItemView" }}{{/if}}">
+                    {{#if system.details.background.img}}
+                    <img class="gold-icon" src="{{ system.details.background.img }}"
+                         alt="{{ system.details.background.name }}">
+                    {{/if}}
+                    <div class="name name-stacked">
+                        <span class="title">{{ system.details.background.name }}</span>
+                    </div>
+                    {{#if editable}}
+                    <a class="item-control item-action" data-action="delete" data-tooltip="N5EB.ItemDelete"
+                       aria-label="{{ localize "N5EB.ItemDelete" }}" data-tooltip-class data-tooltip-direction>
+                        <i class="fas fa-trash"></i>
+                    </a>
+                    {{/if}}
+                </div>
+                {{else if actor.isOwner}}
+                <div class="pill-lg empty roboto-upper" data-action="findItem" data-item-type="background">
+                    {{ localize "N5EB.BackgroundAdd" }}
+                </div>
+                {{/if}}
+            </div>
+
+        </div>
+
+        {{!-- Senses --}}
+        {{#if (or editable senses)}}
+        <div class="pills-group {{#unless senses}}empty{{/unless}}">
+            <h3 class="icon">
+                <i class="fas fa-eye"></i>
+                <span class="roboto-upper">{{ localize "N5EB.Senses" }}</span>
+                {{#if editable}}
+                <a class="config-button" data-action="senses" data-tooltip="N5EB.SensesConfig"
+                   aria-label="{{ localize "N5EB.SensesConfig" }}">
+                    <i class="fas fa-cog"></i>
+                </a>
+                {{/if}}
+            </h3>
+            <ul class="pills">
+                {{#each senses}}
+                <li class="pill">
+                    <span class="label">{{ label }}</span>
+                    {{#if value}}
+                    <span class="separator">&vert;</span>
+                    <span class="value">{{ value }}</span>
+                    {{/if}}
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+
+        {{!-- Resistances --}}
+        {{> "n5eb.actor-trait-pills" values=traits.dr key="dr" color="green" icon="fas fa-shield-halved"
+            label="N5EB.Resistances" }}
+
+        {{!-- Immunities --}}
+        {{#if editable}}
+            {{> "n5eb.actor-trait-pills" values=traits.di key="di" color="green" icon="fas fa-shield"
+                label="N5EB.DamImm" }}
+        {{else}}
+            {{> "n5eb.actor-trait-pills" values=traits.di key="di" color="green" icon="fas fa-shield"
+                label="N5EB.Immunities" }}
+        {{/if}}
+        {{> "n5eb.actor-trait-pills" values=traits.ci key="ci" color="green" svg="rosa-shield" label="N5EB.ConImm" }}
+
+        {{!-- Vulnerabilities --}}
+        {{> "n5eb.actor-trait-pills" values=traits.dv key="dv" color="maroon" icon="fas fa-heart-crack"
+            label="N5EB.Vulnerabilities" }}
+
+        {{!-- Damage Modification --}}
+        {{> "n5eb.actor-trait-pills" values=traits.dm key="dm" icon="fas fa-heart-circle-plus"
+            label="N5EB.DamageModification.Label" }}
+
+        {{!-- Armor --}}
+        {{> "n5eb.actor-trait-pills" values=traits.armor key="armor" svg="checked-shield" label="N5EB.Armor" }}
+
+        {{!-- Weapons --}}
+        {{> "n5eb.actor-trait-pills" values=traits.weapon key="weapon" svg="trait-weapon-proficiencies"
+            label="TYPES.Item.weaponPl" }}
+
+        {{!-- Languages --}}
+        {{> "n5eb.actor-trait-pills" values=traits.languages key="languages" icon="fas fa-flag"
+            label="N5EB.Languages" }}
+
+        {{!-- Affinity --}}
+        {{> "n5eb.actor-trait-pills" values=traits.affinity key="affinity" icon="fas fa-bolt"
+            label="N5EB.Affinity" }}
+
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<form autocomplete="off">
+    <header>{{ localize "N5EB.Award.Title" }}</header>
+    <div class="distribution">
+        <span>{{localize "N5EB.Award.Distribution.Split"}}</span>
+        <slide-toggle name="each" {{checked each}}></slide-toggle>
+        <span>{{localize "N5EB.Award.Distribution.Each"}}</span>
+    </div>
+    {{#unless hideXP}}
+    <label class="xp currency-style">
+        <span class="roboto-upper">{{localize "N5EB.ExperiencePoints"}}</span>
+        {{numberInput xp name="xp" class="uninput" min=0 step=1}}
+    </label>
+    {{/unless}}
+    <section class="currency">
+        {{#each currency}}
+        <label aria-label="{{label}}">
+            <i class="currency {{ @key }}" data-tooltip="{{ label }}"></i>
+            {{numberInput value name=(concat "amount." @key) class="uninput" min=0 step=1}}
+        </label>
+        {{/each}}
+    </section>
+    <div class="destinations">
+        {{#if noPrimaryParty}}
+        <p class="no-primary-party">{{localize "N5EB.Award.NoPrimaryParty"}}</p>
+        {{/if}}
+        {{#each destinations}}
+        <label>
+            <input type="checkbox" name="destination.{{doc.id}}" {{checked checked}}>
+            {{{icon}}} {{doc.name}}
+        </label>
+        {{else}}
+        <p class="no-destinations">{{localize "N5EB.Award.NoDestinations"}}</p>
+        {{/each}}
+    </div>
+    <button type="submit" name="transfer" disabled>
+        <i class="fa-solid fa-trophy"></i> {{localize "N5EB.Award.Action"}}
+    </button>
+</form>

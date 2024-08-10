@@ -1,0 +1,77 @@
+<form id="short-rest-hd" class="dialog-content" onsubmit="event.preventDefault();">
+    <p>
+        {{#if isGroup}}{{ localize "N5EB.ShortRestHintGroup" }}
+        {{else}}{{ localize "N5EB.ShortRestHint" }}{{/if}}
+    </p>
+
+    {{#if availableHD}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.ShortRestSelect" }}</label>
+        <div class="form-fields">
+            <select name="hd">
+                {{#select denomination}}
+                {{#each availableHD as |num denom|}}
+                <option value="{{denom}}">{{denom}} ({{num}} {{ localize "N5EB.available" }})</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <button id="roll-hd" {{#unless canRollHD}}disabled{{/unless}}>
+                <i class="fas fa-dice-d20"></i> {{ localize "N5EB.Roll" }}
+            </button>
+        </div>
+        {{#unless canRollHD}}
+        <p class="notes">{{ localize "N5EB.ShortRestNoHD" }}</p>
+        {{/unless}}
+    </div>
+    {{else}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.HitDiceAutoSpend.Label" }}</label>
+        <input type="checkbox" name="autoHD">
+        <p class="hint">{{localize "N5EB.HitDiceAutoSpend.Hint" }}</p>
+    </div>
+    {{/if}}
+
+    {{#if availableCD}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.ShortRestSelectCD" }}</label>
+        <div class="form-fields">
+            <select name="cd">
+                {{#select cdDenomination}}
+                {{#each availableCD as |num denom|}}
+                <option value="{{denom}}">{{denom}} ({{num}} {{ localize "N5EB.available" }})</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <button id="roll-cd" {{#unless canRollCD}}disabled{{/unless}}>
+                <i class="fas fa-dice-d20"></i> {{ localize "N5EB.Roll" }}
+            </button>
+        </div>
+        {{#unless canRollCD}}
+        <p class="notes">{{ localize "N5EB.ShortRestNoCD" }}</p>
+        {{/unless}}
+    </div>
+    {{else}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.ChakraDiceAutoSpend.Label" }}</label>
+        <input type="checkbox" name="autoCD">
+        <p class="hint">{{localize "N5EB.ChakraDiceAutoSpend.Hint" }}</p>
+    </div>
+    {{/if}}
+
+    {{#if promptNewDay}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.NewDay" }}</label>
+        <input type="checkbox" name="newDay" {{checked newDay}}>
+        <p class="hint">{{ localize "N5EB.NewDayHint" }}</p>
+    </div>
+    {{/if}}
+
+    <div class="dialog-buttons">
+        {{#each buttons as |button id|}}
+        <button class="dialog-button" data-button="{{id}}">
+            {{{button.icon}}}
+            {{{button.label}}}
+        </button>
+        {{/each}}
+    </div>
+</form>

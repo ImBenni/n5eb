@@ -1,0 +1,24 @@
+<form autocomplete="off">
+    <p class="notes">{{ localize "N5EB.ChakraDiceConfigHint" }}</p>
+    {{#each classes}}
+        <div class="form-group">
+            <label>{{this.name}} ({{this.diceDenom}})</label>
+            <div class="form-fields">
+                <button class="decrement" type="button">-</button>
+                <input data-tooltip="N5EB.ChakraDiceRemaining" class="current"
+                       name="{{this.classItemId}}" type="number" value="{{this.currentChakraDice}}">
+                <span class="sep">/</span>
+                <input data-tooltip="N5EB.ChakraDiceMax" class="max" type="number" value="{{this.maxChakraDice}}" disabled>
+                <button class="increment" type="button">+</button>
+
+                <button class="roll-cd" data-cd-denom="{{this.diceDenom}}" {{#unless this.canRoll}}disabled{{/unless}}>
+                    <i class="fas fa-dice-d20"></i> {{ localize "N5EB.Roll" }}
+                </button>
+            </div>
+        </div>
+    {{/each}}
+    <div class="dialog-buttons">
+        <button type="reset"><i class="fas fa-redo"></i> {{localize "SETTINGS.5eUndoChanges"}}</button>
+        <button type="submit"><i class="far fa-save"></i> {{localize "SETTINGS.Save"}}</button>
+    </div>
+</form>

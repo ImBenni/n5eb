@@ -1,0 +1,26 @@
+<form id="{{appId}}" data-level="{{level}}" data-id="{{advancement.id}}" data-type="{{type}}">
+    <h3>{{{title}}}</h3>
+    {{#if hint}}<p>{{ hint }}</p>{{/if}}
+
+    {{#if isFirstClassLevel}}
+
+    <div>
+        {{{localize "N5EB.AdvancementHitPointsMaxAtFirstLevel" max=dieValue}}}
+        <input type="hidden" name="useMax" value="true" data-dtype="Boolean">
+    </div>
+
+    {{else}}
+
+    <div class="rolls">
+        <label class="averageLabel">
+            <span>{{localize "N5EB.AdvancementHitPointsAverage"}}</span>
+            <input class="averageCheckbox" type="checkbox" name="useAverage" {{checked data.useAverage}}>
+        </label>
+        <input class="rollResult" type="number" name="value" value="{{data.value}}" {{disabled data.useAverage}}>
+        <button class="rollButton" type="button" name="roll" {{disabled data.useAverage}}>
+            <i class="fas fa-dice-d20"></i> {{localize "N5EB.AdvancementHitPointsRollButton" die=hitDie}}
+        </button>
+    </div>
+
+    {{/if}}
+</form>

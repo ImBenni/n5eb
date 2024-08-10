@@ -1,0 +1,186 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Item Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
+
+        <div class="header-details flexrow">
+            <h1 class="charname">
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'N5EB.SpellName' }}">
+            </h1>
+
+            <div class="item-subtitle">
+                <h4 class="item-type">{{itemType}}</h4>
+                <span class="item-status">{{system.chakraCost}} {{ localize "N5EB.Chakra" }}</span>
+                <span class="item-status">{{itemStatus}}</span>
+            </div>
+
+            <ul class="summary flexrow">
+                <li>
+                    {{labels.level}}
+                </li>
+                <li>
+                    {{labels.school}}
+                </li>
+                <li>
+                    {{> "n5eb.item-source"}}
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    {{!-- Item Sheet Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="primary">
+        <a class="item active" data-tab="description">{{ localize "N5EB.Description" }}</a>
+        <a class="item" data-tab="details">{{ localize "N5EB.Details" }}</a>
+        <a class="item" data-tab="effects">{{ localize "N5EB.Effects" }}</a>
+    </nav>
+
+    {{!-- Item Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Description Tab --}}
+        {{> "n5eb.item-description"}}
+
+        {{!-- Details Tab --}}
+        <div class="tab details" data-group="primary" data-tab="details">
+            <h3 class="form-header">{{ localize "N5EB.SpellDetails" }}</h3>
+
+            {{!-- Spell Level --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.SpellLevel" }}</label>
+                <select name="system.level" data-dtype="Number">
+                    {{#select system.level}}
+                    {{#each config.spellLevels as |name lvl|}}
+                    <option value="{{lvl}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+
+            {{!-- Spell School --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.Classification" }}</label>
+                <select name="system.school">
+                    {{selectOptions config.spellSchools selected=system.school labelAttr="label"}}
+                </select>
+            </div>
+
+            {{!-- Chakra Cost --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.ChakraCost" }}</label>
+                <input type="number" name="system.chakraCost" value="{{ system.chakraCost }}" data-dtype="Number" min="0">
+            </div>
+
+            {{!-- Spell Components --}}
+            <div class="spell-components form-group stacked">
+                <label>{{ localize "N5EB.SpellComponents" }}</label>
+                {{#each properties}}
+                <label class="checkbox">
+                    <input type="checkbox" name="system.properties.{{@key}}" {{checked selected}}> {{ label }}
+                </label>
+                {{/each}}
+            </div>
+
+            {{!-- Jutsu Keywords --}}
+            <div class="jutsu-keywords form-group stacked">
+                <label>{{ localize "N5EB.JutsuKeywords" }}</label>
+                {{#each keywords}}
+                <label class="checkbox">
+                    <input type="checkbox" name="system.keywords.{{key}}" {{checked selected}}> {{label}}
+                </label>
+                {{/each}}
+            </div>
+
+            {{!-- Material Components --}}
+            <div class="form-group stacked">
+                <label>{{ localize "N5EB.SpellMaterials" }}</label>
+                <input class="materials" type="text" name="system.materials.value" value="{{system.materials.value}}">
+                {{#if system.materials.value}}
+                <div class="spell-materials flexrow">
+                    <label>{{ localize "N5EB.Supply" }}</label>
+                    {{numberInput system.materials.supply name="system.materials.supply" placeholder="0"}}
+                    <label>{{ localize "N5EB.CostGP" }}</label>
+                    {{numberInput system.materials.cost name="system.materials.cost" placeholder="—"}}
+                    <label>{{ localize "N5EB.Consumed" }}</label>
+                    <input type="checkbox" name="system.materials.consumed" {{checked system.materials.consumed}}>
+                </div>
+                {{/if}}
+            </div>
+
+            {{!-- Preparation Mode --}}
+            {{!-- <div class="form-group input-select">
+                <label>{{ localize "N5EB.SpellPreparationMode" }}</label>
+                <div class="form-fields">
+                    <label class="checkbox prepared">
+                        {{ localize "N5EB.SpellPrepared" }}
+                        <input type="checkbox" name="system.preparation.prepared" {{checked system.preparation.prepared}}>
+                    </label>
+                    <select name="system.preparation.mode">
+                        {{ selectOptions config.spellPreparationModes selected=system.preparation.mode labelAttr="label" }}
+                    </select>
+                </div>
+            </div> --}}
+
+            {{!-- Source Class --}}
+            {{#if isEmbedded}}
+            <div class="form-group input-select">
+                <label>{{ localize "N5EB.SpellSourceClass" }}</label>
+                <div class="form-fields">
+                    <select name="system.sourceClass">
+                        {{selectOptions document.parent.spellcastingClasses selected=system.sourceClass
+                                        labelAttr="name" blank=""}}
+                    </select>
+                </div>
+            </div>
+            {{/if}}
+
+            <h3 class="form-header">{{ localize "N5EB.SpellCastingHeader" }}</h3>
+
+            {{!-- Item Activation Template --}}
+            {{> "n5eb.item-activation"}}
+
+            <h3 class="form-header">{{ localize "N5EB.SpellEffects" }}</h3>
+
+            {{!-- Item Action Template --}}
+            {{> "n5eb.item-action"}}
+
+            {{!-- Spell Level Scaling --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.LevelScaling" }}</label>
+                <div class="form-fields">
+                    <select name="system.scaling.mode">
+                        {{#select system.scaling.mode}}
+                        {{#each config.spellScalingModes as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                    <input type="text" name="system.scaling.formula" value="{{system.scaling.formula}}"
+                           placeholder="{{ localize 'N5EB.ScalingFormula' }}" data-formula-editor>
+                </div>
+            </div>
+
+            {{!-- Chakra Scaling --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.ChakraScaling" }}</label>
+                <div class="form-fields">
+                    <select name="system.chakraScaling.mode">
+                        {{#select system.chakraScaling.mode}}
+                        {{#each config.spellScalingModes as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                    <input type="number" name="system.chakraScaling.value" value="{{system.chakraScaling.value}}"
+                           placeholder="{{ localize 'N5EB.ScalingChakra' }}">
+                </div>
+            </div>
+        </div>
+
+        {{!-- Effects Tab --}}
+        <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+            {{> "n5eb.active-effects"}}
+        </div>
+    </section>
+</form>

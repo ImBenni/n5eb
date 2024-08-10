@@ -1,0 +1,19 @@
+<form autocomplete="off">
+    <header>{{ localize "N5EB.SkillsConfig" }}</header>
+    <div class="card">
+        <ol class="unlist form-grid form-grid-50 skills-list" style="--skill-rows: {{ rows }};">
+            {{#each skills}}
+            <li class="skill-row" data-key="{{ key }}">
+                <proficiency-cycle type="skill" name="system.skills.{{ key }}.value" value="{{ value }}"
+                                   data-tooltip="{{ tooltip }}" aria-label="{{ localize tooltip }}"></proficiency-cycle>
+                <span class="name">{{ label }}</span>
+                <div class="bonus">{{ n5eb-formatModifier total }}</div>
+                <a class="config-button" data-action="configure" data-tooltip="N5EB.SkillConfigure"
+                   aria-label="{{ localize "N5EB.SkillConfigure" }}">
+                    <i class="fas fa-cog"></i>
+                </a>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+</form>

@@ -1,0 +1,26 @@
+<form>
+    {{#each formulas}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.Formula" }} {{#if type}}({{type}}){{/if}}</label>
+        <input type="text" name="formula" value="{{formula}}" disabled>
+    </div>
+    {{/each}}
+    {{#if chooseModifier}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.AbilityModifier" }}</label>
+        <select name="ability">
+            {{selectOptions abilities selected=defaultAbility labelAttr="label"}}
+        </select>
+    </div>
+    {{/if}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.RollSituationalBonus" }}</label>
+        <input type="text" name="bonus" value="" placeholder="{{ localize 'N5EB.RollExample' }}"/>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.RollMode" }}</label>
+        <select name="rollMode">
+            {{selectOptions rollModes selected=defaultRollMode localize=true}}
+        </select>
+    </div>
+</form>

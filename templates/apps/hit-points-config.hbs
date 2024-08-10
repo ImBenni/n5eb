@@ -1,0 +1,53 @@
+<form>
+    {{#if isCharacter}}
+
+    <div class="hp-field form-group">
+        <input type="number" class="number-lg" name="hp.max" value="{{source.max}}"
+               placeholder="{{hp.max}}" data-tooltip="N5EB.HitPointsOverride">
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "N5EB.HitPointsBonusLevel"}}</label>
+        <input type="text" name="hp.bonuses.level" value="{{hp.bonuses.level}}">
+    </div>
+    <div class="form-group">
+        <label>{{localize "N5EB.HitPointsBonusOverall"}}</label>
+        <input type="text" name="hp.bonuses.overall" value="{{hp.bonuses.overall}}">
+    </div>
+
+    {{else}}
+
+    <div class="hp-field form-group">
+        <input type="number" class="number-lg" name="hp.max" value="{{ source.max }}" data-tooltip="N5EB.HitPointsMax">
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "N5EB.HPFormula"}}</label>
+        <div class="form-fields">
+            <input type="text" name="hp.formula" value="{{hp.formula}}">
+            <button class="roll-hit-points"><i class="fas fa-dice"></i> {{localize "N5EB.Roll"}}</button>
+        </div>
+    </div>
+
+    {{/if}}
+
+    <hr>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.HitPointsTempShort" }}</label>
+        <div class="form-fields">
+            {{ numberInput source.temp name="hp.temp" min=0 step=1 }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "N5EB.HitPointsTempMaxShort"}}</label>
+        <div class="form-fields">
+            <input type="number" name="hp.tempmax" value="{{source.tempmax}}">
+        </div>
+    </div>
+
+    <button type="submit">
+        <i class="far fa-save"></i> {{localize "Save"}}
+    </button>
+</form>

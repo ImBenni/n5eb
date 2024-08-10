@@ -1,0 +1,23 @@
+<form id="long-rest" class="dialog-content" onsubmit="event.preventDefault();">
+    <p>
+        {{#if isGroup}}{{ localize "N5EB.LongRestHintGroup" }}
+        {{else}}{{ localize "N5EB.LongRestHint" }}{{/if}}
+    </p>
+
+    {{#if promptNewDay}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.NewDay" }}</label>
+        <input type="checkbox" name="newDay" {{checked newDay}}/>
+        <p class="hint">{{ localize "N5EB.NewDayHint" }}</p>
+    </div>
+    {{/if}}
+
+    <div class="dialog-buttons">
+        {{#each buttons as |button id|}}
+        <button class="dialog-button" data-button="{{id}}">
+            {{{button.icon}}}
+            {{{button.label}}}
+        </button>
+        {{/each}}
+    </div>
+</form>

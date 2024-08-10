@@ -1,0 +1,50 @@
+<div class="tab biography" data-group="primary" data-tab="biography">
+
+    {{!-- Characteristics --}}
+    <div class="top">
+        <ul class="unlist characteristics">
+            {{#each characteristics}}
+            <li>
+                <label>
+                    <span class="roboto-upper label">{{ localize label }}</span>
+                    {{#if @root.editable}}
+                    <input type="text" name="{{ name }}" value="{{ value }}">
+                    {{else}}
+                    <span class="value">{{ value }}</span>
+                    {{/if}}
+                </label>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+
+    {{!-- Ideals, Bonds, Flaws, Personality Traits, & Appearance --}}
+    <div class="middle flexrow">
+        <div class="left">
+            {{~> "n5eb.biography-textbox" name="system.details.ideal" value=system.details.ideal label="N5EB.Ideals"
+                icon="fas fa-seedling" class="textbox-half" ~}}
+            {{~> "n5eb.biography-textbox" name="system.details.bond" value=system.details.bond label="N5EB.Bonds"
+                icon="fas fa-link" class="textbox-half" ~}}
+            {{~> "n5eb.biography-textbox" name="system.details.flaw" value=system.details.flaw label="N5EB.Flaws"
+                icon="fas fa-heart-crack" class="textbox-half" ~}}
+        </div>
+        <div class="right">
+            {{~> "n5eb.biography-textbox" name="system.details.trait" value=system.details.trait
+                label="N5EB.PersonalityTraits" icon="fas fa-puzzle-piece" class="textbox-half" ~}}
+            {{~> "n5eb.biography-textbox" name="system.details.appearance" value=system.details.appearance
+                label="N5EB.Appearance" icon="fas fa-image-portrait" class="textbox-half" ~}}
+        </div>
+    </div>
+
+    {{!-- Biography --}}
+    <div class="bottom">
+        <h3 class="icon">
+            <i class="fas fa-feather"></i>
+            <n5eb-icon src="systems/n5eb/icons/svg/ink-pot.svg"></n5eb-icon>
+            <span class="roboto-upper">{{ localize "N5EB.Biography" }}</span>
+        </h3>
+        {{ editor biographyHTML target="system.details.biography.value" button=false editable=@root.editable
+                  engine="prosemirror" collaborate=false }}
+    </div>
+
+</div>

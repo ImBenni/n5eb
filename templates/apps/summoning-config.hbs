@@ -1,0 +1,166 @@
+<form autocomplete="off">
+    <h3 class="form-header flexrow">
+        {{ localize "N5EB.Summoning.Profile.LabelPl" }}
+        <button type="button" class="unbutton" data-action="add-profile">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            {{ localize 'N5EB.Summoning.Action.Add' }}
+        </button>
+    </h3>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Mode.Label" }}</label>
+        <select name="mode">
+            {{ selectOptions modes selected=summons.mode localize=true blank=(localize "N5EB.Summoning.Mode.Direct") }}
+        </select>
+    </div>
+    <ul class="n5eb2 separated-list profiles flexcol">
+        {{#each profiles}}
+        <li class="profile n5eb2" data-profile-id="{{ id }}">
+            <div class="details flexrow">
+                <input type="text" name="profiles.{{ id }}.count" value="{{ count }}" placeholder="1"
+                    aria-label="{{ localize 'N5EB.Summoning.Count.Label' }}">
+                <span class="sep">&times;</span>
+                {{#if (eq @root.summons.mode "cr")}}
+                <label>
+                    <strong>{{ localize 'N5EB.AbbreviationCR' }}</strong>
+                    <input type="text" name="profiles.{{ id }}.cr" value="{{ cr }}">
+                </label>
+                {{else}}
+                {{#if document}}
+                {{{ n5eb-linkForUuid uuid }}}
+                {{else}}
+                <div class="drop-area">
+                    {{ localize "N5EB.Summoning.DropHint" }}
+                </div>
+                {{/if}}
+                {{/if}}
+                <input type="text" name="profiles.{{ id }}.name" value="{{ name }}" aria-label="{{ localize 'Name' }}"
+                       placeholder="{{#if document}}{{ document.name }}{{else}}
+                       {{~ localize 'N5EB.Summoning.DisplayName' }}{{/if}}">
+                <div class="list-controls">
+                    <button type="button" class="unbutton" data-action="delete-profile"
+                            data-tooltip="N5EB.Summoning.Action.Remove"
+                            aria-label="{{ localize 'N5EB.Summoning.Action.Remove' }}">
+                        <i class="fa-solid fa-trash fa-fw" inert></i>
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" name="profiles.{{ id }}._id" value="{{ id }}">
+            <input type="hidden" name="profiles.{{ id }}.uuid" value="{{ uuid }}">
+            <div class="additional-tray collapsible {{ collapsed }}">
+                <label class="roboto-upper">
+                    <i class="fa-solid fa-gears" inert></i>
+                    <span>{{ localize "N5EB.AdditionalSettings" }}</span>
+                    <i class="fas fa-caret-down" inert></i>
+                </label>
+                <div class="collapsible-content">
+                    <div class="wrapper">
+                        {{#if (eq @root.summons.mode "cr")}}
+                        <div class="form-group">
+                            <label>{{ localize "N5EB.Summoning.CreatureTypes.Label" }}</label>
+                            <multi-select name="profiles.{{ id }}.types">
+                                {{#each creatureTypes}}
+                                <option value="{{ @key }}" {{ selected }}>{{ label }}</option>
+                                {{/each}}
+                            </multi-select>
+                        </div>
+                        {{/if}}
+                        <div class="form-group">
+                            <label>{{ localize "N5EB.LevelLimit.Label" }}</label>
+                            <div class="form-fields">
+                                <input type="number" name="profiles.{{ id }}.level.min" min="1" step="1" placeholder="0"
+                                       value="{{ level.min }}" aria-label="{{ localize 'N5EB.LevelLimit.Min' }}">
+                                <span class="sep">&ndash;</span>
+                                <input type="number" name="profiles.{{ id }}.level.max" min="1" step="1" placeholder="∞"
+                                       value="{{ level.max }}" aria-label="{{ localize 'N5EB.LevelLimit.Max' }}">
+                            </div>
+                            <p class="hint">{{ localize "N5EB.Summoning.Level.Hint" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {{else}}
+        <li class="empty">
+            {{#unless summons.mode}}{{ localize "N5EB.Summoning.Profile.EmptyDrop" }}
+            {{~else}}{{ localize "N5EB.Summoning.Profile.Empty" }}{{/unless}}
+        </li>
+        {{/each}}
+    </ul>
+
+    {{#unless @root.isSpell}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.ClassIdentifier" }}</label>
+        <input type="text" name="classIdentifier" value="{{ summons.classIdentifier }}">
+        <p class="hint">{{ localize "N5EB.Summoning.Level.IdentifierHint" }}</p>
+    </div>
+    {{/unless}}
+
+    <h3 class="form-header">{{ localize "N5EB.Summoning.CreatureChanges.Label" }}</h3>
+    <p class="hint">{{ localize "N5EB.Summoning.CreatureChanges.Hint" }}</p>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Match.Proficiency.Label" }}</label>
+        <input type="checkbox" name="match.proficiency" {{ checked summons.match.proficiency }}>
+        <p class="hint">{{ localize "N5EB.Summoning.Match.Proficiency.Hint" }}</p>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Bonuses.ArmorClass.Label" }}</label>
+        <input type="text" name="bonuses.ac" value="{{ summons.bonuses.ac }}">
+        <p class="hint">{{ localize "N5EB.Summoning.Bonuses.ArmorClass.Hint" }}</p>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Bonuses.HitDice.Label" }}</label>
+        <input type="text" name="bonuses.hd" value="{{ summons.bonuses.hd }}">
+        <p class="hint">{{ localize "N5EB.Summoning.Bonuses.HitDice.Hint" }}</p>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Bonuses.HitPoints.Label" }}</label>
+        <input type="text" name="bonuses.hp" value="{{ summons.bonuses.hp }}">
+        <p class="hint">{{ localize "N5EB.Summoning.Bonuses.HitPoints.Hint" }}</p>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.CreatureSizes.Label" }}</label>
+        <multi-select name="creatureSizes">
+            {{#each creatureSizes}}
+            <option value="{{ @key }}" {{ selected }}>{{ label }}</option>
+            {{/each}}
+        </multi-select>
+        <p class="hint">{{ localize "N5EB.Summoning.CreatureSizes.Hint" }}</p>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.CreatureTypes.Label" }}</label>
+        <multi-select name="creatureTypes">
+            {{#each creatureTypes}}
+            <option value="{{ @key }}" {{ selected }}>{{ label }}</option>
+            {{/each}}
+        </multi-select>
+        <p class="hint">{{ localize "N5EB.Summoning.CreatureTypes.Hint" }}</p>
+    </div>
+
+    <h3 class="form-header">{{ localize "N5EB.Summoning.ItemChanges.Label" }}</h3>
+    <p class="hint">{{ localize "N5EB.Summoning.ItemChanges.Hint" }}</p>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Match.Attacks.Label" }}</label>
+        <input type="checkbox" name="match.attacks" {{ checked summons.match.attacks }}>
+        <p class="hint">{{ localize "N5EB.Summoning.Match.Attacks.Hint" }}</p>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Match.Saves.Label" }}</label>
+        <input type="checkbox" name="match.saves" {{ checked summons.match.saves }}>
+        <p class="hint">{{ localize "N5EB.Summoning.Match.Saves.Hint" }}</p>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Bonuses.Attack.Label" }}</label>
+        <input type="text" name="bonuses.attackDamage" value="{{ summons.bonuses.attackDamage }}">
+        <p class="hint">{{ localize "N5EB.Summoning.Bonuses.Attack.Hint" }}</p>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Bonuses.Saves.Label" }}</label>
+        <input type="text" name="bonuses.saveDamage" value="{{ summons.bonuses.saveDamage }}">
+        <p class="hint">{{ localize "N5EB.Summoning.Bonuses.Saves.Hint" }}</p>
+    </div>
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summoning.Bonuses.Healing.Label" }}</label>
+        <input type="text" name="bonuses.healing" value="{{ summons.bonuses.healing }}">
+        <p class="hint">{{ localize "N5EB.Summoning.Bonuses.Healing.Hint" }}</p>
+    </div>
+</form>

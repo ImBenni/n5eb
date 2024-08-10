@@ -1,0 +1,20 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    {{> "n5eb.trait-list" prefix="choices"}}
+
+    {{#if customPath}}
+        <div class="form-group stacked">
+            <label>{{localize "N5EB.TraitSelectorSpecial"}}</label>
+            <div class="form-fields">
+                <input type="text" name="{{customPath}}" value="{{custom}}">
+            </div>
+        </div>
+    {{/if}}
+
+    {{#if bypassesPath}}
+        <h3>{{localize "N5EB.DamagePhysicalBypass"}}</h3>
+        <p class="note">{{localize "N5EB.DamagePhysicalBypassHint"}}</p>
+        {{> "n5eb.trait-list" choices=bypasses prefix="bypasses"}}
+    {{/if}}
+
+    <button type="submit"><i class="far fa-save"></i> {{localize "N5EB.TraitSave"}}</button>
+</form>

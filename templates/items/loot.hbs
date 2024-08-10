@@ -1,0 +1,102 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Item Sheet Header --}}
+    <header class="sheet-header loot-header flexrow">
+        <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img"/>
+
+        <div class="header-details flexrow">
+            <h1 class="charname">
+                {{#if system.identified}}
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'N5EB.ItemName' }}">
+                {{else}}
+                <input name="system.unidentified.name" type="text" value="{{system.unidentified.name}}"
+                       placeholder="{{ localize 'N5EB.NameUnidentified' }}">
+                {{/if}}
+            </h1>
+
+            <div class="item-subtitle">
+                <h4 class="item-type">{{itemType}}</h4>
+                <span class="item-status">{{itemStatus}}</span>
+                <label class="identified">
+                    <input type="checkbox" name="system.identified" {{checked system.identified}}>
+                    {{#if system.identified}}
+                        {{ localize "N5EB.Identified" }}
+                        {{#if editable}}<i class="fa-solid fa-toggle-on"></i>{{/if}}
+                    {{else}}
+                        {{ localize "N5EB.Unidentified.Title" }}
+                        {{#if editable}}<i class="fa-solid fa-toggle-off"></i>{{/if}}
+                    {{/if}}
+                </label>
+            </div>
+
+            <ul class="summary flexrow">
+                <li>
+                    {{#if concealDetails}}
+                    <span>{{ localize "N5EB.Unidentified.Title" }}</span>
+                    {{else}}
+                    <select name="system.rarity" {{~#if concealDetails}} inert{{/if}}>
+                        {{selectOptions config.itemRarity selected=system.rarity blank=""}}
+                    </select>
+                    {{/if}}
+                </li>
+                <li>
+                    {{> "n5eb.item-source"}}
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    {{!-- Item Sheet Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="primary">
+        <a class="item active" data-tab="description">{{ localize "N5EB.Description" }}</a>
+        <a class="item" data-tab="details">{{ localize "N5EB.Details" }}</a>
+    </nav>
+
+    {{!-- Item Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Description Tab --}}
+        {{> "n5eb.item-description"}}
+
+        {{!-- Details Tab --}}
+        <div class="tab details" data-group="primary" data-tab="details">
+            {{#n5eb-concealSection concealDetails}}
+
+            <h3 class="form-header">{{ localize "N5EB.ItemLootDetails" }}</h3>
+
+            {{!-- Loot Type --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.ItemLootType" }}</label>
+                <select name="system.type.value">
+                    {{selectOptions config.lootTypes selected=system.type.value labelAttr="label" blank=""}}
+                </select>
+            </div>
+
+            {{#if itemSubtypes}}
+            <div class="form-group">
+                <label>
+                    {{localize "N5EB.ItemLootSubtype"
+                               category=(lookup (lookup config.lootTypes system.type.value) "label")}}
+                </label>
+                <select name="system.type.subtype">
+                    {{selectOptions itemSubtypes selected=system.type.subtype blank=""}}
+                </select>
+            </div>
+            {{/if}}
+
+            {{!-- Loot Properties --}}
+            <div class="form-group stacked loot-properties">
+                <label>{{ localize "N5EB.ItemLootProperties" }}</label>
+                {{#each properties}}
+                <label class="checkbox">
+                    <input type="checkbox" name="system.properties.{{ @key }}" {{ checked selected }}>
+                    {{ label }}
+                </label>
+                {{/each}}
+            </div>
+
+            {{/n5eb-concealSection}}
+        </div>
+
+    </section>
+</form>

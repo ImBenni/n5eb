@@ -1,0 +1,33 @@
+<div class="item-detail item-controls">
+
+    {{#if @root.editable}}
+    {{!-- Editing --}}
+    <a class="item-control item-action" data-action="edit" data-tooltip="N5EB.ItemEdit"
+       aria-label="{{ localize "N5EB.ItemEdit" }}">
+        <i class="fas fa-pen-to-square"></i>
+    </a>
+
+    {{!-- Deleting --}}
+    <a class="item-control item-action" data-action="delete" data-tooltip="N5EB.ItemDelete"
+       aria-label="{{ localize "N5EB.ItemDelete" }}">
+        <i class="fas fa-trash"></i>
+    </a>
+    {{/if}}
+
+    {{!-- Expand/Collapse --}}
+    <a class="item-control interface-only" data-toggle-description
+       aria-label="{{ localize "N5EB.ToggleDescription" }}">
+        {{#if ctx.isExpanded}}
+        <i class="fas fa-compress"></i>
+        {{else}}
+        <i class="fas fa-expand"></i>
+        {{/if}}
+    </a>
+
+    {{!-- Context Menu --}}
+    <a class="item-control interface-only" data-context-menu
+       aria-label="{{ localize "N5EB.AdditionalControls" }}">
+        <i class="fas fa-ellipsis-vertical"></i>
+    </a>
+
+</div>

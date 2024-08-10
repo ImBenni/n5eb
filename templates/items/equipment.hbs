@@ -1,0 +1,202 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Item Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
+
+        <div class="header-details flexrow">
+            <h1 class="charname">
+                {{#if system.identified}}
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'N5EB.ItemName' }}">
+                {{else}}
+                <input name="system.unidentified.name" type="text" value="{{system.unidentified.name}}"
+                       placeholder="{{ localize 'N5EB.NameUnidentified' }}">
+                {{/if}}
+            </h1>
+
+            <div class="item-subtitle">
+                <h4 class="item-type">{{itemType}}</h4>
+                <label class="equipped">
+                    <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
+                    {{#if system.equipped}}
+                        {{ localize "N5EB.Equipped" }}
+                        {{#if editable}}<i class="fa-solid fa-toggle-on"></i>{{/if}}
+                    {{else}}
+                        {{ localize "N5EB.Unequipped" }}
+                        {{#if editable}}<i class="fa-solid fa-toggle-off"></i>{{/if}}
+                    {{/if}}
+                </label>
+                <label class="identified">
+                    <input type="checkbox" name="system.identified" {{checked system.identified}}>
+                    {{#if system.identified}}
+                        {{ localize "N5EB.Identified" }}
+                        {{#if editable}}<i class="fa-solid fa-toggle-on"></i>{{/if}}
+                    {{else}}
+                        {{ localize "N5EB.Unidentified.Title" }}
+                        {{#if editable}}<i class="fa-solid fa-toggle-off"></i>{{/if}}
+                    {{/if}}
+                </label>
+            </div>
+
+            <ul class="summary flexrow">
+                <li>{{ system.type.label }}</li>
+                <li>
+                    {{#if concealDetails}}
+                    <span>{{ localize "N5EB.Unidentified.Title" }}</span>
+                    {{else}}
+                    <select name="system.rarity" {{~#if concealDetails}} inert{{/if}}>
+                        {{selectOptions config.itemRarity selected=system.rarity blank=""}}
+                    </select>
+                    {{/if}}
+                </li>
+                <li>
+                    {{> "n5eb.item-source"}}
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    {{!-- Item Sheet Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="primary">
+        <a class="item active" data-tab="description">{{ localize "N5EB.Description" }}</a>
+        <a class="item" data-tab="details">{{ localize "N5EB.Details" }}</a>
+        <a class="item" data-tab="effects">{{ localize "N5EB.Effects" }}</a>
+    </nav>
+
+    {{!-- Item Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Description Tab --}}
+        {{> "n5eb.item-description"}}
+
+        {{!-- Details Tab --}}
+        <div class="tab details" data-group="primary" data-tab="details">
+            {{#n5eb-concealSection concealDetails}}
+
+            <h3 class="form-header">{{ localize "N5EB.ItemEquipmentDetails" }}</h3>
+
+            {{!-- Equipment Type --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.ItemEquipmentType" }}</label>
+                <select name="system.type.value">
+                    <option value=""></option>
+                    <optgroup label="{{ localize "N5EB.Armor" }}">
+                        {{selectOptions config.armorTypes selected=system.type.value}}
+                    </optgroup>
+                    {{selectOptions config.miscEquipmentTypes selected=system.type.value}}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>{{ localize "N5EB.ItemEquipmentBase" }}</label>
+                <select name="system.type.baseItem">
+                    {{selectOptions baseItems selected=system.type.baseItem blank=""}}
+                </select>
+            </div>
+
+            {{#unless system.isMountable}}
+            <div class="form-group input-select">
+                <label>{{localize "N5EB.Attunement"}}</label>
+                <div class="form-fields">
+                    <input type="checkbox" name="system.attuned" {{ checked system.attuned }}
+                           {{ disabled (not system.attunement) }}
+                           data-tooltip="N5EB.Attuned" aria-label="{{ localize 'N5EB.Attuned' }}">
+                    <select name="system.attunement">
+                        {{selectOptions config.attunementTypes selected=system.attunement
+                                        blank=(localize "N5EB.AttunementNone")}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{{localize "N5EB.Proficiency"}}</label>
+                <select name="system.proficient" data-dtype="Number">
+                    {{selectOptions config.weaponAndArmorProficiencyLevels selected=system.proficient
+                                    blank=(localize "N5EB.Automatic")}}
+                </select>
+            </div>
+            {{/unless}}
+
+            {{!-- Equipment Properties --}}
+            <div class="form-group stacked equipment-properties">
+                <label>{{ localize "N5EB.ItemEquipmentProperties" }}</label>
+                {{#each properties}}
+                <label class="checkbox">
+                    <input type="checkbox" name="system.properties.{{ @key }}" {{ checked selected }}>
+                    {{ label }}
+                </label>
+                {{/each}}
+            </div>
+
+            {{!-- Armor Class --}}
+            {{#if (or system.isArmor system.isMountable)}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.ArmorClass" }}</label>
+                <div class="form-fields">
+                    {{ numberInput source.armor.value name="system.armor.value" step="1" }}
+                </div>
+            </div>
+
+            {{#if properties.mgc.selected}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.MagicalBonus" }}</label>
+                <div class="form-fields">
+                    {{ numberInput system.armor.magicalBonus name="system.armor.magicalBonus"
+                       min="0" step="1" placeholder="0" }}
+                </div>
+            </div>
+            {{/if}}
+            {{/if}}
+
+            {{#if hasDexModifier}}
+            {{!-- Dexterity Modifier --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.ItemEquipmentDexMod" }}</label>
+                <div class="form-fields">
+                    {{numberInput system.armor.dex name="system.armor.dex" placeholder=(localize "N5EB.Unlimited")}}
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if system.isArmor}}
+            {{!-- Required Strength --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.ItemRequiredStr" }}</label>
+                <div class="form-fields">
+                    {{numberInput system.strength name="system.strength" placeholder=(localize "N5EB.None")}}
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if system.isMountable}}
+            {{> "n5eb.item-mountable"}}
+            <div class="form-group">
+                <label>{{localize 'N5EB.Speed'}}</label>
+                <div class="form-fields">
+                    {{numberInput system.speed.value name="system.speed.value" placeholder="0"}}
+                    <span class="sep">{{localize 'N5EB.FeetAbbr'}}</span>
+                    <input type="text" name="system.speed.conditions"
+                           value="{{system.speed.conditions}}">
+                </div>
+            </div>
+            {{/if}}
+
+            <h3 class="form-header">{{ localize "N5EB.ItemEquipmentUsage" }}</h3>
+
+            {{!-- Item Activation Template --}}
+            {{> "n5eb.item-activation"}}
+
+            <h3 class="form-header">{{ localize "N5EB.ItemEquipmentAction" }}</h3>
+
+            {{!-- Item Action Template --}}
+            {{> "n5eb.item-action"}}
+
+            {{/n5eb-concealSection}}
+        </div>
+
+        {{!-- Effects Tab --}}
+        <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+            {{> "n5eb.active-effects"}}
+        </div>
+    </section>
+</form>

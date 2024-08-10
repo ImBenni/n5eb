@@ -1,0 +1,73 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Item Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
+
+        <div class="header-details flexrow">
+            <h1 class="charname">
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'N5EB.SubclassName' }}">
+            </h1>
+
+            <div class="item-subtitle">
+                <h4 class="item-type">{{itemType}}</h4>
+                <span class="item-status">{{itemStatus}}</span>
+            </div>
+
+            <ul class="summary flexrow">
+                <li>
+                    {{> "n5eb.item-source"}}
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    {{!-- Item Sheet Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="primary">
+        <a class="item active" data-tab="description">{{localize "N5EB.Description"}}</a>
+        <a class="item" data-tab="details">{{localize "N5EB.Details"}}</a>
+        <a class="item" data-tab="advancement">{{localize "N5EB.AdvancementTitle"}}</a>
+    </nav>
+
+    {{!-- Item Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Description Tab --}}
+        <div class="tab flexrow active" data-group="primary" data-tab="description">
+            {{editor enriched.description target="system.description.value" button=true editable=editable
+                     engine="prosemirror" collaborate=false}}
+        </div>
+
+        {{!-- Details Tab --}}
+        <div class="tab details" data-group="primary" data-tab="details">
+
+            {{!-- Identifier --}}
+            <div class="form-group">
+                <label>{{localize "N5EB.Identifier"}}</label>
+                <div class="form-fields">
+                    <input type="text" name="system.identifier" value="{{system.identifier}}" placeholder="{{item.identifier}}">
+                </div>
+                <p class="hint">{{ localize "N5EB.IdentifierError" }}</p>
+            </div>
+
+            <div class="form-group">
+                <label>{{localize "N5EB.ClassIdentifier"}}</label>
+                <div class="form-fields">
+                    <input type="text" name="system.classIdentifier" value="{{system.classIdentifier}}">
+                </div>
+                <p class="hint">
+                    {{localize "N5EB.SubclassIdentifierHint"}}
+                </p>
+            </div>
+
+            {{!-- Spellcasting --}}
+            <h3 class="form-header">{{localize "N5EB.Spellcasting"}}</h3>
+            {{> "n5eb.item-spellcasting"}}
+
+        </div>
+
+        {{!-- Advancement Tab --}}
+        {{> "n5eb.item-advancement"}}
+
+    </section>
+</form>

@@ -1,0 +1,53 @@
+<form>
+    {{#if isCharacter}}
+
+    <div class="cp-field form-group">
+        <input type="number" class="number-lg" name="cp.max" value="{{source.max}}"
+               placeholder="{{cp.max}}" data-tooltip="N5EB.ChakraPointsOverride">
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "N5EB.ChakraPointsBonusLevel"}}</label>
+        <input type="text" name="cp.bonuses.level" value="{{cp.bonuses.level}}">
+    </div>
+    <div class="form-group">
+        <label>{{localize "N5EB.ChakraPointsBonusOverall"}}</label>
+        <input type="text" name="cp.bonuses.overall" value="{{cp.bonuses.overall}}">
+    </div>
+
+    {{else}}
+
+    <div class="cp-field form-group">
+        <input type="number" class="number-lg" name="cp.max" value="{{ source.max }}" data-tooltip="N5EB.ChakraPointsMax">
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "N5EB.CPFormula"}}</label>
+        <div class="form-fields">
+            <input type="text" name="cp.formula" value="{{cp.formula}}">
+            <button class="roll-chakra-points"><i class="fas fa-dice"></i> {{localize "N5EB.Roll"}}</button>
+        </div>
+    </div>
+
+    {{/if}}
+
+    <hr>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.ChakraPointsTempShort" }}</label>
+        <div class="form-fields">
+            {{ numberInput source.temp name="cp.temp" min=0 step=1 }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "N5EB.ChakraPointsTempMaxShort"}}</label>
+        <div class="form-fields">
+            <input type="number" name="cp.tempmax" value="{{source.tempmax}}">
+        </div>
+    </div>
+
+    <button type="submit">
+        <i class="far fa-save"></i> {{localize "Save"}}
+    </button>
+</form>

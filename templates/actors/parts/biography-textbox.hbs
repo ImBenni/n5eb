@@ -1,0 +1,12 @@
+<div class="textbox {{ class }}">
+    <h3 class="icon">
+        {{#if icon}}<i class="{{ icon }}"></i>
+        {{~else if svg}}<n5eb-icon src="systems/n5eb/icons/svg/{{ svg }}.svg"></n5eb-icon>{{/if}}
+        <span class="roboto-upper">{{ localize label }}</span>
+    </h3>
+    {{#if @root.editable}}
+    <textarea class="untext" name="{{ name }}">{{ value }}</textarea>
+    {{else}}
+    <p>{{ n5eb-textFormat value }}</p>
+    {{/if}}
+</div>
