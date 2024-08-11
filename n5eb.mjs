@@ -510,7 +510,7 @@ class Proficiency {
    * @returns {number}      Proficiency modifier.
    */
   static calculateMod(level) {
-    return Math.floor((level + 7) / 4);
+    return (2 + Math.ceil(level / 3));
   }
 
   /* -------------------------------------------- */
@@ -20734,9 +20734,12 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       ac.equippedShield = shields[0];
     }
 
+    // Add half proficiency bonus, rounded down, to AC
+    const halfProfBonus = Math.floor(this.system.attributes.prof / 2);
+
     // Compute total AC and return
     ac.bonus = simplifyBonus(ac.bonus, rollData);
-    ac.value = ac.base + ac.shield + ac.bonus + ac.cover;
+    ac.value = ac.base + ac.shield + ac.bonus + ac.cover + halfProfBonus;
   }
 
   /* -------------------------------------------- */
@@ -46922,7 +46925,7 @@ class NPCData extends CreatureTemplate {
         type: new CreatureTypeField(),
         environment: new StringField$5({required: true, label: "N5EB.Environment"}),
         cr: new NumberField$4({
-          required: true, nullable: false, min: 0, initial: 1, label: "N5EB.ChallengeRating"
+          required: true, nullable: false, min: 0, initial: 1, label: "N5EB.NPCLevel"
         }),
         spellLevel: new NumberField$4({
           required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.SpellcasterLevel"
@@ -46982,11 +46985,11 @@ class NPCData extends CreatureTemplate {
         }
       }],
       ["cr", {
-        label: "N5EB.ChallengeRating",
+        label: "N5EB.NPCLevel",
         type: "range",
         config: {
           keyPath: "system.details.cr",
-          min: 0,
+          min: 1,
           max: 30
         }
       }],
@@ -47094,21 +47097,22 @@ class NPCData extends CreatureTemplate {
     this.attributes.attunement.value = 0;
 
     // Determine hit dice denomination & max from hit points formula
-    const [, max, denomination] = this.attributes.hp.formula?.match(/(\d*)d(\d+)/i) ?? [];
-    this.attributes.hd.max = Number(max ?? 0);
-    this.attributes.hd.denomination = Number(denomination ?? CONFIG.N5EB.actorSizes[this.traits.size]?.hitDie ?? 4);
+    const [, maxHp, denominationHp] = this.attributes.hp.formula?.match(/(\d*)d(\d+)/i) ?? [];
+    this.attributes.hd.max = Number(maxHp ?? 0);
+    this.attributes.hd.denomination = Number(denominationHp ?? CONFIG.N5EB.actorSizes[this.traits.size]?.hitDie ?? 4);
 
-    // Determine hit dice denomination & max from hit points formula
-    const [, maxcp, denominationcp] = this.attributes.cp.formula?.match(/(\d*)d(\d+)/i) ?? [];
-    this.attributes.cd.maxcp = Number(maxcp ?? 0);
-    this.attributes.cd.denominationcp = Number(denominationcp ?? CONFIG.N5EB.actorSizes[this.traits.size]?.chakraDie ?? 4);
-    // HEREE
+    // Determine chakra dice denomination & max from chakra points formula
+    const [, maxCp, denominationCp] = this.attributes.cp.formula?.match(/(\d*)d(\d+)/i) ?? [];
+    this.attributes.cd.max = Number(maxCp ?? 0);
+    this.attributes.cd.denomination = Number(denominationCp ?? CONFIG.N5EB.actorSizes[this.traits.size]?.chakraDie ?? 4);
+
     for ( const item of this.parent.items ) {
       // Class levels & hit dice
       if ( item.type === "class" ) {
         const classLevels = parseInt(item.system.levels) ?? 1;
         this.details.level += classLevels;
         this.attributes.hd.max += classLevels;
+        this.attributes.cd.max += classLevels;
       }
 
       // Attuned items
@@ -47123,9 +47127,9 @@ class NPCData extends CreatureTemplate {
     this.attributes.prof = Proficiency.calculateMod(Math.max(this.details.cr, this.details.level, 1));
 
     // Spellcaster Level
-    if ( this.attributes.spellcasting && !Number.isNumeric(this.details.spellLevel) ) {
-      this.details.spellLevel = Math.max(this.details.cr, 1);
-    }
+    // if ( this.attributes.spellcasting && !Number.isNumeric(this.details.spellLevel) ) {
+    //   this.details.spellLevel = Math.max(this.details.cr, 1);
+    // }
 
     AttributesFields.prepareBaseArmorClass.call(this);
     AttributesFields.prepareBaseEncumbrance.call(this);
