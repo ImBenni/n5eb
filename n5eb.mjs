@@ -6377,6 +6377,7 @@ class SummonsField extends EmbeddedDataField$4 {
  * @property {string} classIdentifier       Class identifier that will be used to determine applicable level.
  * @property {Set<string>} creatureSizes    Set of creature sizes that will be set on summoned creature.
  * @property {Set<string>} creatureTypes    Set of creature types that will be set on summoned creature.
+ * @property {Set<string>} creatureRanks    Set of creature rank that will be set on summoned creature.
  * @property {object} match
  * @property {boolean} match.attacks        Match the to hit values on summoned actor's attack to the summoner.
  * @property {boolean} match.proficiency    Match proficiency on summoned actor to the summoner.
@@ -6421,6 +6422,9 @@ class SummonsData extends foundry.abstract.DataModel {
       }),
       creatureTypes: new SetField$9(new StringField$o(), {
         label: "N5EB.Summoning.CreatureTypes.Label", hint: "N5EB.Summoning.CreatureTypes.Hint"
+      }),
+      creatureRanks: new SetField$9(new StringField$o(), {
+        label: "N5EB.Summoning.CreatureRank.Label", hint: "N5EB.Summoning.CreatureRank.Hint"
       }),
       match: new SchemaField$l({
         attacks: new BooleanField$e({
@@ -6861,7 +6865,6 @@ class SummonsData extends foundry.abstract.DataModel {
       }
     }
 
-
     // Change creature size
     if ( this.creatureSizes.size ) {
       const size = this.creatureSizes.has(options.creatureSize) ? options.creatureSize : this.creatureSizes.first();
@@ -6881,6 +6884,12 @@ class SummonsData extends foundry.abstract.DataModel {
       } else {
         actorUpdates["system.details.type.value"] = type;
       }
+    }
+
+    // Change creature rank
+    if ( this.creatureRanks.size ) {
+      const rank = this.creatureRanks.has(options.creatureRank) ? options.creatureRank : this.creatureRanks.first();
+      actorUpdates["system.details.rank"] = rank;
     }
 
     const attackDamageBonus = Roll.replaceFormulaData(this.bonuses.attackDamage, rollData);
@@ -9234,6 +9243,10 @@ class AbilityUseDialog extends Dialog {
       obj[k] = CONFIG.N5EB.creatureTypes[k]?.label;
       return obj;
     }, {});
+    if ( summons.creatureRanks.size > 1 ) options.creatureRanks = summons.creatureRanks.reduce((obj, k) => {
+      obj[k] = CONFIG.N5EB.creatureRanks[k];
+      return obj;
+    }, {});
     return options;
   }
 
@@ -9249,7 +9262,7 @@ class AbilityUseDialog extends Dialog {
     const consume = item.system.consume || {};
     if ( (item.type !== "spell") || !consume.scale ) return null;
     const spellLevels = Object.keys(CONFIG.N5EB.spellLevels).length - 1;
-// chakra consume here
+
     const min = consume.amount || 1;
     const cap = spellLevels + min - item.system.level;
 
@@ -15266,109 +15279,6 @@ class Item5e extends SystemDocumentMixin(Item) {
         }
 
         // Regular consumption.
-        if ( uses.per && uses.max ) update["system.uses.value"] = remaining;
-        else if ( recharge.value ) update["system.recharge.charged"] = false;
-        resourceUpdates.push(update);
-        break;
-    }
-  }
-
-    ////////////////////////////////////CONSUME CHAKRA////////////////////////////////////////////////////
-
-  
-  /**
-   * Handle update actions required when consuming an external resource
-   * @param {object} itemUpdates        An object of data updates applied to this item
-   * @param {object} actorUpdates       An object of data updates applied to the item owner (Actor)
-   * @param {object[]} resourceUpdates  An array of updates to apply to other items owned by the actor
-   * @returns {boolean|void}            Return false to block further progress, or return nothing to continue
-   * @protected
-   */
-  _handleConsumeResourceChakra(itemUpdates, actorUpdates, resourceUpdates) {
-    const consumechakra = this.system.consumechakra || {};
-    if ( !consumechakra.type ) return;
-
-    // No consumed target
-    const typeLabel = CONFIG.N5EB.abilityConsumptionTypes[consumechakra.type];
-    if ( !consumechakra.target ) {
-      ui.notifications.warn(game.i18n.format("N5EB.ConsumeWarningNoResource", {name: this.name, type: typeLabel}));
-      return false;
-    }
-
-    // Identify the consumed resource and its current quantity
-    let resource = null;
-    let amount = Number(consumechakra.amount ?? 1);
-    let quantity = 0;
-    switch ( consumechakra.type ) {
-      case "attribute":
-        resource = foundry.utils.getProperty(this.actor.system, consumechakra.target);
-        quantity = resource || 0;
-        break;
-      case "ammo":
-      case "material":
-        resource = this.actor.items.get(consumechakra.target);
-        quantity = resource ? resource.system.quantity : 0;
-        break;
-      case "hitDice":
-        const denom = !["smallest", "largest"].includes(consumechakra.target) ? consumechakra.target : false;
-        resource = Object.values(this.actor.classes).filter(cls => !denom || (cls.system.hitDice === denom));
-        quantity = resource.reduce((count, cls) => count + cls.system.levels - cls.system.hitDiceUsed, 0);
-        break;
-      case "charges":
-        resource = this.actor.items.get(consumechakra.target);
-        if ( !resource ) break;
-        const uses = resource.system.uses;
-        if ( uses.per && uses.max ) quantity = uses.value;
-        else if ( resource.system.recharge?.value ) {
-          quantity = resource.system.recharge.charged ? 1 : 0;
-          amount = 1;
-        }
-        break;
-    }
-
-    // Verify that a consumed resource is available
-    if ( resource === undefined ) {
-      ui.notifications.warn(game.i18n.format("N5EB.ConsumeWarningNoSource", {name: this.name, type: typeLabel}));
-      return false;
-    }
-
-    // Verify that the required quantity is available
-    let remaining = quantity - amount;
-    if ( remaining < 0 ) {
-      ui.notifications.warn(game.i18n.format("N5EB.ConsumeWarningNoQuantity", {name: this.name, type: typeLabel}));
-      return false;
-    }
-
-    // Define updates to provided data objects
-    switch ( consumechakra.type ) {
-      case "attribute":
-        actorUpdates[`system.${consumechakra.target}`] = remaining;
-        break;
-      case "ammo":
-      case "material":
-        resourceUpdates.push({_id: consumechakra.target, "system.quantity": remaining});
-        break;
-      case "hitDice":
-        if ( ["smallest", "largest"].includes(consumechakra.target) ) resource = resource.sort((lhs, rhs) => {
-          let sort = lhs.system.hitDice.localeCompare(rhs.system.hitDice, "en", {numeric: true});
-          if ( consumechakra.target === "largest" ) sort *= -1;
-          return sort;
-        });
-        let toConsume = consumechakra.amount;
-        for ( const cls of resource ) {
-          const available = (toConsume > 0 ? cls.system.levels : 0) - cls.system.hitDiceUsed;
-          const delta = toConsume > 0 ? Math.min(toConsume, available) : Math.max(toConsume, available);
-          if ( delta !== 0 ) {
-            resourceUpdates.push({_id: cls.id, "system.hitDiceUsed": cls.system.hitDiceUsed + delta});
-            toConsume -= delta;
-            if ( toConsume === 0 ) break;
-          }
-        }
-        break;
-      case "charges":
-        const uses = resource.system.uses || {};
-        const recharge = resource.system.recharge || {};
-        const update = {_id: consumechakra.target};
         if ( uses.per && uses.max ) update["system.uses.value"] = remaining;
         else if ( recharge.value ) update["system.recharge.charged"] = false;
         resourceUpdates.push(update);
@@ -26211,84 +26121,84 @@ N5EB.weaponProficienciesMap = {
  */
 N5EB.weaponIds = {
   // Simple Melee Weapons //
-  kunai: "Compendium.n5eb-module.items.Item.qHJI7v7OEvVAefvz",
-  handaxe: "Compendium.n5eb-module.items.Item.MTpZGVQcDC9CAWws",
-  sai: "Compendium.n5eb-module.items.Item.MkampJAVAQojQvwO",
-  tanto: "Compendium.n5eb-module.items.Item.2daAvfZcJkBqMlBY",
-  kama: "Compendium.n5eb-module.items.Item.7METUA7IBReBhJZ2",
-  gunsen: "Compendium.n5eb-module.items.Item.1ihd5LotMBjCQIcK",
-  quarterstaff: "Compendium.n5eb-module.items.Item.0t7jV8iHcPhQOdRL",
-  spear: "Compendium.n5eb-module.items.Item.NJas6eeuIhhXImIY",
-  weightchain: "Compendium.n5eb-module.items.Item.4wOSbNzZVFNrayMm",
-  chainhand: "Compendium.n5eb-module.items.Item.Br5XdEAIGG0PizUH",
-  knuckleduster: "Compendium.n5eb-module.items.Item.xkppkhKFk0mBOrhn",
+  kunai: "Compendium.n5eb.items.Item.qHJI7v7OEvVAefvz",
+  handaxe: "Compendium.n5eb.items.Item.MTpZGVQcDC9CAWws",
+  sai: "Compendium.n5eb.items.Item.MkampJAVAQojQvwO",
+  tanto: "Compendium.n5eb.items.Item.2daAvfZcJkBqMlBY",
+  kama: "Compendium.n5eb.items.Item.7METUA7IBReBhJZ2",
+  gunsen: "Compendium.n5eb.items.Item.1ihd5LotMBjCQIcK",
+  quarterstaff: "Compendium.n5eb.items.Item.0t7jV8iHcPhQOdRL",
+  spear: "Compendium.n5eb.items.Item.NJas6eeuIhhXImIY",
+  weightchain: "Compendium.n5eb.items.Item.4wOSbNzZVFNrayMm",
+  chainhand: "Compendium.n5eb.items.Item.Br5XdEAIGG0PizUH",
+  knuckleduster: "Compendium.n5eb.items.Item.xkppkhKFk0mBOrhn",
 
   // Simple Ranged Weapons //
-  senbon: "Compendium.n5eb-module.items.Item.S8hy7mq7MobJ2F6r",
-  shortbow: "Compendium.n5eb-module.items.Item.LdYW4E5QThm3E8lS",
-  shuriken: "Compendium.n5eb-module.items.Item.3NZfOWesnfwESSjh",
-  sling: "Compendium.n5eb-module.items.Item.CI54k3zv6JDg1kWj",
-  lightcrossbow: "Compendium.n5eb-module.items.Item.r3zSRf6AqCyvWs2F",
-  bola: "Compendium.n5eb-module.items.Item.1mFoar6xXnt9fjRq",
+  senbon: "Compendium.n5eb.items.Item.S8hy7mq7MobJ2F6r",
+  shortbow: "Compendium.n5eb.items.Item.LdYW4E5QThm3E8lS",
+  shuriken: "Compendium.n5eb.items.Item.3NZfOWesnfwESSjh",
+  sling: "Compendium.n5eb.items.Item.CI54k3zv6JDg1kWj",
+  lightcrossbow: "Compendium.n5eb.items.Item.r3zSRf6AqCyvWs2F",
+  bola: "Compendium.n5eb.items.Item.1mFoar6xXnt9fjRq",
 
   // Martial Melee Weapons //
-  broadsword: "Compendium.n5eb-module.items.Item.Hvk2rLC44ahzChal",
-  ironclaw: "Compendium.n5eb-module.items.Item.ttM2OI4JKHGiM4KF",
-  tachi: "Compendium.n5eb-module.items.Item.vMZu0AKKnPtx2GzN",
-  katana: "Compendium.n5eb-module.items.Item.BRmGAMR6mu8sG40I",
-  odachi: "Compendium.n5eb-module.items.Item.dkpVe4EIYSC6HjJa",
-  knuckleblades: "Compendium.n5eb-module.items.Item.WYpFNlvLORFmaNo6",
-  hiddenblade: "Compendium.n5eb-module.items.Item.bpiWqTDsUIdhxVkV",
-  chainedspear: "Compendium.n5eb-module.items.Item.0iQXr3koYCZAOWmd",
-  chigiriki: "Compendium.n5eb-module.items.Item.LOwo1tbSqqzzFbfm",
-  whip: "Compendium.n5eb-module.items.Item.DVwfumAwTHA8ug0I",
-  battlewire: "Compendium.n5eb-module.items.Item.BqgQFxlgARs5Pv8H",
-  naginata: "Compendium.n5eb-module.items.Item.2eNpAKEStHPScz2G",
-  sasumata: "Compendium.n5eb-module.items.Item.Fiw4Ll3WFj4lJX80",
-  greataxe: "Compendium.n5eb-module.items.Item.Y1jIMLF14voihi1w",
-  scythe: "Compendium.n5eb-module.items.Item.28d5YIqqE0gx6Yp9",
-  tinberochin: "Compendium.n5eb-module.items.Item.uPJ6yBJwhdo1sNVH",
-  yari: "Compendium.n5eb-module.items.Item.zRKBbPnOVMPzvhJ3",
-  hookedlance: "Compendium.n5eb-module.items.Item.qsxiTHgu0rX1hNts",
-  tetsubo: "Compendium.n5eb-module.items.Item.PC0tEFtJeM04rR0z",
-  tonfa: "Compendium.n5eb-module.items.Item.8t97bJURxwOTCFJT",
-  warclub: "Compendium.n5eb-module.items.Item.MGJqckQP4L0L2ih7",
-  nunchaku: "Compendium.n5eb-module.items.Item.XmMVFn7TLfHTIDpr",
-  combatbracer: "Compendium.n5eb-module.items.Item.mXfS0yFSCbdkEFwi",
-  jitte: "Compendium.n5eb-module.items.Item.WiyxzOIn5zEdsKS3",
-  gunbaifan: "Compendium.n5eb-module.items.Item.dSOORd2DfwrEWedl",
-  kanabo: "Compendium.n5eb-module.items.Item.paU6WYrgmqrGVI0G",
-  otsuchihammer: "Compendium.n5eb-module.items.Item.vz3LGjrJrQOp4tl0",
+  broadsword: "Compendium.n5eb.items.Item.Hvk2rLC44ahzChal",
+  ironclaw: "Compendium.n5eb.items.Item.ttM2OI4JKHGiM4KF",
+  tachi: "Compendium.n5eb.items.Item.vMZu0AKKnPtx2GzN",
+  katana: "Compendium.n5eb.items.Item.BRmGAMR6mu8sG40I",
+  odachi: "Compendium.n5eb.items.Item.dkpVe4EIYSC6HjJa",
+  knuckleblades: "Compendium.n5eb.items.Item.WYpFNlvLORFmaNo6",
+  hiddenblade: "Compendium.n5eb.items.Item.bpiWqTDsUIdhxVkV",
+  chainedspear: "Compendium.n5eb.items.Item.0iQXr3koYCZAOWmd",
+  chigiriki: "Compendium.n5eb.items.Item.LOwo1tbSqqzzFbfm",
+  whip: "Compendium.n5eb.items.Item.DVwfumAwTHA8ug0I",
+  battlewire: "Compendium.n5eb.items.Item.BqgQFxlgARs5Pv8H",
+  naginata: "Compendium.n5eb.items.Item.2eNpAKEStHPScz2G",
+  sasumata: "Compendium.n5eb.items.Item.Fiw4Ll3WFj4lJX80",
+  greataxe: "Compendium.n5eb.items.Item.Y1jIMLF14voihi1w",
+  scythe: "Compendium.n5eb.items.Item.28d5YIqqE0gx6Yp9",
+  tinberochin: "Compendium.n5eb.items.Item.uPJ6yBJwhdo1sNVH",
+  yari: "Compendium.n5eb.items.Item.zRKBbPnOVMPzvhJ3",
+  hookedlance: "Compendium.n5eb.items.Item.qsxiTHgu0rX1hNts",
+  tetsubo: "Compendium.n5eb.items.Item.PC0tEFtJeM04rR0z",
+  tonfa: "Compendium.n5eb.items.Item.8t97bJURxwOTCFJT",
+  warclub: "Compendium.n5eb.items.Item.MGJqckQP4L0L2ih7",
+  nunchaku: "Compendium.n5eb.items.Item.XmMVFn7TLfHTIDpr",
+  combatbracer: "Compendium.n5eb.items.Item.mXfS0yFSCbdkEFwi",
+  jitte: "Compendium.n5eb.items.Item.WiyxzOIn5zEdsKS3",
+  gunbaifan: "Compendium.n5eb.items.Item.dSOORd2DfwrEWedl",
+  kanabo: "Compendium.n5eb.items.Item.paU6WYrgmqrGVI0G",
+  otsuchihammer: "Compendium.n5eb.items.Item.vz3LGjrJrQOp4tl0",
   
   // Martial Ranged Weapons //
-  chakram: "Compendium.n5eb-module.items.Item.acULZsIAntg8x7Dc",
-  monsterchakram: "Compendium.n5eb-module.items.Item.e8LHyzKouqmKglcq",
-  fumashuriken: "Compendium.n5eb-module.items.Item.grS9elmECcGG8eQ6",
-  monstershuriken: "Compendium.n5eb-module.items.Item.Ymf3b28mdM8rtVJw",
-  torinawa: "Compendium.n5eb-module.items.Item.9yizJJ0iM0PGDJ9M",
-  boomerang: "Compendium.n5eb-module.items.Item.RArhjyFYJoGMOF5V",
-  monsterboomerang: "Compendium.n5eb-module.items.Item.Bcy12c4HUjbSbzeG",
-  longbow: "Compendium.n5eb-module.items.Item.mYDBsGoVAoXHQt1X",
-  handcrossbow: "Compendium.n5eb-module.items.Item.MXbGgofVUpDIGQJ0",
-  heavycrossbow: "Compendium.n5eb-module.items.Item.lXGw9iN8m17Am6tV",
-  blowgun: "Compendium.n5eb-module.items.Item.WoqJcvMcTVo7HwjI",
+  chakram: "Compendium.n5eb.items.Item.acULZsIAntg8x7Dc",
+  monsterchakram: "Compendium.n5eb.items.Item.e8LHyzKouqmKglcq",
+  fumashuriken: "Compendium.n5eb.items.Item.grS9elmECcGG8eQ6",
+  monstershuriken: "Compendium.n5eb.items.Item.Ymf3b28mdM8rtVJw",
+  torinawa: "Compendium.n5eb.items.Item.9yizJJ0iM0PGDJ9M",
+  boomerang: "Compendium.n5eb.items.Item.RArhjyFYJoGMOF5V",
+  monsterboomerang: "Compendium.n5eb.items.Item.Bcy12c4HUjbSbzeG",
+  longbow: "Compendium.n5eb.items.Item.mYDBsGoVAoXHQt1X",
+  handcrossbow: "Compendium.n5eb.items.Item.MXbGgofVUpDIGQJ0",
+  heavycrossbow: "Compendium.n5eb.items.Item.lXGw9iN8m17Am6tV",
+  blowgun: "Compendium.n5eb.items.Item.WoqJcvMcTVo7HwjI",
 
   // Exotic Melee Weapons //
-  sansetsukon: "Compendium.n5eb-module.items.Item.UpSgWk4d44ubMUEL",
-  triplescythe: "Compendium.n5eb-module.items.Item.izuctBIIxRtJw5gO",
-  cleaver: "Compendium.n5eb-module.items.Item.VnkBx8RC6d0wtmL1",
-  triplekatar: "Compendium.n5eb-module.items.Item.FBq8rTxZHegaT7Yu",
-  urumi: "Compendium.n5eb-module.items.Item.W60dq939xIYlNu5J",
-  chokuto: "Compendium.n5eb-module.items.Item.zquh0Kchq63jiax1",
+  sansetsukon: "Compendium.n5eb.items.Item.UpSgWk4d44ubMUEL",
+  triplescythe: "Compendium.n5eb.items.Item.izuctBIIxRtJw5gO",
+  cleaver: "Compendium.n5eb.items.Item.VnkBx8RC6d0wtmL1",
+  triplekatar: "Compendium.n5eb.items.Item.FBq8rTxZHegaT7Yu",
+  urumi: "Compendium.n5eb.items.Item.W60dq939xIYlNu5J",
+  chokuto: "Compendium.n5eb.items.Item.zquh0Kchq63jiax1",
   
   // Exotic Ranged Weapons //
-  pistol: "Compendium.n5eb-module.items.Item.3lKNyuUGfh2ZKbWq",
-  rifle: "Compendium.n5eb-module.items.Item.wGnhQqtd09cLFm1J",
-  hiya: "Compendium.n5eb-module.items.Item.SFQop6IAsXmqOb89",
-  scroll: "Compendium.n5eb-module.items.Item.tsSVqqNvF2M6aJmK",
-  giantscroll: "Compendium.n5eb-module.items.Item.VopVFdM1bZEKoGzL",
-  kunaigun: "Compendium.n5eb-module.items.Item.88iD89AViKnCr7Qa",
-  shruikenrifle: "Compendium.n5eb-module.items.Item.kt6AOAfJR5OFkMcv",
+  pistol: "Compendium.n5eb.items.Item.3lKNyuUGfh2ZKbWq",
+  rifle: "Compendium.n5eb.items.Item.wGnhQqtd09cLFm1J",
+  hiya: "Compendium.n5eb.items.Item.SFQop6IAsXmqOb89",
+  scroll: "Compendium.n5eb.items.Item.tsSVqqNvF2M6aJmK",
+  giantscroll: "Compendium.n5eb.items.Item.VopVFdM1bZEKoGzL",
+  kunaigun: "Compendium.n5eb.items.Item.88iD89AViKnCr7Qa",
+  shruikenrifle: "Compendium.n5eb.items.Item.kt6AOAfJR5OFkMcv",
 
   // battleaxe: "I0WocDSuNpGJayPb",
   // blowgun: "wNWK6yJMHG9ANqQV",
@@ -26387,19 +26297,19 @@ preLocalize("toolProficiencies", { sort: true });
  * @enum {string}
  */
 N5EB.toolIds = {
-  alchemist: "Compendium.n5eb-module.items.Item.707q7yFwRKMeCzdK",
-  armorsmith: "Compendium.n5eb-module.items.Item.q2lqzjAIhu26868Z",
-  cooking: "Compendium.n5eb-module.items.Item.xPyLMjfyAYbFte7F",
-  demolitions: "Compendium.n5eb-module.items.Item.4rav7pIDfHb5lGbv",
-  disguise: "Compendium.n5eb-module.items.Item.OrYn8FbfyOVG3239",
-  forensics: "Compendium.n5eb-module.items.Item.kIqVWFj1todAWfCT",
-  forgery: "Compendium.n5eb-module.items.Item.kxPKLODstoSoGlCv",
-  hackers: "Compendium.n5eb-module.items.Item.UMXisztMwvwlNNiW",
-  medicine: "Compendium.n5eb-module.items.Item.F1anXHxaj4J6PYrM",
-  poison: "Compendium.n5eb-module.items.Item.Vg1erEwjJBiV6hq5",
-  security: "Compendium.n5eb-module.items.Item.4PDiYqfTGmVOQBCL",
-  trappers: "Compendium.n5eb-module.items.Item.pBx5jqC0rSagS8XO",
-  weaponsmith: "Compendium.n5eb-module.items.Item.pxOhsS985WJzoa0W",
+  alchemist: "Compendium.n5eb.items.Item.707q7yFwRKMeCzdK",
+  armorsmith: "Compendium.n5eb.items.Item.q2lqzjAIhu26868Z",
+  cooking: "Compendium.n5eb.items.Item.xPyLMjfyAYbFte7F",
+  demolitions: "Compendium.n5eb.items.Item.4rav7pIDfHb5lGbv",
+  disguise: "Compendium.n5eb.items.Item.OrYn8FbfyOVG3239",
+  forensics: "Compendium.n5eb.items.Item.kIqVWFj1todAWfCT",
+  forgery: "Compendium.n5eb.items.Item.kxPKLODstoSoGlCv",
+  hackers: "Compendium.n5eb.items.Item.UMXisztMwvwlNNiW",
+  medicine: "Compendium.n5eb.items.Item.F1anXHxaj4J6PYrM",
+  poison: "Compendium.n5eb.items.Item.Vg1erEwjJBiV6hq5",
+  security: "Compendium.n5eb.items.Item.4PDiYqfTGmVOQBCL",
+  trappers: "Compendium.n5eb.items.Item.pBx5jqC0rSagS8XO",
+  weaponsmith: "Compendium.n5eb.items.Item.pxOhsS985WJzoa0W",
 
   // dulcimer: "NtdDkjmpdIMiX7I2",
   // flute: "eJOrPcAz9EcquyRQ",
@@ -26773,6 +26683,29 @@ preLocalize("creatureTypes", { keys: ["label", "plural"], sort: true });
 /* -------------------------------------------- */
 
 /**
+ * Configuration data for creature ranks.
+ *
+ * @typedef {object} CreatureRankConfiguration
+ * @enum {string}
+ */
+
+/**
+ * Default ranks of creatures.
+ * @enum {CreatureRankConfiguration}
+ */
+N5EB.creatureRanks = {
+  erank: "N5EB.CreatureRankE",
+  drank: "N5EB.CreatureRankD",
+  crank: "N5EB.CreatureRankC", 
+  brank: "N5EB.CreatureRankB", 
+  arank: "N5EB.CreatureRankA", 
+  srank: "N5EB.CreatureRankS", 
+};
+preLocalize("creatureRanks");
+
+/* -------------------------------------------- */
+
+/**
  * Classification types for item action types.
  * @enum {string}
  */
@@ -26987,26 +26920,26 @@ N5EB.armorProficienciesMap = {
  */
 N5EB.armorIds = {
   // Light Armor //
-  paddedcloth: "Compendium.n5eb-module.items.Item.x56AjivB3upBDDUD",
-  leatherweave: "Compendium.n5eb-module.items.Item.oSEBJT9S14IBifvo",
-  armoredcloth: "Compendium.n5eb-module.items.Item.1kE0thltUXDW6RL8",
-  reinforcedcloth: "Compendium.n5eb-module.items.Item.DuaZrRSro5JjTI1j",
-  synthweave: "Compendium.n5eb-module.items.Item.5OTOfxOebI0unpvb",
-  shinobiweave: "Compendium.n5eb-module.items.Item.ccngJyxzZTofcAYP",
+  paddedcloth: "Compendium.n5eb.items.Item.x56AjivB3upBDDUD",
+  leatherweave: "Compendium.n5eb.items.Item.oSEBJT9S14IBifvo",
+  armoredcloth: "Compendium.n5eb.items.Item.1kE0thltUXDW6RL8",
+  reinforcedcloth: "Compendium.n5eb.items.Item.DuaZrRSro5JjTI1j",
+  synthweave: "Compendium.n5eb.items.Item.5OTOfxOebI0unpvb",
+  shinobiweave: "Compendium.n5eb.items.Item.ccngJyxzZTofcAYP",
 
   // Medium Armor //
-  combatjacket: "Compendium.n5eb-module.items.Item.bnx5VOLWB4ORrd2F",
-  shinobijacket: "Compendium.n5eb-module.items.Item.qeJYNfxZSg4gZomt",
-  shinobicombatjacket: "Compendium.n5eb-module.items.Item.3aQOiCIKFAWCXkYP",
-  chuninjacket: "Compendium.n5eb-module.items.Item.c5r4n8By6FepCbwS",
-  battlecoat: "Compendium.n5eb-module.items.Item.qJVKb6GJtdd6mmnS",
-  armoredchuninjacket: "Compendium.n5eb-module.items.Item.HD9gr07GZkj5Ykpu",
+  combatjacket: "Compendium.n5eb.items.Item.bnx5VOLWB4ORrd2F",
+  shinobijacket: "Compendium.n5eb.items.Item.qeJYNfxZSg4gZomt",
+  shinobicombatjacket: "Compendium.n5eb.items.Item.3aQOiCIKFAWCXkYP",
+  chuninjacket: "Compendium.n5eb.items.Item.c5r4n8By6FepCbwS",
+  battlecoat: "Compendium.n5eb.items.Item.qJVKb6GJtdd6mmnS",
+  armoredchuninjacket: "Compendium.n5eb.items.Item.HD9gr07GZkj5Ykpu",
 
   // Heavy Armor //
-  combatarmor: "Compendium.n5eb-module.items.Item.SMl60hqwwZlhO0qd",
-  syntharmor: "Compendium.n5eb-module.items.Item.c7wK33mX4yza7WjE",
-  joninarmor: "Compendium.n5eb-module.items.Item.Bl5hXOC8DjYliApa",
-  elitejoninarmor: "Compendium.n5eb-module.items.Item.TDODlyVFr9IRT5FR",
+  combatarmor: "Compendium.n5eb.items.Item.SMl60hqwwZlhO0qd",
+  syntharmor: "Compendium.n5eb.items.Item.c7wK33mX4yza7WjE",
+  joninarmor: "Compendium.n5eb.items.Item.Bl5hXOC8DjYliApa",
+  elitejoninarmor: "Compendium.n5eb.items.Item.TDODlyVFr9IRT5FR",
 };
 
 /**
@@ -27200,7 +27133,7 @@ N5EB.featureTypes = {
   class: {
     label: "N5EB.Feature.Class.Label",
     subtypes: {
-      arcaneShot: "N5EB.Feature.Class.ArcaneShot",
+      mirage: "N5EB.Feature.Class.MalleableMirage",
       artificerInfusion: "N5EB.Feature.Class.ArtificerInfusion",
       channelDivinity: "N5EB.Feature.Class.ChannelDivinity",
       defensiveTactic: "N5EB.Feature.Class.DefensiveTactic",
@@ -27208,7 +27141,7 @@ N5EB.featureTypes = {
       elementalDiscipline: "N5EB.Feature.Class.ElementalDiscipline",
       fightingStyle: "N5EB.Feature.Class.FightingStyle",
       huntersPrey: "N5EB.Feature.Class.HuntersPrey",
-      ki: "N5EB.Feature.Class.Ki",
+      plan: "N5EB.Feature.Class.Plan",
       maneuver: "N5EB.Feature.Class.Maneuver",
       metamagic: "N5EB.Feature.Class.Metamagic",
       multiattack: "N5EB.Feature.Class.Multiattack",
@@ -27641,21 +27574,21 @@ N5EB.damageTypes = {
     label: "N5EB.DamageBludgeoning",
     icon: "systems/n5eb/icons/svg/damage/bludgeoning.svg",
     isPhysical: true,
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.39LFrlef94JIYO8m",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.39LFrlef94JIYO8m",
     color: new Color(0x0000A0)
   },
   piercing: {
     label: "N5EB.DamagePiercing",
     icon: "systems/n5eb/icons/svg/damage/piercing.svg",
     isPhysical: true,
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.95agSnEGTdAmKhyC",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.95agSnEGTdAmKhyC",
     color: new Color(0xC0C0C0)
   },
   slashing: {
     label: "N5EB.DamageSlashing",
     icon: "systems/n5eb/icons/svg/damage/slashing.svg",
     isPhysical: true,
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.sz2XKQ5lgsdPEJOa",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.sz2XKQ5lgsdPEJOa",
     color: new Color(0x8B0000)
   },
 
@@ -27668,62 +27601,62 @@ N5EB.damageTypes = {
   cold: {
     label: "N5EB.DamageCold",
     icon: "systems/n5eb/icons/svg/damage/cold.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.4xsFUooHDEdfhw6g",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.4xsFUooHDEdfhw6g",
     color: new Color(0xADD8E6)
   },
   chakra: {
     label: "N5EB.DamageChakra",
     icon: "systems/n5eb/icons/svg/damage/cold.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.Gp3IPOLiwhRSMwq8",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.Gp3IPOLiwhRSMwq8",
     color: new Color(0x70D2FF)
   },
   earth: {
     label: "N5EB.DamageEarth",
     icon: "systems/n5eb/icons/svg/damage/cold.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.w4fwuqZ2in8Yg1m3",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.w4fwuqZ2in8Yg1m3",
     color: new Color(0x70D2FF)
   },
   fire: {
     label: "N5EB.DamageFire",
     icon: "systems/n5eb/icons/svg/damage/fire.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.f1S66aQJi4PmOng6",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.f1S66aQJi4PmOng6",
     color: new Color(0xFF4500)
   },
   force: {
     label: "N5EB.DamageForce",
     icon: "systems/n5eb/icons/svg/damage/force.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.eFTWzngD8dKWQuUR",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.eFTWzngD8dKWQuUR",
     color: new Color(0x800080)
   },
   lightning: {
     label: "N5EB.DamageLightning",
     icon: "systems/n5eb/icons/svg/damage/lightning.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.9SaxFJ9bM3SutaMC",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.9SaxFJ9bM3SutaMC",
     color: new Color(0x1E90FF)
   },
   necrotic: {
     label: "N5EB.DamageNecrotic",
     icon: "systems/n5eb/icons/svg/damage/necrotic.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.klOVUV5G1U7iaKoG",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.klOVUV5G1U7iaKoG",
     color: new Color(0x006400)
   },
 
   poison: {
     label: "N5EB.DamagePoison",
     icon: "systems/n5eb/icons/svg/damage/poison.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.k5wOYXdWPzcWwds1",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.k5wOYXdWPzcWwds1",
     color: new Color(0x8A2BE2)
   },
   psychic: {
     label: "N5EB.DamagePsychic",
     icon: "systems/n5eb/icons/svg/damage/psychic.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.YIKbDv4zYqbE5teJ",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.YIKbDv4zYqbE5teJ",
     color: new Color(0xFF1493)
   },
   wind: {
     label: "N5EB.DamageWind",
     icon: "systems/n5eb/icons/svg/damage/thunder.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.iqsmMHk7FSpiNkQy",
+    reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.iqsmMHk7FSpiNkQy",
     color: new Color(0x708090)
   }
 };
@@ -28816,159 +28749,159 @@ N5EB.conditionTypes = {
   incapacitated: {
     label: "N5EB.ConIncapacitated",
     icon: "systems/n5eb/icons/svg/statuses/incapacitated.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.TpkZgLfxCmSndmpb"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.TpkZgLfxCmSndmpb"
   },
   exhaustion: {
     label: "N5EB.ConExhaustion",
     icon: "systems/n5eb/icons/svg/statuses/exhaustion.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv",
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv",
     levels: 10
   },
   unconscious: {
     label: "N5EB.ConUnconscious",
     icon: "systems/n5eb/icons/svg/statuses/unconscious.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.UWw13ISmMxDzmwbd",
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.UWw13ISmMxDzmwbd",
     statuses: ["incapacitated"],
     riders: ["prone"]
   },
   petrified: {
     label: "N5EB.ConPetrified",
     icon: "systems/n5eb/icons/svg/statuses/petrified.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.xaNDaW6NwQTgHSmi",
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.xaNDaW6NwQTgHSmi",
     statuses: ["incapacitated"]
   },
   burned: {
     label: "N5EB.ConBurned",
     icon: "systems/n5eb/icons/svg/statuses/burning.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.2LXVJ11AWtJJMdUQ",
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.2LXVJ11AWtJJMdUQ",
     levels: 5
   },
   chilled: {
     label: "N5EB.ConChilled",
     icon: "systems/n5eb/icons/svg/statuses/chilled.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.Tz2yRDhU7Sz36A1W"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.Tz2yRDhU7Sz36A1W"
   },
   corroded: {
     label: "N5EB.ConCorroded",
     icon: "systems/n5eb/icons/svg/statuses/corroded.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.TwdLeQsr5BCvDIpx"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.TwdLeQsr5BCvDIpx"
   },
   shocked: {
     label: "N5EB.ConShocked",
     icon: "systems/n5eb/icons/svg/statuses/shocked.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.EepG4L9RSlH1L3jm"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.EepG4L9RSlH1L3jm"
   },
   poisoned: {
     label: "N5EB.ConPoisoned",
     icon: "systems/n5eb/icons/svg/statuses/poisoned.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.lq3TRI6ZlED8ABMx"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.lq3TRI6ZlED8ABMx"
   },
   bruised: {
     label: "N5EB.ConBruised",
     icon: "systems/n5eb/icons/svg/statuses/bruised.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.N634Wn81JaHhzPmp"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.N634Wn81JaHhzPmp"
   },
   staggered: {
     label: "N5EB.ConStaggered",
     icon: "systems/n5eb/icons/svg/statuses/staggered.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.pOHBhBled5bUrksq"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.pOHBhBled5bUrksq"
   },
   bleeding: {
     label: "N5EB.ConBleeding",
     icon: "systems/n5eb/icons/svg/statuses/bleeding.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.6szuK5OdvHQ3AS0g"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.6szuK5OdvHQ3AS0g"
   },
   lacerated: {
     label: "N5EB.ConLacerated",
     icon: "systems/n5eb/icons/svg/statuses/lacerated.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.vjYQe6IQ1lOgLy1U"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.vjYQe6IQ1lOgLy1U"
   },
   dazed: {
     label: "N5EB.ConDazed",
     icon: "systems/n5eb/icons/svg/statuses/dazed.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.IFhIvoNJfoA3ZvUv"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.IFhIvoNJfoA3ZvUv"
   },
   grappled: {
     label: "N5EB.ConGrappled",
     icon: "systems/n5eb/icons/svg/statuses/grappled.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.gYDAhd02ryUmtwZn"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.gYDAhd02ryUmtwZn"
   },
   prone: {
     label: "N5EB.ConProne",
     icon: "systems/n5eb/icons/svg/statuses/prone.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.y0TkcdyoZlOTmAFT"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.y0TkcdyoZlOTmAFT"
   },
   restrained: {
     label: "N5EB.ConRestrained",
     icon: "systems/n5eb/icons/svg/statuses/restrained.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.cSVcyZyNe2iG1fIc"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.cSVcyZyNe2iG1fIc"
   },
   stunned: {
     label: "N5EB.ConStunned",
     icon: "systems/n5eb/icons/svg/statuses/stunned.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.ZyZMUwA2rboh4ObS",
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.ZyZMUwA2rboh4ObS",
     statuses: ["incapacitated"]
   },
   weakened: {
     label: "N5EB.ConWeakened",
     icon: "systems/n5eb/icons/svg/statuses/weakened.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.tNiHE5RPxmJh1JuL"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.tNiHE5RPxmJh1JuL"
   },
   berserk: {
     label: "N5EB.ConBerserk",
     icon: "systems/n5eb/icons/svg/statuses/berserk.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.c4lGRc5QcGrW3zBn"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.c4lGRc5QcGrW3zBn"
   },
   charmed: {
     label: "N5EB.ConCharmed",
     icon: "systems/n5eb/icons/svg/statuses/charmed.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.zZaEBrKkr66OWJvD"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.zZaEBrKkr66OWJvD"
   },
   concussed: {
     label: "N5EB.ConConcussed",
     icon: "systems/n5eb/icons/svg/statuses/concussed.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.SuEi7OrmEfIpVpYA"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.SuEi7OrmEfIpVpYA"
   },
   confused: {
     label: "N5EB.ConConfused",
     icon: "systems/n5eb/icons/svg/statuses/confused.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.XsCC7GOA6SW9f6So"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.XsCC7GOA6SW9f6So"
   },
   frightened: {
     label: "N5EB.ConFrightened",
     icon: "systems/n5eb/icons/svg/statuses/frightened.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.oreoyaFKnvZCrgij"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.oreoyaFKnvZCrgij"
   },
   slowed: {
     label: "N5EB.ConSlowed",
     icon: "systems/n5eb/icons/svg/statuses/slowed.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.otUdDJ6pToh1TheF"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.otUdDJ6pToh1TheF"
   },
   sealed: {
     label: "N5EB.ConSealed",
     icon: "systems/n5eb/icons/svg/statuses/sealed.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.ZU9b8UMf4MgXkdsG"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.ZU9b8UMf4MgXkdsG"
   },
   blinded: {
     label: "N5EB.ConBlinded",
     icon: "systems/n5eb/icons/svg/statuses/blinded.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.0b8N4FymGGfbZGpJ",
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.0b8N4FymGGfbZGpJ",
     special: "BLIND"
   },
   dazzled: {
     label: "N5EB.ConDazzled",
     icon: "systems/n5eb/icons/svg/statuses/dazzled.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.xnSV5hLJIMaTABXP",
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.xnSV5hLJIMaTABXP",
   },
   deafened: {
     label: "N5EB.ConDeafened",
     icon: "systems/n5eb/icons/svg/statuses/deafened.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.6G8JSjhn701cBITY"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.6G8JSjhn701cBITY"
   },
   invisible: {
     label: "N5EB.ConInvisible",
     icon: "systems/n5eb/icons/svg/statuses/invisible.svg",
-    reference: "Compendium.n5eb-module.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.3UU5GCTVeRDbZy9u"
+    reference: "Compendium.n5eb.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.3UU5GCTVeRDbZy9u"
   },
   
   // bleedingStat: {
@@ -29127,41 +29060,12 @@ N5EB.languages = {
       water: "N5EB.LanguagesWater",
       cloud: "N5EB.LanguagesCloud",
       sand: "N5EB.LanguagesSand",
-      // halfling: "N5EB.LanguagesHalfling",
-      // orc: "N5EB.LanguagesOrc"
     }
   },
-  // exotic: {
-  //   label: "N5EB.LanguagesExotic",
-  //   children: {
-  //     aarakocra: "N5EB.LanguagesAarakocra",
-  //     abyssal: "N5EB.LanguagesAbyssal",
-  //     celestial: "N5EB.LanguagesCelestial",
-  //     deep: "N5EB.LanguagesDeepSpeech",
-  //     draconic: "N5EB.LanguagesDraconic",
-  //     gith: "N5EB.LanguagesGith",
-  //     gnoll: "N5EB.LanguagesGnoll",
-  //     infernal: "N5EB.LanguagesInfernal",
-  //     primordial: {
-  //       label: "N5EB.LanguagesPrimordial",
-  //       children: {
-  //         aquan: "N5EB.LanguagesAquan",
-  //         auran: "N5EB.LanguagesAuran",
-  //         ignan: "N5EB.LanguagesIgnan",
-  //         terran: "N5EB.LanguagesTerran"
-  //       }
-  //     },
-  //     sylvan: "N5EB.LanguagesSylvan",
-  //     undercommon: "N5EB.LanguagesUndercommon"
-  //   }
-  // },
   bug: "N5EB.LanguagesBug",
-  // cant: "N5EB.LanguagesThievesCant"
 };
 preLocalize("languages", { key: "label" });
 preLocalize("languages.standard.children", { key: "label", sort: true });
-preLocalize("languages.exotic.children", { key: "label", sort: true });
-preLocalize("languages.exotic.children.primordial.children", { sort: true });
 patchConfig("languages", "label", { since: "DnD5e 2.4", until: "DnD5e 3.1" });
 
 /* -------------------------------------------- */
@@ -31889,6 +31793,14 @@ class ActorTypeConfig extends DocumentSheet {
       };
     }
 
+    const ranks = {};
+    for ( let [key, label] of Object.entries(CONFIG.N5EB.creatureRanks) ) {
+      ranks[key] = {
+        label: game.i18n.localize(label),
+        chosen: attr.rank === key 
+      };
+    }
+
     // Return data for rendering
     return {
       types: types,
@@ -31905,6 +31817,7 @@ class ActorTypeConfig extends DocumentSheet {
         obj[key] = label;
         return obj;
       }, {}),
+      ranks: ranks,
       preview: Actor5e.formatCreatureType(attr) || "–"
     };
   }
@@ -33718,13 +33631,16 @@ class ActorSheet5eCharacter extends ActorSheet5e {
   /* -------------------------------------------- */
   /*  Context Preparation                         */
   /* -------------------------------------------- */
-
+  // FIRST ERROR
   /** @inheritDoc */
   async getData(options={}) {
     const context = await super.getData(options);
 
+    // Check if type exists and has a label, otherwise default to "Humanoid"
+    const typeLabel = context.system.details?.type?.label || "Humanoid";
+
     // Resources
-    context.resources = ["chakradie","primary", "secondary", "tertiary"].reduce((arr, r) => {
+    context.resources = ["primary", "secondary", "tertiary"].reduce((arr, r) => {
       const res = foundry.utils.mergeObject(context.actor.system.resources[r] || {}, {
         name: r,
         placeholder: game.i18n.localize(`N5EB.Resource${r.titleCase()}`)
@@ -33735,14 +33651,16 @@ class ActorSheet5eCharacter extends ActorSheet5e {
     }, []);
 
     const classes = this.actor.itemTypes.class;
+    console.log("Details Object:", context.system.details);
     return foundry.utils.mergeObject(context, {
       disableExperience: game.settings.get("n5eb", "disableExperienceTracking"),
       classLabels: classes.map(c => c.name).join(", "),
       labels: {
-        type: context.system.details.type.label
+        type: typeLabel
       },
       multiclassLabels: classes.map(c => [c.subclass?.name ?? "", c.name, c.system.levels].filterJoin(" ")).join(", "),
-      weightUnit: game.i18n.localize(`N5EB.AbbreviationBulk`),
+      weightUnit: game.i18n.localize(`N5EB.Abbreviation${
+        game.settings.get("n5eb", "metricWeightUnits") ? "Bulk" : "Lbs"}`),
       encumbrance: context.system.attributes.encumbrance
     });
   }
@@ -35499,6 +35417,7 @@ class CharacterData extends CreatureTemplate {
         }, {label: "N5EB.ExperiencePoints"}),
         appearance: new StringField$7({required: true, label: "N5EB.Appearance"}),
         trait: new StringField$7({required: true, label: "N5EB.PersonalityTraits"}),
+        type: new StringField$7({ label: "DND5E.Type" }),
         gender: new StringField$7({ label: "N5EB.Gender" }),
         eyes: new StringField$7({ label: "N5EB.Eyes" }),
         height: new StringField$7({ label: "N5EB.Height" }),
@@ -35579,6 +35498,7 @@ class CharacterData extends CreatureTemplate {
    * Prepare movement & senses values derived from race item.
    */
   prepareEmbeddedData() {
+    console.log("TYPOE", this.details.type)
     if ( this.details.race instanceof Item ) {
       AttributesFields.prepareRace.call(this, this.details.race);
       this.details.type = this.details.race.system.type;
@@ -35905,11 +35825,13 @@ function ActorSheetV2Mixin(Base) {
     }
 
     /* -------------------------------------------- */
-
+    // SECOND ERROR
     /** @inheritDoc */
     async getData(options) {
       this._concentration = this.actor.concentration; // Cache concentration so it's not called for every item.
       const context = await super.getData(options);
+      console.log("Second", context)
+
       context.editable = this.isEditable && (this._mode === this.constructor.MODES.EDIT);
       context.cssClass = context.editable ? "editable" : this.isEditable ? "interactable" : "locked";
       const activeTab = (game.user.isGM || !this.actor.limited)
@@ -35921,7 +35843,7 @@ function ActorSheetV2Mixin(Base) {
       if ( context.sidebarCollapsed ) context.cssClass += " collapsed";
       const { attributes } = this.actor.system;
 
-      // Portrait
+      // // Portrait
       const showTokenPortrait = this.actor.getFlag("n5eb", "showTokenPortrait") === true;
       const token = this.actor.isToken ? this.actor.token : this.actor.prototypeToken;
       const defaultArtwork = Actor.implementation.getDefaultArtwork(context.source)?.img;
@@ -35932,7 +35854,7 @@ function ActorSheetV2Mixin(Base) {
         path: showTokenPortrait ? this.actor.isToken ? "" : "prototypeToken.texture.src" : "img"
       };
 
-      // Death Saves
+      // // Death Saves
       const plurals = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
       context.death = {};
       ["success", "failure"].forEach(deathSave => {
@@ -35953,7 +35875,7 @@ function ActorSheetV2Mixin(Base) {
         }
       });
       
-      // Will of Fire
+      // // Will of Fire
       context.willOfFire = [];
       for (let i = 1; i <= 3; i++) {
         const filled = attributes.inspiration >= i;
@@ -35967,10 +35889,10 @@ function ActorSheetV2Mixin(Base) {
         });
       }
 
-      // Senses
+      // // Senses
       context.senses = Object.entries(CONFIG.N5EB.senses).reduce((obj, [k, label]) => {
         const value = attributes.senses[k];
-        if ( value ) obj[k] = { label, value };
+        if ( label && value ) obj[k] = { label, value };
         return obj;
       }, {});
 
@@ -35978,19 +35900,18 @@ function ActorSheetV2Mixin(Base) {
         context.senses[`custom${i + 1}`] = { label: v.trim() };
       });
 
-      // Containers
+      // // Containers
       for ( const container of context.containers ?? [] ) {
         const ctx = context.itemContext[container.id];
         ctx.capacity = await container.system.computeCapacity();
         ctx.capacity.maxLabel = Number.isFinite(ctx.capacity.max) ? ctx.capacity.max : "&infin;";
-        
       }
 
-      // Effects & Conditions
+      // // Effects & Conditions
       const conditionIds = new Set();
       context.conditions = Object.entries(CONFIG.N5EB.conditionTypes).reduce((arr, [k, c]) => {
         if ( c.pseudo ) return arr; // Filter out pseudo-conditions.
-        const { label: name, icon, reference } = c;
+        const { label: name = "Unknown Condition", icon, reference } = c;
         const id = staticID(`n5eb${k}`);
         conditionIds.add(id);
         const existing = this.actor.effects.get(id);
@@ -36661,8 +36582,8 @@ class ActorSheet5eCharacter2 extends ActorSheetV2Mixin(ActorSheet5eCharacter) {
   }
 
   /* -------------------------------------------- */
-
-  /** @inheritDoc */
+  // THIRD ERROR
+  /** @inheritDoc */ 
   async getData(options) {
     const context = await super.getData(options);
     const { attributes, details, traits } = this.actor.system;
@@ -36739,20 +36660,24 @@ class ActorSheet5eCharacter2 extends ActorSheetV2Mixin(ActorSheet5eCharacter) {
       if ( key in CONFIG.N5EB.skills ) entry.reference = CONFIG.N5EB.skills[key].reference;
       else if ( key in CONFIG.N5EB.toolIds ) entry.reference = getBaseItemUUID(CONFIG.N5EB.toolIds[key]);
     }
+    console.log("Third", context)
+
 
     // Character Background
     context.creatureType = {
-      class: details.type.value === "custom" ? "none" : "",
-      icon: CONFIG.N5EB.creatureTypes[details.type.value]?.icon ?? "icons/svg/mystery-man.svg",
-      title: details.type.value === "custom"
-        ? details.type.custom
-        : CONFIG.N5EB.creatureTypes[details.type.value]?.label,
-      reference: CONFIG.N5EB.creatureTypes[details.type.value]?.reference,
-      subtitle: details.type.subtype
+      class: details.type?.value === "custom" ? "none" : "",
+      icon: CONFIG.N5EB.creatureTypes[details.type?.value]?.icon ?? "icons/svg/mystery-man.svg",
+      title: details.type?.value === "custom"
+        ? details.type?.custom
+        : CONFIG.N5EB.creatureTypes[details.type?.value]?.label,
+      reference: CONFIG.N5EB.creatureTypes[details.type?.value]?.reference,
+      subtitle: details.type?.subtype
     };
 
     if ( details.race instanceof n5eb.documents.Item5e ) context.race = details.race;
     if ( details.background instanceof n5eb.documents.Item5e ) context.background = details.background;
+    
+    console.log("Third2", context)
 
     // Senses
     if ( foundry.utils.isEmpty(context.senses) ) delete context.senses;
@@ -36777,23 +36702,6 @@ class ActorSheet5eCharacter2 extends ActorSheetV2Mixin(ActorSheet5eCharacter) {
       });
     }
     
-
-    // for ( const item of Object.values(this.actor.classes).sort((a, b) => b.system.levels - a.system.levels) ) {
-    //   const sc = item.spellcasting;
-    //   if ( !sc?.progression || (sc.progression === "none") ) continue;
-    //   const ability = this.actor.system.abilities[sc.ability];
-    //   const mod = ability?.mod ?? 0;
-    //   const attackBonus = msak === rsak ? msak : 0;
-    //   const name = item.system.spellcasting.progression === sc.progression ? item.name : item.subclass?.name;
-    //   context.spellcasting.push({
-    //     label: game.i18n.format("N5EB.SpellcastingClass", { class: name }),
-    //     ability: { mod, ability: sc.ability },
-    //     attack: mod + this.actor.system.attributes.prof + attackBonus,
-    //     primary: this.actor.system.attributes.spellcasting === sc.ability,
-    //     save: ability?.dc ?? 0
-    //   });
-    // }
-
     // Characteristics
     context.characteristics = [
       "alignment", "eyes", "height", "faith", "hair", "weight", "gender", "skin", "age"
@@ -42407,6 +42315,10 @@ class SummoningConfig extends DocumentSheet {
       obj[k] = { label: c.label, selected: context.summons?.creatureSizes.has(k) ? "selected" : "" };
       return obj;
     }, {});
+    context.creatureRanks = Object.entries(CONFIG.N5EB.creatureRanks).reduce((obj, [k, c]) => {
+      obj[k] = { label: c.label, selected: context.summons?.creatureRanks.has(k) ? "selected" : "" };
+      return obj;
+    }, {});
     context.creatureTypes = Object.entries(CONFIG.N5EB.creatureTypes).reduce((obj, [k, c]) => {
       obj[k] = { label: c.label, selected: context.summons?.creatureTypes.has(k) ? "selected" : "" };
       return obj;
@@ -42452,6 +42364,7 @@ class SummoningConfig extends DocumentSheet {
   _getSubmitData(...args) {
     const data = foundry.utils.expandObject(super._getSubmitData(...args));
     data.creatureSizes ??= [];
+    data.creatureRanks ??= [];
     data.creatureTypes ??= [];
     data.profiles = Object.values(data.profiles ?? {});
 
@@ -42794,8 +42707,8 @@ class ItemSheet5e extends ItemSheet {
     const consume = this.item.system.consume || {};
     if ( !consume.type ) return [];
     const actor = this.item.actor;
-    if ( !actor && (consume.type !== "hitDice") ) return {};
-
+    if ( !actor && (consume.type !== "hitDice") && (consume.type !== "chakraDice") ) return {};
+    console.log(consume.type)
     // Ammunition
     if ( consume.type === "ammo" ) {
       return actor.itemTypes.consumable.reduce((ammo, i) => {
@@ -46930,6 +46843,9 @@ class NPCData extends CreatureTemplate {
         spellLevel: new NumberField$4({
           required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.SpellcasterLevel"
         }),
+        rank: new StringField$5({
+          required: true, initial: "erank",  label: "N5EB.CreatureRank"
+        }),
         source: new SourceField()
       }, {label: "N5EB.Details"}),
       resources: new SchemaField$2({
@@ -46982,6 +46898,14 @@ class NPCData extends CreatureTemplate {
         config: {
           choices: CONFIG.N5EB.creatureTypes,
           keyPath: "system.details.type.value"
+        }
+      }],
+      ["rank", {
+        label: "N5EB.Rank",
+        type: "set",
+        config: {
+          choices: CONFIG.N5EB.creatureRanks,
+          keyPath: "system.details.rank"
         }
       }],
       ["cr", {

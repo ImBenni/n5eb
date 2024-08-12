@@ -1,7 +1,7 @@
 {
     "id": "n5eb",
     "title": "Naruto 5e - Benni",
-    "description": "A system for playing Naruto 5e custom made by Benni.",
+    "description": "A system for playing Naruto 5e, altered the DnD5e. By Benni",
     "version": "1,0,0",
     "compatibility": {
         "minimum": "11.315",
@@ -22,38 +22,25 @@
     ],
     "packs": [
         {
-            "name": "heroes",
-            "label": "Starter Heroes",
+            "name": "npcs",
+            "label": "NPCs",
             "system": "n5eb",
-            "path": "packs/heroes",
+            "path": "packs/npc",
             "type": "Actor",
             "private": false,
             "flags": {
                 "n5eb": {
                     "types": [
-                        "character"
-                    ]
-                }
-            }
-        },
-        {
-            "name": "monsters",
-            "label": "Monsters (SRD)",
-            "system": "n5eb",
-            "path": "packs/monsters",
-            "type": "Actor",
-            "private": false,
-            "flags": {
-                "n5eb": {
-                    "types": [
-                        "npc"
+                        "npc",
+                        "feat",
+                        "weapon"
                     ]
                 }
             }
         },
         {
             "name": "items",
-            "label": "Items (SRD)",
+            "label": "Items",
             "system": "n5eb",
             "path": "packs/items",
             "type": "Item",
@@ -73,25 +60,10 @@
             }
         },
         {
-            "name": "tradegoods",
-            "label": "Trade Goods (SRD)",
+            "name": "jutsus",
+            "label": "Jutsus",
             "system": "n5eb",
-            "path": "packs/tradegoods",
-            "type": "Item",
-            "private": false,
-            "flags": {
-                "n5eb": {
-                    "types": [
-                        "loot"
-                    ]
-                }
-            }
-        },
-        {
-            "name": "spells",
-            "label": "Spells (SRD)",
-            "system": "n5eb",
-            "path": "packs/spells",
+            "path": "packs/jutsus",
             "type": "Item",
             "private": false,
             "flags": {
@@ -104,7 +76,7 @@
         },
         {
             "name": "backgrounds",
-            "label": "Backgrounds (SRD)",
+            "label": "Backgrounds",
             "system": "n5eb",
             "path": "packs/backgrounds",
             "type": "Item",
@@ -119,45 +91,17 @@
             }
         },
         {
-            "name": "classes",
-            "label": "Classes (SRD)",
+            "name": "class-and-subclass",
+            "label": "Class and Subclass",
             "system": "n5eb",
-            "path": "packs/classes",
+            "path": "packs/class-and-subclass",
             "type": "Item",
             "private": false,
             "flags": {
                 "n5eb": {
                     "types": [
-                        "class"
-                    ]
-                }
-            }
-        },
-        {
-            "name": "subclasses",
-            "label": "Subclasses (SRD)",
-            "system": "n5eb",
-            "path": "packs/subclasses",
-            "type": "Item",
-            "private": false,
-            "flags": {
-                "n5eb": {
-                    "types": [
-                        "subclass"
-                    ]
-                }
-            }
-        },
-        {
-            "name": "classfeatures",
-            "label": "Class & Subclass Features (SRD)",
-            "system": "n5eb",
-            "path": "packs/classfeatures",
-            "type": "Item",
-            "private": false,
-            "flags": {
-                "n5eb": {
-                    "types": [
+                        "class",
+                        "subclass",
                         "feat",
                         "weapon"
                     ]
@@ -165,10 +109,10 @@
             }
         },
         {
-            "name": "races",
-            "label": "Races (SRD)",
+            "name": "clan",
+            "label": "Clans",
             "system": "n5eb",
-            "path": "packs/races",
+            "path": "packs/clan",
             "type": "Item",
             "private": false,
             "flags": {
@@ -181,24 +125,8 @@
             }
         },
         {
-            "name": "monsterfeatures",
-            "label": "Monster Features (SRD)",
-            "system": "n5eb",
-            "path": "packs/monsterfeatures",
-            "type": "Item",
-            "private": false,
-            "flags": {
-                "n5eb": {
-                    "types": [
-                        "feat",
-                        "weapon"
-                    ]
-                }
-            }
-        },
-        {
             "name": "rules",
-            "label": "Rules (SRD)",
+            "label": "Rules",
             "system": "n5eb",
             "path": "packs/rules",
             "type": "JournalEntry",
@@ -208,55 +136,72 @@
             }
         },
         {
-            "name": "tables",
-            "label": "Tables (SRD)",
+            "name": "conditions",
+            "label": "Conditions",
             "system": "n5eb",
-            "path": "packs/tables",
-            "type": "RollTable",
+            "path": "packs/conditions",
+            "type": "Item",
             "private": false,
-            "flags": {}
+            "flags": {
+                "n5eb": {
+                    "types": [
+                        "feat"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "feats",
+            "label": "Feats",
+            "system": "n5eb",
+            "path": "packs/feats",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "n5eb": {
+                    "types": [
+                        "feat"
+                    ]
+                }
+            }
         }
     ],
     "packFolders": [
         {
-            "name": "D&D SRD Content",
+            "name": "N5E Content",
             "sorting": "m",
-            "color": "#cd2c1e",
+            "color": "#ed991a",
             "packs": [
                 "rules",
-                "tables",
-                "heroes"
+                "conditions"
             ],
             "folders": [
                 {
                     "name": "Character Features",
                     "sorting": "m",
-                    "color": "#b72c1f",
+                    "color": "#e6a23c",
                     "packs": [
-                        "classes",
-                        "subclasses",
-                        "classfeatures",
+                        "class-and-subclass",
                         "backgrounds",
-                        "races"
+                        "clan",
+                        "feats"
                     ]
                 },
                 {
-                    "name": "Items & Spells",
+                    "name": "Items & Jutsus",
                     "sorting": "m",
-                    "color": "#941919 ",
+                    "color": "#d99836 ",
                     "packs": [
                         "items",
-                        "spells",
-                        "tradegoods"
+                        "jutsus"
                     ]
                 },
                 {
-                    "name": "Monsters",
+                    "name": "NPCs",
                     "sorting": "m",
-                    "color": "#7d160c",
+                    "color": "#c78726",
                     "packs": [
-                        "monsters",
-                        "monsterfeatures"
+                        "npc"
                     ]
                 }
             ]

@@ -246,6 +246,36 @@
 
                     </ul>
 
+                    {{!-- Rank, Class, Affiliation & Role --}}
+                    <ul class="labels unlist">
+
+                        {{!-- Rank --}}
+                        <li class="creature-size">
+                            {{#if editable}}
+                                <select class="unselect" name="system.details.rank">
+                                    {{ selectOptions config.creatureRanks selected=source.details.rank }}
+                                </select>
+                            {{else}}
+                                <span>{{ localize (lookup config.creatureRanks system.details.rank) }}</span>
+                            {{/if}}
+                        </li>
+
+
+                        {{!-- Type --}}
+                        {{!-- <li class="creature-type">
+                            {{#if editable}}
+                            <a class="config-button" data-action="type" data-tooltip="N5EB.CreatureTypeConfig"
+                                aria-label="{{ localize "N5EB.CreatureTypeConfig" }}">
+                                <span>{{ labels.type }}</span>
+                                <i class="fas fa-cog"></i>
+                            </a>
+                            {{else}}
+                            <span>{{ labels.type }}</span>
+                            {{/if}}
+                        </li> --}}
+
+                    </ul>
+
                 </div>
 
                 {{!-- Resting, Special Traits, & Proficiency --}}
@@ -279,7 +309,7 @@
 
                     {{!-- CR --}}
                     <div class="right cr-badge badge" aria-label="{{ localize "N5EB.CRLabel" cr=system.details.cr }}"
-                         {{#unless editable}}data-tooltip="N5EB.ChallengeRating"{{/unless}}>
+                         {{#unless editable}}data-tooltip="N5EB.NPCLevel"{{/unless}}>
                         {{#if editable}}
                         <input type="text" class="uninput" name="system.details.cr" value="{{ source.details.cr }}">
                         {{else}}
@@ -386,6 +416,8 @@
                 {{/if}}
 
             </div>
+
+            
 
         </div>
 
