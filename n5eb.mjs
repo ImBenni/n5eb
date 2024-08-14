@@ -6426,6 +6426,18 @@ class SummonsData extends foundry.abstract.DataModel {
       creatureRanks: new SetField$9(new StringField$o(), {
         label: "N5EB.Summoning.CreatureRank.Label", hint: "N5EB.Summoning.CreatureRank.Hint"
       }),
+      creatureClass: new SetField$9(new StringField$o(), {
+        label: "N5EB.Summoning.CreatureClass.Label", hint: "N5EB.Summoning.creatureClass.Hint"
+      }),
+      creatureAffiliations: new SetField$9(new StringField$o(), {
+        label: "N5EB.Summoning.CreatureAffiliations.Label", hint: "N5EB.Summoning.creatureAffiliations.Hint"
+      }),
+      creatureRoles: new SetField$9(new StringField$o(), {
+        label: "N5EB.Summoning.CreatureRoles.Label", hint: "N5EB.Summoning.creatureRoles.Hint"
+      }),
+      creatureHighRoles: new ArrayField$8(new StringField$l({
+        label: "N5EB.Summoning.CreatureHighRoles.Label", hint: "N5EB.Summoning.creatureHighRoles.Hint"
+      })),
       match: new SchemaField$l({
         attacks: new BooleanField$e({
           label: "N5EB.Summoning.Match.Attacks.Label", hint: "N5EB.Summoning.Match.Attacks.Hint"
@@ -6891,6 +6903,30 @@ class SummonsData extends foundry.abstract.DataModel {
       const rank = this.creatureRanks.has(options.creatureRank) ? options.creatureRank : this.creatureRanks.first();
       actorUpdates["system.details.rank"] = rank;
     }
+
+    // Change creature class
+    if ( this.creatureClass.size ) {
+      const classNPC = this.creatureClass.has(options.creatureClas) ? options.creatureClas : this.creatureClass.first();
+      actorUpdates["system.details.classNPC"] = classNPC;
+    }
+    
+    // Change creature affiliation
+    if ( this.creatureAffiliations.size ) {
+      const affiliation = this.creatureAffiliations.has(options.creatureAffiliation) ? options.creatureAffiliation : this.creatureAffiliations.first();
+      actorUpdates["system.details.affiliation"] = affiliation;
+    }
+
+    // Change creature Role
+    if ( this.creatureRoles.size ) {
+      const role = this.creatureRoles.has(options.creatureRole) ? options.creatureRole : this.creatureRoles.first();
+      actorUpdates["system.details.role"] = role;
+    }
+
+    // Change creature High Role
+    // if ( this.creatureHighRoles.size ) {
+    //   const highRole = this.creatureHighRoles.has(options.creatureHighRole) ? options.creatureHighRole : this.creatureHighRoles.first();
+    //   actorUpdates["system.details.highRole"] = highRole;
+    // }
 
     const attackDamageBonus = Roll.replaceFormulaData(this.bonuses.attackDamage, rollData);
     const saveDamageBonus = Roll.replaceFormulaData(this.bonuses.saveDamage, rollData);
@@ -9247,6 +9283,14 @@ class AbilityUseDialog extends Dialog {
       obj[k] = CONFIG.N5EB.creatureRanks[k];
       return obj;
     }, {});
+    if ( summons.creatureClass.size > 1 ) options.creatureClass = summons.creatureClass.reduce((obj, k) => {
+      obj[k] = CONFIG.N5EB.creatureClass[k];
+      return obj;
+    }, {});
+    // if ( summons.creatureHighRoles.size > 1 ) options.creatureHighRoles = summons.creatureHighRoles.reduce((obj, k) => {
+    //   obj[k] = CONFIG.N5EB.creatureHighRoles[k];
+    //   return obj;
+    // }, {});
     return options;
   }
 
@@ -18414,7 +18458,7 @@ async function enrichDamage(config, label, options) {
   const formulaParts = [];
   if ( config.formula ) formulaParts.push(config.formula);
   for ( const value of config.values ) {
-    console.log(value)
+    // console.log(value)
     if ( value in CONFIG.N5EB.damageTypes ) config.type = value;
     else if ( value in CONFIG.N5EB.healingTypes ) config.type = value;
     else if ( value === "average" ) config.average = true;
@@ -26694,14 +26738,124 @@ preLocalize("creatureTypes", { keys: ["label", "plural"], sort: true });
  * @enum {CreatureRankConfiguration}
  */
 N5EB.creatureRanks = {
-  erank: "N5EB.CreatureRankE",
-  drank: "N5EB.CreatureRankD",
-  crank: "N5EB.CreatureRankC", 
-  brank: "N5EB.CreatureRankB", 
-  arank: "N5EB.CreatureRankA", 
-  srank: "N5EB.CreatureRankS", 
+  erank: "N5EB.CreatureRank.E",
+  drank: "N5EB.CreatureRank.D",
+  crank: "N5EB.CreatureRank.C", 
+  brank: "N5EB.CreatureRank.B", 
+  arank: "N5EB.CreatureRank.A", 
+  srank: "N5EB.CreatureRank.S", 
 };
 preLocalize("creatureRanks");
+
+/* -------------------------------------------- */
+
+/**
+ * Configuration data for creature class.
+ *
+ * @typedef {object} CreatureClassConfiguration
+ * @enum {string}
+ */
+
+/**
+ * Default ranks of creatures.
+ * @enum {CreatureClassConfiguration}
+ */
+N5EB.creatureClass = {
+  minion: "N5EB.CreatureClass.Minion",
+  standard: "N5EB.CreatureClass.Standard",
+  elite: "N5EB.CreatureClass.Elite",
+  solo: "N5EB.CreatureClass.Solo",
+};
+preLocalize("creatureClass");
+
+/* -------------------------------------------- */
+
+/**
+ * Configuration data for creature affiliations.
+ *
+ * @typedef {object} CreatureAffiliationConfiguration
+ * @enum {string}
+ */
+
+/**
+ * Default affiliations of creatures.
+ * @enum {CreatureAffiliationConfiguration}
+ */
+N5EB.creatureAffiliations = {
+  leaf: "N5EB.CreatureAffiliation.Leaf",
+  sand: "N5EB.CreatureAffiliation.Sand",
+  earth: "N5EB.CreatureAffiliation.Earth",
+  cloud: "N5EB.CreatureAffiliation.Cloud",
+  mist: "N5EB.CreatureAffiliation.Mist",
+  grass: "N5EB.CreatureAffiliation.Grass",
+  sound: "N5EB.CreatureAffiliation.Sound",
+  waterfall: "N5EB.CreatureAffiliation.Waterfall",
+  rain: "N5EB.CreatureAffiliation.Rain",
+  snow: "N5EB.CreatureAffiliation.Snow",
+  iron: "N5EB.CreatureAffiliation.Iron",
+  sky: "N5EB.CreatureAffiliation.Sky",
+  jashin: "N5EB.CreatureAffiliation.Jashin",
+  silent: "N5EB.CreatureAffiliation.Silent",
+  akatuski: "N5EB.CreatureAffiliation.Akatuski",
+  kara: "N5EB.CreatureAffiliation.Kara",
+  cultist: "N5EB.CreatureAffiliation.Cultist",
+  star: "N5EB.CreatureAffiliation.Star",
+  wolf: "N5EB.CreatureAffiliation.Wolf",
+  key: "N5EB.CreatureAffiliation.Key",
+  moon: "N5EB.CreatureAffiliation.Moon",
+  factionless: "N5EB.CreatureAffiliation.Factionless",
+  bandit: "N5EB.CreatureAffiliation.Bandit",
+  puppet: "N5EB.CreatureAffiliation.Puppet",
+};
+preLocalize("creatureAffiliations");
+
+/* -------------------------------------------- */
+
+/**
+ * Configuration data for creature affiliations.
+ *
+ * @typedef {object} CreatureRoleConfiguration
+ * @enum {string}
+ */
+
+/**
+ * Default affiliations of creatures.
+ * @enum {CreatureRoleConfiguration}
+ */
+N5EB.creatureRoles = {
+  controller: "N5EB.CreatureRole.Controller",
+  defender: "N5EB.CreatureRole.Defender",
+  lurker: "N5EB.CreatureRole.Lurker",
+  generalist: "N5EB.CreatureRole.Generalist",
+  casternin: "N5EB.CreatureRole.CasterNin",
+  castergen: "N5EB.CreatureRole.CasterGen",
+  castertai: "N5EB.CreatureRole.CasterTai",
+  strikernin: "N5EB.CreatureRole.StrikerNin",
+  strikergen: "N5EB.CreatureRole.StrikerGen",
+  strikertai: "N5EB.CreatureRole.StrikerTai",
+  supporter: "N5EB.CreatureRole.Supporter",
+  iconic: "N5EB.CreatureRole.Iconic",
+};
+preLocalize("creatureRoles");
+
+/* -------------------------------------------- */
+
+/**
+ * Configuration data for creature high role.
+ *
+ * @typedef {object} CreatureHighRolesConfiguration
+ * @enum {string}
+ */
+
+/**
+ * Default ranks of creatures.
+ * @enum {CreatureHighRolesConfiguration}
+ */
+N5EB.creatureHighRoles = {
+  iconic: "N5EB.CreatureHighRole.Iconic",
+  epic: "N5EB.CreatureHighRole.Epic",
+};
+preLocalize("creatureHighRole");
 
 /* -------------------------------------------- */
 
@@ -27167,6 +27321,9 @@ N5EB.featureTypes = {
   feat: {
     label: "N5EB.Feature.Feat"
   },
+  clanfeat: {
+    label: "N5EB.Feature.ClanFeat"
+  },
   supernaturalGift: {
     label: "N5EB.Feature.SupernaturalGift.Label",
     subtypes: {
@@ -27591,7 +27748,6 @@ N5EB.damageTypes = {
     reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.sz2XKQ5lgsdPEJOa",
     color: new Color(0x8B0000)
   },
-
   acid: {
     label: "N5EB.DamageAcid",
     icon: "systems/n5eb/icons/svg/damage/acid.svg",
@@ -27640,7 +27796,6 @@ N5EB.damageTypes = {
     reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.klOVUV5G1U7iaKoG",
     color: new Color(0x006400)
   },
-
   poison: {
     label: "N5EB.DamagePoison",
     icon: "systems/n5eb/icons/svg/damage/poison.svg",
@@ -27967,6 +28122,202 @@ preLocalize("targetTypes", { sort: true });
  */
 N5EB.hitDieTypes = ["d4", "d6", "d8", "d10", "d12"];
 N5EB.chakraDieTypes = ["d4", "d6", "d8", "d10", "d12"];
+
+/* -------------------------------------------- */
+
+N5EB.rankMod = {
+  erank: { avg: 3, max: 4 },
+  drank: { avg: 4, max: 6 },
+  crank: { avg: 5, max: 8 },
+  brank: { avg: 6, max: 10 },
+  arank: { avg: 7, max: 12 },
+  srank: { avg: 11, max: 20 },
+};
+
+N5EB.classMod = {
+  minion: {
+    hpBonus: 0.0001,
+    cpBonus: 0.1,
+    hpMultiplier: 1,
+    cpMultiplier: 1,
+    initBonus: -2,
+    xpMultiplier: 1,
+    acBonus: 0,
+    saveBonus: 0,
+    atkBonus: 0,
+    jutsuDcBonus: 0,
+    perStealthBonus: 0,
+  },
+  standard: {
+    hpBonus: 0,
+    cpBonus: 0,
+    hpMultiplier: 1,
+    cpMultiplier: 1,
+    initBonus: 0,
+    xpMultiplier: 10,
+    acBonus: 0,
+    saveBonus: 0,
+    atkBonus: 0,
+    jutsuDcBonus: 0,
+    perStealthBonus: 0,
+  },
+  elite: {
+    hpBonus: 1,
+    cpBonus: 1,
+    hpMultiplier: 2,
+    cpMultiplier: 2,
+    initBonus: 2,
+    xpMultiplier: 25,
+    acBonus: 2,
+    saveBonus: 1,
+    atkBonus: 1,
+    jutsuDcBonus: 2,
+    perStealthBonus: 2,
+  },
+  solo: {
+    hpBonus: 3,
+    cpBonus: 3,
+    hpMultiplier: 0,
+    cpMultiplier: 0,
+    initBonus: 4,
+    xpMultiplier: 100,
+    acBonus: 4,
+    saveBonus: 2,
+    atkBonus: 2,
+    jutsuDcBonus: 3,
+    perStealthBonus: 4,
+  },
+};
+
+
+
+N5EB.roleMod = {
+  casternin: {
+    acBonus: -2,
+    saveBonus: 0,
+    hpBonus: -0.5,
+    cpBonus: 0.5,
+    damagePerAction: 1.2,
+    speedBonus: 0,
+    specialBonus: {
+      jutsuDamageBonus: 1
+    }
+  },
+  castergenj: {
+    acBonus: -2,
+    saveBonus: 0,
+    hpBonus: -0.5,
+    cpBonus: 0.5,
+    damagePerAction: 1.2,
+    speedBonus: 0,
+    specialBonus: {
+      jutsuDamageBonus: 1
+    }
+  },
+  castertai: {
+    acBonus: -2,
+    saveBonus: 0,
+    hpBonus: -0.25,
+    cpBonus: -0.25,
+    damagePerAction: 1.2,
+    speedBonus: 0,
+    specialBonus: {
+      jutsuDamageBonus: 1
+    }
+  },
+  controller: {
+    acBonus: -1,
+    saveBonus: 1,
+    hpBonus: -0.2,
+    cpBonus: 0.2,
+    damagePerAction: 0.8,
+    speedBonus: 0,
+    specialBonus: {
+      saveDCBonus: 1
+    }
+  },
+  defender: {
+    acBonus: 2,
+    saveBonus: 0,
+    hpBonus: 0.4,
+    cpBonus: 0.4,
+    damagePerAction: 0.7,
+    speedBonus: 0,
+    specialBonus: {
+      damageResistanceBonus: 2
+    }
+  },
+  lurker: {
+    acBonus: -3,
+    saveBonus: 0,
+    hpBonus: -0.3,
+    cpBonus: 0.2,
+    damagePerAction: 1.3,
+    speedBonus: 20,
+    specialBonus: {
+      speedBonus: 25,
+      critRangeBonus: 1
+    }
+  },
+  generalist: {
+    acBonus: 0,
+    saveBonus: 0,
+    hpBonus: 0,
+    cpBonus: 0,
+    damagePerAction: 1,
+    speedBonus: 0,
+    specialBonus: {
+      initiativeBonus: 2,
+      checksBonus: 2
+    }
+  },
+  strikernin: {
+    acBonus: 1,
+    saveBonus: 0,
+    hpBonus: 0.3,
+    cpBonus: -0.4,
+    damagePerAction: 1.1,
+    speedBonus: 15,
+    specialBonus: {
+      jutsuAtkBonus: 1
+    }
+  },
+  strikergen: {
+    acBonus: 1,
+    saveBonus: 0,
+    hpBonus: 0.3,
+    cpBonus: -0.4,
+    damagePerAction: 1.1,
+    speedBonus: 15,
+    specialBonus: {
+      jutsuAtkBonus: 1
+    }
+  },
+  strikertai: {
+    acBonus: 1,
+    saveBonus: 0,
+    hpBonus: 0.3,
+    cpBonus: -0.4,
+    damagePerAction: 1.1,
+    speedBonus: 15,
+    specialBonus: {
+      jutsuAtkBonus: 1
+    }
+  },
+  supporter: {
+    acBonus: 0,
+    saveBonus: -1,
+    hpBonus: -0.2,
+    cpBonus: -0.2,
+    damagePerAction: 0.5,
+    speedBonus: 5,
+    specialBonus: {
+      chakraControlBonus: 2
+    }
+  }
+};
+
+
 
 /* -------------------------------------------- */
 
@@ -31793,14 +32144,6 @@ class ActorTypeConfig extends DocumentSheet {
       };
     }
 
-    const ranks = {};
-    for ( let [key, label] of Object.entries(CONFIG.N5EB.creatureRanks) ) {
-      ranks[key] = {
-        label: game.i18n.localize(label),
-        chosen: attr.rank === key 
-      };
-    }
-
     // Return data for rendering
     return {
       types: types,
@@ -31817,11 +32160,10 @@ class ActorTypeConfig extends DocumentSheet {
         obj[key] = label;
         return obj;
       }, {}),
-      ranks: ranks,
       preview: Actor5e.formatCreatureType(attr) || "–"
     };
   }
-
+      
   /* -------------------------------------------- */
 
   /** @override */
@@ -31838,7 +32180,6 @@ class ActorTypeConfig extends DocumentSheet {
   activateListeners(html) {
     super.activateListeners(html);
     html.find("input[name='custom']").focusin(this._onCustomFieldFocused.bind(this));
-
     const overrides = Object.keys(foundry.utils.flattenObject(this.actor.overrides || {}));
     if ( overrides.some(k => k.startsWith("system.details.type.")) ) {
       // Disable editing any type field if one of them is overridden by an Active Effect.
@@ -33635,10 +33976,6 @@ class ActorSheet5eCharacter extends ActorSheet5e {
   /** @inheritDoc */
   async getData(options={}) {
     const context = await super.getData(options);
-
-    // Check if type exists and has a label, otherwise default to "Humanoid"
-    const typeLabel = context.system.details?.type?.label || "Humanoid";
-
     // Resources
     context.resources = ["primary", "secondary", "tertiary"].reduce((arr, r) => {
       const res = foundry.utils.mergeObject(context.actor.system.resources[r] || {}, {
@@ -33651,12 +33988,11 @@ class ActorSheet5eCharacter extends ActorSheet5e {
     }, []);
 
     const classes = this.actor.itemTypes.class;
-    console.log("Details Object:", context.system.details);
     return foundry.utils.mergeObject(context, {
       disableExperience: game.settings.get("n5eb", "disableExperienceTracking"),
       classLabels: classes.map(c => c.name).join(", "),
       labels: {
-        type: typeLabel
+        type: context.system.details.type.label
       },
       multiclassLabels: classes.map(c => [c.subclass?.name ?? "", c.name, c.system.levels].filterJoin(" ")).join(", "),
       weightUnit: game.i18n.localize(`N5EB.Abbreviation${
@@ -35218,7 +35554,8 @@ class TraitsField {
    */
   static get creature() {
     return {
-      languages: this.makeSimpleTrait({label: "N5EB.Languages"})
+      languages: this.makeSimpleTrait({label: "N5EB.Languages"}),
+      affinity: this.makeSimpleTrait({label: "N5EB.Affinity"})
     };
   }
 
@@ -35498,7 +35835,6 @@ class CharacterData extends CreatureTemplate {
    * Prepare movement & senses values derived from race item.
    */
   prepareEmbeddedData() {
-    console.log("TYPOE", this.details.type)
     if ( this.details.race instanceof Item ) {
       AttributesFields.prepareRace.call(this, this.details.race);
       this.details.type = this.details.race.system.type;
@@ -35830,7 +36166,7 @@ function ActorSheetV2Mixin(Base) {
     async getData(options) {
       this._concentration = this.actor.concentration; // Cache concentration so it's not called for every item.
       const context = await super.getData(options);
-      console.log("Second", context)
+      // console.log("Second", context)
 
       context.editable = this.isEditable && (this._mode === this.constructor.MODES.EDIT);
       context.cssClass = context.editable ? "editable" : this.isEditable ? "interactable" : "locked";
@@ -36660,25 +36996,23 @@ class ActorSheet5eCharacter2 extends ActorSheetV2Mixin(ActorSheet5eCharacter) {
       if ( key in CONFIG.N5EB.skills ) entry.reference = CONFIG.N5EB.skills[key].reference;
       else if ( key in CONFIG.N5EB.toolIds ) entry.reference = getBaseItemUUID(CONFIG.N5EB.toolIds[key]);
     }
-    console.log("Third", context)
+    // console.log("Third", context)
 
 
     // Character Background
     context.creatureType = {
-      class: details.type?.value === "custom" ? "none" : "",
-      icon: CONFIG.N5EB.creatureTypes[details.type?.value]?.icon ?? "icons/svg/mystery-man.svg",
-      title: details.type?.value === "custom"
-        ? details.type?.custom
-        : CONFIG.N5EB.creatureTypes[details.type?.value]?.label,
-      reference: CONFIG.N5EB.creatureTypes[details.type?.value]?.reference,
-      subtitle: details.type?.subtype
+      class: details.type.value === "custom" ? "none" : "",
+      icon: CONFIG.N5EB.creatureTypes[details.type.value]?.icon ?? "icons/svg/mystery-man.svg",
+      title: details.type.value === "custom"
+        ? details.type.custom
+        : CONFIG.N5EB.creatureTypes[details.type.value]?.label,
+      reference: CONFIG.N5EB.creatureTypes[details.type.value]?.reference,
+      subtitle: details.type.subtype
     };
 
     if ( details.race instanceof n5eb.documents.Item5e ) context.race = details.race;
     if ( details.background instanceof n5eb.documents.Item5e ) context.background = details.background;
     
-    console.log("Third2", context)
-
     // Senses
     if ( foundry.utils.isEmpty(context.senses) ) delete context.senses;
 
@@ -37300,9 +37634,9 @@ class ActorSheet5eNPC extends ActorSheet5e {
       if ( ctx.group === "passive" ) ctx.ungroup = "passive";
       // Individual item preparation
       this._prepareItem(item, ctx);
-      if ( item.type === "class" ) ctx.availableLevels = Array.fromRange(CONFIG.N5EB.maxLevel, 1).map(level => ({
-        level, delta: level - item.system.levels, disabled: (level - item.system.levels) > maxLevelDelta
-      }));
+      // if ( item.type === "class" ) ctx.availableLevels = Array.fromRange(CONFIG.N5EB.maxLevel, 1).map(level => ({
+      //   level, delta: level - item.system.levels, disabled: (level - item.system.levels) > maxLevelDelta
+      // }));
       if ( item.type === "spell" ) arr[0].push(item);
       else arr[1].push(item);
       return arr;
@@ -37519,8 +37853,7 @@ class ActorSheet5eNPC2 extends ActorSheetV2Mixin(ActorSheet5eNPC) {
     });
 
     // Show Death Saves
-    context.showDeathSaves = !foundry.utils.isEmpty(this.actor.classes)
-      || this.actor.getFlag("n5eb", "showDeathSaves");
+    context.showDeathSaves = true;
 
     // Speed
     context.speed = Object.entries(CONFIG.N5EB.movementTypes).reduce((obj, [k, label]) => {
@@ -37694,9 +38027,43 @@ _prepareSpellcasting(context) {
     html.find(".long-rest").on("click", this._onLongRest.bind(this));
 
     if ( this.isEditable ) {
+      // html.find("input[name='system.details.highRole']").on("change", this._onHighRoleChange.bind(this));
+      console.log("Event Fired")
       html.find(".editor-edit").on("click", this._onEditBiography.bind(this));
     }
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle changes to the highRole checkboxes.
+   * @param {Event} event  The change event.
+   * @private
+   */
+  _onHighRoleChange(event) {
+    event.preventDefault();
+    const input = event.currentTarget;
+    const { checked, value } = input;
+  
+    // Clone the current highRole array to avoid direct mutation
+    let highRoles = foundry.utils.deepClone(this.actor.system.details.highRole) || [];
+    highRoles = highRoles.filter(hr => !!hr);  
+  
+    // Update the highRoles array based on checkbox interaction
+    if (checked) {
+      if (!highRoles.includes(value)) {
+        highRoles.push(value);
+      }
+    } else {
+      highRoles = highRoles.filter(role => role !== value);
+    }
+    // Update the actor with the new highRoles array
+    this.actor.update({ "system.details.highRole": highRoles }).then(() => {
+      console.log("Clicked", value);
+      console.log("Updated highRoles:", highRoles);
+  });
+  }
+  
 
   /* -------------------------------------------- */
 
@@ -42315,14 +42682,33 @@ class SummoningConfig extends DocumentSheet {
       obj[k] = { label: c.label, selected: context.summons?.creatureSizes.has(k) ? "selected" : "" };
       return obj;
     }, {});
-    context.creatureRanks = Object.entries(CONFIG.N5EB.creatureRanks).reduce((obj, [k, c]) => {
-      obj[k] = { label: c.label, selected: context.summons?.creatureRanks.has(k) ? "selected" : "" };
-      return obj;
-    }, {});
     context.creatureTypes = Object.entries(CONFIG.N5EB.creatureTypes).reduce((obj, [k, c]) => {
       obj[k] = { label: c.label, selected: context.summons?.creatureTypes.has(k) ? "selected" : "" };
       return obj;
     }, {});
+    context.creatureRanks = Object.entries(CONFIG.N5EB.creatureRanks).reduce((obj, [k, c]) => {
+      obj[k] = { label: c.label, selected: context.summons?.creatureRanks.has(k) ? "selected" : "" };
+      return obj;
+    }, {});
+    context.creatureClass = Object.entries(CONFIG.N5EB.creatureClass).reduce((obj, [k, c]) => {
+      obj[k] = { label: c.label, selected: context.summons?.creatureClass.has(k) ? "selected" : "" };
+      return obj;
+    }, {});
+    context.creatureAffiliations = Object.entries(CONFIG.N5EB.creatureAffiliations).reduce((obj, [k, c]) => {
+      obj[k] = { label: c.label, selected: context.summons?.creatureAffiliations.has(k) ? "selected" : "" };
+      return obj;
+    }, {});
+    context.creatureRoles = Object.entries(CONFIG.N5EB.creatureRoles).reduce((obj, [k, c]) => {
+      obj[k] = { label: c.label, selected: context.summons?.creatureRoles.has(k) ? "selected" : "" };
+      return obj;
+    }, {});
+  //   context.creatureHighRoles = Object.entries(CONFIG.N5EB.creatureHighRoles).reduce((obj, [k, c]) => {
+  //     obj[k] = {
+  //         label: c.label, 
+  //         selected: context.summons?.creatureHighRoles?.includes(k) ? "checked" : ""
+  //     };
+  //     return obj;
+  // }, {});
     return context;
   }
 
@@ -42364,8 +42750,12 @@ class SummoningConfig extends DocumentSheet {
   _getSubmitData(...args) {
     const data = foundry.utils.expandObject(super._getSubmitData(...args));
     data.creatureSizes ??= [];
-    data.creatureRanks ??= [];
     data.creatureTypes ??= [];
+    data.creatureRanks ??= [];
+    data.creatureClass ??= [];
+    data.creatureAffiliations ??= [];
+    data.creatureRoles ??= [];
+    // data.creatureHighRole ??= [];
     data.profiles = Object.values(data.profiles ?? {});
 
     switch ( data.action ) {
@@ -43805,7 +44195,7 @@ class JournalClassPageSheet extends JournalPageSheet {
     const cp = item.advancement.byType.ChakraPoints?.[0];
     if ( cp ) {
       advancement.cp = {
-        hitDice: `1${cp.hitDie}`,
+        chakraDie: `1${cp.chakraDie}`,
         max: cp.chakraDieValue,
         average: Math.floor(cp.chakraDieValue / 2) + 1
       };
@@ -46722,8 +47112,7 @@ class GroupActor extends ActorDataModel.mixin(CurrencyTemplate) {
   }
 }
 
-const { BooleanField: BooleanField$3, NumberField: NumberField$4, SchemaField: SchemaField$2, StringField: StringField$5 } = foundry.data.fields;
-
+const {ArrayField: ArrayField$9, BooleanField: BooleanField$3, NumberField: NumberField$4, SchemaField: SchemaField$2, StringField: StringField$5 } = foundry.data.fields;
 /**
  * System data definition for NPCs.
  *
@@ -46844,8 +47233,22 @@ class NPCData extends CreatureTemplate {
           required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.SpellcasterLevel"
         }),
         rank: new StringField$5({
-          required: true, initial: "erank",  label: "N5EB.CreatureRank"
+          required: true, initial: "erank",  label: "N5EB.CreatureRank.Label"
         }),
+        classNPC: new StringField$5({
+          required: true, initial: "standard",  label: "N5EB.CreatureClass.Label"
+        }),
+        affiliation: new StringField$5({
+          required: true, initial: "leaf",  label: "N5EB.CreatureAffiliation.Label"
+        }),
+        role: new StringField$5({
+          required: true, initial: "strikernin",  label: "N5EB.CreatureRole.Label"
+        }),
+        highRole: new ArrayField$9(new StringField$5({
+          required: false,
+          label: "N5EB.CreatureHighRole.Label"
+        }), {initial: []}),
+        
         source: new SourceField()
       }, {label: "N5EB.Details"}),
       resources: new SchemaField$2({
@@ -46906,6 +47309,38 @@ class NPCData extends CreatureTemplate {
         config: {
           choices: CONFIG.N5EB.creatureRanks,
           keyPath: "system.details.rank"
+        }
+      }],
+      ["classNPC", {
+        label: "N5EB.NPCClass",
+        type: "set",
+        config: {
+          choices: CONFIG.N5EB.creatureClass,
+          keyPath: "system.details.classNPC"
+        }
+      }],
+      ["affiliation", {
+        label: "N5EB.Affiliation",
+        type: "set",
+        config: {
+          choices: CONFIG.N5EB.creatureAffiliations,
+          keyPath: "system.details.affiliation"
+        }
+      }],
+      ["role", {
+        label: "N5EB.Role",
+        type: "set",
+        config: {
+          choices: CONFIG.N5EB.creatureRoles,
+          keyPath: "system.details.role"
+        }
+      }],
+      ["highRole", {
+        label: "N5EB.HighRole",
+        type: "set",
+        config: {
+          choices: CONFIG.N5EB.creatureHighRoles,
+          keyPath: "system.details.highRole",
         }
       }],
       ["cr", {
@@ -46973,7 +47408,7 @@ class NPCData extends CreatureTemplate {
       swarm: "",
       custom: ""
     };
-
+    
     // Match the existing string
     const pattern = /^(?:swarm of (?<size>[\w-]+) )?(?<type>[^(]+?)(?:\((?<subtype>[^)]+)\))?$/i;
     const match = original.trim().match(pattern);
@@ -47011,36 +47446,50 @@ class NPCData extends CreatureTemplate {
     }
   }
 
+  
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  prepareBaseData() {
-    this.details.level = 0;
+  prepareBaseData() {    
+    this.details.level = this.details.cr;
     this.attributes.attunement.value = 0;
+
+    // Clean up highRole array by removing any undefined or empty values
+    this.details.highRole = (this.details.highRole || []).filter(role => role !== undefined && role !== "");
+
+    // You could also ensure that the highRole array contains only valid values
+    const validRoles = Object.keys(CONFIG.N5EB.creatureHighRoles);
+    this.details.highRole = this.details.highRole.filter(role => validRoles.includes(role));
+
+    // Perform any additional logic, such as defaulting roles if needed
+    // Example: Ensure there is at least one role, and if not, add a default role
+    if (this.details.highRole.length === 0) {
+      this.details.highRole.push("");
+    }
 
     // Determine hit dice denomination & max from hit points formula
     const [, maxHp, denominationHp] = this.attributes.hp.formula?.match(/(\d*)d(\d+)/i) ?? [];
-    this.attributes.hd.max = Number(maxHp ?? 0);
+    this.attributes.hd.max = 1
     this.attributes.hd.denomination = Number(denominationHp ?? CONFIG.N5EB.actorSizes[this.traits.size]?.hitDie ?? 4);
 
     // Determine chakra dice denomination & max from chakra points formula
     const [, maxCp, denominationCp] = this.attributes.cp.formula?.match(/(\d*)d(\d+)/i) ?? [];
-    this.attributes.cd.max = Number(maxCp ?? 0);
+    this.attributes.cd.max = 1
     this.attributes.cd.denomination = Number(denominationCp ?? CONFIG.N5EB.actorSizes[this.traits.size]?.chakraDie ?? 4);
 
     for ( const item of this.parent.items ) {
       // Class levels & hit dice
-      if ( item.type === "class" ) {
-        const classLevels = parseInt(item.system.levels) ?? 1;
-        this.details.level += classLevels;
-        this.attributes.hd.max += classLevels;
-        this.attributes.cd.max += classLevels;
-      }
+      
+      // const classLevels = parseInt(item.system.levels) ?? 1;
+      this.details.level += this.details.cr;
+      this.attributes.hd.max += 1;
+      this.attributes.cd.max += 1;
+
 
       // Attuned items
-      else if ( item.system.attuned ) this.attributes.attunement.value += 1;
+      if ( item.system.attuned ) this.attributes.attunement.value += 1;
     }
 
     // Kill Experience
@@ -47054,7 +47503,7 @@ class NPCData extends CreatureTemplate {
     // if ( this.attributes.spellcasting && !Number.isNumeric(this.details.spellLevel) ) {
     //   this.details.spellLevel = Math.max(this.details.cr, 1);
     // }
-
+    console.log(this.parent.name, this.details.highRole)
     AttributesFields.prepareBaseArmorClass.call(this);
     AttributesFields.prepareBaseEncumbrance.call(this);
   }
@@ -47089,29 +47538,51 @@ class NPCData extends CreatureTemplate {
     AttributesFields.prepareConcentration.call(this, rollData);
     TraitsField.prepareResistImmune.call(this);
 
-    // Hit Dice
+    // Get the rank from the actor's details
+    const rankMod = CONFIG.N5EB.rankMod[this.details.rank];
+    const classMod = CONFIG.N5EB.classMod[this.details.classNPC];
+    
+    const roleMod = CONFIG.N5EB.roleMod[this.details.role]
+    // console.log(this.details.role, roleMod)
+    // Get the Con modifier and level
+    const conMod = this.abilities.con?.mod ?? 0;
+    const level = this.details.level || 1;
+    const additionalHPMods = (1 + roleMod.hpBonus + classMod.hpBonus)
+    const additionalCPMods = (1 + roleMod.cpBonus + classMod.cpBonus)
+
+    // Calculate number of players, assume you have a way to get this number
+    const numPlayers = 3; // Default to 3 if unable to determine
+    const hpMultiplier = this.details.classNPC === "solo" ? numPlayers + 1 : classMod.hpMultiplier;
+    const cpMultiplier = this.details.classNPC === "solo" ? numPlayers : classMod.cpMultiplier;
+
+    // Calculate Hit Points
+    const baseHp = 10 + (conMod * level) + (rankMod.avg * level);
+    const finalHp = (baseHp + additionalHPMods) * hpMultiplier;
+    this.attributes.hp.max = Math.ceil(baseHp * additionalHPMods);
+    this.attributes.hp.effectiveMax = this.attributes.hp.max + (this.attributes.hp.tempmax ?? 0);
+    this.attributes.hp.value = Math.min(this.attributes.hp.value, this.attributes.hp.effectiveMax);
+    this.attributes.hp.damage = this.attributes.hp.effectiveMax - this.attributes.hp.value;
+    this.attributes.hp.pct = Math.clamp(this.attributes.hp.effectiveMax ? (this.attributes.hp.value / this.attributes.hp.effectiveMax) * 100 : 0, 0, 100);
+    // console.log("( Base:", 10, "+ ( ConMod:", conMod, "* Level:", level, ") + ( RankMod:", rankMod.avg, "* Level:", level, ") x (", 1, "+", "classBonus:", classMod.hpBonus, "+ ", "roleBonus:", roleMod.hpBonus, ") =", Math.ceil(baseHp * additionalHPMods))
+    // console.log(10, "+", (conMod * level), "+", (rankMod.avg * level), "*", additionalHPMods)
+
+    // Calculate Chakra Points
+    const baseCp = 10 + (conMod * level) + (rankMod.avg * level)
+    this.attributes.cp.max = Math.ceil(baseCp * additionalCPMods);
+    this.attributes.cp.effectiveMax = this.attributes.cp.max + (this.attributes.cp.tempmax ?? 0);
+    this.attributes.cp.value = Math.min(this.attributes.cp.value, this.attributes.cp.effectiveMax);
+    this.attributes.cp.damage = this.attributes.cp.effectiveMax - this.attributes.cp.value;
+    this.attributes.cp.pct = Math.clamp(this.attributes.cp.effectiveMax ? (this.attributes.cp.value / this.attributes.cp.effectiveMax) * 100 : 0, 0, 100);
+
+    // Handle Hit Dice (optional, if needed)
     const { hd } = this.attributes;
-    hd.value = Math.max(0, hd.max - hd.spent);
+    hd.value = Math.max(1, hd.max - hd.spent);
     hd.pct = Math.clamp(hd.max ? (hd.value / hd.max) * 100 : 0, 0, 100);
 
-    // Hit Points
-    const hpOptions = {
-      advancement: Object.values(this.parent.classes).map(c => c.advancement.byType.HitPoints?.[0]).filter(a => a),
-      mod: this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0
-    };
-    AttributesFields.prepareHitPoints.call(this, this.attributes.hp, hpOptions);
-
-    // Chakra Dice
+    // Handle Chakra Dice (optional, if needed)
     const { cd } = this.attributes;
-    cd.value = Math.max(0, cd.max - cd.spent);
+    cd.value = Math.max(1, cd.max - cd.spent);
     cd.pct = Math.clamp(cd.max ? (cd.value / cd.max) * 100 : 0, 0, 100);
-
-    // Chakra Points
-    const cpOptions = {
-      advancement: Object.values(this.parent.classes).map(c => c.advancement.byType.ChakraPoints?.[0]).filter(a => a),
-      mod: this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0
-    };
-    AttributesFields.prepareChakraPoints.call(this, this.attributes.cp, cpOptions);
   }
 }
 

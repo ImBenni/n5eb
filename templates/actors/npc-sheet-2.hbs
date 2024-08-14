@@ -134,7 +134,7 @@
 
                     {{#if showDeathSaves}}
                     {{!-- HD --}}
-                    {{#with system.attributes.hd}}
+                    {{!-- {{#with system.attributes.hd}}
                     <div class="meter hit-dice progress" role="meter" aria-valuemin="0" aria-valuenow="{{ value }}"
                          aria-valuemax="{{ max }}" style="--bar-percentage: {{ pct }}%">
                         <div class="label">
@@ -143,7 +143,7 @@
                             <span class="value">{{ value }}</span>
                         </div>
                     </div>
-                    {{/with}}
+                    {{/with}} --}}
 
                     {{!-- Death Saves --}}
                     <div class="death-saves">
@@ -248,7 +248,6 @@
 
                     {{!-- Rank, Class, Affiliation & Role --}}
                     <ul class="labels unlist">
-
                         {{!-- Rank --}}
                         <li class="creature-size">
                             {{#if editable}}
@@ -259,23 +258,65 @@
                                 <span>{{ localize (lookup config.creatureRanks system.details.rank) }}</span>
                             {{/if}}
                         </li>
-
-
-                        {{!-- Type --}}
-                        {{!-- <li class="creature-type">
+                        
+                        {{!-- Class --}}
+                        <li class="creature-size">
                             {{#if editable}}
-                            <a class="config-button" data-action="type" data-tooltip="N5EB.CreatureTypeConfig"
-                                aria-label="{{ localize "N5EB.CreatureTypeConfig" }}">
-                                <span>{{ labels.type }}</span>
-                                <i class="fas fa-cog"></i>
-                            </a>
+                                <select class="unselect" name="system.details.classNPC">
+                                    {{ selectOptions config.creatureClass selected=source.details.classNPC }}
+                                </select>
                             {{else}}
-                            <span>{{ labels.type }}</span>
+                                <span>{{ localize (lookup config.creatureClass system.details.classNPC) }}</span>
                             {{/if}}
-                        </li> --}}
+                        </li>
+
+                         {{!-- Role --}}
+                        <li class="creature-size">
+                            {{#if editable}}
+                                <select class="unselect" name="system.details.role">
+                                    {{ selectOptions config.creatureRoles selected=source.details.role }}
+                                </select>
+                            {{else}}
+                                <span>{{ localize (lookup config.creatureRoles system.details.role) }}</span>
+                            {{/if}}
+                        </li>
+
+                         {{!-- Affiliation --}}
+                        <li class="creature-size">
+                            {{#if editable}}
+                                <select class="unselect" name="system.details.affiliation">
+                                    {{ selectOptions config.creatureAffiliations selected=source.details.affiliation }}
+                                </select>
+                            {{else}}
+                                <span>{{ localize (lookup config.creatureAffiliations system.details.affiliation) }}</span>
+                            {{/if}}
+                        </li>
+
+                        {{!-- High Role --}}
+<li class="creature-size">
+    {{#if editable}}
+        <div class="high-role-checkboxes">
+            {{#each config.creatureHighRoles as |label key|}}
+                <label class="checkbox">
+                    <input type="checkbox" name="system.details.highRole" value="{{key}}" 
+                        {{#if (includes ../system.details.highRole key)}}checked{{/if}}/>
+                    {{localize label}}
+                </label>
+            {{/each}}
+        </div>
+    {{else}}
+        <span>
+            {{#each system.details.highRole}}
+                {{localize (lookup config.creatureHighRoles this)}}{{#unless @last}}, {{/unless}}
+            {{/each}}
+        </span>
+    {{/if}}
+</li>
+
+
+
 
                     </ul>
-
                 </div>
 
                 {{!-- Resting, Special Traits, & Proficiency --}}
@@ -546,6 +587,10 @@
                 {{!-- Languages --}}
                 {{> "n5eb.actor-trait-pills" values=traits.languages key="languages" icon="fas fa-flag"
                     label="N5EB.Languages" }}
+
+                {{!-- Affinity --}}
+                {{> "n5eb.actor-trait-pills" values=traits.affinity key="affinity" icon="fas fa-bolt"
+                    label="N5EB.Affinity" }}
 
             </div>
 
