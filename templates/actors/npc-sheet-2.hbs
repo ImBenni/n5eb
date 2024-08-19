@@ -293,28 +293,32 @@
                         </li>
 
                         {{!-- High Role --}}
-<li class="creature-size">
-    {{#if editable}}
-        <div class="high-role-checkboxes">
-            {{#each config.creatureHighRoles as |label key|}}
-                <label class="checkbox">
-                    <input type="checkbox" name="system.details.highRole" value="{{key}}" 
-                        {{#if (includes ../system.details.highRole key)}}checked{{/if}}/>
-                    {{localize label}}
-                </label>
-            {{/each}}
-        </div>
-    {{else}}
-        <span>
-            {{#each system.details.highRole}}
-                {{localize (lookup config.creatureHighRoles this)}}{{#unless @last}}, {{/unless}}
-            {{/each}}
-        </span>
-    {{/if}}
-</li>
-
-
-
+                        <li class="creature-size">
+                            {{#if editable}}
+                                <div class="high-role-checkboxes">
+                                    {{#each highRole}}
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="system.details.highRole.{{@key}}" value="{{@key}}"
+                                            {{checked selected}}> 
+                                            {{localize label}}
+                                        </label>
+                                    {{/each}}
+                                </div>
+                                {{else}}
+                                <span>
+                                    {{!-- Create an array of selected high roles --}}
+                                    {{#each highRole}}
+                                        {{#if this.selected}}
+                                            {{#if @first}}
+                                                {{localize this.label}}
+                                            {{else}}
+                                                , {{localize this.label}}
+                                            {{/if}}
+                                        {{/if}}
+                                    {{/each}}
+                                </span>
+                            {{/if}}
+                        </li>
 
                     </ul>
                 </div>
