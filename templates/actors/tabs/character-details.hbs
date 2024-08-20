@@ -4,11 +4,11 @@
                            value="{{#if @root.editable}}{{ baseValue }}{{else}}{{ value }}{{/if}}"
                            aria-label="{{ localize hover }}" {{disabled (not @root.editable)}}></proficiency-cycle>
         {{#if @root.editable}}
-        <select name="{{ path }}.ability" class="ability roboto-upper unselect">
+        <select name="{{ concat path ".ability" }}" class="ability roboto-upper unselect">
             {{ selectOptions @root.config.abilities selected=baseAbility labelAttr="abbreviation" }}
         </select>
         {{else}}
-        <div class="ability roboto-upper">{{ abbreviation }}</div>
+        <div class="ability roboto-upper {{ abbreviation }}">{{ abbreviation }}</div>
         {{/if}}
         <a class="name {{ @root.rollableClass }} {{ roll }}">{{ label }}</a>
         <div class="bonus">{{ n5eb-formatModifier total }}</div>
@@ -22,6 +22,7 @@
         {{/if}}
     </li>
 {{/inline}}
+
 
 {{#*inline "ability-prof"}}
     <li data-ability="{{ @key }}" class="{{ class }}">
@@ -55,13 +56,15 @@
                 <span class="roboto-upper">{{ localize "N5EB.Skills" }}</span>
             </h3>
             <ul>
-                {{#each config.skills}}
-                {{#with (lookup @root.skills @key)}}
-                    {{> "skill-prof" path=(concat "system.skills." @key) config="N5EB.SkillConfigure"
+            {{#each (sortSkillsByAbility config.skills @root.config.abilities) as |skillKey|}}
+                {{#with (lookup @root.skills skillKey)}}
+                    {{> "skill-prof" path=(concat "system.skills." skillKey) config="N5EB.SkillConfigure"
                         type="skill" hasPassive=true roll="skill-name" }}
                 {{/with}}
-                {{/each}}
+            {{/each}}
+
             </ul>
+
         </filigree-box>
 
         {{!-- Tools --}}

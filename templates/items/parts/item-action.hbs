@@ -112,6 +112,7 @@
             {{selectOptions config.abilities selected=system.save.ability labelAttr="label" blank=""}}
         </select>
         <span>{{ localize "N5EB.VsDC" }}</span>
+        {{log "TATA" system}}
         <input type="number" step="any" name="system.save.dc"
             value="{{#if system.save.dc}}{{system.save.dc}}{{/if}}"
             placeholder="{{ localize 'N5EB.AbbreviationDC' }}" {{#unless isFlatDC}}disabled{{/unless}}>

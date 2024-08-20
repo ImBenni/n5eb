@@ -4,20 +4,20 @@
     <div class="spellcasting card {{type}} {{#if primary}}primary{{/if}}" data-ability="{{ ability.ability }}">
         <div class="header">
             <h3>{{ label }}</h3>
-            {{#if @root.isNPC}}
-            {{#if (and @root.editable noSpellcaster)}}
-            <select name="system.attributes.spellcasting">
-                {{ selectOptions @root.abilities selected=ability.ability labelAttr="label" nameAttr="key"
-                   valueAttr="key" }}
-            </select>
-            {{else}}
-            <span class="spellcasting-ability roboto-upper">{{ ability.label }}</span>
-            {{/if}}
-            {{else}}
-            <button type="button" class="radio-button" data-action="spellcasting"
+            {{!-- {{#if @root.isNPC}} --}}
+                {{#if (and @root.editable)}}
+                    <select name="system.attributes.spellcasting.{{type}}">
+                        {{ selectOptions @root.abilities selected=ability.ability labelAttr="label" nameAttr="key"
+                        valueAttr="key" }}
+                    </select>
+                {{else}}
+                    <span class="spellcasting-ability roboto-upper">{{ ability.label }}</span>
+                {{/if}}
+            {{!-- {{else}} --}}
+            {{!-- <button type="button" class="radio-button" data-action="spellcasting"
                     data-tooltip="N5EB.SpellAbilitySet" aria-pressed="{{#if primary}}true{{else}}false{{/if}}"
-                    aria-label="{{ localize "N5EB.SpellAbilitySet" }}"></button>
-            {{/if}}
+                    aria-label="{{ localize "N5EB.SpellAbilitySet" }}"></button> --}}
+            {{!-- {{/if}} --}}
         </div>
         <div class="info">
             <div class="ability">

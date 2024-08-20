@@ -2225,7 +2225,7 @@ class AbilityScoreImprovementFlow extends AdvancementFlow {
     if ( data.type !== "Item" ) return false;
     const item = await Item.implementation.fromDropData(data);
 
-    if ( (item.type !== "feat") || (item.system.type.value !== "feat") ) {
+    if ( (item.type !== "feat" && item.type !== "clanfeat") || (item.system.type.value !== "feat" && item.system.type.value !== "clanfeat") ) {
       ui.notifications.error("N5EB.AdvancementAbilityScoreImprovementFeatWarning", {localize: true});
       return null;
     }
@@ -3191,6 +3191,38 @@ function concealSection(conceal, options) {
 /* -------------------------------------------- */
 
 /**
+ * Sort skills by their associated ability.
+ * @param {object} skills - The skills object from the configuration.
+ * @param {object} abilities - The abilities object from the configuration.
+ * @returns {string[]} - An array of skill keys sorted by associated ability.
+ */
+function sortSkillsByAbility(skills, abilities) {
+  const sortedSkills = [];
+
+  // Group skills by their associated ability
+  const groupedSkills = Object.keys(skills).reduce((acc, skillKey) => {
+    const abilityKey = skills[skillKey].ability;
+    if (!acc[abilityKey]) acc[abilityKey] = [];
+    acc[abilityKey].push(skillKey);
+    return acc;
+  }, {});
+
+  // Sort the groups according to the order of abilities
+  for (const abilityKey of Object.keys(abilities)) {
+    if (groupedSkills[abilityKey]) {
+      // Sort skills alphabetically within their ability group (optional)
+      groupedSkills[abilityKey].sort((a, b) => skills[a].label.localeCompare(skills[b].label));
+      sortedSkills.push(...groupedSkills[abilityKey]);
+    }
+  }
+
+  return sortedSkills;
+}
+
+/* -------------------------------------------- */
+
+
+/**
  * Register custom Handlebars helpers used by 5e.
  */
 function registerHandlebarsHelpers() {
@@ -3204,7 +3236,8 @@ function registerHandlebarsHelpers() {
     "n5eb-itemContext": itemContext,
     "n5eb-linkForUuid": (uuid, options) => linkForUuid(uuid, options.hash),
     "n5eb-numberFormat": (context, options) => formatNumber(context, options.hash),
-    "n5eb-textFormat": formatText
+    "n5eb-textFormat": formatText,
+    "sortSkillsByAbility": sortSkillsByAbility
   });
 }
 
@@ -3332,7 +3365,11 @@ function getHumanReadableAttributeLabel(attr, { actor }={}) {
   // Derived fields.
   if ( attr === "attributes.init.total" ) label = "N5EB.InitiativeBonus";
   else if ( attr === "attributes.ac.value" ) label = "N5EB.ArmorClass";
-  else if ( attr === "attributes.spelldc" ) label = "N5EB.SpellDC";
+
+  // Handle the new jutsu types for DC and modifier
+  else if (attr === "attributes.ninjutsudc") label = "N5EB.NinjutsuDC";
+  else if (attr === "attributes.genjutsudc") label = "N5EB.GenjutsuDC";
+  else if (attr === "attributes.taijutsudc") label = "N5EB.TaijutsuDC";
 
   // Abilities.
   else if ( attr.startsWith("abilities.") ) {
@@ -6927,13 +6964,22 @@ class SummonsData extends foundry.abstract.DataModel {
 
       // Match attacks
       if ( this.match.attacks && item.hasAttack ) {
-        const ability = this.item.abilityMod ?? rollData.attributes?.spellcasting;
-        const typeMapping = { mwak: "msak", rwak: "rsak" };
+        const actionType = item.system.actionType;
+        let ability;
+
+         if (["mwak", "rwak"].includes(actionType)) {
+          ability = rollData.abilities?.[item.abilityMod ?? "str"]?.mod; // Fallback to STR/DEX for weapons
+        } else {
+          const jutsuType = actionType.startsWith("m") ? `m${actionType[1]}ak` : `r${actionType[1]}ak`;
+          ability = this.item.abilityMod ?? (rollData.attributes?.[jutsuType]?.ability ?? "int");
+        }
+
         const parts = [
           rollData.abilities?.[ability]?.mod,
           prof,
-          rollData.bonuses?.[typeMapping[item.system.actionType] ?? item.system.actionType]?.attack
+          rollData.bonuses?.[actionType]?.attack
         ].filter(p => p);
+
         changes.push({
           key: "system.attack.bonus",
           mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
@@ -6946,15 +6992,37 @@ class SummonsData extends foundry.abstract.DataModel {
       }
 
       // Match saves
-      if ( this.match.saves && item.hasSave ) changes.push({
-        key: "system.save.dc",
-        mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-        value: rollData.item.save.dc ?? rollData.attributes.spelldc
-      }, {
-        key: "system.save.scaling",
-        mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-        value: "flat"
-      });
+      if (this.match.saves && item.hasSave) {
+        // Map action types to jutsu types
+        const jutsuMapping = {
+            mnak: "ninjutsu",
+            rnak: "ninjutsu",
+            mgak: "genjutsu",
+            rgak: "genjutsu",
+            mtak: "taijutsu",
+            rtak: "taijutsu"
+        };
+        
+        // Determine the jutsu type
+        const jutsuType = jutsuMapping[item.system.actionType] || null;
+        
+        if (jutsuType) {
+            // Construct the appropriate DC key
+            const jutsuDCKey = `${jutsuType}dc`;
+            const jutsuDC = rollData.attributes[jutsuDCKey];  // Get the correct DC value from attributes
+
+            // Apply changes with the correct DC
+            changes.push({
+                key: "system.save.dc",
+                mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+                value: rollData.item.save.dc ?? jutsuDC
+            }, {
+                key: "system.save.scaling",
+                mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+                value: "flat"
+            });
+        }
+      }
 
       // Damage bonus
       let damageBonus;
@@ -11496,17 +11564,27 @@ const { ArrayField: ArrayField$5, NumberField: NumberField$d, SchemaField: Schem
  * @mixes ItemDescriptionTemplate
  * @mixes StartingEquipmentTemplate
  *
- * @property {string} identifier        Identifier slug for this class.
- * @property {number} levels            Current number of levels in this class.
- * @property {string} hitDice           Denomination of hit dice available as defined in `N5EB.hitDieTypes`.
- * @property {number} hitDiceUsed       Number of hit dice consumed.
- * @property {string} chakraDice        Denomination of chakra dice available as defined in `N5EB.chakraDieTypes`.
- * @property {number} chakraDiceUsed    Number of chakra dice consumed.
- * @property {object[]} advancement     Advancement objects for this class.
- * @property {object} spellcasting      Details on class's spellcasting ability.
- * @property {string} spellcasting.progression  Spell progression granted by class as from `N5EB.spellProgression`.
- * @property {string} spellcasting.ability      Ability score to use for spellcasting.
- * @property {string} wealth            Formula used to determine starting wealth.
+ * @property {string} identifier                         Identifier slug for this class.
+ * @property {number} levels                             Current number of levels in this class.
+ * @property {string} hitDice                            Denomination of hit dice available as defined in `N5EB.hitDieTypes`.
+ * @property {number} hitDiceUsed                        Number of hit dice consumed.
+ * @property {string} chakraDice                         Denomination of chakra dice available as defined in `N5EB.chakraDieTypes`.
+ * @property {number} chakraDiceUsed                     Number of chakra dice consumed.
+ * @property {object[]} advancement                      Advancement objects for this class.
+ * @property {object} spellcasting                       Details on class's spellcasting abilities.
+ * @property {object} spellcasting.ninjutsu              Ninjutsu spellcasting details.
+ * @property {string} spellcasting.ninjutsu.progression  Spell progression granted by the class for Ninjutsu, as defined in `N5EB.spellProgression`.
+ * @property {string} spellcasting.ninjutsu.ability      Ability score to use for Ninjutsu spellcasting.
+ * 
+ * @property {object} spellcasting.genjutsu              Genjutsu spellcasting details.
+ * @property {string} spellcasting.genjutsu.progression  Spell progression granted by the class for Genjutsu, as defined in `N5EB.spellProgression`.
+ * @property {string} spellcasting.genjutsu.ability      Ability score to use for Genjutsu spellcasting.
+ * 
+ * @property {object} spellcasting.taijutsu              Taijutsu spellcasting details.
+ * @property {string} spellcasting.taijutsu.progression  Spell progression granted by the class for Taijutsu, as defined in `N5EB.spellProgression`.
+ * @property {string} spellcasting.taijutsu.ability      Ability score to use for Taijutsu spellcasting.
+ * 
+ * @property {string} wealth                             Formula used to determine starting wealth.
  */
 class ClassData extends ItemDataModel.mixin(ItemDescriptionTemplate, StartingEquipmentTemplate) {
   /** @inheritdoc */
@@ -11531,12 +11609,30 @@ class ClassData extends ItemDataModel.mixin(ItemDescriptionTemplate, StartingEqu
         required: true, nullable: false, integer: true, initial: 0, min: 0, label: "N5EB.ChakraDiceUsed"
       }),
       advancement: new ArrayField$5(new AdvancementField(), {label: "N5EB.AdvancementTitle"}),
+      
       spellcasting: new SchemaField$g({
-        progression: new StringField$j({
-          required: true, initial: "none", blank: false, label: "N5EB.SpellProgression"
-        }),
-        ability: new StringField$j({required: true, label: "N5EB.SpellAbility"})
+        ninjutsu: new SchemaField$g({
+          progression: new StringField$j({
+            required: true, initial: "none", blank: false, label: "N5EB.SpellProgressionNinjutsu"
+          }),
+          ability: new StringField$j({required: true, label: "N5EB.SpellAbilityNinjutsu"})
+        }, {label: "N5EB.NinjutsuSpellcasting"}),
+
+        genjutsu: new SchemaField$g({
+          progression: new StringField$j({
+            required: true, initial: "none", blank: false, label: "N5EB.SpellProgressionGenjutsu"
+          }),
+          ability: new StringField$j({required: true, label: "N5EB.SpellAbilityGenjutsu"})
+        }, {label: "N5EB.GenjutsuSpellcasting"}),
+
+        taijutsu: new SchemaField$g({
+          progression: new StringField$j({
+            required: true, initial: "none", blank: false, label: "N5EB.SpellProgressionTaijutsu"
+          }),
+          ability: new StringField$j({required: true, label: "N5EB.SpellAbilityTaijutsu"})
+        }, {label: "N5EB.TaijutsuSpellcasting"})
       }, {label: "N5EB.Spellcasting"}),
+
       wealth: new FormulaField({label: "N5EB.StartingEquipment.Wealth.Label"})
     });
   }
@@ -11551,13 +11647,26 @@ class ClassData extends ItemDataModel.mixin(ItemDescriptionTemplate, StartingEqu
         type: "boolean",
         createFilter: (filters, value, def) => {
           if ( value === 0 ) return;
-          const filter = { k: "system.spellcasting.progression", v: "none" };
-          if ( value === -1 ) filters.push(filter);
-          else filters.push({ o: "NOT", v: filter });
+          // We check if any of the three spellcasting abilities (ninjutsu, genjutsu, taijutsu) are defined
+          const filter = {
+            o: "OR",
+            v: [
+              { k: "system.spellcasting.ninjutsu", o: "EXISTS" },
+              { k: "system.spellcasting.genjutsu", o: "EXISTS" },
+              { k: "system.spellcasting.taijutsu", o: "EXISTS" }
+            ]
+          };
+          if ( value === -1 ) {
+            // This would be for items with no spellcasting abilities at all
+            filters.push({ o: "NOT", v: filter });
+          } else {
+            filters.push(filter);
+          }
         }
       }]
     ]);
   }
+
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
@@ -11596,18 +11705,33 @@ class ClassData extends ItemDataModel.mixin(ItemDescriptionTemplate, StartingEqu
 
   /* -------------------------------------------- */
 
-  /**
-   * Migrate the class's spellcasting string to object.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateSpellcastingData(source) {
-    if ( source.spellcasting?.progression === "" ) source.spellcasting.progression = "none";
-    if ( typeof source.spellcasting !== "string" ) return;
+/**
+ * Migrate the class's spellcasting string to an object structure.
+ * @param {object} source  The candidate source data from which the model will be constructed.
+ */
+static #migrateSpellcastingData(source) {
+  // Check if the old spellcasting structure exists and is a string
+  if (typeof source.spellcasting === "string") {
+    // Migrate the old string to the new format, setting default empty values
     source.spellcasting = {
-      progression: source.spellcasting,
-      ability: ""
+      ninjutsu: {
+        ability: source.spellcasting || "",  // Assuming old spellcasting was associated with Ninjutsu
+      },
+      genjutsu: {
+        ability: "",  // Default to empty if no data exists
+      },
+      taijutsu: {
+        ability: "",  // Default to empty if no data exists
+      }
     };
+  } else if (typeof source.spellcasting === "object") {
+    // Ensure the new structure is fully populated
+    source.spellcasting.ninjutsu = source.spellcasting.ninjutsu || { ability: "int" };
+    source.spellcasting.genjutsu = source.spellcasting.genjutsu || { ability: "wis" };
+    source.spellcasting.taijutsu = source.spellcasting.taijutsu || { ability: "str" };
   }
+}
+
 
   /* -------------------------------------------- */
 
@@ -12565,16 +12689,23 @@ class ActionTemplate extends ItemDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Which ability score modifier is used by this item?
-   * @type {string|null}
-   */
+ * Which ability score modifier is used by this item?
+ * @type {string|null}
+ */
+
   get abilityMod() {
     if ( this.ability === "none" ) return null;
     return this.ability || this._typeAbilityMod || {
       mwak: "str",
       rwak: "dex",
-      msak: this.parent?.actor?.system.attributes.spellcasting || "int",
-      rsak: this.parent?.actor?.system.attributes.spellcasting || "int"
+      // msak: this.parent?.actor?.system.attributes.spellcasting || "int",
+      // rsak: this.parent?.actor?.system.attributes.spellcasting || "int",
+      mnak: this.parent?.actor?.system.attributes.spellcasting.ninjutsu || "int",
+      rnak: this.parent?.actor?.system.attributes.spellcasting.ninjutsu || "int",
+      mgak: this.parent?.actor?.system.attributes.spellcasting.genjutsu || "wis",
+      rgak: this.parent?.actor?.system.attributes.spellcasting.genjutsu || "wis",
+      mtak: this.parent?.actor?.system.attributes.spellcasting.taijutsu || "str",
+      rtak: this.parent?.actor?.system.attributes.spellcasting.taijutsu || "str"
     }[this.actionType] || null;
   }
 
@@ -12631,14 +12762,14 @@ class ActionTemplate extends ItemDataModel {
 
   /* -------------------------------------------- */
 
-  /**
-   * Does the Item implement an attack roll as part of its usage?
-   * @type {boolean}
-   */
-  get hasAttack() {
-    return ["mwak", "rwak", "msak", "rsak"].includes(this.actionType);
-  }
-
+/**
+ * Does the Item implement an attack roll as part of its usage?
+ * @type {boolean}
+ */
+get hasAttack() {
+  return ["mwak", "rwak", "mnak", "rnak", "mgak", "rgak", "mtak", "rtak"].includes(this.actionType);
+}
+// "msak", "rsak",
   /* -------------------------------------------- */
 
   /**
@@ -13672,9 +13803,22 @@ class SpellData extends ItemDataModel.mixin(
 
   /** @inheritdoc */
   get _typeAbilityMod() {
-    return this.parent?.actor?.spellcastingClasses[this.sourceClass]?.spellcasting.ability
-      ?? this.parent?.actor?.system.attributes?.spellcasting
-      ?? "int";
+    // Retrieve the jutsu school from the item's system data
+    const school = this.school;
+
+    // Map the schools directly to their corresponding spellcasting attributes
+    const spellcastingAbilities = this.parent?.actor?.system.attributes?.spellcasting || {};
+
+    // Define default mapping for schools to attributes
+    const schoolToAbilityMap = {
+      nin: spellcastingAbilities.ninjutsu || "int",
+      gen: spellcastingAbilities.genjutsu || "wis",
+      tai: spellcastingAbilities.taijutsu || "str",
+      buki: spellcastingAbilities.taijutsu || "str", // Bukijutsu uses the same scaling as Taijutsu
+      hi: "int" // Hijutsu defaults to Intelligence
+    };
+    // Return the ability based on the school, defaulting to "int" if not found
+    return schoolToAbilityMap[school] || "int";
   }
 
   /* -------------------------------------------- */
@@ -14251,42 +14395,52 @@ class Item5e extends SystemDocumentMixin(Item) {
 
   /* -------------------------------------------- */
 
-  /**
-   * Spellcasting details for a class or subclass.
-   *
-   * @typedef {object} SpellcastingDescription
-   * @property {string} type              Spellcasting type as defined in ``CONFIG.N5EB.spellcastingTypes`.
-   * @property {string|null} progression  Progression within the specified spellcasting type if supported.
-   * @property {string} ability           Ability used when casting spells from this class or subclass.
-   * @property {number|null} levels       Number of levels of this class or subclass's class if embedded.
-   */
+/**
+ * Spellcasting details for a class or subclass.
+ *
+ * @typedef {object} JutsuDescription
+ * @property {string} type              Jutsu type (ninjutsu, genjutsu, taijutsu).
+ * @property {string} ability           Ability used when performing this type of jutsu.
+ * @property {number|null} levels       Number of levels of this class or subclass's class if embedded.
+ */
 
-  /**
-   * Retrieve the spellcasting for a class or subclass. For classes, this will return the spellcasting
-   * of the subclass if it overrides the class. For subclasses, this will return the class's spellcasting
-   * if no spellcasting is defined on the subclass.
-   * @type {SpellcastingDescription|null}  Spellcasting object containing progression & ability.
-   */
-  get spellcasting() {
-    const spellcasting = this.system.spellcasting;
-    if ( !spellcasting ) return null;
-    const isSubclass = this.type === "subclass";
-    const classSC = isSubclass ? this.class?.system.spellcasting : spellcasting;
-    const subclassSC = isSubclass ? spellcasting : this.subclass?.system.spellcasting;
-    const finalSC = foundry.utils.deepClone(
-      ( subclassSC && (subclassSC.progression !== "none") ) ? subclassSC : classSC
-    );
-    if ( !finalSC ) return null;
-    finalSC.levels = this.isEmbedded ? (this.system.levels ?? this.class?.system.levels) : null;
+ /**
+  * Retrieve the jutsu casting details for a class or subclass. For classes, this will return the jutsu
+  * casting details of the subclass if it overrides the class. For subclasses, this will return the class's 
+  * jutsu casting details if none are defined on the subclass.
+  * @returns {object} An object containing jutsu casting details for ninjutsu, genjutsu, and taijutsu.
+  */
+ get spellcasting() {
+  const spellcasting = this.system.spellcasting;
+  if (!spellcasting) return null;
+  
+  const isSubclass = this.type === "subclass";
+  const classSC = isSubclass ? this.class?.system.spellcasting : spellcasting;
+  const subclassSC = isSubclass ? spellcasting : this.subclass?.system.spellcasting;
 
-    // Temp method for determining spellcasting type until this data is available directly using advancement
-    if ( CONFIG.N5EB.spellcastingTypes[finalSC.progression] ) finalSC.type = finalSC.progression;
-    else finalSC.type = Object.entries(CONFIG.N5EB.spellcastingTypes).find(([type, data]) => {
-      return !!data.progression?.[finalSC.progression];
-    })?.[0];
+  // Define a method to get jutsu details from either subclass or class
+  const getJutsuDetails = (jutsuType) => {
+      const jutsuSC = subclassSC?.[jutsuType] ?? classSC?.[jutsuType];
+      return jutsuSC ? foundry.utils.deepClone(jutsuSC) : null;
+  };
 
-    return finalSC;
-  }
+  // Retrieve and return jutsu details for all three types
+  const jutsuDetails = {
+      ninjutsu: getJutsuDetails('ninjutsu'),
+      genjutsu: getJutsuDetails('genjutsu'),
+      taijutsu: getJutsuDetails('taijutsu')
+  };
+
+  // Include levels if embedded in an actor
+  Object.values(jutsuDetails).forEach(detail => {
+      if (detail) {
+          detail.levels = this.isEmbedded ? (this.system.levels ?? this.class?.system.levels) : null;
+      }
+  });
+
+  return jutsuDetails;
+}
+
 
   /* -------------------------------------------- */
   /*  Active Effects                              */
@@ -16784,8 +16938,8 @@ class Item5e extends SystemDocumentMixin(Item) {
         break;
     }
 
-    // Used a fixed attack modifier and saving throw according to the level of spell scroll.
-    if ( ["mwak", "rwak", "msak", "rsak"].includes(actionType) ) {
+    // Used a fixed attack modifier and saving throw according to the level of spell scroll. "msak", "rsak"
+    if ( ["mwak", "rwak", "mnak", "rnak", "mgak", "rgak", "mtak", "rtak"].includes(actionType) ) {
       attack = { bonus: scrollData.system.attack.bonus };
     }
     if ( save.ability ) {
@@ -20176,16 +20330,25 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
-   * Get all classes which have spellcasting ability.
+   * Get all classes that have spellcasting (jutsu) ability for any jutsu type (ninjutsu, genjutsu, taijutsu).
    * @type {Record<string, Item5e>}
    */
   get spellcastingClasses() {
-    if ( this._spellcastingClasses !== undefined ) return this._spellcastingClasses;
+    if (this._spellcastingClasses !== undefined) return this._spellcastingClasses;
+
     return this._spellcastingClasses = Object.entries(this.classes).reduce((obj, [identifier, cls]) => {
-      if ( cls.spellcasting && (cls.spellcasting.progression !== "none") ) obj[identifier] = cls;
-      return obj;
+        const { spellcasting } = cls.system;
+
+        // Check if the class has valid jutsu casting abilities for any of the jutsu types
+        const hasSpellcasting = ['ninjutsu', 'genjutsu', 'taijutsu'].some(type => {
+            return spellcasting[type] && spellcasting[type].ability !== "";
+        });
+
+        if (hasSpellcasting) obj[identifier] = cls;
+        return obj;
     }, {});
   }
+
 
   /* -------------------------------------------- */
 
@@ -20716,42 +20879,62 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
-   * Prepare data related to the spell-casting capabilities of the Actor.
+   * Prepare data related to the spell-casting (jutsu) capabilities of the Actor.
    * Mutates the value of the system.spells object.
    * @protected
    */
   _prepareSpellcasting() {
-    if ( !this.system.spells ) return;
+    if (!this.system.spells) return;
 
-    // Spellcasting DC and modifier
-    const spellcastingAbility = this.system.abilities[this.system.attributes.spellcasting];
-    this.system.attributes.spelldc = spellcastingAbility ? spellcastingAbility.dc : 8 + this.system.attributes.prof;
-    this.system.attributes.spellmod = spellcastingAbility ? spellcastingAbility.mod : 0;
+    // Initialize spellcasting attributes for each jutsu type
+    const jutsuTypes = ['ninjutsu', 'genjutsu', 'taijutsu'];
+    jutsuTypes.forEach(type => {
+      const abilityKey = this.system.attributes.spellcasting[type];
+      const spellcastingAbility = abilityKey ? this.system.abilities[abilityKey] : null;
 
-    // Translate the list of classes into spellcasting progression
+      // Set the spell DC and modifier for each jutsu type
+      this.system.attributes[`${type}dc`] = spellcastingAbility ? spellcastingAbility.dc : 8 + this.system.attributes.prof;
+      this.system.attributes[`${type}mod`] = spellcastingAbility ? spellcastingAbility.mod : 0;
+    });
+
+    // Translate the list of classes into spellcasting progression for each jutsu type
     const progression = { slot: 0, pact: 0 };
     const types = {};
 
-    // Grab all classes with spellcasting
+    // Grab all classes with spellcasting (jutsu) capabilities
     const classes = this.items.filter(cls => {
-      if ( cls.type !== "class" ) return false;
-      const type = cls.spellcasting.type;
-      if ( !type ) return false;
-      types[type] ??= 0;
-      types[type] += 1;
-      return true;
+      if (cls.type !== "class") return false;
+      return jutsuTypes.some(type => {
+        const jutsuProgression = cls.system.spellcasting[type]?.progression;
+        if (jutsuProgression && jutsuProgression !== "none") {
+          types[type] ??= 0;
+          types[type] += 1;
+          return true;
+        }
+        return false;
+      });
     });
 
-    for ( const cls of classes ) this.constructor.computeClassProgression(
-      progression, cls, { actor: this, count: types[cls.spellcasting.type] }
-    );
-
-    if ( this.type === "npc" ) {
-      if ( progression.slot || progression.pact ) this.system.details.spellLevel = progression.slot || progression.pact;
-      else progression.slot = this.system.details.spellLevel ?? 0;
+    for (const cls of classes) {
+      jutsuTypes.forEach(type => {
+        if (cls.system.spellcasting[type]?.progression) {
+          this.constructor.computeClassProgression(
+            progression, cls, { actor: this, count: types[type], type }
+          );
+        }
+      });
     }
 
-    for ( const type of Object.keys(CONFIG.N5EB.spellcastingTypes) ) {
+    if (this.type === "npc") {
+      const highestSlotLevel = Math.max(...jutsuTypes.map(type => progression[type] || 0), 0);
+      if (highestSlotLevel) {
+        this.system.details.spellLevel = highestSlotLevel;
+      } else {
+        progression.slot = this.system.details.spellLevel ?? 0;
+      }
+    }
+
+    for (const type of jutsuTypes) {
       this.constructor.prepareSpellcastingSlots(this.system.spells, type, progression, { actor: this });
     }
   }
@@ -23336,8 +23519,23 @@ async rollNPCChakraPoints({ chatMessage=true }={}) {
     delete d.system.resources; // Don't change your resource pools
     delete d.system.currency; // Don't lose currency
     delete d.system.bonuses; // Don't lose global bonuses
-    if ( keepSpells ) delete d.system.attributes.spellcasting; // Keep spellcasting ability if retaining spells.
 
+    // Handle keeping spellcasting abilities for different jutsu types
+    if (keepSpells) {
+      // Remove each jutsu type's spellcasting ability from the new form to keep the original actor's abilities
+      ['ninjutsu', 'genjutsu', 'taijutsu'].forEach(jutsuType => {
+        delete d.system.attributes[jutsuType]?.ability;
+        delete d.system.attributes[jutsuType]?.dc;
+        delete d.system.attributes[jutsuType]?.mod;
+      });
+    } else {
+      // Otherwise, remove the original actor's jutsu spellcasting abilities
+      ['ninjutsu', 'genjutsu', 'taijutsu'].forEach(jutsuType => {
+        delete o.system.attributes[jutsuType]?.ability;
+        delete o.system.attributes[jutsuType]?.dc;
+        delete o.system.attributes[jutsuType]?.mod;
+      });
+    }
     // Specific additional adjustments
     d.system.details.alignment = o.system.details.alignment; // Don't change alignment
     d.system.attributes.exhaustion = o.system.attributes.exhaustion; // Keep your prior exhaustion level
@@ -26850,8 +27048,16 @@ preLocalize("creatureHighRole");
 N5EB.itemActionTypes = {
   mwak: "N5EB.ActionMWAK",
   rwak: "N5EB.ActionRWAK",
-  msak: "N5EB.ActionMSAK",
-  rsak: "N5EB.ActionRSAK",
+  // msak: "N5EB.ActionMSAK",
+  // rsak: "N5EB.ActionRSAK",
+  
+  mnak: "N5EB.ActionMNAK",  // Melee Ninjutsu Attack
+  rnak: "N5EB.ActionRNAK",  // Ranged Ninjutsu Attack
+  mgak: "N5EB.ActionMGAK",  // Melee Genjutsu Attack
+  rgak: "N5EB.ActionRGAK",  // Ranged Genjutsu Attack
+  mtak: "N5EB.ActionMTAK",  // Melee Taijutsu Attack
+  rtak: "N5EB.ActionRTAK",  // Ranged Taijutsu Attack
+
   abil: "N5EB.ActionAbil",
   save: "N5EB.ActionSave",
   ench: "N5EB.ActionEnch",
@@ -29068,9 +29274,9 @@ preLocalize("cover");
  * @deprecated since v10
  */
 N5EB.trackableAttributes = [
-  "attributes.ac.value", "attributes.init.bonus", "attributes.movement", "attributes.senses", "attributes.spelldc",
-  "attributes.spellLevel", "details.cr", "details.spellLevel", "details.xp.value", "skills.*.passive",
-  "abilities.*.value"
+  "attributes.ac.value", "attributes.init.bonus", "attributes.movement", "attributes.senses", "attributes.ninjutsudc", 
+  "attributes.genjutsudc", "attributes.taijutsudc", "attributes.spellLevel", "details.cr", 
+  "details.spellLevel", "details.xp.value", "skills.*.passive", "abilities.*.value"
 ];
 
 /* -------------------------------------------- */
@@ -32055,10 +32261,22 @@ class ActorSheetFlags extends BaseConfigSheet {
       {name: "system.bonuses.mwak.damage", label: "N5EB.BonusMWDamage"},
       {name: "system.bonuses.rwak.attack", label: "N5EB.BonusRWAttack"},
       {name: "system.bonuses.rwak.damage", label: "N5EB.BonusRWDamage"},
-      {name: "system.bonuses.msak.attack", label: "N5EB.BonusMSAttack"},
-      {name: "system.bonuses.msak.damage", label: "N5EB.BonusMSDamage"},
-      {name: "system.bonuses.rsak.attack", label: "N5EB.BonusRSAttack"},
-      {name: "system.bonuses.rsak.damage", label: "N5EB.BonusRSDamage"},
+      // {name: "system.bonuses.msak.attack", label: "N5EB.BonusMSAttack"},
+      // {name: "system.bonuses.msak.damage", label: "N5EB.BonusMSDamage"},
+      // {name: "system.bonuses.rsak.attack", label: "N5EB.BonusRSAttack"},
+      // {name: "system.bonuses.rsak.damage", label: "N5EB.BonusRSDamage"},
+      {name: "system.bonuses.mnak.attack", label: "N5EB.BonusMNAttack"},
+      {name: "system.bonuses.mnak.damage", label: "N5EB.BonusMNDamage"},
+      {name: "system.bonuses.rnak.attack", label: "N5EB.BonusRNAttack"},
+      {name: "system.bonuses.rnak.damage", label: "N5EB.BonusRNDamage"},
+      {name: "system.bonuses.mgak.attack", label: "N5EB.BonusMGAttack"},
+      {name: "system.bonuses.mgak.damage", label: "N5EB.BonusMGDamage"},
+      {name: "system.bonuses.rgak.attack", label: "N5EB.BonusRGAttack"},
+      {name: "system.bonuses.rgak.damage", label: "N5EB.BonusRGDamage"},
+      {name: "system.bonuses.mtak.attack", label: "N5EB.BonusMTAttack"},
+      {name: "system.bonuses.mtak.damage", label: "N5EB.BonusMTDamage"},
+      {name: "system.bonuses.rtak.attack", label: "N5EB.BonusRTAttack"},
+      {name: "system.bonuses.rtak.damage", label: "N5EB.BonusRTDamage"},
       {name: "system.bonuses.abilities.check", label: "N5EB.BonusAbilityCheck"},
       {name: "system.bonuses.abilities.save", label: "N5EB.BonusAbilitySave"},
       {name: "system.bonuses.abilities.skill", label: "N5EB.BonusAbilitySkill"},
@@ -34803,7 +35021,10 @@ class AttributesFields {
    * @property {number} senses.truesight        Creature's truesight range.
    * @property {string} senses.units            Distance units used to measure senses.
    * @property {string} senses.special          Description of any special senses or restrictions.
-   * @property {string} spellcasting            Primary spellcasting ability.
+   * @property {object} spellcasting            Spellcasting abilities for different jutsu types.
+   * @property {string} spellcasting.ninjutsu   Ninjutsu spellcasting ability.
+   * @property {string} spellcasting.genjutsu   Genjutsu spellcasting ability.
+   * @property {string} spellcasting.taijutsu   Taijutsu spellcasting ability.
    * @property {number} exhaustion              Creature's exhaustion level.
    * @property {object} concentration
    * @property {string} concentration.ability   The ability used for concentration saving throws.
@@ -34822,9 +35043,17 @@ class AttributesFields {
         })
       }, {label: "N5EB.Attunement"}),
       senses: new SensesField(),
-      spellcasting: new foundry.data.fields.StringField({
-        required: true, blank: true, initial: "int", label: "N5EB.SpellAbility"
-      }),
+      spellcasting: new foundry.data.fields.SchemaField({
+        ninjutsu: new foundry.data.fields.StringField({
+          required: true, blank: true, initial: "int", label: "N5EB.NinjutsuAbility"
+        }),
+        genjutsu: new foundry.data.fields.StringField({
+          required: true, blank: true, initial: "wis", label: "N5EB.GenjutsuAbility"
+        }),
+        taijutsu: new foundry.data.fields.StringField({
+          required: true, blank: true, initial: "str", label: "N5EB.TaijutsuAbility"
+        }),
+      }, {label: "N5EB.SpellcastingAbilities"}),
       exhaustion: new foundry.data.fields.NumberField({
         required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.Exhaustion"
       }),
@@ -35280,8 +35509,14 @@ class CreatureTemplate extends CommonTemplate {
       bonuses: new foundry.data.fields.SchemaField({
         mwak: makeAttackBonuses({label: "N5EB.BonusMWAttack"}),
         rwak: makeAttackBonuses({label: "N5EB.BonusRWAttack"}),
-        msak: makeAttackBonuses({label: "N5EB.BonusMSAttack"}),
-        rsak: makeAttackBonuses({label: "N5EB.BonusRSAttack"}),
+        mnak: makeAttackBonuses({label: "N5EB.BonusMNAttack"}),
+        rnak: makeAttackBonuses({label: "N5EB.BonusRNAttack"}),
+        mgak: makeAttackBonuses({label: "N5EB.BonusMGAttack"}),
+        rgak: makeAttackBonuses({label: "N5EB.BonusRGAttack"}),
+        mtak: makeAttackBonuses({label: "N5EB.BonusMTAttack"}),
+        rtak: makeAttackBonuses({label: "N5EB.BonusRTAttack"}),
+        // msak: makeAttackBonuses({label: "N5EB.BonusMSAttack"}),
+        // rsak: makeAttackBonuses({label: "N5EB.BonusRSAttack"}),
         abilities: new foundry.data.fields.SchemaField({
           check: new FormulaField({required: true, label: "N5EB.BonusAbilityCheck"}),
           save: new FormulaField({required: true, label: "N5EB.BonusAbilitySave"}),
@@ -37039,21 +37274,42 @@ class ActorSheet5eCharacter2 extends ActorSheetV2Mixin(ActorSheet5eCharacter) {
     // Senses
     if ( foundry.utils.isEmpty(context.senses) ) delete context.senses;
 
+    // msak: simplifyBonus(this.actor.system.bonuses.msak.attack, context.rollData),
+    // rsak: simplifyBonus(this.actor.system.bonuses.rsak.attack, context.rollData),
+
     // Spellcasting
     context.spellcasting = [];
-    const msak = simplifyBonus(this.actor.system.bonuses.msak.attack, context.rollData);
-    const rsak = simplifyBonus(this.actor.system.bonuses.rsak.attack, context.rollData);
 
+    // Define the attack bonuses for each jutsu type
+    const attackBonuses = {
+      ninjutsu: {
+        melee: simplifyBonus(this.actor.system.bonuses.mnak.attack, context.rollData),
+        ranged: simplifyBonus(this.actor.system.bonuses.rnak.attack, context.rollData)
+      },
+      genjutsu: {
+        melee: simplifyBonus(this.actor.system.bonuses.mgak.attack, context.rollData),
+        ranged: simplifyBonus(this.actor.system.bonuses.rgak.attack, context.rollData)
+      },
+      taijutsu: {
+        melee: simplifyBonus(this.actor.system.bonuses.mtak.attack, context.rollData),
+        ranged: simplifyBonus(this.actor.system.bonuses.rtak.attack, context.rollData)
+      }
+    };
+    
     for (const [type, config] of Object.entries(CONFIG.N5EB.jutsuTypes)) {
-      const abilityKey = this.actor.system.attributes[type]?.ability || config.ability;
+      const abilityKey = this.actor.system.attributes.spellcasting[type] || config.ability;
       if (!abilityKey) continue;
       const ability = this.actor.system.abilities[abilityKey];
       const mod = ability?.mod ?? 0;
+    
+      // Determine the correct attack bonus based on the jutsu type
+      const attackBonus = attackBonuses[type];
+    
       context.spellcasting.push({
         label: game.i18n.localize(config.label),
         ability: { mod, ability: abilityKey },
-        attack: this.actor.system.attributes.prof + mod + (msak === rsak ? msak : 0),
-        primary: this.actor.system.attributes.spellcasting === abilityKey,
+        attack: this.actor.system.attributes.prof + mod + (attackBonus.melee + attackBonus.ranged) / 2,
+        primary: this.actor.system.attributes.spellcasting[type] === abilityKey,
         save: ability?.dc ?? 0,
         type: type
       });
@@ -38022,7 +38278,8 @@ class ActorSheet5eNPC2 extends ActorSheetV2Mixin(ActorSheet5eNPC) {
   }
 
   /* -------------------------------------------- */
-
+    // msak: simplifyBonus(bonuses.msak.attack, context.rollData),
+    // rsak: simplifyBonus(bonuses.rsak.attack, context.rollData),
 /**
  * Prepare spellcasting data for display.
  * @param {object} context  The display context.
@@ -38031,22 +38288,39 @@ class ActorSheet5eNPC2 extends ActorSheetV2Mixin(ActorSheet5eNPC) {
 _prepareSpellcasting(context) {
   const { abilities, attributes, bonuses, details } = this.actor.system;
   context.spellcasting = [];
-  const msak = simplifyBonus(bonuses.msak.attack, context.rollData);
-  const rsak = simplifyBonus(bonuses.rsak.attack, context.rollData);
+
+  // Define the attack bonuses for each jutsu type
+  const attackBonuses = {
+    ninjutsu: {
+      melee: simplifyBonus(bonuses.mnak.attack, context.rollData),
+      ranged: simplifyBonus(bonuses.rnak.attack, context.rollData)
+    },
+    genjutsu: {
+      melee: simplifyBonus(bonuses.mgak.attack, context.rollData),
+      ranged: simplifyBonus(bonuses.rgak.attack, context.rollData)
+    },
+    taijutsu: {
+      melee: simplifyBonus(bonuses.mtak.attack, context.rollData),
+      ranged: simplifyBonus(bonuses.rtak.attack, context.rollData)
+    }
+  };
 
   // Iterate over each jutsu type and add them to the spellcasting context
   for (const [type, config] of Object.entries(CONFIG.N5EB.jutsuTypes)) {
-    const abilityKey = attributes[type]?.ability || config.ability;
+    const abilityKey = attributes.spellcasting[type] || config.ability;
+
     if (!abilityKey) continue;
 
     const ability = abilities[abilityKey];
     const mod = ability?.mod ?? 0;
-    const attackBonus = msak === rsak ? msak : 0;
-    
+
+    // Determine the correct attack bonus based on the jutsu type
+    const attackBonus = attackBonuses[type];
+
     context.spellcasting.push({
       label: game.i18n.localize(config.label),
       ability: { mod, ability: abilityKey, label: CONFIG.N5EB.abilities[ability]?.abbreviation },
-      attack: attributes.prof + mod + attackBonus,
+      attack: attributes.prof + mod + (attackBonus.melee + attackBonus.ranged) / 2,
       primary: attributes.spellcasting === abilityKey,
       save: ability?.dc ?? 0,
       type: type,
@@ -47563,9 +47837,10 @@ class NPCData extends CreatureTemplate {
     const rankMod = CONFIG.N5EB.rankMod[this.details.rank];
     const classMod = CONFIG.N5EB.classMod[this.details.classNPC];
     const roleMod = CONFIG.N5EB.roleMod[this.details.role]
-    const clanMod = CONFIG.N5EB.clanMod[this.details.race.name.toLowerCase()]
-    console.log(this.details.race.name.toLowerCase(), clanMod)
-    // Initialize accumulative multipliers and bonuses for highRoles
+    let clanMod = {};
+    if (this.details.race) {
+        clanMod = CONFIG.N5EB.clanMod[this.details.race.name.toLowerCase()]
+    }
     let additionalHPMods = 1 + roleMod.hpBonus + classMod.hpBonus;
     let additionalCPMods = 1 + roleMod.cpBonus + classMod.cpBonus;
 
@@ -48514,10 +48789,24 @@ class SubclassData extends ItemDataModel.mixin(ItemDescriptionTemplate) {
       }),
       advancement: new foundry.data.fields.ArrayField(new AdvancementField(), {label: "N5EB.AdvancementTitle"}),
       spellcasting: new foundry.data.fields.SchemaField({
-        progression: new foundry.data.fields.StringField({
-          required: true, initial: "none", blank: false, label: "N5EB.SpellProgression"
-        }),
-        ability: new foundry.data.fields.StringField({required: true, label: "N5EB.SpellAbility"})
+        ninjutsu: new foundry.data.fields.SchemaField({
+          progression: new foundry.data.fields.StringField({
+            required: true, initial: "none", blank: false, label: "N5EB.SpellProgression"
+          }),
+          ability: new foundry.data.fields.StringField({required: true, label: "N5EB.SpellAbility"})
+        }, {label: "N5EB.Ninjutsu"}),
+        genjutsu: new foundry.data.fields.SchemaField({
+          progression: new foundry.data.fields.StringField({
+            required: true, initial: "none", blank: false, label: "N5EB.SpellProgression"
+          }),
+          ability: new foundry.data.fields.StringField({required: true, label: "N5EB.SpellAbility"})
+        }, {label: "N5EB.Genjutsu"}),
+        taijutsu: new foundry.data.fields.SchemaField({
+          progression: new foundry.data.fields.StringField({
+            required: true, initial: "none", blank: false, label: "N5EB.SpellProgression"
+          }),
+          ability: new foundry.data.fields.StringField({required: true, label: "N5EB.SpellAbility"})
+        }, {label: "N5EB.Taijutsu"})
       }, {label: "N5EB.Spellcasting"})
     });
   }
@@ -51351,7 +51640,9 @@ function _configureTrackableAttributes() {
       ...common.value,
       ...Object.keys(N5EB.skills).map(skill => `skills.${skill}.passive`),
       ...Object.keys(N5EB.senses).map(sense => `attributes.senses.${sense}`),
-      "attributes.spelldc"
+      "attributes.ninjutsudc",
+      "attributes.genjutsudc",
+      "attributes.taijutsudc",
     ]
   };
 
