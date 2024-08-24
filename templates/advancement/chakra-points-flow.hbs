@@ -13,11 +13,15 @@
 
     <div class="rolls">
         <label class="averageLabel">
-            <span>{{localize "N5EB.AdvancementChakraPointsAverage"}}</span>
+            <span>{{localize "N5EB.AdvancementHitPointsAverage"}}</span>
             <input class="averageCheckbox" type="checkbox" name="useAverage" {{checked data.useAverage}}>
         </label>
-        <input class="rollResult" type="number" name="value" value="{{data.value}}" {{disabled data.useAverage}}>
-        <button class="rollButton" type="button" name="roll" {{disabled data.useAverage}}>
+        <label class="maxLabel">
+            <span>{{localize "N5EB.AdvancementHitPointsMax"}}</span>
+            <input class="maxCheckbox" type="checkbox" name="useMax" {{checked data.useMax}}>
+        </label>
+        <input class="rollResult" type="number" name="value" value="{{data.value}}" {{disabled (or data.useAverage data.useMax)}}>
+        <button class="rollButton" type="button" name="roll" {{disabled (or data.useAverage data.useMax)}}>
             <i class="fas fa-dice-d20"></i> {{localize "N5EB.AdvancementChakraPointsRollButton" die=chakraDie}}
         </button>
     </div>

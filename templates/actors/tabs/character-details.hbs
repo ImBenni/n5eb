@@ -56,16 +56,15 @@
                 <span class="roboto-upper">{{ localize "N5EB.Skills" }}</span>
             </h3>
             <ul>
-            {{#each (sortSkillsByAbility config.skills @root.config.abilities) as |skillKey|}}
-                {{#with (lookup @root.skills skillKey)}}
-                    {{> "skill-prof" path=(concat "system.skills." skillKey) config="N5EB.SkillConfigure"
-                        type="skill" hasPassive=true roll="skill-name" }}
-                {{/with}}
-            {{/each}}
-
+                {{#each (sortSkillsByAbility config.skills @root.config.abilities)}}
+                    {{#with (lookup @root.skills @key)}}
+                        {{> "skill-prof" path=(concat "system.skills." @key) config="N5EB.SkillConfigure"
+                            type="skill" hasPassive=true roll="skill-name" }}
+                    {{/with}}
+                {{/each}}
             </ul>
-
         </filigree-box>
+
 
         {{!-- Tools --}}
         <filigree-box class="tools">

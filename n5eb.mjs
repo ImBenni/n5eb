@@ -2553,11 +2553,14 @@ class HitPointsFlow extends AdvancementFlow {
     const source = this.retainedData ?? this.advancement.value;
     const value = source[this.level];
 
-    // If value is empty, `useAverage` should default to the value selected at the previous level
+    // Determine if we should use average or max
     let useAverage = value === "avg";
+    let useMax = value === "max";
+    
     if ( !value ) {
       const lastValue = source[this.level - 1];
       if ( lastValue === "avg" ) useAverage = true;
+      if ( lastValue === "max" ) useMax = true;
     }
 
     return foundry.utils.mergeObject(super.getData(), {
@@ -2566,7 +2569,8 @@ class HitPointsFlow extends AdvancementFlow {
       dieValue: this.advancement.hitDieValue,
       data: {
         value: Number.isInteger(value) ? value : "",
-        useAverage
+        useAverage,
+        useMax
       }
     });
   }
@@ -2575,14 +2579,32 @@ class HitPointsFlow extends AdvancementFlow {
 
   /** @inheritdoc */
   activateListeners(html) {
-    this.form.querySelector(".averageCheckbox")?.addEventListener("change", event => {
-      this.form.querySelector(".rollResult").disabled = event.target.checked;
-      this.form.querySelector(".rollButton").disabled = event.target.checked;
+    const averageCheckbox = this.form.querySelector(".averageCheckbox");
+    const maxCheckbox = this.form.querySelector(".maxCheckbox");
+    const rollResult = this.form.querySelector(".rollResult");
+    const rollButton = this.form.querySelector(".rollButton");
+
+    averageCheckbox?.addEventListener("change", event => {
+      if (event.target.checked) {
+        maxCheckbox.disabled = true;
+      } else {
+        maxCheckbox.disabled = false;
+      }
       this._updateRollResult();
     });
-    this.form.querySelector(".rollButton")?.addEventListener("click", async () => {
+
+    maxCheckbox?.addEventListener("change", event => {
+      if (event.target.checked) {
+        averageCheckbox.disabled = true;
+      } else {
+        averageCheckbox.disabled = false;
+      }
+      this._updateRollResult();
+    });
+
+    rollButton?.addEventListener("click", async () => {
       const roll = await this.advancement.actor.rollClassHitPoints(this.advancement.item);
-      this.form.querySelector(".rollResult").value = roll.total;
+      rollResult.value = roll.total;
     });
     
     this._updateRollResult();
@@ -2591,12 +2613,21 @@ class HitPointsFlow extends AdvancementFlow {
   /* -------------------------------------------- */
 
   /**
-   * Update the roll result display when the average result is taken.
+   * Update the roll result display when the average or max result is taken.
    * @protected
    */
   _updateRollResult() {
-    if ( !this.form.elements.useAverage?.checked ) return;
-    this.form.elements.value.value = (this.advancement.hitDieValue / 2) + 1;
+    const useAverage = this.form.elements.useAverage?.checked;
+    const useMax = this.form.elements.useMax?.checked;
+
+    this.form.elements.value.disabled = useAverage || useMax;
+    this.form.elements.roll.disabled = useAverage || useMax;
+
+    if (useAverage) {
+      this.form.elements.value.value = (this.advancement.hitDieValue / 2) + 1;
+    } else if (useMax) {
+      this.form.elements.value.value = this.advancement.hitDieValue;
+    }
   }
 
   /* -------------------------------------------- */
@@ -2604,11 +2635,11 @@ class HitPointsFlow extends AdvancementFlow {
   /** @inheritdoc */
   _updateObject(event, formData) {
     let value;
-    if ( formData.useMax ) value = "max";
-    else if ( formData.useAverage ) value = "avg";
-    else if ( Number.isInteger(formData.value) ) value = parseInt(formData.value);
+    if (formData.useAverage) value = "avg";
+    else if (formData.useMax) value = "max";
+    else if (Number.isInteger(formData.value)) value = parseInt(formData.value);
 
-    if ( value !== undefined ) return this.advancement.apply(this.level, { [this.level]: value });
+    if (value !== undefined) return this.advancement.apply(this.level, { [this.level]: value });
 
     this.form.querySelector(".rollResult")?.classList.add("error");
     const errorType = formData.value ? "Invalid" : "Empty";
@@ -2636,11 +2667,14 @@ class ChakraPointsFlow extends AdvancementFlow {
     const source = this.retainedData ?? this.advancement.value;
     const value = source[this.level];
 
-    // If value is empty, `useAverage` should default to the value selected at the previous level
+    // Determine if we should use average or max
     let useAverage = value === "avg";
+    let useMax = value === "max";
+
     if ( !value ) {
       const lastValue = source[this.level - 1];
       if ( lastValue === "avg" ) useAverage = true;
+      if ( lastValue === "max" ) useMax = true;
     }
 
     return foundry.utils.mergeObject(super.getData(), {
@@ -2649,7 +2683,8 @@ class ChakraPointsFlow extends AdvancementFlow {
       dieValue: this.advancement.chakraDieValue,
       data: {
         value: Number.isInteger(value) ? value : "",
-        useAverage
+        useAverage,
+        useMax
       }
     });
   }
@@ -2658,14 +2693,30 @@ class ChakraPointsFlow extends AdvancementFlow {
 
   /** @inheritdoc */
   activateListeners(html) {
-    this.form.querySelector(".averageCheckbox")?.addEventListener("change", event => {
-      this.form.querySelector(".rollResult").disabled = event.target.checked;
-      this.form.querySelector(".rollButton").disabled = event.target.checked;
+    const averageCheckbox = this.form.querySelector(".averageCheckbox");
+    const maxCheckbox = this.form.querySelector(".maxCheckbox");
+    const rollResult = this.form.querySelector(".rollResult");
+    const rollButton = this.form.querySelector(".rollButton");
+
+    averageCheckbox?.addEventListener("change", event => {
+      if (event.target.checked) {
+        maxCheckbox.disabled = true;
+      } else {
+        maxCheckbox.disabled = false;
+      }
       this._updateRollResult();
     });
-    this.form.querySelector(".rollButton")?.addEventListener("click", async () => {
+    maxCheckbox?.addEventListener("change", event => {
+      if (event.target.checked) {
+        averageCheckbox.disabled = true;
+      } else {
+        averageCheckbox.disabled = false;
+      }
+      this._updateRollResult();
+    });
+    rollButton?.addEventListener("click", async () => {
       const roll = await this.advancement.actor.rollClassChakraPoints(this.advancement.item);
-      this.form.querySelector(".rollResult").value = roll.total;
+      rollResult.value = roll.total;
     });
     this._updateRollResult();
   }
@@ -2677,8 +2728,17 @@ class ChakraPointsFlow extends AdvancementFlow {
    * @protected
    */
   _updateRollResult() {
-    if ( !this.form.elements.useAverage?.checked ) return;
-    this.form.elements.value.value = (this.advancement.chakraDieValue / 2) + 1;
+    const useAverage = this.form.elements.useAverage?.checked;
+    const useMax = this.form.elements.useMax?.checked;
+
+    this.form.elements.value.disabled = useAverage || useMax;
+    this.form.elements.roll.disabled = useAverage || useMax;
+
+    if (useAverage) {
+      this.form.elements.value.value = (this.advancement.chakraDieValue / 2) + 1;
+    } else if (useMax) {
+      this.form.elements.value.value = this.advancement.chakraDieValue;
+    }
   }
 
   /* -------------------------------------------- */
@@ -2686,8 +2746,8 @@ class ChakraPointsFlow extends AdvancementFlow {
   /** @inheritdoc */
   _updateObject(event, formData) {
     let value;
-    if ( formData.useMax ) value = "max";
-    else if ( formData.useAverage ) value = "avg";
+    if (formData.useAverage) value = "avg";
+    else if (formData.useMax) value = "max";
     else if ( Number.isInteger(formData.value) ) value = parseInt(formData.value);
 
     if ( value !== undefined ) return this.advancement.apply(this.level, { [this.level]: value });
@@ -2696,7 +2756,6 @@ class ChakraPointsFlow extends AdvancementFlow {
     const errorType = formData.value ? "Invalid" : "Empty";
     throw new Advancement.ERROR(game.i18n.localize(`N5EB.AdvancementHitPoints${errorType}Error`));
   }
-
 }
 
 
@@ -3194,14 +3253,19 @@ function concealSection(conceal, options) {
  * Sort skills by their associated ability.
  * @param {object} skills - The skills object from the configuration.
  * @param {object} abilities - The abilities object from the configuration.
- * @returns {string[]} - An array of skill keys sorted by associated ability.
+ * @returns {object} - An object of skill keys sorted by associated ability.
  */
 function sortSkillsByAbility(skills, abilities) {
-  const sortedSkills = [];
+  const sortedSkills = {};
 
   // Group skills by their associated ability
   const groupedSkills = Object.keys(skills).reduce((acc, skillKey) => {
-    const abilityKey = skills[skillKey].ability;
+    const skill = skills[skillKey];
+    if (!skill) return acc;
+
+    const abilityKey = skill.ability;
+    if (!abilityKey) return acc;
+
     if (!acc[abilityKey]) acc[abilityKey] = [];
     acc[abilityKey].push(skillKey);
     return acc;
@@ -3211,13 +3275,25 @@ function sortSkillsByAbility(skills, abilities) {
   for (const abilityKey of Object.keys(abilities)) {
     if (groupedSkills[abilityKey]) {
       // Sort skills alphabetically within their ability group (optional)
-      groupedSkills[abilityKey].sort((a, b) => skills[a].label.localeCompare(skills[b].label));
-      sortedSkills.push(...groupedSkills[abilityKey]);
+      groupedSkills[abilityKey].sort((a, b) => {
+        const skillA = skills[a];
+        const skillB = skills[b];
+
+        if (!skillA || !skillB) return 0;
+
+        return skillA.label.localeCompare(skillB.label);
+      });
+      // Add sorted skills to the result object
+      groupedSkills[abilityKey].forEach(skillKey => {
+        sortedSkills[skillKey] = skills[skillKey];
+      });
     }
   }
 
   return sortedSkills;
 }
+
+
 
 /* -------------------------------------------- */
 
@@ -14764,6 +14840,7 @@ class Item5e extends SystemDocumentMixin(Item) {
     if ( !this.hasDamage || !this.isOwned ) return [];
     const rollData = this.getRollData();
     const damageLabels = { ...CONFIG.N5EB.damageTypes, ...CONFIG.N5EB.healingTypes };
+   
     const derivedDamage = this.system.damage?.parts?.map((damagePart, index) => {
       let formula;
       try {
@@ -14779,6 +14856,7 @@ class Item5e extends SystemDocumentMixin(Item) {
       const damageType = damagePart[1];
       return { formula, damageType, label: `${formula} ${damageLabels[damageType]?.label ?? ""}` };
     });
+    
     return this.labels.derivedDamage = derivedDamage;
   }
 
@@ -14790,22 +14868,29 @@ class Item5e extends SystemDocumentMixin(Item) {
    */
   getSaveDC() {
     if ( !this.hasSave ) return null;
+    console.log(this.system)
     const save = this.system.save;
-
+    
     // Actor spell-DC based scaling
     if ( save.scaling === "spell" ) {
       save.dc = this.isOwned ? this.actor.system.abilities?.[this.system.abilityMod]?.dc
         ?? this.actor.system.attributes.spelldc : null;
     }
 
+    // Scaling based on jutsu type (nin, gen, tai)
+    else if (["ninjutsu", "genjutsu", "taijutsu"].includes(save.scaling)) {
+      save.dc = this.isOwned ? this.actor.system.attributes?.[`${save.scaling}dc`] : null;
+    }
+
     // Ability-score based scaling
-    else if ( save.scaling !== "flat" ) {
+    else if (save.scaling !== "flat") {
       save.dc = this.isOwned ? this.actor.system.abilities[save.scaling].dc : null;
     }
 
     // Update labels
     const abl = CONFIG.N5EB.abilities[save.ability]?.label ?? "";
     this.labels.save = game.i18n.format("N5EB.SaveDC", {dc: save.dc || "", ability: abl});
+    
     return save.dc;
   }
 
@@ -20770,6 +20855,10 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       if ( Number.isNumeric(ac.value) ) ac.flat = Number(ac.value);
       cfg = CONFIG.N5EB.armorClasses.flat;
     }
+    const level = this.system.details.level || 0;
+    const dexMod = this.system.abilities.dex?.mod || 0;
+    const roleMod = this.system.details.role ? (CONFIG.N5EB.roleMod[this.system.details.role]?.acBonus || 0) : 0;
+    const classMod = this.system.details.classNPC ? (CONFIG.N5EB.classMod[this.system.details.classNPC]?.acBonus || 0) : 0;
 
     // Identify Equipped Items
     const armorTypes = new Set(Object.keys(CONFIG.N5EB.armorTypes));
@@ -20783,6 +20872,50 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     // Determine base AC
     switch ( ac.calc ) {
+      case "npcLightArmor":
+          ac.base = (
+              (level >= 17 ? 15 :
+              level >= 14 ? 14 :
+              level >= 11 ? 13 :
+              level >= 7  ? 12 : 11) 
+              + dexMod + roleMod + classMod
+          );
+          ac.dex = this.system.abilities.dex?.mod ?? 0;
+          break;
+
+      case "npcMediumArmor":
+          ac.base = (
+              (level >= 17 ? 18 :
+              level >= 14 ? 17 :
+              level >= 11 ? 16 :
+              level >= 7  ? 15 : 14) 
+              + Math.floor(dexMod / 2) + roleMod + classMod
+          );
+          ac.dex = this.system.abilities.dex?.mod ?? 0;
+          break;
+
+      case "npcHeavyArmor":
+          ac.base = (
+              (level >= 17 ? 20 :
+              level >= 14 ? 19 :
+              level >= 11 ? 18 :
+              level >= 7  ? 17 : 16) 
+              + roleMod + classMod
+          );
+          ac.dex = this.system.abilities.dex?.mod ?? 0;
+          break;
+
+      case "npcChakraSkinInt":
+          ac.base = (10 + this.system.abilities.int?.mod + roleMod + classMod);
+          break;
+
+      case "npcChakraSkinWis":
+          ac.base = (10 + this.system.abilities.wis?.mod + roleMod + classMod);
+          break;
+
+      case "npcChakraSkinCha":
+          ac.base = (10 + this.system.abilities.cha?.mod + roleMod + classMod);
+          break;
 
       // Flat AC (no additional bonuses)
       case "flat":
@@ -20822,7 +20955,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
           });
           const replaced = Roll.replaceFormulaData(CONFIG.N5EB.armorClasses.default.formula, rollData);
           ac.base = game.release.generation < 12 ? Roll.safeEval(replaced) : new Roll(replaced).evaluateSync().total;
-        }
+        } 
         break;
     }
 
@@ -21607,12 +21740,19 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    * @returns {Promise<D20Roll>}  A Promise which resolves to the created Roll instance
    */
   async rollSkill(skillId, options={}) {
+    console.log("Rolling skill:", skillId);  // Log the skillId being rolled
     const skl = this.system.skills[skillId];
+    console.log("Skill data:", skl);  // Log the skill data retrieved
+    if (!skl) {
+        console.warn(`Skill ${skillId} is not defined for actor ${this.name}.`);
+        return;
+    }
+  
     const abl = this.system.abilities[options.ability ?? skl.ability];
     const globalBonuses = this.system.bonuses?.abilities ?? {};
     const parts = ["@mod", "@abilityCheckBonus"];
     const data = this.getRollData();
-
+    console.log(abl?.mod)
     // Add ability modifier
     data.mod = abl?.mod ?? 0;
     data.defaultAbility = options.ability ?? skl.ability;
@@ -23318,7 +23458,10 @@ async rollNPCChakraPoints({ chatMessage=true }={}) {
     const rollData = this.getRollData({ deterministic: true });
     const ac = rollData.attributes.ac;
     const cfg = CONFIG.N5EB.armorClasses[ac.calc];
+    const level = this.system.details.level
     const attribution = [];
+    const roleMod = this.system.details.role ? (CONFIG.N5EB.roleMod[this.system.details.role]?.acBonus || 0) : 0;
+    const classMod = this.system.details.classNPC ? (CONFIG.N5EB.classMod[this.system.details.classNPC]?.acBonus || 0) : 0;
 
     if ( ac.calc === "flat" ) {
       attribution.push({
@@ -23338,6 +23481,140 @@ async rollNPCChakraPoints({ chatMessage=true }={}) {
           label: game.i18n.localize("N5EB.ArmorClassNatural"),
           mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
           value: ac.flat
+        });
+        break;
+
+      // Custom NPC armor classes
+      case "npcLightArmor":
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCLight"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: (level >= 17 ? 15 : level >= 14 ? 14 : level >= 11 ? 13 : level >= 7  ? 12 : 11)
+        });
+        attribution.push({
+          label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+          value: classMod
+        });
+        attribution.push({
+          label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+          value: roleMod
+        });
+        attribution.push({
+          label: game.i18n.localize("N5EB.AbilityDex"),
+          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+          value: rollData.abilities.dex.mod
+        });
+        break;
+
+      case "npcMediumArmor":
+        attribution.push({
+          label: game.i18n.localize("N5EB.ArmorClassNPCMedium"),
+          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+          value: (level >= 17 ? 18 : level >= 14 ? 17 : level >= 11 ? 16 : level >= 7  ? 15 : 14)
+        });
+        attribution.push({
+          label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+          value: classMod
+        });
+        attribution.push({
+          label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+          value: roleMod
+        });
+        attribution.push({
+          label: game.i18n.localize("N5EB.AbilityDex"),
+          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+          value: Math.floor(rollData.abilities.dex.mod / 2)
+        });
+        break;
+
+      case "npcHeavyArmor":
+        attribution.push({
+          label: game.i18n.localize("N5EB.ArmorClassNPCHeavy"),
+          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+          value: (level >= 17 ? 20 : level >= 14 ? 19 : level >= 11 ? 18 : level >= 7  ? 17 : 16)
+        });
+        attribution.push({
+          label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+          value: classMod
+        });
+        attribution.push({
+          label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+          value: roleMod
+        });
+        break;
+
+      case "npcChakraSkinInt":
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassChakraSkinInt"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: 10
+        });
+        attribution.push({
+            label: game.i18n.localize("N5EB.AbilityInt"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: rollData.abilities.int.mod
+        });
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: classMod
+        });
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: roleMod
+        });
+        break;
+
+      case "npcChakraSkinWis":
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassChakraSkinWis"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: 10
+        });
+        attribution.push({
+            label: game.i18n.localize("N5EB.AbilityWis"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: rollData.abilities.wis.mod
+        });
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: classMod
+        });
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: roleMod
+        });
+        break;
+
+      case "npcChakraSkinCha":
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassChakraSkinCha"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: 10
+        });
+        attribution.push({
+            label: game.i18n.localize("N5EB.AbilityCha"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: rollData.abilities.cha.mod
+        });
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: classMod
+        });
+        attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: roleMod
         });
         break;
 
@@ -26488,7 +26765,8 @@ N5EB.affinityProficiencies = {
   water: "N5EB.AffinityWater",
   wind: "N5EB.AffinityWind",
   earth: "N5EB.AffinityEarth",
-  lightning: "N5EB.AffinityLightning"
+  lightning: "N5EB.AffinityLightning",
+  medical: "N5EB.AffinityMedical"
 };
 preLocalize("affinityProficiencies");
 
@@ -27016,7 +27294,6 @@ N5EB.creatureRoles = {
   strikergen: "N5EB.CreatureRole.StrikerGen",
   strikertai: "N5EB.CreatureRole.StrikerTai",
   supporter: "N5EB.CreatureRole.Supporter",
-  iconic: "N5EB.CreatureRole.Iconic",
 };
 preLocalize("creatureRoles");
 
@@ -27311,21 +27588,23 @@ N5EB.armorClasses = {
     label: "N5EB.ArmorClassEquipment",
     formula: "@attributes.ac.armor + @attributes.ac.dex"
   },
-  mage: {
-    label: "N5EB.ArmorClassMage",
-    formula: "13 + @abilities.dex.mod"
+  npcLightArmor: {
+    label: "N5EB.ArmorClassNPCLight",
   },
-  draconic: {
-    label: "N5EB.ArmorClassDraconic",
-    formula: "13 + @abilities.dex.mod"
+  npcMediumArmor: {
+    label: "N5EB.ArmorClassNPCMedium",
   },
-  unarmoredMonk: {
-    label: "N5EB.ArmorClassUnarmoredMonk",
-    formula: "10 + @abilities.dex.mod + @abilities.wis.mod"
+  npcHeavyArmor: {
+    label: "N5EB.ArmorClassNPCHeavy",
   },
-  unarmoredBarb: {
-    label: "N5EB.ArmorClassUnarmoredBarbarian",
-    formula: "10 + @abilities.dex.mod + @abilities.con.mod"
+  npcChakraSkinInt: {
+    label: "N5EB.ArmorClassChakraSkinInt",
+  },
+  npcChakraSkinWis: {
+    label: "N5EB.ArmorClassChakraSkinWis",
+  },
+  npcChakraSkinCha: {
+    label: "N5EB.ArmorClassChakraSkinCha",
   },
   custom: {
     label: "N5EB.ArmorClassCustom"
@@ -27484,21 +27763,24 @@ N5EB.featureTypes = {
     label: "N5EB.Feature.Class.Label",
     subtypes: {
       mirage: "N5EB.Feature.Class.MalleableMirage",
-      artificerInfusion: "N5EB.Feature.Class.ArtificerInfusion",
-      channelDivinity: "N5EB.Feature.Class.ChannelDivinity",
-      defensiveTactic: "N5EB.Feature.Class.DefensiveTactic",
-      eldritchInvocation: "N5EB.Feature.Class.EldritchInvocation",
-      elementalDiscipline: "N5EB.Feature.Class.ElementalDiscipline",
-      fightingStyle: "N5EB.Feature.Class.FightingStyle",
-      huntersPrey: "N5EB.Feature.Class.HuntersPrey",
+      hunterPattern: "N5EB.Feature.Class.HunterPattern",
+      hunterExploit: "N5EB.Feature.Class.HunterExploit",
       plan: "N5EB.Feature.Class.Plan",
-      maneuver: "N5EB.Feature.Class.Maneuver",
-      metamagic: "N5EB.Feature.Class.Metamagic",
-      multiattack: "N5EB.Feature.Class.Multiattack",
-      pact: "N5EB.Feature.Class.PactBoon",
-      psionicPower: "N5EB.Feature.Class.PsionicPower",
-      rune: "N5EB.Feature.Class.Rune",
-      superiorHuntersDefense: "N5EB.Feature.Class.SuperiorHuntersDefense"
+      
+      // artificerInfusion: "N5EB.Feature.Class.ArtificerInfusion",
+      // channelDivinity: "N5EB.Feature.Class.ChannelDivinity",
+      // defensiveTactic: "N5EB.Feature.Class.DefensiveTactic",
+      // eldritchInvocation: "N5EB.Feature.Class.EldritchInvocation",
+      // elementalDiscipline: "N5EB.Feature.Class.ElementalDiscipline",
+      // fightingStyle: "N5EB.Feature.Class.FightingStyle",
+      // huntersPrey: "N5EB.Feature.Class.HuntersPrey",
+      // maneuver: "N5EB.Feature.Class.Maneuver",
+      // metamagic: "N5EB.Feature.Class.Metamagic",
+      // multiattack: "N5EB.Feature.Class.Multiattack",
+      // pact: "N5EB.Feature.Class.PactBoon",
+      // psionicPower: "N5EB.Feature.Class.PsionicPower",
+      // rune: "N5EB.Feature.Class.Rune",
+      // superiorHuntersDefense: "N5EB.Feature.Class.SuperiorHuntersDefense"
     }
   },
   subclass: {
@@ -28541,6 +28823,10 @@ N5EB.clanMod = {
   },
   senju: {
     hpBonus: 0.5,
+  },
+  otsutsuki: {
+    hpBonus: 2,
+    cpBonus: 2,
   },
 };
 
@@ -29643,6 +29929,7 @@ N5EB.languages = {
     }
   },
   bug: "N5EB.LanguagesBug",
+  dog: "N5EB.LanguagesDog",
 };
 preLocalize("languages", { key: "label" });
 preLocalize("languages.standard.children", { key: "label", sort: true });
@@ -31535,26 +31822,35 @@ class ActorArmorConfig extends BaseConfigSheet {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  async getData() {
-    const ac = this.clone.system.attributes.ac;
-    const isFlat = ["flat", "natural"].includes(ac.calc);
+async getData() {
+  const ac = this.clone.system.attributes.ac;
+  const isFlat = ["flat", "natural"].includes(ac.calc);
 
-    // Get configuration data for the calculation mode, reset to flat if configuration is unavailable
-    let cfg = CONFIG.N5EB.armorClasses[ac.calc];
-    if ( !cfg ) {
-      ac.calc = "flat";
-      cfg = CONFIG.N5EB.armorClasses.flat;
-      this.clone.updateSource({ "system.attributes.ac.calc": "flat" });
+  // Filter armor classes based on actor type
+  const armorClasses = Object.entries(CONFIG.N5EB.armorClasses).reduce((acc, [key, value]) => {
+    if (this.clone.type === "npc" || !key.startsWith("npc")) {
+      acc[key] = value;
     }
+    return acc;
+  }, {});
 
-    return {
-      ac, isFlat,
-      calculations: CONFIG.N5EB.armorClasses,
-      valueDisabled: !isFlat,
-      formula: ac.calc === "custom" ? ac.formula : cfg.formula,
-      formulaDisabled: ac.calc !== "custom"
-    };
+  // Get configuration data for the calculation mode, reset to flat if configuration is unavailable
+  let cfg = armorClasses[ac.calc];
+  if (!cfg) {
+    ac.calc = "flat";
+    cfg = armorClasses.flat;
+    this.clone.updateSource({ "system.attributes.ac.calc": "flat" });
   }
+
+  return {
+    ac, isFlat,
+    calculations: armorClasses,
+    valueDisabled: !isFlat,
+    formula: ac.calc === "custom" ? ac.formula : cfg.formula,
+    formulaDisabled: ac.calc !== "custom"
+  };
+}
+
 
   /* -------------------------------------------- */
 
@@ -32298,6 +32594,7 @@ class ActorSheetFlags extends BaseConfigSheet {
 
     // Unset any flags which are "false"
     const flags = updateData.flags.n5eb;
+    updateData.flags.dnd5e = updateData.flags.n5eb;
     for ( let [k, v] of Object.entries(flags) ) {
       if ( [undefined, null, "", false, 0].includes(v) ) {
         delete flags[k];
@@ -34117,15 +34414,23 @@ class ActorSheet5e extends ActorSheetMixin(ActorSheet) {
    */
   _onRollSkillCheck(event) {
     event.preventDefault();
-    const skill = event.currentTarget.closest("[data-key]").dataset.key;
-    return this.actor.rollSkill(skill, {event: event});
-  }
+    const skillElement = event.currentTarget.closest("[data-key]");
+    if (!skillElement) {
+        console.error("No skill key found in the clicked element.");
+        return;
+    }
+    const skill = skillElement.dataset.key;
+    console.log("Rolling skill with key:", skill);
+    return this.actor.rollSkill(skill, { event: event });
+  } 
+
 
   /* -------------------------------------------- */
 
   _onRollToolCheck(event) {
     event.preventDefault();
     const tool = event.currentTarget.closest("[data-key]").dataset.key;
+    console.log(tool, {event})
     return this.actor.rollToolCheck(tool, {event});
   }
 
@@ -37370,7 +37675,10 @@ class ActorSheet5eCharacter2 extends ActorSheetV2Mixin(ActorSheet5eCharacter) {
     });
 
     if (this.actor.system.details.race instanceof n5eb.documents.Item5e) {
-      features.push({ label: "N5EB.FeaturesRace", items: [], dataset: { type: "race" } });
+      features.push({ 
+        label: game.i18n.format("N5EB.FeaturesRace", { race: this.actor.system.details.race.name }), 
+        items: [], 
+        dataset: { type: "race" } });
     }
 
     if (this.actor.system.details.background instanceof n5eb.documents.Item5e) {
@@ -43206,7 +43514,6 @@ class ItemSheet5e extends ItemSheet {
 
     // Game system configuration
     context.config = CONFIG.N5EB;
-
     // Item rendering data
     foundry.utils.mergeObject(context, {
       source: source.system,
@@ -43227,6 +43534,7 @@ class ItemSheet5e extends ItemSheet {
       // Action Details
       isHealing: item.system.actionType === "heal",
       isFlatDC: item.system.save?.scaling === "flat",
+      isSpell: item.type === "spell",
       isLine: ["line", "wall"].includes(item.system.target?.type),
       isFormulaRecharge: !!CONFIG.N5EB.limitedUsePeriods[item.system.uses?.per]?.formula,
       isCostlessAction: item.system.activation?.type in CONFIG.N5EB.staticAbilityActivationTypes,
@@ -47838,11 +48146,13 @@ class NPCData extends CreatureTemplate {
     const classMod = CONFIG.N5EB.classMod[this.details.classNPC];
     const roleMod = CONFIG.N5EB.roleMod[this.details.role]
     let clanMod = {};
-    if (this.details.race) {
-        clanMod = CONFIG.N5EB.clanMod[this.details.race.name.toLowerCase()]
+    if (this.details.race?.name) {
+        clanMod = CONFIG.N5EB.clanMod[this.details.race.name.toLowerCase()] || {};
     }
-    let additionalHPMods = 1 + roleMod.hpBonus + classMod.hpBonus;
-    let additionalCPMods = 1 + roleMod.cpBonus + classMod.cpBonus;
+
+    
+    let additionalHPMods = 1 + (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0);
+    let additionalCPMods = 1 + (roleMod.cpBonus || 0) + (classMod.cpBonus || 0) + (clanMod.cpBonus || 0);
 
     // Combine highRole modifiers if applicable
     if (this.details.highRole instanceof Set) {
@@ -47859,17 +48169,20 @@ class NPCData extends CreatureTemplate {
     const conMod = this.abilities.con?.mod ?? 0;
     const level = this.details.level || 1;
 
-    const numPlayers = 3; // Default to 3 if unable to determine
-    const hpMultiplier = this.details.classNPC === "solo" ? numPlayers + 1 : classMod.hpMultiplier;
-    const cpMultiplier = this.details.classNPC === "solo" ? numPlayers : classMod.cpMultiplier;
+    // If the class is 'minion', apply special HP calculation
+    if (this.details.classNPC === "minion") {
+      this.attributes.hp.max = level + 10;
+    } else {
+      const numPlayers = 3; // Default to 3 if unable to determine
+      const hpMultiplier = this.details.classNPC === "solo" ? numPlayers + 1 : classMod.hpMultiplier;
+      const cpMultiplier = this.details.classNPC === "solo" ? numPlayers : classMod.cpMultiplier;
 
-    // Calculate Hit and Chakra Points
-    const baseHp = 10 + (conMod * level) + (rankMod.avg * level);
-    this.attributes.hp.max = Math.ceil(baseHp * additionalHPMods);
-
-    const baseCp = 10 + (conMod * level) + (rankMod.avg * level)
+      // Calculate Hit and Chakra Points for non-minion classes
+      const baseHp = 10 + (conMod * level) + (rankMod.avg * level);
+      this.attributes.hp.max = Math.ceil(baseHp * additionalHPMods);
+    }
+    const baseCp = 10 + (conMod * level) + (rankMod.avg * level);
     this.attributes.cp.max = Math.ceil(baseCp * additionalCPMods);
-
 
     this.attributes.hp.effectiveMax = this.attributes.hp.max + (this.attributes.hp.tempmax ?? 0);
     this.attributes.hp.value = Math.min(this.attributes.hp.value, this.attributes.hp.effectiveMax);
@@ -51455,6 +51768,7 @@ globalThis.n5eb = {
   migrations,
   utils
 };
+globalThis.dnd5e = globalThis.n5eb;
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -51462,16 +51776,16 @@ globalThis.n5eb = {
 
 Hooks.once("init", function() {
   globalThis.n5eb = game.n5eb = Object.assign(game.system, globalThis.n5eb);
-  console.log(`D&D 5e | Initializing the D&D Fifth Game System - Version ${n5eb.version}\n${N5EB.ASCII}`);
+  console.log(`N5e | Initializing the N5e Game System - Version ${n5eb.version}`);
 
   // TODO: Remove when v11 support is dropped.
-  CONFIG.compatibility.excludePatterns.push(/filePicker|select/);
-  CONFIG.compatibility.excludePatterns.push(/foundry\.dice\.terms/);
-  CONFIG.compatibility.excludePatterns.push(
-    /aggregateDamageRoll|configureDamage|preprocessFormula|simplifyRollFormula/
-  );
-  CONFIG.compatibility.excludePatterns.push(/core\.sourceId/);
-  if ( game.release.generation < 12 ) Math.clamp = Math.clamped;
+  // CONFIG.compatibility.excludePatterns.push(/filePicker|select/);
+  // CONFIG.compatibility.excludePatterns.push(/foundry\.dice\.terms/);
+  // CONFIG.compatibility.excludePatterns.push(
+  //   /aggregateDamageRoll|configureDamage|preprocessFormula|simplifyRollFormula/
+  // );
+  // CONFIG.compatibility.excludePatterns.push(/core\.sourceId/);
+  // if ( game.release.generation < 12 ) Math.clamp = Math.clamped;
 
   // Record Configuration Values
   CONFIG.N5EB = N5EB;
@@ -51496,6 +51810,9 @@ Hooks.once("init", function() {
   CONFIG.Note.objectClass = Note5e;
   CONFIG.ui.combat = CombatTracker5e;
   CONFIG.ui.items = n5eb.applications.item.ItemDirectory5e;
+
+  game.dnd5e = game.n5eb;
+  CONFIG.DND5E = CONFIG.SW5E;
 
   // Register System Settings
   registerSystemSettings();

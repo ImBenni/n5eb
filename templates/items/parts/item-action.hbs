@@ -15,9 +15,9 @@
         <option value="">{{ localize "N5EB.Default" }}</option>
         <option value="none">{{ localize "N5EB.None" }}</option>
         {{!-- <optgroup label="{{ localize 'N5EB.Jutsu' }}">
-            <option value="nin">{{ localize "N5EB.JutsuTypeNinjutsu" }}</option>
-            <option value="gen">{{ localize "N5EB.JutsuTypeGenjutsu" }}</option>
-            <option value="tai">{{ localize "N5EB.JutsuTypeTaijutsu" }}</option>
+            <option value="ninjutsu">{{ localize "N5EB.JutsuTypeNinjutsu" }}</option>
+            <option value="genjutsu">{{ localize "N5EB.JutsuTypeGenjutsu" }}</option>
+            <option value="taijutsu">{{ localize "N5EB.JutsuTypeTaijutsu" }}</option>
         </optgroup> --}}
         <optgroup label="{{ localize 'N5EB.Ability' }}">
             {{#each config.abilities as |ability a|}}
@@ -112,13 +112,17 @@
             {{selectOptions config.abilities selected=system.save.ability labelAttr="label" blank=""}}
         </select>
         <span>{{ localize "N5EB.VsDC" }}</span>
-        {{log "TATA" system}}
         <input type="number" step="any" name="system.save.dc"
             value="{{#if system.save.dc}}{{system.save.dc}}{{/if}}"
             placeholder="{{ localize 'N5EB.AbbreviationDC' }}" {{#unless isFlatDC}}disabled{{/unless}}>
         <select name="system.save.scaling">
             {{#select system.save.scaling}}
-                <option value="spell">{{ localize "N5EB.Spellcasting" }}</option>
+                {{#if isSpell }}
+                    <option value="spell">{{ localize "N5EB.Spellcasting" }}</option>
+                {{/if}}
+                <option value="ninjutsu">{{ localize "N5EB.JutsuTypeNinjutsu" }}</option>
+                <option value="genjutsu">{{ localize "N5EB.JutsuTypeGenjutsu" }}</option>
+                <option value="taijutsu">{{ localize "N5EB.JutsuTypeTaijutsu" }}</option>
                 {{selectOptions config.abilities labelAttr="label"}}
                 <option value="flat">{{ localize "N5EB.Flat" }}</option>
             {{/select}}

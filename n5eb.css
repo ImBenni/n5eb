@@ -2095,28 +2095,33 @@ h5 {
 .n5eb.advancement.flow form[data-type="ChakraPoints"] div {
   font-size: var(--font-size-14);
 }
+
 .n5eb.advancement.flow form[data-type="HitPoints"] .rolls,
 .n5eb.advancement.flow form[data-type="ChakraPoints"] .rolls {
   display: grid;
-  grid-template-columns: 50% 1fr 1fr;
+  grid-template-columns: auto auto 1fr 1fr;
   align-items: center;
-  gap: 2px;
+  gap: 5px;
 }
-.n5eb.advancement.flow form[data-type="HitPoints"] .rolls .averageLabel span,
-.n5eb.advancement.flow form[data-type="HitPoints"] .rolls .averageLabel input,
-.n5eb.advancement.flow form[data-type="ChakraPoints"] .rolls .averageLabel span,
-.n5eb.advancement.flow form[data-type="ChakraPoints"] .rolls .averageLabel input {
-  vertical-align: middle;
+
+.n5eb.advancement.flow form[data-type="HitPoints"] .rolls label,
+.n5eb.advancement.flow form[data-type="ChakraPoints"] .rolls label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
+
 .n5eb.advancement.flow form[data-type="HitPoints"] .rolls .rollResult,
 .n5eb.advancement.flow form[data-type="ChakraPoints"] .rolls .rollResult {
   text-align: center;
 }
+
 .n5eb.advancement.flow form[data-type="HitPoints"] .rolls .rollButton,
 .n5eb.advancement.flow form[data-type="ChakraPoints"] .rolls .rollButton {
   height: calc(var(--form-field-height) + 5px);
   line-height: 1.5em;
 }
+
 .n5eb.advancement.flow form[data-type="ItemChoice"] .item-name .item-delete {
   flex: 0 0 20px;
   margin-inline-end: 1px;
