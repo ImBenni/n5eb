@@ -544,8 +544,60 @@ class Proficiency {
    * @type {number}
    */
   get flat() {
-    const roundMethod = this.rounding === "down" ? Math.floor : Math.ceil;
-    return roundMethod(this.multiplier * this._baseProficiency);
+    const enableMastery = game.settings.get("n5eb", "enableMastery");
+    if (enableMastery && this.isMasteryLevel()) {
+      // Calculate the flat bonus based on mastery rank, including potential half proficiency
+      const masteryBonus = this._getMasteryBonus();
+      if (this.multiplier === 0.5) {
+        // Handle half proficiency with mastery
+        const roundMethod = this.rounding === "down" ? Math.floor : Math.ceil;
+        return roundMethod((this._baseProficiency / 2)) + masteryBonus;
+      } else {
+        // Regular mastery calculation
+        return this._baseProficiency + masteryBonus;
+      }
+    } else {
+      // Original calculation using the multiplier for proficiency
+      const roundMethod = this.rounding === "down" ? Math.floor : Math.ceil;
+      return roundMethod(this.multiplier * this._baseProficiency);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the flat mastery bonus based on the current mastery rank.
+   * Mastery ranks:
+   * - 1: Genin (no additional bonus)
+   * - 2: Chunin (+2)
+   * - 3: Jonin (+4)
+   * - 4: Sanin (+6)
+   * @returns {number}
+   */
+  _getMasteryBonus() {
+    switch (this.multiplier) {
+      case 1:
+        return 0; // Genin Mastery has no additional bonus
+      case 2:
+        return 2; // Chunin Mastery gives +2
+      case 3:
+        return 4; // Jonin Mastery gives +4
+      case 4:
+        return 6; // Sanin Mastery gives +6
+      default:
+        return 0; // No mastery
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine if the current multiplier represents a mastery level.
+   * @returns {boolean}
+   */
+  isMasteryLevel() {
+    const enableMastery = game.settings.get("n5eb", "enableMastery");
+    return enableMastery && this.multiplier > 0 && this.multiplier <= 4;
   }
 
   /* -------------------------------------------- */
@@ -555,9 +607,15 @@ class Proficiency {
    * @type {string}
    */
   get dice() {
+    const enableMastery = game.settings.get("n5eb", "enableMastery");
+
     if (this._baseProficiency === 0 || this.multiplier === 0) return "0";
     const roundTerm = this.rounding === "down" ? "floor" : "ceil";
-    if (this.multiplier === 0.5) {
+    let baseDice = `${roundTerm}(1d${this._baseProficiency * 2}`;
+    if (enableMastery && this.isMasteryLevel() && this.multiplier > 1) {
+      const masteryBonus = this._getMasteryBonus();
+      return `${baseDice} + ${masteryBonus})`;
+    } else if (this.multiplier === 0.5) {
       return `${roundTerm}(1d${this._baseProficiency * 2} / 2)`;
     } else {
       return `${this.multiplier}d${this._baseProficiency * 2}`;
@@ -31360,6 +31418,7 @@ N5EB.spellLevels = {
   3: "N5EB.SpellLevel3",
   4: "N5EB.SpellLevel4",
   5: "N5EB.SpellLevel5",
+  6: "N5EB.SpellLevel6",
 };
 preLocalize("spellLevels");
 
@@ -35824,10 +35883,8 @@ class ActorSheet5e extends ActorSheetMixin(ActorSheet) {
           ? CONFIG.N5EB.masteryLevels[entry.value]
           : CONFIG.N5EB.proficiencyLevels[entry.value];
         entry.label = prop === "skills" ? CONFIG.N5EB.skills[key]?.label : keyLabel(key, { trait: "tool" });
-
         entry.baseValue = source.system[prop]?.[key]?.value ?? 0;
         entry.baseAbility = baseAbility(prop, key);
-        console.log(entry);
       }
     });
 
@@ -36538,7 +36595,6 @@ class ActorSheet5e extends ActorSheetMixin(ActorSheet) {
 
     // Cycle to the next or previous skill level.
     const levels = [0, 1, 0.5, 2, 3, 4];
-    console.log(levels);
     const idx = levels.indexOf(value);
     const next = idx + (event.type === "contextmenu" ? 3 : 1);
     field.value = levels[next % levels.length];
@@ -45546,112 +45602,127 @@ class ProficiencyCycleElement extends AdoptedStyleSheetMixin(HTMLElement) {
 
   /** @inheritDoc */
   static CSS = `
-    :host { display: inline-block; }
-    div { --_fill: var(--proficiency-cycle-enabled-color, var(--n5eb-color-blue)); }
-    div:has(:disabled, :focus-visible) { --_fill: var(--proficiency-cycle-disabled-color, var(--n5eb-color-gold)); }
-    div:not(:has(:disabled)) { cursor: pointer; }
+:host { display: inline-block; }
+div { --_fill: var(--proficiency-cycle-enabled-color, var(--n5eb-color-blue)); }
+div:has(:disabled, :focus-visible) { --_fill: var(--proficiency-cycle-disabled-color, var(--n5eb-color-gold)); }
+div:not(:has(:disabled)) {
+  cursor: pointer;
+  --icon-color: var(--n5eb-color-blue); /* Set icon color to blue if enabled */
+}
+div:has(:disabled) {
+  --icon-color: var(--n5eb-color-gold); /* Set icon color to default (gold) if disabled */
+}
 
-    div {
-      position: relative;
-      overflow: clip;
-      width: 100%;
-      aspect-ratio: 1;
+div {
+  position: relative;
+  overflow: clip;
+  width: 100%;
+  aspect-ratio: 1;
 
-      &::before {
-        content: "";
-        position: absolute;
-        display: block;
-        inset: 3px;
-        border: 1px solid var(--_fill);
-        border-radius: 100%;
-      }
+  &::before {
+    content: "";
+    position: absolute;
+    display: block;
+    inset: 3px;
+    border: 1px solid var(--_fill);
+    border-radius: 100%;
+  }
 
-      &:has([value="1"])::before { background: var(--_fill); }
+  /* Regular Proficiency */
+  &:has([value="1"])::before {
+    background: var(--_fill);
+  }
 
-      &:has([value="0.5"], [value="2"])::after {
-        content: "";
-        position: absolute;
-        background: var(--_fill);  
-      }
+  &:has([value="0.5"], [value="2"])::after {
+    content: "";
+    position: absolute;
+    background: var(--_fill);  
+  }
 
-      &:has([value="0.5"])::after {
-        inset: 4px;
-        width: 4px;
-        aspect-ratio: 1 / 2;
-        border-radius: 100% 0 0 100%;
-      }
+  &:has([value="0.5"])::after {
+    inset: 4px;
+    width: 4px;
+    aspect-ratio: 1 / 2;
+    border-radius: 100% 0 0 100%;
+  }
 
-      &:has([value="2"]) {
-        &::before {
-          inset: 1px;
-          border-width: 2px;
-        }
-
-        &::after {
-          inset: 5px;
-          border-radius: 100%;
-        }
-      }
-
-      /* New Mastery Levels */
-
-      &:has([value="3"])::before {
-        inset: 0px;
-        border-width: 2px;
-        background: linear-gradient(135deg, var(--_fill), var(--n5eb-color-silver));
-      }
-
-      &:has([value="3"])::after {
-        content: "";
-        position: absolute;
-        inset: 7px;
-        border: 2px solid var(--_fill);
-        border-radius: 100%;
-      }
-
-      &:has([value="4"]) {
-        &::before {
-          inset: 0px;
-          border-width: 3px;
-          background: linear-gradient(135deg, var(--_fill), var(--n5eb-color-gold));
-        }
-      }
-
-      &:has([value="4"])::after {
-        content: "";
-        position: absolute;
-        inset: 6px;
-        border: 3px solid var(--_fill);
-        border-radius: 100%;
-      }
-
-      &:has([value="5"]) {
-        &::before {
-          inset: 1px;
-          border-width: 3px;
-          background: linear-gradient(135deg, var(--_fill), var(--n5eb-color-red));
-        }
-      }
-
-      &:has([value="5"])::after {
-        content: "!";
-        position: absolute;
-        inset: 8px;
-        color: var(--_fill);
-        font-size: 12px;
-        text-align: center;
-        border-radius: 100%;
-      }
+  &:has([value="2"]) {
+    &::before {
+      inset: 1px;
+      border-width: 2px;
     }
 
-    input {
+    &::after {
+      inset: 5px;
+      border-radius: 100%;
+    }
+  }
+
+  /* Mastery Levels */
+
+  /* Jonin Mastery (Rank 3) */
+  &:has([value="3"]) {
+    &::before {
+      inset: 0px;
+      border-width: 2px;
+    }
+    &::after {
+      content: "◆"; /* Diamond shape to indicate progression */
       position: absolute;
-      inset-block-start: -100px;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
+      color: var(--icon-color); /* Use icon color defined by state */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Center the icon perfectly */
+      font-size: 9px;
     }
-  `;
+  }
+
+  /* Sanin Mastery (Rank 4) */
+  &:has([value="4"]) {
+    &::before {
+     inset: 0px;
+      border-width: 2px;
+background: var(--_fill);
+    }
+    &::after {
+      content: "★"; /* Star symbol for Sanin */
+      position: absolute;
+      color: var(--n5eb-color-black); /* Use icon color defined by state */
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Center the icon perfectly */
+      font-size: 12px;
+    }
+  }
+
+  /* Hypothetical Higher Level (Rank 5) */
+  &:has([value="5"]) {
+    &::before {
+      inset: 0px;
+      border-width: 5px;
+      background: linear-gradient(135deg, var(--_fill), var(--n5eb-color-red));
+    }
+
+    &::after {
+      content: "✪"; /* Badge symbol for highest rank */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Center the icon perfectly */
+      color: var(--icon-color); /* Use icon color defined by state */
+      font-size: 14px;
+    }
+  }
+}
+
+input {
+  position: absolute;
+  inset-block-start: -100px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+`;
 
   /**
    * Controller for removing listeners automatically.
@@ -45739,7 +45810,7 @@ class ProficiencyCycleElement extends AdoptedStyleSheetMixin(HTMLElement) {
    */
   get validValues() {
     const enableMastery = game.settings.get("n5eb", "enableMastery");
-    return enableMastery ? [0, 0.5, 1, 2, 3, 4, 5] : [0, 0.5, 1, 2];
+    return enableMastery ? [0, 0.5, 1, 2, 3, 4] : [0, 0.5, 1, 2];
   }
 
   /* -------------------------------------------- */
