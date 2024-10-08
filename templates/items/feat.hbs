@@ -108,22 +108,6 @@
             {{!-- Item Activation Template --}}
             {{> "n5eb.item-activation"}}
 
-            {{!-- Recharge Requirement --}}
-            {{#if system.activation.type}}
-            <div class="form-group recharge">
-                <label>{{ localize "N5EB.FeatureActionRecharge" }}</label>
-                <div class="form-fields">
-                    <span>{{ localize "N5EB.FeatureRechargeOn" }}</span>
-                    {{numberInput system.recharge.value name="system.recharge.value"
-                                  placeholder=(localize "N5EB.FeatureRechargeResult")}}
-                    <label class="checkbox">
-                        {{ localize "N5EB.Charged" }}
-                        <input type="checkbox" name="system.recharge.charged" {{checked system.recharge.charged}}>
-                    </label>
-                </div>
-            </div>
-            {{/if}}
-
             <h3 class="form-header">{{ localize "N5EB.FeatureAttack" }}</h3>
 
             {{!-- Item Action Template --}}

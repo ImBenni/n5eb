@@ -1,7 +1,7 @@
 {
     "id": "n5eb",
-    "title": "Naruto 5e - Benni",
-    "description": "A system for playing Naruto 5e, altered the DnD5e. By Benni",
+    "title": "N5e - Benni",
+    "description": "The N5e System forked from the DnD5e Foundry System. Made and altered by Benni.",
     "version": "1,1,1",
     "compatibility": {
         "minimum": "11.315",
@@ -22,31 +22,14 @@
     ],
     "packs": [
         {
-            "name": "npcs",
-            "label": "NPCs",
-            "system": "dnd5e",
-            "path": "packs/npc",
-            "type": "Actor",
-            "private": false,
-            "flags": {
-                "dnd5e": {
-                    "types": [
-                        "npc",
-                        "feat",
-                        "weapon"
-                    ]
-                }
-            }
-        },
-        {
             "name": "items",
             "label": "Items",
-            "system": "dnd5e",
+            "system": "n5eb",
             "path": "packs/items",
             "type": "Item",
             "private": false,
             "flags": {
-                "dnd5e": {
+                "n5eb": {
                     "types": [
                         "weapon",
                         "equipment",
@@ -62,12 +45,12 @@
         {
             "name": "jutsus",
             "label": "Jutsus",
-            "system": "dnd5e",
+            "system": "n5eb",
             "path": "packs/jutsus",
             "type": "Item",
             "private": false,
             "flags": {
-                "dnd5e": {
+                "n5eb": {
                     "types": [
                         "spell"
                     ]
@@ -77,12 +60,12 @@
         {
             "name": "backgrounds",
             "label": "Backgrounds",
-            "system": "dnd5e",
+            "system": "n5eb",
             "path": "packs/backgrounds",
             "type": "Item",
             "private": false,
             "flags": {
-                "dnd5e": {
+                "n5eb": {
                     "types": [
                         "background",
                         "feat"
@@ -93,12 +76,12 @@
         {
             "name": "class-and-subclass",
             "label": "Class and Subclass",
-            "system": "dnd5e",
+            "system": "n5eb",
             "path": "packs/class-and-subclass",
             "type": "Item",
             "private": false,
             "flags": {
-                "dnd5e": {
+                "n5eb": {
                     "types": [
                         "class",
                         "subclass",
@@ -111,12 +94,12 @@
         {
             "name": "clan",
             "label": "Clans",
-            "system": "dnd5e",
+            "system": "n5eb",
             "path": "packs/clan",
             "type": "Item",
             "private": false,
             "flags": {
-                "dnd5e": {
+                "n5eb": {
                     "types": [
                         "race",
                         "feat"
@@ -127,23 +110,20 @@
         {
             "name": "rules",
             "label": "Rules",
-            "system": "dnd5e",
+            "system": "n5eb",
             "path": "packs/rules",
             "type": "JournalEntry",
-            "private": false,
-            "flags": {
-                "display": "table-of-contents"
-            }
+            "private": false
         },
         {
             "name": "conditions",
             "label": "Conditions",
-            "system": "dnd5e",
+            "system": "n5eb",
             "path": "packs/conditions",
             "type": "Item",
             "private": false,
             "flags": {
-                "dnd5e": {
+                "n5eb": {
                     "types": [
                         "feat"
                     ]
@@ -153,12 +133,12 @@
         {
             "name": "feats",
             "label": "Feats",
-            "system": "dnd5e",
+            "system": "n5eb",
             "path": "packs/feats",
             "type": "Item",
             "private": false,
             "flags": {
-                "dnd5e": {
+                "n5eb": {
                     "types": [
                         "feat"
                     ]
@@ -168,12 +148,12 @@
         {
             "name": "classmod",
             "label": "Class Mods",
-            "system": "dnd5e",
+            "system": "n5eb",
             "path": "packs/class-mods",
             "type": "Item",
             "private": false,
             "flags": {
-                "dnd5e": {
+                "n5eb": {
                     "types": [
                         "class",
                         "subclass",
@@ -181,7 +161,69 @@
                     ]
                 }
             }
-        }
+        },
+        {
+            "name": "adversary",
+            "label": "Adversaries",
+            "system": "n5eb",
+            "path": "packs/adversary",
+            "type": "Actor",
+            "private": false,
+            "flags": {
+                "n5eb": {
+                    "types": [
+                        "npc",
+                        "feat",
+                        "weapon"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "adversary-traits",
+            "label": "Adversary Traits",
+            "system": "n5eb",
+            "path": "packs/adversary-traits",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "n5eb": {
+                    "types": [
+                        "npc",
+                        "feat"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "adversary-passives",
+            "label": "Adversary Passives",
+            "system": "n5eb",
+            "path": "packs/adversary-passives",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "n5eb": {
+                    "types": [
+                        "npc",
+                        "feat"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "summons",
+            "label": "Summons",
+            "system": "n5eb",
+            "path": "packs/summons",
+            "type": "Item",
+            "private": false,
+            "flags": {
+              "n5eb": {
+                "types": ["feat", "class"]
+              }
+            }
+          }
     ],
     "packFolders": [
         {
@@ -208,18 +250,21 @@
                 {
                     "name": "Items & Jutsus",
                     "sorting": "m",
-                    "color": "#d99836 ",
+                    "color": "#d99836",
                     "packs": [
                         "items",
                         "jutsus"
                     ]
                 },
                 {
-                    "name": "NPCs",
+                    "name": "Adversary & Summons",
                     "sorting": "m",
-                    "color": "#c78726",
+                    "color": "#d99836",
                     "packs": [
-                        "npc"
+                        "adversary",
+                        "adversary-traits",
+                        "adversary-passives",
+                        "summons"
                     ]
                 }
             ]

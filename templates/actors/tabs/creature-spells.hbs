@@ -30,7 +30,7 @@
             </div>
             <div class="save">
                 <span class="label">{{ localize "N5EB.SpellDC" }}</span>
-                <span class="value">{{ save }}</span>
+                <span class="value">{{ lookup @root.system.attributes (concat type "dc") }}</span>
             </div>
             {{#if @root.isNPC}}
             {{!-- <div class="level">
@@ -215,14 +215,23 @@
                         </div>
 
                         {{!-- Spell Uses --}}
-                        <div class="item-detail item-uses spell-uses {{#unless ctx.hasUses}}empty{{/unless}}">
-                            {{#if ctx.hasUses}}
+                        {{#if item.isOnCooldown}}
+                        <div class="item-detail item-uses spell-uses" data-tooltip-direction="LEFT" data-tooltip="{{item.labels.recharge}}" aria-label="{{item.labels.recharge}}">
+                            <a class="item-action" data-action="recharge"><i class="fa-solid fa-arrows-rotate"></i></a>
+                        {{else if item.system.recharge.value}}
+                        <div class="item-detail item-uses spell-uses" data-tooltip-direction="LEFT" data-tooltip="{{item.labels.recharge}}" aria-label="{{item.labels.recharge}}">
+                            <i class="fa-solid fa-bolt"></i>
+                        {{else if ctx.hasUses}}
+                        <div class="item-detail item-uses spell-uses">
                             <input type="text" value="{{ item.system.uses.value }}" placeholder="0" data-dtype="Number"
-                                   data-name="system.uses.value" inputmode="numeric" pattern="[+=\-]?\d*">
+                                data-name="system.uses.value" inputmode="numeric" pattern="[+=\-]?\d*">
                             <span class="separator">&sol;</span>
                             <span class="max">{{ item.system.uses.max }}</span>
-                            {{/if}}
+                        {{else}}
+                        <div class="item-detail item-uses spell-uses empty">
+                        {{/if}}
                         </div>
+
 
                         {{!-- Spell Formula --}}
                         <div class="item-detail item-formula spell-formula {{#unless item.labels.derivedDamage}}empty{{/unless}}">

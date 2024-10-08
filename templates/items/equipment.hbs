@@ -159,6 +159,16 @@
             {{/if}}
 
             {{#if system.isArmor}}
+            {{!-- Damage Reduction  --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.ItemEquipmentDamageReduction" }}</label>
+                <div class="form-fields">
+                    {{numberInput system.armor.dr name="system.armor.dr" placeholder=(localize "N5EB.None")}}
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if system.isArmor}}
             {{!-- Required Strength --}}
             <div class="form-group">
                 <label>{{ localize "N5EB.ItemRequiredStr" }}</label>

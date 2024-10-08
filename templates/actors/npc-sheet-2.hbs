@@ -244,10 +244,23 @@
                             {{/if}}
                         </li>
 
+                        <li class="creature-size">
+                            {{#if editable}}
+                                <select class="unselect" name="system.details.npcType">
+                                    {{ selectOptions config.creatureNPCTypes selected=source.details.npcType }}
+                                </select>
+                            {{else}}
+                                <span>{{ localize (lookup config.creatureNPCTypes system.details.npcType) }}</span>
+                            {{/if}}
+                        </li>
+
+
                     </ul>
 
-                    {{!-- Rank, Class, Affiliation & Role --}}
+                    {{!-- Rank, Class, Role, Affiliation & High Role --}}
+                    {{#if (eq system.details.npcType "adversary")}}
                     <ul class="labels unlist">
+                        
                         {{!-- Rank --}}
                         <li class="creature-size">
                             {{#if editable}}
@@ -270,7 +283,7 @@
                             {{/if}}
                         </li>
 
-                         {{!-- Role --}}
+                        {{!-- Role --}}
                         <li class="creature-size">
                             {{#if editable}}
                                 <select class="unselect" name="system.details.role">
@@ -281,7 +294,7 @@
                             {{/if}}
                         </li>
 
-                         {{!-- Affiliation --}}
+                        {{!-- Affiliation --}}
                         <li class="creature-size">
                             {{#if editable}}
                                 <select class="unselect" name="system.details.affiliation">
@@ -304,9 +317,8 @@
                                         </label>
                                     {{/each}}
                                 </div>
-                                {{else}}
+                            {{else}}
                                 <span>
-                                    {{!-- Create an array of selected high roles --}}
                                     {{#each highRole}}
                                         {{#if this.selected}}
                                             {{#if @first}}
@@ -321,6 +333,38 @@
                         </li>
 
                     </ul>
+                    {{/if}}
+
+                    {{#if (eq system.details.npcType "summon")}}
+
+                    <ul class="labels unlist">
+
+                        {{!-- Rank --}}
+                        <li class="creature-size">
+                            {{#if editable}}
+                                <select class="unselect rank-select" name="system.details.rank" data-action="summonRankChange">
+                                    {{ selectOptions config.summonRanks selected=source.details.rank }}
+                                </select>
+                            {{else}}
+                                <span>{{ localize (lookup config.summonRanks system.details.rank) }}</span>
+                            {{/if}}
+                        </li>
+
+                        <li class="creature-size">
+                            {{#if editable}}
+                                <select class="unselect" name="system.details.role">
+                                    {{ selectOptions config.summonRoles selected=source.details.role }}
+                                </select>
+                            {{else}}
+                                <span>{{ localize (lookup config.summonRoles system.details.role) }}</span>
+                            {{/if}}
+                        </li>
+
+                    </ul>
+                    
+                    {{/if}}
+
+
                 </div>
 
                 {{!-- Resting, Special Traits, & Proficiency --}}
@@ -414,50 +458,64 @@
                 {{/if}}
 
                 {{#if (or hasLegendaries editable)}}
-                <div class="legendary">
-                    {{#if editable}}
-                    <label class="legact">
-                        <span class="label roboto-upper">{{ localize "N5EB.LegAct" }}</span>
-                        {{ numberInput source.resources.legact.max name="system.resources.legact.max" step=1 min=0 }}
-                    </label>
-                    <label class="legres">
-                        <span class="label roboto-upper">{{ localize "N5EB.LegRes" }}</span>
-                        {{ numberInput source.resources.legres.max name="system.resources.legres.max" step=1 min=0 }}
-                    </label>
-                    <label class="lair">
-                        <span class="label roboto-upper">{{ localize "N5EB.LairActionLabel" }}</span>
-                        {{ numberInput source.resources.lair.initiative name="system.resources.lair.initiative"
-                                       placeholder="—" step=1 min=0 }}
-                    </label>
-                    {{else}}
-                    {{#if system.resources.legact.max}}
-                    <div class="legact">
-                        <span class="label roboto-upper">{{ localize "N5EB.LegAct" }}</span>
-                        <div class="pips" data-prop="system.resources.legact.value">
-                            {{#each legact}}
-                                {{> pip }}
-                            {{/each}}
-                        </div>
+                    <div class="legendary">
+                        {{#if editable}}
+                            <label class="legact">
+                                <span class="label roboto-upper">{{ localize "N5EB.LegAct" }}</span>
+                                {{ numberInput source.resources.legact.max name="system.resources.legact.max" step=1 min=0 }}
+                            </label>
+                            <label class="legres">
+                                <span class="label roboto-upper">{{ localize "N5EB.LegRes" }}</span>
+                                {{ numberInput source.resources.legres.max name="system.resources.legres.max" step=1 min=0 }}
+                            </label>
+                            <label class="lair">
+                                <span class="label roboto-upper">{{ localize "N5EB.LairActionLabel" }}</span>
+                                {{ numberInput source.resources.lair.initiative name="system.resources.lair.initiative"
+                                            placeholder="—" step=1 min=0 }}
+                            </label>
+                            <label class="tenacity">
+                                <span class="label roboto-upper">{{ localize "N5EB.TenacityDice" }}</span>
+                                {{ numberInput source.resources.tenacity.max name="system.resources.tenacity.max" step=1 min=0 }}
+                            </label>
+                            {{else}}
+                            {{#if system.resources.legact.max}}
+                            <div class="legact">
+                                <span class="label roboto-upper">{{ localize "N5EB.LegAct" }}</span>
+                                <div class="pips" data-prop="system.resources.legact.value">
+                                    {{#each legact}}
+                                        {{> pip }}
+                                    {{/each}}
+                                </div>
+                            </div>
+                            {{/if}}
+                            {{#if system.resources.legres.max}}
+                            <div class="legres">
+                                <span class="label roboto-upper">{{ localize "N5EB.LegRes" }}</span>
+                                <div class="pips" data-prop="system.resources.legres.value">
+                                    {{#each legres}}
+                                        {{> pip }}
+                                    {{/each}}
+                                </div>
+                            </div>
+                            {{/if}}
+                            {{#if system.resources.lair.initiative}}
+                            <label class="lair">
+                                <span class="label roboto-upper">{{ localize "N5EB.LairActionLabel" }}</span>
+                                <span class="value">{{ system.resources.lair.initiative }}</span>
+                            </label>
+                            {{/if}}
+                            {{#if system.resources.tenacity.max}}
+                                <div class="tenacity">
+                                    <span class="label roboto-upper">{{ localize "N5EB.TenacityDice" }}</span>
+                                    <div class="pips" data-prop="system.resources.tenacity.value">
+                                        {{#each tenacity}}
+                                        {{> pip }}
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            {{/if}}
+                        {{/if}}
                     </div>
-                    {{/if}}
-                    {{#if system.resources.legres.max}}
-                    <div class="legres">
-                        <span class="label roboto-upper">{{ localize "N5EB.LegRes" }}</span>
-                        <div class="pips" data-prop="system.resources.legres.value">
-                            {{#each legres}}
-                                {{> pip }}
-                            {{/each}}
-                        </div>
-                    </div>
-                    {{/if}}
-                    {{#if system.resources.lair.initiative}}
-                    <label class="lair">
-                        <span class="label roboto-upper">{{ localize "N5EB.LairActionLabel" }}</span>
-                        <span class="value">{{ system.resources.lair.initiative }}</span>
-                    </label>
-                    {{/if}}
-                    {{/if}}
-                </div>
                 {{/if}}
 
             </div>

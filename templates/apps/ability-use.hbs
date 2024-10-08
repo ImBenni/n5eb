@@ -1,30 +1,30 @@
 <form id="ability-use-form">
-    <p>{{title}}</p>
-    <p class="notes">{{note}}</p>
-    {{#each warnings}}
+  <p>{{title}}</p>
+  <p class="notes">{{note}}</p>
+  {{#each warnings}}
     <p class="notification warning">{{this}}</p>
-    {{/each}}
+  {{/each}}
 
-    {{#if (eq scaling "resource")}}
+  {{#if (eq scaling "resource")}}
     <div class="form-group">
-        <label>{{ localize "N5EB.ConsumeScalingLabel" }}</label>
-        <div class="form-fields">
-            <select name="resourceAmount">
-                {{#if resourceArray}}
-                {{#select item.system.consume.target}}
-                {{#each resourceOptions}}
+      <label>{{localize "N5EB.ConsumeScalingLabel"}}</label>
+      <div class="form-fields">
+        <select name="resourceAmount">
+          {{#if resourceArray}}
+            {{#select item.system.consume.target}}
+              {{#each resourceOptions}}
                 <option value="{{key}}" {{disabled (not canCast)}}>{{label}}</option>
-                {{/each}}
-                {{/select}}
-                {{else}}
-                {{selectOptions resourceOptions selected=resourceAmount localize=true}}
-                {{/if}}
-            </select>
-        </div>
+              {{/each}}
+            {{/select}}
+          {{else}}
+            {{selectOptions resourceOptions selected=resourceAmount localize=true}}
+          {{/if}}
+        </select>
+      </div>
     </div>
-    {{/if}}
+  {{/if}}
 
-    {{!-- {{#if (eq scaling "slot")}}
+  {{!-- {{#if (eq scaling "slot")}}
     <div class="form-group">
         <label>{{ localize "N5EB.SpellCastUpcast" }}</label>
         <div class="form-fields">
@@ -46,126 +46,142 @@
     </div>
     {{/if}} --}}
 
-    {{#if (eq chakraScaling "chakra")}}
+  {{#if (eq chakraScaling "chakra")}}
     <div class="form-group">
-        <label>{{ localize "N5EB.ChakraCostUpcast" }}</label>
-        <div class="form-fields">
-            <select name="slotLevel">
-                {{#select slotLevel}}
-                    {{#each slotChakraOptions as |l|}}
-                        <option value="{{l.key}}" {{disabled (not l.canCast)}}>{{l.label}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-        </div>
+      <label>{{localize "N5EB.ChakraCostUpcast"}}</label>
+      <div class="form-fields">
+        <select name="slotLevel">
+          {{#select slotLevel}}
+            {{#each slotChakraOptions as |l|}}
+              <option value="{{l.key}}" {{disabled (not l.canCast)}}>{{l.label}}</option>
+            {{/each}}
+          {{/select}}
+        </select>
+      </div>
     </div>
 
     <div class="form-group">
-        <label class="checkbox">
-            <input type="checkbox" name="consumeChakra" {{ checked consumeChakra }}>
-            {{localize "N5EB.ChakraCastConsume"}}
-        </label>
+      <label class="checkbox">
+        <input type="checkbox" name="consumeChakra" {{checked consumeChakra}} />
+        {{localize "N5EB.ChakraCastConsume"}}
+      </label>
     </div>
-    {{/if}}
+  {{/if}}
 
-    {{#if (ne beginConcentrating null)}}
+  {{#if (ne beginConcentrating null)}}
     {{#if concentration.show}}
-    <div class="form-group">
-        <label>{{ localize "N5EB.ConcentratingEnd" }}</label>
+      <div class="form-group">
+        <label>{{localize "N5EB.ConcentratingEnd"}}</label>
         <div class="form-fields">
-            <select name="endConcentration">
-                {{selectOptions concentration.options selected=endConcentration sort=true blank=concentration.optional nameAttr="name" labelAttr="label"}}
-            </select>
+          <select name="endConcentration">
+            {{selectOptions
+              concentration.options
+              selected=endConcentration
+              sort=true
+              blank=concentration.optional
+              nameAttr="name"
+              labelAttr="label"
+            }}
+          </select>
         </div>
-    </div>
+      </div>
     {{/if}}
 
     <div class="form-group">
-        <label class="checkbox">
-            <input type="checkbox" name="beginConcentrating" {{checked beginConcentrating}}>
-            {{ localize "N5EB.Concentration" }}
-        </label>
+      <label class="checkbox">
+        <input type="checkbox" name="beginConcentrating" {{checked beginConcentrating}} />
+        {{localize "N5EB.Concentration"}}
+      </label>
     </div>
-    {{/if}}
+  {{/if}}
 
-    {{#if (ne consumeUsage null)}}
+  {{#if (ne consumeUsage null)}}
     <div class="form-group">
-        <label class="checkbox">
-            <input type="checkbox" name="consumeUsage" {{ checked consumeUsage }}>
-            {{localize "N5EB.AbilityUseConsume"}}
-        </label>
+      <label class="checkbox">
+        <input type="checkbox" name="consumeUsage" {{checked consumeUsage}} />
+        {{localize "N5EB.AbilityUseConsume"}}
+      </label>
     </div>
-    {{/if}}
+  {{/if}}
 
-    {{#if (ne consumeResource null)}}
+  {{#if (ne consumeResource null)}}
     <div class="form-group">
-        <label class="checkbox">
-            <input type="checkbox" name="consumeResource" {{ checked consumeResource }}>
-            {{localize "N5EB.ConsumeResource"}}
-        </label>
+      <label class="checkbox">
+        <input type="checkbox" name="consumeResource" {{checked consumeResource}} />
+        {{localize "N5EB.ConsumeResource"}}
+      </label>
     </div>
-    {{/if}}
+  {{/if}}
 
-    {{#if (ne createMeasuredTemplate null)}}
+    {{#if (ne consumeAmmo null)}}
     <div class="form-group">
-        <label class="checkbox">
-            <input type="checkbox" name="createMeasuredTemplate" {{ checked createMeasuredTemplate }}>
-            {{ localize "N5EB.PlaceTemplate" }}
-        </label>
+      <label class="checkbox">
+        <input type="checkbox" name="consumeAmmo" {{checked consumeAmmo}} />
+        {{localize "N5EB.ConsumeAmmo"}}
+      </label>
     </div>
-    {{/if}}
+  {{/if}}
 
-    {{#if enchantmentOptions.profiles}}
+  {{#if (ne createMeasuredTemplate null)}}
     <div class="form-group">
-        <label>{{ localize "N5EB.Enchantment.Label" }}
-        </label>
+      <label class="checkbox">
+        <input type="checkbox" name="createMeasuredTemplate" {{checked createMeasuredTemplate}} />
+        {{localize "N5EB.PlaceTemplate"}}
+      </label>
+    </div>
+  {{/if}}
+
+  {{#if enchantmentOptions.profiles}}
+    <div class="form-group">
+      <label>{{localize "N5EB.Enchantment.Label"}}
+      </label>
+      <div class="form-fields">
+        <select name="enchantmentProfile" aria-label="{{localize 'N5EB.Enchantment.Label'}}">
+          {{selectOptions enchantmentOptions.profiles selected=enchantmentProfile}}
+        </select>
+      </div>
+    </div>
+  {{else if enchantmentOptions.profile}}
+    <input type="hidden" name="enchantmentProfile" value="{{enchantmentOptions.profile}}" />
+  {{/if}}
+
+  {{#if (ne createSummons null)}}
+    <div class="form-group">
+      <label class="checkbox">
+        <input type="checkbox" name="createSummons" {{checked createSummons}} />
+        {{localize "N5EB.Summoning.Action.Place"}}
+      </label>
+      {{#if summoningOptions.profiles}}
         <div class="form-fields">
-            <select name="enchantmentProfile" aria-label="{{ localize 'N5EB.Enchantment.Label' }}">
-                {{ selectOptions enchantmentOptions.profiles selected=enchantmentProfile }}
-            </select>
+          <select name="summonsProfile" aria-label="{{localize 'N5EB.Summoning.Profile.Label'}}">
+            {{selectOptions summoningOptions.profiles selected=summonsProfile}}
+          </select>
         </div>
-    </div>
-    {{else if enchantmentOptions.profile}}
-    <input type="hidden" name="enchantmentProfile" value="{{ enchantmentOptions.profile }}">
-    {{/if}}
-
-    {{#if (ne createSummons null)}}
-    <div class="form-group">
-        <label class="checkbox">
-            <input type="checkbox" name="createSummons" {{ checked createSummons }}>
-            {{ localize "N5EB.Summoning.Action.Place" }}
-        </label>
-        {{#if summoningOptions.profiles}}
-        <div class="form-fields">
-            <select name="summonsProfile" aria-label="{{ localize 'N5EB.Summoning.Profile.Label' }}">
-                {{ selectOptions summoningOptions.profiles selected=summonsProfile }}
-            </select>
-        </div>
-        {{else}}
-        <input type="hidden" name="summonsProfile" value="{{ summoningOptions.profile }}">
-        {{/if}}
+      {{else}}
+        <input type="hidden" name="summonsProfile" value="{{summoningOptions.profile}}" />
+      {{/if}}
     </div>
 
     {{#if summoningOptions.creatureSizes}}
-    <div class="form-group">
-        <label>{{ localize "N5EB.Size" }}</label>
+      <div class="form-group">
+        <label>{{localize "N5EB.Size"}}</label>
         <div class="form-fields">
-            <select name="summonsOptions.creatureSize">
-                {{ selectOptions summoningOptions.creatureSizes }}
-            </select>
+          <select name="summonsOptions.creatureSize">
+            {{selectOptions summoningOptions.creatureSizes}}
+          </select>
         </div>
-    </div>
+      </div>
     {{/if}}
 
     {{#if summoningOptions.creatureTypes}}
-    <div class="form-group">
-        <label>{{ localize "N5EB.CreatureType" }}</label>
+      <div class="form-group">
+        <label>{{localize "N5EB.CreatureType"}}</label>
         <div class="form-fields">
-            <select name="summonsOptions.creatureType">
-                {{ selectOptions summoningOptions.creatureTypes }}
-            </select>
+          <select name="summonsOptions.creatureType">
+            {{selectOptions summoningOptions.creatureTypes}}
+          </select>
         </div>
-    </div>
+      </div>
     {{/if}}
-    {{/if}}
+  {{/if}}
 </form>

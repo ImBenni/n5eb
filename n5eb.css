@@ -524,6 +524,9 @@ h5 {
   color: var(--n5eb-color-olive);
   font-weight: bold;
 }
+.n5eb .form-group .cost {
+  flex: 1;
+}
 .n5eb .form-group .form-fields {
   display: flex;
   flex-direction: row;
@@ -2830,6 +2833,8 @@ h5 {
 .n5eb:is(.enchantment-config, .summoning-config) .additional-tray .form-group:last-child {
   margin-block-end: -3px;
 }
+
+
 .n5eb .inventory-element {
   display: flex;
   flex-direction: column;
@@ -2935,6 +2940,7 @@ h5 {
 .n5eb .inventory-element .inventory-list .item-detail.item-action {
   flex: 0 0 100px;
 }
+.n5eb .inventory-element .inventory-list .item-detail.item-ammo,
 .n5eb .inventory-element .inventory-list .item-detail.item-quantity {
   flex: 0 0 40px;
 }
@@ -5077,13 +5083,15 @@ p:empty:has(+ .content-embed),
   flex-direction: column;
   gap: 1rem;
 }
-.n5eb2.sheet.actor .classes.pills-lg {
+/* .n5eb2.sheet.actor .classes.pills-lg,
+.n5eb2.sheet.actor .classmods.pills-lg {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
-}
-.n5eb2.sheet.actor .classes.pills-lg .class {
+} */
+.n5eb2.sheet.actor .classes.pills-lg .class,
+.n5eb2.sheet.actor .classes.pills-lg .classmod {
   width: 240px;
   display: flex;
   align-items: center;
@@ -5091,28 +5099,36 @@ p:empty:has(+ .content-embed),
   padding-right: 0.75rem;
 }
 .n5eb2.sheet.actor .classes.pills-lg .class .icons,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .icons,
 .n5eb2.sheet.actor .classes.pills-lg .class .name-stacked,
-.n5eb2.sheet.actor .classes.pills-lg .class .level {
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .name-stacked,
+.n5eb2.sheet.actor .classes.pills-lg .class .level,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .level {
   position: relative;
 }
-.n5eb2.sheet.actor .classes.pills-lg .class .icons {
+.n5eb2.sheet.actor .classes.pills-lg .class .icons,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .icons {
   display: flex;
   justify-content: center;
   gap: 0.375rem;
 }
-.n5eb2.sheet.actor .classes.pills-lg .class .icons img {
+.n5eb2.sheet.actor .classes.pills-lg .class .icons img,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .icons img {
   cursor: pointer;
 }
-.n5eb2.sheet.actor .classes.pills-lg .class .icons img:hover {
+.n5eb2.sheet.actor .classes.pills-lg .class .icons img:hover
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .icons img:hover {
   box-shadow: 0 0 12px var(--n5eb-color-gold);
 }
-.n5eb2.sheet.actor .classes.pills-lg .class .icons > .controls {
+.n5eb2.sheet.actor .classes.pills-lg .class .icons > .controls,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .icons > .controls {
   position: absolute;
   inset: 0;
   display: flex;
   gap: 0.375rem;
 }
-.n5eb2.sheet.actor .classes.pills-lg .class .icons > .controls > .item-control {
+.n5eb2.sheet.actor .classes.pills-lg .class .icons > .controls > .item-control,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .icons > .controls > .item-control {
   color: var(--n5eb-color-red);
   align-items: start;
   width: 32px;
@@ -5121,20 +5137,25 @@ p:empty:has(+ .content-embed),
   left: 2px;
   bottom: 2px;
 }
-.n5eb2.sheet.actor .classes.pills-lg .class .name-stacked {
+.n5eb2.sheet.actor .classes.pills-lg .class .name-stacked,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .name-stacked {
   flex: 1;
 }
 .n5eb2.sheet.actor .classes.pills-lg .class .level > span,
-.n5eb2.sheet.actor .classes.pills-lg .class .level > select {
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .level > span,
+.n5eb2.sheet.actor .classes.pills-lg .class .level > select,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .level > select {
   font-family: var(--n5eb-font-roboto-slab);
   font-size: var(--font-size-20);
   font-weight: bold;
 }
-.n5eb2.sheet.actor .classes.pills-lg .class .level > span {
+.n5eb2.sheet.actor .classes.pills-lg .class .level > span,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .level > span {
   text-shadow: 0 0 12px var(--n5eb-shadow-15);
   color: var(--n5eb-color-gold);
 }
-.n5eb2.sheet.actor .classes.pills-lg .class .level > select {
+.n5eb2.sheet.actor .classes.pills-lg .class .level > select,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .level > select {
   width: 55px;
   text-align: center;
   padding: 0;
@@ -5142,14 +5163,17 @@ p:empty:has(+ .content-embed),
   border: none;
   background: none;
 }
-.n5eb2.sheet.actor .classes.pills-lg .class .level > select option {
+.n5eb2.sheet.actor .classes.pills-lg .class .level > select option,
+.n5eb2.sheet.actor .classmods.pills-lg .classmod .level > select option {
   font-family: var(--n5eb-font-roboto);
   font-size: var(--font-size-13);
 }
-.n5eb2.sheet.actor .classes.pills-lg.editing {
+.n5eb2.sheet.actor .classes.pills-lg.editing,
+.n5eb2.sheet.actor .classmods.pills-lg.editing {
   padding-right: 0.5rem;
 }
-.n5eb2.sheet.actor .classes.pills-lg .pill-lg.empty {
+.n5eb2.sheet.actor .classes.pills-lg .pill-lg.empty,
+.n5eb2.sheet.actor .classmods.pills-lg .pill-lg.empty {
   width: 240px;
 }
 .n5eb2.sheet.actor .pills-group .pill > i {
@@ -5377,7 +5401,7 @@ p:empty:has(+ .content-embed),
   padding: 0.3125rem 0.75rem;
   border-radius: 6px;
 }
-.n5eb2.sheet.actor.character .sheet-header > .left .class {
+.n5eb2.sheet.actor.character .sheet-header > .left .class .classmod {
   color: var(--n5eb-color-gold);
   font-size: var(--font-size-14);
 }
@@ -6614,13 +6638,13 @@ p:empty:has(+ .content-embed),
   display: flex;
   flex-direction: column;
 }
-.n5eb2.sheet.actor.npc .sheet-header .stats > .bottom .classes {
+.n5eb2.sheet.actor.npc .sheet-header .stats > .bottom .classes .classmods {
   padding-top: 2px;
 }
-.n5eb2.sheet.actor.npc .sheet-header .stats > .bottom .classes .gold-icon {
+.n5eb2.sheet.actor.npc .sheet-header .stats > .bottom .classes .classmods .gold-icon {
   margin: 0;
 }
-.n5eb2.sheet.actor.npc .sheet-header .stats > .bottom .classes + .legendary {
+.n5eb2.sheet.actor.npc .sheet-header .stats > .bottom .classes .classmods + .legendary {
   margin-top: 8px;
 }
 .n5eb2.sheet.actor.npc .sheet-header .document-name {
@@ -6781,22 +6805,22 @@ p:empty:has(+ .content-embed),
   flex-wrap: wrap;
   padding: 0;
 }
-.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres) .pip {
+.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres, .tenacity) .pip {
   --pip-size: 28px;
   border-radius: 0;
   border: none;
   box-shadow: none;
   filter: grayscale(1);
 }
-.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres) .pip:hover,
-.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres) .pip:focus {
+.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres, .tenacity) .pip:hover,
+.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres, .tenacity) .pip:focus {
   box-shadow: none;
   filter: grayscale(1) drop-shadow(0 0 6px var(--n5eb-color-gold));
 }
-.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres) .pip.filled {
+.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres, .tenacity) .pip.filled {
   filter: none;
 }
-.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres) .pip.filled:is(:hover, :focus) {
+.n5eb2.sheet.actor.npc .sheet-header .legendary :is(.legact, .legres, .tenacity) .pip.filled:is(:hover, :focus) {
   filter: drop-shadow(0 0 6px var(--n5eb-color-gold));
 }
 .n5eb2.sheet.actor.npc .sheet-header .legendary .legact .pip {
@@ -6810,6 +6834,12 @@ p:empty:has(+ .content-embed),
 }
 .n5eb2.sheet.actor.npc .sheet-header .legendary .legres .pip.filled {
   background-image: url("ui/legres-active.webp");
+}
+.n5eb2.sheet.actor.npc .sheet-header .legendary .tenacity .pip {
+  background: transparent url("ui/tenacity-inactive.webp") center / contain;
+}
+.n5eb2.sheet.actor.npc .sheet-header .legendary .tenacity .pip.filled {
+  background-image: url("ui/tenacity-active.webp");
 }
 .n5eb2.sheet.actor.npc .sheet-header .vitals {
   display: flex;
@@ -6974,6 +7004,7 @@ p:empty:has(+ .content-embed),
 .n5eb2.sheet.actor.npc .sheet-body .main-content .tab-body .tab:not(.biography, .inventory) {
   padding-bottom: calc(1.5rem + 30px);
 }
+
 .n5eb2.sheet.actor.npc .sheet-body .main-content .inventory-element {
   gap: 8px;
   width: 100%;
@@ -7472,6 +7503,12 @@ p:empty:has(+ .content-embed),
 .n5eb2.compendium-browser.minimized::after {
   border-color: var(--n5eb-color-blue-gray-1);
 }
+.n5eb2 .class-classmod {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
 .n5eb2 .inventory-element {
   display: flex;
   flex-direction: column;
@@ -7812,6 +7849,8 @@ p:empty:has(+ .content-embed),
 }
 .n5eb2 .items-section .items-header .item-quantity,
 .n5eb2 .items-section .item .item-quantity,
+.n5eb2 .items-section .items-header .item-ammo,
+.n5eb2 .items-section .item .item-ammo,
 .n5eb2 .items-section .items-header .item-uses,
 .n5eb2 .items-section .item .item-uses {
   width: 70px;
@@ -7819,12 +7858,16 @@ p:empty:has(+ .content-embed),
 }
 .n5eb2 .items-section .items-header .item-quantity i,
 .n5eb2 .items-section .item .item-quantity i,
+.n5eb2 .items-section .items-header .item-ammo i,
+.n5eb2 .items-section .item .item-ammo i,
 .n5eb2 .items-section .items-header .item-uses i,
 .n5eb2 .items-section .item .item-uses i {
   font-size: var(--font-size-11);
 }
 .n5eb2 .items-section .items-header .item-quantity input,
 .n5eb2 .items-section .item .item-quantity input,
+.n5eb2 .items-section .items-header .item-ammo input,
+.n5eb2 .items-section .item .item-ammo input,
 .n5eb2 .items-section .items-header .item-uses input,
 .n5eb2 .items-section .item .item-uses input {
   background: none;
@@ -7835,14 +7878,20 @@ p:empty:has(+ .content-embed),
 }
 .n5eb2 .items-section .items-header .item-quantity input:focus-visible,
 .n5eb2 .items-section .item .item-quantity input:focus-visible,
+.n5eb2 .items-section .items-header .item-ammo input:focus-visible,
+.n5eb2 .items-section .item .item-ammo input:focus-visible,
 .n5eb2 .items-section .items-header .item-uses input:focus-visible,
 .n5eb2 .items-section .item .item-uses input:focus-visible,
+.n5eb2 .items-section .items-header .item-ammo input:hover,
+.n5eb2 .items-section .item .item-ammo input:hover,
 .n5eb2 .items-section .items-header .item-quantity input:hover,
 .n5eb2 .items-section .item .item-quantity input:hover,
 .n5eb2 .items-section .items-header .item-uses input:hover,
 .n5eb2 .items-section .item .item-uses input:hover {
   box-shadow: 0 0 6px var(--n5eb-color-gold);
 }
+.n5eb2 .items-section .items-header .item-ammo input,
+.n5eb2 .items-section .item .item-ammo input,
 .n5eb2 .items-section .items-header .item-quantity input,
 .n5eb2 .items-section .item .item-quantity input {
   text-align: center;
@@ -8085,6 +8134,8 @@ p:empty:has(+ .content-embed),
   }
 }
 @container (min-width: 600px) {
+  .n5eb2 .items-section .items-header .item-ammo,
+  .n5eb2 .items-section .item .item-ammo,
   .n5eb2 .items-section .items-header .item-price,
   .n5eb2 .items-section .item .item-price {
     display: flex;
@@ -8112,6 +8163,7 @@ p:empty:has(+ .content-embed),
   color: var(--n5eb-color-gold);
   font-size: var(--font-size-12);
 }
+.n5eb2 .items-section .items-header .item-ammo,
 .n5eb2 .items-section .items-header .item-price {
   justify-content: center;
   padding: 0;
@@ -8199,6 +8251,7 @@ p:empty:has(+ .content-embed),
 /* ---------------------------------- */
 /*  Locked                            */
 /* ---------------------------------- */
+.n5eb2 .locked .inventory-element .item :is(.item-ammo, .item-uses) input:is(:focus-visible, :hover), 
 .n5eb2 .locked .inventory-element .item :is(.item-quantity, .item-uses) input:is(:focus-visible, :hover) {
   box-shadow: none;
 }
@@ -10221,8 +10274,8 @@ enchantment-application .count-area {
 .n5eb2.sheet.actor.character.n5eb-flag-high-contrast.n5eb-theme-light .sidebar .favorites > h3 {
   color: var(--n5eb-color-dark);
 }
-.n5eb-flag-high-contrast:is(.n5eb-theme-light, .theme-dark) .n5eb2.sheet.actor.character .tab.features .classes .class .level > span,
-.n5eb2.sheet.actor.character.n5eb-flag-high-contrast.n5eb-theme-light .tab.features .classes .class .level > span {
+.n5eb-flag-high-contrast:is(.n5eb-theme-light, .theme-dark) .n5eb2.sheet.actor.character .tab.features .classes .classmods .class .classmod .level > span,
+.n5eb2.sheet.actor.character.n5eb-flag-high-contrast.n5eb-theme-light .tab.features .classes .classmods .class .classmod .level > span {
   color: var(--n5eb-color-dark);
 }
 /* ---------------------------------- */
@@ -10236,8 +10289,8 @@ enchantment-application .count-area {
 .n5eb2.sheet.actor.character.n5eb-flag-high-contrast.n5eb-theme-dark .sidebar .favorites > h3 {
   color: var(--n5eb-color-light);
 }
-.n5eb-flag-high-contrast:is(.n5eb-theme-dark, .theme-dark) .n5eb2.sheet.actor.character .tab.features .classes .class .level > span,
-.n5eb2.sheet.actor.character.n5eb-flag-high-contrast.n5eb-theme-dark .tab.features .classes .class .level > span {
+.n5eb-flag-high-contrast:is(.n5eb-theme-dark, .theme-dark) .n5eb2.sheet.actor.character .tab.features .classes .classmods .class .classmod .level > span,
+.n5eb2.sheet.actor.character.n5eb-flag-high-contrast.n5eb-theme-dark .tab.features .classes .classmods .class .classmod .level > span {
   color: var(--n5eb-color-light);
 }
 .n5eb-flag-high-contrast:is(.n5eb-theme-dark, .theme-dark) .n5eb2.sheet.actor.character .ability-scores .ability-score::before,
@@ -10319,4 +10372,19 @@ enchantment-application .count-area {
 .n5eb-flag-high-contrast:is(.n5eb-theme-dark, .theme-dark) .n5eb2 .items-section .item .item-controls .item-control:not(.active),
 .n5eb2.n5eb-flag-high-contrast.n5eb-theme-dark .items-section .item .item-controls .item-control:not(.active) {
   color: var(--color-text-light-6);
+}
+
+
+
+/* ---------------------------------- */
+/*  Custom Shit                       */
+/* ---------------------------------- */
+.ammunition-decrease {
+  color: red;
+  font-weight: bold;
+}
+
+.ammunition-remain {
+  color: green;
+  font-weight: bold;
 }

@@ -188,4 +188,21 @@
     </label>
     {{/if}}
 </div>
+
+{{!-- Recharge Requirement --}}
+    {{#if system.activation.type}}
+    <div class="form-group recharge">
+        <label>{{ localize "N5EB.FeatureActionRecharge" }}</label>
+        <div class="form-fields">
+            <span>{{ localize "N5EB.FeatureRechargeOn" }}</span>
+            {{numberInput system.recharge.value name="system.recharge.value"
+                        placeholder=(localize "N5EB.FeatureRechargeResult")}}
+            <input type="text" name="system.recharge.formula" value="{{system.recharge.formula}}" placeholder="1d8">
+            <label class="checkbox">
+                {{ localize "N5EB.Charged" }}
+                <input type="checkbox" name="system.recharge.charged" {{checked system.recharge.charged}}>
+            </label>
+        </div>
+    </div>
+    {{/if}}
 {{/if}}

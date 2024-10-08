@@ -147,6 +147,31 @@
             {{> "n5eb.item-mountable"}}
             {{/if}}
 
+            {{!-- Volatile  --}}
+            {{#if properties.vol.selected}} 
+            <div class="form-group"> 
+                <label>{{ localize "N5EB.ItemWeaponVolatile" }}</label> 
+                <div class="form-fields"> 
+                {{numberInput system.volatile name="system.volatile" placeholder=(localize "N5EB.None")}} 
+                </div> 
+            </div> 
+            {{/if}} 
+
+            {{#if properties.amm.selected}} 
+            <div class="form-group">
+                <label>{{localize "N5EB.AmmoDice"}}</label>
+                <div class="form-fields">
+                    <select name="system.ammunitionDie">
+                        {{#select system.ammunitionDie}}
+                        {{#each config.ammoDieTypes}}
+                        <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+            {{/if}} 
+
             {{#if properties.mgc.selected}}
             <div class="form-group">
                 <label>{{ localize "N5EB.MagicalBonus" }}</label>

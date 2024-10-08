@@ -14,11 +14,11 @@
         {{#select system.ability}}
         <option value="">{{ localize "N5EB.Default" }}</option>
         <option value="none">{{ localize "N5EB.None" }}</option>
-        {{!-- <optgroup label="{{ localize 'N5EB.Jutsu' }}">
+        <optgroup label="{{ localize 'N5EB.Jutsu' }}">
             <option value="ninjutsu">{{ localize "N5EB.JutsuTypeNinjutsu" }}</option>
             <option value="genjutsu">{{ localize "N5EB.JutsuTypeGenjutsu" }}</option>
             <option value="taijutsu">{{ localize "N5EB.JutsuTypeTaijutsu" }}</option>
-        </optgroup> --}}
+        </optgroup>
         <optgroup label="{{ localize 'N5EB.Ability' }}">
             {{#each config.abilities as |ability a|}}
             <option value="{{a}}">{{ability.label}}</option>

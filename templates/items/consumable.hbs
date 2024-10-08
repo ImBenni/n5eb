@@ -122,6 +122,22 @@
                 {{/each}}
             </div>
 
+            {{!-- Class Hit Dice --}}
+            {{#if  (eq system.type.value "ammo")}}
+            <div class="form-group">
+                <label>{{localize "N5EB.AmmoDice"}}</label>
+                <div class="form-fields">
+                    <select name="system.ammunitionDie">
+                        {{#select system.ammunitionDie}}
+                        {{#each config.ammoDieTypes}}
+                        <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+            {{/if}}
+
             {{#if (and properties.mgc.selected (eq system.type.value "ammo"))}}
             <div class="form-group">
                 <label>{{ localize "N5EB.MagicalBonus" }}</label>

@@ -35,6 +35,7 @@
     </div>
 
     <div class="right-column level-list scale-values">
+        {{log levels}}
         {{#each levels as |data level|}}
         <div class="form-group">
             <label>{{level}}</label>
@@ -42,6 +43,7 @@
                 {{#if (eq @root.configuration.type "dice")}}
                 {{numberInput data.value.number name=(concat "configuration.scale." level ".number") min=1 step=1
                               placeholder=data.placeholder.number}}
+                              
                 <select name="configuration.scale.{{level}}.faces" data-dtype="Number" class="{{data.className}}">
                     {{selectOptions @root.faces selected=data.value.faces blank=data.placeholder.faces}}
                 </select>

@@ -29,7 +29,7 @@
         {{#if isConcentration}}
         <n5eb-icon src="systems/n5eb/icons/svg/statuses/concentrating.svg"></n5eb-icon>
         {{else}}
-        <proficiency-cycle type="ability" name="{{ path }}.proficient" data-tooltip="{{ hover }}"
+        <proficiency-cycle type="skill" name="{{ path }}.proficient" data-tooltip="{{ hover }}"
                            value="{{#if @root.editable}}{{ baseProf }}{{else}}{{ proficient }}{{/if}}"
                            aria-label="{{ localize hover }}" {{ disabled (not @root.editable) }}></proficiency-cycle>
         {{/if}}

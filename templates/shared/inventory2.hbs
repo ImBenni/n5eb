@@ -122,6 +122,8 @@
                 {{#if (eq dataset.type "container")}}
                 <div class="item-header item-capacity"></div>
                 {{else}}
+                
+                <div class="item-header item-ammo">{{ localize "N5EB.Ammo" }}</div>
                 <div class="item-header item-price">{{ localize "N5EB.Price" }}</div>
                 <div class="item-header item-weight">{{ localize "N5EB.Weight" }}</div>
                 <div class="item-header item-quantity">{{ localize "N5EB.Quantity" }}</div>
@@ -186,8 +188,26 @@
                         </div>
 
                         {{else}}
+                           {{!-- Item Ammo --}}
+                            <div class="item-detail item-ammo {{#unless ctx.hasAmmo}}empty{{/unless}}">
+                            {{#if ctx.hasAmmo}}
+                                {{#if @root.owner}}
+                                <a class="adjustment-button-ammo" data-action="ammo-decrease" data-property="system.ammunitionDie">
+                                    <i class="fas fa-minus"></i>
+                                </a>
+                                {{/if}}
+                                <input type="text" value="{{ item.system.ammunitionDie }}" placeholder="1" data-dtype="String"
+                                    data-name="system.ammunitionDie">
+                                {{#if @root.owner}}
+                                <a class="adjustment-button-ammo" data-action="ammo-increase" data-property="system.ammunitionDie">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                                {{/if}}
+                            {{/if}}
+                            </div>
 
-                        {{!-- Item Price --}}
+
+                            {{!-- Item Price --}}
                             <div class="item-detail item-price {{#unless item.system.price.value}}empty{{/unless}}">
                                 {{#if item.system.price.value}}
                                 {{ifThen ctx.concealDetails "—" (n5eb-numberFormat item.system.price.value)}}

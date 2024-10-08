@@ -69,7 +69,7 @@
             {{!-- Chakra Cost --}}
             <div class="form-group">
                 <label>{{ localize "N5EB.ChakraCost" }}</label>
-                <input type="number" name="system.chakraCost" value="{{ system.chakraCost }}" data-dtype="Number" min="0">
+                <input type="number" class="cost" name="system.chakraCost" value="{{ system.chakraCost }}" data-dtype="Number" min="0">
             </div>
 
             {{!-- Spell Components --}}
@@ -145,7 +145,7 @@
             {{!-- Item Action Template --}}
             {{> "n5eb.item-action"}}
 
-            {{!-- Spell Level Scaling --}}
+            {{!-- Damage Scaling --}}
             <div class="form-group">
                 <label>{{ localize "N5EB.LevelScaling" }}</label>
                 <div class="form-fields">
@@ -160,6 +160,38 @@
                            placeholder="{{ localize 'N5EB.ScalingFormula' }}" data-formula-editor>
                 </div>
             </div>
+
+            {{!-- Versatile DMG Scaling --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.VersatileScaling" }}</label>
+                <div class="form-fields">
+                    <select name="system.versatileScaling.mode">
+                        {{#select system.versatileScaling.mode}}
+                        {{#each config.spellScalingModes as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                    <input type="text" name="system.versatileScaling.formula" value="{{system.versatileScaling.formula}}"
+                           placeholder="{{ localize 'N5EB.ScalingFormula' }}" data-formula-editor>
+                </div>
+            </div>
+
+            {{!-- Target Scaling --}}
+            {{!-- <div class="form-group">
+                <label>{{ localize "N5EB.TargetScaling" }}</label>
+                <div class="form-fields">
+                    <select name="system.targetScaling.mode">
+                        {{#select system.targetScaling.mode}}
+                        {{#each config.spellScalingModes as |name key|}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                    <input type="text" name="system.targetScaling.formula" value="{{system.targetScaling.formula}}"
+                           placeholder="{{ localize 'N5EB.ScalingFormula' }}" data-formula-editor>
+                </div>
+            </div> --}}
 
             {{!-- Chakra Scaling --}}
             <div class="form-group">

@@ -96,6 +96,28 @@
                 </div>
             </div>
 
+             {{!-- Toughness --}}
+            <div class="form-group">
+                <label>{{ localize "N5EB.Toughness" }}</label>
+                <div class="form-fields">
+                    {{numberInput system.toughness name="system.toughness" placeholder="0"}}
+                </div>
+                <p class="hint">
+                    {{{ localize "N5EB.ClassToughnessHint" }}}
+                </p>
+            </div>
+
+            {{!-- <div class="form-group"></div>
+                <label>{{localize "N5EB.Toughness"}}</label>
+                <div class="form-fields">
+                    {{numberInput system.toughness name="system.toughness"}}
+                </div>
+                 <p class="hint"></p>
+                    {{{ localize "N5EB.ClassToughnessHint" }}}
+                    {{ localize "N5EB.ToughnessError" }}
+                </p>
+            </div> --}}
+
             {{!-- Spellcasting --}}
             {{!-- <h3 class="form-header">{{localize "N5EB.Spellcasting"}}</h3>
             {{> "n5eb.item-spellcasting"}} --}}
