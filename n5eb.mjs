@@ -12004,6 +12004,7 @@ class ItemDescriptionTemplate extends SystemDataModel {
    * @returns {Set<string>}
    */
   get validProperties() {
+    console.log("Type:", this.parent.type);
     return new Set(CONFIG.N5EB.validProperties[this.parent.type] ?? []);
   }
 
@@ -22619,11 +22620,20 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     const level = this.system.details.level || 0;
     const dexMod = this.system.abilities.dex?.mod || 0;
 
-    // Check for "blo" property in equipped weapons
+    // Check for "blo" property in equipped weapons and shields
     let blockingBonus = 0;
+
     const weapons = this.itemTypes.weapon.filter((weapon) => weapon.system.equipped);
     for (const weapon of weapons) {
       if (weapon.system.properties.has("blo")) {
+        blockingBonus = 1;
+        break;
+      }
+    }
+
+    // Check for blocking in shields
+    for (const shield of shields) {
+      if (shield.system.properties?.has("blo")) {
         blockingBonus = 1;
         break;
       }
@@ -25661,6 +25671,16 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         mode: CONST.ACTIVE_EFFECT_MODES.ADD,
         value: ac.shield,
       });
+
+    // Blocking Bonus
+    const itemsWithBlocking = this.items.filter((item) => item.system.equipped && item.system.properties?.has("blo"));
+    if (itemsWithBlocking.length > 0) {
+      attribution.push({
+        label: game.i18n.localize("N5EB.BlockingBonus"),
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: 1,
+      });
+    }
 
     // Bonus
     if (ac.bonus !== 0) attribution.push(...this._prepareActiveEffectAttributions("system.attributes.ac.bonus"));
@@ -30057,21 +30077,7 @@ N5EB.featureTypes = {
       hunterPattern: "N5EB.Feature.Class.HunterPattern",
       hunterExploit: "N5EB.Feature.Class.HunterExploit",
       plan: "N5EB.Feature.Class.Plan",
-
-      // artificerInfusion: "N5EB.Feature.Class.ArtificerInfusion",
-      // channelDivinity: "N5EB.Feature.Class.ChannelDivinity",
-      // defensiveTactic: "N5EB.Feature.Class.DefensiveTactic",
-      // eldritchInvocation: "N5EB.Feature.Class.EldritchInvocation",
-      // elementalDiscipline: "N5EB.Feature.Class.ElementalDiscipline",
-      // fightingStyle: "N5EB.Feature.Class.FightingStyle",
-      // huntersPrey: "N5EB.Feature.Class.HuntersPrey",
-      // maneuver: "N5EB.Feature.Class.Maneuver",
-      // metamagic: "N5EB.Feature.Class.Metamagic",
-      // multiattack: "N5EB.Feature.Class.Multiattack",
-      // pact: "N5EB.Feature.Class.PactBoon",
-      // psionicPower: "N5EB.Feature.Class.PsionicPower",
-      // rune: "N5EB.Feature.Class.Rune",
-      // superiorHuntersDefense: "N5EB.Feature.Class.SuperiorHuntersDefense"
+      effmold: "N5EB.Feature.Class.EfficientMold",
     },
   },
   subclass: {
@@ -30387,6 +30393,8 @@ N5EB.validProperties = {
     "lightweight",
     "reinforced",
     "threatening",
+    "blo",
+    "lgt",
   ]),
 
   feat: new Set(["concentration", "mgc"]),
