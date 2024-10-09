@@ -475,7 +475,14 @@
                             </label>
                             <label class="tenacity">
                                 <span class="label roboto-upper">{{ localize "N5EB.TenacityDice" }}</span>
-                                {{ numberInput source.resources.tenacity.max name="system.resources.tenacity.max" step=1 min=0 }}
+                                {{ numberInput
+                                    source.resources.tenacity.max
+                                    name="system.resources.tenacity.max"
+                                    step=1
+                                    min=0
+                                    class="tenacity-input"
+                                    data-softmax=source.resources.tenacity.softMax
+                                }}
                             </label>
                             {{else}}
                             {{#if system.resources.legact.max}}
@@ -509,7 +516,7 @@
                                     <span class="label roboto-upper">{{ localize "N5EB.TenacityDice" }}</span>
                                     <div class="pips" data-prop="system.resources.tenacity.value">
                                         {{#each tenacity}}
-                                        {{> pip }}
+                                            {{> pip }}
                                         {{/each}}
                                     </div>
                                 </div>

@@ -551,7 +551,7 @@ class Proficiency {
       if (this.multiplier === 0.5) {
         // Handle half proficiency with mastery
         const roundMethod = this.rounding === "down" ? Math.floor : Math.ceil;
-        return roundMethod((this._baseProficiency / 2)) + masteryBonus;
+        return roundMethod(this._baseProficiency / 2) + masteryBonus;
       } else {
         // Regular mastery calculation
         return this._baseProficiency + masteryBonus;
@@ -41026,7 +41026,6 @@ class ActorSheet5eCharacter2 extends ActorSheetV2Mixin(ActorSheet5eCharacter) {
     const { name } = event.target.dataset;
     const { itemId } = event.target.closest("[data-item-id]")?.dataset ?? {};
     const item = this.actor.items.get(itemId);
-    console.log(name, item, event.target);
     if (event.target.closest(".favorites") && name && item) return item.update({ [name]: event.target.value });
     return super._onChangeInput(event);
   }
@@ -41769,7 +41768,11 @@ class ActorSheet5eNPC2 extends ActorSheetV2Mixin(ActorSheet5eNPC) {
     });
 
     context.hasLegendaries =
-      resources.legact.max || resources.legres.max || resources.lair.initiative || resources.tenacity.max;
+      resources.legact.max ||
+      resources.legres.max ||
+      resources.lair.initiative ||
+      resources.tenacity.max ||
+      resources.tenacity.softMax;
 
     // Spellcasting
     this._prepareSpellcasting(context);
@@ -41953,6 +41956,8 @@ class ActorSheet5eNPC2 extends ActorSheetV2Mixin(ActorSheet5eNPC) {
       html.find("input[name^='system.details.highRole']").on("change", this._onHighRoleChange.bind(this));
       html.find(".editor-edit").on("click", this._onEditBiography.bind(this));
     }
+
+    html.find(".tenacity-input").on("change", this._onTenacityMaxChange.bind(this));
   }
 
   /* -------------------------------------------- */
@@ -41990,6 +41995,34 @@ class ActorSheet5eNPC2 extends ActorSheetV2Mixin(ActorSheet5eNPC) {
     }
 
     return formData;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle changes to the tenacity max value.
+   * Update the current value if it exceeds the max.
+   * @param {Event} event The change event.
+   * @private
+   */
+  _onTenacityMaxChange(event) {
+    const input = event.currentTarget;
+    const newMax = parseInt(input.value, 10);
+
+    // If newMax is not valid, do nothing
+    if (isNaN(newMax) || newMax < 0) return;
+
+    // Update the max value on the actor data
+    const resources = foundry.utils.deepClone(this.actor.system.resources);
+    resources.tenacity.max = newMax;
+
+    // If the current value exceeds the new max, update it
+    if (resources.tenacity.value > newMax) {
+      resources.tenacity.value = newMax;
+    }
+
+    // Update actor data
+    this.actor.update({ "system.resources": resources });
   }
 
   /* -------------------------------------------- */
@@ -45810,7 +45843,7 @@ input {
    */
   get validValues() {
     const enableMastery = game.settings.get("n5eb", "enableMastery");
-    return enableMastery ? [0, 0.5, 1, 2, 3, 4] : [0, 0.5, 1, 2];
+    return enableMastery ? [0, 1, 0.5, 2, 3, 4] : [0, 1, 0.5, 2];
   }
 
   /* -------------------------------------------- */
@@ -51782,6 +51815,14 @@ class NPCData extends CreatureTemplate {
                 initial: 0,
                 label: "N5EB.TenacityMax",
               }),
+              softMax: new NumberField$4({
+                required: true,
+                nullable: false,
+                integer: true,
+                min: 0,
+                initial: 0,
+                label: "N5EB.TenacitySoftMax",
+              }),
             },
             { label: "N5EB.TenacityDice" }
           ),
@@ -52044,15 +52085,21 @@ class NPCData extends CreatureTemplate {
     this.details.xp.value = classMod.xp ?? 0;
     // this.details.xp.value = this.parent.getCRExp(this.details.cr);
 
-    if (this.details.npcType === "adversary") {
+    // Calculate Tenacity Dice soft max based on the NPC type
+    if (this.details.npcType === "adversary" && this.parent.type === "npc") {
       const npcClass = this.details.classNPC;
+      let tenacityDice = 0;
       if (npcClass === "elite") {
-        const tenacityDice = Math.floor(this.details.level / 2);
-        this.resources.tenacity.max = tenacityDice;
+        tenacityDice = Math.floor(this.details.level / 2);
       } else if (npcClass === "solo") {
-        this.resources.tenacity.max = this.details.level;
-      } else {
-        this.resources.tenacity.max = 0;
+        tenacityDice = this.details.level;
+      }
+      // Store the calculated soft max
+      this.resources.tenacity.softMax = tenacityDice;
+
+      // Set the current tenacity max based on existing value
+      if (!this.resources.tenacity.max || this.resources.tenacity.max === 0) {
+        this.resources.tenacity.max = tenacityDice; // Default to softMax when max is 0 or undefined
       }
     }
 
