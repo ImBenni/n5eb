@@ -4175,6 +4175,17 @@ class ItemChoiceConfig extends AdvancementConfig {
         }),
         subtypeOptions: selectedType?.subtypes,
       };
+      // Handle nestedsubtypes if they exist
+      if (selectedType?.subtypes && this.advancement.configuration.restriction.subtype) {
+        const selectedSubtype = selectedType.subtypes[this.advancement.configuration.restriction.subtype];
+
+        if (selectedSubtype?.nestedsubtypes) {
+          context.typeRestriction.nestedsubtypeLabel = game.i18n.format("N5EB.ItemFeatureNestedSubtype", {
+            subtype: selectedSubtype?.label || selectedSubtype,
+          });
+          context.typeRestriction.nestedsubtypeOptions = selectedSubtype.nestedsubtypes;
+        }
+      }
     }
     return context;
   }
@@ -5448,7 +5459,7 @@ class CompendiumBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     } else if (partId === "filters") {
       context.additional = Array.from(context.filterDefinitions?.entries() ?? []).reduce((arr, [key, data]) => {
         // Special case handling for 'Feats' tab in basic mode.
-        if (types[0] === "feat" && (key === "category" || key === "subtype")) return arr;
+        if (types[0] === "feat" && (key === "category" || key === "subtype" || key === "nestedsubtype")) return arr;
 
         let sort = 0;
         switch (data.type) {
@@ -14294,6 +14305,7 @@ class ActivatedEffectTemplate extends SystemDataModel {
  * @property {object} type                      Standardized item type object.
  * @property {string} type.value                Category to which this item belongs.
  * @property {string} type.subtype              Item subtype according to its category.
+ * @property {string} type.nestedsubtype        Item nested subtype according to its subtype.
  * @property {string} type.baseItem             Item this one is based on.
  * @mixin
  */
@@ -14383,11 +14395,13 @@ class MountableTemplate extends SystemDataModel {
 /**
  * A field for storing Item type data.
  *
- * @param {object} [options={}]                   Options to configure this field's behavior.
- * @param {string} [options.value]                An initial value for the Item's type.
- * @param {string|boolean} [options.subtype]      An initial value for the Item's subtype, or false to exclude it.
- * @param {string|boolean} [options.baseItem]     An initial value for the Item's baseItem, or false to exclude it.
- * @param {DataFieldOptions} [schemaOptions={}]   Options forwarded to the SchemaField.
+ * @param {object} [options={}]                    Options to configure this field's behavior.
+ * @param {string} [options.value]                 An initial value for the Item's type.
+ * @param {string|boolean} [options.subtype]       An initial value for the Item's subtype, or false to exclude it.
+ * @param {string|boolean} [options.nestedsubtype] An initial value for the Item's nestedsubtype, or false to exclude it.
+
+ * @param {string|boolean} [options.baseItem]      An initial value for the Item's baseItem, or false to exclude it.
+ * @param {DataFieldOptions} [schemaOptions={}]    Options forwarded to the SchemaField.
  */
 class ItemTypeField extends foundry.data.fields.SchemaField {
   constructor(options = {}, schemaOptions = {}) {
@@ -14404,6 +14418,12 @@ class ItemTypeField extends foundry.data.fields.SchemaField {
         initial: options.subtype ?? "",
         label: "N5EB.Subtype",
       }),
+      nestedsubtype: new foundry.data.fields.StringField({
+        required: true,
+        blank: true,
+        initial: options.nestedsubtype ?? "",
+        label: "N5EB.NestedSubtype",
+      }),
       baseItem: new foundry.data.fields.StringField({
         required: true,
         blank: true,
@@ -14412,6 +14432,7 @@ class ItemTypeField extends foundry.data.fields.SchemaField {
       }),
     };
     if (options.subtype === false) delete fields.subtype;
+    if (options.nestedsubtype === false) delete fields.nestedsubtype;
     if (options.baseItem === false) delete fields.baseItem;
     super(fields, schemaOptions);
   }
@@ -27047,6 +27068,7 @@ class ItemChoiceConfigurationData extends foundry.abstract.DataModel {
       restriction: new SchemaField$a({
         type: new StringField$c({ label: "N5EB.Type" }),
         subtype: new StringField$c({ label: "N5EB.Subtype" }),
+        nestedsubtype: new StringField$c({ label: "N5EB.NestedSubtype" }),
         level: new StringField$c({ label: "N5EB.SpellLevel" }),
       }),
     };
@@ -27547,6 +27569,12 @@ class ItemChoiceAdvancement extends ItemGrantAdvancement {
       let errorLabel;
       if (restriction.type !== item.system.type.value) errorLabel = typeConfig.label;
       else if (subtype && restriction.subtype !== item.system.type.subtype) errorLabel = subtype;
+      else if (subtype?.nestedsubtypes && restriction.nestedsubtype) {
+        const nestedsubtype = subtype.nestedsubtypes?.[restriction.nestedsubtype];
+        if (nestedsubtype && restriction.nestedsubtype !== item.system.type.nestedsubtype) {
+          errorLabel = nestedsubtype;
+        }
+      }
       if (errorLabel) {
         if (strict) throw new Error(game.i18n.format("N5EB.AdvancementItemChoiceTypeWarning", { type: errorLabel }));
         return false;
@@ -30078,6 +30106,35 @@ N5EB.featureTypes = {
       hunterExploit: "N5EB.Feature.Class.HunterExploit",
       plan: "N5EB.Feature.Class.Plan",
       effmold: "N5EB.Feature.Class.EfficientMold",
+      puppetUpgrades: {
+        label: "N5EB.Feature.Class.PuppetUpgrade.Label",
+        nestedsubtypes: {
+          wood: "N5EB.Feature.Class.PuppetUpgrade.Wood",
+          bronze: "N5EB.Feature.Class.PuppetUpgrade.Bronze",
+          silver: "N5EB.Feature.Class.PuppetUpgrade.Silver",
+          gold: "N5EB.Feature.Class.PuppetUpgrade.Gold",
+          platinum: "N5EB.Feature.Class.PuppetUpgrade.Platinum",
+        },
+      },
+      scientificTools: {
+        label: "N5EB.Feature.Class.ScientificTools.Label",
+        nestedsubtypes: {
+          minor: "N5EB.Feature.Class.ScientificTools.Minor",
+          refined: "N5EB.Feature.Class.ScientificTools.Refined",
+          greater: "N5EB.Feature.Class.ScientificTools.Greater",
+          superior: "N5EB.Feature.Class.ScientificTools.Superior",
+          supreme: "N5EB.Feature.Class.ScientificTools.Supreme",
+          mastercraft: "N5EB.Feature.Class.ScientificTools.Mastercraft",
+          weaponofwonder: "N5EB.Feature.Class.ScientificTools.WeaponOfWonder",
+          regalia: "N5EB.Feature.Class.ScientificTools.Regalia",
+          shinjutsu: "N5EB.Feature.Class.ScientificTools.Shinjutsu",
+        },
+      },
+      manuevers: "N5EB.Feature.Class.Manuevers",
+      martialtech: "N5EB.Feature.Class.MartialTech",
+      battlestyle: "N5EB.Feature.Class.BattleStyle",
+      battletech: "N5EB.Feature.Class.BattleTech",
+
     },
   },
   subclass: {
@@ -30086,9 +30143,6 @@ N5EB.featureTypes = {
   classmod: {
     label: "N5EB.Feature.Classmod.Label",
   },
-  // monster: {
-  //   label: "N5EB.Feature.Monster"
-  // },
   race: {
     label: "N5EB.Feature.Race",
   },
@@ -30100,10 +30154,37 @@ N5EB.featureTypes = {
     },
   },
   feat: {
-    label: "N5EB.Feature.Feat",
+    label: "N5EB.Feature.Feat.Label",
+    general: "N5EB.Feature.Feat.General",
+    critical: "N5EB.Feature.Feat.Critical",
+    skill: "N5EB.Feature.Feat.Skill",
+    chakra: "N5EB.Feature.Feat.Chakra",
+    ninjutsu: "N5EB.Feature.Feat.Ninjutsu",
+    genjutsu: "N5EB.Feature.Feat.Genjutsu",
+    taijutsu: "N5EB.Feature.Feat.Taijutsu",
+  },
+  classfeat: {
+    label: "N5EB.Feature.ClassFeat.Label",
+    subtypes: {
+      archetype: "N5EB.Feature.ClassFeat.Archetype",
+      caster: "N5EB.Feature.ClassFeat.Caster",
+      martial: "N5EB.Feature.ClassFeat.Martial",
+    },
   },
   clanfeat: {
     label: "N5EB.Feature.ClanFeat",
+  },
+  classmodfeat: {
+    label: "N5EB.Feature.ClassmodFeat",
+  },
+  stances: {
+    label: "N5EB.Feature.Stances.Label",
+    taijutsu: "N5EB.Feature.Stances.Taijutsu",
+    bukijutsu: "N5EB.Feature.Stances.Bukijutsu",
+   
+  },
+  latentAbility: {
+    label: "N5EB.Feature.LatentAbility",
   },
   adversaryTrait: {
     label: "N5EB.Feature.AdversaryTrait.Label",
@@ -30140,7 +30221,9 @@ N5EB.featureTypes = {
   },
 };
 preLocalize("featureTypes", { key: "label" });
-preLocalize("featureTypes.class.subtypes", { sort: true });
+preLocalize("featureTypes.class.subtypes", { key: "label", sort: true });
+preLocalize("featureTypes.class.subtypes.puppetUpgrades.nestedsubtypes", { sort: false });
+preLocalize("featureTypes.class.subtypes.scientificTools.nestedsubtypes", { sort: false });
 preLocalize("featureTypes.adversaryTrait.subtypes", { sort: true });
 preLocalize("featureTypes.adversaryPassive.subtypes", { sort: true });
 preLocalize("featureTypes.summon.subtypes", { sort: true });
@@ -40091,7 +40174,7 @@ function ActorSheetV2Mixin(Base) {
         } else ctx.equip = { applicable: false };
 
         // Subtitles
-        ctx.subtitle = [system.type?.label, item.isActive ? item.labels.activation : null].filterJoin(" &bull; ");
+        ctx.subtitle = [system.type?.nestedlabel, item.isActive ? item.labels.activation : null].filterJoin(" &bull; ");
       }
 
       // Concentration
@@ -47200,9 +47283,24 @@ class ItemSheet5e extends ItemSheet {
     if (["feat", "loot", "consumable"].includes(item.type)) {
       const name = item.type === "feat" ? "feature" : item.type;
       const itemTypes = CONFIG.N5EB[`${name}Types`][item.system.type.value];
+
       if (itemTypes) {
         context.itemType = itemTypes.label;
-        context.itemSubtypes = itemTypes.subtypes;
+
+        context.itemSubtypes = {};
+        context.itemNestedSubtypes = {};
+
+        for (const [subtypeKey, subtypeValue] of Object.entries(itemTypes.subtypes || {})) {
+          if (typeof subtypeValue === "object" && "label" in subtypeValue) {
+            context.itemSubtypes[subtypeKey] = subtypeValue.label;
+
+            if (subtypeValue.nestedsubtypes) {
+              context.itemNestedSubtypes[subtypeKey] = subtypeValue.nestedsubtypes;
+            }
+          } else {
+            context.itemSubtypes[subtypeKey] = subtypeValue;
+          }
+        }
       }
     }
 
@@ -53008,10 +53106,34 @@ class FeatData extends ItemDataModel.mixin(
           type: "set",
           config: {
             choices: Object.values(CONFIG.N5EB.featureTypes).reduce((obj, config) => {
-              for (const [key, label] of Object.entries(config.subtypes ?? {})) obj[key] = label;
+              for (const [key, label] of Object.entries(config.subtypes ?? {})) {
+                if (typeof label === "string") {
+                  obj[key] = label;
+                }
+              }
               return obj;
             }, {}),
             keyPath: "system.type.subtype",
+          },
+        },
+      ],
+      [
+        "nestedsubtype",
+        {
+          label: "N5EB.ItemFeatureNestedSubtype",
+          type: "set",
+          config: {
+            choices: Object.values(CONFIG.N5EB.featureTypes).reduce((obj, config) => {
+              for (const [key, label] of Object.entries(config.subtypes ?? {})) {
+                if (typeof label === "object" && label.label) {
+                  for (const [nestedKey, nestedLabel] of Object.entries(label.nestedsubtypes ?? {})) {
+                    obj[`${key}.${nestedKey}`] = nestedLabel;
+                  }
+                }
+              }
+              return obj;
+            }, {}),
+            keyPath: "system.type.nestedsubtype",
           },
         },
       ],
@@ -53029,8 +53151,15 @@ class FeatData extends ItemDataModel.mixin(
 
     if (this.type.value) {
       const config = CONFIG.N5EB.featureTypes[this.type.value];
-      if (config) this.type.label = config.subtypes?.[this.type.subtype] ?? null;
-      else this.type.label = game.i18n.localize(CONFIG.Item.typeLabels.feat);
+
+      if (config) {
+        this.type.label = config.subtypes?.[this.type.subtype]?.label ?? config.subtypes?.[this.type.subtype] ?? null;
+        if (config.subtypes?.[this.type.subtype]?.nestedsubtypes) {
+          this.type.nestedlabel = config.subtypes[this.type.subtype].nestedsubtypes?.[this.type.nestedsubtype] ?? null;
+        }
+      } else {
+        this.type.label = game.i18n.localize(CONFIG.Item.typeLabels.feat);
+      }
     }
   }
 
@@ -53070,7 +53199,12 @@ class FeatData extends ItemDataModel.mixin(
    */
   static #migrateType(source) {
     if (!("type" in source)) return;
-    if (!source.type) source.type = { value: "", subtype: "" };
+    if (!source.type) source.type = { value: "", subtype: "", nestedsubtype: "" };
+    else {
+      source.type.value ??= "";
+      source.type.subtype ??= "";
+      source.type.nestedsubtype ??= "";
+    }
   }
 
   /* -------------------------------------------- */
