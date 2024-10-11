@@ -5060,6 +5060,7 @@ class CompendiumBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       id: "sidebar-filters",
       classes: ["sidebar-part"],
       template: "systems/n5eb/templates/compendium/browser-sidebar-filters.hbs",
+      templates: ["systems/dnd5e/templates/compendium/browser-sidebar-filter-set.hbs"],
     },
     results: {
       id: "results",
@@ -5246,6 +5247,12 @@ class CompendiumBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       inplace: false,
     });
     filters.documentClass ??= "Item";
+    if (filters.additional?.source) {
+      filters.additional.source = Object.entries(filters.additional.source).reduce((obj, [k, v]) => {
+        obj[k.slugify({ strict: true })] = v;
+        return obj;
+      }, {});
+    }
     return filters;
   }
 
@@ -12015,7 +12022,7 @@ class ItemDescriptionTemplate extends SystemDataModel {
    * @returns {Set<string>}
    */
   get validProperties() {
-    console.log("Type:", this.parent.type);
+    // console.log("Type:", this.parent.type);
     return new Set(CONFIG.N5EB.validProperties[this.parent.type] ?? []);
   }
 
@@ -22338,6 +22345,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     this._prepareSkills(rollData, globalBonuses, checkBonus, originalSkills);
     this._prepareTools(rollData, globalBonuses, checkBonus);
     this._prepareArmorClass();
+    this._prepareDamageReduction();
     this._prepareInitiative(rollData, checkBonus);
     this._prepareSpellcasting();
 
@@ -22785,6 +22793,62 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     // Compute total AC and return
     ac.bonus = simplifyBonus(ac.bonus, rollData);
     ac.value = ac.base + ac.shield + ac.bonus + ac.cover + ac.prof + blockingBonus;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare a character's Damage Reduction (DR) value from their equipped armor and shield.
+   * Mutates the value of the `system.traits.dm` object.
+   */
+  _prepareDamageReduction() {
+    const dm = this.system.traits.dm;
+    if (!dm.amount) dm.amount = {};
+    if (!dm.bypasses) dm.bypasses = {};
+    dm.amount = {};
+    dm.bypasses = {};
+
+    // Identify Equipped Items
+    const armorTypes = new Set(Object.keys(CONFIG.N5EB.armorTypes));
+    const { armors, shields } = this.itemTypes.equipment.reduce(
+      (obj, equip) => {
+        if (!equip.system.equipped || !armorTypes.has(equip.system.type.value)) return obj;
+        if (equip.system.type.value === "shield") obj.shields.push(equip);
+        else obj.armors.push(equip);
+        return obj;
+      },
+      { armors: [], shields: [] }
+    );
+
+    // Gather DR from armors
+    let drValue = 0;
+    if (armors.length) {
+      for (const armor of armors) {
+        const dr = armor.system.armor?.dr || 0;
+        if (Number.isFinite(dr)) {
+          drValue += dr; 
+        }
+      }
+    }
+
+    // Gather DR from shields
+    if (shields.length) {
+      for (const shield of shields) {
+        const dr = shield.system.armor?.dr || 0;
+        if (Number.isFinite(dr)) {
+          drValue += dr;
+        }
+      }
+    }
+
+    // If there is any DR value, apply it to damage types
+    if (drValue > 0) {
+      const damageTypes = ["bludgeoning", "slashing", "piercing"];
+      for (const type of damageTypes) {
+        dm.amount[type] = `-${drValue}`; // DR reduces the damage taken, hence negative value
+      }
+    }
+    // console.log("Prepared Damage Reduction:", dm);
   }
 
   /* -------------------------------------------- */
@@ -28461,6 +28525,57 @@ class SizeAdvancement extends Advancement {
   }
 }
 
+/**
+ * Inline application that presents the player with the subclass hint.
+ */
+class SubclassFlow extends AdvancementFlow {
+  /** @inheritDoc */
+  async getData() {
+    return foundry.utils.mergeObject(super.getData(), {
+      hint: `${this.advancement.hint ?? ""} ${game.i18n.localize("N5EB.ADVANCEMENT.Subclass.FlowHint")}`,
+    });
+  }
+}
+
+/**
+ * Advancement that indicates when a class takes a subclass. Only allowed on class items and can only be taken once.
+ */
+class SubclassAdvancement extends Advancement {
+  /** @inheritDoc */
+  static get metadata() {
+    return foundry.utils.mergeObject(super.metadata, {
+      order: 70,
+      icon: "systems/n5eb/icons/svg/subclass.svg",
+      typeIcon: "systems/dnd5e/icons/svg/subclass.svg",
+      title: game.i18n.localize("N5EB.ADVANCEMENT.Subclass.Title"),
+      hint: game.i18n.localize("N5EB.ADVANCEMENT.Subclass.Hint"),
+      apps: {
+        flow: SubclassFlow,
+      },
+    });
+  }
+
+  /* -------------------------------------------- */
+  /*  Display Methods                             */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  summaryforLevel(level, { configMode = false } = {}) {
+    const subclass = this.item.subclass;
+    if (configMode || !subclass) return "";
+    return subclass.toAnchor().outerHTML;
+  }
+
+  /* -------------------------------------------- */
+  /*  Editing Methods                             */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static availableForItem(item) {
+    return !item.advancement.byType.Subclass?.length;
+  }
+}
+
 var _module$g = /*#__PURE__*/ Object.freeze({
   __proto__: null,
   AbilityScoreImprovementAdvancement: AbilityScoreImprovementAdvancement,
@@ -28471,6 +28586,7 @@ var _module$g = /*#__PURE__*/ Object.freeze({
   ItemGrantAdvancement: ItemGrantAdvancement,
   ScaleValueAdvancement: ScaleValueAdvancement,
   SizeAdvancement: SizeAdvancement,
+  SubclassAdvancement: SubclassAdvancement,
   TraitAdvancement: TraitAdvancement,
 });
 
@@ -29149,6 +29265,7 @@ preLocalize("timePeriods");
  */
 N5EB.staticAbilityActivationTypes = {
   none: "N5EB.NoneActionLabel",
+  fullturnaction: "N5EB.FullTurnAction",
   special: N5EB.timePeriods.spec,
 };
 
@@ -30134,7 +30251,6 @@ N5EB.featureTypes = {
       martialtech: "N5EB.Feature.Class.MartialTech",
       battlestyle: "N5EB.Feature.Class.BattleStyle",
       battletech: "N5EB.Feature.Class.BattleTech",
-
     },
   },
   subclass: {
@@ -30181,7 +30297,6 @@ N5EB.featureTypes = {
     label: "N5EB.Feature.Stances.Label",
     taijutsu: "N5EB.Feature.Stances.Taijutsu",
     bukijutsu: "N5EB.Feature.Stances.Bukijutsu",
-   
   },
   latentAbility: {
     label: "N5EB.Feature.LatentAbility",
@@ -32761,7 +32876,7 @@ const _ALL_ITEM_TYPES = ["background", "class", "race", "subclass", "classmod"];
 N5EB.advancementTypes = {
   AbilityScoreImprovement: {
     documentClass: AbilityScoreImprovementAdvancement,
-    validItemTypes: new Set(["background", "class", "race"]),
+    validItemTypes: new Set(["background", "class", "race", "classmod"]),
   },
   HitPoints: {
     documentClass: HitPointsAdvancement,
@@ -32786,6 +32901,10 @@ N5EB.advancementTypes = {
   Size: {
     documentClass: SizeAdvancement,
     validItemTypes: new Set(["race"]),
+  },
+  Subclass: {
+    documentClass: SubclassAdvancement,
+    validItemTypes: new Set(["class"]),
   },
   Trait: {
     documentClass: TraitAdvancement,
@@ -37360,7 +37479,10 @@ class ActorSheet5eCharacter extends ActorSheet5e {
       const identifier = cls.system.identifier || cls.name.slugify({ strict: true });
       const subclass = subclasses.findSplice((s) => s.system.classIdentifier === identifier);
       if (subclass) arr.push(subclass);
-
+      else {
+        const subclassAdvancement = cls.advancement.byType.Subclass?.[0];
+        if (subclassAdvancement && subclassAdvancement.level <= cls.system.levels) ctx.needsSubclass = true;
+      }
       return arr;
     }, []);
 
@@ -40116,11 +40238,13 @@ function ActorSheetV2Mixin(Base) {
           action: "N5EB.ActionAbbr",
           bonus: "N5EB.BonusActionAbbr",
           reaction: "N5EB.ReactionAbbr",
+          fullturnaction: "N5EB.FullTurnActionAbbr",
           minute: "N5EB.TimeMinuteAbbr",
           hour: "N5EB.TimeHourAbbr",
           day: "N5EB.TimeDayAbbr",
         }[system.activation.type];
-        ctx.activation = cost && abbr ? `${cost}${game.i18n.localize(abbr)}` : item.labels.activation;
+        ctx.activation =
+          system.activation.type === "fullturnaction" ? game.i18n.localize(abbr) : cost && abbr ? `${cost}${game.i18n.localize(abbr)}` : item.labels.activation;
 
         // Range
         const units = system.range?.units;
@@ -43236,6 +43360,7 @@ var _module$e = /*#__PURE__*/ Object.freeze({
   ScaleValueFlow: ScaleValueFlow,
   SizeConfig: SizeConfig,
   SizeFlow: SizeFlow,
+  SubclassFlow: SubclassFlow,
   TraitConfig: TraitConfig,
   TraitFlow: TraitFlow,
 });

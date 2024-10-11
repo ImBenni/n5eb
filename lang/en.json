@@ -131,6 +131,8 @@
   "N5EB.AbilityCheckBonus": "Check Bonus",
   "N5EB.AbilityCheckGlobalBonusHint": "This bonus applies to all ability checks made by this actor.",
   "N5EB.Action": "Action",
+  "N5EB.FullTurnAction": "Full-Turn-Action",
+  "N5EB.FullTurnActionAbbr": "Full",
   "N5EB.ActionAbbr": "A",
   "N5EB.ActionPl": "Actions",
   "N5EB.ActionAbil": "Ability Check",
@@ -160,6 +162,65 @@
   "N5EB.AdditionalSettings": "Additional Settings",
   "N5EB.AddEmbeddedItemPromptHint": "Do you want to add these items to your character sheet?",
   "N5EB.Advanced": "Advanced",
+
+  "N5EB.ADVANCEMENT": {
+  "AbilityScoreImprovement": {
+    "Title": "Ability Score Improvement",
+    "Hint": "Allow the player to increase one or more ability scores or take an optional feat.",
+    "CapDisplay": {
+      "one": "Max {points} point per score",
+      "other": "Max {points} points per score"
+    },
+    "Feat": {
+      "Hint": "Drop a feat here to choose one instead of an ability score improvement."
+    },
+    "FIELDS": {
+      "cap": {
+        "label": "Point Cap",
+        "hint": "Maximum number of points a player can assign to a single score."
+      },
+      "locked": {
+        "label": "Locked",
+        "hint": "Ability cannot be improved."
+      },
+      "fixed": {
+        "label": "Fixed Improvement",
+        "hint": "Abilities that are improved by a fixed amount and cannot be manually improved during the process."
+      },
+      "points": {
+        "label": "Points",
+        "hint": "Number of points that can be assigned to any unlocked ability score.",
+        "decrease": "Decrease Points",
+        "increase": "Increase Points"
+      }
+    },
+    "LockedHint": "Scores cannot be modified with a feat selected.",
+    "PointsRemaining": {
+      "one": "{points} Point Remaining",
+      "other": "{points} Points Remaining"
+    },
+    "Warning": {
+      "Level": "Must be at least level {level} to take this feat.",
+      "Type": "Only features with the \"feat\" type can be selected."
+    }
+  },
+  "SPELLCONFIG": {
+    "FIELDS": {
+      "uses": {
+        "requireSlot": {
+          "label": "Require Slot",
+          "hint": "Require a spell slot to be spent when using the limited uses. If not checked then the uses will be additional free uses that don't consume a slot."
+        }
+      }
+    },
+    "FreeCasting": "Free Casting"
+  },
+  "Subclass": {
+    "Title": "Subclass",
+    "Hint": "Specify what level this class receives its subclass.",
+    "FlowHint": "Select a subclass in the Features tab after level up has completed."
+  }
+},
   "N5EB.AdvancementAbilityScoreImprovementTitle": "Ability Score Improvement",
   "N5EB.AdvancementAbilityScoreImprovementHint": "Allow the player to increase one or more ability scores or take an optional feat.",
   "N5EB.AdvancementAbilityScoreImprovementCap": "Point Cap",
@@ -2070,6 +2131,7 @@
       "Hint": "Formula in GP that can be used in place of starting equipment."
     }
   },
+  "N5EB.SubclassAdd": "Add Subclass",
   "N5EB.SubclassIdentifierHint": "This identifier should match the identifier on the parent class to ensure they are properly linked.",
   "N5EB.SubclassAssignmentError": "{class} already has a subclass. Remove the existing '{subclass}' subclass before adding a new one.",
   "N5EB.SubclassDuplicateError": "A subclass with the identifier {identifier} already exists on this actor.",
