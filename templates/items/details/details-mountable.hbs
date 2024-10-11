@@ -1,0 +1,49 @@
+<fieldset>
+    <legend>
+        {{#if (eq item.type "weapon")}}{{ localize "N5EB.ItemSiegeProperties" }}
+        {{else if (eq item.type "equipment")}}{{ localize "N5EB.ItemVehicleProperties" }}{{/if}}
+    </legend>
+
+    {{!-- Armor Class --}}
+    {{ formField fields.armor.fields.value value=source.armor.value localize=true }}
+
+    {{!-- Hit Points --}}
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.HitPoints" }}</label>
+        <div class="form-fields">
+
+            {{!-- Current --}}
+            {{ formField fields.hp.fields.value value=source.hp.value label="N5EB.Current" placeholder="0"
+                         localize=true classes="label-top" }}
+
+            {{!-- Max --}}
+            {{ formField fields.hp.fields.max value=source.hp.max label="N5EB.Max" placeholder="0" localize=true
+                         classes="label-top" }}
+
+            {{!-- Threshold --}}
+            {{ formField fields.hp.fields.dt value=source.hp.dt label="N5EB.Threshold" placeholder="—" localize=true
+                         classes="label-top" }}
+        </div>
+
+        {{!-- Conditions --}}
+        {{ formInput fields.hp.fields.conditions value=source.hp.conditions input=inputs.createTextInput
+                     placeholder=(localize "N5EB.HealthConditions") localize=true classes="full-width" }}
+    </div>
+
+    {{!-- Speed --}}
+    {{#if (eq item.type "equipment")}}
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.Speed" }}</label>
+        <div class="form-fields">
+
+            {{!-- Value --}}
+            {{ formField fields.speed.fields.value value=source.speed.value placeholder="0" label="N5EB.Value"
+                         localize=true classes="label-top" }}
+        </div>
+
+        {{!-- Conditions --}}
+        {{ formInput fields.speed.fields.conditions value=source.speed.conditions input=inputs.createTextInput
+                     placeholder=(localize "N5EB.SpeedConditions") localize=true classes="full-width" }}
+    </div>
+    {{/if}}
+</fieldset>

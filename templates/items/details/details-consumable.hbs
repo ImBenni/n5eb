@@ -1,0 +1,59 @@
+<fieldset>
+    <legend>{{ localize "N5EB.ItemConsumableDetails" }}</legend>
+
+    {{!-- Consumable Type --}}
+    {{ formField fields.type.fields.value value=source.type.value choices=config.consumableTypes labelAttr="label"
+                 label="N5EB.ItemConsumableType" localize=true }}
+
+    {{!-- Consumable Sub-Type --}}
+    {{#if itemSubtypes}}
+    {{ formField fields.type.fields.subtype value=source.type.subtype choices=itemSubtypes blank="" localize=true
+                 label=(localize "N5EB.ItemConsumableSubtype" category=(lookup (lookup config.consumableTypes source.type.value) "label")) }}
+    {{/if}}
+
+    {{!-- Consumable Properties --}}
+    {{ formField fields.properties options=properties.options localize=true input=inputs.createMultiCheckboxInput
+                 stacked=true classes="checkbox-grid checkbox-grid-3"
+                 label=(ifThen (eq source.type.value "ammo") "N5EB.ItemAmmoProperties" "N5EB.ItemConsumableProperties") }}
+
+    {{!-- Magical Properties --}}
+    {{#if properties.object.mgc}}
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.Item.Property.Magical" }}</label>
+        <div class="form-fields">
+
+            {{!-- Attunement --}}
+            <div class="form-group label-top">
+                <label>{{ localize "N5EB.Attunement" }}</label>
+                <div class="form-fields">
+
+                    {{!-- Attuned --}}
+                    {{#if source.attunement}}
+                    {{ formInput fields.attuned value=source.attuned input=inputs.createCheckboxInput
+                                 ariaLabel=(localize "N5EB.Attuned") dataset=(n5eb-object tooltip="N5EB.Attuned") }}
+                    {{/if}}
+
+                    {{!-- Attunement --}}
+                    {{ formInput fields.attunement value=source.attunement choices=config.attunementTypes
+                                 blank="N5EB.AttunementNone" localize=true }}
+                </div>
+            </div>
+
+            {{!-- Magical Bonus --}}
+            {{#if (and properties.object.mgc (eq source.type.value "ammo"))}}
+            {{ formField fields.magicalBonus value=source.magicalBonus step=1 placeholder="0" label="N5EB.Bonus"
+                         localize=true classes="label-top" }}
+            {{/if}}
+        </div>
+    </div>
+    {{/if}}
+</fieldset>
+
+{{#if (eq source.type.value "ammo")}}
+<fieldset>
+    <legend>{{ localize "N5EB.CONSUMABLE.FIELDS.damage.label" }}</legend>
+    {{ formField fields.damage.fields.replace value=source.damage.replace input=inputs.createCheckboxInput }}
+    {{> "n5eb.field-damage" fields=fields.damage.fields.base.fields source=source.damage.base
+        types=damageTypes prefix="system.damage.base." }}
+</fieldset>
+{{/if}}

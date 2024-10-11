@@ -42,6 +42,18 @@
                 </select>
             </div>
         </div>
+        
+        {{#if typeRestriction.nestedsubtypeOptions}}
+        <div class="form-group">
+            <label>{{ typeRestriction.nestedsubtypeLabel }}</label>
+            <div class="form-fields">
+                <select name="configuration.restriction.nestedsubtype">
+                    {{ selectOptions typeRestriction.nestedsubtypeOptions selected=configuration.restriction.nestedsubtype
+                                     blank="—" }}
+                </select>
+            </div>
+        </div>
+        {{/if}}
         {{/if}}
         {{/if}}
 

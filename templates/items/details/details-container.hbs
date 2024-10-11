@@ -1,0 +1,44 @@
+<fieldset>
+    <legend>{{ localize "N5EB.ItemContainerDetails" }}</legend>
+
+    {{!-- Container Properties --}}
+    {{ formField fields.properties options=properties.options label="N5EB.ItemContainerProperties" localize=true
+                 input=inputs.createMultiCheckboxInput stacked=true classes="checkbox-grid checkbox-grid-3" }}
+
+    {{!-- Capacity --}}
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.ItemContainerCapacity" }}</label>
+        <div class="form-fields">
+
+            {{!-- Amount --}}
+            {{ formField fields.capacity.fields.value value=source.capacity.value label="N5EB.Amount" localize=true
+                         classes="label-top" placeholder="—" }}
+
+            {{!-- Type --}}
+            {{ formField fields.capacity.fields.type value=source.capacity.type label="N5EB.Type" localize=true
+                         classes="label-top" choices=config.itemCapacityTypes }}
+
+        </div>
+    </div>
+
+    {{!-- Attunement --}}
+    {{#if properties.object.mgc}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.Attunement" }}</label>
+        <div class="form-fields">
+
+            {{!-- Attuned --}}
+            {{#if source.attunement}}
+            {{ formInput fields.attuned value=source.attuned input=inputs.createCheckboxInput
+                         ariaLabel=(localize "N5EB.Attuned") dataset=(n5eb-object tooltip="N5EB.Attuned") }}
+            {{/if}}
+
+            {{!-- Attunement --}}
+            {{ formInput fields.attunement value=source.attunement choices=config.attunementTypes
+                         blank="N5EB.AttunementNone" localize=true }}
+
+        </div>
+    </div>
+    {{/if}}
+
+</fieldset>

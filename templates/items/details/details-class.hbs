@@ -1,0 +1,57 @@
+<fieldset>
+    <legend>{{ localize "N5EB.ItemClassDetails" }}</legend>
+
+    {{!-- Identifier --}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.Identifier" }}</label>
+        <div class="form-fields">
+            {{ formInput fields.identifier value=source.identifier placeholder=item.identifier }}
+        </div>
+        <p class="hint">
+            {{{ localize "N5EB.ClassIdentifierHint" identifier=item.identifier }}}
+            {{ localize "N5EB.IdentifierError" }}
+        </p>
+    </div>
+
+    {{!-- Hit Dice --}}
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.CLASS.FIELDS.hitDice.label" }}</label>
+        <div class="form-fields">
+
+            {{!-- Denomination --}}
+            {{ formField fields.hitDice value=source.hitDice options=hitDieTypes label="N5EB.Denomination"
+                         localize=true classes="label-top" }}
+
+            {{!-- Spent --}}
+            {{ formField fields.hitDiceUsed value=source.hitDiceUsed placeholder="0" localize=true label="N5EB.Spent"
+                         classes="label-top" }}
+        </div>
+    </div>
+
+    {{!-- Chakra Dice --}}
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.CLASS.FIELDS.chakraDice.label" }}</label>
+        <div class="form-fields">
+
+            {{!-- Denomination --}}
+            {{ formField fields.chakraDice value=source.chakraDice options=chakraDieTypes label="N5EB.Denomination"
+                         localize=true classes="label-top" }}
+
+            {{!-- Spent --}}
+            {{ formField fields.chakraDiceUsed value=source.chakraDiceUsed placeholder="0" localize=true label="N5EB.Spent"
+                         classes="label-top" }}
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>{{ localize "N5EB.CLASS.Multiclass.Title" }}</legend>
+
+    {{!-- Primary Ability --}}
+    {{ formField fields.primaryAbility.fields.value value=source.primaryAbility.value options=primaryAbilities }}
+
+    {{!-- All Required --}}
+    {{#if (gt source.primaryAbility.value.length 1)}}
+    {{ formField fields.primaryAbility.fields.all value=source.primaryAbility.all input=inputs.createCheckboxInput }}
+    {{/if}}
+</fieldset>

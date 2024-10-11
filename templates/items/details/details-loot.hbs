@@ -1,0 +1,18 @@
+<fieldset>
+    <legend>{{ localize "N5EB.ItemLootDetails" }}</legend>
+
+    {{!-- Loot Type --}}
+    {{ formField fields.type.fields.value label="N5EB.ItemLootType" value=source.type.value choices=config.lootTypes
+                 labelAttr="label" blank="" localize=true }}
+
+    {{!-- Loot Subtype --}}
+    {{#if itemSubtypes}}
+    {{ formField fields.type.fields.subtype value=source.type.subtype choices=itemSubtypes blank=""
+                 label=(localize "N5EB.ItemLootSubtype" category=(lookup (lookup config.lootTypes source.type.value) "label")) }}
+    {{/if}}
+
+    {{!-- Loot Properties --}}
+    {{ formField fields.properties options=properties.options label="N5EB.ItemLootProperties" localize=true
+                 input=inputs.createMultiCheckboxInput stacked=true classes="checkbox-grid" }}
+
+</fieldset>

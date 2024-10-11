@@ -16,12 +16,17 @@
         </div>
 
         {{!-- TODO: Display dynamic columns as appropriate --}}
-        {{!-- TODO: Display source column --}}
+
+        <div class="item-detail item-source {{#unless entry.source}}empty{{/unless}}">
+            {{#if entry.source}}
+            <span class="condensed">{{ entry.source }}</span>
+            {{/if}}
+        </div>
 
         <div class="item-detail item-controls">
 
             {{#if displaySelection}}
-            <n5eb-checkbox name="selected" value="{{ entry.uuid }}" {{ checked selected }}></n5eb-checkbox>
+            <dnd5e-checkbox name="selected" value="{{ entry.uuid }}" {{ checked selected }}></dnd5e-checkbox>
             {{/if}}
 
         </div>

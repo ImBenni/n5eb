@@ -65,6 +65,19 @@
             </div>
             {{/if}}
 
+            {{#if (lookup itemNestedSubtypes system.type.subtype)}}
+            <div class="form-group">
+                <label>
+                    {{ localize "N5EB.ItemFeatureNestedSubtype"
+                                category=(lookup (lookup config.featureTypes system.type.value) "label")
+                                subtype=(lookup itemSubtypes system.type.subtype) }}
+                </label>
+                <select name="system.type.nestedsubtype">
+                    {{ selectOptions (lookup itemNestedSubtypes system.type.subtype) selected=system.type.nestedsubtype blank="" }}
+                </select>
+            </div>
+            {{/if}}
+
             {{!-- Feature Properties --}}
             <div class="feature-properties form-group stacked">
                 <label>{{ localize "N5EB.ItemFeatureProperties" }}</label>

@@ -1,0 +1,52 @@
+<fieldset>
+    <legend>{{ localize "N5EB.ItemToolProperties" }}</legend>
+
+    {{!-- Tool Type --}}
+    {{ formField fields.type.fields.value value=source.type.value choices=config.toolTypes label="N5EB.ItemToolType"
+                 blank="" localize=true }}
+
+    {{!-- Base Tool --}}
+    {{ formField fields.type.fields.baseItem value=source.type.baseItem choices=baseItems label="N5EB.ItemToolBase"
+                 blank="" localize=true }}
+
+    {{!-- Tool Properties --}}
+    {{ formField fields.properties options=properties.options label="N5EB.ItemToolProperties" localize=true
+                 input=inputs.createMultiCheckboxInput stacked=true classes="checkbox-grid checkbox-grid-3" }}
+
+    {{!-- Ability Check --}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.ActionAbil" }}</label>
+        <div class="form-fields">
+
+            {{!-- Proficiency --}}
+            {{ formField fields.proficient value=source.proficient choices=config.proficiencyLevels
+                         label="N5EB.Proficiency" blank="N5EB.Automatic" localize=true classes="label-top" }}
+
+            {{!-- Ability --}}
+            {{ formField fields.ability value=source.ability choices=config.abilities labelAttr="label"
+                         label="N5EB.Ability" blank="N5EB.Default" localize=true classes="label-top" }}
+        </div>
+    </div>
+
+    {{!-- Tool Bonus --}}
+    {{ formField fields.bonus value=source.bonus localize=true }}
+
+    {{!-- Attunement --}}
+    {{#if properties.object.mgc}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.Attunement" }}</label>
+        <div class="form-fields">
+
+            {{!-- Attuned --}}
+            {{#if source.attunement}}
+            {{ formInput fields.attuned value=source.attuned input=inputs.createCheckboxInput
+                         ariaLabel=(localize "N5EB.Attuned") dataset=(n5eb-object tooltip="N5EB.Attuned") }}
+            {{/if}}
+
+            {{!-- Attunement --}}
+            {{ formInput fields.attunement value=source.attunement choices=config.attunementTypes
+                         blank="N5EB.AttunementNone" localize=true }}
+        </div>
+    </div>
+    {{/if}}
+</fieldset>

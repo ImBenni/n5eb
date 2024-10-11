@@ -1,0 +1,11 @@
+<fieldset>
+    <legend>{{ localize "N5EB.ItemSubclassDetails" }}</legend>
+
+    {{!-- Identifier --}}
+    {{ formField fields.identifier value=source.identifier placeholder=item.identifier hint="N5EB.IdentifierError"
+                 localize=true }}
+
+    {{!-- Class Identifier --}}
+    {{ formField fields.classIdentifier value=source.classIdentifier hint="N5EB.SubclassIdentifierHint"
+                 localize=true }}
+</fieldset>
