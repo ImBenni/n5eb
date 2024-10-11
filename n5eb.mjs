@@ -11406,7 +11406,6 @@ class TraitConfig extends AdvancementConfig {
       delete configuration.count;
     }
 
-    // TODO: Remove when https://github.com/foundryvtt/foundryvtt/issues/7706 is resolved
     choicesCollection.forEach((c) => {
       if (!c.pool) return;
       c.pool = Array.from(c.pool);
@@ -50777,7 +50776,6 @@ class TokenRing {
           easing: this.constructor.createSpikeEasing(0.15),
           ontick: (d, data) => {
             // Manually set the final value to the origin due to issue with the CanvasAnimation
-            // See: https://github.com/foundryvtt/foundryvtt/issues/10364
             if (data.time >= data.duration) this.ringColorLittleEndian = originalColor;
           },
         },
@@ -56507,8 +56505,8 @@ class Tooltips5e {
  * Author: Atropos
  * Software License: MIT
  * Content License: https://www.dndbeyond.com/attachments/39j2li89/SRD5.1-CCBY4.0License.pdf
- * Repository: https://github.com/foundryvtt/n5eb
- * Issue Tracker: https://github.com/foundryvtt/n5eb/issues
+ * Repository: https://github.com/ImBenni/n5eb
+ * Issue Tracker: https://github.com/ImBenni/n5eb/issues
  */
 
 /* -------------------------------------------- */
@@ -56993,18 +56991,18 @@ Hooks.on("renderSettings", (app, [html]) => {
     <h2>${game.i18n.localize("WORLD.GameSystem")}</h2>
     <ul class="links">
       <li>
-        <a href="https://github.com/foundryvtt/n5eb/releases/latest" target="_blank">
+        <a href="https://github.com/ImBenni/n5eb/releases/latest" target="_blank">
           ${game.i18n.localize("N5EB.Notes")}
         </a>
       </li>
       <li>
-        <a href="https://github.com/foundryvtt/n5eb/issues" target="_blank">${game.i18n.localize("N5EB.Issues")}</a>
+        <a href="https://github.com/ImBenni/n5eb/issues" target="_blank">${game.i18n.localize("N5EB.Issues")}</a>
       </li>
       <li>
-        <a href="https://github.com/foundryvtt/n5eb/wiki" target="_blank">${game.i18n.localize("N5EB.Wiki")}</a>
+        <a href="https://github.com/ImBenni/n5eb/wiki" target="_blank">${game.i18n.localize("N5EB.Wiki")}</a>
       </li>
       <li>
-        <a href="https://discord.com/channels/170995199584108546/670336046164213761" target="_blank">
+        <a href="https://discord.com/channels/769696276085211156/926205252661821470" target="_blank">
           ${game.i18n.localize("N5EB.Discord")}
         </a>
       </li>
