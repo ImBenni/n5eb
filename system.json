@@ -2,14 +2,14 @@
     "id": "n5eb",
     "title": "N5e",
     "description": "The N5e System forked from the DnD5e Foundry System. Made and altered by Benni.",
-    "version": "1,2,1",
+    "version": "1,2,2",
     "compatibility": {
         "minimum": "11.315",
         "verified": "12"
     },
     "url": "https://github.com/ImBenni/n5eb/",
     "manifest": "https://raw.githubusercontent.com/ImBenni/n5eb/main/system.json",
-    "download": "https://github.com/ImBenni/n5eb/releases/tag/release-1.2.0/n5eb-1.2.0.zip",
+    "download": "https://github.com/ImBenni/n5eb/releases/download/release-1.2.2/n5eb-1.2.2.zip",
     "authors": [
         {
             "name": "Benni",
@@ -78,10 +78,28 @@
             }
         },
         {
-            "name": "class-and-subclass",
-            "label": "Class and Subclass",
+            "name": "class",
+            "label": "Class",
             "system": "n5eb",
-            "path": "packs/class-and-subclass",
+            "path": "packs/class",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "n5eb": {
+                    "types": [
+                        "class",
+                        "subclass",
+                        "feat",
+                        "weapon"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "subclass",
+            "label": "Subclass",
+            "system": "n5eb",
+            "path": "packs/subclass",
             "type": "Item",
             "private": false,
             "flags": {
@@ -136,7 +154,7 @@
         },
         {
             "name": "feats",
-            "label": "Feats",
+            "label": "Feats & Stances",
             "system": "n5eb",
             "path": "packs/feats",
             "type": "Item",
