@@ -2,7 +2,7 @@
     "id": "n5eb",
     "title": "N5e",
     "description": "The N5e System forked from the DnD5e Foundry System. Made and altered by Benni.",
-    "version": "1,2,2",
+    "version": "1,3,0",
     "compatibility": {
         "minimum": "11.315",
         "verified": "12"
@@ -72,6 +72,21 @@
                 "n5eb": {
                     "types": [
                         "background",
+                        "feat"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "traits-quirks",
+            "label": "Traits / Quirks",
+            "system": "n5eb",
+            "path": "packs/traits-quirks",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "n5eb": {
+                    "types": [
                         "feat"
                     ]
                 }
@@ -245,7 +260,32 @@
                 "types": ["feat", "class"]
               }
             }
-          }
+          },
+          {
+            "name": "npc",
+            "label": "NPC",
+            "system": "n5eb",
+            "path": "packs/npc",
+            "type": "Actor",
+            "private": false,
+            "flags": {
+                "n5eb": {
+                    "types": [
+                        "npc",
+                        "feat",
+                        "weapon"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "cheat-sheets",
+            "label": "Cheat Sheets",
+            "system": "n5eb",
+            "path": "packs/cheat-sheets",
+            "type": "JournalEntry",
+            "private": false
+        }
     ],
     "packFolders": [
         {
@@ -254,6 +294,7 @@
             "color": "#ed991a",
             "packs": [
                 "rules",
+                "cheat-sheets",
                 "conditions"
             ],
             "folders": [
@@ -262,8 +303,10 @@
                     "sorting": "m",
                     "color": "#e6a23c",
                     "packs": [
-                        "class-and-subclass",
+                        "class",
+                        "subclass",
                         "backgrounds",
+                        "traits-quirks",
                         "clan",
                         "feats",
                         "classmod"
@@ -284,6 +327,7 @@
                     "color": "#d99836",
                     "packs": [
                         "adversary",
+                        "npc",
                         "adversary-traits",
                         "adversary-passives",
                         "summons"
