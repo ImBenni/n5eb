@@ -303,6 +303,7 @@ class AdvancementConfig extends FormApplication {
     const uuidToDelete = event.currentTarget.closest("[data-item-uuid]")?.dataset.itemUuid;
     if (!uuidToDelete) return;
     const items = foundry.utils.getProperty(this.advancement.configuration, this.options.dropKeyPath);
+    console.log(items)
     const updates = {
       configuration: await this.prepareConfigurationUpdate({
         [this.options.dropKeyPath]: items.filter((i) => i.uuid !== uuidToDelete),
@@ -1124,6 +1125,7 @@ class ItemDataModel extends SystemDataModel {
     price = game.user.isGM || identified ? price : null;
 
     const subtitle = [this.type?.label ?? game.i18n.localize(CONFIG.Item.typeLabels[this.parent.type])];
+    const nestedsubtitle = [this.type?.nestedlabel ?? null];
     const context = {
       name,
       type,
@@ -1141,6 +1143,7 @@ class ItemDataModel extends SystemDataModel {
       labels: foundry.utils.deepClone(this.parent.labels),
       tags: this.parent.labels?.components?.tags,
       subtitle: subtitle.filterJoin(" &bull; "),
+      nestedsubtitle: nestedsubtitle.filterJoin(" &bull; "),
       description: {
         value: await TextEditor.enrichHTML(description ?? "", {
           rollData,
@@ -2462,7 +2465,7 @@ class AbilityScoreImprovementValueData extends SparseDataModel {
       feat: new MappingField(new foundry.data.fields.StringField(), {
         required: false,
         initial: undefined,
-        label: "N5EB.Feature.Feat",
+        label: "N5EB.Feature.Feat.Label",
       }),
     };
   }
@@ -2554,7 +2557,7 @@ class AbilityScoreImprovementAdvancement extends Advancement {
   /** @inheritdoc */
   titleForLevel(level, { configMode = false } = {}) {
     if (this.value.selected !== "feat") return this.title;
-    return game.i18n.localize("N5EB.Feature.Feat");
+    return game.i18n.localize("N5EB.Feature.Feat.Label");
   }
 
   /* -------------------------------------------- */
@@ -30105,6 +30108,9 @@ N5EB.consumableTypes = {
   food: {
     label: "N5EB.ConsumableFood",
   },
+  snack: {
+    label: "N5EB.ConsumableSnack",
+  },
   wseal: {
     label: "N5EB.ConsumableWSeal",
   },
@@ -30340,6 +30346,7 @@ preLocalize("featureTypes.class.subtypes.puppetUpgrades.nestedsubtypes", { sort:
 preLocalize("featureTypes.class.subtypes.scientificTools.nestedsubtypes", { sort: false });
 preLocalize("featureTypes.adversaryTrait.subtypes", { sort: true });
 preLocalize("featureTypes.adversaryPassive.subtypes", { sort: true });
+preLocalize("featureTypes.classfeat.subtypes", { sort: true });
 preLocalize("featureTypes.summon.subtypes", { sort: true });
 preLocalize("featureTypes.enchantment.subtypes", { sort: true });
 preLocalize("featureTypes.supernaturalGift.subtypes", { sort: true });
@@ -47346,6 +47353,7 @@ class ItemSheet5e extends ItemSheet {
       // Item Type, Status, and Details
       itemType: game.i18n.localize(CONFIG.Item.typeLabels[this.item.type]),
       itemStatus: this._getItemStatus(),
+      itemSubStatus: this._getItemSubStatus(),
       itemProperties: this._getItemProperties(),
       baseItems: await this._getItemBaseTypes(),
       isPhysical: item.system.hasOwnProperty("quantity"),
@@ -47669,6 +47677,36 @@ class ItemSheet5e extends ItemSheet {
           ? CONFIG.N5EB.masteryLevels[this.item.system.prof?.multiplier || 0]
           : CONFIG.N5EB.proficiencyLevels[this.item.system.prof?.multiplier || 0];
         return game.i18n.localize(proficiencyLevel);
+    }
+    return null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the text item status which is shown beneath the Item type in the top-right corner of the sheet.
+   * @returns {string|null}  Item status string if applicable to item's type.
+   * @protected
+   */
+  _getItemSubStatus() {
+    switch (this.item.type) {
+    //   case "class":
+    //     return game.i18n.format("N5EB.LevelCount", {
+    //       ordinal: this.item.system.levels.ordinalString(),
+    //     });
+    //   case "equipment":
+    //   case "weapon":
+    //     return game.i18n.localize(this.item.system.equipped ? "N5EB.Equipped" : "N5EB.Unequipped");
+      case "feat":
+    //   case "consumable":
+        return this.item.system.type.nestedlabel;
+    //   case "spell":
+    //     return CONFIG.N5EB.spellPreparationModes[this.item.system.preparation.mode]?.label;
+    //   case "tool":
+    //     const proficiencyLevel = enableMastery
+    //       ? CONFIG.N5EB.masteryLevels[this.item.system.prof?.multiplier || 0]
+    //       : CONFIG.N5EB.proficiencyLevels[this.item.system.prof?.multiplier || 0];
+    //     return game.i18n.localize(proficiencyLevel);
     }
     return null;
   }
