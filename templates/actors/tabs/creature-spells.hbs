@@ -1,5 +1,6 @@
 {{!-- Spellcasting --}}
 <section class="top">
+
     {{#each spellcasting}}
     <div class="spellcasting card {{type}} {{#if primary}}primary{{/if}}" data-ability="{{ ability.ability }}">
         <div class="header">
@@ -56,6 +57,29 @@
         </div>
     </div>
     {{/each}}
+
+    {{#if classmods}}
+    {{#each @root.classmods}}
+    <div class="spellcasting card {{this.type}}" data-ability="{{ this.system.save.formula }}">
+                {{log this}}
+
+        <div class="header">
+        <h3>{{ this.name }}</h3>
+        </div>
+        <div class="info">
+            <div class="attack">
+                <span class="label">{{ localize "N5EB.Attack" }}</span>
+                <span class="value">{{ n5eb-formatModifier this.system.attackBonus.value }}</span>
+            </div>
+            <div class="save">
+                <span class="label">{{ localize "N5EB.SpellDC" }}</span>
+                <span class="value">{{ this.system.save.value }}</span>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{/if}}
+
 </section>
 
 {{!-- Spells --}}
