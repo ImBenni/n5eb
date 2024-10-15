@@ -303,7 +303,6 @@ class AdvancementConfig extends FormApplication {
     const uuidToDelete = event.currentTarget.closest("[data-item-uuid]")?.dataset.itemUuid;
     if (!uuidToDelete) return;
     const items = foundry.utils.getProperty(this.advancement.configuration, this.options.dropKeyPath);
-    console.log(items);
     const updates = {
       configuration: await this.prepareConfigurationUpdate({
         [this.options.dropKeyPath]: items.filter((i) => i.uuid !== uuidToDelete),
@@ -12594,6 +12593,33 @@ class ClassmodData extends ItemDataModel.mixin(ItemDescriptionTemplate) {
         initial: 1,
         label: "N5EB.ClassmodLevels",
       }),
+      save: new SchemaField$1(
+        {
+          value: new NumberField$2({
+            required: true,
+            integer: true,
+            min: 10,
+            label: "N5EB.AbbreviationDC",
+          }),
+          formula: new FormulaField({ deterministic: true, label: "N5EB.ArmorClassFormula" }),
+        },
+        { label: "N5EB.ClassModSave" }
+      ),
+      attackBonus: new SchemaField$1(
+        {
+          value: new NumberField$2({
+            required: false,
+            integer: true,
+            initial: 0,
+            label: "N5EB.AttackBonusValue",
+          }),
+          formula: new FormulaField({
+            deterministic: true,
+            label: "N5EB.AttackBonusFormula",
+          }),
+        },
+        { label: "N5EB.ClassModAttack" }
+      ),
       advancement: new foundry.data.fields.ArrayField(new AdvancementField(), {
         label: "N5EB.AdvancementTitle",
       }),
@@ -13663,6 +13689,9 @@ class ActionTemplate extends ItemDataModel {
     if (this.ability === "taijutsu") {
       return this.parent?.actor?.system.attributes.spellcasting.taijutsu || "str";
     }
+    if (this.ability === "art") {
+      return "art";
+    }
     return (
       this.ability ||
       this._typeAbilityMod ||
@@ -13811,12 +13840,23 @@ class ActionTemplate extends ItemDataModel {
   getRollData(options) {
     const data = super.getRollData(options);
     const key = this.abilityMod;
-    if (data && key && "abilities" in data) {
-      const ability = data.abilities[key];
-      data.mod = ability?.mod ?? 0;
+  
+    if (data && key) {
+      if (key === "art") {
+        const classmodKey = Object.keys(data.classmods ?? {})[0]; // Assuming there is at least one classmod
+        if (classmodKey && data.classmods[classmodKey]?.attackBonus?.value !== undefined) {
+          data.mod = data.classmods[classmodKey].attackBonus.value;
+        }
+      } else if ("abilities" in data) {
+        // Normal ability modifier calculation
+        const ability = data.abilities[key];
+        data.mod = ability?.mod ?? 0;
+      }
     }
+    
     return data;
   }
+  
 }
 
 const {
@@ -16102,6 +16142,17 @@ class Item5e extends SystemDocumentMixin(Item) {
       save.dc = this.isOwned ? this.actor.system.attributes?.[`${save.scaling}dc`] : null;
     }
 
+    // Class Mod based scaling
+    else if (save.scaling === "art") {
+      const actorClassModKey = Object.keys(this.actor.classmods ?? {})[0];
+      if (actorClassModKey) {
+        const actorClassMod = this.actor.classmods[actorClassModKey];
+        save.dc = actorClassMod?.system.save?.value ?? 10; // Set to the class mod save value or a default of 10
+      } else {
+        save.dc = 10; // Fallback if no classmod is found
+      }
+    }
+
     // Ability-score based scaling
     else if (save.scaling !== "flat") {
       save.dc = this.isOwned ? this.actor.system.abilities[save.scaling].dc : null;
@@ -16110,7 +16161,7 @@ class Item5e extends SystemDocumentMixin(Item) {
     // Update labels
     const abl = CONFIG.N5EB.abilities[save.ability]?.label ?? "";
     this.labels.save = game.i18n.format("N5EB.SaveDC", { dc: save.dc || "", ability: abl });
-
+    // console.log(save)
     return save.dc;
   }
 
@@ -16154,6 +16205,7 @@ class Item5e extends SystemDocumentMixin(Item) {
           parts.push(classMod.atkBonus);
         }
       }
+      
       ammo = this.hasAmmo ? this.actor.items.get(this.system.consume.target) : null;
     }
 
@@ -22347,6 +22399,8 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     this._prepareSkills(rollData, globalBonuses, checkBonus, originalSkills);
     this._prepareTools(rollData, globalBonuses, checkBonus);
     this._prepareArmorClass();
+    this._prepareClassModSaveDC();
+    this._prepareClassModAttackBonus();
     this._prepareDamageReduction();
     this._prepareInitiative(rollData, checkBonus);
     this._prepareSpellcasting();
@@ -22604,6 +22658,90 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
   /* -------------------------------------------- */
 
+  /** Prepare Save DC Calculation */
+  _prepareClassModSaveDC() {
+    const actorClassModKey = Object.keys(this.classmods)[0];
+    if (!actorClassModKey) {
+      return;
+    }
+
+    const actorClassMod = this.classmods[actorClassModKey];
+    const saveData = actorClassMod.system.save;
+
+    // Ensure saveData is defined and there's a formula, set a fallback if none is provided
+    if (!saveData) {
+      console.error("Save data is not defined for actor:", this.name);
+      return;
+    }
+
+    if (saveData.formula === undefined) {
+      console.log("No save formula found, using default formula.");
+      saveData.formula = "10 + floor(@details.level/2)";
+    }
+
+    const rollData = this.getRollData({ deterministic: true });
+
+    try {
+      const replacedFormula = Roll.replaceFormulaData(saveData.formula, rollData, {
+        actor: this.parent, 
+        missing: null,
+        property: game.i18n.localize("N5EB.SaveDC"),
+      });
+
+      if (replacedFormula) {
+        const roll = new Roll(replacedFormula).evaluateSync();
+        saveData.value = roll.total; 
+      } else {
+        saveData.value = 10; 
+      }
+
+      // console.log(saveData);
+    } catch (err) {
+      console.error("Error in calculating Save DC", err);
+      saveData.value = 10;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** Prepare Attack Bonus Calculation */
+  _prepareClassModAttackBonus() {
+    const actorClassModKey = Object.keys(this.classmods)[0];
+    if (!actorClassModKey) {
+      return;
+    }
+    const actorClassMod = this.classmods[actorClassModKey];
+    const attackData = actorClassMod.system.attackBonus;
+
+    if (!attackData.formula) {
+      // console.log("No attack formula found, using default formula.");
+      attackData.formula = `floor(@details.level/2) + @classmods.${actorClassMod.identifier}.levels + @prof`;
+    }
+
+    const rollData = this.getRollData({ deterministic: true });
+
+    try {
+      const replacedFormula = Roll.replaceFormulaData(attackData.formula, rollData, {
+        actor: this.parent,
+        missing: null,
+        property: game.i18n.localize("N5EB.AttackBonus"),
+      });
+
+      if (replacedFormula) {
+        const roll = new Roll(replacedFormula).evaluateSync();
+        attackData.value = roll.total;
+      } else {
+        attackData.value = 0;
+      }
+
+    } catch (err) {
+      console.error("Error in calculating Attack Bonus", err);
+      attackData.value = 0; 
+    }
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Prepare a character's AC value from their equipped armor and shield.
    * Mutates the value of the `system.attributes.ac` object.
@@ -22625,7 +22763,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     if (this.system.details.npcType === "summon") {
       // Fetch the level of the summon (based on rank)
       const level = this.system.details.level || 1;
-      console.log(this.name, level);
 
       // Fetch the defensive ability score (default to Constitution if not set)
       const defAbilitySet = this.system.traits.defscore?.value || new Set(["con"]); // Default to "con"
@@ -22633,7 +22770,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       const defAbilityMod = this.system.abilities[defAbilityKey]?.mod ?? 0;
 
       baseAc += Math.floor(level / 2) + defAbilityMod;
-      console.log("BaseAC", baseAc);
       ac.base = baseAc;
 
       ac.value = ac.base;
