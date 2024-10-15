@@ -55,6 +55,8 @@
   --n5eb-color-gen-2: #776493;
   --n5eb-color-tai-1: #3a6145;
   --n5eb-color-tai-2: #228b53;
+  --n5eb-color-cm-1: #290b4e;
+  --n5eb-color-cm-2: #43157b;
   --n5eb-color-blue-white: #cfd2da;
   --n5eb-color-blue-gray-1: #242731;
   --n5eb-color-blue-gray-2: #252830;
@@ -4031,7 +4033,7 @@ h5 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 0.5rem;
+  padding: 0 0.25rem;
   border-right: 1px solid var(--color-border-light-1);
 }
 .n5eb2 .card .info > div:last-child {
@@ -6247,6 +6249,10 @@ dialog.n5eb2.application {
   background: linear-gradient(to right, var(--n5eb-color-tai-1), var(--n5eb-color-tai-2));
 }
 
+.n5eb2.sheet.actor .card.spellcasting.classmod .header {
+  background: linear-gradient(to right, var(--n5eb-color-cm-1), var(--n5eb-color-cm-2));
+}
+
 .n5eb2.sheet.actor .textbox textarea {
   font-family: var(--n5eb-font-roboto);
   font-size: var(--font-size-12);
@@ -7904,14 +7910,18 @@ dialog.n5eb2.application {
 }
 .n5eb2.sheet.actor.character .tab.spells .top {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 0.4rem;
   justify-content: center;
+  align-items: flex-start;
 }
 .n5eb2.sheet.actor.character .tab.spells .top .card.spellcasting {
-  width: 31%; 
-  /* width: 230px; */
+  min-width: 170px;
+  width: 170px;
+  flex-grow: 1;
+  box-sizing: border-box;
 }
+
 .n5eb2.sheet.actor.character .tab.spells .top .card.spellcasting .prepared .value.max-preparations {
   font-size: var(--font-size-14);
 }
