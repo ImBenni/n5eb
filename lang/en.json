@@ -67,8 +67,8 @@
   "TYPES.Item.toolPl": "Tools",
   "TYPES.Item.weapon": "Weapon",
   "TYPES.Item.weaponPl": "Weapons",
-  "TYPES.Item.classMod": "Class Mod",
-  "TYPES.Item.classModPl": "Class Mods",
+  "TYPES.Item.classmod": "Class Mod",
+  "TYPES.Item.classmodPl": "Class Mods",
 
   "N5EB.title": "Dungeon & Dragons Fifth Edition",
   "N5EB.AbbreviationCR": "CR",
@@ -164,63 +164,63 @@
   "N5EB.Advanced": "Advanced",
 
   "N5EB.ADVANCEMENT": {
-  "AbilityScoreImprovement": {
-    "Title": "Ability Score Improvement",
-    "Hint": "Allow the player to increase one or more ability scores or take an optional feat.",
-    "CapDisplay": {
-      "one": "Max {points} point per score",
-      "other": "Max {points} points per score"
-    },
-    "Feat": {
-      "Hint": "Drop a feat here to choose one instead of an ability score improvement."
-    },
-    "FIELDS": {
-      "cap": {
-        "label": "Point Cap",
-        "hint": "Maximum number of points a player can assign to a single score."
+    "AbilityScoreImprovement": {
+      "Title": "Ability Score Improvement",
+      "Hint": "Allow the player to increase one or more ability scores or take an optional feat.",
+      "CapDisplay": {
+        "one": "Max {points} point per score",
+        "other": "Max {points} points per score"
       },
-      "locked": {
-        "label": "Locked",
-        "hint": "Ability cannot be improved."
+      "Feat": {
+        "Hint": "Drop a feat here to choose one instead of an ability score improvement."
       },
-      "fixed": {
-        "label": "Fixed Improvement",
-        "hint": "Abilities that are improved by a fixed amount and cannot be manually improved during the process."
+      "FIELDS": {
+        "cap": {
+          "label": "Point Cap",
+          "hint": "Maximum number of points a player can assign to a single score."
+        },
+        "locked": {
+          "label": "Locked",
+          "hint": "Ability cannot be improved."
+        },
+        "fixed": {
+          "label": "Fixed Improvement",
+          "hint": "Abilities that are improved by a fixed amount and cannot be manually improved during the process."
+        },
+        "points": {
+          "label": "Points",
+          "hint": "Number of points that can be assigned to any unlocked ability score.",
+          "decrease": "Decrease Points",
+          "increase": "Increase Points"
+        }
       },
-      "points": {
-        "label": "Points",
-        "hint": "Number of points that can be assigned to any unlocked ability score.",
-        "decrease": "Decrease Points",
-        "increase": "Increase Points"
+      "LockedHint": "Scores cannot be modified with a feat selected.",
+      "PointsRemaining": {
+        "one": "{points} Point Remaining",
+        "other": "{points} Points Remaining"
+      },
+      "Warning": {
+        "Level": "Must be at least level {level} to take this feat.",
+        "Type": "Only features with the \"feat\" type can be selected."
       }
     },
-    "LockedHint": "Scores cannot be modified with a feat selected.",
-    "PointsRemaining": {
-      "one": "{points} Point Remaining",
-      "other": "{points} Points Remaining"
+    "SPELLCONFIG": {
+      "FIELDS": {
+        "uses": {
+          "requireSlot": {
+            "label": "Require Slot",
+            "hint": "Require a spell slot to be spent when using the limited uses. If not checked then the uses will be additional free uses that don't consume a slot."
+          }
+        }
+      },
+      "FreeCasting": "Free Casting"
     },
-    "Warning": {
-      "Level": "Must be at least level {level} to take this feat.",
-      "Type": "Only features with the \"feat\" type can be selected."
+    "Subclass": {
+      "Title": "Subclass",
+      "Hint": "Specify what level this class receives its subclass.",
+      "FlowHint": "Select a subclass in the Features tab after level up has completed."
     }
   },
-  "SPELLCONFIG": {
-    "FIELDS": {
-      "uses": {
-        "requireSlot": {
-          "label": "Require Slot",
-          "hint": "Require a spell slot to be spent when using the limited uses. If not checked then the uses will be additional free uses that don't consume a slot."
-        }
-      }
-    },
-    "FreeCasting": "Free Casting"
-  },
-  "Subclass": {
-    "Title": "Subclass",
-    "Hint": "Specify what level this class receives its subclass.",
-    "FlowHint": "Select a subclass in the Features tab after level up has completed."
-  }
-},
   "N5EB.AdvancementAbilityScoreImprovementTitle": "Ability Score Improvement",
   "N5EB.AdvancementAbilityScoreImprovementHint": "Allow the player to increase one or more ability scores or take an optional feat.",
   "N5EB.AdvancementAbilityScoreImprovementCap": "Point Cap",
@@ -1177,7 +1177,21 @@
       "Affiliation": "Affiliation Passive"
     },
     "Monster": "Monster Feature",
-    "Race": "Clan Feature",
+    "Race": {
+      "Label": "Clan Feature",
+      "DataPlan": "Data Plan",
+      "BranchFamily": "Branch Family",
+      "Byakugan": "Byakugan",
+      "Onijutsu": "Onijutsu",
+      "Kurugan": "Kurugan",
+      "SupernaturalSpeed": "Supernatural Speed",
+      "Nindo": "Nindo",
+      "Transformation": "Transformation",
+      "Tomeoe1": "1-Tomoe",
+      "Tomeoe2": "2-Tomoe",
+      "Tomeoe3": "3-Tomoe",
+      "Adaptation": "Adaptation"
+    },
     "Summon": {
       "Label": "Summon Feature",
       "Role": "Role Feature",
