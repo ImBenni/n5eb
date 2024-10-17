@@ -36671,6 +36671,7 @@ class ActorSheet5e extends ActorSheetMixin(ActorSheet) {
    */
   _filterItems(items, filters) {
     const spellSchools = new Set(Object.keys(CONFIG.N5EB.spellSchools));
+    const jutsuKeywords = new Set(Object.keys(CONFIG.N5EB.jutsuKeywords));
     return items.filter((item) => {
       // Subclass-specific logic.
       const filtered = this._filterItem(item);
@@ -36686,6 +36687,12 @@ class ActorSheet5e extends ActorSheetMixin(ActorSheet) {
       if (filters.has("concentration") && !item.system.properties?.has("concentration")) return false;
       const schoolFilter = spellSchools.intersection(filters);
       if (schoolFilter.size && !schoolFilter.has(item.system.school)) return false;
+      const keywordFilter = [...filters].filter((f) => jutsuKeywords.has(f));
+      if (keywordFilter.length) {
+        const itemKeywords = new Set(item.system.keywords || []);
+        const matches = keywordFilter.some((f) => itemKeywords.has(f));
+        if (!matches) return false;
+      }
       if (filters.has("prepared")) {
         if (["innate", "always"].includes(item.system.preparation?.mode)) return true;
         if (this.actor.type === "npc") return true;
