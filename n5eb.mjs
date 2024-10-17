@@ -22399,11 +22399,11 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     this._prepareSkills(rollData, globalBonuses, checkBonus, originalSkills);
     this._prepareTools(rollData, globalBonuses, checkBonus);
     this._prepareArmorClass();
+    this._prepareInitiative(rollData, checkBonus);
+    this._prepareSpellcasting();
     this._prepareClassModSaveDC();
     this._prepareClassModAttackBonus();
     this._prepareDamageReduction();
-    this._prepareInitiative(rollData, checkBonus);
-    this._prepareSpellcasting();
 
     // Apply condition immunities
     if (game.release.generation >= 12) {
@@ -22946,58 +22946,85 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
-   * Prepare a character's Damage Reduction (DR) value from their equipped armor and shield.
-   * Mutates the value of the `system.traits.dm` object.
-   */
-  _prepareDamageReduction() {
-    const dm = this.system.traits.dm;
-    if (!dm.amount) dm.amount = {};
-    if (!dm.bypasses) dm.bypasses = {};
-    dm.amount = {};
-    dm.bypasses = {};
-
-    // Identify Equipped Items
-    const armorTypes = new Set(Object.keys(CONFIG.N5EB.armorTypes));
-    const { armors, shields } = this.itemTypes.equipment.reduce(
-      (obj, equip) => {
-        if (!equip.system.equipped || !armorTypes.has(equip.system.type.value)) return obj;
-        if (equip.system.type.value === "shield") obj.shields.push(equip);
-        else obj.armors.push(equip);
-        return obj;
-      },
-      { armors: [], shields: [] }
-    );
-
-    // Gather DR from armors
-    let drValue = 0;
-    if (armors.length) {
-      for (const armor of armors) {
-        const dr = armor.system.armor?.dr || 0;
-        if (Number.isFinite(dr)) {
-          drValue += dr;
-        }
-      }
-    }
-
-    // Gather DR from shields
-    if (shields.length) {
-      for (const shield of shields) {
-        const dr = shield.system.armor?.dr || 0;
-        if (Number.isFinite(dr)) {
-          drValue += dr;
-        }
-      }
-    }
-
-    // If there is any DR value, apply it to damage types
-    if (drValue > 0) {
-      const damageTypes = ["bludgeoning", "slashing", "piercing"];
-      for (const type of damageTypes) {
-        dm.amount[type] = `-${drValue}`; // DR reduces the damage taken, hence negative value
-      }
-    }
-    // console.log("Prepared Damage Reduction:", dm);
+ * Prepare a character's Damage Reduction (DR) value from their equipped armor and shield.
+ * Mutates the value of the `system.traits.dm` object.
+ */
+_prepareDamageReduction() {
+  const dm = this.system.traits.dm;
+  if (!dm.amount) dm.amount = {};
+  
+  // Ensure armorDr exists and has an object structure
+  if (!dm.armorDr) {
+    dm.armorDr = {};
   }
+  
+  const armorDr = dm.armorDr;
+
+  // Reset the armorDr before re-applying DR from equipped items.
+  if (armorDr) {
+    Object.keys(armorDr).forEach((key) => {
+      armorDr[key] = "0";
+    });
+  }
+
+  // Identify Equipped Items
+  const armorTypes = new Set(Object.keys(CONFIG.N5EB.armorTypes));
+  const { armors, shields } = this.itemTypes.equipment.reduce(
+    (obj, equip) => {
+      if (!equip.system.equipped || !armorTypes.has(equip.system.type.value)) return obj;
+      if (equip.system.type.value === "shield") obj.shields.push(equip);
+      else obj.armors.push(equip);
+      return obj;
+    },
+    { armors: [], shields: [] }
+  );
+
+  // Gather DR from armors and shields
+  let drValue = 0;
+  if (armors.length) {
+    for (const armor of armors) {
+      const dr = armor.system.armor?.dr || 0;
+      if (Number.isFinite(dr)) {
+        drValue += dr;
+      }
+    }
+  }
+
+  if (shields.length) {
+    for (const shield of shields) {
+      const dr = shield.system.armor?.dr || 0;
+      if (Number.isFinite(dr)) {
+        drValue += dr;
+      }
+    }
+  }
+
+  // If there is any DR value, add it to the armorDr
+  if (drValue > 0) {
+    const damageTypes = ["bludgeoning", "slashing", "piercing"];
+    for (const type of damageTypes) {
+      armorDr[type] = `-${drValue}`;
+    }
+  }
+
+  // Merge armorDr with the current DM values without duplicating armor DR.
+  for (const type of Object.keys(armorDr)) {
+    const manualValue = parseInt(dm.amount[type]) || 0;
+    const armorContribution = parseInt(armorDr[type]) || 0;
+
+    // Ensure that the combined value reflects both manual and armor DR
+    dm.amount[type] = `-${Math.abs(manualValue) + Math.abs(armorContribution)}`;
+  }
+
+  // console.log("Prepared Damage Reduction:", dm);
+}
+
+  
+  
+
+  
+  
+  
 
   /* -------------------------------------------- */
 
@@ -35644,19 +35671,42 @@ class DamageModificationConfig extends BaseConfigSheet {
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
-  _getSubmitData(updateData) {
-    const data = foundry.utils.expandObject(super._getSubmitData(updateData));
-    const formData = {};
-    for (const [type, formula] of Object.entries(foundry.utils.getProperty(data, "system.traits.dm.amount"))) {
-      if (formula) formData[`system.traits.dm.amount.${type}`] = formula;
-      else formData[`system.traits.dm.amount.-=${type}`] = "";
+/** @inheritDoc */
+_getSubmitData(updateData) {
+  const data = foundry.utils.expandObject(super._getSubmitData(updateData));
+  const formData = {};
+
+  // Get the current armor DR values to subtract them during submission
+  const armorDr = this.document.system.traits.dm?.armorDr || {};
+
+  for (const [type, formula] of Object.entries(foundry.utils.getProperty(data, "system.traits.dm.amount") ?? {})) {
+    if (formula) {
+      // Subtract armor DR from the manually set value to prevent double-counting
+      const armorValue = parseInt(armorDr[type]) || 0;
+      const manualValue = parseInt(formula) || 0;
+
+      // Set the manual value minus the armor DR to avoid duplication
+      const updatedValue = manualValue - armorValue;
+
+      if (updatedValue !== 0) {
+        formData[`system.traits.dm.amount.${type}`] = updatedValue > 0 ? `-${Math.abs(updatedValue)}` : `${updatedValue}`;
+      } else {
+        formData[`system.traits.dm.amount.-=${type}`] = ""; // Remove the property if it should be zero
+      }
+    } else {
+      formData[`system.traits.dm.amount.-=${type}`] = ""; // Remove any manual entry if it's not present anymore
     }
-    formData["system.traits.dm.bypasses"] = filteredKeys(
-      foundry.utils.getProperty(data, "system.traits.dm.bypasses") ?? {}
-    );
-    return formData;
   }
+
+  // Include bypasses if applicable
+  formData["system.traits.dm.bypasses"] = filteredKeys(
+    foundry.utils.getProperty(data, "system.traits.dm.bypasses") ?? {}
+  );
+
+  return formData;
+}
+
+
 }
 
 /**
@@ -39384,12 +39434,14 @@ class TraitsField {
    * Fields shared between characters, NPCs, and vehicles.
    *
    * @type {object}
-   * @property {string} size                Actor's size.
-   * @property {DamageTraitData} di         Damage immunities.
-   * @property {DamageTraitData} dr         Damage resistances.
-   * @property {DamageTraitData} dv         Damage vulnerabilities.
-   * @property {DamageModificationData} dm  Damage modification.
-   * @property {SimpleTraitData} ci         Condition immunities.
+   * @property {string} size                    Actor's size.
+   * @property {DamageTraitData} di             Damage immunities.
+   * @property {DamageTraitData} dr             Damage resistances.
+   * @property {DamageTraitData} dv             Damage vulnerabilities.
+   * @property {DamageModificationData} dm      Damage modification.
+   * @property {SimpleTraitData} ci             Condition immunities.
+   * @property {DamageModificationData} armorDr Damage reduction from equipped armor/shields.
+
    */
   static get common() {
     return {
@@ -39406,6 +39458,9 @@ class TraitsField {
           hint: "N5EB.DamagePhysicalBypassHint",
         }),
       }),
+      armorDr: new MappingField(new FormulaField({ deterministic: true }), {
+      label: "N5EB.ArmorDR",
+    }),
       ci: this.makeSimpleTrait({ label: "N5EB.ConImm" }),
     };
   }
@@ -45907,7 +45962,11 @@ class ItemListControlsElement extends HTMLElement {
       for (const item of this.list.querySelectorAll(".item")) {
         const { grouped, ungrouped } = item.dataset;
         const section = sections[group ? grouped : ungrouped];
-        section.appendChild(item);
+        if (section) {
+          section.appendChild(item);
+        } else {
+          console.warn(`Section for ${group ? grouped : ungrouped} not found. Item skipped:`, item);
+        }
       }
     }
     this._applyFilters();
