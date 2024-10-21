@@ -1,0 +1,281 @@
+{
+  "name": "Earth Spider Sewing",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Bukijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You lace an area with razor sharp wires less than a foot above  ground level. Trapping, damaging, and hindering all creatures who aren't aware of them or their locations exactly.</p><p>For the duration,  select a space the size of a 60-foot cube to fill with razor sharp wires. Select creatures that you can see to be unaffected by this jutsu.</p><p>For the duration, creatures who enter the radius of this jutsu move as if the area this jutsu inhabits is difficult terrain.</p><p>Creatures who cast Jutsu with a Mobility (M) component, must  succeed a Dexterity saving throw being restrained by the wires as they get wrapped up inside of them on a failed save.</p><p>Creatures who make weapon attacks must succeed a Strength saving throw, having their weapon caught on a wire and being unable to complete the attack on a failed save. </p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "minute",
+      "cost": 10,
+      "condition": "Battle Wire"
+    },
+    "duration": {
+      "value": "1",
+      "units": "hour"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "60",
+      "width": null,
+      "units": "ft",
+      "type": "cube",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 13,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "level": 3,
+    "school": "buki",
+    "materials": {
+      "value": "(Battle Wire),",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "mobility",
+      "weapons",
+      "weapon"
+    ],
+    "keywords": [
+      "bukijutsu"
+    ],
+    "chakraCost": 13,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Restrained",
+      "origin": "Compendium.world.jutsu.Item.OKDq6TzPdJ0voUkC",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/restrained.svg",
+      "_id": "t1XYwgHJszTKZzzY",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.movement.walk",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.swim",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.burrow",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.fly",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.ability.save.dex",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "restrained",
+          "priority": 20
+        }
+      ],
+      "description": "<p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!OKDq6TzPdJ0voUkC.t1XYwgHJszTKZzzY"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "mobility",
+        "weapon",
+        "weapons"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755893853,
+    "modifiedTime": 1728755893853,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "Jl06pbyhjmFzL4c2",
+  "sort": 1500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "OKDq6TzPdJ0voUkC",
+  "_key": "!items!OKDq6TzPdJ0voUkC"
+}

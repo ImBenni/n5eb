@@ -1,0 +1,359 @@
+{
+  "name": "Storm Release Snake Chains",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Ranton.png",
+  "system": {
+    "description": {
+      "value": "<p>Select one target creature you can see within range as snakes made of Water &amp; Lightning shoots towards the target, attempting to restrain them. Target creature(s) must make a Dexterity saving throw. On a failed save, they become restrained for the duration, unable to make handseals, and gain 2 ranks of Shocked. Restrained creatures make a Constitution saving throw at the end of each of their turns, ending this jutsu's effects on a successful save.</p><p>Additionally, if the target is standing on a body of Water when making their saving throws vs this jutsu's effects, they make their saving throw with a -2 penalty.</p><p><br />At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3, and you may choose one additional creature to target with this jutsu.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "1",
+      "width": null,
+      "units": "",
+      "type": "creature",
+      "prompt": true
+    },
+    "range": {
+      "value": 60,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 8,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 2,
+    "school": "hi",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "concentration",
+      "molding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "hijutsu",
+      "water",
+      "lightning"
+    ],
+    "chakraCost": 8,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Shocked",
+      "origin": "Compendium.world.jutsu.Item.ehfkGJk878Uj098h",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/shocked.svg",
+      "_id": "GGnBTnVdxQz4sNsi",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "saveDC=15,\nrollType=skill,\nsaveAbility=sur,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC 12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has resistance to this condition. A creature immune to Lightning damage has immunity to this condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground themselves, dispersing the electricity in their body ending this condition.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ehfkGJk878Uj098h.GGnBTnVdxQz4sNsi"
+    },
+    {
+      "name": "Restrained",
+      "origin": "Compendium.world.jutsu.Item.ehfkGJk878Uj098h",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/restrained.svg",
+      "_id": "jfyvhkUZAgEzsUtq",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.movement.walk",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.swim",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.burrow",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.fly",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.ability.save.dex",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "restrained",
+          "priority": 20
+        }
+      ],
+      "description": "<p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ehfkGJk878Uj098h.jfyvhkUZAgEzsUtq"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728754364448,
+    "modifiedTime": 1728754410998,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "8nFMLsXFewg4NAjx",
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ehfkGJk878Uj098h",
+  "_key": "!items!ehfkGJk878Uj098h"
+}

@@ -1,0 +1,266 @@
+{
+  "name": "Sealing Art Tobirama's Sword",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Non%20Elemental.png",
+  "system": {
+    "description": {
+      "value": "<p>You conjure a sword-shaped place of spacial distortion that hovers within range. It lasts for the duration.</p><p>When the sword appears, you make a melee ninjutsu attack against a target of your choice within 5 feet of the sword. On a hit, the target takes 5d10 force damage and gains 1 rank of Sealed.</p><p>Until the jutsu ends, you can use a bonus action on each of your turns to move the sword up to 60 feet to a spot you can see and repeat this attack against the same target or a different one. If this jutsu scores a critical hit, the target instead gains 5 ranks of Sealed</p><p>At Higher Ranks: For each rank you cast this jutsu above A-Rank, increase the cost of this jutsu by 3 and the amount of attacks the sword can make by 1 per round.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 60,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": null,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "mnak",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "5d10",
+          "force"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "level": 4,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "concentration",
+      "molding",
+      "fuinjutsu"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "fuinjutsu"
+    ],
+    "chakraCost": 17,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Sealed",
+      "origin": "Compendium.world.jutsu.Item.0sSZ80SftoKh4iR7",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "countDeleteDecrement",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/sealed.svg",
+      "_id": "x7fCkgkFZsDNRqnm",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "sealed",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ninjutsudc",
+          "mode": 0,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.genjutsudc",
+          "mode": 0,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=start, \nlabel=Sealed,\ndamageBeforeSave=true,\nactionSave=dialog,\nsaveRemove=true,\nsaveDC=15,\nchatFlavor=MY CHAKRA ITS GONE,\nrollType=skill,\nsaveAbility=nin|ill,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Sealed creature has a limiter on their chakra network, causing their chakra to become inefficient and wasteful. This condition is usually the result of a Fuinjutsu.</p><ul><li><p>A <strong>Sealed</strong> creature increases the base chakra cost of Ninjutsu &amp; Genjutsu by +2, for each rank it has.</p></li><li><p>A <strong>Sealed</strong> creature suffers a -1 penalty to all of their Ninjutsu &amp; Genjutsu Save DCs for each rank it has.</p></li><li><p>A creature can spend its action to make a DC 15 Ninshou or Illusions check to remove 1 rank of this condition. For every +5 their result is over the DC, they remove 1 additional rank of <strong>Sealed</strong>.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.KZhkgzm0QOWCbyVx.ActiveEffect.67Zr4SffTsSb5mM1",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!0sSZ80SftoKh4iR7.x7fCkgkFZsDNRqnm"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "handseals",
+        "molding",
+        "fuinjutsu",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728757276506,
+    "modifiedTime": 1728757276506,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "to3NFcMSUDIX8BX3",
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "0sSZ80SftoKh4iR7",
+  "_key": "!items!0sSZ80SftoKh4iR7"
+}

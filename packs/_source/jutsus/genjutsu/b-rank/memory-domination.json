@@ -1,0 +1,358 @@
+{
+  "name": "Memory Domination",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Genjutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You attempt to reshape another creature's memories. One creature that you touch must make an Intelligence saving throw. If you are fighting the creature, it has advantage on the saving throw. On a failed save, the target becomes charmed by you for 1 minute. The charmed target is incapacitated and unaware of its surroundings, though it can still hear you. If it takes any damage or is targeted by another jutsu, this jutsu ends, and none of the target's memories are modified. While this charm lasts, you can affect the target's memory of an event that it experienced within the last 12 Months and that lasted no more than 1 Day.</p><p>You can Temporarily overwrite all memory of the event, allow the target to recall the event with perfect clarity and exacting detail, change its memory of the details of the event, or create a memory of some other event.</p><p>You must speak to the target to describe how its memories are affected and it must be able to understand your language for the modified memories to take root. Its mind fills in any gaps in the details of your description. If the jutsu ends before you have finished describing the modified memories, the creature's memory isn't altered.</p><p>The modified memories take hold when the jutsu ends. A modified memory doesn't necessarily affect how a creature behaves, particularly if the memory contradicts the creature's natural inclinations, allegiance, or beliefs. An illogical modified memory is dismissed, perhaps as a bad dream. The DM might deem a modified memory too nonsensical to affect a creature in a significant manner.</p><p>A Genjutsu Break or Greater Restorative Jutsu cast on the target, specifically intended to restore the creature's true memory will restore the memory.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "perm"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "touch"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 14,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "int",
+      "dc": null,
+      "scaling": "genjutsu"
+    },
+    "level": 3,
+    "school": "gen",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "chakraseals",
+      "molding",
+      "fuinjutsu"
+    ],
+    "keywords": [
+      "genjutsu",
+      "fuinjutsu",
+      "kinjutsu"
+    ],
+    "chakraCost": 14,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Incapacitated",
+      "origin": "Compendium.world.jutsu.Item.lpOZDzyAe5m0UPTc",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/incapacitated.svg",
+      "_id": "G1UtrTycOPsS3he0",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.movement.walk",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.climb",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.swim",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.fly",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.burrow",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "incapacitated",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "incapacitated"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.oPKLZHKQOBZsE7k5.ActiveEffect.4SS62Wm6W6fzv1z7",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!lpOZDzyAe5m0UPTc.G1UtrTycOPsS3he0"
+    },
+    {
+      "name": "Charmed",
+      "origin": "Compendium.world.jutsu.Item.lpOZDzyAe5m0UPTc",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [
+            "isDamaged"
+          ]
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/charmed.svg",
+      "_id": "8YOKaxTeg6PDR5l3",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.int.bonuses.check",
+          "mode": 2,
+          "value": "-2",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.bonuses.check",
+          "mode": 2,
+          "value": "-2",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><ul><li><p>A <strong>Charmed</strong> creature is partially infatuated with a particular target.</p></li><li><p>A <strong>Charmed</strong> creature increases its attitude to you, by 1 rank, for each rank of Charmed it has.</p></li><li><p>A <strong>Charmed</strong> creatures suffers a -2 penalty to Intelligence &amp; Wisdom based skill checks made against its infatuation for each rank it has.</p></li><li><p>A <strong>Charmed</strong> creature cannot take hostile actions towards the source of its infatuations. If they would suffer a hostile effect or damage from the source of its infatuations or one of its infatuations allies, they remove all ranks of this condition.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.W7xYf9O8awd8TITw.ActiveEffect.q6BnBoFI5WGgWuGi",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!lpOZDzyAe5m0UPTc.8YOKaxTeg6PDR5l3"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "chakraseals",
+        "handseals",
+        "molding",
+        "fuinjutsu",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728756349180,
+    "modifiedTime": 1728756349180,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "quuZAgP7LnWrN80O",
+  "sort": 3800000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "lpOZDzyAe5m0UPTc",
+  "_key": "!items!lpOZDzyAe5m0UPTc"
+}

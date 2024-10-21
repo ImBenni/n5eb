@@ -1,0 +1,255 @@
+{
+  "name": "Fire Release Investiture of Flame",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Fire.png",
+  "system": {
+    "description": {
+      "value": "<p>Flames race across your body, shedding bright light in a 30-foot radius and dim light for an additional 30 feet for the Jutsu's duration. The flames don't harm you or any allied creature. Until the jutsu ends, you gain the following benefits:</p><p>• You are immune to fire &amp; wind damage.</p><p>• Resistant to Bludgeoning, piercing and slashing damage.</p><p>• Vulnerable to Cold damage.</p><p>• Speed is increased by 15 feet.</p><p>• Any hostile creature that moves within 10 feet of you on any turn, begins it turn or ends its turn there, takes 2d10 fire damage.</p><p>• You can use your bonus action to create a line of fire, 15 feet long and 5 feet wide extending from you in a direction you choose. Each creature in the line must make a Dexterity saving throw. A creature takes 4d12+4 fire damage and gains the burning condition on a failed save, or half as much damage on a successful one.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "10",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 120,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 14,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "util",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "2d10",
+          "fire"
+        ]
+      ],
+      "versatile": "4d12+4"
+    },
+    "formula": "",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 3,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "concentration",
+      "molding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "fire"
+    ],
+    "chakraCost": 14,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Burned",
+      "origin": "Compendium.world.jutsu.Item.iuDFLf1yh7gJwHSk",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/burning.svg",
+      "_id": "WRUGdaqaAvOBHTTf",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start,\nrollType=skill,\nsaveAbility=sur,\nsaveDC=15,\nactionSave=dialog,\ndamageBeforeSave=true,\ndamageRoll=1d8,\ndamageType=fire,\nsaveRemove=true,\nname=Burned, \nchatFlavor=It's very hot!,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.concentration.bonuses.save",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put out the flames. On a successful check, the condition ends or submerging themselves fully into a body of water.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!iuDFLf1yh7gJwHSk.WRUGdaqaAvOBHTTf"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "otherSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "otherCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728751719116,
+    "modifiedTime": 1728751719116,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "9OKAkWuwSCsbM3W4",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "iuDFLf1yh7gJwHSk",
+  "_key": "!items!iuDFLf1yh7gJwHSk"
+}

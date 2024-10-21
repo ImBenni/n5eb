@@ -1,0 +1,361 @@
+{
+  "name": "Breath of Enoki Invasive",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Bukijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You begin to collect and manifest medical chakra until it laces the striking portion of your weapon. The medical chakra begins to cause your weapon to glow with a soft pink hue.</p><p>You fire a single attack into the ground or space your target is in, releasing a powerful burst of poisonous fumes to weaken them further.</p><p>Select a space you can see within range. All creatures within 10 feet of the chosen space must make a constitution saving throw.   depending on the severity of their failure, the poison does increasingly more things.</p><p>● Failed by 1~4: 5d6 poison damage and 1 ranks of corroded.<br />● Failed by 5~9: 5d6 poison damage and 2 rank of corroded.</p><p>● Failed by 10~14: 5d6 poison damage, 2 ranks of corroded, and 1 rank of envenomed.</p><p>● Failed by 15+: 5d6 poison damage, 2 ranks of corroded, and 2 rank of envenomed. </p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "spec"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 8,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "5d6",
+          "poison"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "level": 2,
+    "school": "buki",
+    "materials": {
+      "value": "(Any Ranged) (Poison Kit),",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "chakramolding",
+      "mobility",
+      "weapons",
+      "ninjatools",
+      "molding",
+      "weapon",
+      "ninjatool",
+      "medical"
+    ],
+    "keywords": [
+      "bukijutsu",
+      "medical"
+    ],
+    "chakraCost": 8,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Corroded",
+      "origin": "Compendium.world.jutsu.Item.FMr8cJDU1MSHRr4D",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/corroded.svg",
+      "_id": "mYPeLt3RmunLi0Hl",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.con.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.DR.all",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 0,
+          "value": "saveDC=15,\nlabel=Corroded,\nsaveAbility=dex|con,\nsaveRemove=true,\nrollType=check,\nchatFlavor=This shit sticky yo,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Corroded</strong> creature has been exposed to some kind of acidic compound, causing their flesh and equipment to wither and deteriorate if left untreated.</p><ul><li><p>A <strong>Corroded</strong> creature gains a -2 penalty to its DR (damage reduction) for each rank it has.</p></li><li><p>A <strong>Corroded</strong> creature gains a -1 penalty to all Constitution based checks &amp; saves for each rank it has.</p></li><li><p>A creature can end the corroded condition by using their action making a DC 15 Dexterity or Constitution Ability Check or submerging themselves fully into a body of water.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.TJkoBRRPODGhibDp.ActiveEffect.gXQCDxapEi50ixYD",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!FMr8cJDU1MSHRr4D.mYPeLt3RmunLi0Hl"
+    },
+    {
+      "name": "Poisoned/Envenomed",
+      "origin": "Compendium.world.jutsu.Item.FMr8cJDU1MSHRr4D",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/poisoned.svg",
+      "_id": "mJVBWGehh04UTlf8",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, \ndamageRoll=1d6, \ndamageType=poison, \nlabel=Poisoned/Envenomed,\nchatFlavor=YUCK I feel SICK,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "poisoned",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ac.bonus",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has been exposed to some kind of venom or toxin, causing their vitality and immune health to drop rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it has, at the start of each of their turns for the duration of this condition</p></li><li><p>An <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!FMr8cJDU1MSHRr4D.mJVBWGehh04UTlf8"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "mobility",
+        "molding",
+        "weapon",
+        "ninjatool",
+        "medical",
+        "chakramolding",
+        "weapons",
+        "ninjatools"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755893853,
+    "modifiedTime": 1728756228504,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "w8bfWqi87gJKGpvX",
+  "sort": 4800000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "FMr8cJDU1MSHRr4D",
+  "_key": "!items!FMr8cJDU1MSHRr4D"
+}

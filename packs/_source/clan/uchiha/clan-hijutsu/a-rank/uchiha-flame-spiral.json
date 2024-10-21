@@ -1,0 +1,255 @@
+{
+  "name": "Uchiha Flame Spiral",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Uchiha.png",
+  "system": {
+    "description": {
+      "value": "<p>The ultimate Uchiha Fire Release. As part of the requirements of this jutsu, you must have the Sharingan active. You conjure three flaming tornados. Each tornado is a column with a radius of 5 feet, and a height of 30 feet. Creatures within the tornadoes areas when you cast this jutsu and whose space the tornadoes pass through must make a Dexterity saving throw taking 10d10+10 Fire damage on a failed save or half as much on a successful one.</p><p>Additionally, a creature who would make a saving throw to resist the effects of this jutsu must also make a constitution saving throw, being burned on a failed save.</p><p>As a bonus action on each of your turns, you may command each tornado separately, moving them up to 60 feet each. A tornado cannot occupy the same space as another tornado. A creature cannot be affected by more than 1 tornado per turn.</p><p>The Flaming tornados can be dispersed with enough force. The Flaming Tornados has an AC equal to your Ninjutsu save DC, and hit points equal to ten times your Ninjutsu Ability Modifier. The Flaming Tornado counts as a flaming construct, has vulnerability to cold damage, and when damaged by Wind damage, regains hit points equal to the damage the jutsu would have dealt.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 120,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 20,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "10d10+10",
+          "fire"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 4,
+    "school": "hi",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "concentration",
+      "molding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "hijutsu",
+      "construct",
+      "fire"
+    ],
+    "chakraCost": 20,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Burned",
+      "origin": "Compendium.world.jutsu.Item.dHVzE5veLhLgjHxJ",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/burning.svg",
+      "_id": "J4RbSNUSiQ6603zP",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start,\nrollType=skill,\nsaveAbility=sur,\nsaveDC=15,\nactionSave=dialog,\ndamageBeforeSave=true,\ndamageRoll=1d8,\ndamageType=fire,\nsaveRemove=true,\nname=Burned, \nchatFlavor=It's very hot!,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.concentration.bonuses.save",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put out the flames. On a successful check, the condition ends or submerging themselves fully into a body of water.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!40GnW3lie7bYPBCP.J4RbSNUSiQ6603zP"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755124890,
+    "modifiedTime": 1728755124890,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "dxUSP2yAhf0i1SAc",
+  "ownership": {
+    "default": 0
+  },
+  "_id": "40GnW3lie7bYPBCP",
+  "sort": 0,
+  "_key": "!items!40GnW3lie7bYPBCP"
+}

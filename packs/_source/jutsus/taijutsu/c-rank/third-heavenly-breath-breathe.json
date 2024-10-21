@@ -1,0 +1,249 @@
+{
+  "name": "Third Heavenly Breath Breathe",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Taijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>As a requirement to activate this jutsu, you must have Second Heavenly Breath: Panting currently active. You end your concentration on that jutsu and this one takes its place, maintaining the same duration limitation and Jutsu casting restrictions. You retain all of the effects and duration of that jutsu, stacking them with this jutsu's effects</p><p>You increase your lungs capacity eight-fold. Doing so increases your oxygen intake as your skin begin to turn red as your blood vessels swell as your muscles and organs begin to swell. Increase your taijutsu attack bonus by +1, bonus damage by 1d8 twice per turn, and you gain 10 temporary hit points that stack with temporary hit points gained by other Heavenly Breath Taijutsu you cast.</p><p>Upon ending this jutsu, you gain 2 ranks of the Weakened condition until your next rest, which cannot be removed by jutsu of C-Rank or lower.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "bonus",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "spec"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "self"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 9,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "other",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "1d8",
+          ""
+        ]
+      ],
+      "versatile": "10"
+    },
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "level": 2,
+    "school": "tai",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "chakramolding",
+      "molding"
+    ],
+    "keywords": [
+      "taijutsu"
+    ],
+    "chakraCost": 9,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Weakened",
+      "origin": "Compendium.world.jutsu.Item.pFLwec5LrxD8VkFy",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/weakened.svg",
+      "_id": "O6Jo8PcvDEJcu6q5",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.bonuses.All-Damage",
+          "mode": 2,
+          "value": "-4 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.str.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "weakened"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!pFLwec5LrxD8VkFy.O6Jo8PcvDEJcu6q5"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "removeAttackDamageButtons": "default",
+      "otherCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728757579263,
+    "modifiedTime": 1728757579263,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "O15cLlkMNP72MaKd",
+  "sort": 11100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "pFLwec5LrxD8VkFy",
+  "_key": "!items!pFLwec5LrxD8VkFy"
+}

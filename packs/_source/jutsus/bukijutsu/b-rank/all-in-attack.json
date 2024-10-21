@@ -1,0 +1,473 @@
+{
+  "folder": "Jl06pbyhjmFzL4c2",
+  "name": "All-In Attack",
+  "type": "spell",
+  "_id": "BcjWUNGg7R4IQMta",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Bukijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You lead your allies to capitalize on a brief moment where the enemy is left completely open. To cast this jutsu you must have at least 1 ally within 30 feet who can join in on the casting. If that ally has benefited from Baton Pass in this combat, they can immediately join the casting without needing to spend a reaction. All casters make two Melee Taijutsu attacks against the target creature, dealing [weapons damage] +3d8 on a hit. If the target is hit with at least 1 attack from all creatures it gains 2 ranks of weakened and bruised. If all attacks are successful, it instead gains 5 ranks of weakened and bruised. If this jutsu would reduce a target creatures health to 0, they are instead killed immediately.</p><p>Combination: When this jutsu is cast, it gains additional effects based on who has the highest Charisma modifier between both casters.</p><p>• +0-1: No Change.</p><p>• +2-3: The damage die of the jutsu increases to a d10.</p><p>• +4-5: The damage die of the jutsu increases to a d12</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "spec"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "mtak",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "3d8",
+          ""
+        ]
+      ],
+      "versatile": "3d10"
+    },
+    "enchantment": null,
+    "formula": "3d12",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "level": 3,
+    "school": "buki",
+    "properties": [
+      "weapons",
+      "concentration"
+    ],
+    "keywords": [
+      "bukijutsu",
+      "chainx",
+      "combination"
+    ],
+    "materials": {
+      "value": "Any",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "chakraCost": 36,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Bruised",
+      "origin": "Compendium.world.jutsu.Item.BcjWUNGg7R4IQMta",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        },
+        "babonus": {
+          "bonuses": [
+            {
+              "name": "+4 dmg",
+              "img": "icons/svg/dice-target.svg",
+              "id": "NkVtCZS38iq1ma82",
+              "sort": 0,
+              "type": "damage",
+              "enabled": true,
+              "exclusive": false,
+              "optional": true,
+              "reminder": false,
+              "description": "",
+              "consume": {
+                "enabled": false,
+                "type": "",
+                "subtype": "",
+                "scales": false,
+                "formula": "",
+                "value": {
+                  "min": "",
+                  "max": "",
+                  "step": null
+                }
+              },
+              "aura": {
+                "enabled": false,
+                "template": false,
+                "range": "",
+                "self": true,
+                "disposition": 2,
+                "blockers": [],
+                "require": {
+                  "light": false,
+                  "sight": false,
+                  "sound": false,
+                  "move": false
+                }
+              },
+              "flags": {},
+              "bonuses": {
+                "bonus": "4",
+                "damageType": "acid",
+                "criticalBonusDice": "",
+                "criticalBonusDamage": "",
+                "modifiers": {
+                  "amount": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "size": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "reroll": {
+                    "enabled": false,
+                    "value": "",
+                    "invert": false,
+                    "recursive": false,
+                    "limit": ""
+                  },
+                  "explode": {
+                    "enabled": false,
+                    "value": "",
+                    "once": false,
+                    "limit": ""
+                  },
+                  "minimum": {
+                    "enabled": false,
+                    "value": "",
+                    "maximize": false
+                  },
+                  "maximum": {
+                    "enabled": false,
+                    "value": "",
+                    "zero": false
+                  },
+                  "config": {
+                    "first": false
+                  }
+                }
+              },
+              "filters": {
+                "actorCreatureSizes": [],
+                "actorCreatureTypes": [],
+                "actorLanguages": [],
+                "arbitraryComparisons": [],
+                "baseArmors": [],
+                "customScripts": "",
+                "healthPercentages": {
+                  "value": 50,
+                  "type": null
+                },
+                "remainingSpellSlots": {
+                  "min": null,
+                  "max": null,
+                  "size": false
+                },
+                "statusEffects": [],
+                "abilities": [],
+                "attackTypes": [],
+                "baseWeapons": [],
+                "creatureTypes": [],
+                "damageTypes": [
+                  "bludgeoning",
+                  "earth"
+                ],
+                "featureTypes": {
+                  "subtype": ""
+                },
+                "itemTypes": [],
+                "preparationModes": [],
+                "spellComponents": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellLevels": [],
+                "spellSchools": [],
+                "targetArmors": [],
+                "targetEffects": [],
+                "tokenSizes": {
+                  "size": null,
+                  "type": 0,
+                  "self": false
+                },
+                "weaponProperties": []
+              }
+            }
+          ]
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/bruised.svg",
+      "_id": "VstDPWr2Folo6Ejd",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.str.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "bruised",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Bruised creature suffers a -1 penalty to all Strength, Dexterity &amp; Constitution based attack rolls and checks for each rank they have.</p></li><li><p>A Bruised creature takes +4 bonus damage from all sources of bludgeoning or earth damage for each rank they have, once per turn.</p></li><li><p>Creatures that are immune to bludgeoning or Earth damage are immune to this condition.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bruised condition immediately becomes Staggered, ending the Bruised Condition.</p></li><li><p>A Creature can spend an Action to make a DC 15 Strength (Medicine) Check to end this condition by applying the appropriate amount of pressure to the wound.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "bruised"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.6jTSe6avKTHv61xR.ActiveEffect.E8EMTtQE84gz6Kjy",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!BcjWUNGg7R4IQMta.VstDPWr2Folo6Ejd"
+    },
+    {
+      "name": "Weakened",
+      "origin": "Compendium.world.jutsu.Item.BcjWUNGg7R4IQMta",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/weakened.svg",
+      "_id": "OwtT5sp1fYmkpXWp",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.bonuses.All-Damage",
+          "mode": 2,
+          "value": "-4 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.str.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "weakened"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!BcjWUNGg7R4IQMta.OwtT5sp1fYmkpXWp"
+    }
+  ],
+  "sort": 5100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null,
+      "removeAttackDamageButtons": "default",
+      "otherCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755893853,
+    "modifiedTime": 1728755893853,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_key": "!items!BcjWUNGg7R4IQMta"
+}

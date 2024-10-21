@@ -1,0 +1,270 @@
+{
+  "name": "Water Blob",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Hozuki.png",
+  "system": {
+    "description": {
+      "value": "<p>A target creature you can see within range must succeed on a Dexterity saving throw or they are now grappled with their head being submerged in a bubble of Water, made from your body. <br />While grappled this way, they begin to suffocate. <br />While suffocating this way, it is difficult to maintain concentration on jutsu and must make a Constitution (Chakra Control) check to maintain concentration, losing the jutsu on a failure. <br />A creature begins to drown after a number of rounds equal to its Constitution modifier (Min 1). <br />While grappled in this way, when a creature attempts to escape this grapple, they can spend their action to make their Strength (Athletics) or Dexterity (Acrobatics) checks contested by either your Strength (Chakra Control), or Constitution (Chakra Control) check. <br />At the start of its first turn after these rounds and the beginning of each of its turns it remains grappled, it takes necrotic damage equal to 4d8 + Your Ninjutsu ability modifier. <br />If you are currently using the Hydrofication Jutsu, skill checks made to escape the grapple is made with a 1d4 penalty.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 5,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 9,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "4d8+@mod",
+          "necrotic"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 2,
+    "school": "hi",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "chakramolding",
+      "concentration",
+      "molding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "hijutsu",
+      "water"
+    ],
+    "chakraCost": 8,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Grappled",
+      "origin": "Compendium.world.jutsu.Item.AAcG5asdNa2PLKQb",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/grappled.svg",
+      "_id": "j3lJyYmwKlJxCon9",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.movement.walk",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.swim",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.climb",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.burrow",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.fly",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.KfqyjVTZEhRigxiO.ActiveEffect.Eme0Y4daNNi3gpIR",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!AAcG5asdNa2PLKQb.j3lJyYmwKlJxCon9"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728753280864,
+    "modifiedTime": 1728753309574,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "ak4ZM7CgFoji2l1H",
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "AAcG5asdNa2PLKQb",
+  "_key": "!items!AAcG5asdNa2PLKQb"
+}

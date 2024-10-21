@@ -1,0 +1,131 @@
+{
+  "name": "Calculated Response",
+  "type": "feat",
+  "img": "icons/commodities/tech/dial-meter-gauge-blue.webp",
+  "system": {
+    "description": {
+      "value": "<p>Starting at 10th level, you've gained the ability to come up with solutions under pressure. </p><p>When you or another creature you can see within 30 feet of you makes a Skill check or a saving throw, you can use your reaction to add your Intelligence modifier to the roll. </p><p>At Level 15, you also use this feature to subtract your Intelligence Modifier from an enemy creature's Skill check or saving throw. </p><p>You can use this feature a number of times equal to your Intelligence modifier (minimum of once). </p><p>You regain all expended uses when you finish a long rest.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "reaction",
+      "cost": 1,
+      "condition": "When you or another creature makes an ability check or a saving throw"
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "creature",
+      "prompt": true
+    },
+    "range": {
+      "value": 30,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": 1,
+      "max": "@abilities.int.mod",
+      "per": "lr",
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": null,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "util",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "floor(@abilities.int.mod/2)",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "type": {
+      "value": "class",
+      "subtype": "",
+      "nestedsubtype": ""
+    },
+    "requirements": "",
+    "recharge": {
+      "value": null,
+      "charged": false,
+      "formula": "1d8"
+    },
+    "prerequisites": {
+      "level": 10
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": []
+  },
+  "effects": [],
+  "flags": {
+    "cf": null,
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "reactionCondition": "",
+      "effectCondition": "",
+      "otherCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728705404584,
+    "modifiedTime": 1728821898301,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "W5RnAurYwWnz4lYa",
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "288RZEtXx1Js4e6s",
+  "_key": "!items!288RZEtXx1Js4e6s"
+}

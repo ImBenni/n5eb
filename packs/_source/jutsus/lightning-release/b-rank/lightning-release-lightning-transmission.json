@@ -1,0 +1,237 @@
+{
+  "name": "Lightning Release Lightning Transmission",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Lightning.png",
+  "system": {
+    "description": {
+      "value": "<p>You manifest your Lightning release until its covering your body. Select one currently shocked creature within 120 feet. You immediately teleport to them. Until the end of this turn, you have advantage on the first Melee Attack made targeting the creature you teleport to.</p><p>If the target creature dies before the end of your turn after teleporting to them you may teleport to another creature within 60 feet who also has the shocked condition. If you do, you gain advantage on the next melee attack made targeting this creature before the end of your next turn. You can only teleport using this jutsu up to twice per turn.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "bonus",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 120,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 11,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "level": 3,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "molding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "lightning"
+    ],
+    "chakraCost": 11,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Shocked",
+      "origin": "Compendium.world.jutsu.Item.4bnRSoW9sRXUrnqT",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/shocked.svg",
+      "_id": "kdRO6DLpOhHLLDXn",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "saveDC=15,\nrollType=skill,\nsaveAbility=sur,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC 12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has resistance to this condition. A creature immune to Lightning damage has immunity to this condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground themselves, dispersing the electricity in their body ending this condition.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!4bnRSoW9sRXUrnqT.kdRO6DLpOhHLLDXn"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728756941476,
+    "modifiedTime": 1728756941476,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "LPXimTd5tAYrzhd8",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "4bnRSoW9sRXUrnqT",
+  "_key": "!items!4bnRSoW9sRXUrnqT"
+}

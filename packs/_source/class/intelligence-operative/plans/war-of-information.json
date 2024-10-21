@@ -1,0 +1,343 @@
+{
+  "folder": "fWFJcn8gEKVZ0tVi",
+  "name": "War of Information",
+  "type": "feat",
+  "_id": "Hs1umOAZVvKNV5Qv",
+  "img": "icons/svg/cowled.svg",
+  "system": {
+    "description": {
+      "value": "<p><strong>Base Plan:</strong> Select one hostile creature within 30 feet of you, all attacks against that creature made by your allies are made with an additional two damage die added to their damage rolls while they are within 30 feet of you. This lasts for a number of rounds equal to your Proficiency Bonus and this damage can only trigger twice per turn.</p><p><strong>Enhanced Plan:</strong> If a Brave Order is used to enhance this plan, your allies also add 1d4 to their attack roll while the target creature is within 30 feet of you. This lasts for the remaining time this plan is active.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "special",
+      "cost": null,
+      "condition": "Action, Bonus Action, or Reaction"
+    },
+    "duration": {
+      "value": "@prof",
+      "units": "round"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "1",
+      "width": null,
+      "units": "",
+      "type": "creature",
+      "prompt": true
+    },
+    "range": {
+      "value": 30,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "charges",
+      "target": "Compendium.n5eb.class.Item.Oi2Qc9xlAGRBWUYa",
+      "amount": 1,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "type": {
+      "value": "class",
+      "subtype": "plan"
+    },
+    "prerequisites": {
+      "level": null
+    },
+    "properties": [],
+    "requirements": "",
+    "recharge": {
+      "value": null,
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "War of Information",
+      "origin": "Compendium.n5eb.class-and-subclass.Item.Hs1umOAZVvKNV5Qv",
+      "duration": {
+        "rounds": 5,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": true,
+          "aura": "Enemy",
+          "nameOverride": "",
+          "radius": "30",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": true,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        },
+        "babonus": {
+          "bonuses": [
+            {
+              "name": "War of Information",
+              "img": "icons/svg/cowled.svg",
+              "id": "rscLy8ih1aaU0oxK",
+              "sort": 0,
+              "type": "damage",
+              "enabled": true,
+              "exclusive": false,
+              "optional": false,
+              "reminder": false,
+              "description": "",
+              "consume": {
+                "enabled": false,
+                "type": "",
+                "subtype": "",
+                "scales": false,
+                "formula": "",
+                "value": {
+                  "min": "",
+                  "max": "",
+                  "step": null
+                }
+              },
+              "aura": {
+                "enabled": false,
+                "template": false,
+                "range": "",
+                "self": true,
+                "disposition": 2,
+                "blockers": [],
+                "require": {
+                  "light": false,
+                  "sight": false,
+                  "sound": false,
+                  "move": false
+                }
+              },
+              "flags": {},
+              "bonuses": {
+                "bonus": "",
+                "damageType": [],
+                "criticalBonusDice": "",
+                "criticalBonusDamage": "",
+                "modifiers": {
+                  "amount": {
+                    "enabled": true,
+                    "mode": 0,
+                    "value": "2"
+                  },
+                  "size": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "reroll": {
+                    "enabled": false,
+                    "value": "",
+                    "invert": false,
+                    "recursive": false,
+                    "limit": ""
+                  },
+                  "explode": {
+                    "enabled": false,
+                    "value": "",
+                    "once": false,
+                    "limit": ""
+                  },
+                  "minimum": {
+                    "enabled": false,
+                    "value": "",
+                    "maximize": false
+                  },
+                  "maximum": {
+                    "enabled": false,
+                    "value": "",
+                    "zero": false
+                  },
+                  "config": {
+                    "first": true
+                  }
+                }
+              },
+              "filters": {
+                "actorCreatureSizes": [],
+                "actorCreatureTypes": [],
+                "actorLanguages": [],
+                "arbitraryComparisons": [],
+                "baseArmors": [],
+                "customScripts": "",
+                "healthPercentages": {
+                  "value": 50,
+                  "type": null
+                },
+                "markers": {
+                  "values": [],
+                  "target": []
+                },
+                "remainingSpellSlots": {
+                  "min": null,
+                  "max": null,
+                  "size": false
+                },
+                "statusEffects": [],
+                "abilities": [],
+                "baseWeapons": [],
+                "creatureTypes": [],
+                "damageTypes": [],
+                "featureTypes": {
+                  "subtype": ""
+                },
+                "itemTypes": [],
+                "preparationModes": [],
+                "sourceClasses": {
+                  "values": []
+                },
+                "spellComponents": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellKeywords": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellLevels": [],
+                "spellSchools": [],
+                "targetArmors": [],
+                "targetEffects": [],
+                "tokenSizes": {
+                  "size": null,
+                  "type": 0,
+                  "self": false
+                },
+                "weaponProperties": [],
+                "attackModes": {
+                  "value": [],
+                  "classification": [],
+                  "mode": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      "img": "icons/svg/cowled.svg",
+      "_id": "qVwb76eCsZwAqEPU",
+      "type": "base",
+      "system": {},
+      "changes": [],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1724539268203,
+        "modifiedTime": 1728796798174,
+        "lastModifiedBy": "n5ebbuilder0000"
+      },
+      "_key": "!items.effects!Hs1umOAZVvKNV5Qv.qVwb76eCsZwAqEPU"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "always",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1723424281622,
+    "modifiedTime": 1728796812634,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_key": "!items!Hs1umOAZVvKNV5Qv"
+}

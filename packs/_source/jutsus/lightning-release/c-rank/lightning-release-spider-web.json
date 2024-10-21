@@ -1,0 +1,358 @@
+{
+  "name": "Lightning Release Spider Web",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Lightning.png",
+  "system": {
+    "description": {
+      "value": "<p>You create a Web like pattern on the ground out of Lightning chakra expanding outwards in a 15-foot cube at a space of your choice within range. Creatures who begin their turns or enters the webs space must make a Constitution saving throw. On a failed save affected creatures gain +1 rank of Shocked. A creature who has gained ranks of Shocked as a result of this jutsu, who begins their turn in this jutsu's area of effect, becomes Incapacitated until the end of their turn.</p><p>Overcharge. When you cast this jutsu with its listed casting time, you can choose to spend your Bonus Action or Reaction to Overcharge its effects. When you do, a Shocked creature who begins their turn in the affected area takes 3d12 Lightning damage.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3, increase the size of the cube by 5 feet and damage dealt while overcharged by 1d12</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "15",
+      "width": null,
+      "units": "ft",
+      "type": "cube",
+      "prompt": true
+    },
+    "range": {
+      "value": 60,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 9,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "3d12",
+          "lightning"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 2,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "1d12"
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "concentration",
+      "molding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "lightning"
+    ],
+    "chakraCost": 9,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Incapacitated",
+      "origin": "Compendium.world.jutsu.Item.m22MZcOTmkd0Gxqe",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/incapacitated.svg",
+      "_id": "nIHG9GXysgS7RRXu",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.movement.walk",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.climb",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.swim",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.fly",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.burrow",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "incapacitated",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "incapacitated"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.oPKLZHKQOBZsE7k5.ActiveEffect.4SS62Wm6W6fzv1z7",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!m22MZcOTmkd0Gxqe.nIHG9GXysgS7RRXu"
+    },
+    {
+      "name": "Shocked",
+      "origin": "Compendium.world.jutsu.Item.m22MZcOTmkd0Gxqe",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/shocked.svg",
+      "_id": "rXCcgEknnJeEtHje",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "saveDC=15,\nrollType=skill,\nsaveAbility=sur,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC 12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has resistance to this condition. A creature immune to Lightning damage has immunity to this condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground themselves, dispersing the electricity in their body ending this condition.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!m22MZcOTmkd0Gxqe.rXCcgEknnJeEtHje"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728756941476,
+    "modifiedTime": 1728756941476,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "grQaz55604Xzx6aG",
+  "sort": 4700000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "m22MZcOTmkd0Gxqe",
+  "_key": "!items!m22MZcOTmkd0Gxqe"
+}

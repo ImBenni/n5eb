@@ -1,0 +1,336 @@
+{
+  "name": "Wind Release Peacock Whirlwind",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Wind.png",
+  "system": {
+    "description": {
+      "value": "<p>You generate a strong wind from swiping one of your limbs. A gust of wind is generated in a 30-foot long 5-feet wide in a straight line originating from you. Creatures in the line must make a Strength saving throw, taking 2d6 wind damage, is knocked prone, gains 1 rank of bleeding and causing Swirl on a failed save, and only half damage and no further effects on a successful save</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3, the damage by 1d6 and the ranks of bleed by +1.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "30",
+      "width": 5,
+      "units": "ft",
+      "type": "line",
+      "prompt": true
+    },
+    "range": {
+      "value": 30,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 4,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "2d6",
+          "wind"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "str",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 1,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "1d6"
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "molding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "wind"
+    ],
+    "chakraCost": 4,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Bleeding",
+      "origin": "Compendium.world.jutsu.Item.1RP5QLmSUH7PFDUl",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/bleeding.svg",
+      "_id": "n8PF3ABVaPZ7cssB",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, \ndamageRoll=1d4, damageType=necrotic,\nlabel=Bleeding,\ndamageBeforeSave=true,\nactionSave=dialog,\nsaveRemove=true,\nsaveDC=15,\nchatFlavor=Lil paper cut fr,\nrollType=skill,\nsaveAbility=med,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "bleeding",
+          "priority": 0
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has suffered a minor abrasion to their flesh, causing slow blood loss if untreated.</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4 necrotic damage for each rank of Bleed they have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bleeding condition immediately gains 5 ranks of the Lacerated condition, ending the Bleeding condition.</p><ul><li><p>The first time per rest a Bleeding creature would gain the Lacerated this way, they must succeed a DC 11 flat check, immediately taking the damage of their Lacerated ranks as they suffer a great wound.</p></li></ul></li><li><p>Outside of combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!1RP5QLmSUH7PFDUl.n8PF3ABVaPZ7cssB"
+    },
+    {
+      "name": "Prone",
+      "origin": "Compendium.world.jutsu.Item.1RP5QLmSUH7PFDUl",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/prone.svg",
+      "_id": "lj7sVbtSVmpxGH2q",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "prone",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!1RP5QLmSUH7PFDUl.lj7sVbtSVmpxGH2q"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728757601216,
+    "modifiedTime": 1728757781132,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "2XqvongJAEZP1u6H",
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "1RP5QLmSUH7PFDUl",
+  "_key": "!items!1RP5QLmSUH7PFDUl"
+}

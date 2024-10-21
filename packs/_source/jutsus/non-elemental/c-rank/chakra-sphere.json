@@ -1,0 +1,684 @@
+{
+  "name": "Chakra Sphere",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Non%20Elemental.png",
+  "system": {
+    "description": {
+      "value": "<p>You create a 5-foot diameter floating sphere of dense chakra in an unoccupied space you can see within range.</p><p>As a bonus action on your turn, you can command the sphere to move up to 30 feet and make a single melee ninjutsu attack against a creature within 5 feet of it. On a success, the target takes 2d8 damage.</p><p>If you have a nature release, this jutsu gains a single nature release keyword that you can cast and it's damage type becomes the corresponding nature releases damage type (Water = Cold). If you do not have a nature release this jutsu instead deals Force Damage.</p><p>• Earth: As an action on your turn or when the jutsu ends, you can cause one or more spheres to explode. Each creature within 15-feet of the spheres space(s) must make a Dexterity saving throw. On a failed save the creature takes gains 1 bruised and concused.</p><p>• Wind: Each creature hit by a sphere must succeed a Strength saving throw being knocked back 20 feet on a failed save.</p><p>• Fire: Each creature who begins their turns within 5 feet of the sphere must succeed a Constitution saving throw, being burned on a failed save.</p><p>• Water: Your sphere can move through allied spaces. When it does, roll its damage die, granting the creature(s) who's space it moved through temporary hit points equal to the result. A creature can only gain temporary hit points this way once per turn.</p><p>• Lightning: Each creature hit by a sphere must succeed a Constitution saving throw, being shocked.</p><p>• Force: The damage die becomes a d10. </p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 the damage by 1d8 and the number of spheres created by +1, controlling each sphere independently with the same action. A creature can only be affected by two spheres each turn. Additionally, you can change the Nature Release and corresponding Damage type to one you currently know. </p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "5",
+      "width": null,
+      "units": "ft",
+      "type": "sphere",
+      "prompt": true
+    },
+    "range": {
+      "value": 60,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 8,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "mnak",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "2d8",
+          "none"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "str",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 2,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "1d8"
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "concentration",
+      "molding"
+    ],
+    "keywords": [
+      "ninjutsu"
+    ],
+    "chakraCost": 8,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Burned",
+      "origin": "Compendium.world.jutsu.Item.8VHukvWOVrjQ2lfn",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/burning.svg",
+      "_id": "v0G81UhfaXdjkGXH",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start,\nrollType=skill,\nsaveAbility=sur,\nsaveDC=15,\nactionSave=dialog,\ndamageBeforeSave=true,\ndamageRoll=1d8,\ndamageType=fire,\nsaveRemove=true,\nname=Burned, \nchatFlavor=It's very hot!,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.concentration.bonuses.save",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put out the flames. On a successful check, the condition ends or submerging themselves fully into a body of water.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!8VHukvWOVrjQ2lfn.v0G81UhfaXdjkGXH"
+    },
+    {
+      "name": "Shocked",
+      "origin": "Compendium.world.jutsu.Item.8VHukvWOVrjQ2lfn",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/shocked.svg",
+      "_id": "ZtqUJikyOgWPk36z",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "saveDC=15,\nrollType=skill,\nsaveAbility=sur,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC 12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has resistance to this condition. A creature immune to Lightning damage has immunity to this condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground themselves, dispersing the electricity in their body ending this condition.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!8VHukvWOVrjQ2lfn.ZtqUJikyOgWPk36z"
+    },
+    {
+      "name": "Concussed",
+      "origin": "Compendium.world.jutsu.Item.8VHukvWOVrjQ2lfn",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/concussed.svg",
+      "_id": "gMupGKtFKBeVmA3Q",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.int.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.cha.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.int.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.str.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.int.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "concussed",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A Concussed creature suffers a -1 penalty to all of their Save DCs for each rank it has.</p></li><li><p>A Concussed creature suffers a -1 penalty to all Intelligence based checks, attack rolls and saving throws and checks for each rank it has.</p></li><li><p>A concussed creature cannot gain the benefit of a Rest.</p></li><li><p>A creature can spend its Action if it has a Medicine kit to make a DC 20 Medicine check, ending this condition on a success.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!8VHukvWOVrjQ2lfn.gMupGKtFKBeVmA3Q"
+    },
+    {
+      "name": "Bruised",
+      "origin": "Compendium.world.jutsu.Item.8VHukvWOVrjQ2lfn",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        },
+        "babonus": {
+          "bonuses": [
+            {
+              "name": "+4 dmg",
+              "img": "icons/svg/dice-target.svg",
+              "id": "NkVtCZS38iq1ma82",
+              "sort": 0,
+              "type": "damage",
+              "enabled": true,
+              "exclusive": false,
+              "optional": true,
+              "reminder": false,
+              "description": "",
+              "consume": {
+                "enabled": false,
+                "type": "",
+                "subtype": "",
+                "scales": false,
+                "formula": "",
+                "value": {
+                  "min": "",
+                  "max": "",
+                  "step": null
+                }
+              },
+              "aura": {
+                "enabled": false,
+                "template": false,
+                "range": "",
+                "self": true,
+                "disposition": 2,
+                "blockers": [],
+                "require": {
+                  "light": false,
+                  "sight": false,
+                  "sound": false,
+                  "move": false
+                }
+              },
+              "flags": {},
+              "bonuses": {
+                "bonus": "4",
+                "damageType": "acid",
+                "criticalBonusDice": "",
+                "criticalBonusDamage": "",
+                "modifiers": {
+                  "amount": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "size": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "reroll": {
+                    "enabled": false,
+                    "value": "",
+                    "invert": false,
+                    "recursive": false,
+                    "limit": ""
+                  },
+                  "explode": {
+                    "enabled": false,
+                    "value": "",
+                    "once": false,
+                    "limit": ""
+                  },
+                  "minimum": {
+                    "enabled": false,
+                    "value": "",
+                    "maximize": false
+                  },
+                  "maximum": {
+                    "enabled": false,
+                    "value": "",
+                    "zero": false
+                  },
+                  "config": {
+                    "first": false
+                  }
+                }
+              },
+              "filters": {
+                "actorCreatureSizes": [],
+                "actorCreatureTypes": [],
+                "actorLanguages": [],
+                "arbitraryComparisons": [],
+                "baseArmors": [],
+                "customScripts": "",
+                "healthPercentages": {
+                  "value": 50,
+                  "type": null
+                },
+                "remainingSpellSlots": {
+                  "min": null,
+                  "max": null,
+                  "size": false
+                },
+                "statusEffects": [],
+                "abilities": [],
+                "attackTypes": [],
+                "baseWeapons": [],
+                "creatureTypes": [],
+                "damageTypes": [
+                  "bludgeoning",
+                  "earth"
+                ],
+                "featureTypes": {
+                  "subtype": ""
+                },
+                "itemTypes": [],
+                "preparationModes": [],
+                "spellComponents": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellLevels": [],
+                "spellSchools": [],
+                "targetArmors": [],
+                "targetEffects": [],
+                "tokenSizes": {
+                  "size": null,
+                  "type": 0,
+                  "self": false
+                },
+                "weaponProperties": []
+              }
+            }
+          ]
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/bruised.svg",
+      "_id": "DvfcNclYcMispzOg",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.str.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "bruised",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Bruised creature suffers a -1 penalty to all Strength, Dexterity &amp; Constitution based attack rolls and checks for each rank they have.</p></li><li><p>A Bruised creature takes +4 bonus damage from all sources of bludgeoning or earth damage for each rank they have, once per turn.</p></li><li><p>Creatures that are immune to bludgeoning or Earth damage are immune to this condition.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bruised condition immediately becomes Staggered, ending the Bruised Condition.</p></li><li><p>A Creature can spend an Action to make a DC 15 Strength (Medicine) Check to end this condition by applying the appropriate amount of pressure to the wound.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "bruised"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.6jTSe6avKTHv61xR.ActiveEffect.E8EMTtQE84gz6Kjy",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!8VHukvWOVrjQ2lfn.DvfcNclYcMispzOg"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "default",
+      "bonusSaveDamage": "default"
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728757276506,
+    "modifiedTime": 1728757276506,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "XGXzSLF74wHJfzLr",
+  "sort": 1700000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "8VHukvWOVrjQ2lfn",
+  "_key": "!items!8VHukvWOVrjQ2lfn"
+}

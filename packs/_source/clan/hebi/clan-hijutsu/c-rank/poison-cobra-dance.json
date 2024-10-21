@@ -1,0 +1,254 @@
+{
+  "name": "Poison Cobra Dance",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Hebi.png",
+  "system": {
+    "description": {
+      "value": "<p>You perform a flurry of graceful strikes each with the deadly precision of a cobra's bite. Make two melee Taijutsu attacks, dealing your [Weapons Damage] + 2d8. On a hit, the affected creature must make a Strength saving throw being knocked prone on a failure.</p><p>If these attacks are made against a creature with ranks of envenomed, increase the damage dealt by +1d8</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3. If this jutsu is cast at A-Rank, increase the number of attacks made by +1.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": "Broadsword, Kunai, Katana or Odachi"
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "spec"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 9,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "mtak",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "2d8",
+          ""
+        ]
+      ],
+      "versatile": "3d8"
+    },
+    "formula": "",
+    "save": {
+      "ability": "str",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "level": 2,
+    "school": "hi",
+    "materials": {
+      "value": "Broadsword Kunai Katana Odachi",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "mobility",
+      "weapons",
+      "weapon"
+    ],
+    "keywords": [
+      "bukijutsu",
+      "hijutsu"
+    ],
+    "chakraCost": 9,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Prone",
+      "origin": "Compendium.world.jutsu.Item.kXTrNjMo39Gt7Jpy",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/prone.svg",
+      "_id": "O7TcDsSFGCJnBYcW",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "prone",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!kXTrNjMo39Gt7Jpy.O7TcDsSFGCJnBYcW"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "mobility",
+        "weapon",
+        "weapons"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "otherSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "otherCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728753048090,
+    "modifiedTime": 1728753088567,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "lpxk4T7X5nbKiNGF",
+  "sort": 125000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "kXTrNjMo39Gt7Jpy",
+  "_key": "!items!kXTrNjMo39Gt7Jpy"
+}

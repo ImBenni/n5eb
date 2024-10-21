@@ -1,0 +1,254 @@
+{
+  "name": "Falling Heaven Rain",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Fuma.png",
+  "system": {
+    "description": {
+      "value": "<p>You launch the thrown weapons into the sky before your weapons collide bouncing off of each other as they rain downward in a cascade of dangerous steel. <br />Every creature in the target area must succeed a Constitution Saving throw to weather the rain of steel. <br />On a failure they take your weapons damage+1d10 and gaining 1 rank of Bleeding. <br />On a success they take half damage and suffer no effects. </p><p><br />At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and damage by 1d10.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": "Any Thrown"
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "30",
+      "width": null,
+      "units": "ft",
+      "type": "radius",
+      "prompt": true
+    },
+    "range": {
+      "value": 60,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 4,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "1d10",
+          ""
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "level": 1,
+    "school": "hi",
+    "materials": {
+      "value": "Any Thrown",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "1d10"
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "mobility",
+      "weapons",
+      "weapon"
+    ],
+    "keywords": [
+      "bukijutsu",
+      "hijutsu"
+    ],
+    "chakraCost": 4,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Bleeding",
+      "origin": "Compendium.world.jutsu.Item.YKL7T1VtNVrJI7WB",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/bleeding.svg",
+      "_id": "Zcnnn60winzn8LWx",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, \ndamageRoll=1d4, damageType=necrotic,\nlabel=Bleeding,\ndamageBeforeSave=true,\nactionSave=dialog,\nsaveRemove=true,\nsaveDC=15,\nchatFlavor=Lil paper cut fr,\nrollType=skill,\nsaveAbility=med,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "bleeding",
+          "priority": 0
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has suffered a minor abrasion to their flesh, causing slow blood loss if untreated.</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4 necrotic damage for each rank of Bleed they have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bleeding condition immediately gains 5 ranks of the Lacerated condition, ending the Bleeding condition.</p><ul><li><p>The first time per rest a Bleeding creature would gain the Lacerated this way, they must succeed a DC 11 flat check, immediately taking the damage of their Lacerated ranks as they suffer a great wound.</p></li></ul></li><li><p>Outside of combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!YKL7T1VtNVrJI7WB.Zcnnn60winzn8LWx"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "mobility",
+        "weapon",
+        "weapons"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728752589939,
+    "modifiedTime": 1728752621819,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "BBFmBJaonNWZY09Z",
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "YKL7T1VtNVrJI7WB",
+  "_key": "!items!YKL7T1VtNVrJI7WB"
+}

@@ -1,0 +1,280 @@
+{
+  "folder": "w8bfWqi87gJKGpvX",
+  "name": "Draupnir Javelin",
+  "type": "spell",
+  "_id": "l0Y1yw53Q6NxPTCN",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Bukijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You trace the design of your spear in chakra and create a near copy of it made of chakra. You then throw the copy towards a target creature in range, sending it flying out in a deadly arc. Make a Ranged Taijutsu attack against the target creature. On a hit you deal your [weapons damage] +1d12 and they must make a Constitution saving throw. On a failed save they are rooted to the ground, becoming restrained, remaking the save at the start of their turns to end the condition.</p><p>As a Bonus Action or reaction, you can cause the copy of the spear to explode, ending the restrained condition and dealing 2d12 force damage to the creature and any creature within 5 feet.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 30,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "rtak",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "1d12",
+          ""
+        ]
+      ],
+      "versatile": "2d12"
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "summons": null,
+    "level": 2,
+    "school": "buki",
+    "properties": [
+      "mobility",
+      "weapons"
+    ],
+    "keywords": [
+      "bukijutsu"
+    ],
+    "materials": {
+      "value": "Melee Piercing",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "chakraCost": 8,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 3
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Restrained",
+      "origin": "Compendium.world.jutsu.Item.l0Y1yw53Q6NxPTCN",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/restrained.svg",
+      "_id": "BAHqm3y8hY7sGDRe",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.movement.walk",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.swim",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.burrow",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.fly",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.ability.save.dex",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "restrained",
+          "priority": 20
+        }
+      ],
+      "description": "<p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!l0Y1yw53Q6NxPTCN.BAHqm3y8hY7sGDRe"
+    }
+  ],
+  "sort": 3000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "otherSaveDamage": "default"
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null,
+      "removeAttackDamageButtons": "default",
+      "otherCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755893853,
+    "modifiedTime": 1728756228504,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_key": "!items!l0Y1yw53Q6NxPTCN"
+}

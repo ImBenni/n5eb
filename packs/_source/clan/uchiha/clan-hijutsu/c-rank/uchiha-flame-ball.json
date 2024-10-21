@@ -1,0 +1,239 @@
+{
+  "folder": "1yYTciPrwMJXNJM4",
+  "name": "Uchiha Flame Ball",
+  "type": "spell",
+  "_id": "1sLLXmqc5FJ3rLzv",
+  "img": "icons/magic/fire/projectile-fireball-smoke-strong-orange.webp",
+  "system": {
+    "description": {
+      "value": "<p>This is a unique variation of the \"<strong>Fire Release: Great Fireball</strong>\" Jutsu. </p><hr /><p>You Fire a stream of Fire 5 feet wide and up to 60 feet long in a straight line originating from you. This Fire stops at a space of your choice along this distance and expands into a large 20-foot radius sphere of blazing orange flame centering on the selected space. All creatures in both this Jutsu's stream and blazing sphere, must succeed a Dexterity saving throw. On a failed save they take 11d4+11 Fire damage and the burned condition on a failed save or half as much on a success.</p><hr /><p><strong>At Higher Ranks</strong>: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and damage by 2d4+2.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "20",
+      "width": null,
+      "units": "ft",
+      "type": "radius",
+      "prompt": true
+    },
+    "range": {
+      "value": 60,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "11d4+11",
+          "fire"
+        ]
+      ],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "summons": null,
+    "level": 2,
+    "school": "hi",
+    "properties": [
+      "handseals",
+      "chakramolding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "hijutsu",
+      "clash",
+      "fire"
+    ],
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "2d4+2"
+    },
+    "chakraCost": 9,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    }
+  },
+  "effects": [
+    {
+      "name": "Burned",
+      "origin": "Compendium.n5eb.clan.Item.1sLLXmqc5FJ3rLzv",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/burning.svg",
+      "_id": "mfvm9YbHsU3z1nL0",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start,\nrollType=skill,\nsaveAbility=sur,\nsaveDC=15,\nactionSave=dialog,\ndamageBeforeSave=true,\ndamageRoll=1d8,\ndamageType=fire,\nsaveRemove=true,\nname=Burned, \nchatFlavor=It's very hot!",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.concentration.bonuses.save",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put out the flames. On a successful check, the condition ends or submerging themselves fully into a body of water.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1727289122343,
+        "modifiedTime": 1727294632958,
+        "lastModifiedBy": "n5ebbuilder0000"
+      },
+      "_key": "!items.effects!1sLLXmqc5FJ3rLzv.mfvm9YbHsU3z1nL0"
+    }
+  ],
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "halfdam",
+      "bonusSaveDamage": "default"
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "fumbleThreshold": null,
+      "removeAttackDamageButtons": "default"
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,1,1",
+    "createdTime": 1727288821719,
+    "modifiedTime": 1728755102579,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_key": "!items!1sLLXmqc5FJ3rLzv"
+}

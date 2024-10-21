@@ -1,0 +1,248 @@
+{
+  "name": "Novacharge",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Hoshi.webp",
+  "system": {
+    "description": {
+      "value": "<p>You overclock the power of your next Ninjutsu with a surge of Star Chakra. When you cast this jutsu, you spend a minimum of 2 Star Chakra and a maximum of 8 Star Chakra, empowering the next Ninjutsu you cast before the start of your next turn;</p><p>• 2+ Star Chakra: For every 2 Star Chakra spent, your Ninjutsu deals an additional 1d10 force damage</p><p>• 2+ Star Chakra: All targets affected by your Ninjutsu must succeed a Constitution saving throw or be knocked back a number of feet based on the rank of the Ninjutsu cast (D-Rank: 5ft., C-Rank: 10ft., B-Rank: 20ft., A-Rank: 30ft., S-Rank: 40ft.).</p><p>o If the target fails their save by 5 or more, they are Weakened until the end of their next turn.</p><p>• 4+ Star Chakra: Creatures have disadvantage on effects to dispel, interrupt, or negate the casting</p><p>• 6+ Star Chakra: Targets make their Constitution saving throw at disadvantage</p><p>• 8 Star Chakra: The damage bonus of Novacharge becomes a d12, and adds twice your casting modifier</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "bonus",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "round"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "self"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "1d10",
+          "force"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 2,
+    "school": "hi",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "keywords": [
+      "ninjutsu",
+      "hijutsu"
+    ],
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "chakramolding"
+    ],
+    "chakraCost": null,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Weakened",
+      "origin": "Compendium.world.jutsu.Item.YlPq64pQ26xT8Y6j",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/weakened.svg",
+      "_id": "uvmOQ8yTU5HAgNdc",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.bonuses.All-Damage",
+          "mode": 2,
+          "value": "-4 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.str.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "weakened"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!YlPq64pQ26xT8Y6j.uvmOQ8yTU5HAgNdc"
+    }
+  ],
+  "folder": "KoQFn8WANS7KsTKe",
+  "flags": {
+    "n5eb": {
+      "migratedProperties": [
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "default",
+      "bonusSaveDamage": "default"
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "removeAttackDamageButtons": "default"
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728753193106,
+    "modifiedTime": 1728753244740,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_id": "YlPq64pQ26xT8Y6j",
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_key": "!items!YlPq64pQ26xT8Y6j"
+}

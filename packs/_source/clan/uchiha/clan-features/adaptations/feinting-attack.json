@@ -1,0 +1,352 @@
+{
+  "folder": "3I5VYa0hk2F1a9zo",
+  "name": "Feinting Attack",
+  "type": "feat",
+  "_id": "cAuvxWKNsuPGNspF",
+  "img": "icons/skills/melee/shield-block-bash-blue.webp",
+  "system": {
+    "description": {
+      "value": "<p><span style=\"font-family:Signika, sans-serif\">While you are gaining the benefits of your <strong style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);color:rgb(25, 24, 19);font-family:Signika, sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;letter-spacing:normal;orphans:2;text-align:left;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\">@UUID[Compendium.n5eb.clan.Item.ac90epAKkDOLQy9v]{Sharingan}</strong> feature, as a Bonus action you select a target. You have advantage on the next attack roll against that creature. If the attack hits, you may add half of your proficiency bonus to the damage done. You may use this feature a number of times equal to your Taijutsu Ability Modifier per short rest.</span></p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "bonus",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "1",
+      "width": null,
+      "units": "",
+      "type": "creature",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "@attributes.taijutsumod",
+      "per": "sr",
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "type": {
+      "value": "race",
+      "subtype": "adaption"
+    },
+    "prerequisites": {
+      "level": null
+    },
+    "properties": [],
+    "requirements": "",
+    "recharge": {
+      "value": null,
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Feinting Attack",
+      "origin": "Compendium.n5eb.clan.Item.cAuvxWKNsuPGNspF",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [
+            "1Attack"
+          ],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": true,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        },
+        "babonus": {
+          "bonuses": [
+            {
+              "name": "Feinting Attack",
+              "img": "icons/skills/melee/shield-block-bash-blue.webp",
+              "id": "oh9kXer78Pa6qb3j",
+              "sort": 0,
+              "type": "damage",
+              "enabled": true,
+              "exclusive": false,
+              "optional": false,
+              "reminder": false,
+              "description": "",
+              "consume": {
+                "enabled": false,
+                "type": "",
+                "subtype": "",
+                "scales": false,
+                "formula": "",
+                "value": {
+                  "min": "",
+                  "max": "",
+                  "step": null
+                }
+              },
+              "aura": {
+                "enabled": false,
+                "template": false,
+                "range": "",
+                "self": true,
+                "disposition": 2,
+                "blockers": [],
+                "require": {
+                  "light": false,
+                  "sight": false,
+                  "sound": false,
+                  "move": false
+                }
+              },
+              "flags": {},
+              "bonuses": {
+                "bonus": "@attributes.prof",
+                "damageType": [],
+                "criticalBonusDice": "",
+                "criticalBonusDamage": "",
+                "modifiers": {
+                  "amount": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "size": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "reroll": {
+                    "enabled": false,
+                    "value": "",
+                    "invert": false,
+                    "recursive": false,
+                    "limit": ""
+                  },
+                  "explode": {
+                    "enabled": false,
+                    "value": "",
+                    "once": false,
+                    "limit": ""
+                  },
+                  "minimum": {
+                    "enabled": false,
+                    "value": "",
+                    "maximize": false
+                  },
+                  "maximum": {
+                    "enabled": false,
+                    "value": "",
+                    "zero": false
+                  },
+                  "config": {
+                    "first": false
+                  }
+                }
+              },
+              "filters": {
+                "actorCreatureSizes": [],
+                "actorCreatureTypes": [],
+                "actorLanguages": [],
+                "arbitraryComparisons": [],
+                "baseArmors": [],
+                "customScripts": "",
+                "healthPercentages": {
+                  "value": 50,
+                  "type": null
+                },
+                "markers": {
+                  "values": [],
+                  "target": []
+                },
+                "remainingSpellSlots": {
+                  "min": null,
+                  "max": null,
+                  "size": false
+                },
+                "statusEffects": [],
+                "abilities": [],
+                "baseWeapons": [],
+                "creatureTypes": [],
+                "damageTypes": [],
+                "featureTypes": {
+                  "subtype": ""
+                },
+                "identifiers": {
+                  "values": []
+                },
+                "itemTypes": [],
+                "preparationModes": [],
+                "sourceClasses": {
+                  "values": []
+                },
+                "spellComponents": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellKeywords": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellLevels": [],
+                "spellSchools": [],
+                "targetArmors": [],
+                "targetEffects": [],
+                "tokenSizes": {
+                  "size": null,
+                  "type": 0,
+                  "self": false
+                },
+                "weaponProperties": [],
+                "attackModes": {
+                  "value": [],
+                  "classification": [],
+                  "mode": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      "img": "icons/skills/melee/shield-block-bash-blue.webp",
+      "_id": "219wS9PMlBje3JWF",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.n5eb.advantage.attack.all",
+          "mode": 0,
+          "value": "1",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1727712134230,
+        "modifiedTime": 1727712480334,
+        "lastModifiedBy": "n5ebbuilder0000"
+      },
+      "_key": "!items.effects!cAuvxWKNsuPGNspF.219wS9PMlBje3JWF"
+    }
+  ],
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,3,0a",
+    "createdTime": 1727711262844,
+    "modifiedTime": 1728959258578,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_key": "!items!cAuvxWKNsuPGNspF"
+}

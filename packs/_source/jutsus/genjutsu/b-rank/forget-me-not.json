@@ -1,0 +1,254 @@
+{
+  "name": "Forget Me Not",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Genjutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You infuse chakra into a poisonous flower that you are holding. When you release the flower, all creatures except yourself within 5 feet of the flower are hit with a powerfully potent, yet odorless plume of poisonous pollen laced with your chakra. Creatures within range must succeed a Constitution and Intelligence saving throw, in that order.</p><p>On a Failed Constitution saving throw, the affected creature becomes poisoned for 1 hour (This cannot become envenomed) and a creature poisoned by this jutsu makes the next saving throw at disadvantage.</p><p>On a failed Intelligence saving throw, they lose all memory of the past 24 hours, for the next hour as it becomes a haze. This memory is still there, but clouded and hazy. If they attempt to remember, they must succeed an Intelligence save throw at disadvantage.</p><p>At Higher Ranks: For each rank you cast this jutsu above B-Rank increase the cost of this jutsu by 3. When you cast this jutsu at A-Rank, on a failed save, their memory is permanently clouded over by this jutsu until Dispelled.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": "Poison Kit or Poisonous Flower"
+    },
+    "duration": {
+      "value": "",
+      "units": "spec"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "touch"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 11,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "genjutsu"
+    },
+    "level": 3,
+    "school": "gen",
+    "materials": {
+      "value": "Poison Kit or Poisonous Flower",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "ninjatools",
+      "molding",
+      "ninjatool"
+    ],
+    "keywords": [
+      "genjutsu",
+      "inhaled",
+      "unaware"
+    ],
+    "chakraCost": 11,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Poisoned/Envenomed",
+      "origin": "Compendium.world.jutsu.Item.VFuaWp7RkufCcxz8",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/poisoned.svg",
+      "_id": "Zywj9VJafzJmexLa",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, \ndamageRoll=1d6, \ndamageType=poison, \nlabel=Poisoned/Envenomed,\nchatFlavor=YUCK I feel SICK,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "poisoned",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ac.bonus",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has been exposed to some kind of venom or toxin, causing their vitality and immune health to drop rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it has, at the start of each of their turns for the duration of this condition</p></li><li><p>An <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!VFuaWp7RkufCcxz8.Zywj9VJafzJmexLa"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "handseals",
+        "molding",
+        "ninjatool",
+        "chakramolding",
+        "ninjatools"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728756349180,
+    "modifiedTime": 1728756349180,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "quuZAgP7LnWrN80O",
+  "sort": 2400000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "VFuaWp7RkufCcxz8",
+  "_key": "!items!VFuaWp7RkufCcxz8"
+}

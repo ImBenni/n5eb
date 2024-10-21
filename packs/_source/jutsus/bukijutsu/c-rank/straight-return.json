@@ -1,0 +1,244 @@
+{
+  "folder": "w8bfWqi87gJKGpvX",
+  "name": "Straight Return",
+  "type": "spell",
+  "_id": "2J5kX33zRQN7m1dk",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Bukijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You quickly pull-on attached chakra or iron strings to pull your weapon back, looking to catch your enemies off guard. All creatures in a straight, 5-foot-wide line from you to your weapon must make a Dexterity Saving Throw, taking your [weapons damage] +2d6 on a failed save and being knocked prone, taking half as much and no further effects on a success. If you miss a creature with a ranged attack before casting this jutsu, they have disadvantage on this saving throw, being lulled into a false sense of security.</p><p>If this jutsu is cast as a Chain 2, increase the damage die by 1. If this jutsu is cast as a Chain 3 increase the damage die by an additional +1</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the damage die by 1d6</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "bonus",
+      "cost": 1,
+      "condition": "or Reaction after making a Ranged attack with a thrown weapon"
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "spec"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "save",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "2d6",
+          ""
+        ]
+      ],
+      "versatile": "3d6"
+    },
+    "enchantment": null,
+    "formula": "4d6",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "summons": null,
+    "level": 2,
+    "school": "buki",
+    "properties": [
+      "mobility",
+      "weapons"
+    ],
+    "keywords": [
+      "bukijutsu",
+      "chainx"
+    ],
+    "materials": {
+      "value": "Any Thrown",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "1d6"
+    },
+    "versatileScaling": {
+      "mode": "level",
+      "formula": "1d6"
+    },
+    "chakraCost": 8,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Prone",
+      "origin": "Compendium.world.jutsu.Item.2J5kX33zRQN7m1dk",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/prone.svg",
+      "_id": "Y3058thMlw24ni3Y",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "prone",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!2J5kX33zRQN7m1dk.Y3058thMlw24ni3Y"
+    }
+  ],
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "otherSaveDamage": "default"
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "removeAttackDamageButtons": "default",
+      "otherCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755893853,
+    "modifiedTime": 1728756228504,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_key": "!items!2J5kX33zRQN7m1dk"
+}

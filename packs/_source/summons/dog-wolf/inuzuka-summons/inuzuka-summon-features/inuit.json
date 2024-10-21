@@ -1,0 +1,279 @@
+{
+  "folder": "ItgSqe5Sz2kRZpy2",
+  "name": "Inuit",
+  "type": "feat",
+  "_id": "gSe3BAvNp2RLWAw7",
+  "img": "icons/creatures/mammals/wolf-shadow-black.webp",
+  "system": {
+    "description": {
+      "value": "<p><strong>Young Inuit:</strong> A breed known for its hunting skill. This Nin-Dog gains the following;</p><ul><li><p>Proficiency in Investigation and Stealth.</p></li><li><p>Expertise in Perception.</p></li><li><p><strong>+</strong>10 increase to their speed and ignores difficult terrain.</p></li><li><p>This breed can either Dash or Disengage at no action cost, once per round as part of one of their commands.</p></li><li><p>Beginning at 11th level, your Nin-Dog gains the benefits of your Wild Sense feature.</p></li></ul>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "",
+      "cost": null,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    },
+    "type": {
+      "value": "summon",
+      "subtype": "",
+      "nestedsubtype": ""
+    },
+    "prerequisites": {
+      "level": null
+    },
+    "properties": [],
+    "requirements": ""
+  },
+  "effects": [
+    {
+      "name": "Nin Dog AC Calc",
+      "origin": "Compendium.n5eb.summons.Item.gSe3BAvNp2RLWAw7",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "icons/creatures/abilities/wolf-howl-moon-white.webp",
+      "_id": "Ll90ob9LimGyoiEI",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.ac.calc",
+          "mode": 5,
+          "value": "custom",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ac.formula",
+          "mode": 2,
+          "value": "12+floor(@details.level/2)+@abilities.str.mod",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.clan.Item.ScYuCrCujyCIRMl5.ActiveEffect.a6Zm6gS26eUcqw2Y",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,3,0a",
+        "createdTime": 1728929598090,
+        "modifiedTime": 1728929598090,
+        "lastModifiedBy": "n5ebbuilder0000"
+      },
+      "_key": "!items.effects!gSe3BAvNp2RLWAw7.Ll90ob9LimGyoiEI"
+    },
+    {
+      "name": "Young Inuit",
+      "origin": "Compendium.n5eb.summons.Item.gSe3BAvNp2RLWAw7",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "icons/creatures/mammals/wolf-shadow-black.webp",
+      "_id": "dOAibUVlKbopOF92",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.movement.walk",
+          "mode": 2,
+          "value": "10",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.clan.Item.ScYuCrCujyCIRMl5.ActiveEffect.Ag9QlPhZpHc9z8Gl",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,3,0a",
+        "createdTime": 1728929601703,
+        "modifiedTime": 1728929601703,
+        "lastModifiedBy": "n5ebbuilder0000"
+      },
+      "_key": "!items.effects!gSe3BAvNp2RLWAw7.dOAibUVlKbopOF92"
+    }
+  ],
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,3,0a",
+    "createdTime": 1728929550740,
+    "modifiedTime": 1728929668279,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_key": "!items!gSe3BAvNp2RLWAw7"
+}

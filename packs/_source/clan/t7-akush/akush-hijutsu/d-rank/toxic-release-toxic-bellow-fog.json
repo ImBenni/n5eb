@@ -1,0 +1,244 @@
+{
+  "folder": "YJvCKXpvmF1ckoi4",
+  "name": "Toxic Release: Toxic Bellow Fog",
+  "type": "spell",
+  "_id": "ykOQSHmIqFkdQrRQ",
+  "img": "systems/n5eb/assets/items/Toxic.png",
+  "system": {
+    "description": {
+      "value": "<p><span style=\"font-family:Signika, sans-serif\">You breathe deeply, lacing the air in your lungs with a heavy dosage of toxins, then spew a cloudy orb at a target in range. Make a ranged ninjutsu attack. On a hit, you deal 4d6 poison damage. Then the target and any creature within a 10-foot radius sphere at that point must make a Consitution saving throw. On a failed save, creatures take 2d4 poison damage and become poisoned until the end of their next turn, or take half as much damage on a success.</span></p><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika, sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Signika, sans-serif\">The sphere lingers in that space for the next minute. Creatures that enter this space for the first time on a turn or begin their turn there must succeed a Constitution saving throw or take 2d4 poison damage.</span></p><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;margin-block-end:0px;color:rgb(25, 24, 19);font-family:Signika, sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Signika, sans-serif\"><strong style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\">At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and increase the damage dealt by 1d6 and 1d4 damage respectively.</span></p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "none",
+      "cost": null,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "10",
+      "width": null,
+      "units": "ft",
+      "type": "sphere",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "2d4",
+          "poison"
+        ]
+      ],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "level": 1,
+    "school": "nin",
+    "properties": [
+      "chakramolding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "hijutsu",
+      "wind"
+    ],
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": "1d4"
+    },
+    "chakraCost": 0,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    }
+  },
+  "effects": [
+    {
+      "name": "Poisoned/Envenomed",
+      "origin": "Compendium.n5eb.clan.Item.ykOQSHmIqFkdQrRQ",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/poisoned.svg",
+      "_id": "pZgcyn3IW8VtPQ8V",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, damageRoll=1d6, damageType=poison, label=Poisoned/Envenomed",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "poisoned",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ac.bonus",
+          "mode": 2,
+          "value": "-1",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>An Envenomed creature or object takes 1d6 poison damage for each rank it has, at the start of each of their turns for the duration of this condition</p></li><li><p>An Envenomed creature suffers a -1 penalty to their AC for each rank it has. </p></li><li><p>An Envenomed creature cannot gain the benefits of a rest. </p></li><li><p>Creatures that are immune to poison damage are immune to the envenomed condition. </p></li><li><p>Outside of combat, every hour a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "poisoned"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1725027466505,
+        "modifiedTime": 1725027466505,
+        "lastModifiedBy": "n5ebbuilder0000"
+      },
+      "_key": "!items.effects!ykOQSHmIqFkdQrRQ.pZgcyn3IW8VtPQ8V"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "default",
+      "bonusSaveDamage": "default"
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": false,
+      "autoTarget": "default",
+      "removeAttackDamageButtons": "default"
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,1,1",
+    "createdTime": 1725027187611,
+    "modifiedTime": 1727806559204,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_key": "!items!ykOQSHmIqFkdQrRQ"
+}
