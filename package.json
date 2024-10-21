@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.3",
+    "fancy-log": "^2.0.0"
+  },
+  "scripts": {
+    "build": "npm run build:code && npm run build:css && npm run build:db",
+    "build:clean": "node ./utils/packs.mjs package clean",
+    "build:code": "rollup n5eb.mjs -f es -o n5eb-compiled.mjs -p node-resolve -m --sourcemapFile n5eb.mjs",
+    "build:css": "lessc less/n5eb.less n5eb.css",
+    "build:db": "node ./utils/packs.mjs package pack",
+    "build:json": "node ./utils/packs.mjs package unpack",
+    "lint": "eslint --ext .mjs --ignore-path .gitignore ./",
+    "lint:fix": "eslint --ext .mjs --ignore-path .gitignore ./ --fix",
+    "postinstall": "npm run build:css && npm run build:db",
+    "watch": "less-watch-compiler less/ ./ n5eb.less"
+  }
+}

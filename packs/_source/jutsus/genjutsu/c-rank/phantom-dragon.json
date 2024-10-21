@@ -1,0 +1,291 @@
+{
+  "name": "Phantom Dragon",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Genjutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You touch one willing creature within range. All creatures of your choice who can see them within 120 feet, see your ally as they transform into dragon of your description of large size.</p><p>While looking at this illusion, observers make a Wisdom saving throw to see through it. On a failed save, they see your ally as a large dragon for the duration.</p><p>When you ally attempts to attack or cast a jutsu of any type, the illusory dragon looks as if it is performing the jutsu itself, be it breathing fire, performing an aggressive martial attack or creating illusions using its draconic aura.</p><p>When your affected ally deals damage to a creature, who sees them as an illusory dragon, they deal an additional 3d10 psychic damage to affected creatures, once per turn. 195</p><p>Alternatively, as an action on their turn, the affected ally can perform a ferocious roar. All creatures within 120 feet excluding you and other creatures who have seen through this genjutsu must make a Charisma saving throw. On a failed save they gain 1 rank of fear for the next minute against the illusory dragon. A creature who has ranks of fear as a result of this jutsu can spend their action to remake the charisma save removing all ranks of fear they have on a success.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "1",
+      "width": null,
+      "units": "",
+      "type": "ally",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "touch"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 7,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "3d10",
+          "psychic"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "wis",
+      "dc": null,
+      "scaling": "genjutsu"
+    },
+    "level": 2,
+    "school": "gen",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "concentration",
+      "molding"
+    ],
+    "keywords": [
+      "genjutsu",
+      "visual",
+      "auditory",
+      "tactile"
+    ],
+    "chakraCost": 7,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Fear/Demoralized",
+      "origin": "Compendium.world.jutsu.Item.A2uc4ohYyNHtjDOa",
+      "duration": {
+        "rounds": 100,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "countDeleteDecrement",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/frightened.svg",
+      "_id": "aVCQAqfn1m8X3V6Z",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.str.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.int.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.cha.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "frightened",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=end,\nsaveDC=13,\nsaveAbility=cha,\nallowIncapacitated=true,\nlabel=Save to overcome Demoralized",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain ranks of <strong>Fear</strong> (<strong>or Frightened</strong>), gain ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong> creature is disturbed by a particular target in some fashion, making them seek to avoid interaction with them if possible. This heightened stress causes the defenses of the Demoralized target to wane.</p><ul><li><p>A <strong>Demoralized</strong> creature suffers a -1 penalty to its saving throws, for each rank they have.</p></li><li><p>A <strong>Demoralized</strong> creature must make concentration checks at the beginning of each of their turns to maintain concentration on their jutsu.</p></li><li><p>At the end of a <strong>Demoralized</strong> creatures turn they make a DC 13 Charisma ability check. On a success, they remove 1 rank of <strong>Demoralized</strong>. After 10 minutes, a creature who still has ranks of <strong>Demoralized</strong>, loses all ranks of <strong>Demoralized</strong> it has remaining</p></li><li><p>As an action, a <strong>Demoralized</strong> creature can make a DC 20 Charisma ability check to remove all ranks of <strong>Demoralized</strong> it has.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!A2uc4ohYyNHtjDOa.aVCQAqfn1m8X3V6Z"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "default",
+      "bonusSaveDamage": "default"
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "removeAttackDamageButtons": "default"
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728756349180,
+    "modifiedTime": 1728756349180,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "BbIYmdyQ2kjNmaur",
+  "sort": 3300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "A2uc4ohYyNHtjDOa",
+  "_key": "!items!A2uc4ohYyNHtjDOa"
+}

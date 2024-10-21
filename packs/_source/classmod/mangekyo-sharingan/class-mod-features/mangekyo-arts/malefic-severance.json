@@ -1,0 +1,240 @@
+{
+  "folder": "lAKW2wIWtDO9Aor8",
+  "name": "Malefic Severance",
+  "type": "spell",
+  "_id": "0C1ulMH6k5PXWJ4c",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Eyes/Mangekyo%20Sharingan.webp",
+  "system": {
+    "description": {
+      "value": "<p>Alternative Cost: 9 Light</p><p>You use your Sharingan to drill deep into the subconsciousness of a creature whom you can see and is looking at you. By making eye contact with a creature while your Mangekyō Sharingan is active you are able to inject a powerful illusion deep into the minds of your target.</p><p>Select one creature you can see within range overwhelming their visual senses with malefic chakra and shutting down their visual abilities. The target creature must make an Intelligence saving throw. If the target creature does not have Chakra sight or blindness, they make their saving throw by rolling 2d10, in place of a d20. Rolling a 1 with either of the aforementioned dice counts as a natural 1.</p><p>Chimeric Synergy: If you have the Chimeric Type class mod feature you can target +2 additional creatures.</p><p>Success: Affected creature is able to resist this Art's effects and maintain their senses. They becomes Blinded until the end of their next turn.</p><p>Failure: Affected creatures visual senses are shut down. Affected creature becomes blinded for the duration of your Mangekyō Sharingan. If the affected creature would cast the Release Genjutsu, they remake their saving throw as normal, instead of following that jutsu's language.</p><p>Critical Failure: Same effect as failure, but the target becomes blind for 1 day.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 60,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "charges",
+      "target": "@scale.mangekyo-sharingan.scale-value",
+      "amount": 1,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "int",
+      "dc": null,
+      "scaling": "art"
+    },
+    "level": 6,
+    "school": "hi",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "keywords": [
+      "genjutsu",
+      "hijutsu",
+      "visual",
+      "auditory",
+      "tactile"
+    ],
+    "versatileScaling": {
+      "formula": "",
+      "mode": "none"
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    },
+    "properties": [],
+    "chakraCost": 0,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    }
+  },
+  "effects": [
+    {
+      "name": "Blinded",
+      "origin": "Compendium.world.class-mods.Item.0C1ulMH6k5PXWJ4c",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/blinded.svg",
+      "_id": "K3u3M0fAGLmTzhmJ",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "blinded",
+          "priority": 20
+        }
+      ],
+      "description": "<p>• A <strong>Blinded</strong> creature cannot target another creature with effects that require them to “target a creature they can see” unless they have a special sense that does not require sight, such as <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A blinded creature can’t see and automatically fails any check that requires sight.</p><p>• A <strong>Blinded</strong> creature has disadvantage on Dexterity saving throws.</p><p>• Attack rolls against a <strong>Blinded</strong> creature have advantage, and a <strong>Blinded</strong> creature’s attack rolls have disadvantage without the aid of a special sense that does not require sight, such as <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A creature can willingly close their eyes as a free action for an extended period of time. Doing so imposes this Condition on them until the beginning of their next turn, they cannot reopen their eyes until then, unless they are forced to do so by some other means.</p>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!0C1ulMH6k5PXWJ4c.K3u3M0fAGLmTzhmJ"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,3,1",
+    "createdTime": 1728700701538,
+    "modifiedTime": 1729022016562,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "_key": "!items!0C1ulMH6k5PXWJ4c"
+}

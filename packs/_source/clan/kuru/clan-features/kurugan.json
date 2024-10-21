@@ -1,0 +1,228 @@
+{
+  "name": "Kurugan",
+  "type": "feat",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Kuru.png",
+  "system": {
+    "description": {
+      "value": "<p>The Kurugan is known as the Eyes that see through fate. This dojutsu has the ability to peer into the future ever so slightly but only from the user's point of view. Beginning at 3rd level, you can activate this renowned dojutsu for 10 minutes as a Bonus action.</p><p>For the duration of your Kurugan you gain a +1 bonus to your Wisdom Saving throws. This bonus increases to +2 at 11th level and +3 at 15th level. You lose this bonus when you are Blinded.</p><p>Also, when you would make a Charisma based skill check, you gain a bonus equal to half of your Wisdom modifier as you can foresee a creatures' intentions. You can also discern the exact age of objects, structures, and materials.</p><p>You can use the following Kuru Clan Features a number of times equal to your proficiency bonus, per long rest.</p><ul><li><p>@UUID[Compendium.n5eb.clan.Item.HlqT01BT23m7R4mV]{Action}: You peer fully into the future calling out the events to your allies just before it happens. You and a number of allies who can hear you gain a +2 bonus to their AC and on the next saving throw they make before the beginning of your next turn. Beginning at 7th level, your allies can use your foresight to aid their offensive attacks gaining a +4 bonus to their first attack roll before the beginning of your next turn.</p></li><li><p>Bonus Action: You peer partially into the future while still maintaining partial awareness on the present. Add your Wisdom modifier to your next attack roll before the end of the current turn.</p></li><li><p>Reaction: You glance into the future to give yourself enough information to make the right move to reduce the chance of suffering a debilitating effect. you gain advantage on all saving throws until the start of your next turn. Beginning at 7th level, you can instead choose to gain a +5 bonus to AC, until the beginning of your next turn. Beginning at 18th level you can foresee the worst future and react to prevent it. The next hostile attack or effect would reduce your hit points to 0 is avoided as you gain immunity to the attack or effect until the end of the current turn.</p></li></ul><p>Beginning at 7th level, when you activate your Kurugan you can spend an additional 10 chakra as part of the activation. If you do you also activate the Pierce the Veil Kuru Clan jutsu as a part of the same action used to activate the Kurugan</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "bonus",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "10",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": 3,
+      "max": "@prof",
+      "per": "lr",
+      "recovery": "",
+      "prompt": false
+    },
+    "consume": {
+      "type": "attribute",
+      "target": "attributes.cp.value",
+      "amount": 10,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "type": {
+      "value": "race",
+      "subtype": "",
+      "nestedsubtype": ""
+    },
+    "requirements": "",
+    "recharge": {
+      "value": null,
+      "charged": false,
+      "formula": "1d8"
+    },
+    "prerequisites": {
+      "level": 3
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": []
+  },
+  "effects": [
+    {
+      "name": "Kurugan",
+      "origin": "Compendium.n5eb.clan.Item.U1U1JDEKQnT3A5PF",
+      "duration": {
+        "rounds": 100,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [
+            "None"
+          ]
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Kuru.png",
+      "_id": "f4r6sPVVJBusWB3k",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.wis.bonuses.save",
+          "mode": 2,
+          "value": "@scale.kuru.kurugan-wis-save",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.cha.bonuses.check",
+          "mode": 2,
+          "value": "floor(@abilities.wis.mod / 2)",
+          "priority": 20
+        },
+        {
+          "key": "macro.createItem",
+          "mode": 0,
+          "value": "Compendium.n5eb.clan.Item.HlqT01BT23m7R4mV",
+          "priority": 20
+        },
+        {
+          "key": "macro.createItem",
+          "mode": 0,
+          "value": "Compendium.n5eb.clan.Item.5lbJQYYfG6gHm7Ek",
+          "priority": 20
+        },
+        {
+          "key": "macro.createItem",
+          "mode": 0,
+          "value": "Compendium.n5eb.clan.Item.lZh5O8nl1qWR8zS6",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,3,0a",
+        "createdTime": 1728936925687,
+        "modifiedTime": 1728938292223,
+        "lastModifiedBy": "n5ebbuilder0000"
+      },
+      "_key": "!items.effects!U1U1JDEKQnT3A5PF.f4r6sPVVJBusWB3k"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,3,0a",
+    "createdTime": 1728699374228,
+    "modifiedTime": 1728938253706,
+    "lastModifiedBy": "n5ebbuilder0000"
+  },
+  "folder": "8mHaXN21B375v0xT",
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "U1U1JDEKQnT3A5PF",
+  "_key": "!items!U1U1JDEKQnT3A5PF"
+}
