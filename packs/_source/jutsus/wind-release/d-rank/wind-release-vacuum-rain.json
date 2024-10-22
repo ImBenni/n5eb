@@ -1,0 +1,259 @@
+{
+  "name": "Wind Release Vacuum Rain",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Wind.png",
+  "system": {
+    "description": {
+      "value": "<p>You create a powerful updraft that sucks the oxygen and air upwards robbing creatures of the ability to breathe within range. All casters of this jutsu create a 60-foot tall, 20-foot-wide cylinder that removes all air from inside of it replacing it with furiously rotating blade of Wind Release Chakra, centered on a point of your choice within range.</p><p>All creatures within the cylinder must succeed a Dexterity and Constitution saving throw.</p><p>On a failed Dexterity save they are slashed with wind chakra repeatedly taking 2d6 Slashing Damage and 2d6 Wind Damage or half as much on a successful save. A creature makes this saving throw the beginning of each turn they begin within this cylinder.</p><p>On a fail Constitution Saving throw they are robbed of their air in their lungs as they begin suffocating. A Suffocating creature can only survive a number of rounds equal to their constitution modifier before passing out falling unconscious from the lack of air. A creature makes this saving throw at the beginning of each turn they begin within cylinder. An unconscious creature can regain consciousness when another creature spends an action waking them.</p><p>Creatures inside the cylinder cannot gain the benefits of an increase to movement speed and are treated as if they are in difficult terrain.</p><p>Combination: If this jutsu is cast as a Combination jutsu with 2 or more casters increase the damage by 2d6 for each damage type.</p><p>Any creature who assists in casting this jutsu as a combination jutsu increases this Jutsu's area of effect size based on the highest Charisma Modifier within the group of casters. (+0-1: No Change, +2: Increase the Height by +10 feet and radius to 30 feet, +3: Increase the Height by +20 feet and radius to 40 feet, +4: Increase the Height by +30 feet and radius to 50 feet, +5: Increase the Height by +40 feet and radius to 60 feet).</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "20",
+      "width": null,
+      "units": "ft",
+      "type": "cylinder",
+      "prompt": true
+    },
+    "range": {
+      "value": 90,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 28,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "2d6",
+          "slashing"
+        ],
+        [
+          "2d6",
+          "wind"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 1,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "concentration",
+      "molding"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "combination",
+      "wind"
+    ],
+    "chakraCost": 28,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Unconscious",
+      "origin": "Compendium.world.jutsu.Item.Y5TsTqgANUPqYGv5",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": true,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/unconscious.svg",
+      "_id": "SrxteoDDCaJGJf5V",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.grants.attack.bonus.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "unconscious",
+          "priority": 20
+        }
+      ],
+      "description": "<p>An <strong>Unconscious</strong> creature has entered a state of total mental remission, or is asleep.</p><ul><li><p>An unconscious creature is incapacitated (see the condition), can’t move or speak, and is unaware of its surroundings</p></li><li><p>The creature drops whatever it holding and falls prone.</p></li><li><p>The creature automatically fails Strength and Dexterity saving throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li><li><p>Any attack that hits the creature is a critical hit if the attacker is within 5 feet of the creature.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "unconscious"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.2qfV7Gdom5onXhUZ.ActiveEffect.Tp7TFzWYOvtIjeO1",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!Y5TsTqgANUPqYGv5.SrxteoDDCaJGJf5V"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728757601216,
+    "modifiedTime": 1728757781132,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "2XqvongJAEZP1u6H",
+  "sort": 1900000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Y5TsTqgANUPqYGv5",
+  "_key": "!items!Y5TsTqgANUPqYGv5"
+}

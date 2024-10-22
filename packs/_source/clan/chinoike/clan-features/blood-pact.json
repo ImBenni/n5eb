@@ -1,0 +1,206 @@
+{
+  "folder": "xAICZind1Gz3Sj7h",
+  "name": "Blood Pact",
+  "type": "feat",
+  "_id": "lr6d4eTReoys3B0P",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Chinoike.png",
+  "system": {
+    "description": {
+      "value": "<p>Starting at 7th level, by leaving traces of your blood within your allies, you can form a bond with one another, your blood acting like an aegis.</p><p>During a long rest, you and one willing creature can spend 1 hit die each to transfuse each other's blood into yourselves. The allied creature becomes known as your Patron. While bonded to a creature this way, you both gain the following benefits until both of you complete a full rest; At 15th level, you can have a 2nd Patron.</p><p>• You know if you and your Patron are within 1 mile of each other. You also know if they are dead or out of chakra.</p><p>• You and your Patron are aware of any negative conditions affecting each other, provided you are both within 1 mile.</p><p>• When either you or your Patron would receive healing from a medical jutsu, the creature in question can use their reaction to split the healing between one another, as long as you both are within 90 feet of each other.</p><p>• Your Patron adds half your Wisdom or Intelligence modifier (pick one), rounded up, to any death saving throws. If your Patron would automatically fail a death saving throw, they instead roll another saving throw, rather than immediately fail.</p><p>• Lastly, if a creature would attempt to read the mind or force one of your Patrons to give information or act against their will, the triggering creature(s) must make a Charisma saving throw against your Genjutsu Save DC. On a failed save, the creature sees the eyes of your Ketsuryūgan appear and they immediately take Xd10 psychic damage, where X equals your proficiency bonus. The jutsu or ability which triggered this feature, immediately fails. Affected creatures who are unprepared for this effect, are surprised. Once this ability activates, your Blood Pact with this Patron ends.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "special",
+      "cost": null,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "disp"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "@scale.chinoike.blood-pact-patron",
+      "width": null,
+      "units": "",
+      "type": "willing",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": 1,
+      "max": "1",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "hitDice",
+      "target": "smallest",
+      "amount": 1,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "d10",
+          "psychic"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "cha",
+      "dc": null,
+      "scaling": "wis"
+    },
+    "type": {
+      "value": "race",
+      "subtype": "",
+      "nestedsubtype": ""
+    },
+    "requirements": "",
+    "recharge": {
+      "value": null,
+      "charged": false,
+      "formula": "1d8"
+    },
+    "prerequisites": {
+      "level": 7
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": []
+  },
+  "effects": [
+    {
+      "name": "Blood Pact: Patron",
+      "origin": "Compendium.n5eb.clan.Item.lr6d4eTReoys3B0P",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": true,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Chinoike.png",
+      "_id": "ozfEzXCBP2SfwaDC",
+      "type": "base",
+      "system": {},
+      "changes": [],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": 1728697713108,
+        "modifiedTime": 1728697820522,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!lr6d4eTReoys3B0P.ozfEzXCBP2SfwaDC"
+    }
+  ],
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,1",
+    "createdTime": 1728696424410,
+    "modifiedTime": 1728697733856,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!lr6d4eTReoys3B0P"
+}
