@@ -75,7 +75,7 @@ function cleanPackEntry(data, { clearSourceId = true, ownership = 0 } = {}) {
   }
   delete data.flags?.importSource;
   delete data.flags?.exportSource;
-  if (data._stats?.lastModifiedBy) data._stats.lastModifiedBy = "n5ebbuilder0000";
+  if (data._stats?.lastModifiedBy) data._stats.lastModifiedBy = "n5ebbuilder00000";
 
   // Remove empty entries in flags
   if (data.flags && typeof data.flags === "object") {
