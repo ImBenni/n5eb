@@ -24476,10 +24476,11 @@ _prepareDamageReduction() {
     // Concentration bonus
     if (conc.bonuses.save) parts.push(conc.bonuses.save);
 
-    const skillId = conc.skill || "ccl";
-    
+    const ability = conc.ability in config.abilities ? conc.ability : config.defaultAbilities.concentration;
+
     options = foundry.utils.mergeObject(
       {
+        ability: ability,
         isConcentration: true,
         targetValue: 10,
         advantage: options.advantage || conc.roll.mode === modes.ADVANTAGE,
@@ -24499,8 +24500,8 @@ _prepareDamageReduction() {
      */
     if (Hooks.call("n5eb.preRollConcentration", this, options) === false) return;
 
-    // Perform a skill check instead of an ability save
-    const roll = await this.rollSkill(skillId, options);
+    // Perform a standard ability save.
+    const roll = await this.rollAbilitySave(options.ability, options);
 
     /**
      * A hook event that fires after a saving throw to maintain concentration is rolled for an Actor.
