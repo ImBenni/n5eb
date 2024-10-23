@@ -1,0 +1,471 @@
+{
+  "name": "Psionics Psycho Cut!",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Genjutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You manifest a vertical slash of psionic chakra from your hand that you whip towards your enemies. Make a ranged Genjutsu attack, with a +1 to its critical threat range. On a hit you deal 3d6+ your genjutsu ability modifier in psychic damage and the affected  creature must make an Intelligence saving throw. If this jutsu scores a critical hit, the target suffers the effects of a Critical failure, regardless of their saving throw results.</p><p><br />Critical Success: Affected creature is able to resist this jutsu's effects.</p><p><br />Success: Affected creature gains 1 rank of Confused until the beginning of their next turn</p><p><br />Failure: Affected creatures gains 1 rank of Confused until the end of their next turn.</p><p><br />Critical Failure: Affected creatures gains 1 rank of Confused, Dazzled and Concussed.</p><p><br />At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3, the number of creatures you can target by +1 and the damage by 1d6.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "1",
+      "width": null,
+      "units": "",
+      "type": "creature",
+      "prompt": true
+    },
+    "range": {
+      "value": 90,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 8,
+      "scale": false
+    },
+    "ability": "genjutsu",
+    "actionType": "rgak",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": 19,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "3d6+@mod",
+          "psychic"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "int",
+      "dc": null,
+      "scaling": "genjutsu"
+    },
+    "level": 2,
+    "school": "gen",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "1d6"
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "molding"
+    ],
+    "keywords": [
+      "genjutsu",
+      "visual",
+      "tactile"
+    ],
+    "chakraCost": 8,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Concussed",
+      "origin": "Compendium.world.jutsu.Item.IpReldygnqKYk4VJ",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/concussed.svg",
+      "_id": "17xr7Rh3ZfPfDXsQ",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.int.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.cha.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.int.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.str.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.int.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "concussed",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A Concussed creature suffers a -1 penalty to all of their Save DCs for each rank it has.</p></li><li><p>A Concussed creature suffers a -1 penalty to all Intelligence based checks, attack rolls and saving throws and checks for each rank it has.</p></li><li><p>A concussed creature cannot gain the benefit of a Rest.</p></li><li><p>A creature can spend its Action if it has a Medicine kit to make a DC 20 Medicine check, ending this condition on a success.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!IpReldygnqKYk4VJ.17xr7Rh3ZfPfDXsQ"
+    },
+    {
+      "name": "Confused",
+      "origin": "Compendium.world.jutsu.Item.IpReldygnqKYk4VJ",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "countDeleteDecrement",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/confused.svg",
+      "_id": "McipfriHeEtpQ7TO",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "confused",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "saveDC=15,\nsaveAbility=int,\nrollType=check,\nsaveRemove=true,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><p>A Confused creature has difficulty distinguishing friend from foe and experiences lapsing judgement.</p><ul><li><p>A Confused creature suffers a -1 penalty to all Wisdom based checks, attack rolls, and saving throws for each rank it has.</p></li><li><p>A Confused creature who would target hostile or friendly creature with an attack, jutsu, feature or trait (even themselves) must first make a DC 8 Flat check. On a failure, they must target the closest creature to them, ignoring allied or hostile distinctions. For rank of Confused beyond the first, increase this DC by +1 (Max DC 12).</p></li><li><p>A Confused creature cannot choose targets when a jutsu, feature or trait would allow them to pick. All creatures in range become the target, ignoring ally or hostile distinctions.</p></li><li><p>As an Action, a Confused creature can make a DC 15 Intelligence ability check, ending this condition on a success.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.T4ZSbPxGKQwZ0WRG.ActiveEffect.TlQn0pODrzXO8IRz",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!IpReldygnqKYk4VJ.McipfriHeEtpQ7TO"
+    },
+    {
+      "name": "Dazzled",
+      "origin": "Compendium.world.jutsu.Item.IpReldygnqKYk4VJ",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/dazzled.svg",
+      "_id": "wEN9xkMGc0dmzUnL",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.bonuses.All-Attacks",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "dazzled",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks:</strong> 5</p><p>• A <strong>Dazzled</strong> creatures eyes become overloaded with flashes of colors, gaining a -2 penalty to all checks that rely on sight for each rank it has. • A <strong>Dazzled</strong> creature suffers a -2 penalty to attack rolls for each rank it has and cannot gain advantage on Ranged attack rolls.</p><p>• A <strong>Dazzled</strong> creature reduced the range of Jutsu's cast and ranged attacks made by 15 feet for each rank it has down to a minimum of 5 feet.</p><p>• A <strong>Dazzled</strong> creature can make a DC 15 Constitution ability check as an action, to remove all ranks of this condition.</p>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.Aa2bI0MeSmyi3eOJ.ActiveEffect.rNLK6dZIg5pamybW",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!IpReldygnqKYk4VJ.wEN9xkMGc0dmzUnL"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728756349180,
+    "modifiedTime": 1728756349180,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "BbIYmdyQ2kjNmaur",
+  "sort": 5300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "IpReldygnqKYk4VJ",
+  "_key": "!items!IpReldygnqKYk4VJ"
+}
