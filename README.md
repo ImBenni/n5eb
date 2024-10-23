@@ -3,7 +3,6 @@
 ![](https://github.com/ImBenni/n5eb/blob/main/ui/official/n5eb-repo.jpg)
 
 ![](https://img.shields.io/github/v/release/ImBenni/n5eb?label=Latest%20Version)
-![](https://img.shields.io/github/downloads/ImBenni/n5eb/latest/n5eb.zip?label=Downloads%20%28Latest%20Version%29)
 ![](https://img.shields.io/badge/FoundryVTT%20Compatibility-V12-orange)
 
 This is the official implementation of the N5e System for Foundry VTT. 
