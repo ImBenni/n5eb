@@ -13840,7 +13840,7 @@ class ActionTemplate extends ItemDataModel {
   getRollData(options) {
     const data = super.getRollData(options);
     const key = this.abilityMod;
-  
+
     if (data && key) {
       if (key === "art") {
         const classmodKey = Object.keys(data.classmods ?? {})[0]; // Assuming there is at least one classmod
@@ -13853,10 +13853,9 @@ class ActionTemplate extends ItemDataModel {
         data.mod = ability?.mod ?? 0;
       }
     }
-    
+
     return data;
   }
-  
 }
 
 const {
@@ -16205,7 +16204,7 @@ class Item5e extends SystemDocumentMixin(Item) {
           parts.push(classMod.atkBonus);
         }
       }
-      
+
       ammo = this.hasAmmo ? this.actor.items.get(this.system.consume.target) : null;
     }
 
@@ -16630,33 +16629,26 @@ class Item5e extends SystemDocumentMixin(Item) {
 
     // Consume Chakra
     if (config.consumeChakra) {
-      const chakraPoints = Math.floor(this.actor.system.attributes.cp.value);
-      const baseChakraCost = Math.floor(this.system.chakraCost);
-      const chakraScaling = Math.floor(this.system.chakraScaling.value);
-
-      // Store the original level
-      const originalLevel = this.system.level;
-
       // Determine the upcast level based on the slotLevel
       const upcastLevelMatch = config.slotLevel.match(/chakra(\d+)/);
-      const upcastLevel = upcastLevelMatch ? parseInt(upcastLevelMatch[1]) : originalLevel; // Default to original level if no match
+      const upcastLevel = upcastLevelMatch ? parseInt(upcastLevelMatch[1]) : this.system.level;
 
-      let upcastChakraCost;
+      // Calculate the upcast chakra cost
+      const baseChakraCost = Math.floor(this.system.chakraCost);
+      const chakraScaling = Math.floor(this.system.chakraScaling.value);
+      const upcastChakraCost = baseChakraCost + chakraScaling * (upcastLevel - 1);
 
-      if (upcastLevel === originalLevel) {
-        // No upcasting, use base cost
-        upcastChakraCost = baseChakraCost;
-      } else {
-        // Upcast calculation
-        upcastChakraCost = baseChakraCost + chakraScaling * (upcastLevel - originalLevel);
-      }
-
-      if (chakraPoints < upcastChakraCost) {
+      if (this.actor.system.attributes.cp.value < upcastChakraCost) {
         ui.notifications.warn(game.i18n.format("N5EB.NotEnoughChakra", { name: this.name }));
+        console.log("Debug - Not enough chakra to use this ability.");
         return false;
       }
 
-      actorUpdates["system.attributes.cp.value"] = Math.max(chakraPoints - upcastChakraCost, 0);
+      // Update actor's chakra points after usage
+      actorUpdates["system.attributes.cp.value"] = Math.max(
+        this.actor.system.attributes.cp.value - upcastChakraCost,
+        0
+      );
     }
 
     // Determine whether the item can be used by testing for available concentration.
@@ -22683,16 +22675,16 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     try {
       const replacedFormula = Roll.replaceFormulaData(saveData.formula, rollData, {
-        actor: this.parent, 
+        actor: this.parent,
         missing: null,
         property: game.i18n.localize("N5EB.SaveDC"),
       });
 
       if (replacedFormula) {
         const roll = new Roll(replacedFormula).evaluateSync();
-        saveData.value = roll.total; 
+        saveData.value = roll.total;
       } else {
-        saveData.value = 10; 
+        saveData.value = 10;
       }
 
       // console.log(saveData);
@@ -22733,10 +22725,9 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       } else {
         attackData.value = 0;
       }
-
     } catch (err) {
       console.error("Error in calculating Attack Bonus", err);
-      attackData.value = 0; 
+      attackData.value = 0;
     }
   }
 
@@ -22946,85 +22937,78 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
- * Prepare a character's Damage Reduction (DR) value from their equipped armor and shield.
- * Mutates the value of the `system.traits.dm` object.
- */
-_prepareDamageReduction() {
-  const dm = this.system.traits.dm;
-  if (!dm.amount) dm.amount = {};
-  
-  // Ensure armorDr exists and has an object structure
-  if (!dm.armorDr) {
-    dm.armorDr = {};
-  }
-  
-  const armorDr = dm.armorDr;
+   * Prepare a character's Damage Reduction (DR) value from their equipped armor and shield.
+   * Mutates the value of the `system.traits.dm` object.
+   */
+  _prepareDamageReduction() {
+    const dm = this.system.traits.dm;
+    if (!dm.amount) dm.amount = {};
 
-  // Reset the armorDr before re-applying DR from equipped items.
-  if (armorDr) {
-    Object.keys(armorDr).forEach((key) => {
-      armorDr[key] = "0";
-    });
-  }
+    // Ensure armorDr exists and has an object structure
+    if (!dm.armorDr) {
+      dm.armorDr = {};
+    }
 
-  // Identify Equipped Items
-  const armorTypes = new Set(Object.keys(CONFIG.N5EB.armorTypes));
-  const { armors, shields } = this.itemTypes.equipment.reduce(
-    (obj, equip) => {
-      if (!equip.system.equipped || !armorTypes.has(equip.system.type.value)) return obj;
-      if (equip.system.type.value === "shield") obj.shields.push(equip);
-      else obj.armors.push(equip);
-      return obj;
-    },
-    { armors: [], shields: [] }
-  );
+    const armorDr = dm.armorDr;
 
-  // Gather DR from armors and shields
-  let drValue = 0;
-  if (armors.length) {
-    for (const armor of armors) {
-      const dr = armor.system.armor?.dr || 0;
-      if (Number.isFinite(dr)) {
-        drValue += dr;
+    // Reset the armorDr before re-applying DR from equipped items.
+    if (armorDr) {
+      Object.keys(armorDr).forEach((key) => {
+        armorDr[key] = "0";
+      });
+    }
+
+    // Identify Equipped Items
+    const armorTypes = new Set(Object.keys(CONFIG.N5EB.armorTypes));
+    const { armors, shields } = this.itemTypes.equipment.reduce(
+      (obj, equip) => {
+        if (!equip.system.equipped || !armorTypes.has(equip.system.type.value)) return obj;
+        if (equip.system.type.value === "shield") obj.shields.push(equip);
+        else obj.armors.push(equip);
+        return obj;
+      },
+      { armors: [], shields: [] }
+    );
+
+    // Gather DR from armors and shields
+    let drValue = 0;
+    if (armors.length) {
+      for (const armor of armors) {
+        const dr = armor.system.armor?.dr || 0;
+        if (Number.isFinite(dr)) {
+          drValue += dr;
+        }
       }
     }
-  }
 
-  if (shields.length) {
-    for (const shield of shields) {
-      const dr = shield.system.armor?.dr || 0;
-      if (Number.isFinite(dr)) {
-        drValue += dr;
+    if (shields.length) {
+      for (const shield of shields) {
+        const dr = shield.system.armor?.dr || 0;
+        if (Number.isFinite(dr)) {
+          drValue += dr;
+        }
       }
     }
-  }
 
-  // If there is any DR value, add it to the armorDr
-  if (drValue > 0) {
-    const damageTypes = ["bludgeoning", "slashing", "piercing"];
-    for (const type of damageTypes) {
-      armorDr[type] = `-${drValue}`;
+    // If there is any DR value, add it to the armorDr
+    if (drValue > 0) {
+      const damageTypes = ["bludgeoning", "slashing", "piercing"];
+      for (const type of damageTypes) {
+        armorDr[type] = `-${drValue}`;
+      }
     }
+
+    // Merge armorDr with the current DM values without duplicating armor DR.
+    for (const type of Object.keys(armorDr)) {
+      const manualValue = parseInt(dm.amount[type]) || 0;
+      const armorContribution = parseInt(armorDr[type]) || 0;
+
+      // Ensure that the combined value reflects both manual and armor DR
+      dm.amount[type] = `-${Math.abs(manualValue) + Math.abs(armorContribution)}`;
+    }
+
+    // console.log("Prepared Damage Reduction:", dm);
   }
-
-  // Merge armorDr with the current DM values without duplicating armor DR.
-  for (const type of Object.keys(armorDr)) {
-    const manualValue = parseInt(dm.amount[type]) || 0;
-    const armorContribution = parseInt(armorDr[type]) || 0;
-
-    // Ensure that the combined value reflects both manual and armor DR
-    dm.amount[type] = `-${Math.abs(manualValue) + Math.abs(armorContribution)}`;
-  }
-
-  // console.log("Prepared Damage Reduction:", dm);
-}
-
-  
-  
-
-  
-  
-  
 
   /* -------------------------------------------- */
 
@@ -24467,7 +24451,7 @@ _prepareDamageReduction() {
   async rollConcentration(options = {}) {
     if (!this.isOwner) return null;
     const conc = this.system.attributes?.concentration;
-    if (!conc) throw new Error("You may not make a Concentration Saving Throw with this Actor.");
+    if (!conc) throw new Error("You may not make a Chakra Control Roll with this Actor.");
 
     const config = CONFIG.N5EB;
     const modes = CONFIG.Dice.D20Roll.ADV_MODE;
@@ -24476,11 +24460,11 @@ _prepareDamageReduction() {
     // Concentration bonus
     if (conc.bonuses.save) parts.push(conc.bonuses.save);
 
-    const ability = conc.ability in config.abilities ? conc.ability : config.defaultAbilities.concentration;
+    const skillId = conc.skill || "ccl";
 
     options = foundry.utils.mergeObject(
       {
-        ability: ability,
+        skillId: skillId,
         isConcentration: true,
         targetValue: 10,
         advantage: options.advantage || conc.roll.mode === modes.ADVANTAGE,
@@ -24501,7 +24485,7 @@ _prepareDamageReduction() {
     if (Hooks.call("n5eb.preRollConcentration", this, options) === false) return;
 
     // Perform a standard ability save.
-    const roll = await this.rollAbilitySave(options.ability, options);
+    const roll = await this.rollSkill(options.skillId, options);
 
     /**
      * A hook event that fires after a saving throw to maintain concentration is rolled for an Actor.
@@ -35671,42 +35655,41 @@ class DamageModificationConfig extends BaseConfigSheet {
 
   /* -------------------------------------------- */
 
-/** @inheritDoc */
-_getSubmitData(updateData) {
-  const data = foundry.utils.expandObject(super._getSubmitData(updateData));
-  const formData = {};
+  /** @inheritDoc */
+  _getSubmitData(updateData) {
+    const data = foundry.utils.expandObject(super._getSubmitData(updateData));
+    const formData = {};
 
-  // Get the current armor DR values to subtract them during submission
-  const armorDr = this.document.system.traits.dm?.armorDr || {};
+    // Get the current armor DR values to subtract them during submission
+    const armorDr = this.document.system.traits.dm?.armorDr || {};
 
-  for (const [type, formula] of Object.entries(foundry.utils.getProperty(data, "system.traits.dm.amount") ?? {})) {
-    if (formula) {
-      // Subtract armor DR from the manually set value to prevent double-counting
-      const armorValue = parseInt(armorDr[type]) || 0;
-      const manualValue = parseInt(formula) || 0;
+    for (const [type, formula] of Object.entries(foundry.utils.getProperty(data, "system.traits.dm.amount") ?? {})) {
+      if (formula) {
+        // Subtract armor DR from the manually set value to prevent double-counting
+        const armorValue = parseInt(armorDr[type]) || 0;
+        const manualValue = parseInt(formula) || 0;
 
-      // Set the manual value minus the armor DR to avoid duplication
-      const updatedValue = manualValue - armorValue;
+        // Set the manual value minus the armor DR to avoid duplication
+        const updatedValue = manualValue - armorValue;
 
-      if (updatedValue !== 0) {
-        formData[`system.traits.dm.amount.${type}`] = updatedValue > 0 ? `-${Math.abs(updatedValue)}` : `${updatedValue}`;
+        if (updatedValue !== 0) {
+          formData[`system.traits.dm.amount.${type}`] =
+            updatedValue > 0 ? `-${Math.abs(updatedValue)}` : `${updatedValue}`;
+        } else {
+          formData[`system.traits.dm.amount.-=${type}`] = ""; // Remove the property if it should be zero
+        }
       } else {
-        formData[`system.traits.dm.amount.-=${type}`] = ""; // Remove the property if it should be zero
+        formData[`system.traits.dm.amount.-=${type}`] = ""; // Remove any manual entry if it's not present anymore
       }
-    } else {
-      formData[`system.traits.dm.amount.-=${type}`] = ""; // Remove any manual entry if it's not present anymore
     }
+
+    // Include bypasses if applicable
+    formData["system.traits.dm.bypasses"] = filteredKeys(
+      foundry.utils.getProperty(data, "system.traits.dm.bypasses") ?? {}
+    );
+
+    return formData;
   }
-
-  // Include bypasses if applicable
-  formData["system.traits.dm.bypasses"] = filteredKeys(
-    foundry.utils.getProperty(data, "system.traits.dm.bypasses") ?? {}
-  );
-
-  return formData;
-}
-
-
 }
 
 /**
@@ -39466,8 +39449,8 @@ class TraitsField {
         }),
       }),
       armorDr: new MappingField(new FormulaField({ deterministic: true }), {
-      label: "N5EB.ArmorDR",
-    }),
+        label: "N5EB.ArmorDR",
+      }),
       ci: this.makeSimpleTrait({ label: "N5EB.ConImm" }),
     };
   }
