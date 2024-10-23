@@ -1,0 +1,245 @@
+{
+  "folder": "lf6TzjVE3XVYuWmu",
+  "name": "Haunting Melody",
+  "type": "feat",
+  "_id": "RmqR73lisxim27Ye",
+  "img": "icons/magic/light/projectiles-trio-pink.webp",
+  "system": {
+    "description": {
+      "value": "<p><strong>Prerequisite</strong>: Hallucinatory Instrument</p><hr /><p>When you cast a genjutsu with the auditory keyword that deals damage using your Hallucinatory Instrument, you can force all targets to make a Wisdom saving throw against your genjutsu save DC, gaining 1 rank of fear on a failed save. A creature can remake this saving throw at the end of each of their turns if they can no longer hear you.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "",
+      "cost": null,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "wis",
+      "dc": null,
+      "scaling": "genjutsu"
+    },
+    "summons": null,
+    "type": {
+      "value": "class",
+      "subtype": "mirage"
+    },
+    "prerequisites": {
+      "level": null
+    },
+    "properties": [],
+    "requirements": "Hallucinatory Instrument",
+    "recharge": {
+      "value": null,
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Fear/Demoralized",
+      "origin": "Compendium.n5eb.class-and-subclass.Item.RmqR73lisxim27Ye",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/frightened.svg",
+      "_id": "7kzhIhJKpSjGpxjX",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.str.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.int.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.cha.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "frightened",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=end,\nsaveDC=13,\nsaveAbility=cha,\nallowIncapacitated=true,\nlabel=Save to overcome Demoralized",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks:</strong> 5 Creatures who would gain ranks of <strong>Fear (or Frightened)</strong>, gain ranks of <strong>Demoralized</strong>.</p><p>• A <strong>Demoralized</strong> creature suffers a -1 penalty to its saving throws, for each rank they have.</p><p>• A <strong>Demoralized</strong> creature must make concentration checks at the beginning of each of their turns to maintain concentration on their jutsu.</p><p>• At the end of a <strong>Demoralized</strong> creatures turn they make a DC 13 Charisma ability check. On a success, they remove 1 rank of <strong>Demoralized</strong>. After 10 minutes, a creature who still has ranks of <strong>Demoralized</strong>, loses all ranks of <strong>Demoralized</strong> it has remaining</p><p>• As an action, a <strong>Demoralized</strong> creature can make a DC 20 Charisma ability check to remove all ranks of <strong>Demoralized</strong> it has.</p>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1727629118862,
+        "modifiedTime": 1727629118862,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!RmqR73lisxim27Ye.7kzhIhJKpSjGpxjX"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,1,1",
+    "createdTime": 1727628838464,
+    "modifiedTime": 1727629065496,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!RmqR73lisxim27Ye"
+}

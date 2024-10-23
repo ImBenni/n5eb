@@ -1,0 +1,385 @@
+{
+  "name": "Sleep of the Deep",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Genjutsu.png",
+  "system": {
+    "description": {
+      "value": "<p></p><p>Your chakra creeps into the dreams of others, haunting and terrifying them. Choose any number of sleeping creatures that you are aware of within range. Creatures that do not need to sleep, cannot be targeted.</p><p>The creatures must make a Wisdom Saving Throw. On a failed save they do not benefits from any form of rest for the duration and when they awaken from any rest they may take, they gains 2 ranks of Exhaustion and are Demoralized for as long as they have any ranks of Exhaustion inflicted by this jutsu.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "8",
+      "units": "hour"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "60",
+      "width": null,
+      "units": "ft",
+      "type": "radius",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 6,
+      "scale": false
+    },
+    "ability": "wis",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "wis",
+      "dc": null,
+      "scaling": "genjutsu"
+    },
+    "level": 2,
+    "school": "gen",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "molding"
+    ],
+    "keywords": [
+      "genjutsu",
+      "auditory",
+      "unaware"
+    ],
+    "chakraCost": 6,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Exhaustion",
+      "origin": "Compendium.world.jutsu.Item.LeLpzsSDgekksWGX",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/exhaustion.svg",
+      "_id": "4TKcoAzvzNa9IcU6",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.bonuses.All-Attacks",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.bonuses.All-Damage",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.bonuses.abilities.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.bonuses.abilities.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ac.bonus",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p>Some special abilities and environmental hazards, such as and the long-term effects of freezing or scorching temperatures, can lead to a special condition called exhaustion.</p><p>If an already exhausted creature suffers another effect that causes exhaustion, its current level of exhaustion increases by 1 rank.</p><p>An effect that removes exhaustion reduces its rank by 1. Finishing a long rest reduces a creature’s exhaustion level by 1, provided that the creature has also ingested some food and drink. When a creature exceeds 10 ranks of exhaustion, they die.</p><p>For every rank of exhaustion, a creature has all of the following statistics are reduced by 1, and for every two ranks of exhaustion a creatures speed is reduced by 5;</p><ul><li><p>Armor Class</p></li><li><p>Ability Checks</p></li><li><p>Skill Checks</p></li><li><p>Saving Throws</p></li><li><p>Attack Rolls</p></li><li><p>Damage Rolls</p></li><li><p>Save DC’s</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "exhaustion"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.uZorNyJB1OLmWYiq.ActiveEffect.JZF20dElgZ79eI8h",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!LeLpzsSDgekksWGX.4TKcoAzvzNa9IcU6"
+    },
+    {
+      "name": "Fear/Demoralized",
+      "origin": "Compendium.world.jutsu.Item.LeLpzsSDgekksWGX",
+      "duration": {
+        "rounds": 100,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "countDeleteDecrement",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/frightened.svg",
+      "_id": "YKtj2efXikLr3b6N",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.str.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.int.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.cha.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "frightened",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=end,\nsaveDC=13,\nsaveAbility=cha,\nallowIncapacitated=true,\nlabel=Save to overcome Demoralized",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain ranks of <strong>Fear</strong> (<strong>or Frightened</strong>), gain ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong> creature is disturbed by a particular target in some fashion, making them seek to avoid interaction with them if possible. This heightened stress causes the defenses of the Demoralized target to wane.</p><ul><li><p>A <strong>Demoralized</strong> creature suffers a -1 penalty to its saving throws, for each rank they have.</p></li><li><p>A <strong>Demoralized</strong> creature must make concentration checks at the beginning of each of their turns to maintain concentration on their jutsu.</p></li><li><p>At the end of a <strong>Demoralized</strong> creatures turn they make a DC 13 Charisma ability check. On a success, they remove 1 rank of <strong>Demoralized</strong>. After 10 minutes, a creature who still has ranks of <strong>Demoralized</strong>, loses all ranks of <strong>Demoralized</strong> it has remaining</p></li><li><p>As an action, a <strong>Demoralized</strong> creature can make a DC 20 Charisma ability check to remove all ranks of <strong>Demoralized</strong> it has.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!LeLpzsSDgekksWGX.YKtj2efXikLr3b6N"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "handseals",
+        "molding",
+        "chakramolding"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728756349180,
+    "modifiedTime": 1728756349180,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "BbIYmdyQ2kjNmaur",
+  "sort": 5900000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "LeLpzsSDgekksWGX",
+  "_key": "!items!LeLpzsSDgekksWGX"
+}

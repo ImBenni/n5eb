@@ -1,0 +1,260 @@
+{
+  "name": "Sealing Art Mobility Restriction",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Non%20Elemental.png",
+  "system": {
+    "description": {
+      "value": "<p>You infuse chakra into a chakra seal as you attempt to mark a creature you can see with the seal of patience. This counts as Interrupting a jutsu's casting.</p><p>A creature who you can see within range, who cast a Taijutsu or Bukijutsu, must first make a Charisma saving throw. On a failed save the target creatures speed is reduced to 0 until the end of the current turn and gain 1 rank of Sealed.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "reaction",
+      "cost": 1,
+      "condition": "which you take when you see a creature cast a Taijutsu or Bukijutsu."
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 30,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 9,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "cha",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 2,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "chakraseals",
+      "molding",
+      "fuinjutsu"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "fuinjutsu"
+    ],
+    "chakraCost": 9,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Sealed",
+      "origin": "Compendium.world.jutsu.Item.2NAnMSdDNVyPhJnd",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "countDeleteDecrement",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/sealed.svg",
+      "_id": "0BhtNY9doIClAoTR",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "sealed",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ninjutsudc",
+          "mode": 0,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.genjutsudc",
+          "mode": 0,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=start, \nlabel=Sealed,\ndamageBeforeSave=true,\nactionSave=dialog,\nsaveRemove=true,\nsaveDC=15,\nchatFlavor=MY CHAKRA ITS GONE,\nrollType=skill,\nsaveAbility=nin|ill,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Sealed creature has a limiter on their chakra network, causing their chakra to become inefficient and wasteful. This condition is usually the result of a Fuinjutsu.</p><ul><li><p>A <strong>Sealed</strong> creature increases the base chakra cost of Ninjutsu &amp; Genjutsu by +2, for each rank it has.</p></li><li><p>A <strong>Sealed</strong> creature suffers a -1 penalty to all of their Ninjutsu &amp; Genjutsu Save DCs for each rank it has.</p></li><li><p>A creature can spend its action to make a DC 15 Ninshou or Illusions check to remove 1 rank of this condition. For every +5 their result is over the DC, they remove 1 additional rank of <strong>Sealed</strong>.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.KZhkgzm0QOWCbyVx.ActiveEffect.67Zr4SffTsSb5mM1",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!2NAnMSdDNVyPhJnd.0BhtNY9doIClAoTR"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "chakraseals",
+        "handseals",
+        "molding",
+        "fuinjutsu",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "reactionCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728757276506,
+    "modifiedTime": 1728757276506,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "XGXzSLF74wHJfzLr",
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "2NAnMSdDNVyPhJnd",
+  "_key": "!items!2NAnMSdDNVyPhJnd"
+}
