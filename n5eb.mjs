@@ -16640,7 +16640,6 @@ class Item5e extends SystemDocumentMixin(Item) {
 
       if (this.actor.system.attributes.cp.value < upcastChakraCost) {
         ui.notifications.warn(game.i18n.format("N5EB.NotEnoughChakra", { name: this.name }));
-        console.log("Debug - Not enough chakra to use this ability.");
         return false;
       }
 
@@ -20060,8 +20059,6 @@ async function enrichString(match, options) {
       return enrichAward(config, label);
     case "healing":
       config._isHealing = true;
-    case "chakrahealing":
-      config._isHealing = true;
     case "damage":
       return enrichDamage(config, label, options);
     case "check":
@@ -21237,7 +21234,6 @@ async function rollDamage(event) {
       speaker: ChatMessage.implementation.getSpeaker(),
     },
   };
-
   if (Hooks.call("n5eb.preRollDamage", undefined, rollConfig) === false) return;
   const roll = await damageRoll(rollConfig);
   if (roll) Hooks.callAll("n5eb.rollDamage", undefined, roll);
@@ -22667,7 +22663,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     }
 
     if (saveData.formula === undefined) {
-      console.log("No save formula found, using default formula.");
       saveData.formula = "10 + floor(@details.level/2)";
     }
 
@@ -22686,8 +22681,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       } else {
         saveData.value = 10;
       }
-
-      // console.log(saveData);
     } catch (err) {
       console.error("Error in calculating Save DC", err);
       saveData.value = 10;
@@ -23512,7 +23505,9 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    */
   async applyDamage(damages, options = {}) {
     const hp = this.system.attributes.hp;
-    if (!hp) return this; // Group actors don't have HP at the moment
+    const cp = this.system.attributes.cp;
+
+    if (!hp || !cp) return this; // Group actors don't have HP at the moment
 
     if (Number.isNumeric(damages)) {
       damages = [{ value: damages }];
@@ -23522,65 +23517,122 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     damages = this.calculateDamage(damages, options);
     if (!damages) return this;
 
+    console.log("danad", damages);
     // Round damage towards zero
-    let { amount, temp } = damages.reduce(
+    let { amount, temp, cpAmount, tempCP } = damages.reduce(
       (acc, d) => {
         if (d.type === "temphp") acc.temp += d.value;
+        else if (d.type === "tempcp") acc.tempCP += d.value;
+        else if (d.type === "chakrahealing") acc.cpAmount += d.value;
         else acc.amount += d.value;
         return acc;
       },
-      { amount: 0, temp: 0 }
+      { amount: 0, temp: 0, cpAmount: 0, tempCP: 0 }
     );
-    amount = amount > 0 ? Math.floor(amount) : Math.ceil(amount);
+    if (cpAmount !== 0 || tempCP !== 0) {
+      cpAmount = cpAmount > 0 ? Math.floor(cpAmount) : Math.ceil(cpAmount);
 
-    const deltaTemp = amount > 0 ? Math.min(hp.temp, amount) : 0;
-    const deltaHP = Math.clamp(amount - deltaTemp, -hp.damage, hp.value);
-    const updates = {
-      "system.attributes.hp.temp": hp.temp - deltaTemp,
-      "system.attributes.hp.value": hp.value - deltaHP,
-    };
+      const deltaTempCP = cpAmount > 0 ? Math.min(cp.temp, cpAmount) : 0;
+      const deltaCP = Math.clamp(cpAmount - deltaTempCP, -cp.damage, cp.value);
+      const updates = {
+        "system.attributes.cp.temp": cp.temp - deltaTempCP,
+        "system.attributes.cp.value": cp.value - deltaCP,
+      };
+  
+      if (tempCP > updates["system.attributes.cp.temp"]) updates["system.attributes.cp.temp"] = tempCP;
+  
+      /**
+       * A hook event that fires before damage is applied to an actor.
+       * @param {Actor5e} actor                     Actor the damage will be applied to.
+       * @param {number} amount                     Amount of damage that will be applied.
+       * @param {object} updates                    Distinct updates to be performed on the actor.
+       * @param {DamageApplicationOptions} options  Additional damage application options.
+       * @returns {boolean}                         Explicitly return `false` to prevent damage application.
+       * @function n5eb.preApplyDamage
+       * @memberof hookEvents
+       */
+      if (Hooks.call("n5eb.preApplyDamage", this, cpAmount, updates, options) === false) return this;
+  
+      // Delegate damage application to a hook
+      // TODO: Replace this in the future with a better modifyTokenAttribute function in the core
+      if (
+        Hooks.call(
+          "modifyTokenAttribute",
+          {
+            attribute: "attributes.cp",
+            value: cpAmount,
+            isDelta: false,
+            isBar: true,
+          },
+          updates
+        ) === false
+      )
+        return this;
+  
+      await this.update(updates);
+  
+      /**
+       * A hook event that fires after damage has been applied to an actor.
+       * @param {Actor5e} actor                     Actor that has been damaged.
+       * @param {number} amount                     Amount of damage that has been applied.
+       * @param {DamageApplicationOptions} options  Additional damage application options.
+       * @function n5eb.applyDamage
+       * @memberof hookEvents
+       */
+      Hooks.callAll("n5eb.applyDamage", this, cpAmount, options);
 
-    if (temp > updates["system.attributes.hp.temp"]) updates["system.attributes.hp.temp"] = temp;
+    } else {
+      amount = amount > 0 ? Math.floor(amount) : Math.ceil(amount);
 
-    /**
-     * A hook event that fires before damage is applied to an actor.
-     * @param {Actor5e} actor                     Actor the damage will be applied to.
-     * @param {number} amount                     Amount of damage that will be applied.
-     * @param {object} updates                    Distinct updates to be performed on the actor.
-     * @param {DamageApplicationOptions} options  Additional damage application options.
-     * @returns {boolean}                         Explicitly return `false` to prevent damage application.
-     * @function n5eb.preApplyDamage
-     * @memberof hookEvents
-     */
-    if (Hooks.call("n5eb.preApplyDamage", this, amount, updates, options) === false) return this;
-
-    // Delegate damage application to a hook
-    // TODO: Replace this in the future with a better modifyTokenAttribute function in the core
-    if (
-      Hooks.call(
-        "modifyTokenAttribute",
-        {
-          attribute: "attributes.hp",
-          value: amount,
-          isDelta: false,
-          isBar: true,
-        },
-        updates
-      ) === false
-    )
-      return this;
-
-    await this.update(updates);
-
-    /**
-     * A hook event that fires after damage has been applied to an actor.
-     * @param {Actor5e} actor                     Actor that has been damaged.
-     * @param {number} amount                     Amount of damage that has been applied.
-     * @param {DamageApplicationOptions} options  Additional damage application options.
-     * @function n5eb.applyDamage
-     * @memberof hookEvents
-     */
-    Hooks.callAll("n5eb.applyDamage", this, amount, options);
+      const deltaTemp = amount > 0 ? Math.min(hp.temp, amount) : 0;
+      const deltaHP = Math.clamp(amount - deltaTemp, -hp.damage, hp.value);
+      const updates = {
+        "system.attributes.hp.temp": hp.temp - deltaTemp,
+        "system.attributes.hp.value": hp.value - deltaHP,
+      };
+  
+      if (temp > updates["system.attributes.hp.temp"]) updates["system.attributes.hp.temp"] = temp;
+  
+      /**
+       * A hook event that fires before damage is applied to an actor.
+       * @param {Actor5e} actor                     Actor the damage will be applied to.
+       * @param {number} amount                     Amount of damage that will be applied.
+       * @param {object} updates                    Distinct updates to be performed on the actor.
+       * @param {DamageApplicationOptions} options  Additional damage application options.
+       * @returns {boolean}                         Explicitly return `false` to prevent damage application.
+       * @function n5eb.preApplyDamage
+       * @memberof hookEvents
+       */
+      if (Hooks.call("n5eb.preApplyDamage", this, amount, updates, options) === false) return this;
+  
+      // Delegate damage application to a hook
+      // TODO: Replace this in the future with a better modifyTokenAttribute function in the core
+      if (
+        Hooks.call(
+          "modifyTokenAttribute",
+          {
+            attribute: "attributes.hp",
+            value: amount,
+            isDelta: false,
+            isBar: true,
+          },
+          updates
+        ) === false
+      )
+        return this;
+  
+      await this.update(updates);
+  
+      /**
+       * A hook event that fires after damage has been applied to an actor.
+       * @param {Actor5e} actor                     Actor that has been damaged.
+       * @param {number} amount                     Amount of damage that has been applied.
+       * @param {DamageApplicationOptions} options  Additional damage application options.
+       * @function n5eb.applyDamage
+       * @memberof hookEvents
+       */
+      Hooks.callAll("n5eb.applyDamage", this, amount, options);
+    }
 
     return this;
   }
@@ -23677,10 +23729,12 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       }
 
       // Negate healing types
-      if (options.invertHealing !== false && d.type === "healing") damageMultiplier *= -1;
-
+      if (options.invertHealing !== false && (d.type === "healing" || d.type === "chakrahealing")) {
+        damageMultiplier *= -1;
+      }
       d.value = d.value * damageMultiplier;
       d.active.multiplier = (d.active.multiplier ?? 1) * damageMultiplier;
+      console.log(d);
     });
 
     /**
@@ -23707,7 +23761,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   async applyTempHP(amount = 0) {
     amount = parseInt(amount);
     const hp = this.system.attributes.hp;
-
     // Update the actor if the new amount is greater than the current
     const tmp = parseInt(hp.temp) || 0;
     return amount > tmp ? this.update({ "system.attributes.hp.temp": amount }) : this;
@@ -38734,7 +38787,6 @@ class AttributesFields {
    * @this {ActorDataModel}
    */
   static prepareHitPoints(hp, { advancement = [], mod = 0, bonus = 0 } = {}) {
-    console.log("Prepare Hit Points", hp, { advancement, mod, bonus });
     const base = advancement.reduce((total, advancement) => total + advancement.getAdjustedTotal(mod), 0);
     hp.max = (hp.max ?? 0) + base + bonus;
     if (this.parent.hasConditionEffect("halfHealth")) hp.max = Math.floor(hp.max * 0.5);
@@ -55315,7 +55367,21 @@ class ChatMessage5e extends ChatMessage {
         group: "damage",
       },
       {
+        name: game.i18n.localize("N5EB.ChatContextChakraHealing"),
+        icon: '<i class="fas fa-user-plus"></i>',
+        condition: canApply,
+        callback: (li) => game.messages.get(li.data("messageId"))?.applyChatCardDamage(li, -1),
+        group: "damage",
+      },
+      {
         name: game.i18n.localize("N5EB.ChatContextTempHP"),
+        icon: '<i class="fas fa-user-clock"></i>',
+        condition: canApply,
+        callback: (li) => game.messages.get(li.data("messageId"))?.applyChatCardTemp(li),
+        group: "damage",
+      },
+      {
+        name: game.i18n.localize("N5EB.ChatContextTempCP"),
         icon: '<i class="fas fa-user-clock"></i>',
         condition: canApply,
         callback: (li) => game.messages.get(li.data("messageId"))?.applyChatCardTemp(li),
