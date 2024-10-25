@@ -16640,7 +16640,6 @@ class Item5e extends SystemDocumentMixin(Item) {
 
       if (this.actor.system.attributes.cp.value < upcastChakraCost) {
         ui.notifications.warn(game.i18n.format("N5EB.NotEnoughChakra", { name: this.name }));
-        console.log("Debug - Not enough chakra to use this ability.");
         return false;
       }
 
@@ -20060,8 +20059,6 @@ async function enrichString(match, options) {
       return enrichAward(config, label);
     case "healing":
       config._isHealing = true;
-    case "chakrahealing":
-      config._isHealing = true;
     case "damage":
       return enrichDamage(config, label, options);
     case "check":
@@ -21237,7 +21234,6 @@ async function rollDamage(event) {
       speaker: ChatMessage.implementation.getSpeaker(),
     },
   };
-
   if (Hooks.call("n5eb.preRollDamage", undefined, rollConfig) === false) return;
   const roll = await damageRoll(rollConfig);
   if (roll) Hooks.callAll("n5eb.rollDamage", undefined, roll);
@@ -22667,7 +22663,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     }
 
     if (saveData.formula === undefined) {
-      console.log("No save formula found, using default formula.");
       saveData.formula = "10 + floor(@details.level/2)";
     }
 
@@ -22686,8 +22681,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       } else {
         saveData.value = 10;
       }
-
-      // console.log(saveData);
     } catch (err) {
       console.error("Error in calculating Save DC", err);
       saveData.value = 10;
@@ -23512,7 +23505,9 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    */
   async applyDamage(damages, options = {}) {
     const hp = this.system.attributes.hp;
-    if (!hp) return this; // Group actors don't have HP at the moment
+    const cp = this.system.attributes.cp;
+
+    if (!hp || !cp) return this; // Group actors don't have HP at the moment
 
     if (Number.isNumeric(damages)) {
       damages = [{ value: damages }];
@@ -23522,65 +23517,122 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     damages = this.calculateDamage(damages, options);
     if (!damages) return this;
 
+    console.log("danad", damages);
     // Round damage towards zero
-    let { amount, temp } = damages.reduce(
+    let { amount, temp, cpAmount, tempCP } = damages.reduce(
       (acc, d) => {
         if (d.type === "temphp") acc.temp += d.value;
+        else if (d.type === "tempcp") acc.tempCP += d.value;
+        else if (d.type === "chakrahealing") acc.cpAmount += d.value;
         else acc.amount += d.value;
         return acc;
       },
-      { amount: 0, temp: 0 }
+      { amount: 0, temp: 0, cpAmount: 0, tempCP: 0 }
     );
-    amount = amount > 0 ? Math.floor(amount) : Math.ceil(amount);
+    if (cpAmount !== 0 || tempCP !== 0) {
+      cpAmount = cpAmount > 0 ? Math.floor(cpAmount) : Math.ceil(cpAmount);
 
-    const deltaTemp = amount > 0 ? Math.min(hp.temp, amount) : 0;
-    const deltaHP = Math.clamp(amount - deltaTemp, -hp.damage, hp.value);
-    const updates = {
-      "system.attributes.hp.temp": hp.temp - deltaTemp,
-      "system.attributes.hp.value": hp.value - deltaHP,
-    };
+      const deltaTempCP = cpAmount > 0 ? Math.min(cp.temp, cpAmount) : 0;
+      const deltaCP = Math.clamp(cpAmount - deltaTempCP, -cp.damage, cp.value);
+      const updates = {
+        "system.attributes.cp.temp": cp.temp - deltaTempCP,
+        "system.attributes.cp.value": cp.value - deltaCP,
+      };
+  
+      if (tempCP > updates["system.attributes.cp.temp"]) updates["system.attributes.cp.temp"] = tempCP;
+  
+      /**
+       * A hook event that fires before damage is applied to an actor.
+       * @param {Actor5e} actor                     Actor the damage will be applied to.
+       * @param {number} amount                     Amount of damage that will be applied.
+       * @param {object} updates                    Distinct updates to be performed on the actor.
+       * @param {DamageApplicationOptions} options  Additional damage application options.
+       * @returns {boolean}                         Explicitly return `false` to prevent damage application.
+       * @function n5eb.preApplyDamage
+       * @memberof hookEvents
+       */
+      if (Hooks.call("n5eb.preApplyDamage", this, cpAmount, updates, options) === false) return this;
+  
+      // Delegate damage application to a hook
+      // TODO: Replace this in the future with a better modifyTokenAttribute function in the core
+      if (
+        Hooks.call(
+          "modifyTokenAttribute",
+          {
+            attribute: "attributes.cp",
+            value: cpAmount,
+            isDelta: false,
+            isBar: true,
+          },
+          updates
+        ) === false
+      )
+        return this;
+  
+      await this.update(updates);
+  
+      /**
+       * A hook event that fires after damage has been applied to an actor.
+       * @param {Actor5e} actor                     Actor that has been damaged.
+       * @param {number} amount                     Amount of damage that has been applied.
+       * @param {DamageApplicationOptions} options  Additional damage application options.
+       * @function n5eb.applyDamage
+       * @memberof hookEvents
+       */
+      Hooks.callAll("n5eb.applyDamage", this, cpAmount, options);
 
-    if (temp > updates["system.attributes.hp.temp"]) updates["system.attributes.hp.temp"] = temp;
+    } else {
+      amount = amount > 0 ? Math.floor(amount) : Math.ceil(amount);
 
-    /**
-     * A hook event that fires before damage is applied to an actor.
-     * @param {Actor5e} actor                     Actor the damage will be applied to.
-     * @param {number} amount                     Amount of damage that will be applied.
-     * @param {object} updates                    Distinct updates to be performed on the actor.
-     * @param {DamageApplicationOptions} options  Additional damage application options.
-     * @returns {boolean}                         Explicitly return `false` to prevent damage application.
-     * @function n5eb.preApplyDamage
-     * @memberof hookEvents
-     */
-    if (Hooks.call("n5eb.preApplyDamage", this, amount, updates, options) === false) return this;
-
-    // Delegate damage application to a hook
-    // TODO: Replace this in the future with a better modifyTokenAttribute function in the core
-    if (
-      Hooks.call(
-        "modifyTokenAttribute",
-        {
-          attribute: "attributes.hp",
-          value: amount,
-          isDelta: false,
-          isBar: true,
-        },
-        updates
-      ) === false
-    )
-      return this;
-
-    await this.update(updates);
-
-    /**
-     * A hook event that fires after damage has been applied to an actor.
-     * @param {Actor5e} actor                     Actor that has been damaged.
-     * @param {number} amount                     Amount of damage that has been applied.
-     * @param {DamageApplicationOptions} options  Additional damage application options.
-     * @function n5eb.applyDamage
-     * @memberof hookEvents
-     */
-    Hooks.callAll("n5eb.applyDamage", this, amount, options);
+      const deltaTemp = amount > 0 ? Math.min(hp.temp, amount) : 0;
+      const deltaHP = Math.clamp(amount - deltaTemp, -hp.damage, hp.value);
+      const updates = {
+        "system.attributes.hp.temp": hp.temp - deltaTemp,
+        "system.attributes.hp.value": hp.value - deltaHP,
+      };
+  
+      if (temp > updates["system.attributes.hp.temp"]) updates["system.attributes.hp.temp"] = temp;
+  
+      /**
+       * A hook event that fires before damage is applied to an actor.
+       * @param {Actor5e} actor                     Actor the damage will be applied to.
+       * @param {number} amount                     Amount of damage that will be applied.
+       * @param {object} updates                    Distinct updates to be performed on the actor.
+       * @param {DamageApplicationOptions} options  Additional damage application options.
+       * @returns {boolean}                         Explicitly return `false` to prevent damage application.
+       * @function n5eb.preApplyDamage
+       * @memberof hookEvents
+       */
+      if (Hooks.call("n5eb.preApplyDamage", this, amount, updates, options) === false) return this;
+  
+      // Delegate damage application to a hook
+      // TODO: Replace this in the future with a better modifyTokenAttribute function in the core
+      if (
+        Hooks.call(
+          "modifyTokenAttribute",
+          {
+            attribute: "attributes.hp",
+            value: amount,
+            isDelta: false,
+            isBar: true,
+          },
+          updates
+        ) === false
+      )
+        return this;
+  
+      await this.update(updates);
+  
+      /**
+       * A hook event that fires after damage has been applied to an actor.
+       * @param {Actor5e} actor                     Actor that has been damaged.
+       * @param {number} amount                     Amount of damage that has been applied.
+       * @param {DamageApplicationOptions} options  Additional damage application options.
+       * @function n5eb.applyDamage
+       * @memberof hookEvents
+       */
+      Hooks.callAll("n5eb.applyDamage", this, amount, options);
+    }
 
     return this;
   }
@@ -23677,10 +23729,12 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       }
 
       // Negate healing types
-      if (options.invertHealing !== false && d.type === "healing") damageMultiplier *= -1;
-
+      if (options.invertHealing !== false && (d.type === "healing" || d.type === "chakrahealing")) {
+        damageMultiplier *= -1;
+      }
       d.value = d.value * damageMultiplier;
       d.active.multiplier = (d.active.multiplier ?? 1) * damageMultiplier;
+      console.log(d);
     });
 
     /**
@@ -23707,7 +23761,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   async applyTempHP(amount = 0) {
     amount = parseInt(amount);
     const hp = this.system.attributes.hp;
-
     // Update the actor if the new amount is greater than the current
     const tmp = parseInt(hp.temp) || 0;
     return amount > tmp ? this.update({ "system.attributes.hp.temp": amount }) : this;
@@ -52112,6 +52165,13 @@ class NPCData extends CreatureTemplate {
                 initial: 0,
                 label: "N5EB.HitPointsTempMax",
               }),
+              bonuses: new SchemaField$2({
+                level: new FormulaField({ deterministic: true, label: "N5EB.HitPointsBonusLevel" }),
+                overall: new FormulaField({
+                  deterministic: true,
+                  label: "N5EB.HitPointsBonusOverall",
+                }),
+              }),
               formula: new FormulaField({ required: true, label: "N5EB.HPFormula" }),
             },
             { label: "N5EB.HitPoints" }
@@ -52148,6 +52208,16 @@ class NPCData extends CreatureTemplate {
                 integer: true,
                 initial: 0,
                 label: "N5EB.ChakraPointsTempMax",
+              }),
+              bonuses: new SchemaField$2({
+                level: new FormulaField({
+                  deterministic: true,
+                  label: "N5EB.ChakraPointsBonusLevel",
+                }),
+                overall: new FormulaField({
+                  deterministic: true,
+                  label: "N5EB.ChakraPointsBonusOverall",
+                }),
               }),
               formula: new FormulaField({ required: true, label: "N5EB.CPFormula" }),
             },
@@ -52641,49 +52711,55 @@ class NPCData extends CreatureTemplate {
     AttributesFields.prepareConcentration.call(this, rollData);
     TraitsField.prepareResistImmune.call(this);
 
-    if (this.details?.npcType === "summon") {
-      // Calculate Hit Points for Summon
-      const conMod = this.abilities.con?.mod ?? 0; // Default Constitution modifier to 0 if not found
-      const summonClass = this.parent.items.find((i) => i.type === "class");
-      const toughness = summonClass?.system.toughness ?? 6; // Default toughness is 6 if not found
-      const level = this.details.level || 1;
-      const baseHp = (toughness + conMod) * level; // HP calculation based on toughness and level
-      this.attributes.hp.max = baseHp;
+    // Define helper functions for common calculations
+    const calculateBonus = (bonuses, rollData, level) =>
+      simplifyBonus(bonuses.level, rollData) * level + simplifyBonus(bonuses.overall, rollData);
 
-      // Prepare Chakra Points for Summon
-      let advancement = [];
+    const prepareHpOptions = (advancement, conMod, bonus) => ({
+      advancement,
+      mod: conMod,
+      bonus,
+    });
+
+    const prepareCpOptions = (advancement, conMod, bonus) => ({
+      advancement,
+      mod: conMod,
+      bonus,
+    });
+
+    // Initialize variables
+    let advancement = [];
+    const conMod = this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0;
+    const level = this.details.level || 1;
+
+    let hpBonus = calculateBonus(this.attributes.hp.bonuses, rollData, level);
+    let cpBonus = calculateBonus(this.attributes.cp.bonuses, rollData, level);
+
+    let hpMax = 0;
+    let cpMax = 0;
+
+    let hpMod = conMod;
+    let cpMod = conMod;
+
+    // Handle different NPC types
+    if (this.details?.npcType === "summon") {
+      // Summon specific calculations
+      const summonClass = this.parent.items.find((i) => i.type === "class");
+      const toughness = summonClass?.system.toughness ?? 6;
+      hpMax = (toughness + conMod) * level;
+
+      hpMod = 0;
+      cpMod = 0;
+
       if (summonClass && summonClass.system.identifier) {
-        // Fetch the advancement for the chakra-slots from the scaling system
         const classIdentifier = summonClass.system.identifier;
         const chakraSlots = this.scale?.[classIdentifier]?.["jutsu-slots"]?.value ?? 0;
         if (chakraSlots > 0) {
-          // Wrapping the chakra slot value in an object that includes the `getAdjustedTotal` function
-          advancement = [
-            {
-              getAdjustedTotal: () => chakraSlots,
-            },
-          ];
+          advancement = [{ getAdjustedTotal: () => chakraSlots }];
         }
       }
-      const cpOptions = {
-        advancement,
-        mod: 0, // Summons don't use ability modifiers for Chakra Points
-        bonus: 0, // No additional bonus for now; add logic here if required
-      };
-
-      AttributesFields.prepareChakraPoints.call(this, this.attributes.cp, cpOptions);
-
-      // Set effective max values for Hit Points
-      this.attributes.hp.effectiveMax = this.attributes.hp.max + (this.attributes.hp.tempmax ?? 0);
-      this.attributes.hp.value = Math.min(this.attributes.hp.value, this.attributes.hp.effectiveMax);
-      this.attributes.hp.damage = this.attributes.hp.effectiveMax - this.attributes.hp.value;
-      this.attributes.hp.pct = Math.clamp(
-        this.attributes.hp.effectiveMax ? (this.attributes.hp.value / this.attributes.hp.effectiveMax) * 100 : 0,
-        0,
-        100
-      );
-    } else if (this.details.npcType == "adversary") {
-      // Adversary calculations (same as before, left unchanged for consistency)
+    } else if (this.details?.npcType === "adversary") {
+      // Adversary specific calculations
       const rankMod = CONFIG.N5EB.rankMod[this.details.rank];
       const classMod = CONFIG.N5EB.classMod[this.details.classNPC];
       const roleMod = CONFIG.N5EB.roleMod[this.details.role];
@@ -52695,7 +52771,6 @@ class NPCData extends CreatureTemplate {
       let additionalHPMods = 1 + (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0);
       let additionalCPMods = 1 + (roleMod.cpBonus || 0) + (classMod.cpBonus || 0) + (clanMod.cpBonus || 0);
 
-      // Combine highRole modifiers if applicable
       if (this.details.highRole instanceof Set) {
         this.details.highRole.forEach((roleKey) => {
           const mod = CONFIG.N5EB.highRoleMod[roleKey];
@@ -52706,25 +52781,29 @@ class NPCData extends CreatureTemplate {
         });
       }
 
-      const conMod = this.abilities.con?.mod ?? 0;
-      const level = this.details.level || 1;
-
-      // If the class is 'minion', apply special HP calculation
-      if (this.details.classNPC === "minion") {
-        this.attributes.hp.max = level + 10;
-      } else {
-        const numPlayers = 3; // Default to 3 if unable to determine
-        const hpMultiplier = this.details.classNPC === "solo" ? numPlayers + 1 : classMod.hpMultiplier;
-        const cpMultiplier = this.details.classNPC === "solo" ? numPlayers : classMod.cpMultiplier;
-
-        // Calculate Hit and Chakra Points for non-minion classes
-        const baseHp = 10 + conMod * level + rankMod.avg * level;
-        this.attributes.hp.max = Math.ceil(baseHp * additionalHPMods);
-      }
-
+      const baseHp = 10 + conMod * level + rankMod.avg * level;
       const baseCp = 10 + conMod * level + rankMod.avg * level;
-      this.attributes.cp.max = Math.ceil(baseCp * additionalCPMods);
 
+      hpMax = Math.ceil(baseHp * additionalHPMods);
+      cpMax = Math.ceil(baseCp * additionalCPMods);
+    } else {
+      // Default NPC calculations
+      advancement = Object.values(this.parent.classes)
+        .map((c) => c.advancement.byType.HitPoints?.[0])
+        .filter((a) => a);
+
+      hpMax = null;
+      cpMax = null;
+    }
+
+    // Prepare hpOptions and cpOptions using helper functions
+    const hpOptions = prepareHpOptions(advancement, hpMod, hpBonus);
+    const cpOptions = prepareCpOptions(advancement, cpMod, cpBonus);
+
+    // Apply HP and CP calculations
+    if (hpMax !== null) this.attributes.hp.max = hpMax;
+    if (this.details?.npcType === "summon") {
+      this.attributes.hp.max += hpBonus;
       this.attributes.hp.effectiveMax = this.attributes.hp.max + (this.attributes.hp.tempmax ?? 0);
       this.attributes.hp.value = Math.min(this.attributes.hp.value, this.attributes.hp.effectiveMax);
       this.attributes.hp.damage = this.attributes.hp.effectiveMax - this.attributes.hp.value;
@@ -52733,54 +52812,22 @@ class NPCData extends CreatureTemplate {
         0,
         100
       );
-
-      this.attributes.cp.effectiveMax = this.attributes.cp.max + (this.attributes.cp.tempmax ?? 0);
-      this.attributes.cp.value = Math.min(this.attributes.cp.value, this.attributes.cp.effectiveMax);
-      this.attributes.cp.damage = this.attributes.cp.effectiveMax - this.attributes.cp.value;
-      this.attributes.cp.pct = Math.clamp(
-        this.attributes.cp.effectiveMax ? (this.attributes.cp.value / this.attributes.cp.effectiveMax) * 100 : 0,
-        0,
-        100
-      );
-
-      // Handle Hit Dice (optional, if needed)
-      const { hd } = this.attributes;
-      hd.value = Math.max(1, hd.max - hd.spent);
-      hd.pct = Math.clamp(hd.max ? (hd.value / hd.max) * 100 : 0, 0, 100);
-
-      // Handle Chakra Dice (optional, if needed)
-      const { cd } = this.attributes;
-      cd.value = Math.max(1, cd.max - cd.spent);
-      cd.pct = Math.clamp(cd.max ? (cd.value / cd.max) * 100 : 0, 0, 100);
     } else {
-      // Hit Dice
-      const { hd } = this.attributes;
-      hd.value = Math.max(0, hd.max - hd.spent);
-      hd.pct = Math.clamp(hd.max ? (hd.value / hd.max) * 100 : 0, 0, 100);
-
-      // Chakra Dice
-      const { cd } = this.attributes;
-      cd.value = Math.max(0, cd.max - cd.spent);
-      cd.pct = Math.clamp(cd.max ? (cd.value / cd.max) * 100 : 0, 0, 100);
-
-      // Hit Points
-      const hpOptions = {
-        advancement: Object.values(this.parent.classes)
-          .map((c) => c.advancement.byType.HitPoints?.[0])
-          .filter((a) => a),
-        mod: this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0,
-      };
       AttributesFields.prepareHitPoints.call(this, this.attributes.hp, hpOptions);
-
-      // Chakra Points
-      const cpOptions = {
-        advancement: Object.values(this.parent.classes)
-          .map((c) => c.advancement.byType.ChakraPoints?.[0])
-          .filter((a) => a),
-        mod: this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0,
-      };
-      AttributesFields.prepareChakraPoints.call(this, this.attributes.cp, cpOptions);
     }
+
+    if (cpMax !== null) this.attributes.cp.max = cpMax;
+    AttributesFields.prepareChakraPoints.call(this, this.attributes.cp, cpOptions);
+
+    // Handle Hit Dice
+    const { hd } = this.attributes;
+    hd.value = Math.max(1, hd.max - hd.spent);
+    hd.pct = Math.clamp(hd.max ? (hd.value / hd.max) * 100 : 0, 0, 100);
+
+    // Handle Chakra Dice
+    const { cd } = this.attributes;
+    cd.value = Math.max(1, cd.max - cd.spent);
+    cd.pct = Math.clamp(cd.max ? (cd.value / cd.max) * 100 : 0, 0, 100);
   }
 }
 
@@ -55320,7 +55367,21 @@ class ChatMessage5e extends ChatMessage {
         group: "damage",
       },
       {
+        name: game.i18n.localize("N5EB.ChatContextChakraHealing"),
+        icon: '<i class="fas fa-user-plus"></i>',
+        condition: canApply,
+        callback: (li) => game.messages.get(li.data("messageId"))?.applyChatCardDamage(li, -1),
+        group: "damage",
+      },
+      {
         name: game.i18n.localize("N5EB.ChatContextTempHP"),
+        icon: '<i class="fas fa-user-clock"></i>',
+        condition: canApply,
+        callback: (li) => game.messages.get(li.data("messageId"))?.applyChatCardTemp(li),
+        group: "damage",
+      },
+      {
+        name: game.i18n.localize("N5EB.ChatContextTempCP"),
         icon: '<i class="fas fa-user-clock"></i>',
         condition: canApply,
         callback: (li) => game.messages.get(li.data("messageId"))?.applyChatCardTemp(li),
