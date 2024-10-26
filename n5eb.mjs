@@ -9888,6 +9888,11 @@ class AbilityUseDialog extends Dialog {
     const maxLevel = Object.keys(CONFIG.N5EB.spellLevels).length - 1;
     const options = [];
 
+    // Get the total chakra available (temporary + regular)
+    const tempChakra = item.actor.system.attributes.cp.temp ?? 0;
+    const regularChakra = item.actor.system.attributes.cp.value ?? 0;
+    const totalAvailableChakra = tempChakra + regularChakra;
+
     // If increasePerLevel is 0 or null, do not show upcast options
     if (increasePerLevel === 0 || increasePerLevel === null) {
       const totalCost = baseCost;
@@ -9896,14 +9901,15 @@ class AbilityUseDialog extends Dialog {
         key: `chakra${item.system.level}`,
         level: item.system.level,
         label: `${rankLabel} (${totalCost} Chakra)`,
-        canCast: item.actor.system.attributes.cp.value >= totalCost,
+        canCast: totalAvailableChakra >= totalCost,
         chakraCost: totalCost,
       });
     } else {
       for (let level = item.system.level; level <= maxLevel; level++) {
         const totalCost = baseCost + (level - item.system.level) * increasePerLevel;
         const rankLabel = game.i18n.localize(`N5EB.SpellLevel${level}`);
-        const canCast = item.actor.system.attributes.cp.value >= totalCost;
+        const canCast = totalAvailableChakra >= totalCost;
+
         if (level <= maxRankLevel || level === item.system.level) {
           options.push({
             key: `chakra${level}`,
@@ -10159,22 +10165,42 @@ class AbilityUseDialog extends Dialog {
     const { quantity, level, consume, preparation } = item.system;
     const scale = options.disableScaling ? null : item.usageScaling;
     const levels = [level];
-    const chakraPoints = item.actor.system.attributes.cp?.value;
+
+    // Get the actor's chakra attributes
+    const chakraPoints = item.actor.system.attributes.cp?.value ?? 0;
+    const tempChakraPoints = item.actor.system.attributes.cp?.temp ?? 0;
+    const totalChakraPoints = chakraPoints + tempChakraPoints;
+    const chakraCost = item.system.chakraCost ?? 0;
 
     if (item.type === "spell") {
       const spellData = item.actor.system.spells[preparation.mode] ?? {};
       if (Number.isNumeric(spellData.level)) levels.push(spellData.level);
     }
 
-    if (item.system.chakraCost > chakraPoints) {
+     // Check if there are enough regular chakra points
+  if (chakraCost > chakraPoints) {
+    // If not enough regular chakra, check if total (including temp) is enough
+    if (chakraCost <= totalChakraPoints) {
+      // There are enough total chakra points (using temporary chakra)
+      warnings.push(
+        game.i18n.format("N5EB.SpellCastTempChakra", {
+          name: item.name,
+          cost: chakraCost,
+          current: chakraPoints,
+          temp: tempChakraPoints
+        })
+      );
+    } else {
+      // Not enough total chakra points
       warnings.push(
         game.i18n.format("N5EB.SpellCastNoChakra", {
           name: item.name,
-          cost: item.system.chakraCost,
-          current: chakraPoints,
+          cost: chakraCost,
+          current: totalChakraPoints,
         })
       );
     }
+  }
 
     // if ( (scale === "slot") && data.slotOptions.every(o => !o.hasSlots) ) {
     //   // Warn that the actor has no spell slots of any level with which to use this item.
@@ -16638,16 +16664,27 @@ class Item5e extends SystemDocumentMixin(Item) {
       const chakraScaling = Math.floor(this.system.chakraScaling.value);
       const upcastChakraCost = baseChakraCost + chakraScaling * (upcastLevel - 1);
 
-      if (this.actor.system.attributes.cp.value < upcastChakraCost) {
+      const currentTempChakra = this.actor.system.attributes.cp.temp ?? 0;
+      const currentChakra = this.actor.system.attributes.cp.value ?? 0;
+
+      if (currentTempChakra + currentChakra < upcastChakraCost) {
         ui.notifications.warn(game.i18n.format("N5EB.NotEnoughChakra", { name: this.name }));
         return false;
       }
 
-      // Update actor's chakra points after usage
-      actorUpdates["system.attributes.cp.value"] = Math.max(
-        this.actor.system.attributes.cp.value - upcastChakraCost,
-        0
-      );
+      let remainingCost = upcastChakraCost;
+
+      // Step 1: Consume from temporary chakra
+      let tempChakraConsumed = Math.min(remainingCost, currentTempChakra);
+      remainingCost -= tempChakraConsumed;
+
+      // Step 2: Consume from regular chakra
+      let chakraConsumed = Math.min(remainingCost, currentChakra);
+      remainingCost -= chakraConsumed;
+
+      // Update the actor's chakra points after usage
+      actorUpdates["system.attributes.cp.temp"] = Math.max(currentTempChakra - tempChakraConsumed, 0);
+      actorUpdates["system.attributes.cp.value"] = Math.max(currentChakra - chakraConsumed, 0);
     }
 
     // Determine whether the item can be used by testing for available concentration.
@@ -23538,9 +23575,9 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         "system.attributes.cp.temp": cp.temp - deltaTempCP,
         "system.attributes.cp.value": cp.value - deltaCP,
       };
-  
+
       if (tempCP > updates["system.attributes.cp.temp"]) updates["system.attributes.cp.temp"] = tempCP;
-  
+
       /**
        * A hook event that fires before damage is applied to an actor.
        * @param {Actor5e} actor                     Actor the damage will be applied to.
@@ -23552,7 +23589,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
        * @memberof hookEvents
        */
       if (Hooks.call("n5eb.preApplyDamage", this, cpAmount, updates, options) === false) return this;
-  
+
       // Delegate damage application to a hook
       // TODO: Replace this in the future with a better modifyTokenAttribute function in the core
       if (
@@ -23568,9 +23605,9 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         ) === false
       )
         return this;
-  
+
       await this.update(updates);
-  
+
       /**
        * A hook event that fires after damage has been applied to an actor.
        * @param {Actor5e} actor                     Actor that has been damaged.
@@ -23580,7 +23617,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
        * @memberof hookEvents
        */
       Hooks.callAll("n5eb.applyDamage", this, cpAmount, options);
-
     } else {
       amount = amount > 0 ? Math.floor(amount) : Math.ceil(amount);
 
@@ -23590,9 +23626,9 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         "system.attributes.hp.temp": hp.temp - deltaTemp,
         "system.attributes.hp.value": hp.value - deltaHP,
       };
-  
+
       if (temp > updates["system.attributes.hp.temp"]) updates["system.attributes.hp.temp"] = temp;
-  
+
       /**
        * A hook event that fires before damage is applied to an actor.
        * @param {Actor5e} actor                     Actor the damage will be applied to.
@@ -23604,7 +23640,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
        * @memberof hookEvents
        */
       if (Hooks.call("n5eb.preApplyDamage", this, amount, updates, options) === false) return this;
-  
+
       // Delegate damage application to a hook
       // TODO: Replace this in the future with a better modifyTokenAttribute function in the core
       if (
@@ -23620,9 +23656,9 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         ) === false
       )
         return this;
-  
+
       await this.update(updates);
-  
+
       /**
        * A hook event that fires after damage has been applied to an actor.
        * @param {Actor5e} actor                     Actor that has been damaged.
