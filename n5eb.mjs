@@ -16659,7 +16659,7 @@ class Item5e extends SystemDocumentMixin(Item) {
       // Determine the upcast level based on the slotLevel
       const upcastLevelMatch = config.slotLevel.match(/chakra(\d+)/);
       const upcastLevel = upcastLevelMatch ? parseInt(upcastLevelMatch[1]) : this.system.level;
-      console.log(this.system.level, upcastLevelMatch, upcastLevel)
+
       // Calculate the upcast chakra cost
       const baseChakraCost = Math.floor(this.system.chakraCost);
       const chakraScaling = Math.floor(this.system.chakraScaling.value);
