@@ -10177,30 +10177,30 @@ class AbilityUseDialog extends Dialog {
       if (Number.isNumeric(spellData.level)) levels.push(spellData.level);
     }
 
-     // Check if there are enough regular chakra points
-  if (chakraCost > chakraPoints) {
-    // If not enough regular chakra, check if total (including temp) is enough
-    if (chakraCost <= totalChakraPoints) {
-      // There are enough total chakra points (using temporary chakra)
-      warnings.push(
-        game.i18n.format("N5EB.SpellCastTempChakra", {
-          name: item.name,
-          cost: chakraCost,
-          current: chakraPoints,
-          temp: tempChakraPoints
-        })
-      );
-    } else {
-      // Not enough total chakra points
-      warnings.push(
-        game.i18n.format("N5EB.SpellCastNoChakra", {
-          name: item.name,
-          cost: chakraCost,
-          current: totalChakraPoints,
-        })
-      );
+    // Check if there are enough regular chakra points
+    if (chakraCost > chakraPoints) {
+      // If not enough regular chakra, check if total (including temp) is enough
+      if (chakraCost <= totalChakraPoints) {
+        // There are enough total chakra points (using temporary chakra)
+        warnings.push(
+          game.i18n.format("N5EB.SpellCastTempChakra", {
+            name: item.name,
+            cost: chakraCost,
+            current: chakraPoints,
+            temp: tempChakraPoints,
+          })
+        );
+      } else {
+        // Not enough total chakra points
+        warnings.push(
+          game.i18n.format("N5EB.SpellCastNoChakra", {
+            name: item.name,
+            cost: chakraCost,
+            current: totalChakraPoints,
+          })
+        );
+      }
     }
-  }
 
     // if ( (scale === "slot") && data.slotOptions.every(o => !o.hasSlots) ) {
     //   // Warn that the actor has no spell slots of any level with which to use this item.
@@ -16402,8 +16402,9 @@ class Item5e extends SystemDocumentMixin(Item) {
         const diff = config.resourceAmount - (this.system.consume.amount || 1);
         level = is.level + diff;
       }
+      console.log(level, item.system.level)
       if (level && level !== is.level) {
-        item = item.clone({ "system.level": level }, { keepId: true });
+        // item = item.clone({ "system.level": level }, { keepId: true });
         item.prepareData();
         item.prepareFinalAttributes();
       }
@@ -16662,7 +16663,14 @@ class Item5e extends SystemDocumentMixin(Item) {
       // Calculate the upcast chakra cost
       const baseChakraCost = Math.floor(this.system.chakraCost);
       const chakraScaling = Math.floor(this.system.chakraScaling.value);
-      const upcastChakraCost = baseChakraCost + chakraScaling * (upcastLevel - 1);
+
+      // If the upcast level is greater than the base level, calculate upcast cost
+      let upcastChakraCost;
+      if (upcastLevel > this.system.level) {
+        upcastChakraCost = baseChakraCost + chakraScaling * (upcastLevel - this.system.level);
+      } else {
+        upcastChakraCost = baseChakraCost; // If not upcast, just use base chakra cost
+      }
 
       const currentTempChakra = this.actor.system.attributes.cp.temp ?? 0;
       const currentChakra = this.actor.system.attributes.cp.value ?? 0;
