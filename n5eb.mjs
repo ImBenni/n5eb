@@ -4448,6 +4448,77 @@ class LongRestDialog extends Dialog {
 }
 
 /**
+ * A helper Dialog subclass for completing a full rest.
+ *
+ * @param {Actor5e} actor           Actor that is taking the full rest.
+ * @param {object} [dialogData={}]  An object of dialog data which configures how the modal window is rendered.
+ * @param {object} [options={}]     Dialog rendering options.
+ */
+class FullRestDialog extends Dialog {
+  constructor(actor, dialogData = {}, options = {}) {
+    super(dialogData, options);
+    this.actor = actor;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      template: "systems/n5eb/templates/apps/full-rest.hbs",
+      classes: ["n5eb", "dialog"],
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getData() {
+    const context = super.getData();
+    const variant = game.settings.get("n5eb", "restVariant");
+    context.isGroup = this.actor.type === "group";
+    context.promptNewDay = variant !== "gritty"; // It's always a new day when resting 1 week
+    context.newDay = variant === "normal"; // It's probably a new day when resting normally (8 hours)
+    return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * A helper constructor function which displays the Full Rest confirmation dialog and returns a Promise once it's
+   * workflow has been resolved.
+   * @param {object} [options={}]
+   * @param {Actor5e} [options.actor]  Actor that is taking the full rest.
+   * @returns {Promise}                Promise that resolves when the rest is completed or rejects when canceled.
+   */
+  static async fullRestDialog({ actor } = {}) {
+    return new Promise((resolve, reject) => {
+      const dlg = new this(actor, {
+        title: `${game.i18n.localize("N5EB.FullRest")}: ${actor.name}`,
+        buttons: {
+          rest: {
+            icon: '<i class="fas fa-bed"></i>',
+            label: game.i18n.localize("N5EB.Rest"),
+            callback: (html) => {
+              const formData = new FormDataExtended(html.find("form")[0]);
+              resolve(formData.object);
+            },
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: game.i18n.localize("Cancel"),
+            callback: reject,
+          },
+        },
+        default: "rest",
+        close: reject,
+      });
+      dlg.render(true);
+    });
+  }
+}
+
+/**
  * Description for a single part of a property attribution.
  * @typedef {object} AttributionDescription
  * @property {string} label  Descriptive label that will be displayed. If the label is in the form
@@ -16402,7 +16473,7 @@ class Item5e extends SystemDocumentMixin(Item) {
         const diff = config.resourceAmount - (this.system.consume.amount || 1);
         level = is.level + diff;
       }
-      console.log(level, item.system.level)
+      console.log(level, item.system.level);
       if (level && level !== is.level) {
         // item = item.clone({ "system.level": level }, { keepId: true });
         item.prepareData();
@@ -25269,9 +25340,9 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     // Return the rest result
     const dhd = foundry.utils.getProperty(this, "system.attributes.hd.value") - hd0;
     const dhp = foundry.utils.getProperty(this, "system.attributes.hp.value") - hp0;
-    const dch = foundry.utils.getProperty(this, "system.attributes.cd.value") - cd0;
+    const dcd = foundry.utils.getProperty(this, "system.attributes.cd.value") - cd0;
     const dcp = foundry.utils.getProperty(this, "system.attributes.cp.value") - cp0;
-    return this._rest(config, { dhd, dhp, dch, dcp });
+    return this._rest(config, { dhd, dhp, dcd, dcp });
   }
 
   /* -------------------------------------------- */
@@ -25330,6 +25401,59 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
+   * Take a full rest, recovering hit points, hit dice, resources, item uses, and spell slots.
+   * @param {RestConfiguration} [config]  Configuration options for a full rest.
+   * @returns {Promise<RestResult>}       A Promise which resolves once the full rest workflow has completed.
+   */
+  async fullRest(config = {}) {
+    if (this.type === "vehicle") return;
+
+    config = foundry.utils.mergeObject(
+      {
+        type: "full",
+        dialog: true,
+        chat: true,
+        newDay: true,
+        advanceTime: false,
+        duration: CONFIG.N5EB.restTypes.full.duration[game.settings.get("n5eb", "restVariant")],
+      },
+      config
+    );
+
+    /**
+     * A hook event that fires before a full rest is started.
+     * @function n5eb.preFullRest
+     * @memberof hookEvents
+     * @param {Actor5e} actor             The actor that is being rested.
+     * @param {RestConfiguration} config  Configuration options for the rest.
+     * @returns {boolean}                 Explicitly return `false` to prevent the rest from being started.
+     */
+    if (Hooks.call("n5eb.preFullRest", this, config) === false) return;
+
+    if (config.dialog) {
+      try {
+        foundry.utils.mergeObject(config, await FullRestDialog.fullRestDialog({ actor: this }));
+      } catch (err) {
+        return;
+      }
+    }
+
+    /**
+     * A hook event that fires after a full rest has started, after the configuration is complete.
+     * @function n5eb.fullRest
+     * @memberof hookEvents
+     * @param {Actor5e} actor             The actor that is being rested.
+     * @param {RestConfiguration} config  Configuration options for the rest.
+     * @returns {boolean}                 Explicitly return `false` to prevent the rest from being continued.
+     */
+    if (Hooks.call("n5eb.fullRest", this, config) === false) return;
+
+    return this._rest(config);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Perform all of the changes needed for a short or long rest.
    *
    * @param {RestConfiguration} config  Configuration data for the rest occurring.
@@ -25345,7 +25469,9 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         { since: "DnD5e 3.1", until: "DnD5e 3.3" }
       );
       const [longRest, dhd, dhp, dcd, dcp] = args;
+      console.log(args);
       config = { chat: config, newDay: result };
+      config.type;
       config.type = longRest ? "long" : "short";
       result = { dhd, dhp, dcd, dcp };
     }
@@ -25367,18 +25493,36 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     const rolls = [];
     const longRest = config.type === "long";
+    const fullRest = config.type === "full";
     const newDay = config.newDay === true;
 
-    // Recover hit points & hit dice on long rest
-    if (longRest) {
+    // Recover hit points & hit dice on full or long rest
+    if (fullRest) {
       ({ updates: hpActorUpdates, hitPointsRecovered } = this._getRestHitPointRecovery());
       ({ updates: cpActorUpdates, chakraPointsRecovered } = this._getRestChakraPointRecovery());
-      ({ updates: hdItemUpdates, actorUpdates: hdActorUpdates, hitDiceRecovered } = this._getRestHitDiceRecovery());
       ({
-        updates: cdItemUpdates,
+        updates: hdItemUpdates = [],
+        actorUpdates: hdActorUpdates,
+        hitDiceRecovered,
+      } = this._getRestHitDiceRecovery({ isFullRest: true }));
+      ({
+        updates: cdItemUpdates = [],
         actorUpdates: cdActorUpdates,
         chakraDiceRecovered,
-      } = this._getRestChakraDiceRecovery());
+      } = this._getRestChakraDiceRecovery({ isFullRest: true }));
+    } else if (longRest) {
+      ({ updates: hpActorUpdates, hitPointsRecovered } = this._getLongRestHitPointRecovery());
+      ({ updates: cpActorUpdates, chakraPointsRecovered } = this._getLongRestChakraPointRecovery());
+      ({
+        updates: hdItemUpdates = [],
+        actorUpdates: hdActorUpdates,
+        hitDiceRecovered,
+      } = this._getRestHitDiceRecovery({ isFullRest: false }));
+      ({
+        updates: cdItemUpdates = [],
+        actorUpdates: cdActorUpdates,
+        chakraDiceRecovered,
+      } = this._getRestChakraDiceRecovery({ isFullRest: false }));
     }
 
     // Combine the actor updates
@@ -25388,10 +25532,10 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       ...hpActorUpdates,
       ...cpActorUpdates,
       ...this._getRestResourceRecovery({
-        recoverShortRestResources: !longRest,
-        recoverLongRestResources: longRest,
+        recoverShortRestResources: !longRest && !fullRest,
+        recoverLongRestResources: longRest || fullRest,
       }),
-      ...this._getRestSpellRecovery({ recoverLong: longRest }),
+      ...this._getRestSpellRecovery({ recoverLong: longRest || fullRest }),
     };
 
     // Merge item updates properly
@@ -25418,7 +25562,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     const finalItemUpdates = [
       ...Array.from(itemUpdatesMap.values()),
       ...(await this._getRestItemUsesRecovery({
-        recoverLongRestUses: longRest,
+        recoverLongRestUses: longRest || fullRest,
         recoverDailyUses: newDay,
         rolls,
       })),
@@ -25448,7 +25592,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     if (config.advanceTime && config.duration > 0 && game.user.isGM) await game.time.advance(60 * config.duration);
 
     // Display a Chat Message summarizing the rest effects
-    if (config.chat) await this._displayRestResultMessage(result, longRest);
+    if (config.chat) await this._displayRestResultMessage(result, longRest, fullRest);
 
     // Hook: rest completed
     Hooks.callAll("n5eb.restCompleted", this, result, config);
@@ -25462,27 +25606,38 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   /**
    * Display a chat message with the result of a rest.
    *
-   * @param {RestResult} result         Result of the rest operation.
-   * @param {boolean} [longRest=false]  Is this a long rest?
-   * @returns {Promise<ChatMessage>}    Chat message that was created.
+   * @param {RestResult} result          Result of the rest operation.
+   * @param {boolean} [longRest=false]   Is this a long rest?
+   * @param {boolean} [fullRest=false]   Is this a full rest?
+   * @returns {Promise<ChatMessage>}     Chat message that was created.
    * @protected
    */
-  async _displayRestResultMessage(result, longRest = false) {
+  async _displayRestResultMessage(result, longRest = false, fullRest = false) {
     const { dhd, dhp, dcd, dcp, newDay } = result;
     const diceRestored = dhd !== 0;
     const healthRestored = dhp !== 0;
-    const chakradiceRestored = dcd !== 0;
+    const chakraDiceRestored = dcd !== 0;
     const chakraRestored = dcp !== 0;
-    const length = longRest ? "Long" : "Short";
+
+    // Determine the type of rest
+    const length = fullRest ? "Full" : longRest ? "Long" : "Short";
 
     // Summarize the rest duration
     let restFlavor;
     switch (game.settings.get("n5eb", "restVariant")) {
       case "normal":
-        restFlavor = longRest && newDay ? "N5EB.LongRestOvernight" : `N5EB.${length}RestNormal`;
+        restFlavor = fullRest
+          ? `N5EB.${length}RestNormal`
+          : longRest && newDay
+          ? "N5EB.LongRestOvernight"
+          : `N5EB.${length}RestNormal`;
         break;
       case "gritty":
-        restFlavor = !longRest && newDay ? "N5EB.ShortRestOvernight" : `N5EB.${length}RestGritty`;
+        restFlavor = fullRest
+          ? `N5EB.${length}RestGritty`
+          : !longRest && newDay
+          ? "N5EB.ShortRestOvernight"
+          : `N5EB.${length}RestGritty`;
         break;
       case "epic":
         restFlavor = `N5EB.${length}RestEpic`;
@@ -25491,10 +25646,15 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     // Determine the chat message to display
     let message;
-    if (diceRestored && healthRestored && chakradiceRestored && chakraRestored) message = `N5EB.${length}RestResult`;
-    else if (longRest && !diceRestored && healthRestored) message = "N5EB.LongRestResultHitChakraPoints";
-    else if (longRest && diceRestored && !healthRestored) message = "N5EB.LongRestResultHitChakraDice";
-    else message = `N5EB.${length}RestResultShort`;
+    if (diceRestored && healthRestored && chakraDiceRestored && chakraRestored) {
+      message = `N5EB.${length}RestResult`;
+    } else if ((longRest || fullRest) && !diceRestored && healthRestored) {
+      message = `N5EB.${length}RestResultHitChakraPoints`;
+    } else if ((longRest || fullRest) && diceRestored && !healthRestored) {
+      message = `N5EB.${length}RestResultHitChakraDice`;
+    } else {
+      message = `N5EB.${length}RestResultShort`;
+    }
 
     // Create a chat message
     let chatData = {
@@ -25504,12 +25664,12 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       rolls: result.rolls,
       content: game.i18n.format(message, {
         name: this.name,
-        hdice: longRest ? dhd : -dhd,
-        cdice: longRest ? dcd : -dcd,
+        hdice: fullRest ? dhd : longRest ? dhd : -dhd,
+        cdice: fullRest ? dcd : longRest ? dcd : -dcd,
         health: dhp,
         chakra: dcp,
       }),
-      "flags.n5eb.rest": { type: longRest ? "long" : "short" },
+      "flags.n5eb.rest": { type: fullRest ? "full" : longRest ? "long" : "short" },
     };
     ChatMessage.applyRollMode(chatData, game.settings.get("core", "rollMode"));
     return ChatMessage.create(chatData);
@@ -25575,11 +25735,11 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   }
 
   /**
-   * Recovers actor hit points and eliminates any temp HP.
+   * Recovers actor chakra points and eliminates any temp CP.
    * @param {object} [options]
-   * @param {boolean} [options.recoverTemp=true]     Reset temp HP to zero.
-   * @param {boolean} [options.recoverTempMax=true]  Reset temp max HP to zero.
-   * @returns {object}                               Updates to the actor and change in hit points.
+   * @param {boolean} [options.recoverTemp=true]     Reset temp CP to zero.
+   * @param {boolean} [options.recoverTempMax=true]  Reset temp max CP to zero.
+   * @returns {object}                               Updates to the actor and change in chakra points.
    * @protected
    */
   _getRestChakraPointRecovery({ recoverTemp = true, recoverTempMax = true } = {}) {
@@ -25591,6 +25751,50 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     updates["system.attributes.cp.value"] = max;
     if (recoverTemp) updates["system.attributes.cp.temp"] = 0;
     return { updates, chakraPointsRecovered: Math.max(0, max - cp.value) };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Recovers half of actor hit points and eliminates any temp HP.
+   * @param {object} [options]
+   * @param {boolean} [options.recoverTemp=true]     Reset temp HP to zero.
+   * @param {boolean} [options.recoverTempMax=true]  Reset temp max HP to zero.
+   * @returns {object}                               Updates to the actor and change in hit points.
+   * @protected
+   */
+  _getLongRestHitPointRecovery({ recoverTemp = true, recoverTempMax = true } = {}) {
+    const hp = this.system.attributes.hp;
+    let max = hp.max;
+    let halfRecovery = Math.floor(max / 2);
+    let updates = {};
+    let newHpValue = Math.min(hp.value + halfRecovery, max);
+    if (recoverTempMax) updates["system.attributes.hp.tempmax"] = 0;
+    updates["system.attributes.hp.value"] = newHpValue;
+    if (recoverTemp) updates["system.attributes.hp.temp"] = 0;
+    let hitPointsRecovered = Math.max(0, newHpValue - hp.value);
+    return { updates, hitPointsRecovered };
+  }
+
+  /**
+   * Recovers half of actor chakra points and eliminates any temp CP.
+   * @param {object} [options]
+   * @param {boolean} [options.recoverTemp=true]     Reset temp CP to zero.
+   * @param {boolean} [options.recoverTempMax=true]  Reset temp max CP to zero.
+   * @returns {object}                               Updates to the actor and change in chakra points.
+   * @protected
+   */
+  _getLongRestChakraPointRecovery({ recoverTemp = true, recoverTempMax = true } = {}) {
+    const cp = this.system.attributes.cp;
+    let max = cp.max;
+    let halfRecovery = Math.floor(max / 2);
+    let updates = {};
+    let newCpValue = Math.min(cp.value + halfRecovery, max);
+    if (recoverTempMax) updates["system.attributes.cp.tempmax"] = 0;
+    updates["system.attributes.cp.value"] = newCpValue;
+    if (recoverTemp) updates["system.attributes.cp.temp"] = 0;
+    let chakraPointsRecovered = Math.max(0, newCpValue - cp.value);
+    return { updates, chakraPointsRecovered };
   }
 
   /* -------------------------------------------- */
@@ -25644,6 +25848,60 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
+   * Recovers class hit dice during a long or full rest.
+   *
+   * @param {object} [options]
+   * @param {number} [options.maxHitDice]  Maximum number of hit dice to recover.
+   * @param {boolean} [options.isFullRest] Whether the rest is a full rest.
+   * @returns {object}                     Array of item updates and number of hit dice recovered.
+   * @protected
+   */
+  _getRestHitDiceRecovery({ maxHitDice, isFullRest = false } = {}) {
+    // Handle simpler HD recovery for NPCs
+    if (this.type === "npc") {
+      const hd = this.system.attributes.hd;
+      const recoveryFraction = isFullRest ? 1.0 : 0.5;
+      const recovered = Math.min(Math.max(1, Math.floor(hd.max * recoveryFraction)), hd.spent, maxHitDice ?? Infinity);
+      return {
+        actorUpdates: { "system.attributes.hd.spent": hd.spent - recovered },
+        hitDiceRecovered: recovered,
+      };
+    }
+
+    return this.system.attributes.hd.createHitDiceUpdates({ maxHitDice, isFullRest });
+  }
+
+  /**
+   * Recovers class chakra dice during a long or full rest.
+   *
+   * @param {object} [options]
+   * @param {number} [options.maxChakraDice]  Maximum number of chakra dice to recover.
+   * @param {boolean} [options.isFullRest]    Whether the rest is a full rest.
+   * @returns {object}                        Array of item updates and number of chakra dice recovered.
+   * @protected
+   */
+  _getRestChakraDiceRecovery({ maxChakraDice, isFullRest = false } = {}) {
+    // Handle simpler HD recovery for NPCs
+    if (this.type === "npc") {
+      const cd = this.system.attributes.cd;
+      const recoveryFraction = isFullRest ? 1.0 : 0.5;
+      const recovered = Math.min(
+        Math.max(1, Math.floor(cd.max * recoveryFraction)),
+        cd.spent,
+        maxChakraDice ?? Infinity
+      );
+      return {
+        actorUpdates: { "system.attributes.cd.spent": cd.spent - recovered },
+        chakraDiceRecovered: recovered,
+      };
+    }
+
+    return this.system.attributes.cd.createChakraDiceUpdates({ maxChakraDice, isFullRest });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Recovers class hit dice during a long rest.
    *
    * @param {object} [options]
@@ -25651,17 +25909,16 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    * @returns {object}                     Array of item updates and number of hit dice recovered.
    * @protected
    */
-  _getRestHitDiceRecovery({ maxHitDice } = {}) {
+  _getFullRestHitDiceRecovery({ maxHitDice } = {}) {
     // Handle simpler HD recovery for NPCs
     if (this.type === "npc") {
       const hd = this.system.attributes.hd;
-      const recovered = Math.min(Math.max(1, Math.floor(hd.max * 0.5)), hd.spent, maxHitDice ?? Infinity);
+      const recovered = Math.min(hd.spent, maxHitDice ?? hd.spent);
       return {
         actorUpdates: { "system.attributes.hd.spent": hd.spent - recovered },
         hitDiceRecovered: recovered,
       };
     }
-
     return this.system.attributes.hd.createHitDiceUpdates({ maxHitDice });
   }
 
@@ -25673,18 +25930,21 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    * @returns {object}                     Array of item updates and number of chakra dice recovered.
    * @protected
    */
-  _getRestChakraDiceRecovery({ maxChakraDice } = {}) {
+  _getFullRestChakraDiceRecovery({ maxChakraDice } = {}) {
     // Handle simpler HD recovery for NPCs
     if (this.type === "npc") {
       const cd = this.system.attributes.cd;
-      const recovered = Math.min(Math.max(1, Math.floor(cd.max * 0.5)), cd.spent, maxChakraDice ?? Infinity);
+      const recovered = Math.min(cd.spent, maxChakraDice ?? cd.spent);
       return {
         actorUpdates: { "system.attributes.cd.spent": cd.spent - recovered },
         chakraDiceRecovered: recovered,
       };
     }
-
-    return this.system.attributes.cd.createChakraDiceUpdates({ maxChakraDice });
+    const cd = this.system.attributes.cd;
+    return {
+      actorUpdates: { "system.attributes.cd.spent": 0 },
+      chakraDiceRecovered: cd.spent,
+    };
   }
 
   /* -------------------------------------------- */
@@ -30577,19 +30837,59 @@ N5EB.featureTypes = {
   adversaryTrait: {
     label: "N5EB.Feature.AdversaryTrait.Label",
     subtypes: {
-      general: "N5EB.Feature.AdversaryTrait.General",
-      role: "N5EB.Feature.AdversaryTrait.Role",
-      clan: "N5EB.Feature.AdversaryTrait.Clan",
-      affiliation: "N5EB.Feature.AdversaryTrait.Affiliation",
-      classMod: "N5EB.Feature.AdversaryTrait.ClassMod",
+      general: {
+        label: "N5EB.Feature.AdversaryTrait.General",
+        nestedsubtypes: {
+          ...N5EB.summonRanks,
+        },
+      },
+      role: {
+        label: "N5EB.Feature.AdversaryTrait.Role",
+        nestedsubtypes: {
+          ...N5EB.summonRanks,
+        },
+      },
+      clan: {
+        label: "N5EB.Feature.AdversaryTrait.Clan",
+        nestedsubtypes: {
+          ...N5EB.summonRanks,
+        },
+      },
+      affiliation: {
+        label: "N5EB.Feature.AdversaryTrait.Affiliation",
+        nestedsubtypes: {
+          ...N5EB.summonRanks,
+        },
+      },
+      classMod: {
+        label: "N5EB.Feature.AdversaryTrait.ClassMod",
+        nestedsubtypes: {
+          ...N5EB.summonRanks,
+        },
+      },
     },
   },
   adversaryPassive: {
     label: "N5EB.Feature.AdversaryPassive.Label",
     subtypes: {
-      role: "N5EB.Feature.AdversaryPassive.Role",
-      clan: "N5EB.Feature.AdversaryPassive.Clan",
-      affiliation: "N5EB.Feature.AdversaryPassive.Affiliation",
+      role: {
+        label: "N5EB.Feature.AdversaryPassive.Role",
+        nestedsubtypes: {
+          ...N5EB.summonRanks,
+        },
+      },
+      clan: {
+        label: "N5EB.Feature.AdversaryPassive.Clan",
+        nestedsubtypes: {
+          ...N5EB.summonRanks,
+        },
+      },
+      affiliation: {
+        label: "N5EB.Feature.AdversaryPassive.Affiliation",
+        nestedsubtypes: {
+          ...N5EB.summonRanks,
+        },
+      },
     },
   },
   summon: {
@@ -30618,8 +30918,16 @@ preLocalize("featureTypes.class.subtypes", { key: "label", sort: true });
 preLocalize("featureTypes.class.subtypes.puppetUpgrades.nestedsubtypes", { sort: false });
 preLocalize("featureTypes.class.subtypes.scientificTools.nestedsubtypes", { sort: false });
 preLocalize("featureTypes.race.subtypes", { key: "label", sort: true });
-preLocalize("featureTypes.adversaryTrait.subtypes", { sort: true });
-preLocalize("featureTypes.adversaryPassive.subtypes", { sort: true });
+preLocalize("featureTypes.adversaryTrait.subtypes", { key: "label", sort: true });
+preLocalize("featureTypes.adversaryTrait.subtypes.general.nestedsubtypes", { sort: false });
+preLocalize("featureTypes.adversaryTrait.subtypes.role.nestedsubtypes", { sort: false });
+preLocalize("featureTypes.adversaryTrait.subtypes.clan.nestedsubtypes", { sort: false });
+preLocalize("featureTypes.adversaryTrait.subtypes.affiliation.nestedsubtypes", { sort: false });
+preLocalize("featureTypes.adversaryTrait.subtypes.classMod.nestedsubtypes", { sort: false });
+preLocalize("featureTypes.adversaryPassive.subtypes", { key: "label", sort: true });
+preLocalize("featureTypes.adversaryPassive.subtypes.role.nestedsubtypes", { sort: false });
+preLocalize("featureTypes.adversaryPassive.subtypes.clan.nestedsubtypes", { sort: false });
+preLocalize("featureTypes.adversaryPassive.subtypes.affiliation.nestedsubtypes", { sort: false });
 preLocalize("featureTypes.classfeat.subtypes", { sort: true });
 preLocalize("featureTypes.summon.subtypes", { key: "label", sort: true });
 preLocalize("featureTypes.summon.subtypes.tribe.nestedsubtypes", { sort: false });
@@ -31653,6 +31961,13 @@ N5EB.restTypes = {
       normal: 480,
       gritty: 10080,
       epic: 60,
+    },
+  },
+  full: {
+    duration: {
+      normal: 1440,
+      gritty: 20160,
+      epic: 120,
     },
   },
 };
@@ -37910,6 +38225,7 @@ class ActorSheet5eCharacter extends ActorSheet5e {
     if (!this.isEditable) return;
     html.find(".short-rest").click(this._onShortRest.bind(this));
     html.find(".long-rest").click(this._onLongRest.bind(this));
+    html.find(".full-rest").click(this._onFullRest.bind(this));
     html.find(".rollable[data-action]").click(this._onSheetAction.bind(this));
   }
 
@@ -37977,6 +38293,20 @@ class ActorSheet5eCharacter extends ActorSheet5e {
     event.preventDefault();
     await this._onSubmit(event);
     return this.actor.longRest();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a full rest, calling the relevant function on the Actor instance.
+   * @param {Event} event             The triggering click event.
+   * @returns {Promise<RestResult>}  Result of the rest action.
+   * @private
+   */
+  async _onFullRest(event) {
+    event.preventDefault();
+    await this._onSubmit(event);
+    return this.actor.fullRest();
   }
 
   /* -------------------------------------------- */
@@ -38198,8 +38528,10 @@ class HitDice {
    * @param {boolean} [options.largest]                         Whether to restore the largest hit dice first.
    * @returns {{updates: object[], hitDiceRecovered: number}}   Array of item updates and number of hit dice recovered.
    */
-  createHitDiceUpdates({ maxHitDice, largest = true } = {}) {
-    if (!Number.isInteger(maxHitDice)) maxHitDice = Math.max(Math.floor(this.max / 2), 1);
+  createHitDiceUpdates({ maxHitDice, largest = true, isFullRest = false } = {}) {
+    if (!Number.isInteger(maxHitDice)) {
+      maxHitDice = isFullRest ? this.max : Math.max(Math.floor(this.max / 2), 1);
+    }
     const classes = Array.from(this.classes).sort((a, b) => {
       a = parseInt(a.system.hitDice.slice(1));
       b = parseInt(b.system.hitDice.slice(1));
@@ -38365,8 +38697,10 @@ class ChakraDice {
    * @param {boolean} [options.largest]                         Whether to restore the largest chakra dice first.
    * @returns {{updates: object[], chakraDiceRecovered: number}}   Array of item updates and number of chakra dice recovered.
    */
-  createChakraDiceUpdates({ maxChakraDice, largest = true } = {}) {
-    if (!Number.isInteger(maxChakraDice)) maxChakraDice = Math.max(Math.floor(this.max / 2), 1);
+  createChakraDiceUpdates({ maxChakraDice, largest = true, isFullRest = false } = {}) {
+    if (!Number.isInteger(maxChakraDice)) {
+      maxChakraDice = isFullRest ? this.max : Math.max(Math.floor(this.max / 2), 1);
+    }
     const classes = Array.from(this.classes).sort((a, b) => {
       a = parseInt(a.system.chakraDice.slice(1));
       b = parseInt(b.system.chakraDice.slice(1));
@@ -42486,6 +42820,7 @@ class ActorSheet5eNPC2 extends ActorSheetV2Mixin(ActorSheet5eNPC) {
     super.activateListeners(html);
     html.find(".short-rest").on("click", this._onShortRest.bind(this));
     html.find(".long-rest").on("click", this._onLongRest.bind(this));
+    html.find(".full-rest").on("click", this._onFullRest.bind(this));
 
     if (this.isEditable) {
       html.find("input[name^='system.details.highRole']").on("change", this._onHighRoleChange.bind(this));
@@ -42586,6 +42921,20 @@ class ActorSheet5eNPC2 extends ActorSheetV2Mixin(ActorSheet5eNPC) {
     event.preventDefault();
     await this._onSubmit(event);
     return this.actor.longRest();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a full rest, calling the relevant function on the Actor instance.
+   * @param {Event} event             The triggering click event.
+   * @returns {Promise<RestResult>}  Result of the rest action.
+   * @protected
+   */
+  async _onFullRest(event) {
+    event.preventDefault();
+    await this._onSubmit(event);
+    return this.actor.fullRest();
   }
 
   /* -------------------------------------------- */
@@ -43475,6 +43824,7 @@ var _module$f = /*#__PURE__*/ Object.freeze({
   DamageModificationConfig: DamageModificationConfig,
   GroupActorSheet: GroupActorSheet,
   LongRestDialog: LongRestDialog,
+  FullRestDialog: FullRestDialog,
   ProficiencyConfig: ProficiencyConfig,
   ShortRestDialog: ShortRestDialog,
   ToolSelector: ToolSelector,
