@@ -33001,6 +33001,11 @@ N5EB.statusEffects = {
     icon: "systems/n5eb/icons/svg/statuses/concentrating.svg",
     special: "CONCENTRATING",
   },
+  suppressedChakra: {
+    name: "EFFECT.N5EB.StatusSuppressedChakra",
+    icon: "systems/n5eb/icons/svg/statuses/suppressedchakra.svg",
+    special: "SUPPRESSEDCHAKRA",
+  },
   dead: {
     name: "EFFECT.N5EB.StatusDead",
     icon: "systems/n5eb/icons/svg/statuses/dead.svg",
