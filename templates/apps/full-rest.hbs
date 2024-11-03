@@ -1,0 +1,17 @@
+<form id="full-rest" class="dialog-content" onsubmit="event.preventDefault();">
+    <p>
+        {{#if isGroup}}{{ localize "N5EB.FullRestHintGroup" }}
+        {{else}}{{ localize "N5EB.FullRestHint" }}{{/if}}
+    </p>
+    
+    <p class="hint">{{ localize "N5EB.NewDayHint" }}</p>
+
+    <div class="dialog-buttons">
+        {{#each buttons as |button id|}}
+        <button class="dialog-button" data-button="{{id}}">
+            {{{button.icon}}}
+            {{{button.label}}}
+        </button>
+        {{/each}}
+    </div>
+</form>
