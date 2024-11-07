@@ -6021,6 +6021,8 @@ dialog.n5eb2.application {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .n5eb2.sheet.actor .sheet-body .main-content {
   /* Tabbed Content */
@@ -8764,6 +8766,16 @@ dialog.n5eb2.application {
 .n5eb2.sheet.actor.npc form.editable .sheet-header .labels li.creature-size,
 .n5eb2.sheet.actor.npc form.editable .sheet-header > .left li.creature-size {
   display: grid;
+  max-height: 23px;
+}
+.n5eb2.sheet.actor.npc form.editable .sheet-header .high-role-checkboxes {
+  display: flex;
+  text-align: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.n5eb2.sheet.actor.npc form.editable .sheet-header .high-role-checkboxes input[type="checkbox"] {
+  top: 0;
 }
 .n5eb2.sheet.actor.npc form.editable .sheet-header .labels li.creature-size select,
 .n5eb2.sheet.actor.npc form.editable .sheet-header > .left li.creature-size select {
