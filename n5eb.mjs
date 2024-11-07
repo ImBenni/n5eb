@@ -22913,10 +22913,12 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     // Only apply roleMod, classMod, and AC bonuses if the NPC type is "adversary"
     let roleMod = 0;
+    let rankMod = 0;
     let classMod = 0;
     let highRoleACBonus = 0;
-    if (this.system.details.npcType === "adversary") {
+    if (this.system.details?.npcType === "adversary") {
       roleMod = this.system.details.role ? CONFIG.N5EB.roleMod[this.system.details.role]?.acBonus || 0 : 0;
+      rankMod = this.system.details.rank ? CONFIG.N5EB.rankMod[this.system.details.rank]?.acBonus || 0 : 0;
       classMod = this.system.details.classNPC ? CONFIG.N5EB.classMod[this.system.details.classNPC]?.acBonus || 0 : 0;
       if (this.system.details.highRole instanceof Set || Array.isArray(this.system.details.highRole)) {
         for (const roleKey of this.system.details.highRole) {
@@ -22925,12 +22927,16 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         }
       }
       baseAc += roleMod + classMod + highRoleACBonus;
+      if (this.system.details.classNPC === "minion") baseAc += Math.ceil(rankMod * 1.5);
     }
 
     // Determine base AC
     if (this.system.details.npcType === "summon") {
       // Use summon-specific AC as base
       ac.base = baseAc;
+    } else if (this.system.details.classNPC === "minion") {
+      ac.base = dexMod + baseAc + blockingBonus;
+      ac.dex = this.system.abilities.dex?.mod ?? 0;
     } else {
       switch (ac.calc) {
         case "npcLightArmor":
@@ -23050,15 +23056,15 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    * Mutates the value of the `system.traits.dm` object.
    */
   _prepareDamageReduction() {
-    const dm = this.system.traits.dm;
-    if (!dm.amount) dm.amount = {};
+    const traits = this.system.traits;
+    const dm = traits.dm;
 
     // Ensure armorDr exists and has an object structure
-    if (!dm.armorDr) {
-      dm.armorDr = {};
+    if (!traits.armorDr) {
+      traits.armorDr = {};
     }
 
-    const armorDr = dm.armorDr;
+    const armorDr = traits.armorDr;
 
     // Reset the armorDr before re-applying DR from equipped items.
     if (armorDr) {
@@ -23116,7 +23122,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       dm.amount[type] = `-${Math.abs(manualValue) + Math.abs(armorContribution)}`;
     }
 
-    // console.log("Prepared Damage Reduction:", dm);
+    console.log(this.name, "Prepared Damage Reduction:", dm.amount, armorDr);
   }
 
   /* -------------------------------------------- */
@@ -26080,10 +26086,12 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     let roleMod = 0;
     let classMod = 0;
+    let rankMod = 0;
 
     if (this.system.details.npcType === "adversary") {
       roleMod = this.system.details.role ? CONFIG.N5EB.roleMod[this.system.details.role]?.acBonus || 0 : 0;
       classMod = this.system.details.classNPC ? CONFIG.N5EB.classMod[this.system.details.classNPC]?.acBonus || 0 : 0;
+      rankMod = this.system.details.rank ? CONFIG.N5EB.rankMod[this.system.details.rank]?.acBonus || 0 : 0;
     }
 
     if (ac.calc === "flat") {
@@ -26095,174 +26103,182 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       return new PropertyAttribution(this, attribution, "attributes.ac", { title }).renderTooltip();
     }
 
-    // Base AC Attribution
-    switch (ac.calc) {
-      // Natural armor
-      case "natural":
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNatural"),
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: ac.flat,
-        });
-        break;
-
-      // Custom NPC armor classes
-      case "npcLightArmor":
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCLight"),
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: level >= 17 ? 15 : level >= 14 ? 14 : level >= 11 ? 13 : level >= 7 ? 12 : 11,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: classMod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: roleMod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.AbilityDex"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: rollData.abilities.dex.mod,
-        });
-        break;
-
-      case "npcMediumArmor":
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCMedium"),
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: level >= 17 ? 18 : level >= 14 ? 17 : level >= 11 ? 16 : level >= 7 ? 15 : 14,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: classMod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: roleMod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.AbilityDex"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: Math.floor(rollData.abilities.dex.mod / 2),
-        });
-        break;
-
-      case "npcHeavyArmor":
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCHeavy"),
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: level >= 17 ? 20 : level >= 14 ? 19 : level >= 11 ? 18 : level >= 7 ? 17 : 16,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: classMod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: roleMod,
-        });
-        break;
-
-      case "npcChakraSkinInt":
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassChakraSkinInt"),
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: 10,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.AbilityInt"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: rollData.abilities.int.mod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: classMod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: roleMod,
-        });
-        break;
-
-      case "npcChakraSkinWis":
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassChakraSkinWis"),
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: 10,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.AbilityWis"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: rollData.abilities.wis.mod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: classMod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: roleMod,
-        });
-        break;
-
-      case "npcChakraSkinCha":
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassChakraSkinCha"),
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: 10,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.AbilityCha"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: rollData.abilities.cha.mod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: classMod,
-        });
-        attribution.push({
-          label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-          value: roleMod,
-        });
-        break;
-
-      default:
-        const formula = ac.calc === "custom" ? ac.formula : cfg.formula;
-        let base = ac.base;
-        const dataRgx = new RegExp(/@([a-z.0-9_-]+)/gi);
-        for (const [match, term] of formula.matchAll(dataRgx)) {
-          const value = String(foundry.utils.getProperty(rollData, term));
-          if (term === "attributes.ac.armor" || value === "0") continue;
-          if (Number.isNumeric(value)) base -= Number(value);
+    if (this.system.details.classNPC === "minion") {
+      attribution.push({
+        label: game.i18n.localize("N5EB.ArmorClassRank"),
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: Math.ceil(rankMod * 1.5),
+      });
+    } else {
+      // Base AC Attribution
+      switch (ac.calc) {
+        // Natural armor
+        case "natural":
           attribution.push({
-            label: match,
-            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-            value,
+            label: game.i18n.localize("N5EB.ArmorClassNatural"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: ac.flat,
           });
-        }
-        const armorInFormula = formula.includes("@attributes.ac.armor");
-        let label = game.i18n.localize("N5EB.PropertyBase");
-        if (armorInFormula) label = this.armor?.name ?? game.i18n.localize("N5EB.ArmorClassUnarmored");
-        attribution.unshift({
-          label,
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: base,
-        });
-        break;
+          break;
+
+        // Custom NPC armor classes
+        case "npcLightArmor":
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCLight"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: level >= 17 ? 15 : level >= 14 ? 14 : level >= 11 ? 13 : level >= 7 ? 12 : 11,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: classMod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: roleMod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.AbilityDex"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: rollData.abilities.dex.mod,
+          });
+          break;
+
+        case "npcMediumArmor":
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCMedium"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: level >= 17 ? 18 : level >= 14 ? 17 : level >= 11 ? 16 : level >= 7 ? 15 : 14,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: classMod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: roleMod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.AbilityDex"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: Math.floor(rollData.abilities.dex.mod / 2),
+          });
+          break;
+
+        case "npcHeavyArmor":
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCHeavy"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: level >= 17 ? 20 : level >= 14 ? 19 : level >= 11 ? 18 : level >= 7 ? 17 : 16,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: classMod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: roleMod,
+          });
+          break;
+
+        case "npcChakraSkinInt":
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassChakraSkinInt"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: 10,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.AbilityInt"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: rollData.abilities.int.mod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: classMod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: roleMod,
+          });
+          break;
+
+        case "npcChakraSkinWis":
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassChakraSkinWis"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: 10,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.AbilityWis"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: rollData.abilities.wis.mod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: classMod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: roleMod,
+          });
+          break;
+
+        case "npcChakraSkinCha":
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassChakraSkinCha"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: 10,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.AbilityCha"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: rollData.abilities.cha.mod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCClass"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: classMod,
+          });
+          attribution.push({
+            label: game.i18n.localize("N5EB.ArmorClassNPCRole"),
+            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+            value: roleMod,
+          });
+          break;
+
+        default:
+          const formula = ac.calc === "custom" ? ac.formula : cfg.formula;
+          let base = ac.base;
+          const dataRgx = new RegExp(/@([a-z.0-9_-]+)/gi);
+          for (const [match, term] of formula.matchAll(dataRgx)) {
+            const value = String(foundry.utils.getProperty(rollData, term));
+            if (term === "attributes.ac.armor" || value === "0") continue;
+            if (Number.isNumeric(value)) base -= Number(value);
+            attribution.push({
+              label: match,
+              mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+              value,
+            });
+          }
+          const armorInFormula = formula.includes("@attributes.ac.armor");
+          let label = game.i18n.localize("N5EB.PropertyBase");
+          if (armorInFormula) label = this.armor?.name ?? game.i18n.localize("N5EB.ArmorClassUnarmored");
+          attribution.unshift({
+            label,
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: base,
+          });
+          break;
+      }
     }
 
     // Shield
@@ -29218,6 +29234,7 @@ preLocalize("abilities", { keys: ["label", "abbreviation"] });
 N5EB.defaultAbilities = {
   initiative: "dex",
   hitPoints: "con",
+  chakraPoints: "con",
   concentration: "con",
 };
 
@@ -31710,12 +31727,12 @@ N5EB.ammoDieTypes = ["1", "d4", "d6", "d8", "d10", "d12"];
 /* -------------------------------------------- */
 
 N5EB.rankMod = {
-  erank: { avg: 3, max: 4 },
-  drank: { avg: 4, max: 6 },
-  crank: { avg: 5, max: 8 },
-  brank: { avg: 6, max: 10 },
-  arank: { avg: 7, max: 12 },
-  srank: { avg: 11, max: 20 },
+  erank: { avg: 3, max: 4, acBonus: 0 },
+  drank: { avg: 4, max: 6, acBonus: 0 },
+  crank: { avg: 5, max: 8, acBonus: 0 },
+  brank: { avg: 6, max: 10, acBonus: 1 },
+  arank: { avg: 7, max: 12, acBonus: 2 },
+  srank: { avg: 11, max: 20, acBonus: 3 },
 };
 
 N5EB.classMod = {
@@ -31785,7 +31802,7 @@ N5EB.roleMod = {
       jutsuDamageBonus: 1,
     },
   },
-  castergenj: {
+  castergen: {
     acBonus: -2,
     saveBonus: 0,
     hpBonus: -0.5,
@@ -35394,6 +35411,7 @@ class ActorHitPointsConfig extends BaseConfigSheet {
 
   /** @inheritdoc */
   _getActorOverrides() {
+    console.log("Actor Override");
     return Object.keys(foundry.utils.flattenObject(this.object.overrides?.system?.attributes || {}));
   }
 
@@ -35405,6 +35423,7 @@ class ActorHitPointsConfig extends BaseConfigSheet {
     this.clone.updateSource({ "system.attributes.hp": hp });
     const maxDelta = this.clone.system.attributes.hp.max - this.document.system.attributes.hp.max;
     hp.value = Math.max(this.document.system.attributes.hp.value + maxDelta, 0);
+    console.log(hp, maxDelta);
     return this.document.update({ "system.attributes.hp": hp });
   }
 
@@ -36078,7 +36097,7 @@ class DamageModificationConfig extends BaseConfigSheet {
     const formData = {};
 
     // Get the current armor DR values to subtract them during submission
-    const armorDr = this.document.system.traits.dm?.armorDr || {};
+    const armorDr = this.document.system.traits.armorDr || {};
 
     for (const [type, formula] of Object.entries(foundry.utils.getProperty(data, "system.traits.dm.amount") ?? {})) {
       if (formula) {
@@ -39169,8 +39188,10 @@ class AttributesFields {
    * @param {number} [options.mod=0]    Modifier for the ability to add to hit points from advancement.
    * @this {ActorDataModel}
    */
-  static prepareHitPoints(hp, { advancement = [], mod = 0, bonus = 0 } = {}) {
-    const base = advancement.reduce((total, advancement) => total + advancement.getAdjustedTotal(mod), 0);
+  static prepareHitPoints(hp, { advancement = [], mod = 0, bonus = 0, newBase = 0, NPCMods = 1 } = {}) {
+    const base = advancement.length
+      ? advancement.reduce((total, advancement) => total + advancement.getAdjustedTotal(mod), 0)
+      : Math.ceil(newBase * NPCMods);
     hp.max = (hp.max ?? 0) + base + bonus;
     if (this.parent.hasConditionEffect("halfHealth")) hp.max = Math.floor(hp.max * 0.5);
 
@@ -39189,8 +39210,10 @@ class AttributesFields {
    * @param {number} [options.mod=0]    Modifier for the ability to add to hit points from advancement.
    * @this {ActorDataModel}
    */
-  static prepareChakraPoints(cp, { advancement = [], mod = 0, bonus = 0 } = {}) {
-    const base = advancement.reduce((total, advancement) => total + advancement.getAdjustedTotal(mod), 0);
+  static prepareChakraPoints(cp, { advancement = [], mod = 0, bonus = 0, newBase = 0, NPCMods = 1 } = {}) {
+    const base = advancement.length
+      ? advancement.reduce((total, advancement) => total + advancement.getAdjustedTotal(mod), 0)
+      : Math.ceil(newBase * NPCMods);
     cp.max = (cp.max ?? 0) + base + bonus;
 
     cp.effectiveMax = cp.max + (cp.tempmax ?? 0);
@@ -52543,14 +52566,14 @@ class NPCData extends CreatureTemplate {
                 nullable: false,
                 integer: true,
                 min: 0,
-                initial: 10,
+                initial: 0,
                 label: "N5EB.HitPointsCurrent",
               }),
               max: new NumberField$4({
-                nullable: false,
+                nullable: true,
                 integer: true,
                 min: 0,
-                initial: 10,
+                initial: null,
                 label: "N5EB.HitPointsMax",
               }),
               temp: new NumberField$4({
@@ -52591,10 +52614,10 @@ class NPCData extends CreatureTemplate {
                 label: "N5EB.ChakraPointsCurrent",
               }),
               max: new NumberField$4({
-                nullable: false,
+                nullable: true,
                 integer: true,
                 min: 0,
-                initial: 0,
+                initial: null,
                 label: "N5EB.ChakraPointsMax",
               }),
               temp: new NumberField$4({
@@ -53110,114 +53133,6 @@ class NPCData extends CreatureTemplate {
     AttributesFields.prepareConcentration.call(this, rollData);
     TraitsField.prepareResistImmune.call(this);
 
-    // Define helper functions for common calculations
-    const calculateBonus = (bonuses, rollData, level) =>
-      simplifyBonus(bonuses.level, rollData) * level + simplifyBonus(bonuses.overall, rollData);
-
-    const prepareHpOptions = (advancement, conMod, bonus) => ({
-      advancement,
-      mod: conMod,
-      bonus,
-    });
-
-    const prepareCpOptions = (advancement, conMod, bonus) => ({
-      advancement,
-      mod: conMod,
-      bonus,
-    });
-
-    // Initialize variables
-    let advancement = [];
-    const conMod = this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0;
-    const level = this.details.level || 1;
-
-    let hpBonus = calculateBonus(this.attributes.hp.bonuses, rollData, level);
-    let cpBonus = calculateBonus(this.attributes.cp.bonuses, rollData, level);
-
-    let hpMax = 0;
-    let cpMax = 0;
-
-    let hpMod = conMod;
-    let cpMod = conMod;
-
-    // Handle different NPC types
-    if (this.details?.npcType === "summon") {
-      // Summon specific calculations
-      const summonClass = this.parent.items.find((i) => i.type === "class");
-      const toughness = summonClass?.system.toughness ?? 6;
-      hpMax = (toughness + conMod) * level;
-
-      hpMod = 0;
-      cpMod = 0;
-
-      if (summonClass && summonClass.system.identifier) {
-        const classIdentifier = summonClass.system.identifier;
-        const chakraSlots = this.scale?.[classIdentifier]?.["jutsu-slots"]?.value ?? 0;
-        if (chakraSlots > 0) {
-          advancement = [{ getAdjustedTotal: () => chakraSlots }];
-        }
-      }
-    } else if (this.details?.npcType === "adversary") {
-      // Adversary specific calculations
-      const rankMod = CONFIG.N5EB.rankMod[this.details.rank];
-      const classMod = CONFIG.N5EB.classMod[this.details.classNPC];
-      const roleMod = CONFIG.N5EB.roleMod[this.details.role];
-      let clanMod = {};
-      if (this.details.race?.name) {
-        clanMod = CONFIG.N5EB.clanMod[this.details.race.name.toLowerCase()] || {};
-      }
-
-      let additionalHPMods = 1 + (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0);
-      let additionalCPMods = 1 + (roleMod.cpBonus || 0) + (classMod.cpBonus || 0) + (clanMod.cpBonus || 0);
-
-      if (this.details.highRole instanceof Set) {
-        this.details.highRole.forEach((roleKey) => {
-          const mod = CONFIG.N5EB.highRoleMod[roleKey];
-          if (mod) {
-            additionalHPMods += mod.hpBonus || 0;
-            additionalCPMods += mod.cpBonus || 0;
-          }
-        });
-      }
-
-      const baseHp = 10 + conMod * level + rankMod.avg * level;
-      const baseCp = 10 + conMod * level + rankMod.avg * level;
-
-      hpMax = Math.ceil(baseHp * additionalHPMods);
-      cpMax = Math.ceil(baseCp * additionalCPMods);
-    } else {
-      // Default NPC calculations
-      advancement = Object.values(this.parent.classes)
-        .map((c) => c.advancement.byType.HitPoints?.[0])
-        .filter((a) => a);
-
-      hpMax = null;
-      cpMax = null;
-    }
-
-    // Prepare hpOptions and cpOptions using helper functions
-    const hpOptions = prepareHpOptions(advancement, hpMod, hpBonus);
-    const cpOptions = prepareCpOptions(advancement, cpMod, cpBonus);
-
-    // Apply HP and CP calculations
-    if (hpMax !== null) this.attributes.hp.max = hpMax;
-    if (this.details?.npcType === "summon") {
-      this.attributes.hp.max += hpBonus;
-      this.attributes.hp.effectiveMax = this.attributes.hp.max + (this.attributes.hp.tempmax ?? 0);
-      this.attributes.hp.value = Math.min(this.attributes.hp.value, this.attributes.hp.effectiveMax);
-      this.attributes.hp.damage = this.attributes.hp.effectiveMax - this.attributes.hp.value;
-      this.attributes.hp.pct = Math.clamp(
-        this.attributes.hp.effectiveMax ? (this.attributes.hp.value / this.attributes.hp.effectiveMax) * 100 : 0,
-        0,
-        100
-      );
-    } else {
-      AttributesFields.prepareHitPoints.call(this, this.attributes.hp, hpOptions);
-    }
-
-    if (cpMax !== null) this.attributes.cp.max = cpMax;
-    AttributesFields.prepareChakraPoints.call(this, this.attributes.cp, cpOptions);
-
     // Handle Hit Dice
     const { hd } = this.attributes;
     hd.value = Math.max(1, hd.max - hd.spent);
@@ -53227,6 +53142,136 @@ class NPCData extends CreatureTemplate {
     const { cd } = this.attributes;
     cd.value = Math.max(1, cd.max - cd.spent);
     cd.pct = Math.clamp(cd.max ? (cd.value / cd.max) * 100 : 0, 0, 100);
+
+    // Define helper functions for common calculations
+    const calculateBonus = (bonuses, rollData, level) =>
+      simplifyBonus(bonuses.level, rollData) * level + simplifyBonus(bonuses.overall, rollData);
+    const level = this.details.level || 1;
+
+    let newHPBase = 10;
+    let newCPBase = 10;
+    let additionalHPMods = 1;
+    let additionalCPMods = 1;
+
+    // Handle different NPC Types
+    switch (this.details.npcType) {
+      case "adversary":
+        const rankMod = CONFIG.N5EB.rankMod[this.details.rank];
+        const classMod = CONFIG.N5EB.classMod[this.details.classNPC];
+        const roleMod = CONFIG.N5EB.roleMod[this.details.role];
+        let clanMod = {};
+        if (this.details.race?.name) {
+          clanMod = CONFIG.N5EB.clanMod[this.details.race.name.toLowerCase()] || {};
+        }
+
+        additionalHPMods += (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0);
+        additionalCPMods += (roleMod.cpBonus || 0) + (classMod.cpBonus || 0) + (clanMod.cpBonus || 0);
+
+        if (this.details.highRole instanceof Set) {
+          this.details.highRole.forEach((roleKey) => {
+            const mod = CONFIG.N5EB.highRoleMod[roleKey];
+            if (mod) {
+              additionalHPMods += mod.hpBonus || 0;
+              additionalCPMods += mod.cpBonus || 0;
+            }
+          });
+        }
+        newHPBase +=
+          ((this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level) + (rankMod.avg * level);
+        newCPBase +=
+          ((this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0) * level) + (rankMod.avg * level);
+             
+          break;
+      case "summon":
+        break;
+    }
+
+    // Hit Points
+    const hpOptions = {};
+    if (this.attributes.hp.max === null) {
+      hpOptions.bonus = calculateBonus(this.attributes.hp.bonuses, rollData, level);
+      hpOptions.mod = this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0;
+      hpOptions.newBase = newHPBase;
+      hpOptions.NPCMods = additionalHPMods;
+    }
+    AttributesFields.prepareHitPoints.call(this, this.attributes.hp, hpOptions);
+
+    // Chakra Points
+    const cpOptions = {};
+    if (this.attributes.cp.max === null) {
+      cpOptions.bonus = calculateBonus(this.attributes.cp.bonuses, rollData, level);
+      cpOptions.mod = this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0;
+      cpOptions.newBase = newCPBase;
+      cpOptions.NPCMods = additionalCPMods;
+    }
+    AttributesFields.prepareChakraPoints.call(this, this.attributes.cp, cpOptions);
+
+    // Handle different NPC types
+    //   if (this.details?.npcType === "summon") {
+    //     // Summon specific calculations
+    //     const summonClass = this.parent.items.find((i) => i.type === "class");
+    //     const toughness = summonClass?.system.toughness ?? 6;
+    //     hpMax = (toughness + conMod) * level;
+
+    //     hpMod = 0;
+    //     cpMod = 0;
+
+    //     if (summonClass && summonClass.system.identifier) {
+    //       const classIdentifier = summonClass.system.identifier;
+    //       const chakraSlots = this.scale?.[classIdentifier]?.["jutsu-slots"]?.value ?? 0;
+    //       if (chakraSlots > 0) {
+    //         advancement = [{ getAdjustedTotal: () => chakraSlots }];
+    //       }
+    //     }
+    //   } else if (this.details?.npcType === "adversary") {
+    //     // Adversary specific calculations
+    //
+
+    //
+
+    //     const baseHp = 10 + conMod * level + rankMod.avg * level;
+    //     const baseCp = 10 + conMod * level + rankMod.avg * level;
+
+    //     if (this.details.classNPC === "minion") {
+    //       hpMax = Math.ceil(10 + level);
+    //       cpMax = null;
+    //     } else {
+    //       hpMax = Math.ceil(baseHp * additionalHPMods);
+    //       cpMax = Math.ceil(baseCp * additionalCPMods);
+    //     }
+    //   } else {
+    //     // Default NPC calculations
+    //     advancement = Object.values(this.parent.classes)
+    //       .map((c) => c.advancement.byType.HitPoints?.[0])
+    //       .filter((a) => a);
+
+    //     hpMax = null;
+    //     cpMax = null;
+    //   }
+
+    //   // Prepare hpOptions and cpOptions using helper functions
+    //   const hpOptions = prepareHpOptions(advancement, hpMod, hpBonus);
+    //   const cpOptions = prepareCpOptions(advancement, cpMod, cpBonus);
+
+    //   // Apply HP and CP calculations
+    //   if (hpMax !== null) this.attributes.hp.max = hpMax;
+
+    //   if (this.details?.npcType === "summon") {
+    //     this.attributes.hp.max += hpBonus;
+    //     this.attributes.hp.effectiveMax = this.attributes.hp.max + (this.attributes.hp.tempmax ?? 0);
+    //     this.attributes.hp.value = Math.min(this.attributes.hp.value, this.attributes.hp.effectiveMax);
+    //     this.attributes.hp.damage = this.attributes.hp.effectiveMax - this.attributes.hp.value;
+    //     this.attributes.hp.pct = Math.clamp(
+    //       this.attributes.hp.effectiveMax ? (this.attributes.hp.value / this.attributes.hp.effectiveMax) * 100 : 0,
+    //       0,
+    //       100
+    //     );
+    //   } else {
+    //     AttributesFields.prepareHitPoints.call(this, this.attributes.hp, hpOptions);
+    //   }
+
+    //   if (cpMax !== null) this.attributes.cp.max = cpMax;
+    //   AttributesFields.prepareChakraPoints.call(this, this.attributes.cp, cpOptions);
   }
 }
 
