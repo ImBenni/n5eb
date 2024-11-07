@@ -31737,7 +31737,7 @@ N5EB.rankMod = {
 
 N5EB.classMod = {
   minion: {
-    hpBonus: 0.0001,
+    hpBonus: 0,
     cpBonus: 0.1,
     hpMultiplier: 1,
     cpMultiplier: 1,
@@ -53148,6 +53148,7 @@ class NPCData extends CreatureTemplate {
       simplifyBonus(bonuses.level, rollData) * level + simplifyBonus(bonuses.overall, rollData);
     const level = this.details.level || 1;
 
+    let advancement = []
     let newHPBase = 10;
     let newCPBase = 10;
     let additionalHPMods = 1;
@@ -53176,19 +53177,36 @@ class NPCData extends CreatureTemplate {
             }
           });
         }
-        newHPBase +=
-          ((this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level) + (rankMod.avg * level);
+
+        if (this.details.classNPC === "minion") {
+          newHPBase += level;
+          console.log(newHPBase, additionalHPMods, Math.ceil(newHPBase * additionalHPMods));
+        } else {
+          newHPBase +=
+            (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level + rankMod.avg * level;
+        }
         newCPBase +=
-          ((this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0) * level) + (rankMod.avg * level);
-             
-          break;
+          (this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0) * level + rankMod.avg * level;
+        break;
       case "summon":
+        const summonClass = this.parent.items.find((i) => i.type === "class");
+        const toughness = summonClass?.system.toughness ?? 6;
+        newHPBase = (toughness + (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0)) * level;
+
+        if (summonClass && summonClass.system.identifier) {
+          const classIdentifier = summonClass.system.identifier;
+          const chakraSlots = this.scale?.[classIdentifier]?.["jutsu-slots"]?.value ?? 0;
+          if (chakraSlots > 0) {
+            advancement = [{ getAdjustedTotal: () => chakraSlots }];
+          }
+        }
         break;
     }
 
     // Hit Points
     const hpOptions = {};
     if (this.attributes.hp.max === null) {
+      hpOptions.advancement = this.details.npcType === "summon" ? [] : advancement
       hpOptions.bonus = calculateBonus(this.attributes.hp.bonuses, rollData, level);
       hpOptions.mod = this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0;
       hpOptions.newBase = newHPBase;
@@ -53199,79 +53217,13 @@ class NPCData extends CreatureTemplate {
     // Chakra Points
     const cpOptions = {};
     if (this.attributes.cp.max === null) {
+      cpOptions.advancement = advancement
       cpOptions.bonus = calculateBonus(this.attributes.cp.bonuses, rollData, level);
-      cpOptions.mod = this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0;
+      cpOptions.mod = this.details.npcType === "summon" ? 0 : this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0;
       cpOptions.newBase = newCPBase;
       cpOptions.NPCMods = additionalCPMods;
     }
     AttributesFields.prepareChakraPoints.call(this, this.attributes.cp, cpOptions);
-
-    // Handle different NPC types
-    //   if (this.details?.npcType === "summon") {
-    //     // Summon specific calculations
-    //     const summonClass = this.parent.items.find((i) => i.type === "class");
-    //     const toughness = summonClass?.system.toughness ?? 6;
-    //     hpMax = (toughness + conMod) * level;
-
-    //     hpMod = 0;
-    //     cpMod = 0;
-
-    //     if (summonClass && summonClass.system.identifier) {
-    //       const classIdentifier = summonClass.system.identifier;
-    //       const chakraSlots = this.scale?.[classIdentifier]?.["jutsu-slots"]?.value ?? 0;
-    //       if (chakraSlots > 0) {
-    //         advancement = [{ getAdjustedTotal: () => chakraSlots }];
-    //       }
-    //     }
-    //   } else if (this.details?.npcType === "adversary") {
-    //     // Adversary specific calculations
-    //
-
-    //
-
-    //     const baseHp = 10 + conMod * level + rankMod.avg * level;
-    //     const baseCp = 10 + conMod * level + rankMod.avg * level;
-
-    //     if (this.details.classNPC === "minion") {
-    //       hpMax = Math.ceil(10 + level);
-    //       cpMax = null;
-    //     } else {
-    //       hpMax = Math.ceil(baseHp * additionalHPMods);
-    //       cpMax = Math.ceil(baseCp * additionalCPMods);
-    //     }
-    //   } else {
-    //     // Default NPC calculations
-    //     advancement = Object.values(this.parent.classes)
-    //       .map((c) => c.advancement.byType.HitPoints?.[0])
-    //       .filter((a) => a);
-
-    //     hpMax = null;
-    //     cpMax = null;
-    //   }
-
-    //   // Prepare hpOptions and cpOptions using helper functions
-    //   const hpOptions = prepareHpOptions(advancement, hpMod, hpBonus);
-    //   const cpOptions = prepareCpOptions(advancement, cpMod, cpBonus);
-
-    //   // Apply HP and CP calculations
-    //   if (hpMax !== null) this.attributes.hp.max = hpMax;
-
-    //   if (this.details?.npcType === "summon") {
-    //     this.attributes.hp.max += hpBonus;
-    //     this.attributes.hp.effectiveMax = this.attributes.hp.max + (this.attributes.hp.tempmax ?? 0);
-    //     this.attributes.hp.value = Math.min(this.attributes.hp.value, this.attributes.hp.effectiveMax);
-    //     this.attributes.hp.damage = this.attributes.hp.effectiveMax - this.attributes.hp.value;
-    //     this.attributes.hp.pct = Math.clamp(
-    //       this.attributes.hp.effectiveMax ? (this.attributes.hp.value / this.attributes.hp.effectiveMax) * 100 : 0,
-    //       0,
-    //       100
-    //     );
-    //   } else {
-    //     AttributesFields.prepareHitPoints.call(this, this.attributes.hp, hpOptions);
-    //   }
-
-    //   if (cpMax !== null) this.attributes.cp.max = cpMax;
-    //   AttributesFields.prepareChakraPoints.call(this, this.attributes.cp, cpOptions);
   }
 }
 
