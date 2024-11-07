@@ -207,9 +207,19 @@
                     <div class="document-name">{{ actor.name }}</div>
                     {{/if}}
 
+
+
                     {{!-- Size, Type, & Alignment --}}
                     <ul class="labels unlist">
-
+                        <li class="creature-size">
+                            {{#if editable}}
+                                <select class="unselect" name="system.details.npcType">
+                                    {{ selectOptions config.creatureNPCTypes selected=source.details.npcType }}
+                                </select>
+                            {{else}}
+                                <span>{{ localize (lookup config.creatureNPCTypes system.details.npcType) }}</span>
+                            {{/if}}
+                        </li>
                         {{!-- Size --}}
                         <li class="creature-size">
                             {{#if editable}}
@@ -220,7 +230,10 @@
                             <span>{{ lookup (lookup config.actorSizes system.traits.size) "label" }}</span>
                             {{/if}}
                         </li>
+                        
+                    </ul>
 
+                    <ul class="labels unlist">
                         {{!-- Type --}}
                         <li class="creature-type">
                             {{#if editable}}
@@ -233,7 +246,6 @@
                             <span>{{ labels.type }}</span>
                             {{/if}}
                         </li>
-
                         {{!-- Alignment --}}
                         <li class="creature-alignment">
                             {{#if editable}}
@@ -243,24 +255,11 @@
                             <span>{{ system.details.alignment }}</span>
                             {{/if}}
                         </li>
-
-                        <li class="creature-size">
-                            {{#if editable}}
-                                <select class="unselect" name="system.details.npcType">
-                                    {{ selectOptions config.creatureNPCTypes selected=source.details.npcType }}
-                                </select>
-                            {{else}}
-                                <span>{{ localize (lookup config.creatureNPCTypes system.details.npcType) }}</span>
-                            {{/if}}
-                        </li>
-
-
                     </ul>
 
                     {{!-- Rank, Class, Role, Affiliation & High Role --}}
                     {{#if (eq system.details.npcType "adversary")}}
                     <ul class="labels unlist">
-                        
                         {{!-- Rank --}}
                         <li class="creature-size">
                             {{#if editable}}
@@ -282,7 +281,8 @@
                                 <span>{{ localize (lookup config.creatureClass system.details.classNPC) }}</span>
                             {{/if}}
                         </li>
-
+                    </ul>
+                    <ul class="labels unlist">
                         {{!-- Role --}}
                         <li class="creature-size">
                             {{#if editable}}
@@ -306,7 +306,7 @@
                         </li>
 
                         {{!-- High Role --}}
-                        <li class="creature-size">
+                        <li>
                             {{#if editable}}
                                 <div class="high-role-checkboxes">
                                     {{#each highRole}}
