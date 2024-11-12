@@ -30962,6 +30962,7 @@ preLocalize("featureTypes.supernaturalGift.subtypes", { sort: true });
  * @property {string} [icon]          Icon that can be used in certain places to represent this property.
  * @property {string} [reference]     Reference to a rule page describing this property.
  * @property {boolean} [isPhysical]   Is this property one that can cause damage resistance bypasses?
+ * @property {boolean} [isTeam7]      Is this property apart of Team 7
  * @property {boolean} [isTag]        Is this spell property a tag, rather than a component?
  * @property {number} [rank]          The rank of the property.
  */
@@ -31137,6 +31138,31 @@ N5EB.itemProperties = {
   threatening: {
     label: "N5EB.Item.Property.Threatening",
   },
+  // T7 Weapon Properties //
+  ap: {
+    label: "N5EB.Item.Property.ArmorPiercing",
+    isTeam7: true
+  },
+  cat: {
+    label: "N5EB.Item.Property.Catalyst",
+    isTeam7: true
+  },
+  gpw: {
+    label: "N5EB.Item.Property.Gunpowder",
+    isTeam7: true
+  },
+  leg: {
+    label: "N5EB.Item.Property.LegWear",
+    isTeam7: true
+  },
+  rel: {
+    label: "N5EB.Item.Property.Reloading",
+    isTeam7: true
+  },
+  shr: {
+    label: "N5EB.Item.Property.Shrapnel",
+    isTeam7: true
+  }
 };
 preLocalize("itemProperties", { keys: ["label", "abbreviation"], sort: true });
 
@@ -31232,6 +31258,11 @@ N5EB.validProperties = {
     "ver",
     "vol",
     "win",
+    "ap",
+    "gpw",
+    "leg",
+    "rel",
+    "shr"
   ]),
   spell: new Set(["handseals", "chakramolding", "chakraseals", "mobility", "weapons", "ninjatools", "concentration"]),
   tool: new Set(["concentration", "mgc"]),
@@ -48101,10 +48132,12 @@ class ItemSheet5e extends ItemSheet {
         obj[k] = {
           label: v.label,
           selected: item.system.properties.has(k),
+          isTeam7: v.isTeam7 || false
         };
         return obj;
       }, {});
       if (item.type !== "spell") context.properties = sortObjectEntries(context.properties, "label");
+      console.log(context.properties)
     }
 
     // Handle item subtypes.
@@ -48445,6 +48478,7 @@ class ItemSheet5e extends ItemSheet {
         if (this.item.isMountable) props.push(labels.armor);
         const ip = CONFIG.N5EB.itemProperties;
         const vp = CONFIG.N5EB.validProperties[this.item.type];
+        console.log(ip, vp)
         this.item.system.properties.forEach((k) => {
           if (vp.has(k)) props.push(ip[k].label);
         });
