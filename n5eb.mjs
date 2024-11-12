@@ -30962,6 +30962,7 @@ preLocalize("featureTypes.supernaturalGift.subtypes", { sort: true });
  * @property {string} [icon]          Icon that can be used in certain places to represent this property.
  * @property {string} [reference]     Reference to a rule page describing this property.
  * @property {boolean} [isPhysical]   Is this property one that can cause damage resistance bypasses?
+ * @property {boolean} [isTeam7]      Is this property apart of Team 7
  * @property {boolean} [isTag]        Is this spell property a tag, rather than a component?
  * @property {number} [rank]          The rank of the property.
  */
@@ -31137,6 +31138,31 @@ N5EB.itemProperties = {
   threatening: {
     label: "N5EB.Item.Property.Threatening",
   },
+  // T7 Weapon Properties //
+  ap: {
+    label: "N5EB.Item.Property.ArmorPiercing",
+    isTeam7: true
+  },
+  cat: {
+    label: "N5EB.Item.Property.Catalyst",
+    isTeam7: true
+  },
+  gpw: {
+    label: "N5EB.Item.Property.Gunpowder",
+    isTeam7: true
+  },
+  leg: {
+    label: "N5EB.Item.Property.LegWear",
+    isTeam7: true
+  },
+  rel: {
+    label: "N5EB.Item.Property.Reloading",
+    isTeam7: true
+  },
+  shr: {
+    label: "N5EB.Item.Property.Shrapnel",
+    isTeam7: true
+  }
 };
 preLocalize("itemProperties", { keys: ["label", "abbreviation"], sort: true });
 
@@ -31232,6 +31258,11 @@ N5EB.validProperties = {
     "ver",
     "vol",
     "win",
+    "ap",
+    "gpw",
+    "leg",
+    "rel",
+    "shr"
   ]),
   spell: new Set(["handseals", "chakramolding", "chakraseals", "mobility", "weapons", "ninjatools", "concentration"]),
   tool: new Set(["concentration", "mgc"]),
@@ -31839,7 +31870,7 @@ N5EB.roleMod = {
     acBonus: 2,
     saveBonus: 0,
     hpBonus: 0.4,
-    cpBonus: 0.4,
+    cpBonus: -0.2,
     damagePerAction: 0.7,
     speedBonus: 0,
     specialBonus: {
@@ -48101,10 +48132,12 @@ class ItemSheet5e extends ItemSheet {
         obj[k] = {
           label: v.label,
           selected: item.system.properties.has(k),
+          isTeam7: v.isTeam7 || false
         };
         return obj;
       }, {});
       if (item.type !== "spell") context.properties = sortObjectEntries(context.properties, "label");
+      console.log(context.properties)
     }
 
     // Handle item subtypes.
@@ -48445,6 +48478,7 @@ class ItemSheet5e extends ItemSheet {
         if (this.item.isMountable) props.push(labels.armor);
         const ip = CONFIG.N5EB.itemProperties;
         const vp = CONFIG.N5EB.validProperties[this.item.type];
+        console.log(ip, vp)
         this.item.system.properties.forEach((k) => {
           if (vp.has(k)) props.push(ip[k].label);
         });
@@ -53148,7 +53182,7 @@ class NPCData extends CreatureTemplate {
       simplifyBonus(bonuses.level, rollData) * level + simplifyBonus(bonuses.overall, rollData);
     const level = this.details.level || 1;
 
-    let advancement = []
+    let advancement = [];
     let newHPBase = 10;
     let newCPBase = 10;
     let additionalHPMods = 1;
@@ -53164,9 +53198,9 @@ class NPCData extends CreatureTemplate {
         if (this.details.race?.name) {
           clanMod = CONFIG.N5EB.clanMod[this.details.race.name.toLowerCase()] || {};
         }
-
         additionalHPMods += (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0);
         additionalCPMods += (roleMod.cpBonus || 0) + (classMod.cpBonus || 0) + (clanMod.cpBonus || 0);
+        
 
         if (this.details.highRole instanceof Set) {
           this.details.highRole.forEach((roleKey) => {
@@ -53180,11 +53214,35 @@ class NPCData extends CreatureTemplate {
 
         if (this.details.classNPC === "minion") {
           newHPBase += level;
-          console.log(newHPBase, additionalHPMods, Math.ceil(newHPBase * additionalHPMods));
         } else {
           newHPBase +=
             (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level + rankMod.avg * level;
         }
+        console.log(
+          this.parent.name, 10, "+ (",
+          this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0,
+          "*",
+          level,
+          "=",
+          (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level,
+          ") (",
+          rankMod.avg,
+          "*",
+          level,
+          " =",
+          rankMod.avg * level,
+          ") =", 10 + (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level + rankMod.avg * level,
+          "Compared to:", newHPBase
+        );
+
+        console.log(1, 
+          "+ RoleMod:", roleMod.hpBonus, 
+          "+ ClassMod:", classMod.hpBonus, 
+          "+ ClanMod:", clanMod.hpBonus,
+          "=", 1 + (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0), 
+          "Compared to:", additionalHPMods
+        );
+
         newCPBase +=
           (this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0) * level + rankMod.avg * level;
         break;
@@ -53206,7 +53264,7 @@ class NPCData extends CreatureTemplate {
     // Hit Points
     const hpOptions = {};
     if (this.attributes.hp.max === null) {
-      hpOptions.advancement = this.details.npcType === "summon" ? [] : advancement
+      hpOptions.advancement = this.details.npcType === "summon" ? [] : advancement;
       hpOptions.bonus = calculateBonus(this.attributes.hp.bonuses, rollData, level);
       hpOptions.mod = this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0;
       hpOptions.newBase = newHPBase;
@@ -53217,9 +53275,12 @@ class NPCData extends CreatureTemplate {
     // Chakra Points
     const cpOptions = {};
     if (this.attributes.cp.max === null) {
-      cpOptions.advancement = advancement
+      cpOptions.advancement = advancement;
       cpOptions.bonus = calculateBonus(this.attributes.cp.bonuses, rollData, level);
-      cpOptions.mod = this.details.npcType === "summon" ? 0 : this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0;
+      cpOptions.mod =
+        this.details.npcType === "summon"
+          ? 0
+          : this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0;
       cpOptions.newBase = newCPBase;
       cpOptions.NPCMods = additionalCPMods;
     }

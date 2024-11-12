@@ -117,14 +117,28 @@
             <div class="form-group stacked weapon-properties">
                 <label>{{ localize "N5EB.ItemWeaponProperties" }}</label>
                 {{#each properties}}
-                <label class="checkbox">
-                    <input type="checkbox" name="system.properties.{{ @key }}" 
-                    {{ checked selected }}>
-                    {{ label }}
-                </label>
+                    {{#unless isTeam7}}
+                    <label class="checkbox">
+                        <input type="checkbox" name="system.properties.{{ @key }}" {{ checked selected }}>
+                        {{ label }}
+                    </label>
+                    {{/unless}}
                 {{/each}}
             </div>
-            
+
+            {{!-- Team7 Weapon Properties --}}
+            <div class="form-group stacked weapon-properties team7-weapon-properties">
+                <label>{{ localize "N5EB.ItemT7WeaponProperties" }}</label>
+                {{#each properties}}
+                    {{#if isTeam7}}
+                    <label class="checkbox">
+                        <input type="checkbox" name="system.properties.{{ @key }}" {{ checked selected }}>
+                        {{ label }}
+                    </label>
+                    {{/if}}
+                {{/each}}
+            </div>
+
             {{!-- Weapon Group --}}
             <div class="form-group stacked weapon-wgroup">
                 <label>{{ localize "N5EB.ItemWeaponGroup" }}</label>
