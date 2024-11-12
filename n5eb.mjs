@@ -16473,7 +16473,6 @@ class Item5e extends SystemDocumentMixin(Item) {
         const diff = config.resourceAmount - (this.system.consume.amount || 1);
         level = is.level + diff;
       }
-      console.log(level, item.system.level);
       if (level && level !== is.level) {
         // item = item.clone({ "system.level": level }, { keepId: true });
         item.prepareData();
@@ -23122,7 +23121,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       dm.amount[type] = `-${Math.abs(manualValue) + Math.abs(armorContribution)}`;
     }
 
-    console.log(this.name, "Prepared Damage Reduction:", dm.amount, armorDr);
+    // console.log(this.name, "Prepared Damage Reduction:", dm.amount, armorDr);
   }
 
   /* -------------------------------------------- */
@@ -23639,7 +23638,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     damages = this.calculateDamage(damages, options);
     if (!damages) return this;
 
-    console.log("danad", damages);
     // Round damage towards zero
     let { amount, temp, cpAmount, tempCP } = damages.reduce(
       (acc, d) => {
@@ -23855,7 +23853,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       }
       d.value = d.value * damageMultiplier;
       d.active.multiplier = (d.active.multiplier ?? 1) * damageMultiplier;
-      console.log(d);
     });
 
     /**
@@ -25475,7 +25472,6 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         { since: "DnD5e 3.1", until: "DnD5e 3.3" }
       );
       const [longRest, dhd, dhp, dcd, dcp] = args;
-      console.log(args);
       config = { chat: config, newDay: result };
       config.type;
       config.type = longRest ? "long" : "short";
@@ -35454,7 +35450,6 @@ class ActorHitPointsConfig extends BaseConfigSheet {
     this.clone.updateSource({ "system.attributes.hp": hp });
     const maxDelta = this.clone.system.attributes.hp.max - this.document.system.attributes.hp.max;
     hp.value = Math.max(this.document.system.attributes.hp.value + maxDelta, 0);
-    console.log(hp, maxDelta);
     return this.document.update({ "system.attributes.hp": hp });
   }
 
@@ -48137,7 +48132,6 @@ class ItemSheet5e extends ItemSheet {
         return obj;
       }, {});
       if (item.type !== "spell") context.properties = sortObjectEntries(context.properties, "label");
-      console.log(context.properties)
     }
 
     // Handle item subtypes.
@@ -48478,7 +48472,6 @@ class ItemSheet5e extends ItemSheet {
         if (this.item.isMountable) props.push(labels.armor);
         const ip = CONFIG.N5EB.itemProperties;
         const vp = CONFIG.N5EB.validProperties[this.item.type];
-        console.log(ip, vp)
         this.item.system.properties.forEach((k) => {
           if (vp.has(k)) props.push(ip[k].label);
         });
@@ -53218,30 +53211,30 @@ class NPCData extends CreatureTemplate {
           newHPBase +=
             (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level + rankMod.avg * level;
         }
-        console.log(
-          this.parent.name, 10, "+ (",
-          this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0,
-          "*",
-          level,
-          "=",
-          (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level,
-          ") (",
-          rankMod.avg,
-          "*",
-          level,
-          " =",
-          rankMod.avg * level,
-          ") =", 10 + (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level + rankMod.avg * level,
-          "Compared to:", newHPBase
-        );
+        // console.log(
+        //   this.parent.name, 10, "+ (",
+        //   this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0,
+        //   "*",
+        //   level,
+        //   "=",
+        //   (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level,
+        //   ") (",
+        //   rankMod.avg,
+        //   "*",
+        //   level,
+        //   " =",
+        //   rankMod.avg * level,
+        //   ") =", 10 + (this.abilities[CONFIG.N5EB.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0) * level + rankMod.avg * level,
+        //   "Compared to:", newHPBase
+        // );
 
-        console.log(1, 
-          "+ RoleMod:", roleMod.hpBonus, 
-          "+ ClassMod:", classMod.hpBonus, 
-          "+ ClanMod:", clanMod.hpBonus,
-          "=", 1 + (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0), 
-          "Compared to:", additionalHPMods
-        );
+        // console.log(1, 
+        //   "+ RoleMod:", roleMod.hpBonus, 
+        //   "+ ClassMod:", classMod.hpBonus, 
+        //   "+ ClanMod:", clanMod.hpBonus,
+        //   "=", 1 + (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0), 
+        //   "Compared to:", additionalHPMods
+        // );
 
         newCPBase +=
           (this.abilities[CONFIG.N5EB.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0) * level + rankMod.avg * level;
