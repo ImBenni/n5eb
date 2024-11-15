@@ -16460,6 +16460,7 @@ class Item5e extends SystemDocumentMixin(Item) {
 
     // Handle upcasting
     if (item.type === "spell") {
+      const originalLevel = item.system.level;
       let level = null;
       if (config.resourceAmount in as.spells) config.slotLevel = config.resourceAmount;
       if (config.slotLevel) {
@@ -16474,9 +16475,11 @@ class Item5e extends SystemDocumentMixin(Item) {
         level = is.level + diff;
       }
       if (level && level !== is.level) {
-        // item = item.clone({ "system.level": level }, { keepId: true });
+        item = item.clone({ "system.level": level, "flags.n5eb.originalLevel": originalLevel }, { keepId: true });
         item.prepareData();
         item.prepareFinalAttributes();
+      } else {
+        foundry.utils.setProperty(item, "flags.n5eb.originalLevel", originalLevel);
       }
     }
     if (item.type === "spell") foundry.utils.mergeObject(options.flags, { "n5eb.use.spellLevel": item.system.level });
@@ -16726,6 +16729,9 @@ class Item5e extends SystemDocumentMixin(Item) {
 
     // Consume Chakra
     if (config.consumeChakra) {
+        // Fetch level from tags if not specified
+        const originalLevel = this.flags.n5eb?.originalLevel ?? this.system.level;
+
       // Determine the upcast level based on the slotLevel
       const upcastLevelMatch = config.slotLevel.match(/chakra(\d+)/);
       const upcastLevel = upcastLevelMatch ? parseInt(upcastLevelMatch[1]) : this.system.level;
@@ -16736,15 +16742,15 @@ class Item5e extends SystemDocumentMixin(Item) {
 
       // If the upcast level is greater than the base level, calculate upcast cost
       let upcastChakraCost;
-      if (upcastLevel > this.system.level) {
-        upcastChakraCost = baseChakraCost + chakraScaling * (upcastLevel - this.system.level);
+      if (upcastLevel > originalLevel) {
+        upcastChakraCost = baseChakraCost + chakraScaling * (upcastLevel - originalLevel);
       } else {
         upcastChakraCost = baseChakraCost; // If not upcast, just use base chakra cost
       }
 
       const currentTempChakra = this.actor.system.attributes.cp.temp ?? 0;
       const currentChakra = this.actor.system.attributes.cp.value ?? 0;
-
+      console.log(originalLevel, upcastLevel)
       if (currentTempChakra + currentChakra < upcastChakraCost) {
         ui.notifications.warn(game.i18n.format("N5EB.NotEnoughChakra", { name: this.name }));
         return false;
@@ -17484,6 +17490,7 @@ class Item5e extends SystemDocumentMixin(Item) {
         }
       }
     } else if (scaling && !versatile) {
+      console.log("scaling", scaling)
       // Apply regular scaling only if versatile scaling is not applied
       if (scaling.mode === "cantrip") {
         let level;
@@ -17492,6 +17499,7 @@ class Item5e extends SystemDocumentMixin(Item) {
         else level = this.actor.system.details.spellLevel;
         rollConfigs.forEach((c) => this._scaleCantripDamage(c.parts, scaling.formula, level, rollData));
       } else if (spellLevel && scaling.mode === "level") {
+        console.log("spellLevel", spellLevel, "originalLevel", originalLevel, scaling.formula)
         rollConfigs.forEach((c) => {
           if (scaling.formula || c.parts.length) {
             this._scaleSpellDamage(c.parts, originalLevel, spellLevel, scaling.formula || c.parts[0], rollData);
