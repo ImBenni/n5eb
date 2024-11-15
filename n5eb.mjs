@@ -16729,8 +16729,8 @@ class Item5e extends SystemDocumentMixin(Item) {
 
     // Consume Chakra
     if (config.consumeChakra) {
-        // Fetch level from tags if not specified
-        const originalLevel = this.flags.n5eb?.originalLevel ?? this.system.level;
+      // Fetch level from tags if not specified
+      const originalLevel = this.flags.n5eb?.originalLevel ?? this.system.level;
 
       // Determine the upcast level based on the slotLevel
       const upcastLevelMatch = config.slotLevel.match(/chakra(\d+)/);
@@ -16750,7 +16750,7 @@ class Item5e extends SystemDocumentMixin(Item) {
 
       const currentTempChakra = this.actor.system.attributes.cp.temp ?? 0;
       const currentChakra = this.actor.system.attributes.cp.value ?? 0;
-      console.log(originalLevel, upcastLevel)
+      console.log(originalLevel, upcastLevel);
       if (currentTempChakra + currentChakra < upcastChakraCost) {
         ui.notifications.warn(game.i18n.format("N5EB.NotEnoughChakra", { name: this.name }));
         return false;
@@ -17490,7 +17490,7 @@ class Item5e extends SystemDocumentMixin(Item) {
         }
       }
     } else if (scaling && !versatile) {
-      console.log("scaling", scaling)
+      console.log("scaling", scaling);
       // Apply regular scaling only if versatile scaling is not applied
       if (scaling.mode === "cantrip") {
         let level;
@@ -17499,7 +17499,7 @@ class Item5e extends SystemDocumentMixin(Item) {
         else level = this.actor.system.details.spellLevel;
         rollConfigs.forEach((c) => this._scaleCantripDamage(c.parts, scaling.formula, level, rollData));
       } else if (spellLevel && scaling.mode === "level") {
-        console.log("spellLevel", spellLevel, "originalLevel", originalLevel, scaling.formula)
+        console.log("spellLevel", spellLevel, "originalLevel", originalLevel, scaling.formula);
         rollConfigs.forEach((c) => {
           if (scaling.formula || c.parts.length) {
             this._scaleSpellDamage(c.parts, originalLevel, spellLevel, scaling.formula || c.parts[0], rollData);
@@ -31145,28 +31145,28 @@ N5EB.itemProperties = {
   // T7 Weapon Properties //
   ap: {
     label: "N5EB.Item.Property.ArmorPiercing",
-    isTeam7: true
+    isTeam7: true,
   },
   cat: {
     label: "N5EB.Item.Property.Catalyst",
-    isTeam7: true
+    isTeam7: true,
   },
   gpw: {
     label: "N5EB.Item.Property.Gunpowder",
-    isTeam7: true
+    isTeam7: true,
   },
   leg: {
     label: "N5EB.Item.Property.LegWear",
-    isTeam7: true
+    isTeam7: true,
   },
   rel: {
     label: "N5EB.Item.Property.Reloading",
-    isTeam7: true
+    isTeam7: true,
   },
   shr: {
     label: "N5EB.Item.Property.Shrapnel",
-    isTeam7: true
-  }
+    isTeam7: true,
+  },
 };
 preLocalize("itemProperties", { keys: ["label", "abbreviation"], sort: true });
 
@@ -31266,7 +31266,7 @@ N5EB.validProperties = {
     "gpw",
     "leg",
     "rel",
-    "shr"
+    "shr",
   ]),
   spell: new Set(["handseals", "chakramolding", "chakraseals", "mobility", "weapons", "ninjatools", "concentration"]),
   tool: new Set(["concentration", "mgc"]),
@@ -34281,6 +34281,16 @@ function registerSystemSettings() {
     scope: "world",
     config: true,
     default: true,
+    type: Boolean,
+  });
+
+  // Toggle NPC Skills showing
+  game.settings.register("n5eb", "showAllSkills", {
+    name: "SETTINGS.N5eShowSkillN",
+    hint: "SETTINGS.N5eShowSkillL",
+    scope: "world",
+    config: true,
+    default: false,
     type: Boolean,
   });
 
@@ -42671,8 +42681,13 @@ class ActorSheet5eNPC2 extends ActorSheetV2Mixin(ActorSheet5eNPC) {
     }, {});
 
     // Skills & Tools
-    context.skills = Object.fromEntries(Object.entries(context.skills).filter(([, v]) => v.value));
-
+    if (game.settings.get("n5eb", "showAllSkills")) {
+      // Show all skills including those with a value of 0
+      context.skills = Object.fromEntries(Object.entries(context.skills));
+    } else {
+      // Filter skills to only include those with a value greater than 0
+      context.skills = Object.fromEntries(Object.entries(context.skills).filter(([, v]) => v.value));
+    }
     // Senses
     context.senses.passivePerception = {
       label: game.i18n.localize("N5EB.PassivePerception"),
@@ -48135,7 +48150,7 @@ class ItemSheet5e extends ItemSheet {
         obj[k] = {
           label: v.label,
           selected: item.system.properties.has(k),
-          isTeam7: v.isTeam7 || false
+          isTeam7: v.isTeam7 || false,
         };
         return obj;
       }, {});
@@ -53201,7 +53216,6 @@ class NPCData extends CreatureTemplate {
         }
         additionalHPMods += (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0);
         additionalCPMods += (roleMod.cpBonus || 0) + (classMod.cpBonus || 0) + (clanMod.cpBonus || 0);
-        
 
         if (this.details.highRole instanceof Set) {
           this.details.highRole.forEach((roleKey) => {
@@ -53236,11 +53250,11 @@ class NPCData extends CreatureTemplate {
         //   "Compared to:", newHPBase
         // );
 
-        // console.log(1, 
-        //   "+ RoleMod:", roleMod.hpBonus, 
-        //   "+ ClassMod:", classMod.hpBonus, 
+        // console.log(1,
+        //   "+ RoleMod:", roleMod.hpBonus,
+        //   "+ ClassMod:", classMod.hpBonus,
         //   "+ ClanMod:", clanMod.hpBonus,
-        //   "=", 1 + (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0), 
+        //   "=", 1 + (roleMod.hpBonus || 0) + (classMod.hpBonus || 0) + (clanMod.hpBonus || 0),
         //   "Compared to:", additionalHPMods
         // );
 
