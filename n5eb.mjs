@@ -30794,6 +30794,9 @@ N5EB.featureTypes = {
       cursedtechnique: "N5EB.Feature.Class.CursedTechnique",
       minorbindingvow: "N5EB.Feature.Class.MinorBindingVow",
       majorbindingvow: "N5EB.Feature.Class.MajorBindingVow",
+      weapontrick: "N5EB.Feature.Class.WeaponTrick",
+      rifletrick: "N5EB.Feature.Class.RifleTrick",
+      caryllrune: "N5EB.Feature.Class.CaryllRune",
     },
   },
   subclass: {
@@ -33160,6 +33163,8 @@ N5EB.languages = {
   dog: "N5EB.LanguagesDog",
   machine: "N5EB.LanguagesMachine",
   snake: "N5EB.LanguagesSnake",
+  cat: "N5EB.LanguagesCat",
+  toad: "N5EB.LanguagesToad",
 };
 preLocalize("languages", { key: "label" });
 preLocalize("languages.standard.children", { key: "label", sort: true });
