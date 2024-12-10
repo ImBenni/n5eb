@@ -23913,7 +23913,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    */
   static getCPColor(current, max) {
     const pct = Math.clamp(current, 0, max) / max;
-    return Color.fromRGB([1 - pct / 2, pct, 0]);
+    return Color.fromRGB([0, pct, 1 - pct / 2]);
   }
 
   /* -------------------------------------------- */
@@ -43545,7 +43545,7 @@ class GroupActorSheet extends ActorSheetMixin(ActorSheet) {
       const cp = member.system.attributes.cp;
       m.cp.current = cp.value + (cp.temp || 0);
       m.cp.max = Math.max(0, cp.effectiveMax);
-      m.calculationsp.pct = Math.clamp((m.cp.current / m.cp.max) * 100, 0, 100).toFixed(2);
+      m.cp.pct = Math.clamp((m.cp.current / m.cp.max) * 100, 0, 100).toFixed(2);
       m.cp.color = n5eb.documents.Actor5e.getCPColor(m.cp.current, m.cp.max).css;
       stats.currentCP += m.cp.current * multiplier;
       stats.maxCP += m.cp.max * multiplier;
@@ -43564,6 +43564,7 @@ class GroupActorSheet extends ActorSheetMixin(ActorSheet) {
       if (!section.members.length) delete sections[k];
       else {
         section.displayHPColumn = type !== "encounter";
+        section.displayCPColumn = type !== "encounter";
         section.displayQuantityColumn = type === "encounter";
         section.displayChallengeColumn = type === "encounter" && k === "npc";
       }
@@ -43689,6 +43690,9 @@ class GroupActorSheet extends ActorSheetMixin(ActorSheet) {
         break;
       case "longRest":
         this.actor.longRest({ advanceTime: true });
+        break;
+        case "fullRest":
+        this.actor.fullRest({ advanceTime: true });
         break;
       case "movementConfig":
         const movementConfig = new ActorMovementConfig(this.object);
