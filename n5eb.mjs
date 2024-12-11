@@ -26236,7 +26236,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       });
 
     // Blocking Bonus
-    if (ac.shield !== 0) {
+    if (ac.blocking !== 0) {
       attribution.push({
         label: game.i18n.localize("N5EB.BlockingBonus"),
         mode: CONST.ACTIVE_EFFECT_MODES.ADD,
