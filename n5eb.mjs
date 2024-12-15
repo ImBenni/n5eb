@@ -57728,6 +57728,7 @@ Hooks.on("canvasInit", (gameCanvas) => {
     SquareGrid.prototype.measureDistances = measureDistances;
   }
   CONFIG.Token.ringClass.pushToLoad(gameCanvas.loadTexturesOptions.additionalSources);
+  $("body").find("#logo").attr("src", "systems/n5eb/ui/official/dnd-badge2-32.webp");
 });
 
 /* -------------------------------------------- */
@@ -57747,7 +57748,7 @@ Hooks.on("renderPause", (app, [html]) => {
   html.classList.add("n5eb2");
   const img = html.querySelector("img");
   img.src = "systems/n5eb/ui/official/ampersand.svg";
-  img.className = "";
+  img.className = "rotate";
 });
 
 Hooks.on("renderSettings", (app, [html]) => {

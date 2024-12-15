@@ -14,6 +14,13 @@
   font-weight: 700;
   src: url('../../fonts/modesto-condensed/modesto-condensed-bold.woff2') format('woff2');
 }
+
+@font-face {
+  font-family: 'Ninja Naruto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../fonts/ninjanaruto/njnaruto.ttf') format('ttf');
+}
 /* ----------------------------------------- */
 /*  Sheet Styles                             */
 /* ----------------------------------------- */
@@ -88,6 +95,7 @@
   --n5eb-font-roboto: Roboto, sans-serif;
   --n5eb-font-roboto-condensed: "Roboto Condensed", sans-serif;
   --n5eb-font-roboto-slab: "Roboto Slab", serif;
+  --n5eb-font-naruto: 'Ninja Naruto', sans-serif;
   --n5eb-sheet-background: url("ui/parchment.jpg") repeat;
   --n5eb-shadow-45: rgba(0, 0, 0, 0.45);
   --n5eb-shadow-15: rgba(0, 0, 0, 0.15);
@@ -291,6 +299,18 @@ slide-toggle[checked] .slide-toggle-thumb {
 /* ---------------------------------- */
 n5eb-icon.fa-fw {
   --icon-width: 1.25em;
+}
+
+.rotate {
+  animation: rotate 6s linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 /* ---------------------------------- */
 /*  Item List Controls                */
@@ -4559,9 +4579,9 @@ h5 {
 }
 .n5eb2#pause figcaption {
   color: var(--color-text-light-0);
-  font-size: var(--font-size-46);
+  font-size: var(--font-size-36);
   text-shadow: 2px 2px 2px var(--color-shadow-dark);
-  font-family: var(--n5eb-font-modesto);
+  font-family: var(--n5eb-font-naruto);
   font-weight: bold;
   letter-spacing: 2px;
   padding: 0;
