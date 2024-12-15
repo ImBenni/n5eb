@@ -7441,8 +7441,20 @@ dialog.n5eb2.application {
 .n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip {
   background: black;
 }
-.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled {
+.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pips .success {
+  border: 2px solid #257728;
+}
+.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pips .failure {
+  border: 2px solid #702222;
+}
+/* .n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled {
   background: var(--n5eb-color-gold);
+} */
+.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled.success {
+  background: var(--n5eb-color-success);
+}
+.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled.failure {
+  background: var(--n5eb-color-failure);
 }
 .n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled.failure::before {
   content: "\f00d";
@@ -8588,7 +8600,7 @@ dialog.n5eb2.application {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -8px;
+  margin-top: 0px;
   padding-right: 2px;
 }
 .n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves > button {
@@ -8606,12 +8618,24 @@ dialog.n5eb2.application {
   padding: 0;
   gap: 3px;
 }
+.n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .success {
+  border: 2px solid #257728;
+}
+.n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .failure {
+  border: 2px solid #702222;
+}
 .n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .pip {
   box-shadow: none;
   width: 10px;
   height: 10px;
   font-size: var(--font-size-12);
   border-width: 1px;
+}
+.n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .pip.filled.success {
+  background: var(--n5eb-color-success);
+}
+.n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .pip.filled.failure {
+  background: var(--n5eb-color-failure);
 }
 .n5eb2.sheet.actor.npc .sheet-body {
   flex: 1;

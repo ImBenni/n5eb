@@ -40715,6 +40715,7 @@ function ActorSheetV2Mixin(Base) {
           const filled = attributes.death[deathSave] >= n;
           const classes = ["pip"];
           if (filled) classes.push("filled");
+          if (deathSave === "success") classes.push("success");
           if (deathSave === "failure") classes.push("failure");
           context.death[deathSave].push({
             n,
