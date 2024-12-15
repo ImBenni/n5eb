@@ -1,0 +1,244 @@
+{
+  "folder": "lW1FrGOi5wjeOq8v",
+  "name": "Controller",
+  "type": "feat",
+  "_id": "ZjIHcop42OspRU8Y",
+  "img": "icons/magic/sonic/explosion-shock-sound-wave.webp",
+  "system": {
+    "description": {
+      "value": "<p>This summon gains a bonus to their Save DC equal to their rank when summoned</p><p>(D-Rank/C-Rank: +1, B-Rank/A-Rank: +2, S-Rank: +3)</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "",
+      "cost": null,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "type": {
+      "value": "summon",
+      "subtype": "role"
+    },
+    "prerequisites": {
+      "level": null
+    },
+    "properties": [],
+    "requirements": "",
+    "recharge": {
+      "value": null,
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Controller",
+      "origin": "Compendium.n5eb.summons.Item.ZjIHcop42OspRU8Y",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "icons/magic/sonic/explosion-shock-sound-wave.webp",
+      "_id": "VM09S7gEbMmuwktI",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "macro.itemMacro",
+          "mode": 0,
+          "value": "",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.taijutsudc",
+          "mode": 0,
+          "value": "+@flags.n5eb.summonSaveDcBonus",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.genjutsudc",
+          "mode": 0,
+          "value": "+@flags.n5eb.summonSaveDcBonus",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ninjutsudc",
+          "mode": 0,
+          "value": "+@flags.n5eb.summonSaveDcBonus",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1727476821952,
+        "modifiedTime": 1727569321265,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!ZjIHcop42OspRU8Y.VM09S7gEbMmuwktI"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "dae": {
+      "macro": {
+        "name": "Controller",
+        "img": "icons/magic/sonic/explosion-shock-sound-wave.webp",
+        "type": "script",
+        "scope": "global",
+        "command": "const version = \"1.0.0\";\ntry {\n  const lastArg = args[args.length - 1];\n\n  // Get the actor\n  const actor = game.actors.get(lastArg.actorId);\n  if (!actor) {\n    ui.notifications.error(\"Actor not found for the macro.\");\n    return;\n  }\n\n  // Check if the actor is a summon\n  if (actor.system.details?.npcType !== \"summon\") {\n    ui.notifications.error(\"This macro only applies to summoned creatures.\");\n    return;\n  }\n\n  // Retrieve the rank of the summon\n  const rank = actor.system.details.rank?.toLowerCase();\n  if (!rank) {\n    ui.notifications.error(\"Rank not found for this summon.\");\n    return;\n  }\n\n  // Define the save DC bonus based on the rank\n  const saveDcBonusByRank = {\n    drank: 1,\n    crank: 1,\n    brank: 2,\n    arank: 2,\n    srank: 3,\n  };\n\n  // Get the additional save DC bonus\n  const additionalSaveDcBonus = saveDcBonusByRank[rank] || 0;\n\n  // Store the save DC bonus in the actor flags\n  await actor.setFlag(\"n5eb\", \"summonSaveDcBonus\", additionalSaveDcBonus);\n\n  ui.notifications.info(`Save DC bonus set to +${additionalSaveDcBonus} for rank ${rank.toUpperCase()}`);\n\n} catch (err) {\n  console.error(`Controller Macro ${version}`, err);\n}",
+        "author": "R0hw7EUsG7OzIhgn",
+        "ownership": {
+          "default": 3
+        },
+        "_id": null,
+        "folder": null,
+        "sort": 0,
+        "flags": {},
+        "_stats": {
+          "coreVersion": "12.331",
+          "systemId": "n5eb",
+          "systemVersion": "1,1,1",
+          "createdTime": null,
+          "modifiedTime": null,
+          "lastModifiedBy": null,
+          "compendiumSource": null,
+          "duplicateSource": null
+        }
+      }
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,1,1",
+    "createdTime": 1727476778492,
+    "modifiedTime": 1727569288104,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!ZjIHcop42OspRU8Y"
+}

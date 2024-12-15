@@ -1,0 +1,256 @@
+{
+  "name": "Earth Release Dark Rock",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Earth.png",
+  "system": {
+    "description": {
+      "value": "<p>You slam your palms into the ground as the immediate area becomes blackened. A single Quake Shard is erected from the ground at a point of your choice within range. The structure is black and cold to the touch and emanates a light obstructing aura.</p><p>The Structure absorbs all light within 15 feet of it creating a blackened field that cannot be seen through to the other side. Creatures within that radius are immediately blinded and cannot see while within the radius and cannot be seen by creatures outside the radius either. A creature who touches the structure can see through the blackened field as if it wasn't there at all and loses the blinded condition so long as they remain within contact with the structure. </p><p>The structure has an AC and hit point value equal to your Ninjutsu save DC. If the structure is destroyed the jutsu immediately ends.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 30,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 7,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "level": 2,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "chakraseals",
+      "concentration",
+      "molding",
+      "fuinjutsu"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "fuinjutsu",
+      "earth"
+    ],
+    "chakraCost": 7,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Blinded",
+      "origin": "Compendium.world.jutsu.Item.XlSdF4JBQhi7zxgj",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/blinded.svg",
+      "_id": "p3EmvlIIX1rNcVov",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "blinded",
+          "priority": 20
+        }
+      ],
+      "description": "<p>• A <strong>Blinded</strong> creature cannot target another creature with effects that require them to “target a creature they can see” unless they have a special sense that does not require sight, such as <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A blinded creature can’t see and automatically fails any check that requires sight.</p><p>• A <strong>Blinded</strong> creature has disadvantage on Dexterity saving throws.</p><p>• Attack rolls against a <strong>Blinded</strong> creature have advantage, and a <strong>Blinded</strong> creature’s attack rolls have disadvantage without the aid of a special sense that does not require sight, such as <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A creature can willingly close their eyes as a free action for an extended period of time. Doing so imposes this Condition on them until the beginning of their next turn, they cannot reopen their eyes until then, unless they are forced to do so by some other means.</p>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!XlSdF4JBQhi7zxgj.p3EmvlIIX1rNcVov"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "chakraseals",
+        "handseals",
+        "molding",
+        "fuinjutsu",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728752013350,
+    "modifiedTime": 1728752013350,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "1EtGIQgevrikj5js",
+  "sort": 2900000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "XlSdF4JBQhi7zxgj",
+  "_key": "!items!XlSdF4JBQhi7zxgj"
+}

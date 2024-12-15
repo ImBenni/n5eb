@@ -1,0 +1,275 @@
+{
+  "folder": "fWFJcn8gEKVZ0tVi",
+  "name": "Battle of Attrition",
+  "type": "feat",
+  "_id": "RJK0cMew375YD15Z",
+  "img": "icons/svg/heal.svg",
+  "system": {
+    "description": {
+      "value": "<p><strong>Base Plan:</strong> All allied creatures within 30 feet of you gain Temporary hit points equal to half your Ninjutsu (or Genjutsu) ability score at the end of each of their turns. This lasts for a number of rounds equal to your Proficiency Bonus.</p><p><strong>Enhanced Plan:</strong> If a Brave order is used to enhance this plan allied creatures instead gain Temporary Hit points equal to your full Ninjutsu or Genjutsu ability score. When this plan is enhanced, you retain the effects of the base plan. You do not lose Temporary Hit points gained from this Plan when ending its effects. Temporary Hit Points are lost after 1 minute.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "special",
+      "cost": null,
+      "condition": "Action, Bonus Action, or Reaction"
+    },
+    "duration": {
+      "value": "@prof",
+      "units": "round"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "ally",
+      "prompt": true
+    },
+    "range": {
+      "value": 30,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "charges",
+      "target": "Compendium.n5eb.class.Item.Oi2Qc9xlAGRBWUYa",
+      "amount": 1,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "type": {
+      "value": "class",
+      "subtype": "plan"
+    },
+    "prerequisites": {
+      "level": null
+    },
+    "properties": [],
+    "requirements": "",
+    "recharge": {
+      "value": null,
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Battle of Attrition",
+      "origin": "Compendium.n5eb.class-and-subclass.Item.RJK0cMew375YD15Z",
+      "duration": {
+        "rounds": 5,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": true,
+          "aura": "Allies",
+          "nameOverride": "Attrition Aura",
+          "radius": "30",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": true,
+          "hostile": true,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "icons/svg/heal.svg",
+      "_id": "E7lAaqGhiUIIXaJT",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 0,
+          "value": "turn=end,\ndamageRoll=4,\ndamageType=temphp",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1724534089478,
+        "modifiedTime": 1724534170588,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!RJK0cMew375YD15Z.E7lAaqGhiUIIXaJT"
+    },
+    {
+      "name": "Battle of Attrition: TempHP Gone",
+      "origin": "Compendium.n5eb.class-and-subclass.Item.RJK0cMew375YD15Z",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "icons/svg/heal.svg",
+      "_id": "mISU09tUuUNdmgOw",
+      "type": "base",
+      "system": {},
+      "changes": [],
+      "description": "",
+      "tint": "#7ae687",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1724534175160,
+        "modifiedTime": 1724534239268,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!RJK0cMew375YD15Z.mISU09tUuUNdmgOw"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,3,0a",
+    "createdTime": 1723423514676,
+    "modifiedTime": 1728994276480,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!RJK0cMew375YD15Z"
+}

@@ -1,0 +1,257 @@
+{
+  "folder": "Jl06pbyhjmFzL4c2",
+  "name": "Blue Moon",
+  "type": "spell",
+  "_id": "A2OO2GMp79Ct9zaU",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Bukijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You whip your weapon before channeling so much chakra into the end it looks like a blue moon at the end of your weapon. Make 3 Melee Taijutsu attacks against a creature in range dealing your [weapons damage die] +2d8. If you are successful with at least 2, you force the affected creature to make a Constitution saving throw, becoming staggered on a failed save.</p><p>If this jutsu is cast as a Chain 2, increase the damage die by 2. If this jutsu is cast as a Chain 3 increase the damage die by an additional 1 step</p><p>At Higher Ranks: For every rank you cast this jutsu above B-Rank, increase the cost by 3, and the damage by 1d8</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "spec"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "mtak",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "2d8",
+          ""
+        ]
+      ],
+      "versatile": "4d8"
+    },
+    "enchantment": null,
+    "formula": "4d10",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "summons": null,
+    "level": 3,
+    "school": "buki",
+    "properties": [
+      "mobility",
+      "weapons"
+    ],
+    "keywords": [
+      "bukijutsu",
+      "chainx"
+    ],
+    "materials": {
+      "value": "Any Flail",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "1d8"
+    },
+    "versatileScaling": {
+      "mode": "level",
+      "formula": "1d8"
+    },
+    "chakraCost": 12,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Staggered",
+      "origin": "Compendium.world.jutsu.Item.A2OO2GMp79Ct9zaU",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/staggered.svg",
+      "_id": "d6VaW08MVABJ49w5",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "staggered",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.str.bonuses.check",
+          "mode": 2,
+          "value": "-5",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.bonuses.check",
+          "mode": 2,
+          "value": "-5",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.check",
+          "mode": 2,
+          "value": "-5",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 1</p><hr /><p>A <strong>Staggered</strong> creature has been completely overwhelmed by pain or has otherwise had their battle stance shaken.</p><ul><li><p>A <strong>Staggered</strong> creature is counted as Bruised 5 for the purposes of interacting with Features, Traits and Jutsu and cannot gain Ranks of Bruised for the duration.</p></li><li><p>A <strong>Staggered</strong> creature cannot take the Disengage, Dash or Dodge Actions or Reactions.</p></li><li><p>A <strong>Staggered</strong> creature takes a -5 penalty to all Strength, Dexterity and Constitution based Attack rolls and checks.</p></li><li><p>A <strong>Staggered</strong> creature takes +20 bonus damage from all sources of bludgeoning or earth damage, once per turn.</p></li><li><p>A <strong>Staggered</strong> creature, remains staggered until they spend one Full-Turn-Action gathering themselves, losing the Staggered condition at the beginning of their following turn after this Full-Turn Action.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.wgbuxnP6HRnrbF8l.ActiveEffect.rgnmPqkNAj46ac09",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!A2OO2GMp79Ct9zaU.d6VaW08MVABJ49w5"
+    }
+  ],
+  "sort": 5900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "otherSaveDamage": "default"
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null,
+      "removeAttackDamageButtons": "default",
+      "otherCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755893853,
+    "modifiedTime": 1728755893853,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!A2OO2GMp79Ct9zaU"
+}

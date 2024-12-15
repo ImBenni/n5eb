@@ -1,0 +1,252 @@
+{
+  "name": "Dance of the Shikigami",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Shikigami.png",
+  "system": {
+    "description": {
+      "value": "<p>With your mastery of paper, you turn yourself into a paper angel, with a body untouchable by mundane weaponry and the ability to take to the skies. Until this jutsu ends, you gain the following benefits:</p><p>• You gain Resistance to bludgeoning, piercing, and slashing damage.</p><p>• You gain a flying speed of 60 feet.</p><p>You can use your Bonus Action to select a space you can see up to 60 feet away. All creatures in a 15-foot cube centered on this space must succeed a Dexterity Saving Throw. On a failed save, creatures take 6d8 Piercing damage and gains the Lacerated condition, or half as much damage on a successful saving throw. You have advantage on checks to maintain Concentration on this Jutsu.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "10",
+      "units": "minute"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "15",
+      "width": null,
+      "units": "ft",
+      "type": "cube",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "self"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 18,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "6d8",
+          "piercing"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 4,
+    "school": "hi",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "chakraseals",
+      "concentration"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "hijutsu"
+    ],
+    "chakraCost": 18,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Lacerated",
+      "origin": "Compendium.world.jutsu.Item.ltCUkXxVDCcfMWYW",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/lacerated.svg",
+      "_id": "DVx1kNPYEga0Idq9",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "lacerated",
+          "priority": 0
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=start,\ndamageRoll=1d6,\ndamageType=necrotic,\nlabel=Lacerated,\nchatFlavor=THIS A BIG CUT CUH,\nsaveDC=20,\nactionSave=dialog,\nrollType=skill,\nactionSave=true,\nsaveAbility=med,\nfastForwardDamage=true,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 100</p><hr /><p>A <strong>Lacerated</strong> creature has suffered a major wound on their body and begins to bleed profusely, the rushing blood causing the wound to grow in intensity with each passing second.</p><ul><li><p>A <strong>Lacerated</strong> creature is counted as <strong>Bleeding</strong> for the purposes of interacting with Features, Traits and Jutsu</p></li><li><p>At the beginning of a <strong>Lacerated</strong> creatures turn, they take 1d6 necrotic damage per rank of Lacerated they have.</p></li><li><p>A <strong>Lacerated</strong> creature that gains ranks of Bleeding, gains ranks of Lacerated instead.</p></li><li><p>A <strong>Lacerated</strong> creature cannot gain the benefits of a rest.</p></li><li><p>As an Action, A <strong>Lacerated</strong> creature may attempt to stop the Laceration by succeeding on a DC 20 Medicine check with a Medicine Kit.</p></li><li><p>A creature with ranks of lacerated gains one rank of laceration at the end of its turns.</p></li><li><p>A creature immune to the bleeding condition is immune to the lacerated condition.</p></li><li><p>Outside of combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.0imnrcSgN8C9eC29.ActiveEffect.Uydv91vQ1g52vDiO",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!ltCUkXxVDCcfMWYW.DVx1kNPYEga0Idq9"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "concentration",
+        "chakraseals"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728754669686,
+    "modifiedTime": 1728754766784,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "5hUCEVpoZ81sOjUC",
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ltCUkXxVDCcfMWYW",
+  "_key": "!items!ltCUkXxVDCcfMWYW"
+}

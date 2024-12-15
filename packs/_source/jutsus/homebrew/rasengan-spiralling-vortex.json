@@ -1,0 +1,489 @@
+{
+  "folder": "hcs8fQjM9WJyQRdJ",
+  "name": "Rasengan: Spiralling Vortex",
+  "type": "spell",
+  "img": "Spiralling.webp",
+  "system": {
+    "description": {
+      "value": "<p><strong>Description:</strong> As part of the requirements for casting this jutsu you must have <strong>Rasengan</strong> on your jutsu known list.<br /> </p><p>You collect chakra into the palm of both of your hands to form a large powerful sphere of spiraling chakra to strike an enemy with. You do not spend chakra to maintain concentration on this jutsu. Starting next turn, You can spend your action to make an Melee Ninjutsu Attack against a creature within range. On a Hit the Rasengan grows in size dealing 6d8 Force Damage and the Target makes a Strength Saving Throw. On a failed save they are knocked back 45 Feet becoming Dazed and Gaining 3 Ranks of Bleeding. This jutsu only ends on a successful hit. If a creature knocked back by this jutsu collides with a structure or construct, their movement stops, taking damage as if they had fallen an equal distance.</p><p><strong>At Higher Ranks:</strong> For each rank above B-Rank, increase the cost by 3 and the damage by 3d8 and the knock back distance by 10 feet. If this Jutsu is cast at A-Rank or higher, you can make the melee ninjutsu attack the turn you cast it. You may also add a nature release keyword, changing this jutsu's damage type to match the nature release you currently can use. You gain the following benefits depending on the Nature Release chosen.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "1",
+      "width": null,
+      "units": "",
+      "type": "creature",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "self"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "mnak",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "6d8",
+          "force"
+        ]
+      ],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "str",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "level": 3,
+    "school": "nin",
+    "properties": [
+      "chakramolding",
+      "concentration"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "clash"
+    ],
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "3d8"
+    },
+    "chakraCost": 13,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": null
+    }
+  },
+  "effects": [
+    {
+      "name": "Bleeding",
+      "origin": "Compendium.n5eb.jutsus.Item.BPHpgrCsWF0S49II",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/bleeding.svg",
+      "_id": "clJpH8iUPpKr0yV3",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, damageRoll=1d4, damageType=necrotic, label=Bleeding",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "bleeding",
+          "priority": 0
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4 necrotic damage for each rank of Bleed they have.</p></li><li><p>A creature who would gain a sixth Rank of the Bleeding condition immediately gains 1 rank of the <em><strong>Lacerated</strong></em> condition in place of the additional rank of bleeding.</p></li><li><p>A bleeding creature cannot gain the benefits of a rest.</p></li><li><p>The creature may attempt to stop the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>Outside of combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "bleeding"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!oPXiSuq9AnSaVPsu.clJpH8iUPpKr0yV3"
+    },
+    {
+      "name": "Bleeding (Copy)",
+      "origin": "Compendium.n5eb.jutsus.Item.BPHpgrCsWF0S49II",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/bleeding.svg",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, damageRoll=1d4, damageType=necrotic, label=Bleeding",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "bleeding",
+          "priority": 0
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4 necrotic damage for each rank of Bleed they have.</p></li><li><p>A creature who would gain a sixth Rank of the Bleeding condition immediately gains 1 rank of the <em><strong>Lacerated</strong></em> condition in place of the additional rank of bleeding.</p></li><li><p>A bleeding creature cannot gain the benefits of a rest.</p></li><li><p>The creature may attempt to stop the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>Outside of combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "bleeding"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_id": "JRawgJAGEQxZSGkn",
+      "_key": "!items.effects!oPXiSuq9AnSaVPsu.JRawgJAGEQxZSGkn"
+    },
+    {
+      "name": "Bleeding (Copy)",
+      "origin": "Compendium.n5eb.jutsus.Item.BPHpgrCsWF0S49II",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/bleeding.svg",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, damageRoll=1d4, damageType=necrotic, label=Bleeding",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "bleeding",
+          "priority": 0
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4 necrotic damage for each rank of Bleed they have.</p></li><li><p>A creature who would gain a sixth Rank of the Bleeding condition immediately gains 1 rank of the <em><strong>Lacerated</strong></em> condition in place of the additional rank of bleeding.</p></li><li><p>A bleeding creature cannot gain the benefits of a rest.</p></li><li><p>The creature may attempt to stop the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>Outside of combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "bleeding"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_id": "uNvRes2dqJN2wTXG",
+      "_key": "!items.effects!oPXiSuq9AnSaVPsu.uNvRes2dqJN2wTXG"
+    },
+    {
+      "name": "Dazed",
+      "origin": "Compendium.n5eb.jutsus.Item.BPHpgrCsWF0S49II",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/dazed.svg",
+      "_id": "qYpRv8Ydm282mjpQ",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "dazed",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!oPXiSuq9AnSaVPsu.qYpRv8Ydm282mjpQ"
+    }
+  ],
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midi-qol": {
+      "fumbleThreshold": null,
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728757327815,
+    "modifiedTime": 1728757327815,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_id": "oPXiSuq9AnSaVPsu",
+  "sort": 0,
+  "_key": "!items!oPXiSuq9AnSaVPsu"
+}
