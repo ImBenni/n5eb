@@ -24,5 +24,5 @@ folder.
 
 ## Modified Modules
 
-There are currently 2 Modified Modules that has been made for this system. It is Midi-QOL and DAE.
+There are currently 3 Modified Modules that has been made for this system. It is Midi-QOL, DAE and Vision5e.
 The installation for those can be found within the N5e Discord, inside the foundry-systems channel pins.
