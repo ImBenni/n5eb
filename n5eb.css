@@ -14,13 +14,6 @@
   font-weight: 700;
   src: url('../../fonts/modesto-condensed/modesto-condensed-bold.woff2') format('woff2');
 }
-
-@font-face {
-  font-family: 'Ninja Naruto';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../../fonts/ninjanaruto/njnaruto.ttf') format('ttf');
-}
 /* ----------------------------------------- */
 /*  Sheet Styles                             */
 /* ----------------------------------------- */
@@ -95,7 +88,6 @@
   --n5eb-font-roboto: Roboto, sans-serif;
   --n5eb-font-roboto-condensed: "Roboto Condensed", sans-serif;
   --n5eb-font-roboto-slab: "Roboto Slab", serif;
-  --n5eb-font-naruto: 'Ninja Naruto', sans-serif;
   --n5eb-sheet-background: url("ui/parchment.jpg") repeat;
   --n5eb-shadow-45: rgba(0, 0, 0, 0.45);
   --n5eb-shadow-15: rgba(0, 0, 0, 0.15);
@@ -299,18 +291,6 @@ slide-toggle[checked] .slide-toggle-thumb {
 /* ---------------------------------- */
 n5eb-icon.fa-fw {
   --icon-width: 1.25em;
-}
-
-.rotate {
-  animation: rotate 6s linear infinite;
-}
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
 }
 /* ---------------------------------- */
 /*  Item List Controls                */
@@ -3772,8 +3752,6 @@ h5 {
   flex: 0 0 64px;
 }
 .n5eb.sheet.group .members .directory-header {
-  display: grid;
-  grid-template-columns: 2fr 3fr 3fr 1fr; /* Adjusted columns */
   height: 28px;
   margin: 2px 0;
   padding: 0 0.5rem;
@@ -3802,10 +3780,7 @@ h5 {
   opacity: 50%;
 }
 .n5eb.sheet.group .members .group-member {
-  display: grid;
-  grid-template-columns: 2fr 3fr 3fr 1fr; /* Matches header grid layout */
   padding: 0 0.5rem;
-  align-items: center; /* Align items vertically */
 }
 .n5eb.sheet.group .members .group-member .name {
   cursor: pointer;
@@ -3815,50 +3790,25 @@ h5 {
   white-space: unset;
   line-height: 1;
 }
-.n5eb.sheet.group .members .group-member .stats {
-  display: flex;
-  flex-direction: column; 
-  gap: 8px; 
-}
-
-.n5eb.sheet.group .members .hp,
-.n5eb.sheet.group .members .cp {
-  position: relative;
-  height: 20px;
-  margin-left: .8rem;
+.n5eb.sheet.group .members .hp {
+  flex: 2;
+  align-items: center;
 }
 .n5eb.sheet.group .members .hp .current,
-.n5eb.sheet.group .members .hp .max,
-.n5eb.sheet.group .members .cp .current,
-.n5eb.sheet.group .members .cp .max {
+.n5eb.sheet.group .members .hp .max {
   flex: 0 0 40px;
   text-align: center;
 }
-.n5eb.sheet.group .members .hp .bar-container,
-.n5eb.sheet.group .members .cp .bar-container {
-  position: relative;
-  width: 100%; /* Full width */
-  height: 100%; /* Match parent height */
+.n5eb.sheet.group .members .hp .bar-container {
   background: #111;
+  height: 20px;
+  padding: 1px;
   border: 1px solid #000;
   border-radius: 6px;
-  overflow: hidden; /* Ensures the text doesn't overflow */
 }
-.n5eb.sheet.group .members .hp .bar,
-.n5eb.sheet.group .members .cp .bar {
-  height: 100%;
-  border-radius: 6px;
-  position: absolute; /* Position to overlay within container */
-}
-.n5eb.sheet.group .members .hp .bar-container span,
-.n5eb.sheet.group .members .cp .bar-container span {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  color: #000;
-  font-size: 12px;
-  line-height: 20px; /* Matches bar height */
-  z-index: 1; /* Places text above the bar */
+.n5eb.sheet.group .members .hp .bar {
+  height: 16px;
+  border-radius: 4px;
 }
 .n5eb.sheet.group .members .quantity {
   flex: 0.5;
@@ -3873,6 +3823,7 @@ h5 {
   color: var(--n5eb-color-tan);
 }
 .n5eb.sheet.group .members .controls {
+  flex: 0 0 64px;
   text-align: right;
 }
 /* V2 Styles */
@@ -4579,9 +4530,9 @@ h5 {
 }
 .n5eb2#pause figcaption {
   color: var(--color-text-light-0);
-  font-size: var(--font-size-36);
+  font-size: var(--font-size-46);
   text-shadow: 2px 2px 2px var(--color-shadow-dark);
-  font-family: var(--n5eb-font-naruto);
+  font-family: var(--n5eb-font-modesto);
   font-weight: bold;
   letter-spacing: 2px;
   padding: 0;
@@ -7441,20 +7392,8 @@ dialog.n5eb2.application {
 .n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip {
   background: black;
 }
-.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pips .success {
-  border: 2px solid #257728;
-}
-.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pips .failure {
-  border: 2px solid #702222;
-}
-/* .n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled {
+.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled {
   background: var(--n5eb-color-gold);
-} */
-.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled.success {
-  background: var(--n5eb-color-success);
-}
-.n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled.failure {
-  background: var(--n5eb-color-failure);
 }
 .n5eb2.sheet.actor.character .sheet-body .sidebar .card .death-tray .death-saves .pip.filled.failure::before {
   content: "\f00d";
@@ -8600,7 +8539,7 @@ dialog.n5eb2.application {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0px;
+  margin-top: -8px;
   padding-right: 2px;
 }
 .n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves > button {
@@ -8618,24 +8557,12 @@ dialog.n5eb2.application {
   padding: 0;
   gap: 3px;
 }
-.n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .success {
-  border: 2px solid #257728;
-}
-.n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .failure {
-  border: 2px solid #702222;
-}
 .n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .pip {
   box-shadow: none;
   width: 10px;
   height: 10px;
   font-size: var(--font-size-12);
   border-width: 1px;
-}
-.n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .pip.filled.success {
-  background: var(--n5eb-color-success);
-}
-.n5eb2.sheet.actor.npc .sheet-header .vitals .death-saves .pips .pip.filled.failure {
-  background: var(--n5eb-color-failure);
 }
 .n5eb2.sheet.actor.npc .sheet-body {
   flex: 1;
