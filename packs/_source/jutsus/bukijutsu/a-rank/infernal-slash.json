@@ -1,0 +1,240 @@
+{
+  "folder": "TDJ8kdZlLUUBzPJ1",
+  "name": "Infernal Slash",
+  "type": "spell",
+  "_id": "G7qcez2aXWJdR7gz",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Bukijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You swing your blade from such a low angle it's almost as if it rose from the hells themselves. Make a melee Taijutsu attack against a target creature in range, dealing your [weapons damage] +9d6 slashing damage and inflicting 1 rank of lacerated against the target. If the target has any stacks of Laceration, they trigger immediately, dealing its damage.</p><p>At Higher Ranks: For each rank you cast this above A- Rank, increase the cost by 3, and the attacks damage by 2d6 and the ranks of Lacerated by 1.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "spec"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "mtak",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "9d6",
+          "slashing"
+        ]
+      ],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "level": 4,
+    "school": "buki",
+    "properties": [
+      "mobility",
+      "weapons"
+    ],
+    "keywords": [
+      "bukijutsu"
+    ],
+    "materials": {
+      "value": "Any Melee Slashing",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "2d6"
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "chakraCost": 16,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Lacerated",
+      "origin": "Compendium.world.jutsu.Item.G7qcez2aXWJdR7gz",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/lacerated.svg",
+      "_id": "KASMwqinNrJsrcGx",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "lacerated",
+          "priority": 0
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=start,\ndamageRoll=1d6,\ndamageType=necrotic,\nlabel=Lacerated,\nchatFlavor=THIS A BIG CUT CUH,\nsaveDC=20,\nactionSave=dialog,\nrollType=skill,\nactionSave=true,\nsaveAbility=med,\nfastForwardDamage=true,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 100</p><hr /><p>A <strong>Lacerated</strong> creature has suffered a major wound on their body and begins to bleed profusely, the rushing blood causing the wound to grow in intensity with each passing second.</p><ul><li><p>A <strong>Lacerated</strong> creature is counted as <strong>Bleeding</strong> for the purposes of interacting with Features, Traits and Jutsu</p></li><li><p>At the beginning of a <strong>Lacerated</strong> creatures turn, they take 1d6 necrotic damage per rank of Lacerated they have.</p></li><li><p>A <strong>Lacerated</strong> creature that gains ranks of Bleeding, gains ranks of Lacerated instead.</p></li><li><p>A <strong>Lacerated</strong> creature cannot gain the benefits of a rest.</p></li><li><p>As an Action, A <strong>Lacerated</strong> creature may attempt to stop the Laceration by succeeding on a DC 20 Medicine check with a Medicine Kit.</p></li><li><p>A creature with ranks of lacerated gains one rank of laceration at the end of its turns.</p></li><li><p>A creature immune to the bleeding condition is immune to the lacerated condition.</p></li><li><p>Outside of combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.0imnrcSgN8C9eC29.ActiveEffect.Uydv91vQ1g52vDiO",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!G7qcez2aXWJdR7gz.KASMwqinNrJsrcGx"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null,
+      "removeAttackDamageButtons": "default"
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755893853,
+    "modifiedTime": 1728755893853,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!G7qcez2aXWJdR7gz"
+}

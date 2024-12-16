@@ -1,0 +1,345 @@
+{
+  "folder": "lf6TzjVE3XVYuWmu",
+  "name": "Superior Thoughts",
+  "type": "feat",
+  "_id": "qSEg8sA3Qt3jNNAk",
+  "img": "icons/magic/unholy/orb-stone-pink.webp",
+  "system": {
+    "description": {
+      "value": "<p><strong>Prerequisite</strong>: 15th level.</p><hr /><p>You can cast 1 S-Rank Genjutsu of your choice that you qualify for, as a Full-Turn-Action, at no cost, once per long rest. When you do you gain 3 Ranks of the Confused and Concussed conditions. If you have already reached this mirage's use limit, you can choose to cast the jutsu this Mirage provides by spending 4 Chakra die.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "special",
+      "cost": null,
+      "condition": "Full-Turn-Action"
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": 1,
+      "max": "1",
+      "per": "lr",
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "type": {
+      "value": "class",
+      "subtype": "mirage"
+    },
+    "prerequisites": {
+      "level": 15
+    },
+    "properties": [],
+    "requirements": "15th Level",
+    "recharge": {
+      "value": null,
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Confused",
+      "origin": "Compendium.n5eb.class-and-subclass.Item.qSEg8sA3Qt3jNNAk",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": true,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/confused.svg",
+      "_id": "ZxSJ43GfmFB3MVbh",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "confused",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "saveDC=15,\nsaveAbility=int,\nrollType=check,\nsaveRemove=true,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><p>A Confused creature has difficulty distinguishing friend from foe and experiences lapsing judgement.</p><ul><li><p>A Confused creature suffers a -1 penalty to all Wisdom based checks, attack rolls, and saving throws for each rank it has.</p></li><li><p>A Confused creature who would target hostile or friendly creature with an attack, jutsu, feature or trait (even themselves) must first make a DC 8 Flat check. On a failure, they must target the closest creature to them, ignoring allied or hostile distinctions. For rank of Confused beyond the first, increase this DC by +1 (Max DC 12).</p></li><li><p>A Confused creature cannot choose targets when a jutsu, feature or trait would allow them to pick. All creatures in range become the target, ignoring ally or hostile distinctions.</p></li><li><p>As an Action, a Confused creature can make a DC 15 Intelligence ability check, ending this condition on a success.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.T4ZSbPxGKQwZ0WRG.ActiveEffect.TlQn0pODrzXO8IRz",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1727637811393,
+        "modifiedTime": 1727638103696,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!qSEg8sA3Qt3jNNAk.ZxSJ43GfmFB3MVbh"
+    },
+    {
+      "name": "Concussed",
+      "origin": "Compendium.n5eb.class-and-subclass.Item.qSEg8sA3Qt3jNNAk",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": true,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/concussed.svg",
+      "_id": "cEfSLbef8iqpPfwd",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.int.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.cha.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.int.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.str.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.wis.dc",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.int.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "concussed",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A Concussed creature suffers a -1 penalty to all of their Save DCs for each rank it has.</p></li><li><p>A Concussed creature suffers a -1 penalty to all Intelligence based checks, attack rolls and saving throws and checks for each rank it has.</p></li><li><p>A concussed creature cannot gain the benefit of a Rest.</p></li><li><p>A creature can spend its Action if it has a Medicine kit to make a DC 20 Medicine check, ending this condition on a success.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1727638092458,
+        "modifiedTime": 1727638097384,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!qSEg8sA3Qt3jNNAk.cEfSLbef8iqpPfwd"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,1,1",
+    "createdTime": 1727636972149,
+    "modifiedTime": 1727637220249,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!qSEg8sA3Qt3jNNAk"
+}

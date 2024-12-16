@@ -1,0 +1,292 @@
+{
+  "name": "Demonic Instrument Chains of Phantasia",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Clans/Kashu.png",
+  "system": {
+    "description": {
+      "value": "<p>You play a demonic sound, creating a dark hellscape where only pain and suffering exist for all those under the effects of this genjutsu. All creatures within range must make a Wisdom save.</p><p>Critical Success: The target suffers no effects and is immune to this genjutsu for the next 24 hours.</p><p>Success: The target takes no damage and suffers no additional effects</p><p>Failure: The target takes 10d8 Psychic damage, and is restrained as threads wrap around them</p><p>Critical Failure: The target takes 10d8 Psychic damage, and is restrained and cannot take actions as threads wrap around them</p><p>Creatures under the effects of this genjutsu are Blind and Deaf to all other creatures outside the caster. At the end of a creatures turn they may remake the save to end the effects of this genjutsu on themselves otherwise taking an additional 10d8 damage. If a creature under the effects of this genjutsu takes any damage besides psychic damage, they immediately remake the save at advantage. If a creature has 0 chakra, this jutsu instead deals 20d8 psychic damage</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": "Auditory Ninja Tool"
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "60",
+      "width": null,
+      "units": "ft",
+      "type": "sphere",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "self"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 25,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "10d8",
+          "psychic"
+        ]
+      ],
+      "versatile": "20d8"
+    },
+    "formula": "",
+    "save": {
+      "ability": "wis",
+      "dc": null,
+      "scaling": "genjutsu"
+    },
+    "level": 4,
+    "school": "hi",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "keywords": [
+      "genjutsu",
+      "hijutsu",
+      "visual",
+      "auditory",
+      "tactile"
+    ],
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "chakramolding",
+      "weapons"
+    ],
+    "chakraCost": 25,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Restrained",
+      "origin": "Compendium.world.jutsu.Item.dGIAlI10uQ4LW8Hv",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/restrained.svg",
+      "_id": "Z1n59AfoF6ZSr2jZ",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.movement.walk",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.swim",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.burrow",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.fly",
+          "mode": 5,
+          "value": "0",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.ability.save.dex",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "restrained",
+          "priority": 20
+        }
+      ],
+      "description": "<p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!dGIAlI10uQ4LW8Hv.Z1n59AfoF6ZSr2jZ"
+    }
+  ],
+  "folder": "rGXvMhQgZYpkevml",
+  "flags": {
+    "n5eb": {
+      "migratedProperties": [
+        "chakramolding",
+        "weapons"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "otherCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "otherSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728753809232,
+    "modifiedTime": 1728753838326,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_id": "dGIAlI10uQ4LW8Hv",
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_key": "!items!dGIAlI10uQ4LW8Hv"
+}

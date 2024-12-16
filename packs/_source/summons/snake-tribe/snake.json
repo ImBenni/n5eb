@@ -1,0 +1,488 @@
+{
+  "name": "Snake",
+  "type": "class",
+  "img": "icons/creatures/reptiles/serpent-horned-green.webp",
+  "system": {
+    "description": {
+      "value": "<p>There are few land creatures more dangerous, cunning, and powerful than a snake. The snake is a beast which has ties and stories that date back to before time was tracked. The snake's greatest weapon is its cunning and powerful body with its sharp fangs to pierce the flesh of its enemies.</p><hr /><p><strong>Summon Type:</strong> Dragon</p><p><strong>Toughness</strong>: 10</p><p><strong>Defensive Ability Score</strong>: Dexterity</p><p><strong>Saving Throws</strong>: Dexterity, Constitution, Charisma</p><p><strong>Creature Skills</strong>: Athletics, Stealth, Perception</p><p><strong>Creature Senses</strong>: Darkvision (60ft), Keen Smell</p><hr /><h2>Roles</h2><p>Snakes are often considered the strongest tribe amongst sage beasts, neck in neck with Toads. When creating a Summoned creature, select one of the following roles;</p><ul><li><p><strong>@UUID[Compendium.n5eb.summons.Item.vl7UtADFlso3wfHo]{Lurker}</strong>: This summon prioritizes surprise attacks and stealth tactics. This summon gains the Lethal Attack trait. Lethal Attack: Once per turn, you can deal extra damage to one creature you hit with an attack if another enemy of the target is within 5 feet of it. This extra damage is Xd8. (X=Half the summons level) </p></li><li><p><strong>@UUID[Compendium.n5eb.summons.Item.ZjIHcop42OspRU8Y]{Controller}</strong>: This summon gains a bonus to their Save DC equal to their rank when summoned (D-Rank/CRank: +1, B-Rank/A-Rank: +2, S-Rank: +3)</p></li></ul>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "startingEquipment": [],
+    "identifier": "snake",
+    "levels": 1,
+    "hitDice": "d4",
+    "hitDiceUsed": 0,
+    "chakraDice": "d4",
+    "chakraDiceUsed": 0,
+    "advancement": [
+      {
+        "_id": "T5qd9wZc6JJcrf5h",
+        "type": "Trait",
+        "configuration": {
+          "mode": "default",
+          "allowReplacements": false,
+          "grants": [
+            "defscore:dex"
+          ],
+          "choices": []
+        },
+        "value": {
+          "chosen": []
+        },
+        "level": 1,
+        "title": "",
+        "hint": ""
+      },
+      {
+        "_id": "mv0ILD1Ovd1MvTMZ",
+        "type": "Trait",
+        "configuration": {
+          "mode": "default",
+          "allowReplacements": false,
+          "grants": [
+            "saves:dex",
+            "saves:con",
+            "saves:cha"
+          ],
+          "choices": []
+        },
+        "value": {
+          "chosen": []
+        },
+        "level": 1,
+        "title": "",
+        "hint": ""
+      },
+      {
+        "_id": "rHzzq6Ak5xP9Ir7I",
+        "type": "Trait",
+        "configuration": {
+          "mode": "default",
+          "allowReplacements": false,
+          "grants": [
+            "skills:ath",
+            "skills:prc",
+            "skills:ste"
+          ],
+          "choices": []
+        },
+        "value": {
+          "chosen": []
+        },
+        "level": 1,
+        "title": "",
+        "hint": ""
+      },
+      {
+        "_id": "JcaLWxRXwIJZWcDN",
+        "type": "ScaleValue",
+        "configuration": {
+          "identifier": "",
+          "type": "number",
+          "distance": {
+            "units": ""
+          },
+          "scale": {
+            "1": {
+              "value": 4
+            },
+            "8": {
+              "value": 6
+            },
+            "12": {
+              "value": 9
+            },
+            "16": {
+              "value": 12
+            },
+            "20": {
+              "value": 15
+            }
+          }
+        },
+        "value": {},
+        "title": "Jutsu Slots",
+        "hint": ""
+      },
+      {
+        "_id": "1eribqQD9GitweDA",
+        "type": "Trait",
+        "configuration": {
+          "mode": "default",
+          "allowReplacements": false,
+          "grants": [
+            "jutsuscore:cha"
+          ],
+          "choices": []
+        },
+        "value": {
+          "chosen": []
+        },
+        "level": 1,
+        "title": "",
+        "hint": ""
+      },
+      {
+        "_id": "E71uvLesclSfrTIh",
+        "type": "ItemChoice",
+        "configuration": {
+          "choices": {
+            "8": {
+              "count": 1,
+              "replacement": false
+            }
+          },
+          "allowDrops": false,
+          "type": null,
+          "pool": [
+            {
+              "uuid": "Compendium.n5eb.summons.Item.4gNHhDQWd1iDF8wa"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.iNuigFprAT6Y28zT"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.1lgRtrnHqKOTwMju"
+            }
+          ],
+          "spell": null,
+          "restriction": {}
+        },
+        "value": {
+          "added": {},
+          "replaced": {}
+        },
+        "title": "C-Rank",
+        "hint": ""
+      },
+      {
+        "_id": "KYySf9nyZTVhZvVI",
+        "type": "ItemChoice",
+        "configuration": {
+          "choices": {
+            "1": {
+              "count": 1,
+              "replacement": false
+            }
+          },
+          "allowDrops": false,
+          "type": null,
+          "pool": [
+            {
+              "uuid": "Compendium.n5eb.summons.Item.oZUYvpdJ2kGneL7x"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.m7600csgW8jNEMTe"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.rax5YN1JNlwtewRQ"
+            }
+          ],
+          "spell": null,
+          "restriction": {}
+        },
+        "value": {
+          "added": {},
+          "replaced": {}
+        },
+        "title": "D-Rank",
+        "hint": ""
+      },
+      {
+        "_id": "cMzamuc9SAHZuS3n",
+        "type": "ItemChoice",
+        "configuration": {
+          "choices": {
+            "12": {
+              "count": 1,
+              "replacement": false
+            }
+          },
+          "allowDrops": true,
+          "type": null,
+          "pool": [
+            {
+              "uuid": "Compendium.n5eb.summons.Item.csdexXkrBmJtk5kT"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.C4j1Xs6gVZyqINmx"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.V2MXjT6esMY2uXjL"
+            }
+          ],
+          "spell": null,
+          "restriction": {}
+        },
+        "value": {
+          "added": {},
+          "replaced": {}
+        },
+        "title": "B-Rank",
+        "hint": ""
+      },
+      {
+        "_id": "6n62mqh4n81SIrVy",
+        "type": "ItemChoice",
+        "configuration": {
+          "choices": {
+            "16": {
+              "count": 1,
+              "replacement": false
+            }
+          },
+          "allowDrops": false,
+          "type": null,
+          "pool": [
+            {
+              "uuid": "Compendium.n5eb.summons.Item.28yRJBu38Zw4skTW"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.691Mj7pvWGMpmhm4"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.iX4CPnMncfpQBKIx"
+            }
+          ],
+          "spell": null,
+          "restriction": {}
+        },
+        "value": {
+          "added": {},
+          "replaced": {}
+        },
+        "title": "A-Rank",
+        "hint": ""
+      },
+      {
+        "_id": "TtpNHp09QTV3M50F",
+        "type": "ItemChoice",
+        "configuration": {
+          "choices": {
+            "20": {
+              "count": 1,
+              "replacement": false
+            }
+          },
+          "allowDrops": false,
+          "type": null,
+          "pool": [
+            {
+              "uuid": "Compendium.n5eb.summons.Item.mExymzj5cYsVw30X"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.CPJGt8XXq0UQaYTE"
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.cxHKhGhu5nrs42l5"
+            }
+          ],
+          "spell": null,
+          "restriction": {}
+        },
+        "value": {
+          "added": {},
+          "replaced": {}
+        },
+        "title": "S-Rank",
+        "hint": ""
+      },
+      {
+        "_id": "N3jvzSUBSde7NhrP",
+        "type": "AbilityScoreImprovement",
+        "configuration": {
+          "points": 6,
+          "fixed": {
+            "str": 0,
+            "dex": 0,
+            "con": 0,
+            "int": 0,
+            "wis": 0,
+            "cha": 0
+          },
+          "cap": null
+        },
+        "value": {
+          "type": "asi"
+        },
+        "level": 8,
+        "title": "",
+        "hint": ""
+      },
+      {
+        "_id": "HVPA7B3GbmtR7tf3",
+        "type": "AbilityScoreImprovement",
+        "configuration": {
+          "points": 6,
+          "fixed": {
+            "str": 0,
+            "dex": 0,
+            "con": 0,
+            "int": 0,
+            "wis": 0,
+            "cha": 0
+          },
+          "cap": null
+        },
+        "value": {
+          "type": "asi"
+        },
+        "level": 12,
+        "title": "",
+        "hint": ""
+      },
+      {
+        "_id": "tlVDrkDRCssbsmCH",
+        "type": "AbilityScoreImprovement",
+        "configuration": {
+          "points": 6,
+          "fixed": {
+            "str": 0,
+            "dex": 0,
+            "con": 0,
+            "int": 0,
+            "wis": 0,
+            "cha": 0
+          },
+          "cap": null
+        },
+        "value": {
+          "type": "asi"
+        },
+        "level": 16,
+        "title": "",
+        "hint": ""
+      },
+      {
+        "_id": "g4q4GKoIh3ZxCbd8",
+        "type": "AbilityScoreImprovement",
+        "configuration": {
+          "points": 6,
+          "fixed": {
+            "str": 0,
+            "dex": 0,
+            "con": 0,
+            "int": 0,
+            "wis": 0,
+            "cha": 0
+          },
+          "cap": null
+        },
+        "value": {
+          "type": "asi"
+        },
+        "level": 20,
+        "title": "",
+        "hint": ""
+      },
+      {
+        "_id": "m3Tkt8ZWHKGCQVv1",
+        "type": "ScaleValue",
+        "configuration": {
+          "identifier": "movement-speed",
+          "type": "number",
+          "distance": {
+            "units": "ft"
+          },
+          "scale": {
+            "1": {
+              "value": 40
+            },
+            "8": {
+              "value": 50
+            },
+            "12": {
+              "value": 60
+            },
+            "16": {
+              "value": 70
+            },
+            "20": {
+              "value": 80
+            }
+          }
+        },
+        "value": {},
+        "title": "Movement Speed",
+        "hint": ""
+      },
+      {
+        "_id": "nXMOeXc1iGi6xOuD",
+        "type": "ItemGrant",
+        "configuration": {
+          "items": [
+            {
+              "uuid": "Compendium.n5eb.summons.Item.j5UJzaVtEJgvwvPT",
+              "optional": false
+            },
+            {
+              "uuid": "Compendium.n5eb.summons.Item.BClHYryz6ngMxbgE",
+              "optional": false
+            }
+          ],
+          "optional": false,
+          "spell": null
+        },
+        "value": {},
+        "level": 1,
+        "title": "Tribal Features",
+        "hint": ""
+      },
+      {
+        "_id": "Ql7pENbCgGQF1TD3",
+        "type": "ItemGrant",
+        "configuration": {
+          "items": [
+            {
+              "uuid": "Compendium.n5eb.summons.Item.6N71Hrzquy1IwZsK",
+              "optional": false
+            }
+          ],
+          "optional": false,
+          "spell": null
+        },
+        "value": {},
+        "level": 1,
+        "title": "Natural Weapon",
+        "hint": ""
+      }
+    ],
+    "spellcasting": {
+      "ninjutsu": {
+        "progression": "none",
+        "ability": ""
+      },
+      "genjutsu": {
+        "progression": "none",
+        "ability": ""
+      },
+      "taijutsu": {
+        "progression": "none",
+        "ability": ""
+      }
+    },
+    "wealth": "",
+    "toughness": 10
+  },
+  "effects": [],
+  "folder": "BM9wg1vuAweLBmZJ",
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,4,0",
+    "createdTime": 1733784341980,
+    "modifiedTime": 1733786411795,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_id": "UoLZYkz7P5eHzNLJ",
+  "sort": 0,
+  "_key": "!items!UoLZYkz7P5eHzNLJ"
+}

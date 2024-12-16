@@ -1,0 +1,274 @@
+{
+  "name": "Earth Release Iron Skinned Spear",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Earth.png",
+  "system": {
+    "description": {
+      "value": "<p>You focus Earth Release chakra throughout one of your limbs until it darkens into a dark brown hue and gains the texture of solid stone. You then use this darkened ligament to strike at a creature with enough force to tear through almost anything.</p><p>Make a melee ninjutsu attack against a creature within range. On a hit, you deal 10d6 Earth damage and marking the creature with a mark of petrification.</p><p>A creature marked this way makes Constitution saving throws at the beginning of each of their turns for the next minute. On a failure its skin begins to harden at the point of impact as their body begins to petrify. If the creature fails this saving throw three times their body fully hardens as they become petrified turning fully into stone for the next 24 hours.</p><p>If the target creature succeeds 3 saves they reject the earth chakra from their body ending the effects of this jutsu. If this jutsu is used on a creature previously affected by this jutsu within 24 hours, they make each constitution saving throw at advantage.</p><p>At Higher Ranks: For each rank you cast this jutsu above B-Rank, increase the cost of this jutsu by 3 and the walls hit points by 1d6.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": 5,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 14,
+      "scale": false
+    },
+    "ability": "ninjutsu",
+    "actionType": "mnak",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "10d6",
+          "earth"
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "level": 3,
+    "school": "nin",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "1d6"
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding",
+      "molding",
+      "clash"
+    ],
+    "keywords": [
+      "ninjutsu",
+      "clash",
+      "kinjutsu",
+      "earth"
+    ],
+    "chakraCost": 14,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Petrified",
+      "origin": "Compendium.world.jutsu.Item.dsMsdRqO6KLPUfwa",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/petrified.svg",
+      "_id": "CogYfOqt97zfw0pt",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "system.traits.dr.all",
+          "mode": 0,
+          "value": "",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.fail.ability.save.dex",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.fail.ability.save.str",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "petrified",
+          "priority": 20
+        }
+      ],
+      "description": "<p>A <strong>Petrified</strong> creature is transformed, along with any object it is wearing or carrying, into a solid inanimate substance (usually stone). Its weight increases by a factor of ten, and it ceases aging. An incredibly rare condition usually associated with high level Earth release, Kinjutsu, or forbidden dark magic.</p><ul><li><p>The creature is incapacitated (see the condition), can’t move or speak, and is unaware of its surroundings.</p></li><li><p>Attack rolls against the creature have advantage.</p></li><li><p>The creature automatically fails Strength and Dexterity saving throws.</p></li><li><p>The creature has resistance to all damage.</p></li><li><p>The creature is immune to poison and disease, although a poison or disease already in its system is suspended, not neutralized.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.meY1x7prZ6rkNDTV.ActiveEffect.C8RoNFiuVf0osgMs",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!dsMsdRqO6KLPUfwa.CogYfOqt97zfw0pt"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "handseals",
+        "molding",
+        "clash",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728752013350,
+    "modifiedTime": 1728752013350,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "J3dRI701LY1DQblm",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "dsMsdRqO6KLPUfwa",
+  "_key": "!items!dsMsdRqO6KLPUfwa"
+}

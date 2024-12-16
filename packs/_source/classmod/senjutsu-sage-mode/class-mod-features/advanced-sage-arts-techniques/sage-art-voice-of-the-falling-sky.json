@@ -1,0 +1,1082 @@
+{
+  "folder": "uuWsvr4SleZah3pq",
+  "name": "Sage Art: Voice of the Falling Sky",
+  "type": "spell",
+  "_id": "78SnDQQGevPF8eT3",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Sage_Mode.webp",
+  "system": {
+    "description": {
+      "value": "<p>Reduced Cost: 7 Sage Chakra</p><p> You use Sage Chakra to manipulate the atmosphere in a violent show of force and power. All creatures of your choice in range, must make a Strength saving throw as a cyclone of Sage Chakra swallows everything within it. This Art can only be cast once per short rest as the strain of it makes it difficult to use in quick succession.</p><p>Sage Affinity Synergy: If you have the Avian Senjutsu class mod feature, when you cast this Senjutsu, you may utilize the techniques that your tribe has entrusted you with. If you do, you instead make a Critical success only possible if beating the DC by 10 or more, and a Critical failure possibly by failing the DC by 3 or more.</p><p>Critical Success (Beat the DC by 5 or more): Affected creature is able to resist this Art's effects.</p><p>Success: Affected creature is able to resist most of this Art's effects but cannot resist it entirely They gain 2 ranks of all listed Elemental conditions.</p><p>Failure: Affected creature is thrown 30 feet into the air and gaining 3 ranks of all listed Elemental conditions (Burned, Chilled, Corroded, Envenomed &amp; Shocked). Conditions gained in this way cannot be ended as a result of damage like in the case of Chilled.</p><p>Critical Failure (Fail the DC by 5 or more): Affected creature suffers the same effect as a failure but instead gain 5 ranks of all listed Elemental and Physical conditions. (Elemental: Burned, Chilled, Corroded, Envenomed &amp; Shocked) (Physical: Bruised, Bleeding, Lacerated, Weakened)</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "60",
+      "width": null,
+      "units": "ft",
+      "type": "cylinder",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "self"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "charges",
+      "target": "Compendium.world.class-mods.Item.HybmMugTJUYpISbC",
+      "amount": 9,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "str",
+      "dc": null,
+      "scaling": "art"
+    },
+    "level": 6,
+    "school": "hi",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "keywords": [
+      "ninjutsu"
+    ],
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "handseals",
+      "chakramolding"
+    ],
+    "chakraCost": 0,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Burned",
+      "origin": "Compendium.world.class-mods.Item.78SnDQQGevPF8eT3",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/burning.svg",
+      "_id": "k30f29iKzsOilGb0",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start,\nrollType=skill,\nsaveAbility=sur,\nsaveDC=15,\nactionSave=dialog,\ndamageBeforeSave=true,\ndamageRoll=1d8,\ndamageType=fire,\nsaveRemove=true,\nname=Burned, \nchatFlavor=It's very hot!,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.concentration.bonuses.save",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put out the flames. On a successful check, the condition ends or submerging themselves fully into a body of water.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!78SnDQQGevPF8eT3.k30f29iKzsOilGb0"
+    },
+    {
+      "name": "Chilled",
+      "origin": "Compendium.world.class-mods.Item.78SnDQQGevPF8eT3",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/chilled.svg",
+      "_id": "VekhQ1oNX8bw8fys",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.movement.walk",
+          "mode": 2,
+          "value": "-5",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.fly",
+          "mode": 2,
+          "value": "-5",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.burrow",
+          "mode": 2,
+          "value": "-5",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.movement.swim",
+          "mode": 2,
+          "value": "-5",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.bonuses.check",
+          "mode": 2,
+          "value": "-1",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.bonuses.save",
+          "mode": 2,
+          "value": "-1",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!78SnDQQGevPF8eT3.VekhQ1oNX8bw8fys"
+    },
+    {
+      "name": "Corroded",
+      "origin": "Compendium.world.class-mods.Item.78SnDQQGevPF8eT3",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/corroded.svg",
+      "_id": "jLohhubHVL0OFsdd",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.con.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.DR.all",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 0,
+          "value": "saveDC=15,\nlabel=Corroded,\nsaveAbility=dex|con,\nsaveRemove=true,\nrollType=check,\nchatFlavor=This shit sticky yo,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Corroded</strong> creature has been exposed to some kind of acidic compound, causing their flesh and equipment to wither and deteriorate if left untreated.</p><ul><li><p>A <strong>Corroded</strong> creature gains a -2 penalty to its DR (damage reduction) for each rank it has.</p></li><li><p>A <strong>Corroded</strong> creature gains a -1 penalty to all Constitution based checks &amp; saves for each rank it has.</p></li><li><p>A creature can end the corroded condition by using their action making a DC 15 Dexterity or Constitution Ability Check or submerging themselves fully into a body of water.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.TJkoBRRPODGhibDp.ActiveEffect.gXQCDxapEi50ixYD",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!78SnDQQGevPF8eT3.jLohhubHVL0OFsdd"
+    },
+    {
+      "name": "Poisoned/Envenomed",
+      "origin": "Compendium.world.class-mods.Item.78SnDQQGevPF8eT3",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/poisoned.svg",
+      "_id": "cqtAxFUS1DhWCVOp",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, \ndamageRoll=1d6, \ndamageType=poison, \nlabel=Poisoned/Envenomed,\nchatFlavor=YUCK I feel SICK,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "poisoned",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ac.bonus",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has been exposed to some kind of venom or toxin, causing their vitality and immune health to drop rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it has, at the start of each of their turns for the duration of this condition</p></li><li><p>An <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!78SnDQQGevPF8eT3.cqtAxFUS1DhWCVOp"
+    },
+    {
+      "name": "Shocked",
+      "origin": "Compendium.world.class-mods.Item.78SnDQQGevPF8eT3",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/shocked.svg",
+      "_id": "GtrsYyuTg6akAXi3",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "saveDC=15,\nrollType=skill,\nsaveAbility=sur,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC 12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has resistance to this condition. A creature immune to Lightning damage has immunity to this condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground themselves, dispersing the electricity in their body ending this condition.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!78SnDQQGevPF8eT3.GtrsYyuTg6akAXi3"
+    },
+    {
+      "name": "Bleeding",
+      "origin": "Compendium.world.class-mods.Item.78SnDQQGevPF8eT3",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/bleeding.svg",
+      "_id": "HS1QQkJalqPNQt0l",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, \ndamageRoll=1d4, damageType=necrotic,\nlabel=Bleeding,\ndamageBeforeSave=true,\nactionSave=dialog,\nsaveRemove=true,\nsaveDC=15,\nchatFlavor=Lil paper cut fr,\nrollType=skill,\nsaveAbility=med,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "bleeding",
+          "priority": 0
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has suffered a minor abrasion to their flesh, causing slow blood loss if untreated.</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4 necrotic damage for each rank of Bleed they have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bleeding condition immediately gains 5 ranks of the Lacerated condition, ending the Bleeding condition.</p><ul><li><p>The first time per rest a Bleeding creature would gain the Lacerated this way, they must succeed a DC 11 flat check, immediately taking the damage of their Lacerated ranks as they suffer a great wound.</p></li></ul></li><li><p>Outside of combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!78SnDQQGevPF8eT3.HS1QQkJalqPNQt0l"
+    },
+    {
+      "name": "Bruised",
+      "origin": "Compendium.world.class-mods.Item.78SnDQQGevPF8eT3",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        },
+        "babonus": {
+          "bonuses": [
+            {
+              "name": "+4 dmg",
+              "img": "icons/svg/dice-target.svg",
+              "id": "NkVtCZS38iq1ma82",
+              "sort": 0,
+              "type": "damage",
+              "enabled": true,
+              "exclusive": false,
+              "optional": true,
+              "reminder": false,
+              "description": "",
+              "consume": {
+                "enabled": false,
+                "type": "",
+                "subtype": "",
+                "scales": false,
+                "formula": "",
+                "value": {
+                  "min": "",
+                  "max": "",
+                  "step": null
+                }
+              },
+              "aura": {
+                "enabled": false,
+                "template": false,
+                "range": "",
+                "self": true,
+                "disposition": 2,
+                "blockers": [],
+                "require": {
+                  "light": false,
+                  "sight": false,
+                  "sound": false,
+                  "move": false
+                }
+              },
+              "flags": {},
+              "bonuses": {
+                "bonus": "4",
+                "damageType": "acid",
+                "criticalBonusDice": "",
+                "criticalBonusDamage": "",
+                "modifiers": {
+                  "amount": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "size": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "reroll": {
+                    "enabled": false,
+                    "value": "",
+                    "invert": false,
+                    "recursive": false,
+                    "limit": ""
+                  },
+                  "explode": {
+                    "enabled": false,
+                    "value": "",
+                    "once": false,
+                    "limit": ""
+                  },
+                  "minimum": {
+                    "enabled": false,
+                    "value": "",
+                    "maximize": false
+                  },
+                  "maximum": {
+                    "enabled": false,
+                    "value": "",
+                    "zero": false
+                  },
+                  "config": {
+                    "first": false
+                  }
+                }
+              },
+              "filters": {
+                "actorCreatureSizes": [],
+                "actorCreatureTypes": [],
+                "actorLanguages": [],
+                "arbitraryComparisons": [],
+                "baseArmors": [],
+                "customScripts": "",
+                "healthPercentages": {
+                  "value": 50,
+                  "type": null
+                },
+                "remainingSpellSlots": {
+                  "min": null,
+                  "max": null,
+                  "size": false
+                },
+                "statusEffects": [],
+                "abilities": [],
+                "attackTypes": [],
+                "baseWeapons": [],
+                "creatureTypes": [],
+                "damageTypes": [
+                  "bludgeoning",
+                  "earth"
+                ],
+                "featureTypes": {
+                  "subtype": ""
+                },
+                "itemTypes": [],
+                "preparationModes": [],
+                "spellComponents": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellLevels": [],
+                "spellSchools": [],
+                "targetArmors": [],
+                "targetEffects": [],
+                "tokenSizes": {
+                  "size": null,
+                  "type": 0,
+                  "self": false
+                },
+                "weaponProperties": []
+              }
+            }
+          ]
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/bruised.svg",
+      "_id": "IW9YBh531SeeQJyL",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.str.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.dex.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "bruised",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Bruised creature suffers a -1 penalty to all Strength, Dexterity &amp; Constitution based attack rolls and checks for each rank they have.</p></li><li><p>A Bruised creature takes +4 bonus damage from all sources of bludgeoning or earth damage for each rank they have, once per turn.</p></li><li><p>Creatures that are immune to bludgeoning or Earth damage are immune to this condition.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bruised condition immediately becomes Staggered, ending the Bruised Condition.</p></li><li><p>A Creature can spend an Action to make a DC 15 Strength (Medicine) Check to end this condition by applying the appropriate amount of pressure to the wound.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "bruised"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.6jTSe6avKTHv61xR.ActiveEffect.E8EMTtQE84gz6Kjy",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!78SnDQQGevPF8eT3.IW9YBh531SeeQJyL"
+    },
+    {
+      "name": "Lacerated",
+      "origin": "Compendium.world.class-mods.Item.78SnDQQGevPF8eT3",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/lacerated.svg",
+      "_id": "JNvDj1NgldTtsPd1",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "lacerated",
+          "priority": 0
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=start,\ndamageRoll=1d6,\ndamageType=necrotic,\nlabel=Lacerated,\nchatFlavor=THIS A BIG CUT CUH,\nsaveDC=20,\nactionSave=dialog,\nrollType=skill,\nactionSave=true,\nsaveAbility=med,\nfastForwardDamage=true,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 100</p><hr /><p>A <strong>Lacerated</strong> creature has suffered a major wound on their body and begins to bleed profusely, the rushing blood causing the wound to grow in intensity with each passing second.</p><ul><li><p>A <strong>Lacerated</strong> creature is counted as <strong>Bleeding</strong> for the purposes of interacting with Features, Traits and Jutsu</p></li><li><p>At the beginning of a <strong>Lacerated</strong> creatures turn, they take 1d6 necrotic damage per rank of Lacerated they have.</p></li><li><p>A <strong>Lacerated</strong> creature that gains ranks of Bleeding, gains ranks of Lacerated instead.</p></li><li><p>A <strong>Lacerated</strong> creature cannot gain the benefits of a rest.</p></li><li><p>As an Action, A <strong>Lacerated</strong> creature may attempt to stop the Laceration by succeeding on a DC 20 Medicine check with a Medicine Kit.</p></li><li><p>A creature with ranks of lacerated gains one rank of laceration at the end of its turns.</p></li><li><p>A creature immune to the bleeding condition is immune to the lacerated condition.</p></li><li><p>Outside of combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.0imnrcSgN8C9eC29.ActiveEffect.Uydv91vQ1g52vDiO",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!78SnDQQGevPF8eT3.JNvDj1NgldTtsPd1"
+    },
+    {
+      "name": "Weakened",
+      "origin": "Compendium.world.class-mods.Item.78SnDQQGevPF8eT3",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/weakened.svg",
+      "_id": "uLeM6kaIwrWOh3nw",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.bonuses.All-Damage",
+          "mode": 2,
+          "value": "-4 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.str.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "weakened"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!78SnDQQGevPF8eT3.uLeM6kaIwrWOh3nw"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "n5eb": {
+      "migratedProperties": [
+        "handseals",
+        "chakramolding"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,3,1",
+    "createdTime": 1728700702561,
+    "modifiedTime": 1729022727401,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!78SnDQQGevPF8eT3"
+}

@@ -1,0 +1,338 @@
+{
+  "name": "Limit Release",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Taijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You press the pressure points of a willing creature you can reach. When you do, you inject a mass of chakra into them. Spend a number of chakra die up to a max of an amount equal to twice your proficiency bonus. The target must spend an equal number of chakra die, if they are unable this jutsu immediately ends.</p><p>Once both you and the target spend chakra die, depending on the amount of chakra die spent between the both of you, the target gains different Limiter releasing effects.</p><p>• 2 Chakra Die: The target rolls spent chakra die, dealing additional damage equal to the amount rolled, on the first attack they make on their next turn. They are then overcome by lethargy as they gain 2 ranks of the Weakened condition until the end of your next turn.</p><p>• 4 Chakra Die: The target rolls spent chakra die, adding half the result to their next attack roll and the full result to the damage of the same attack they make on their turn. They are then overcome by lethargy as they gain 2 ranks of Weakened condition until the end of your next turn.</p><p>• 8 Chakra Die: The target gains 1 Additional action on their turn. At the end of their turn, they become stunned until the beginning of their following turn.</p><p>• 16 Chakra Die: The target gains 1 Additional Action on their turn and can use their Bonus action to complete an activity that requires 1 Action. At the end of their turn, they become stunned for 1d4 rounds.</p><p>• 32 Chakra Die: The target gains 1 Additional action on their turn and can use their Bonus Action and Reaction to complete an activity that requires 1 Action. At the end of their turn, they become stunned for 1 Minute. This cannot be removed by any means.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "1",
+      "units": "round"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "touch"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "chakraDice",
+      "target": "largest",
+      "amount": 2,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "level": 2,
+    "school": "tai",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "chakramolding",
+      "mobility",
+      "molding",
+      "medical"
+    ],
+    "keywords": [],
+    "chakraCost": 0,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Stunned",
+      "origin": "Compendium.world.jutsu.Item.K1nhRCL5kvibq7fd",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/stunned.svg",
+      "_id": "LoE8BFQKKejKtv2c",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.fail.ability.save.dex",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.fail.ability.save.str",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "stunned",
+          "priority": 20
+        }
+      ],
+      "description": "<ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!K1nhRCL5kvibq7fd.LoE8BFQKKejKtv2c"
+    },
+    {
+      "name": "Weakened",
+      "origin": "Compendium.world.jutsu.Item.K1nhRCL5kvibq7fd",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/weakened.svg",
+      "_id": "KhaqfPIzgABgCzMV",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.bonuses.All-Damage",
+          "mode": 2,
+          "value": "-4 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.str.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [
+        "weakened"
+      ],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!K1nhRCL5kvibq7fd.KhaqfPIzgABgCzMV"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "mobility",
+        "molding",
+        "medical",
+        "chakramolding"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728757579263,
+    "modifiedTime": 1728757579263,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "O15cLlkMNP72MaKd",
+  "sort": 6100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "K1nhRCL5kvibq7fd",
+  "_key": "!items!K1nhRCL5kvibq7fd"
+}

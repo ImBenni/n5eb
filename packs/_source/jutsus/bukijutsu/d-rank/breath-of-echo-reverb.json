@@ -1,0 +1,337 @@
+{
+  "name": "Breath of Echo Reverb",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Bukijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>You begin to collect and manifest chakra until it manifest into the shape of a sound note of your choice, hovering over the striking portion of your weapon. This note can be seen plainly by any other creature who can manipulate chakra. </p><p>You fire two powerful shots creating an explosion of sound able to disorient your foes on  contact. Make two ranged taijutsu attacks, dealing your weapons damage. On each hit, the target and all creatures within 5 feet of  them, must make a wisdom saving throw, being dazzled on a failed save.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank increase the cost of this jutsu by 3 and the damage by 1d4. If this jutsu is cast at C-Rank or higher, increase the number of attacks by +1. If this jutsu is cast at B-Rank or higher, the target is also dazed on a failed save. </p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": "(Any Range)  (Any explosive tool)"
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 5,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "rtak",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "0",
+          ""
+        ]
+      ],
+      "versatile": ""
+    },
+    "formula": "",
+    "save": {
+      "ability": "wis",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "level": 1,
+    "school": "buki",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "level",
+      "formula": "1d4"
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "chakramolding",
+      "mobility",
+      "weapons",
+      "ninjatools",
+      "molding",
+      "weapon",
+      "ninjatool"
+    ],
+    "keywords": [
+      "bukijutsu"
+    ],
+    "chakraCost": 5,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Dazed",
+      "origin": "Compendium.world.jutsu.Item.LnlZzlUjtd3WWVqU",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [
+            "turnEnd"
+          ],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/dazed.svg",
+      "_id": "zqH6ARLl5DuI6gNZ",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "dazed",
+          "priority": 20
+        }
+      ],
+      "description": "<p>A <strong>Dazed</strong> creature is recovering from a powerful blow and cannot take as many actions as usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed creature cannot take a bonus action.</p></li><li><p>The Dazed Condition lasts until the End of the affected creature’s next turn.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!LnlZzlUjtd3WWVqU.zqH6ARLl5DuI6gNZ"
+    },
+    {
+      "name": "Dazzled",
+      "origin": "Compendium.world.jutsu.Item.LnlZzlUjtd3WWVqU",
+      "duration": {
+        "rounds": 1,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/dazzled.svg",
+      "_id": "RYZeHHL4h4NH6cue",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.bonuses.All-Attacks",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "dazzled",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks:</strong> 5</p><p>• A <strong>Dazzled</strong> creatures eyes become overloaded with flashes of colors, gaining a -2 penalty to all checks that rely on sight for each rank it has. • A <strong>Dazzled</strong> creature suffers a -2 penalty to attack rolls for each rank it has and cannot gain advantage on Ranged attack rolls.</p><p>• A <strong>Dazzled</strong> creature reduced the range of Jutsu's cast and ranged attacks made by 15 feet for each rank it has down to a minimum of 5 feet.</p><p>• A <strong>Dazzled</strong> creature can make a DC 15 Constitution ability check as an action, to remove all ranks of this condition.</p>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.Aa2bI0MeSmyi3eOJ.ActiveEffect.rNLK6dZIg5pamybW",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!LnlZzlUjtd3WWVqU.RYZeHHL4h4NH6cue"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "mobility",
+        "molding",
+        "weapon",
+        "ninjatool",
+        "chakramolding",
+        "weapons",
+        "ninjatools"
+      ]
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "default",
+      "bonusSaveDamage": "default"
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null,
+      "removeAttackDamageButtons": "default"
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755893853,
+    "modifiedTime": 1728755942285,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "dBrYO41bkN846Axv",
+  "sort": 7300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "LnlZzlUjtd3WWVqU",
+  "_key": "!items!LnlZzlUjtd3WWVqU"
+}
