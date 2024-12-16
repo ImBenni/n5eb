@@ -1,0 +1,330 @@
+{
+  "name": "Force Wave",
+  "type": "spell",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Taijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>This jutsu can only be cast if you have one other caster who is within 15 feet of you. The second caster as a part of their reaction, moves to a space within 5 feet of you that they can occupy.</p><p>You and the second caster perform a cross strike switching places with each other while creating a shockwave of force that that expands outward. All creatures in a 30-foot cone originating from both casters in the same direction, must succeed a strength saving throw vs whichever of the two casters has the higher Taijutsu save DC.</p><p>Depending on the severity of the failure, the creature takes an escalating amount of damage and suffers additional penalties.</p><p>• Failed by 1~4: Bludgeoning damage equal to both casters unarmed damage + 9d6 and are knocked prone.</p><p>• Failed by 5~9: Bludgeoning damage equal to both casters unarmed damage + 12d6, are knocked prone and dazed until the beginning of their next turn.</p><p>• Failed by 10~14: Bludgeoning damage equal to both casters unarmed damage + 15d6, are knocked prone and dazed until the end of their next turn.</p><p>• Failed by 15+: Bludgeoning damage equal to both casters unarmed damage + 18d6, are knocked prone, dazed until the end of their next turn, and are knocked back 30 feet. If their movement would be stopped by a solid surface less than 5 feet thick, they take an additional 2d6 bludgeoning damage and are forced through it. If their movement would be stopped by a solid surface 5 or more feet thick, then they take damage as if they fell 5 times their distance they had remaining to move, rounded up.</p><p>Combination: When this jutsu is cast, it gains additional effects based on who has the highest Charisma modifier between both casters.</p><p>• +0-1: No Change.</p><p>• +2-3: Affected creatures suffer a -2 penalty to their saving throw.</p><p>• +4-5: Affected creatures suffer a 1d6+1 penalty to their saving throw.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "30",
+      "width": null,
+      "units": "ft",
+      "type": "cone",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "self"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": "",
+      "amount": 49,
+      "scale": false
+    },
+    "ability": "",
+    "actionType": "save",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "9d6",
+          "bludgeoning"
+        ]
+      ],
+      "versatile": "12d6"
+    },
+    "formula": "",
+    "save": {
+      "ability": "str",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "level": 3,
+    "school": "tai",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": true
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "mobility"
+    ],
+    "keywords": [
+      "taijutsu",
+      "combination"
+    ],
+    "chakraCost": 49,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Dazed",
+      "origin": "Compendium.world.jutsu.Item.DEje5MbFq29Mqhhf",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [
+            "turnEnd"
+          ],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/dazed.svg",
+      "_id": "BmHiWYArsZtYaEdz",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "dazed",
+          "priority": 20
+        }
+      ],
+      "description": "<p>A <strong>Dazed</strong> creature is recovering from a powerful blow and cannot take as many actions as usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed creature cannot take a bonus action.</p></li><li><p>The Dazed Condition lasts until the End of the affected creature’s next turn.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!DEje5MbFq29Mqhhf.BmHiWYArsZtYaEdz"
+    },
+    {
+      "name": "Prone",
+      "origin": "Compendium.world.jutsu.Item.DEje5MbFq29Mqhhf",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/prone.svg",
+      "_id": "ew47IAQ8OSA9RRng",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 5,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "prone",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!DEje5MbFq29Mqhhf.ew47IAQ8OSA9RRng"
+    }
+  ],
+  "flags": {
+    "cf": null,
+    "n5eb": {
+      "migratedProperties": [
+        "mobility"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "otherCondition": "",
+      "effectCondition": ""
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "otherSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728757579263,
+    "modifiedTime": 1728757579263,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "folder": "ggXIZHimhPhQzS0v",
+  "sort": 1800000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "DEje5MbFq29Mqhhf",
+  "_key": "!items!DEje5MbFq29Mqhhf"
+}

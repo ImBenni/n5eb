@@ -1,0 +1,253 @@
+{
+  "folder": "Jl06pbyhjmFzL4c2",
+  "name": "Fangs of Medusa",
+  "type": "spell",
+  "_id": "pPD4v5VpmE7YR15F",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Bukijutsu.png",
+  "system": {
+    "description": {
+      "value": "<p>The chthonic enemy of the moon's hatred swells within you; it's seething rage like poison to your chakra. Make a ranged Taijutsu attack toward a target within range. On a hit, you deal your [weapons damage] + 4d8 poison damage. This jutsu gains additional effects if the current phase of the moon is a Full Moon. If this is the case, then this jutsu instead deals double your [weapon's damage] + 6d10 on a hit and the target must succeed a Constitution saving throw or gain 3 ranks of Envenomed.</p><p>If this jutsu is cast as a Chain 2, increase the damage die by 1 step. If this jutsu is cast as a Chain 3 increase the damage die by +2.</p><p>At Higher Ranks: For each rank you cast this jutsu above B-rank, increase the cost by 3. If this jutsu is cast at A rank, you may gain the Full Moon benefits on a Half Moon. If this jutsu is cast at S rank, you may gain the Full Moon benefits on a Crescent Moon, and this jutsu deals an additional 2d10 Damage.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": "Double Weapon Range"
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "spec"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "taijutsu",
+    "actionType": "rtak",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "4d8",
+          "poison"
+        ]
+      ],
+      "versatile": "6d10"
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "con",
+      "dc": null,
+      "scaling": "taijutsu"
+    },
+    "summons": null,
+    "level": 3,
+    "school": "buki",
+    "properties": [
+      "chakramolding",
+      "mobility",
+      "weapons",
+      "ninjatools"
+    ],
+    "keywords": [
+      "bukijutsu",
+      "chainx"
+    ],
+    "materials": {
+      "value": "Any Ranged Slashig, Poison or Poison Kit",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "chakraCost": 12,
+    "chakraScaling": {
+      "mode": "level",
+      "value": 3
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Poisoned/Envenomed",
+      "origin": "Compendium.world.jutsu.Item.pPD4v5VpmE7YR15F",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/poisoned.svg",
+      "_id": "2dol1WWfZ32xwOj7",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, \ndamageRoll=1d6, \ndamageType=poison, \nlabel=Poisoned/Envenomed,\nchatFlavor=YUCK I feel SICK,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "poisoned",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ac.bonus",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has been exposed to some kind of venom or toxin, causing their vitality and immune health to drop rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it has, at the start of each of their turns for the duration of this condition</p></li><li><p>An <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!pPD4v5VpmE7YR15F.2dol1WWfZ32xwOj7"
+    }
+  ],
+  "sort": 7200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false,
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "otherSaveDamage": "default"
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null,
+      "removeAttackDamageButtons": "default",
+      "otherCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,2,2",
+    "createdTime": 1728755893853,
+    "modifiedTime": 1728755893853,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!pPD4v5VpmE7YR15F"
+}

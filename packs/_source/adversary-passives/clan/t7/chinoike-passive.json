@@ -1,0 +1,462 @@
+{
+  "folder": "3rhNp8m3s1RzeBb0",
+  "name": "Chinoike Passive",
+  "type": "feat",
+  "_id": "mMhOThwb38AVRjWR",
+  "img": "systems/n5eb/assets/items/ChinoikeClan.webp",
+  "system": {
+    "description": {
+      "value": "<p>This adversary posseses the Ketsuryūgan, granting them the following benefits when active; </p><ul><li><p>60 feet of chakra sight. </p></li><li><p>Resistance to Necrotic damage and immunity to bleeding. </p></li><li><p>When you deal cold damage, you can change the damage type to necrotic and add your Wisdom modifier to the damage dealt, or increase the Save DC by +1. </p></li><li><p>When a hostile creature in combat takes damage from the <em><strong>bleeding</strong></em> condition, increase the damage dealt by 1 step.</p></li></ul>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "",
+      "cost": null,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "type": {
+      "value": "adversaryPassive",
+      "subtype": "clan"
+    },
+    "prerequisites": {
+      "level": 1
+    },
+    "properties": [],
+    "requirements": "Level 1",
+    "recharge": {
+      "value": null,
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Chinoike Passive",
+      "origin": "Compendium.n5eb.adversary-passives.Item.mMhOThwb38AVRjWR",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        },
+        "babonus": {
+          "bonuses": [
+            {
+              "name": "Chinoike Passive",
+              "img": "ChinoikeClan.webp",
+              "id": "olfRLtDZ6BkmRpxk",
+              "sort": 0,
+              "type": "damage",
+              "enabled": true,
+              "exclusive": false,
+              "optional": true,
+              "reminder": false,
+              "description": "",
+              "consume": {
+                "enabled": false,
+                "type": "",
+                "subtype": "",
+                "scales": false,
+                "formula": "",
+                "value": {
+                  "min": "",
+                  "max": "",
+                  "step": null
+                }
+              },
+              "aura": {
+                "enabled": false,
+                "template": false,
+                "range": "",
+                "self": true,
+                "disposition": 2,
+                "blockers": [],
+                "require": {
+                  "light": false,
+                  "sight": false,
+                  "sound": false,
+                  "move": false
+                }
+              },
+              "flags": {},
+              "bonuses": {
+                "bonus": "@abilities.wis.mod",
+                "damageType": [
+                  "necrotic"
+                ],
+                "criticalBonusDice": "",
+                "criticalBonusDamage": "",
+                "modifiers": {
+                  "amount": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "size": {
+                    "enabled": false,
+                    "mode": 0,
+                    "value": ""
+                  },
+                  "reroll": {
+                    "enabled": false,
+                    "value": "",
+                    "invert": false,
+                    "recursive": false,
+                    "limit": ""
+                  },
+                  "explode": {
+                    "enabled": false,
+                    "value": "",
+                    "once": false,
+                    "limit": ""
+                  },
+                  "minimum": {
+                    "enabled": false,
+                    "value": "",
+                    "maximize": false
+                  },
+                  "maximum": {
+                    "enabled": false,
+                    "value": "",
+                    "zero": false
+                  },
+                  "config": {
+                    "first": false
+                  }
+                }
+              },
+              "filters": {
+                "actorCreatureSizes": [],
+                "actorCreatureTypes": [],
+                "actorLanguages": [],
+                "arbitraryComparisons": [],
+                "baseArmors": [],
+                "customScripts": "",
+                "healthPercentages": {
+                  "value": 50,
+                  "type": null
+                },
+                "markers": {
+                  "values": [],
+                  "target": []
+                },
+                "remainingSpellSlots": {
+                  "min": null,
+                  "max": null,
+                  "size": false
+                },
+                "statusEffects": [],
+                "abilities": [],
+                "baseWeapons": [],
+                "creatureTypes": [],
+                "damageTypes": [
+                  "cold"
+                ],
+                "featureTypes": {
+                  "subtype": ""
+                },
+                "identifiers": {
+                  "values": []
+                },
+                "itemTypes": [],
+                "preparationModes": [],
+                "sourceClasses": {
+                  "values": []
+                },
+                "spellComponents": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellKeywords": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellLevels": [],
+                "spellSchools": [],
+                "targetArmors": [],
+                "targetEffects": [],
+                "tokenSizes": {
+                  "size": null,
+                  "type": 0,
+                  "self": false
+                },
+                "weaponProperties": [],
+                "attackModes": {
+                  "value": [],
+                  "classification": [],
+                  "mode": []
+                }
+              }
+            },
+            {
+              "name": "Chinoike Passive",
+              "img": "ChinoikeClan.webp",
+              "id": "i3eIIJcBQxCG1ioH",
+              "sort": 0,
+              "type": "save",
+              "enabled": true,
+              "exclusive": false,
+              "optional": true,
+              "reminder": false,
+              "description": "",
+              "consume": {
+                "enabled": false,
+                "type": "",
+                "subtype": "",
+                "scales": false,
+                "formula": "",
+                "value": {
+                  "min": "",
+                  "max": "",
+                  "step": null
+                }
+              },
+              "aura": {
+                "enabled": false,
+                "template": false,
+                "range": "",
+                "self": true,
+                "disposition": 2,
+                "blockers": [],
+                "require": {
+                  "light": false,
+                  "sight": false,
+                  "sound": false,
+                  "move": false
+                }
+              },
+              "flags": {},
+              "bonuses": {
+                "bonus": "1"
+              },
+              "filters": {
+                "actorCreatureSizes": [],
+                "actorCreatureTypes": [],
+                "actorLanguages": [],
+                "arbitraryComparisons": [],
+                "baseArmors": [],
+                "customScripts": "",
+                "healthPercentages": {
+                  "value": 50,
+                  "type": null
+                },
+                "markers": {
+                  "values": [],
+                  "target": []
+                },
+                "remainingSpellSlots": {
+                  "min": null,
+                  "max": null,
+                  "size": false
+                },
+                "statusEffects": [],
+                "abilities": [],
+                "baseWeapons": [],
+                "creatureTypes": [],
+                "damageTypes": [
+                  "cold"
+                ],
+                "featureTypes": {
+                  "subtype": ""
+                },
+                "identifiers": {
+                  "values": []
+                },
+                "itemTypes": [],
+                "preparationModes": [],
+                "sourceClasses": {
+                  "values": []
+                },
+                "spellComponents": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellKeywords": {
+                  "types": [],
+                  "match": "ANY"
+                },
+                "spellLevels": [],
+                "spellSchools": [],
+                "targetArmors": [],
+                "targetEffects": [],
+                "tokenSizes": {
+                  "size": null,
+                  "type": 0,
+                  "self": false
+                },
+                "weaponProperties": [],
+                "saveAbilities": []
+              }
+            }
+          ]
+        }
+      },
+      "img": "ChinoikeClan.webp",
+      "_id": "18bSl4WjmpiLOrBs",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.senses.chakrasight",
+          "mode": 2,
+          "value": "60",
+          "priority": 20
+        },
+        {
+          "key": "system.traits.dr.value",
+          "mode": 0,
+          "value": "necrotic",
+          "priority": 20
+        },
+        {
+          "key": "system.traits.ci.value",
+          "mode": 2,
+          "value": "bleeding",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1727651104061,
+        "modifiedTime": 1727651788437,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!mMhOThwb38AVRjWR.18bSl4WjmpiLOrBs"
+    }
+  ],
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,1,1",
+    "createdTime": 1727649986633,
+    "modifiedTime": 1727804613256,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!mMhOThwb38AVRjWR"
+}

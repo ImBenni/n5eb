@@ -1,0 +1,310 @@
+{
+  "folder": "SzA7xJ9Dgu4rObRV",
+  "name": "Tokage's Venomous Flesh",
+  "type": "feat",
+  "_id": "pkeAdV4KUJ2BPKzL",
+  "img": "icons/magic/acid/dissolve-arm-flesh.webp",
+  "system": {
+    "description": {
+      "value": "<p>This summon is immune to Poison and Acid Damage. If it could take damage from a melee attack, the triggering creature would need to make a Constitution saving throw, gaining both the envenomed and corroded condition on a failed save.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "reactiondamage",
+      "cost": 1,
+      "condition": "When hit"
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "1",
+      "width": null,
+      "units": "",
+      "type": "creature",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": "touch"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": "con",
+    "actionType": "save",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "ninjutsu"
+    },
+    "summons": null,
+    "type": {
+      "value": "summon",
+      "subtype": "tribe"
+    },
+    "prerequisites": {
+      "level": null
+    },
+    "properties": [],
+    "requirements": "",
+    "recharge": {
+      "value": null,
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Poisoned/Envenomed",
+      "origin": "Compendium.n5eb.summons.Item.pkeAdV4KUJ2BPKzL",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/poisoned.svg",
+      "_id": "KnKauyqFt8gI5fUr",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start, \ndamageRoll=1d6, \ndamageType=poison, \nlabel=Poisoned/Envenomed,\nchatFlavor=YUCK I feel SICK,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "StatusEffect",
+          "mode": 0,
+          "value": "poisoned",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.ac.bonus",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has been exposed to some kind of venom or toxin, causing their vitality and immune health to drop rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it has, at the start of each of their turns for the duration of this condition</p></li><li><p>An <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1727705138865,
+        "modifiedTime": 1727705138865,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!pkeAdV4KUJ2BPKzL.KnKauyqFt8gI5fUr"
+    },
+    {
+      "name": "Corroded",
+      "origin": "Compendium.n5eb.summons.Item.pkeAdV4KUJ2BPKzL",
+      "duration": {
+        "rounds": 99,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "enableCondition": "",
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/corroded.svg",
+      "_id": "imSEBVux4h4WregT",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.abilities.con.bonuses.check",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "system.abilities.con.bonuses.save",
+          "mode": 2,
+          "value": "-1 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.DR.all",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 0,
+          "value": "saveDC=15,\nlabel=Corroded,\nsaveAbility=dex|con,\nsaveRemove=true,\nrollType=check,\nchatFlavor=This shit sticky yo,\nactionSave=dialog,",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Corroded</strong> creature has been exposed to some kind of acidic compound, causing their flesh and equipment to wither and deteriorate if left untreated.</p><ul><li><p>A <strong>Corroded</strong> creature gains a -2 penalty to its DR (damage reduction) for each rank it has.</p></li><li><p>A <strong>Corroded</strong> creature gains a -1 penalty to all Constitution based checks &amp; saves for each rank it has.</p></li><li><p>A creature can end the corroded condition by using their action making a DC 15 Dexterity or Constitution Ability Check or submerging themselves fully into a body of water.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.TJkoBRRPODGhibDp.ActiveEffect.gXQCDxapEi50ixYD",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,1,1",
+        "createdTime": 1727706014074,
+        "modifiedTime": 1727706014074,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!pkeAdV4KUJ2BPKzL.imSEBVux4h4WregT"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": "",
+      "reactionCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,1,1",
+    "createdTime": 1727705017145,
+    "modifiedTime": 1727706536224,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!pkeAdV4KUJ2BPKzL"
+}
