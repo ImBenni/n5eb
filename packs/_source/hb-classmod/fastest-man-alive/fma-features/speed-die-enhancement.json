@@ -1,0 +1,207 @@
+{
+  "folder": "3gAPqtXCDHxMfvfr",
+  "name": "Speed Die Enhancement",
+  "type": "feat",
+  "_id": "dMUDpHuR58oanN97",
+  "img": "systems/n5eb/assets/items/Speed%20dice%20enhancement.png",
+  "system": {
+    "description": {
+      "value": "<p>At first level of this class mod you gain an additional amount of speed die equal to your dexterity modifier. you also increase the size of your speed die to d10. you may use your speed die with kinetic arts as well. At level 3 of this class mod, your speed die increase to a d12.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "N5e"
+    },
+    "activation": {
+      "type": "",
+      "cost": null,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": ""
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "",
+      "width": null,
+      "units": "",
+      "type": "",
+      "prompt": true
+    },
+    "range": {
+      "value": null,
+      "long": null,
+      "units": ""
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "",
+      "target": null,
+      "amount": null,
+      "scale": false
+    },
+    "ability": null,
+    "actionType": "",
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [],
+      "versatile": ""
+    },
+    "enchantment": null,
+    "formula": "",
+    "save": {
+      "ability": "",
+      "dc": null,
+      "scaling": "spell"
+    },
+    "summons": null,
+    "type": {
+      "value": "classmod",
+      "subtype": "",
+      "nestedsubtype": ""
+    },
+    "prerequisites": {
+      "level": null
+    },
+    "properties": [],
+    "requirements": "Class  Mod Level 1",
+    "recharge": {
+      "value": null,
+      "charged": false,
+      "formula": "1d8"
+    }
+  },
+  "effects": [
+    {
+      "name": "Speed Die Enhancement",
+      "origin": "Compendium.n5eb.classmod.Item.dMUDpHuR58oanN97",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "Speed%20dice%20enhancement.png",
+      "_id": "EUUIIb1sYVPhoQlb",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.scale.namikaze.speed-die.faces",
+          "mode": 4,
+          "value": "10",
+          "priority": 20
+        },
+        {
+          "key": "system.scale.namikaze.speed-die-amount.value",
+          "mode": 2,
+          "value": "@abilities.dex.mod",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "2.0.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!dMUDpHuR58oanN97.EUUIIb1sYVPhoQlb"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "midiProperties": {
+      "confirmTargets": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    },
+    "midi-qol": {
+      "rollAttackPerTarget": "default",
+      "itemCondition": "",
+      "effectCondition": ""
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "2.0.0",
+    "createdTime": 1734704309802,
+    "modifiedTime": 1734704309802,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!dMUDpHuR58oanN97"
+}
