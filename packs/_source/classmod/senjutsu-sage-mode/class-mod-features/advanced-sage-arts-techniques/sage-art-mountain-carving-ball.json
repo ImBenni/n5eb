@@ -1,0 +1,252 @@
+{
+  "folder": "uuWsvr4SleZah3pq",
+  "name": "Sage Art: Mountain Carving Ball",
+  "type": "spell",
+  "_id": "NCCc0U0NmJ4IC1iN",
+  "img": "systems/n5eb/assets/Icons%20%26%20Images/Icons/Sage_Mode.webp",
+  "system": {
+    "description": {
+      "value": "<p>Reduced Cost: 4 Sage Chakra</p><p>Description: You generate a massive 15-foot ball of Sage Chakra. You impart enough Sage Chakra into this ever- spiraling ball of energy to easily carve a mountain.</p><p>Make a melee Senjutsu attack against a creature in range. On a hit, the target creature takes 24d8 force damage. All Creatures (excluding you, the original target and up to 4 creatures of your choice) in a 30-foot radius sphere, centering on the original target must make a Dexterity saving throw. On a failed save, they take 12d8 force damage and are pushed back 60ft on a failed save, or half as much damage and only pushed back 30ft on a success.</p><p>Sage Affinity Synergy: If you have the Earth, Wind, Fire, Water or Lightning Senjutsu class mod feature, when you cast this Senjutsu, you may further infuse it with your advanced nature transformation. If you do, increase the radius of this Senjutsu to 50ft and after damage calculation, the surrounding area in a 500ft radius will be devastated by the concentrated elemental force of this Art leaving behind one of the following effects based on its damage type for no longer than 10 minutes.</p><p>• Earth: The terrain within the is littered with standing, free floating, and slowly erupting stalagmites, which count as Earthen Constructs. Being thrown into or touching one of these stalagmites causes them to explode in a 10ft radius dealing 6d6 earth damage to all creatures in range.</p><p>• Wind: The terrain is surrounded by a massive storm that aggressively spreads the misfortunes of creatures within. At the beginning of each hostile creatures turn, all creatures within 5ft of them gain 1 rank of all Elemental conditions they have.</p><p>• Fire: Twenty, 10ft cubes of super-heated spiraling flame appear in the area, manifesting in areas of your choice, that automatically inflicts 2 ranks of the Burned condition if a creature passes through or begins it turn within 5 feet of its space.</p><p>• Cold: The entire space is filled with 10ft deep water.</p><p>• Lightning: At the beginning of each hostile creatures turn, they must roll a d12. On any roll less than 5, they are struck by lightning dealing 6d6 lightning damage and inflicting 1 rank of Shock.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "action",
+      "cost": 1,
+      "condition": ""
+    },
+    "duration": {
+      "value": "",
+      "units": "inst"
+    },
+    "cover": null,
+    "crewed": false,
+    "target": {
+      "value": "30",
+      "width": null,
+      "units": "ft",
+      "type": "radius",
+      "prompt": true
+    },
+    "range": {
+      "value": 20,
+      "long": null,
+      "units": "ft"
+    },
+    "uses": {
+      "value": null,
+      "max": "",
+      "per": null,
+      "recovery": "",
+      "prompt": true
+    },
+    "consume": {
+      "type": "charges",
+      "target": "Compendium.world.class-mods.Item.HybmMugTJUYpISbC",
+      "amount": 6,
+      "scale": false
+    },
+    "ability": "art",
+    "actionType": "mnak",
+    "chatFlavor": "",
+    "critical": {
+      "threshold": null,
+      "damage": ""
+    },
+    "damage": {
+      "parts": [
+        [
+          "24d8",
+          "force"
+        ]
+      ],
+      "versatile": "12d8"
+    },
+    "formula": "",
+    "save": {
+      "ability": "dex",
+      "dc": null,
+      "scaling": "art"
+    },
+    "level": 6,
+    "school": "hi",
+    "materials": {
+      "value": "",
+      "consumed": false,
+      "cost": 0,
+      "supply": 0
+    },
+    "preparation": {
+      "mode": "prepared",
+      "prepared": false
+    },
+    "scaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "keywords": [
+      "ninjutsu",
+      "clash"
+    ],
+    "attack": {
+      "bonus": "",
+      "flat": false
+    },
+    "enchantment": null,
+    "summons": null,
+    "properties": [
+      "chakramolding"
+    ],
+    "chakraCost": 0,
+    "chakraScaling": {
+      "mode": "none",
+      "value": 0
+    },
+    "versatileScaling": {
+      "mode": "none",
+      "formula": ""
+    },
+    "recharge": {
+      "value": null,
+      "formula": "1d8",
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "name": "Burned",
+      "origin": "Compendium.world.class-mods.Item.NCCc0U0NmJ4IC1iN",
+      "duration": {
+        "rounds": 10,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "count",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "img": "systems/n5eb/icons/svg/statuses/burning.svg",
+      "_id": "Rl4Wx6RD6XqIWpsm",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 5,
+          "value": "turn=start,\nrollType=skill,\nsaveAbility=sur,\nsaveDC=15,\nactionSave=dialog,\ndamageBeforeSave=true,\ndamageRoll=1d8,\ndamageType=fire,\nsaveRemove=true,\nname=Burned, \nchatFlavor=It's very hot!,\nfastForwardDamage=true,",
+          "priority": 20
+        },
+        {
+          "key": "system.attributes.concentration.bonuses.save",
+          "mode": 2,
+          "value": "-2 * @stackCount",
+          "priority": 20
+        }
+      ],
+      "description": "<p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put out the flames. On a successful check, the condition ends or submerging themselves fully into a body of water.</p></li></ul>",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": "Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx",
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "1,2,1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!items.effects!NCCc0U0NmJ4IC1iN.Rl4Wx6RD6XqIWpsm"
+    }
+  ],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "n5eb": {
+      "migratedProperties": [
+        "chakramolding"
+      ]
+    },
+    "midi-qol": {
+      "AoETargetType": "any",
+      "AoETargetTypeIncludeSelf": true,
+      "autoTarget": "default",
+      "rollAttackPerTarget": "default",
+      "removeAttackDamageButtons": "default",
+      "itemCondition": "",
+      "otherCondition": "",
+      "effectCondition": "",
+      "fumbleThreshold": null
+    },
+    "midiProperties": {
+      "confirmTargets": "default",
+      "saveDamage": "default",
+      "bonusSaveDamage": "default",
+      "otherSaveDamage": "default",
+      "autoFailFriendly": false,
+      "autoSaveFriendly": false,
+      "critOther": false,
+      "offHandWeapon": false,
+      "magicdam": false,
+      "magiceffect": false,
+      "noConcentrationCheck": false,
+      "toggleEffect": false,
+      "ignoreTotalCover": false,
+      "idr": false,
+      "idi": false,
+      "idv": false,
+      "ida": false
+    }
+  },
+  "_stats": {
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "n5eb",
+    "systemVersion": "1,3,1",
+    "createdTime": 1728700702561,
+    "modifiedTime": 1729022579028,
+    "lastModifiedBy": "n5ebbuilder00000"
+  },
+  "_key": "!items!NCCc0U0NmJ4IC1iN"
+}
