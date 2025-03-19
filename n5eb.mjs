@@ -3273,6 +3273,7 @@ async function preloadHandlebarsTemplates() {
     "systems/n5eb/templates/actors/parts/actor-warnings-dialog.hbs",
     "systems/n5eb/templates/actors/parts/biography-textbox.hbs",
     "systems/n5eb/templates/actors/tabs/character-biography.hbs",
+    "systems/n5eb/templates/actors/tabs/character-downtime.hbs",
     "systems/n5eb/templates/actors/tabs/character-details.hbs",
     "systems/n5eb/templates/actors/tabs/creature-features.hbs",
     "systems/n5eb/templates/actors/tabs/creature-spells.hbs",
@@ -23612,6 +23613,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    * @returns {Promise<Actor5e>}                     A Promise which resolves once the damage has been applied.
    */
   async applyDamage(damages, options = {}) {
+    console.log(damages);
     const hp = this.system.attributes.hp;
     const cp = this.system.attributes.cp;
 
@@ -23869,6 +23871,19 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     // Update the actor if the new amount is greater than the current
     const tmp = parseInt(hp.temp) || 0;
     return amount > tmp ? this.update({ "system.attributes.hp.temp": amount }) : this;
+  }
+
+  /**
+   * Apply a certain amount of temporary chakra point, but only if it's more than the actor currently has.
+   * @param {number} amount       An amount of temporary chakra points to set
+   * @returns {Promise<Actor5e>}  A Promise which resolves once the temp CP has been applied
+   */
+  async applyTempCP(amount = 0) {
+    amount = parseInt(amount);
+    const cp = this.system.attributes.cp;
+    // Update the actor if the new amount is greater than the current
+    const tmp = parseInt(cp.temp) || 0;
+    return amount > tmp ? this.update({ "system.attributes.cp.temp": amount }) : this;
   }
 
   /* -------------------------------------------- */
@@ -36766,6 +36781,14 @@ class ActorSheet5e extends ActorSheetMixin(ActorSheet) {
       relativeTo: this.actor,
     });
 
+    // Downtime HTML enrichment
+    context.downtimeHTML = await TextEditor.enrichHTML(context.system.details.downtime.value, {
+      secrets: this.actor.isOwner,
+      rollData: context.rollData,
+      async: true,
+      relativeTo: this.actor,
+    });
+
     return context;
   }
 
@@ -39829,6 +39852,12 @@ class DetailsField {
         },
         { label: "N5EB.Biography" }
       ),
+      downtime: new SchemaField$7(
+        {
+          value: new HTMLField$2({ label: "N5EB.Downtime" }),
+        },
+        { label: "N5EB.Downtime" }
+      ),
     };
   }
 
@@ -41472,6 +41501,7 @@ class ActorSheet5eCharacter2 extends ActorSheetV2Mixin(ActorSheet5eCharacter) {
     { tab: "features", label: "N5EB.Features", icon: "fas fa-list" },
     { tab: "spells", label: "TYPES.Item.spellPl", icon: "fas fa-book" },
     { tab: "effects", label: "N5EB.Effects", icon: "fas fa-bolt" },
+    { tab: "downtime", label: "N5EB.Downtime", icon: "fas fa-calendar-days" },
     { tab: "biography", label: "N5EB.Biography", icon: "fas fa-feather" },
   ];
 
@@ -55813,21 +55843,36 @@ class ChatMessage5e extends ChatMessage {
         name: game.i18n.localize("N5EB.ChatContextChakraHealing"),
         icon: '<i class="fas fa-user-plus"></i>',
         condition: canApply,
-        callback: (li) => game.messages.get(li.data("messageId"))?.applyChatCardDamage(li, -1),
+        callback: async (li) => {
+          const msg = game.messages.get(li.data("messageId"));
+          const originalTypes = msg.rolls.map(r => r.options.type);
+          msg.rolls.forEach(r => { r.options.type = "chakrahealing"; });
+          const result = await msg.applyChatCardDamage(li, -1);
+          msg.rolls.forEach((r, i) => { r.options.type = originalTypes[i]; });
+          return result;
+        },
         group: "damage",
       },
       {
         name: game.i18n.localize("N5EB.ChatContextTempHP"),
         icon: '<i class="fas fa-user-clock"></i>',
         condition: canApply,
-        callback: (li) => game.messages.get(li.data("messageId"))?.applyChatCardTemp(li),
+        callback: (li) => {
+          const msg = game.messages.get(li.data("messageId"));
+          msg.rolls.forEach(r => { r.options.type = "temphp"; });
+          return msg.applyChatCardTemp(li);
+        },
         group: "damage",
       },
       {
         name: game.i18n.localize("N5EB.ChatContextTempCP"),
         icon: '<i class="fas fa-user-clock"></i>',
         condition: canApply,
-        callback: (li) => game.messages.get(li.data("messageId"))?.applyChatCardTemp(li),
+        callback: (li) => {
+          const msg = game.messages.get(li.data("messageId"));
+          msg.rolls.forEach(r => { r.options.type = "tempcp"; });
+          return msg.applyChatCardTemp(li);
+        },
         group: "damage",
       },
       {
@@ -55963,18 +56008,29 @@ class ChatMessage5e extends ChatMessage {
   /* -------------------------------------------- */
 
   /**
-   * Apply rolled dice as temporary hit points to the controlled token(s).
+   * Apply rolled dice as temporary hit/chakra points to the controlled token(s).
    * @param {HTMLElement} li  The chat entry which contains the roll data
    * @returns {Promise}
    */
   applyChatCardTemp(li) {
     const total = this.rolls.reduce((acc, roll) => acc + roll.total, 0);
-    return Promise.all(
-      canvas.tokens.controlled.map((t) => {
-        return t.actor?.applyTempHP(total);
-      })
-    );
+    const rollType = this.rolls[0]?.options?.type || "";
+    if (rollType === "tempcp") {
+      return Promise.all(
+        canvas.tokens.controlled.map((t) => {
+          return t.actor?.applyTempCP(total);
+        })
+      );
+    } else {
+      return Promise.all(
+        canvas.tokens.controlled.map((t) => {
+          return t.actor?.applyTempHP(total);
+        })
+      );
+    }
   }
+  
+  
 
   /* -------------------------------------------- */
 
