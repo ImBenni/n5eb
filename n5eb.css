@@ -3636,7 +3636,8 @@ h5 {
   border: 1px solid var(--n5eb-color-faint);
   resize: none;
 }
-.n5eb.sheet.actor.character .biography {
+.n5eb.sheet.actor.character .biography,
+.n5eb.sheet.actor.character .downtime{
   max-width: calc(100% - 180px);
 }
 /* ----------------------------------------- */
@@ -7607,7 +7608,7 @@ dialog.n5eb2.application {
 .n5eb2.sheet.actor.character .sheet-body .tab-body .tab:not(.details) {
   padding-inline: 0.5rem;
 }
-.n5eb2.sheet.actor.character .sheet-body .tab-body .tab:not(.details, .biography) {
+.n5eb2.sheet.actor.character .sheet-body .tab-body .tab:not(.details, .biography .downtime) {
   padding-bottom: calc(1.5rem + 30px);
 }
 .n5eb2.sheet.actor.character .sheet-body .skills > ul,
@@ -7995,97 +7996,119 @@ dialog.n5eb2.application {
 .n5eb2.sheet.actor.character .spells-list .items-header .item-name {
   cursor: pointer;
 }
-.n5eb2.sheet.actor.character .tab.biography.active {
+.n5eb2.sheet.actor.character .tab.biography,
+.n5eb2.sheet.actor.character .tab.downtime {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   height: 100%;
 }
-.n5eb2.sheet.actor.character .tab.biography > .top {
+.n5eb2.sheet.actor.character .tab.biography > .top,
+.n5eb2.sheet.actor.character .tab.downtime > .top {
   display: flex;
   padding-left: 0.25rem;
   margin-bottom: 1.5rem;
 }
-.n5eb2.sheet.actor.character .tab.biography > .middle {
+.n5eb2.sheet.actor.character .tab.biography > .middle,
+.n5eb2.sheet.actor.character .tab.downtime > .middle {
   gap: 1rem;
 }
-.n5eb2.sheet.actor.character .tab.biography > .middle > * {
+.n5eb2.sheet.actor.character .tab.biography > .middle > *,
+.n5eb2.sheet.actor.character .tab.downtime > .middle > * {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-.n5eb2.sheet.actor.character .tab.biography > .middle .right .textbox-half:last-child textarea {
+.n5eb2.sheet.actor.character .tab.biography > .middle .right .textbox-half:last-child textarea,
+.n5eb2.sheet.actor.character .tab.downtime > .middle .right .textbox-half:last-child textarea {
   height: 156px;
 }
-.n5eb2.sheet.actor.character .tab.biography > .bottom {
+.n5eb2.sheet.actor.character .tab.biography > .bottom,
+.n5eb2.sheet.actor.character .tab.downtime > .bottom {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-.n5eb2.sheet.actor.character .tab.biography > .bottom h3 {
+.n5eb2.sheet.actor.character .tab.biography > .bottom h3,
+.n5eb2.sheet.actor.character .tab.downtime > .bottom h3 {
   margin-right: 1.5rem;
   position: relative;
 }
-.n5eb2.sheet.actor.character .tab.biography > .bottom h3 span {
+.n5eb2.sheet.actor.character .tab.biography > .bottom h3 span,
+.n5eb2.sheet.actor.character .tab.downtime > .bottom h3 span {
   font-size: var(--font-size-14);
 }
-.n5eb2.sheet.actor.character .tab.biography > .bottom h3 i.fa-feather {
+.n5eb2.sheet.actor.character .tab.biography > .bottom h3 i.fa-feather,
+.n5eb2.sheet.actor.character .tab.downtime > .bottom h3 i.fa-feather {
   position: absolute;
   inset: auto auto -1px 100%;
   font-size: var(--font-size-18);
 }
-.n5eb2.sheet.actor.character .tab.biography > .bottom .editor {
+.n5eb2.sheet.actor.character .tab.biography > .bottom .editor,
+.n5eb2.sheet.actor.character .tab.downtime > .bottom .editor {
   flex: 1;
   min-height: 500px;
   overflow-y: visible;
 }
-.n5eb2.sheet.actor.character .tab.biography > .bottom .editor .editor-content {
+.n5eb2.sheet.actor.character .tab.biography > .bottom .editor .editor-content,
+.n5eb2.sheet.actor.character .tab.downtime > .bottom .editor .editor-content {
   font-family: var(--n5eb-font-roboto-condensed);
   font-size: var(--font-size-14);
   scrollbar-width: thin;
   scrollbar-color: var(--n5eb-color-scrollbar) transparent;
 }
-.n5eb2.sheet.actor.character .tab.biography > .bottom .editor .editor-content::-webkit-scrollbar-track {
+.n5eb2.sheet.actor.character .tab.biography > .bottom .editor .editor-content::-webkit-scrollbar-track,
+.n5eb2.sheet.actor.character .tab.downtime > .bottom .editor .editor-content::-webkit-scrollbar-track {
   box-shadow: none;
   border-radius: 0;
 }
-.n5eb2.sheet.actor.character .tab.biography > .bottom .editor .editor-content::-webkit-scrollbar-thumb {
+.n5eb2.sheet.actor.character .tab.biography > .bottom .editor .editor-content::-webkit-scrollbar-thumb,
+.n5eb2.sheet.actor.character .tab.downtime > .bottom .editor .editor-content::-webkit-scrollbar-thumb {
   border: none;
   background: var(--n5eb-color-scrollbar);
 }
-.n5eb2.sheet.actor.character .tab.biography .characteristics {
+.n5eb2.sheet.actor.character .tab.biography .characteristics,
+.n5eb2.sheet.actor.character .tab.downtime .characteristics {
   width: 520px;
   display: grid;
   grid-template-columns: 180px 160px 140px;
   gap: 1rem;
 }
-.n5eb2.sheet.actor.character .tab.biography .characteristics label {
+.n5eb2.sheet.actor.character .tab.biography .characteristics label,
+.n5eb2.sheet.actor.character .tab.downtime .characteristics label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-.n5eb2.sheet.actor.character .tab.biography .characteristics label .label {
+.n5eb2.sheet.actor.character .tab.biography .characteristics label .label,
+.n5eb2.sheet.actor.character .tab.downtime .characteristics label .label {
   font-size: var(--font-size-10);
 }
 .n5eb2.sheet.actor.character .tab.biography .characteristics label input,
-.n5eb2.sheet.actor.character .tab.biography .characteristics label .value {
+.n5eb2.sheet.actor.character .tab.biography .characteristics label .value,
+.n5eb2.sheet.actor.character .tab.downtime .characteristics label input,
+.n5eb2.sheet.actor.character .tab.downtime .characteristics label .value {
   flex: 1;
   font-size: var(--font-size-11);
 }
-.n5eb2.sheet.actor.character .tab.biography .characteristics label input {
+.n5eb2.sheet.actor.character .tab.biography .characteristics label input,
+.n5eb2.sheet.actor.character .tab.downtime .characteristics label input {
   height: unset;
   padding: 0.25rem;
   background: transparent;
 }
-.n5eb2.sheet.actor.character .tab.biography .characteristics label .value {
+.n5eb2.sheet.actor.character .tab.biography .characteristics label .value,
+.n5eb2.sheet.actor.character .tab.downtime .characteristics label .value {
   min-height: 1em;
   border-bottom: 1px solid var(--color-text-dark-primary);
 }
-.n5eb2.sheet.actor.character .tab.biography .textbox-half p {
+.n5eb2.sheet.actor.character .tab.biography .textbox-half p,
+.n5eb2.sheet.actor.character .tab.downtime .textbox-half p {
   font-size: var(--font-size-12);
   padding: 0.375rem;
 }
-.n5eb2.sheet.actor.character .tab.biography .textbox-half p:empty {
+.n5eb2.sheet.actor.character .tab.biography .textbox-half p:empty,
+.n5eb2.sheet.actor.character .tab.downtime .textbox-half p:empty {
   padding: 0;
   margin: 0;
   min-height: unset;
@@ -8135,10 +8158,12 @@ dialog.n5eb2.application {
   background-color: var(--n5eb-color-light-gray);
   margin: 0;
 }
-.n5eb2.sheet.actor.character.limited .tab.biography > .bottom {
+.n5eb2.sheet.actor.character.limited .tab.biography > .bottom,
+.n5eb2.sheet.actor.character.limited .tab.downtime > .bottom {
   padding: 0.5rem;
 }
-.n5eb2.sheet.actor.character.limited .tab.biography > .bottom .editor {
+.n5eb2.sheet.actor.character.limited .tab.biography > .bottom .editor,
+.n5eb2.sheet.actor.character.limited .tab.downtime > .bottom .editor {
   min-height: unset;
 }
 .n5eb2.sheet.actor.character.limited .main-content {
@@ -8708,13 +8733,14 @@ dialog.n5eb2.application {
   gap: 8px;
 }
 .n5eb2.sheet.actor.npc .sheet-body .main-content .tab-body .tab.spells,
-.n5eb2.sheet.actor.npc .sheet-body .main-content .tab-body .tab.biography {
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab-body .tab.biography,
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab-body .tab.downtime {
   flex-direction: column;
 }
 .n5eb2.sheet.actor.npc .sheet-body .main-content .tab-body .tab:not(.active) {
   display: none;
 }
-.n5eb2.sheet.actor.npc .sheet-body .main-content .tab-body .tab:not(.biography, .inventory) {
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab-body .tab:not(.biography, .downtime, .inventory) {
   padding-bottom: calc(1.5rem + 30px);
 }
 .n5eb2.sheet.actor.npc .sheet-body .main-content .inventory-element {
@@ -8800,16 +8826,19 @@ dialog.n5eb2.application {
 .n5eb2.sheet.actor.npc .sheet-body .main-content .effects-element .conditions-list .condition {
   padding: 9px 10px;
 }
-.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.biography .top {
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.biography .top,
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.downtime .top {
   display: flex;
   align-items: stretch;
   gap: 8px;
 }
-.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.biography :is(.middle, .bottom) > h3 {
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.biography :is(.middle, .bottom) > h3,
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.downtime :is(.middle, .bottom) > h3 {
   margin-right: 24px;
   position: relative;
 }
-.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.biography :is(.middle, .bottom) > h3 .editor-edit {
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.biography :is(.middle, .bottom) > h3 .editor-edit,
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.downtime :is(.middle, .bottom) > h3 .editor-edit {
   background: transparent;
   border: none;
   box-shadow: none;
@@ -8818,7 +8847,8 @@ dialog.n5eb2.application {
   color: var(--color-text-dark-primary);
   padding: 0;
 }
-.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.biography > .editor {
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.biography > .editor,
+.n5eb2.sheet.actor.npc .sheet-body .main-content .tab.downtime > .editor {
   flex: 1;
 }
 .n5eb2.sheet.actor.npc form.tab-inventory > .create-child {
@@ -8941,7 +8971,8 @@ dialog.n5eb2.application {
   height: 100%;
   border-width: 4px;
 }
-.n5eb2.sheet.actor.npc form:is(.interactable, .editable) .biography .editor-edit {
+.n5eb2.sheet.actor.npc form:is(.interactable, .editable) .biography .editor-edit,
+.n5eb2.sheet.actor.npc form:is(.interactable, .editable) .downtime .editor-edit  {
   display: block;
 }
 .n5eb2.compendium-browser {
