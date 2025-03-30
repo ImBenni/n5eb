@@ -1,57 +1,39 @@
 {
   "folder": "BibCK2wyG6VpDTdI",
   "name": "Illusionary Weapon",
-  "type": "weapon",
-  "_id": "P3TlpwIGDc88FzCu",
+  "type": "feat",
+  "_id": "2kXBoNxdlNOWE9Ba",
   "img": "icons/skills/melee/strike-axe-energy-pink.webp",
   "system": {
     "description": {
-      "value": "",
+      "value": "<p>You begin to shape your illusions into a weapon of pure psychosis. You can, as a Bonus action create an Illusionary Weapon in your empty hand. You can choose the form that this weapon takes each time you create it. </p><p>You are proficient with it while you wield it and attacks made with the weapon use your Genjutsu attack bonus. If you create a ranged weapon, the maximum range for your weapon is 30 feet. This weapon deals Psychic damage and counts as a melee Genjutsu attack for purpose of triggering other Malleable Mirage effects. </p><p>Your Illusionary weapon disappears if it is more than 5 feet away from you for one minute or more. It also disappears if you use this feature again, if you dismiss the weapon (no action required), your chakra point reach 0, you fall unconscious, or if you die. </p><p>At 7th level, you gain the Vicious Illusion Malleable Mirage. </p><p>Finally beginning at 11th level, when you would make a melee Genjutsu attack against a hostile creature and roll 10 or higher than the targets AC, you regain 1 spent Actualization Die. You can only regain 1 Actualization die in this way per turn.</p>",
       "chat": ""
     },
     "source": {
       "custom": "N5e"
     },
-    "identified": true,
-    "unidentified": {
-      "description": ""
-    },
-    "container": null,
-    "quantity": 1,
-    "weight": {
-      "value": 0,
-      "units": "bulk"
-    },
-    "price": {
-      "value": 0,
-      "denomination": "ryo"
-    },
-    "rarity": "",
-    "attunement": "",
-    "attuned": false,
-    "equipped": false,
     "activation": {
-      "type": "action",
+      "type": "bonus",
       "cost": 1,
       "condition": ""
     },
     "duration": {
       "value": "",
-      "units": "inst"
+      "units": ""
     },
     "cover": null,
     "crewed": false,
     "target": {
-      "value": "1",
+      "value": "",
       "width": null,
       "units": "",
-      "type": "creature",
+      "type": "self",
       "prompt": true
     },
     "range": {
-      "value": 20,
-      "long": 60,
-      "units": "ft"
+      "value": null,
+      "long": null,
+      "units": ""
     },
     "uses": {
       "value": null,
@@ -66,8 +48,8 @@
       "amount": null,
       "scale": false
     },
-    "ability": "",
-    "actionType": "mgak",
+    "ability": null,
+    "actionType": "",
     "attack": {
       "bonus": "",
       "flat": false
@@ -78,12 +60,7 @@
       "damage": ""
     },
     "damage": {
-      "parts": [
-        [
-          "1d6",
-          "psychic"
-        ]
-      ],
+      "parts": [],
       "versatile": ""
     },
     "enchantment": null,
@@ -91,33 +68,104 @@
     "save": {
       "ability": "",
       "dc": null,
-      "scaling": "ninjutsu"
+      "scaling": "spell"
     },
     "summons": null,
-    "armor": {
-      "value": null
-    },
-    "hp": {
+    "recharge": {
       "value": null,
-      "max": null,
-      "dt": null,
-      "conditions": ""
+      "formula": "1d8",
+      "charged": false
     },
     "type": {
-      "value": "simpleM",
-      "baseItem": "handaxe"
+      "value": "class",
+      "subtype": "inception",
+      "nestedsubtype": ""
     },
-    "magicalBonus": null,
-    "properties": [
-      "lgt",
-      "thr"
-    ],
-    "wgroup": [
-      "thr"
-    ],
-    "proficient": 1
+    "prerequisites": {
+      "level": 3
+    },
+    "properties": [],
+    "requirements": ""
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Illusionary Weapon",
+      "origin": "Compendium.n5eb.class.Item.2kXBoNxdlNOWE9Ba",
+      "duration": {
+        "rounds": null,
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "flags": {
+        "dae": {
+          "disableCondition": "",
+          "disableIncapacitated": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [],
+          "enableCondition": "",
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false
+        },
+        "core": {
+          "overlay": false
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system",
+          "statuses": []
+        }
+      },
+      "img": "icons/skills/melee/strike-axe-energy-pink.webp",
+      "_id": "8u3QxZCAE93yfbvK",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "macro.createItem",
+          "mode": 0,
+          "value": "Compendium.n5eb.items.Item.Cv4mk9dPhcyi6aiF",
+          "priority": 20
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "n5eb",
+        "systemVersion": "2.0.1",
+        "createdTime": 1742414606396,
+        "modifiedTime": 1742414834843,
+        "lastModifiedBy": "n5ebbuilder00000"
+      },
+      "_key": "!items.effects!2kXBoNxdlNOWE9Ba.8u3QxZCAE93yfbvK"
+    }
+  ],
   "sort": 0,
   "ownership": {
     "default": 0
@@ -142,19 +190,17 @@
     "midi-qol": {
       "rollAttackPerTarget": "default",
       "itemCondition": "",
-      "effectCondition": "",
-      "fumbleThreshold": null,
-      "removeAttackDamageButtons": "default"
+      "effectCondition": ""
     }
   },
   "_stats": {
     "duplicateSource": null,
     "coreVersion": "12.331",
     "systemId": "n5eb",
-    "systemVersion": "1,1,1",
-    "createdTime": 1727692758266,
-    "modifiedTime": 1727693256850,
+    "systemVersion": "2.0.1",
+    "createdTime": 1742414440073,
+    "modifiedTime": 1742414529898,
     "lastModifiedBy": "n5ebbuilder00000"
   },
-  "_key": "!items!P3TlpwIGDc88FzCu"
+  "_key": "!items!2kXBoNxdlNOWE9Ba"
 }
