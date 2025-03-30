@@ -5134,7 +5134,7 @@ class CompendiumBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       id: "sidebar-filters",
       classes: ["sidebar-part"],
       template: "systems/n5eb/templates/compendium/browser-sidebar-filters.hbs",
-      templates: ["systems/dnd5e/templates/compendium/browser-sidebar-filter-set.hbs"],
+      templates: ["systems/n5eb/templates/compendium/browser-sidebar-filter-set.hbs"],
     },
     results: {
       id: "results",
