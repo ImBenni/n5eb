@@ -2217,7 +2217,7 @@ class BaseRestDialog extends Dialog5e {
     }
 
     if ( this.isPartyGroup ) {
-      const restSettings = this.actor.getFlag("dnd5e", "restSettings") ?? {};
+      const restSettings = this.actor.getFlag("n5eb", "restSettings") ?? {};
       context.request = [
         {
           field: new BooleanField$O({
@@ -2259,7 +2259,7 @@ class BaseRestDialog extends Dialog5e {
     const data = foundry.utils.expandObject(formData.object);
     if ( this.isPartyGroup ) {
       data.targets = filteredKeys(data.targets ?? {});
-      this.actor.setFlag("dnd5e", "restSettings", data);
+      this.actor.setFlag("n5eb", "restSettings", data);
     }
     foundry.utils.mergeObject(this.config, data);
     this.#rested = true;
@@ -4613,7 +4613,9 @@ class SourceField extends SchemaField$11 {
   static prepareData(uuid) {
     const collection = foundry.utils.parseUuid(uuid)?.collection;
     const pkg = SourceField.getPackage(collection);
-    this.bookPlaceholder = collection?.metadata?.flags?.dnd5e?.sourceBook ?? SourceField.getModuleBook(pkg) ?? "";
+    this.bookPlaceholder = collection?.metadata?.flags?.n5eb?.sourceBook
+      ?? collection?.metadata?.flags?.dnd5e?.sourceBook
+      ?? SourceField.getModuleBook(pkg) ?? "";
     if ( !this.book ) this.book = this.bookPlaceholder;
 
     if ( this.custom ) this.label = this.custom;
@@ -4643,7 +4645,7 @@ class SourceField extends SchemaField$11 {
    */
   static getModuleBook(pkg) {
     if ( !pkg ) return null;
-    const sourceBooks = pkg.flags?.dnd5e?.sourceBooks;
+    const sourceBooks = pkg.flags?.n5eb?.sourceBooks ?? pkg.flags?.dnd5e?.sourceBooks;
     const keys = Object.keys(sourceBooks ?? {});
     if ( keys.length !== 1 ) return null;
     return keys[0];
@@ -6811,9 +6813,9 @@ class Advancement extends PseudoDocumentMixin(BaseAdvancementData) {
     return source.clone({
       _stats,
       _id: id ?? foundry.utils.randomID(),
-      "flags.dnd5e.sourceId": uuid,
-      "flags.dnd5e.advancementOrigin": advancementOrigin,
-      "flags.dnd5e.advancementRoot": this.item.getFlag("dnd5e", "advancementRoot") ?? advancementOrigin
+      "flags.n5eb.sourceId": uuid,
+      "flags.n5eb.advancementOrigin": advancementOrigin,
+      "flags.n5eb.advancementRoot": this.item.getFlag("n5eb", "advancementRoot") ?? advancementOrigin
     }, { keepId: true }).toObject();
   }
 
@@ -7584,7 +7586,7 @@ class AdvancementManager extends Application5e {
         // Apply changes based on step type
         if ( (type === "delete") && this.step.item ) {
           if ( this.step.flow?.retainedData?.retainedItems ) {
-            this.step.flow.retainedData.retainedItems[this.step.item.flags.dnd5e?.sourceId] = this.step.item.toObject();
+            this.step.flow.retainedData.retainedItems[this.step.item.flags.n5eb?.sourceId] = this.step.item.toObject();
           }
           this.clone.items.delete(this.step.item.id);
         } else if ( (type === "delete") && this.step.advancement ) {
@@ -10407,7 +10409,7 @@ let ItemDataModel$1 = class ItemDataModel extends SystemDataModel$1 {
    * @type {Item5e|void}
    */
   get advancementRootItem() {
-    return this.parent?.actor?.items.get(this.parent.getFlag("dnd5e", "advancementRoot")?.split(".")?.[0]);
+    return this.parent?.actor?.items.get(this.parent.getFlag("n5eb", "advancementRoot")?.split(".")?.[0]);
   }
 
   /* -------------------------------------------- */
@@ -10495,7 +10497,7 @@ let ItemDataModel$1 = class ItemDataModel extends SystemDataModel$1 {
   prepareBaseData() {
     if ( this.parent.isEmbedded && this.parent.actor?.items.has(this.parent.id) ) {
       this.parent.actor.identifiedItems?.set(this.parent.identifier, this.parent);
-      const sourceId = this.parent._stats.compendiumSource ?? this.parent.flags.dnd5e?.sourceId;
+      const sourceId = this.parent._stats.compendiumSource ?? this.parent.flags.n5eb?.sourceId;
       if ( sourceId ) this.parent.actor.sourcedItems?.set(sourceId, this.parent);
     }
   }
@@ -11019,7 +11021,7 @@ class ItemDescriptionTemplate extends SystemDataModel$1 {
    * Prepare the source label.
    */
   prepareDescriptionData() {
-    const uuid = this.parent.flags.dnd5e?.sourceId ?? this.parent._stats?.compendiumSource ?? this.parent.uuid;
+    const uuid = this.parent.flags.n5eb?.sourceId ?? this.parent._stats?.compendiumSource ?? this.parent.uuid;
     SourceField.prepareData.call(this.source, uuid);
   }
 
@@ -11956,7 +11958,7 @@ class BaseActivityData extends foundry.abstract.DataModel {
    * @type {boolean}
    */
   get isRider() {
-    return !!this.item.getFlag("dnd5e", "riders.activity")?.includes(this.id);
+    return !!this.item.getFlag("n5eb", "riders.activity")?.includes(this.id);
   }
 
   /* -------------------------------------------- */
@@ -11966,7 +11968,7 @@ class BaseActivityData extends foundry.abstract.DataModel {
    * @type {boolean}
    */
   get isScaledScroll() {
-    return !!this.item.getFlag("dnd5e", "spellLevel");
+    return !!this.item.getFlag("n5eb", "spellLevel");
   }
 
   /* -------------------------------------------- */
@@ -12057,7 +12059,7 @@ class BaseActivityData extends foundry.abstract.DataModel {
       uses: this.transformUsesData(source, options)
     }, options);
     foundry.utils.setProperty(source, `system.activities.${activityData._id}`, activityData);
-    foundry.utils.setProperty(source, "flags.dnd5e.persistSourceMigration", true);
+    foundry.utils.setProperty(source, "flags.n5eb.persistSourceMigration", true);
   }
 
   /* -------------------------------------------- */
@@ -12220,7 +12222,7 @@ class BaseActivityData extends foundry.abstract.DataModel {
    */
   static transformEffectsData(source, options) {
     return source.effects
-      .filter(e => !e.transfer && (e.type !== "enchantment") && (e.flags?.dnd5e?.type !== "enchantment"))
+      .filter(e => !e.transfer && (e.type !== "enchantment") && (e.flags?.n5eb?.type !== "enchantment"))
       .map(e => ({ _id: e._id }));
   }
 
@@ -12557,7 +12559,7 @@ class BaseActivityData extends foundry.abstract.DataModel {
       if ( this.item.system.damageBonus ) parts.push(String(this.item.system.damageBonus));
     }
 
-    const lastType = this.item.getFlag("dnd5e", `last.${this.id}.damageType.${index}`);
+    const lastType = this.item.getFlag("n5eb", `last.${this.id}.damageType.${index}`);
 
     return {
       data, parts,
@@ -13595,7 +13597,7 @@ class ClassData extends ItemDataModel$1.mixin(
       needsMigration = true;
     }
 
-    if ( needsMigration ) foundry.utils.setProperty(source, "flags.dnd5e.persistSourceMigration", true);
+    if ( needsMigration ) foundry.utils.setProperty(source, "flags.n5eb.persistSourceMigration", true);
   }
 
   /* -------------------------------------------- */
@@ -14329,8 +14331,8 @@ class PhysicalItemTemplate extends SystemDataModel$1 {
   async asGear() {
     if ( !this.properties?.has("gear") ) return this.parent;
     let clone;
-    const change = { "flags.dnd5e.gearSource": this.parent.uuid };
-    const flags = this.parent.getFlag("dnd5e", "gear") ?? {};
+    const change = { "flags.n5eb.gearSource": this.parent.uuid };
+    const flags = this.parent.getFlag("n5eb", "gear") ?? {};
     if ( this.metadata.compendiumGearSource && this.parent._stats.compendiumSource && (flags.preserve !== true) ) {
       const item = await fromUuid(this.parent._stats.compendiumSource);
       const name = (flags.preserveName === true ? this.parent._source.name : flags.preserveName) ?? item?.name;
@@ -14367,7 +14369,7 @@ class PhysicalItemTemplate extends SystemDataModel$1 {
    */
   gearPresentationData() {
     const compendiumSrc = fromUuidSync(this.parent._stats.compendiumSource, { strict: false });
-    const flags = this.parent.getFlag("dnd5e", "gear") ?? {};
+    const flags = this.parent.getFlag("n5eb", "gear") ?? {};
     const useCompendiumCopy = this.metadata.compendiumGearSource && compendiumSrc && (flags.preserve !== true);
     const enchantment = this.parent.effects.get(flags.effectId);
 
@@ -14380,7 +14382,7 @@ class PhysicalItemTemplate extends SystemDataModel$1 {
     // If persevered name specified, display preserved name outside with special name(?) inside
     //   (e.g. "Stacy (Longsword +1)")
     if ( flags.preserveName ) {
-      const namePattern = enchantment?.flags.dnd5e?.namePattern;
+      const namePattern = enchantment?.flags.n5eb?.namePattern;
       const nameOuter = flags.preserveName === true ? this.parent._source.name : flags.preserveName;
       const nameInner = namePattern ? namePattern.replace("{}", name) : name;
       if ( nameOuter !== nameInner ) {
@@ -14674,7 +14676,7 @@ class ContainerData extends ItemDataModel$1.mixin(
    */
   static _migrateWeightlessData(source) {
     if ( foundry.utils.getProperty(source, "system.capacity.weightless") === true ) {
-      foundry.utils.setProperty(source, "flags.dnd5e.migratedProperties", ["weightlessContents"]);
+      foundry.utils.setProperty(source, "flags.n5eb.migratedProperties", ["weightlessContents"]);
     }
   }
 
@@ -15793,7 +15795,7 @@ class ActivityUsageDialog extends Dialog5e {
   /** @inheritDoc */
   async _prepareContext(options) {
     if ( "scaling" in this.config ) {
-      this.#item = this.#item.clone({ "flags.dnd5e.scaling": this.config.scaling }, { keepId: true });
+      this.#item = this.#item.clone({ "flags.n5eb.scaling": this.config.scaling }, { keepId: true });
     }
     return {
       ...await super._prepareContext(options),
@@ -15839,7 +15841,7 @@ class ActivityUsageDialog extends Dialog5e {
     }];
     if ( this.config.concentration?.begin ) {
       const existingConcentration = Array.from(this.actor.concentration.effects).map(effect => {
-        const data = effect.getFlag("dnd5e", "item");
+        const data = effect.getFlag("n5eb", "item");
         return {
           value: effect.id,
           label: data?.data?.name ?? this.actor.items.get(data?.id)?.name
@@ -16263,7 +16265,7 @@ class AbilityTemplate extends foundry.canvas.placeables.MeasuredTemplate {
       x: 0,
       y: 0,
       fillColor: game.user.color,
-      flags: { dnd5e: {
+      flags: { n5eb: {
         dimensions: {
           size: target.size,
           width: target.width,
@@ -16415,8 +16417,8 @@ class AbilityTemplate extends foundry.canvas.placeables.MeasuredTemplate {
     const updates = this.getSnappedPosition(center);
 
     // Adjust template size to take hovered token into account if `adjustedSize` is set
-    const baseDistance = this.document.flags.dnd5e?.dimensions?.size;
-    if ( this.document.flags.dnd5e?.dimensions?.adjustedSize && baseDistance ) {
+    const baseDistance = this.document.flags.n5eb?.dimensions?.size;
+    if ( this.document.flags.n5eb?.dimensions?.adjustedSize && baseDistance ) {
       const rectangle = new PIXI.Rectangle(center.x, center.y, 1, 1);
       const hoveredToken = canvas.tokens.quadtree.getObjects(rectangle, {
         collisionTest: ({ t }) => t.visible && !t.document.isSecret }).first();
@@ -16619,8 +16621,8 @@ function DependentDocumentMixin(Base) {
     /** @inheritDoc */
     prepareData() {
       super.prepareData();
-      if ( this.flags?.dnd5e?.dependentOn && this.uuid ) {
-        dnd5e.registry.dependents.track(this.flags.dnd5e.dependentOn, this);
+      if ( this.flags?.n5eb?.dependentOn && this.uuid ) {
+        dnd5e.registry.dependents.track(this.flags.n5eb.dependentOn, this);
       }
     }
 
@@ -16629,8 +16631,8 @@ function DependentDocumentMixin(Base) {
     /** @inheritDoc */
     _onDelete(options, userId) {
       super._onDelete(options, userId);
-      if ( this.flags?.dnd5e?.dependentOn && this.uuid ) {
-        dnd5e.registry.dependents.untrack(this.flags.dnd5e.dependentOn, this);
+      if ( this.flags?.n5eb?.dependentOn && this.uuid ) {
+        dnd5e.registry.dependents.untrack(this.flags.n5eb.dependentOn, this);
       }
     }
   }
@@ -16754,7 +16756,7 @@ function ActivityMixin(Base) {
      * @type {ActiveEffect5e|null}
      */
     get dependentOrigin() {
-      return this.item.effects.get(this.flags?.dnd5e?.dependentOn) ?? null;
+      return this.item.effects.get(this.flags?.n5eb?.dependentOn) ?? null;
     }
 
     /* -------------------------------------------- */
@@ -16871,7 +16873,7 @@ function ActivityMixin(Base) {
 
       // Create concentration effect & end previous effects
       if ( usageConfig.concentration?.begin ) {
-        const effect = await item.actor.beginConcentrating(activity, { "flags.dnd5e.scaling": usageConfig.scaling });
+        const effect = await item.actor.beginConcentrating(activity, { "flags.n5eb.scaling": usageConfig.scaling });
         if ( effect ) {
           results.effects ??= [];
           results.effects.push(effect);
@@ -16905,7 +16907,7 @@ function ActivityMixin(Base) {
       if ( usageConfig.subsequentActions !== false ) {
         const deltas = results.message?.system?.deltas ?? results.message?.data?.system?.deltas;
         const consumed = this.createConsumedFlag(this.actor, deltas);
-        if ( consumed ) item.updateSource({ "flags.dnd5e.consumed": consumed });
+        if ( consumed ) item.updateSource({ "flags.n5eb.consumed": consumed });
         activity._triggerSubsequentActions(usageConfig, results);
       }
 
@@ -17070,7 +17072,7 @@ function ActivityMixin(Base) {
           || (!linked && hasSpellSlotConsumption);
       }
 
-      const levelingFlag = this.item.getFlag("dnd5e", "spellLevel");
+      const levelingFlag = this.item.getFlag("n5eb", "spellLevel");
       if ( levelingFlag ) {
         // Handle fixed scaling from spell scrolls
         config.scaling = false;
@@ -17103,7 +17105,7 @@ function ActivityMixin(Base) {
         const { effects } = this.actor.concentration;
         const limit = this.actor.system.attributes?.concentration?.limit ?? 0;
         if ( limit && (limit <= effects.size) ) config.concentration.end ??= effects.find(e => {
-          const data = e.flags.dnd5e?.item?.data ?? {};
+          const data = e.flags.n5eb?.item?.data ?? {};
           return (data === this.id) || (data._id === this.id);
         })?.id ?? effects.first()?.id ?? null;
       }
@@ -17127,7 +17129,7 @@ function ActivityMixin(Base) {
      * @protected
      */
     async _prepareUsageScaling(usageConfig, messageConfig, item) {
-      const levelingFlag = this.item.getFlag("dnd5e", "spellLevel");
+      const levelingFlag = this.item.getFlag("n5eb", "spellLevel");
       if ( levelingFlag ) {
         usageConfig.scaling = Math.max(0, levelingFlag.value - levelingFlag.base);
       } else if ( this.isSpell ) {
@@ -17140,9 +17142,9 @@ function ActivityMixin(Base) {
 
       if ( usageConfig.scaling ) {
         foundry.utils.setProperty(messageConfig, "data.system.scaling", usageConfig.scaling);
-        if ( usageConfig.scaling !== item.flags.dnd5e?.scaling ) {
+        if ( usageConfig.scaling !== item.flags.n5eb?.scaling ) {
           item.actor._embeddedPreparation = true;
-          item.updateSource({ "flags.dnd5e.scaling": usageConfig.scaling });
+          item.updateSource({ "flags.n5eb.scaling": usageConfig.scaling });
           delete item.actor._embeddedPreparation;
           item.prepareFinalAttributes();
         }
@@ -17228,7 +17230,7 @@ function ActivityMixin(Base) {
             const otherLinkedActivity = linkedActivity.type === "forward"
               ? linkedActivity.item.system.activities.get(linkedActivity.activity.id) : linkedActivity;
             if ( updates.delete.includes(linkedActivity.item.id)
-              && (this.item.getFlag("dnd5e", "cachedFor") === otherLinkedActivity?.relativeUUID) ) {
+              && (this.item.getFlag("n5eb", "cachedFor") === otherLinkedActivity?.relativeUUID) ) {
               updates.delete.push(this.item.id);
             }
           } else if ( results?.length ) {
@@ -17541,7 +17543,7 @@ function ActivityMixin(Base) {
       }, {});
       if ( canUpdate && !foundry.utils.isEmpty(lastDamageTypes)
         && (this.actor && this.actor.items.has(this.item.id)) ) {
-        await this.item.setFlag("dnd5e", `last.${this.id}.damageType`, lastDamageTypes);
+        await this.item.setFlag("n5eb", `last.${this.id}.damageType`, lastDamageTypes);
       }
 
       /**
@@ -17640,7 +17642,7 @@ function ActivityMixin(Base) {
       const consumed = this.createConsumedFlag(message.getAssociatedActor(), message.system.deltas);
       const scaling = message.system.scaling ?? 0;
       const item = (consumed || scaling) ? this.item.clone({
-        "flags.dnd5e": { consumed, scaling }
+        "flags.n5eb": { consumed, scaling }
       }, { keepId: true }) : this.item;
       const activity = item.system.activities.get(this.id);
 
@@ -17803,7 +17805,7 @@ function ActivityMixin(Base) {
      */
     getLinkedActivity(relativeUUID) {
       if ( !this.actor ) return null;
-      relativeUUID ??= this.item.getFlag("dnd5e", "cachedFor");
+      relativeUUID ??= this.item.getFlag("n5eb", "cachedFor");
       return fromUuidSync(relativeUUID, { relative: this.actor, strict: false });
     }
 
@@ -17817,7 +17819,7 @@ function ActivityMixin(Base) {
     getRollData(options) {
       const rollData = this.item.getRollData(options);
       rollData.activity = { ...this };
-      rollData.consumed = this.item.flags.dnd5e?.consumed;
+      rollData.consumed = this.item.flags.n5eb?.consumed;
       rollData.mod = this.actor?.system.abilities?.[this.ability]?.mod ?? 0;
       return rollData;
     }
@@ -17921,7 +17923,7 @@ class CastActivity extends ActivityMixin(BaseCastActivityData) {
    */
   get cachedSpell() {
     return this.actor?.sourcedItems.get(this.spell.uuid)
-      ?.find(i => i.getFlag("dnd5e", "cachedFor") === this.relativeUUID);
+      ?.find(i => i.getFlag("n5eb", "cachedFor") === this.relativeUUID);
   }
 
   /* -------------------------------------------- */
@@ -18302,7 +18304,7 @@ class ActivitiesTemplate extends SystemDataModel$1 {
     if ( this.#shouldCreateInitialActivity(source) ) this.#createInitialActivity(source);
     const uses = source.system?.uses ?? {};
     if ( source._id && source.type && ("value" in uses) && uses.max ) {
-      foundry.utils.setProperty(source, "flags.dnd5e.migratedUses", uses.value);
+      foundry.utils.setProperty(source, "flags.n5eb.migratedUses", uses.value);
     }
   }
 
@@ -18480,9 +18482,9 @@ class ActivitiesTemplate extends SystemDataModel$1 {
       return riders;
     }, { activity: new Set(), effect: new Set() });
     if ( !riders.activity.size && !riders.effect.size ) {
-      foundry.utils.setProperty(changed, "flags.dnd5e.-=riders", null);
+      foundry.utils.setProperty(changed, "flags.n5eb.-=riders", null);
     } else {
-      foundry.utils.setProperty(changed, "flags.dnd5e.riders", Object.entries(riders)
+      foundry.utils.setProperty(changed, "flags.n5eb.riders", Object.entries(riders)
         .reduce((updates, [key, value]) => {
           if ( value.size ) updates[key] = Array.from(value);
           else updates[`-=${key}`] = null;
@@ -18915,7 +18917,7 @@ class EquipmentData extends ItemDataModel$1.mixin(
    */
   static _migrateStealth(source) {
     if ( foundry.utils.getProperty(source, "system.stealth") === true ) {
-      foundry.utils.setProperty(source, "flags.dnd5e.migratedProperties", ["stealthDisadvantage"]);
+      foundry.utils.setProperty(source, "flags.n5eb.migratedProperties", ["stealthDisadvantage"]);
     }
   }
 
@@ -19218,7 +19220,7 @@ class Award extends Application5e {
    */
   _saveDestinations(destinations) {
     const target = this.isPartyAward ? this.origin : game.user;
-    target.setFlag("dnd5e", "awardDestinations", destinations);
+    target.setFlag("n5eb", "awardDestinations", destinations);
   }
 
   /* -------------------------------------------- */
@@ -19407,7 +19409,7 @@ class Award extends Application5e {
 
       // Otherwise show the UI with defaults
       else {
-        const savedDestinations = game.user.getFlag("dnd5e", "awardDestinations");
+        const savedDestinations = game.user.getFlag("n5eb", "awardDestinations");
         const app = new Award({ award: { currency, xp, each, savedDestinations } });
         app.render({ force: true });
       }
@@ -21856,7 +21858,7 @@ function _addListeners(buttons, handler) {
 async function _fetchActivity(uuid, scaling) {
   const activity = await fromUuid(uuid);
   if ( !activity || !scaling ) return activity;
-  const item = activity.item.clone({ "flags.dnd5e.scaling": scaling }, { keepId: true });
+  const item = activity.item.clone({ "flags.n5eb.scaling": scaling }, { keepId: true });
   return item.system.activities.get(activity.id);
 }
 
@@ -22109,7 +22111,7 @@ class SpellData extends ItemDataModel$1.mixin(ActivitiesTemplate, ItemDescriptio
 
   /** @override */
   get criticalThreshold() {
-    return this.parent?.actor?.flags.dnd5e?.spellCriticalThreshold ?? Infinity;
+    return this.parent?.actor?.flags.n5eb?.spellCriticalThreshold ?? Infinity;
   }
 
   /* -------------------------------------------- */
@@ -22120,13 +22122,13 @@ class SpellData extends ItemDataModel$1.mixin(ActivitiesTemplate, ItemDescriptio
    */
   get linkedActivity() {
     const relative = this.parent.actor;
-    const uuid = this.parent.getFlag("dnd5e", "cachedFor");
+    const uuid = this.parent.getFlag("n5eb", "cachedFor");
     if ( !relative || !uuid ) return null;
     const data = foundry.utils.parseUuid(uuid, { relative });
     const [itemId, , activityId] = (data?.embedded ?? []).slice(-3);
     return relative.items.get(itemId)?.system.activities?.get(activityId) ?? null;
     // TODO: Swap back to fromUuidSync once https://github.com/foundryvtt/foundryvtt/issues/11214 is resolved
-    // return fromUuidSync(this.parent.getFlag("dnd5e", "cachedFor"), { relative, strict: false }) ?? null;
+    // return fromUuidSync(this.parent.getFlag("n5eb", "cachedFor"), { relative, strict: false }) ?? null;
   }
 
   /* -------------------------------------------- */
@@ -22194,7 +22196,7 @@ class SpellData extends ItemDataModel$1.mixin(ActivitiesTemplate, ItemDescriptio
   static _migrateComponentData(source) {
     const components = filteredKeys(source.system?.components ?? {});
     if ( components.length ) {
-      foundry.utils.setProperty(source, "flags.dnd5e.migratedProperties", components);
+      foundry.utils.setProperty(source, "flags.n5eb.migratedProperties", components);
     }
   }
 
@@ -22404,7 +22406,7 @@ class SpellData extends ItemDataModel$1.mixin(ActivitiesTemplate, ItemDescriptio
         // Fallback to detecting from flags.
         if ( !grantingItem ) {
           // Check for advancement-granted spells.
-          const advancementOrigin = this.parent.getFlag("dnd5e", "advancementOrigin");
+          const advancementOrigin = this.parent.getFlag("n5eb", "advancementOrigin");
           if ( advancementOrigin ) {
             const [itemId] = advancementOrigin.split(".");
             grantingItem = this.parent.actor.items.get(itemId);
@@ -22519,7 +22521,7 @@ class SpellData extends ItemDataModel$1.mixin(ActivitiesTemplate, ItemDescriptio
   /** @inheritDoc */
   getRollData(...options) {
     const data = super.getRollData(...options);
-    data.item.level = data.item.level + (this.parent.getFlag("dnd5e", "scaling")
+    data.item.level = data.item.level + (this.parent.getFlag("n5eb", "scaling")
       ?? (this.level !== 0 ? this.scalingIncrease : 0));
     return data;
   }
@@ -22838,8 +22840,9 @@ function SystemFlagsMixin(Base) {
     /** @inheritDoc */
     prepareData() {
       super.prepareData();
-      if ( ("dnd5e" in this.flags) && this._systemFlagsDataModel ) {
-        this.flags.dnd5e = new this._systemFlagsDataModel(this._source.flags.dnd5e, { parent: this });
+      const sourceFlags = this._source.flags?.n5eb ?? this._source.flags?.dnd5e;
+      if ( sourceFlags && this._systemFlagsDataModel ) {
+        this.flags.n5eb = new this._systemFlagsDataModel(sourceFlags, { parent: this });
       }
     }
 
@@ -22847,12 +22850,12 @@ function SystemFlagsMixin(Base) {
 
     /** @inheritDoc */
     async setFlag(scope, key, value) {
-      if ( (scope === "dnd5e") && this._systemFlagsDataModel ) {
+      if ( (scope === "n5eb") && this._systemFlagsDataModel ) {
         let diff;
         const changes = foundry.utils.expandObject({ [key]: value });
-        if ( this.flags.dnd5e ) diff = this.flags.dnd5e.updateSource(changes, { dryRun: true });
+        if ( this.flags.n5eb ) diff = this.flags.n5eb.updateSource(changes, { dryRun: true });
         else diff = new this._systemFlagsDataModel(changes, { parent: this }).toObject();
-        return this.update({ flags: { dnd5e: diff } });
+        return this.update({ flags: { n5eb: diff } });
       }
       return super.setFlag(scope, key, value);
     }
@@ -22957,7 +22960,7 @@ class Item5e extends SystemDocumentMixin(Item) {
     // Migrate backpack -> container.
     if ( data.type === "backpack" ) {
       data.type = "container";
-      foundry.utils.setProperty(data, "flags.dnd5e.persistSourceMigration", true);
+      foundry.utils.setProperty(data, "flags.n5eb.persistSourceMigration", true);
     }
 
     /**
@@ -23009,7 +23012,7 @@ class Item5e extends SystemDocumentMixin(Item) {
    * @type {boolean}
    */
   get canDelete() {
-    return !this.flags.dnd5e?.cachedFor;
+    return !this.flags.n5eb?.cachedFor;
   }
 
   /* -------------------------------------------- */
@@ -23020,7 +23023,7 @@ class Item5e extends SystemDocumentMixin(Item) {
    */
   get canDuplicate() {
     return !this.system.metadata?.singleton && !["class", "subclass"].includes(this.type)
-      && !this.flags.dnd5e?.cachedFor;
+      && !this.flags.n5eb?.cachedFor;
   }
 
   /* --------------------------------------------- */
@@ -23055,7 +23058,7 @@ class Item5e extends SystemDocumentMixin(Item) {
    * @type {ActiveEffect5e|null}
    */
   get dependentOrigin() {
-    return fromUuidSync(this.flags.dnd5e?.dependentOn, { relative: this, strict: false }) ?? null;
+    return fromUuidSync(this.flags.n5eb?.dependentOn, { relative: this, strict: false }) ?? null;
   }
 
   /* -------------------------------------------- */
@@ -23263,7 +23266,7 @@ class Item5e extends SystemDocumentMixin(Item) {
    * @type {number}
    */
   get scalingIncrease() {
-    return this.system?.scalingIncrease ?? this.getFlag("dnd5e", "scaling") ?? 0;
+    return this.system?.scalingIncrease ?? this.getFlag("n5eb", "scaling") ?? 0;
   }
 
   /* -------------------------------------------- */
@@ -24194,7 +24197,7 @@ class Item5e extends SystemDocumentMixin(Item) {
     }
 
     config = foundry.utils.mergeObject({
-      explanation: game.user.getFlag("dnd5e", "creation.scrollExplanation") ?? "reference",
+      explanation: game.user.getFlag("n5eb", "creation.scrollExplanation") ?? "reference",
       level: spell.system.level,
       values
     }, config);
@@ -24203,16 +24206,16 @@ class Item5e extends SystemDocumentMixin(Item) {
       const result = await CreateScrollDialog.create(spell, config);
       if ( !result ) return;
       foundry.utils.mergeObject(config, result);
-      await game.user.setFlag("dnd5e", "creation.scrollExplanation", config.explanation);
+      await game.user.setFlag("n5eb", "creation.scrollExplanation", config.explanation);
     }
 
     // Get spell data
     const itemData = (spell instanceof Item5e) ? spell.toObject() : spell;
     const flags = itemData.flags ?? {};
     if ( Number.isNumeric(config.level) ) {
-      flags.dnd5e ??= {};
-      flags.dnd5e.scaling = Math.max(0, config.level - spell.system.level);
-      flags.dnd5e.spellLevel = {
+      flags.n5eb ??= {};
+      flags.n5eb.scaling = Math.max(0, config.level - spell.system.level);
+      flags.n5eb.spellLevel = {
         value: config.level,
         base: spell.system.level
       };
@@ -24317,7 +24320,7 @@ class Item5e extends SystemDocumentMixin(Item) {
     const values = {};
 
     config = foundry.utils.mergeObject({
-      explanation: game.user.getFlag("dnd5e", "creation.scrollExplanation") ?? "reference",
+      explanation: game.user.getFlag("n5eb", "creation.scrollExplanation") ?? "reference",
       level: spell.system.level,
       values
     }, config);
@@ -24326,7 +24329,7 @@ class Item5e extends SystemDocumentMixin(Item) {
       const result = await CreateScrollDialog.create(spell, config);
       if ( !result ) return;
       foundry.utils.mergeObject(config, result);
-      await game.user.setFlag("dnd5e", "creation.scrollExplanation", config.explanation);
+      await game.user.setFlag("n5eb", "creation.scrollExplanation", config.explanation);
     }
 
     /**
@@ -24555,7 +24558,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
    */
   get dependentOrigin() {
     if ( !(this.parent instanceof Item) ) return null;
-    return this.parent.effects.get(this.flags.dnd5e?.dependentOn) ?? null;
+    return this.parent.effects.get(this.flags.n5eb?.dependentOn) ?? null;
   }
 
   /* -------------------------------------------- */
@@ -24602,7 +24605,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
 
   /** @inheritDoc */
   get isTemporary() {
-    return !this.isConcealed && (super.isTemporary || this.getFlag("dnd5e", "isTemporary"));
+    return !this.isConcealed && (super.isTemporary || this.getFlag("n5eb", "isTemporary"));
   }
 
   /* -------------------------------------------- */
@@ -24634,10 +24637,10 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
   _initializeSource(data, options={}) {
     if ( data instanceof foundry.abstract.DataModel ) data = data.toObject();
 
-    if ( data.flags?.dnd5e?.type === "enchantment" ) {
+    if ( data.flags?.n5eb?.type === "enchantment" ) {
       data.type = "enchantment";
-      delete data.flags.dnd5e.type;
-      foundry.utils.setProperty(data, "flags.dnd5e.persistSourceMigration", true);
+      delete data.flags.n5eb.type;
+      foundry.utils.setProperty(data, "flags.n5eb.persistSourceMigration", true);
     }
 
     return super._initializeSource(data, options);
@@ -24649,7 +24652,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
   static migrateData(data) {
     data = super.migrateData(data);
     for ( const change of data.changes ?? [] ) {
-      if ( change.key === "flags.dnd5e.initiativeAdv" ) {
+      if ( change.key === "flags.n5eb.initiativeAdv" ) {
         change.key = "system.attributes.init.roll.mode";
         change.mode = CONST.ACTIVE_EFFECT_MODES.ADD;
         change.value = 1;
@@ -24668,7 +24671,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
     change = this._applyChangeShim(change);
 
     // Ensure changes targeting flags use the proper types
-    if ( change.key.startsWith("flags.dnd5e.") ) change = this._prepareFlagChange(doc, change);
+    if ( change.key.startsWith("flags.n5eb.") ) change = this._prepareFlagChange(doc, change);
 
     // Properly handle formulas that don't exist as part of the data model
     if ( ActiveEffect5e.FORMULA_FIELDS.has(change.key) ) {
@@ -24690,7 +24693,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
   /** @inheritDoc */
   static applyChange(model, change, options={}) {
     change = change.effect._applyChangeShim(change);
-    if ( change.key.startsWith("flags.dnd5e.") ) change = change.effect._prepareFlagChange(model, change);
+    if ( change.key.startsWith("flags.n5eb.") ) change = change.effect._prepareFlagChange(model, change);
     if ( ActiveEffect5e.FORMULA_FIELDS.has(change.key) ) {
       const field = new FormulaField({ deterministic: change.key !== "system.damageBonus" });
       return { [change.key]: this.applyChangeField(model, change, { field }) };
@@ -24847,7 +24850,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
    */
   _prepareFlagChange(actor, change) {
     const { key, value } = change;
-    const data = CONFIG.DND5E.characterFlags[key.replace("flags.dnd5e.", "")];
+    const data = CONFIG.DND5E.characterFlags[key.replace("flags.n5eb.", "")];
     if ( !data ) return change;
 
     // Set flag to initial value if it isn't present
@@ -24895,7 +24898,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
    */
   _prepareExhaustionLevel() {
     const config = CONFIG.DND5E.conditionTypes.exhaustion;
-    let level = this.getFlag("dnd5e", "exhaustionLevel");
+    let level = this.getFlag("n5eb", "exhaustionLevel");
     if ( !Number.isFinite(level) ) level = 1;
     this.img = this.constructor._getExhaustionImage(level);
     this.name = `${game.i18n.localize("DND5E.Exhaustion")} ${level}`;
@@ -24930,7 +24933,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
   async createRiderConditions() {
     const riders = new Set();
 
-    for ( const status of this.getFlag("dnd5e", "riders.statuses") ?? [] ) {
+    for ( const status of this.getFlag("n5eb", "riders.statuses") ?? [] ) {
       riders.add(status);
     }
 
@@ -24968,7 +24971,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
       const message = game.messages.get(options?.chatMessageOrigin);
       item = message?.getAssociatedItem();
       const activity = message?.getAssociatedActivity();
-      profile = activity?.effects.find(e => e._id === message?.getFlag("dnd5e", "use.enchantmentProfile"));
+      profile = activity?.effects.find(e => e._id === message?.getFlag("n5eb", "use.enchantmentProfile"));
     } else if ( enchantmentProfile && activityId ) {
       let activity;
       const origin = await fromUuid(this.origin);
@@ -24991,7 +24994,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
       const activityData = item.system.activities.get(id)?.toObject();
       if ( !activityData ) continue;
       activityData._id = foundry.utils.randomID();
-      foundry.utils.setProperty(activityData, "flags.dnd5e.dependentOn", this.id);
+      foundry.utils.setProperty(activityData, "flags.n5eb.dependentOn", this.id);
       riderActivities[activityData._id] = activityData;
     }
     let createdActivities = [];
@@ -25008,13 +25011,13 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
       const effectData = item.effects.get(id)?.toObject();
       if ( effectData ) {
         delete effectData._id;
-        delete effectData.flags?.dnd5e?.rider;
+        delete effectData.flags?.n5eb?.rider;
         effectData.origin = this.origin;
       }
       return effectData;
     }));
     riderEffects = riderEffects.filter(_ => _);
-    riderEffects.forEach(e => foundry.utils.setProperty(e, "flags.dnd5e.dependentOn", this.id));
+    riderEffects.forEach(e => foundry.utils.setProperty(e, "flags.n5eb.dependentOn", this.id));
     await this.parent.createEmbeddedDocuments("ActiveEffect", riderEffects, { keepId: true });
 
     // Create Items
@@ -25023,8 +25026,8 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
         (await Promise.all(profile.riders.item.map(uuid => fromUuid(uuid)))).filter(_ => _), {
           transformAll: item => {
             const itemData = item.clone({}, { keepId: true }).toObject();
-            foundry.utils.setProperty(itemData, "flags.dnd5e.dependentOn", this.uuid);
-            foundry.utils.setProperty(itemData, "flags.dnd5e.enchantment.origin", this.uuid);
+            foundry.utils.setProperty(itemData, "flags.n5eb.dependentOn", this.uuid);
+            foundry.utils.setProperty(itemData, "flags.n5eb.enchantment.origin", this.uuid);
             return itemData;
           }
         }
@@ -25092,7 +25095,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
     const originalLevel = foundry.utils.getProperty(options, "dnd5e.originalExhaustion");
-    const newLevel = foundry.utils.getProperty(data, "flags.dnd5e.exhaustionLevel");
+    const newLevel = foundry.utils.getProperty(data, "flags.n5eb.exhaustionLevel");
     const originalEncumbrance = foundry.utils.getProperty(options, "dnd5e.originalEncumbrance");
     const newEncumbrance = data.statuses?.[0];
     const name = this.name;
@@ -25174,7 +25177,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
         type: game.i18n.localize(`TYPES.Item.${item.type}`)
       })}</p><hr><p>@Embed[${item.uuid} inline]</p>`,
       duration: activity.duration.getEffectData(),
-      "flags.dnd5e": {
+      "flags.n5eb": {
         activity: {
           type: activity.type, id: activity.id, uuid: activity.uuid
         },
@@ -25187,7 +25190,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
       statuses: [statusEffect.id].concat(statusEffect.statuses ?? [])
     }, data, {inplace: false});
     delete effectData.id;
-    if ( item.type === "spell" ) effectData["flags.dnd5e.spellLevel"] = item.system.level;
+    if ( item.type === "spell" ) effectData["flags.n5eb.spellLevel"] = item.system.level;
 
     return effectData;
   }
@@ -25216,8 +25219,8 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
       label: game.i18n.localize("DND5E.CONDITIONS.RiderConditions.label"),
       hint: game.i18n.localize("DND5E.CONDITIONS.RiderConditions.hint")
     }, {
-      name: "flags.dnd5e.riders.statuses",
-      value: app.document.getFlag("dnd5e", "riders.statuses") ?? [],
+      name: "flags.n5eb.riders.statuses",
+      value: app.document.getFlag("n5eb", "riders.statuses") ?? [],
       options: CONFIG.statusEffects.map(se => ({ value: se.id, label: se.name })),
       disabled: !context.editable
     });
@@ -25324,7 +25327,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
       return;
     }
     const choices = effects.reduce((acc, effect) => {
-      const data = effect.getFlag("dnd5e", "item");
+      const data = effect.getFlag("n5eb", "item");
       acc[effect.id] = data?.name ?? actor.items.get(data?.id)?.name ?? game.i18n.localize("DND5E.ConcentratingItemless");
       return acc;
     }, {});
@@ -25362,7 +25365,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
       "Dependent documents are now tracked using the `dependentOn` flag on the document itself.",
       { since: "DnD5e 5.2", until: "DnD5e 6.0", once: true }
     );
-    return Promise.all(dependent.map(d => d.setFlag("dnd5e", "dependentOn", this.uuid))).then(() => this);
+    return Promise.all(dependent.map(d => d.setFlag("n5eb", "dependentOn", this.uuid))).then(() => this);
   }
 
   /* -------------------------------------------- */
@@ -25374,7 +25377,7 @@ class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect) {
   getDependents() {
     const actor = this.parent instanceof Actor ? this.parent : this.parent?.parent;
     const item = this.parent instanceof Item ? this.parent : null;
-    return (this.getFlag("dnd5e", "dependents") || []).reduce((arr, { uuid }) => {
+    return (this.getFlag("n5eb", "dependents") || []).reduce((arr, { uuid }) => {
       let doc;
       // TODO: Remove this special casing once https://github.com/foundryvtt/foundryvtt/issues/11214 is resolved
       if ( this.parent.pack && uuid.includes(this.parent.uuid) ) {
@@ -26026,7 +26029,7 @@ class AttributesFields {
     const keys = Object.keys(CONFIG.DND5E.actorSizes);
     const index = keys.findIndex(k => k === this.traits.size);
     const sizeConfig = CONFIG.DND5E.actorSizes[
-      keys[this.parent.flags.dnd5e?.powerfulBuild ? Math.min(index + 1, keys.length - 1) : index]
+      keys[this.parent.flags.n5eb?.powerfulBuild ? Math.min(index + 1, keys.length - 1) : index]
     ];
     const sizeMod = sizeConfig?.capacityMultiplier ?? sizeConfig?.token ?? 1;
     let maximumMultiplier;
@@ -26075,7 +26078,7 @@ class AttributesFields {
    */
   static prepareExhaustionLevel() {
     const exhaustion = this.parent.effects.get(ActiveEffect5e.ID.EXHAUSTION);
-    const level = exhaustion?.getFlag("dnd5e", "exhaustionLevel");
+    const level = exhaustion?.getFlag("n5eb", "exhaustionLevel");
     this.attributes.exhaustion = Number.isFinite(level) ? level : 0;
   }
 
@@ -26111,7 +26114,7 @@ class AttributesFields {
    */
   static prepareInitiative(rollData) {
     const init = this.attributes.init ??= {};
-    const flags = this.parent.flags.dnd5e ?? {};
+    const flags = this.parent.flags.n5eb ?? {};
     const globalCheckBonus = simplifyBonus(this.bonuses?.abilities?.check, rollData);
 
     // Compute initiative modifier
@@ -26529,7 +26532,7 @@ class CommonTemplate extends ActorDataModel$1.mixin(CurrencyTemplate) {
    * @param {object} [options.originalSaves]       Original ability data for transformed actors.
    */
   prepareAbilities({ rollData={}, originalSaves }={}) {
-    const flags = this.parent.flags.dnd5e ?? {};
+    const flags = this.parent.flags.n5eb ?? {};
     const { prof = 0, ac } = this.attributes ?? {};
     Object.values(this.abilities).forEach(a => a.mod = Math.floor((a.value - 10) / 2));
     const checkBonus = simplifyBonus(this.bonuses?.abilities?.check, rollData);
@@ -26594,7 +26597,7 @@ class CommonTemplate extends ActorDataModel$1.mixin(CurrencyTemplate) {
         multiplier = .5;
         roundDown = false;
       }
-      else if ( this.parent.flags.dnd5e?.jackOfAllTrades ) multiplier = .5;
+      else if ( this.parent.flags.n5eb?.jackOfAllTrades ) multiplier = .5;
     }
     return new Proficiency(this.attributes.prof, multiplier, roundDown);
   }
@@ -26611,7 +26614,7 @@ class CommonTemplate extends ActorDataModel$1.mixin(CurrencyTemplate) {
    * @returns {Proficiency}
    */
   calculateToolProficiency(multiplier, ability, options={}) {
-    if ( (multiplier === 1) && this.parent.flags.dnd5e?.toolExpertise ) {
+    if ( (multiplier === 1) && this.parent.flags.n5eb?.toolExpertise ) {
       return new Proficiency(this.attributes.prof, 2, true);
     }
     return this.calculateAbilityCheckProficiency(multiplier, ability, options);
@@ -28344,7 +28347,7 @@ class BaseAttackActivityData extends BaseActivityData {
       }
     }
 
-    const criticalBonusDice = this.actor?.getFlag("dnd5e", "meleeCriticalDamageDice") ?? 0;
+    const criticalBonusDice = this.actor?.getFlag("n5eb", "meleeCriticalDamageDice") ?? 0;
     if ( (this.getActionType(rollConfig.attackMode) === "mwak") && (parseInt(criticalBonusDice) !== 0) ) {
       foundry.utils.setProperty(roll, "options.critical.bonusDice", criticalBonusDice);
     }
@@ -28417,7 +28420,7 @@ class AttackActivity extends ActivityMixin(BaseAttackActivityData) {
 
   /** @override */
   async _triggerSubsequentActions(config, results) {
-    this.rollAttack({ event: config.event }, {}, { data: { "flags.dnd5e.originatingMessage": results.message?.id } });
+    this.rollAttack({ event: config.event }, {}, { data: { "flags.n5eb.originatingMessage": results.message?.id } });
   }
 
   /* -------------------------------------------- */
@@ -28441,12 +28444,12 @@ class AttackActivity extends ActivityMixin(BaseAttackActivityData) {
     const buildConfig = this._buildAttackConfig.bind(this);
 
     const rollConfig = foundry.utils.mergeObject({
-      ammunition: this.item.getFlag("dnd5e", `last.${this.id}.ammunition`),
-      attackMode: this.item.getFlag("dnd5e", `last.${this.id}.attackMode`),
-      elvenAccuracy: this.actor?.getFlag("dnd5e", "elvenAccuracy")
+      ammunition: this.item.getFlag("n5eb", `last.${this.id}.ammunition`),
+      attackMode: this.item.getFlag("n5eb", `last.${this.id}.attackMode`),
+      elvenAccuracy: this.actor?.getFlag("n5eb", "elvenAccuracy")
         && CONFIG.DND5E.characterFlags.elvenAccuracy.abilities.includes(this.ability),
-      halflingLucky: this.actor?.getFlag("dnd5e", "halflingLucky"),
-      mastery: this.item.getFlag("dnd5e", `last.${this.id}.mastery`),
+      halflingLucky: this.actor?.getFlag("n5eb", "halflingLucky"),
+      mastery: this.item.getFlag("n5eb", `last.${this.id}.mastery`),
       target: targets.length === 1 ? targets[0].ac : undefined
     }, config);
 
@@ -28515,7 +28518,7 @@ class AttackActivity extends ActivityMixin(BaseAttackActivityData) {
     if ( !rolls.length ) return null;
     for ( const key of ["ammunition", "attackMode", "mastery"] ) {
       if ( !rolls[0].options[key] ) continue;
-      foundry.utils.setProperty(messageConfig.data, `flags.dnd5e.roll.${key}`, rolls[0].options[key]);
+      foundry.utils.setProperty(messageConfig.data, `flags.n5eb.roll.${key}`, rolls[0].options[key]);
     }
     await CONFIG.Dice.D20Roll.buildPost(rolls, rollConfig, messageConfig);
 
@@ -28541,7 +28544,7 @@ class AttackActivity extends ActivityMixin(BaseAttackActivityData) {
     else if ( rollConfig.attackMode ) rolls[0].options.attackMode = rollConfig.attackMode;
     if ( rolls[0].options.mastery ) flags.mastery = rolls[0].options.mastery;
     if ( canUpdate && !foundry.utils.isEmpty(flags) && (this.actor && this.actor.items.has(this.item.id)) ) {
-      await this.item.setFlag("dnd5e", `last.${this.id}`, flags);
+      await this.item.setFlag("n5eb", `last.${this.id}`, flags);
     }
 
     /**
@@ -28560,10 +28563,10 @@ class AttackActivity extends ActivityMixin(BaseAttackActivityData) {
     if ( canUpdate && ammoUpdate?.destroy ) {
       // If ammunition was deleted, store a copy of it in the roll message
       const data = this.actor.items.get(ammoUpdate.id).toObject();
-      const messageId = messageConfig.data?.flags?.dnd5e?.originatingMessage
+      const messageId = messageConfig.data?.flags?.n5eb?.originatingMessage
         ?? rollConfig.event?.target.closest("[data-message-id]")?.dataset.messageId;
       const attackMessage = dnd5e.registry.messages.get(messageId, "attack")?.pop();
-      await attackMessage?.setFlag("dnd5e", "roll.ammunitionData", data);
+      await attackMessage?.setFlag("n5eb", "roll.ammunitionData", data);
       await this.actor.deleteEmbeddedDocuments("Item", [ammoUpdate.id]);
     }
     else if ( canUpdate && ammoUpdate ) await this.actor?.updateEmbeddedDocuments("Item", [
@@ -28635,16 +28638,16 @@ class AttackActivity extends ActivityMixin(BaseAttackActivityData) {
    */
   static #rollDamage(event, target, message) {
     const lastAttack = message.getAssociatedRolls("attack").pop();
-    const attackMode = lastAttack?.getFlag("dnd5e", "roll.attackMode");
+    const attackMode = lastAttack?.getFlag("n5eb", "roll.attackMode");
 
     // Fetch the ammunition used with the last attack roll
     let ammunition;
     const actor = lastAttack?.getAssociatedActor();
     if ( actor ) {
-      const storedData = lastAttack.getFlag("dnd5e", "roll.ammunitionData");
+      const storedData = lastAttack.getFlag("n5eb", "roll.ammunitionData");
       ammunition = storedData
         ? new Item.implementation(storedData, { parent: actor })
-        : actor.items.get(lastAttack.getFlag("dnd5e", "roll.ammunition"));
+        : actor.items.get(lastAttack.getFlag("n5eb", "roll.ammunition"));
     }
 
     const isCritical = lastAttack?.rolls[0]?.isCritical;
@@ -29087,7 +29090,7 @@ class DamageActivity extends ActivityMixin(BaseDamageActivityData) {
 
   /** @override */
   async _triggerSubsequentActions(config, results) {
-    this.rollDamage({ event: config.event }, {}, { data: { "flags.dnd5e.originatingMessage": results.message?.id } });
+    this.rollDamage({ event: config.event }, {}, { data: { "flags.n5eb.originatingMessage": results.message?.id } });
   }
 
   /* -------------------------------------------- */
@@ -29261,7 +29264,7 @@ class EnchantUsageDialog extends ActivityUsageDialog {
 
     const enchantments = this.activity.availableEnchantments;
     if ( (enchantments.length > 1) && this._shouldDisplay("create.enchantment") ) {
-      const existingProfile = this.activity.existingEnchantment?.flags.dnd5e?.enchantmentProfile;
+      const existingProfile = this.activity.existingEnchantment?.flags.n5eb?.enchantmentProfile;
       context.hasCreation = true;
       context.enchantment = {
         field: new StringField$N({ required: true, blank: false, label: game.i18n.localize("DND5E.ENCHANTMENT.Label") }),
@@ -29390,9 +29393,9 @@ class BaseEnchantActivityData extends BaseActivityData {
   static transformEffectsData(source, options) {
     const effects = [];
     for ( const effect of source.effects ) {
-      if ( (effect.type !== "enchantment") && (effect.flags?.dnd5e?.type !== "enchantment") ) continue;
-      effects.push({ _id: effect._id, ...(effect.flags?.dnd5e?.enchantment ?? {}) });
-      delete effect.flags?.dnd5e?.enchantment;
+      if ( (effect.type !== "enchantment") && (effect.flags?.n5eb?.type !== "enchantment") ) continue;
+      effects.push({ _id: effect._id, ...(effect.flags?.n5eb?.enchantment ?? {}) });
+      delete effect.flags?.n5eb?.enchantment;
     }
     return effects;
   }
@@ -29470,7 +29473,7 @@ class EnchantActivity extends ActivityMixin(BaseEnchantActivityData) {
   /** @inheritDoc */
   _prepareUsageConfig(config) {
     config = super._prepareUsageConfig(config);
-    const existingProfile = this.existingEnchantment?.flags.dnd5e?.enchantmentProfile;
+    const existingProfile = this.existingEnchantment?.flags.n5eb?.enchantmentProfile;
     config.enchantmentProfile ??= this.item.effects.has(existingProfile) ? existingProfile
       : this.availableEnchantments[0]?._id;
     return config;
@@ -29491,11 +29494,11 @@ class EnchantActivity extends ActivityMixin(BaseEnchantActivityData) {
 
     // Store selected enchantment profile in message flag
     if ( usageConfig.enchantmentProfile ) foundry.utils.setProperty(
-      messageConfig, "data.flags.dnd5e.use.enchantmentProfile", usageConfig.enchantmentProfile
+      messageConfig, "data.flags.n5eb.use.enchantmentProfile", usageConfig.enchantmentProfile
     );
 
     // Don't display message if just auto-disabling existing enchantment
-    if ( this.existingEnchantment?.flags.dnd5e?.enchantmentProfile === usageConfig.enchantmentProfile ) {
+    if ( this.existingEnchantment?.flags.n5eb?.enchantmentProfile === usageConfig.enchantmentProfile ) {
       messageConfig.create = false;
     }
   }
@@ -29504,7 +29507,7 @@ class EnchantActivity extends ActivityMixin(BaseEnchantActivityData) {
 
   /** @override */
   onRenderChatCard(message, element) {
-    const enchantmentProfile = message.getFlag("dnd5e", "use.enchantmentProfile");
+    const enchantmentProfile = message.getFlag("n5eb", "use.enchantmentProfile");
     if ( !enchantmentProfile || !message.isContentVisible ) return;
 
     // Ensure concentration is still being maintained
@@ -29530,7 +29533,7 @@ class EnchantActivity extends ActivityMixin(BaseEnchantActivityData) {
     if ( existingEnchantment ) await existingEnchantment?.delete({ chatMessageOrigin: results.message?.id });
 
     // If no existing enchantment, or existing enchantment profile doesn't match provided one, create new enchantment
-    if ( !existingEnchantment || (existingEnchantment.flags.dnd5e?.enchantmentProfile !== config.enchantmentProfile) ) {
+    if ( !existingEnchantment || (existingEnchantment.flags.n5eb?.enchantmentProfile !== config.enchantmentProfile) ) {
       const concentration = results.effects.find(e => e.statuses.has(CONFIG.specialStatusEffects.CONCENTRATING));
       this.applyEnchantment(config.enchantmentProfile, this.item, {
         chatMessage: results.message, concentration, strict: false
@@ -29577,7 +29580,7 @@ class EnchantActivity extends ActivityMixin(BaseEnchantActivityData) {
 
     const flags = { enchantmentProfile: profile };
     if ( concentration ) flags.dependentOn = concentration.uuid;
-    const enchantmentData = effect.clone({ origin: this.uuid, "flags.dnd5e": flags }).toObject();
+    const enchantmentData = effect.clone({ origin: this.uuid, "flags.n5eb": flags }).toObject();
 
     /**
      * Hook that fires before an enchantment is applied to an item.
@@ -29600,7 +29603,7 @@ class EnchantActivity extends ActivityMixin(BaseEnchantActivityData) {
       }
       enchantmentData._id = foundry.utils.randomID();
       const toCreate = await Item5e.createWithContents([item], {
-        transformAll: item => item.clone({ "flags.dnd5e.dependentOn": `.ActiveEffect.${enchantmentData._id}` })
+        transformAll: item => item.clone({ "flags.n5eb.dependentOn": `.ActiveEffect.${enchantmentData._id}` })
       });
       [item] = await Item5e.createDocuments(toCreate, { keepId: true, parent: actor });
     }
@@ -30034,7 +30037,7 @@ class HealActivity extends ActivityMixin(BaseHealActivityData) {
 
   /** @override */
   async _triggerSubsequentActions(config, results) {
-    this.rollDamage({ event: config.event }, {}, { data: { "flags.dnd5e.originatingMessage": results.message?.id } });
+    this.rollDamage({ event: config.event }, {}, { data: { "flags.n5eb.originatingMessage": results.message?.id } });
   }
 
   /* -------------------------------------------- */
@@ -30044,7 +30047,7 @@ class HealActivity extends ActivityMixin(BaseHealActivityData) {
   /** @inheritDoc */
   async rollDamage(config={}, dialog={}, message={}) {
     const messageConfig = foundry.utils.mergeObject({
-      ["data.flags.dnd5e.roll.type"]: "healing"
+      ["data.flags.n5eb.roll.type"]: "healing"
     }, message);
     return super.rollDamage(config, dialog, messageConfig);
   }
@@ -31012,7 +31015,7 @@ class OrderActivity extends ActivityMixin(BaseOrderActivityData) {
   _prepareUsageScaling(usageConfig, messageConfig, item) {
     // FIXME: No scaling happening here, but this is the only context we have both usageConfig and messageConfig.
     const { costs, craft, trade } = usageConfig;
-    messageConfig.data.flags.dnd5e.order = { costs, craft, trade };
+    messageConfig.data.flags.n5eb.order = { costs, craft, trade };
   }
 
   /* -------------------------------------------- */
@@ -31026,7 +31029,7 @@ class OrderActivity extends ActivityMixin(BaseOrderActivityData) {
 
   /** @override */
   _usageChatButtons(message) {
-    const { costs } = message.data.flags.dnd5e.order;
+    const { costs } = message.data.flags.n5eb.order;
     if ( !costs.gold || costs.paid ) return [];
     return [{
       label: game.i18n.localize("DND5E.FACILITY.Costs.Automatic"),
@@ -31043,7 +31046,7 @@ class OrderActivity extends ActivityMixin(BaseOrderActivityData) {
 
   /** @override */
   async _usageChatContext(message) {
-    const { costs, craft, trade } = message.data.flags.dnd5e.order;
+    const { costs, craft, trade } = message.data.flags.n5eb.order;
     const { type } = this.item.system;
     const supplements = [];
     if ( costs.days ) supplements.push(`
@@ -31109,8 +31112,8 @@ class OrderActivity extends ActivityMixin(BaseOrderActivityData) {
    */
   static async #onPayOrder(event, target, message) {
     const { method } = target.dataset;
-    const order = message.getFlag("dnd5e", "order");
-    const config = foundry.utils.expandObject({ "data.flags.dnd5e.order": order });
+    const order = message.getFlag("n5eb", "order");
+    const config = foundry.utils.expandObject({ "data.flags.n5eb.order": order });
     if ( method === "automatic" ) {
       try {
         await CurrencyManager.deductActorCurrency(this.actor, order.costs.gold, CONFIG.DND5E.defaultCurrency, {
@@ -31122,7 +31125,7 @@ class OrderActivity extends ActivityMixin(BaseOrderActivityData) {
         return;
       }
     }
-    foundry.utils.setProperty(config, "data.flags.dnd5e.order.costs.paid", true);
+    foundry.utils.setProperty(config, "data.flags.n5eb.order.costs.paid", true);
     const context = await this._usageChatContext(config);
     const content = await foundry.applications.handlebars.renderTemplate(this.metadata.usage.chatCard, context);
     await message.update({ content, flags: config.data.flags });
@@ -31407,7 +31410,7 @@ class SaveActivity extends ActivityMixin(BaseSaveActivityData) {
   /** @inheritDoc */
   async rollDamage(config={}, dialog={}, message={}) {
     message = foundry.utils.mergeObject({
-      "data.flags.dnd5e.roll": {
+      "data.flags.n5eb.roll": {
         damageOnSave: this.damage.onSave
       }
     }, message);
@@ -32315,7 +32318,7 @@ class CompendiumBrowserSettingsConfig extends Application5e {
         let tag = "";
         // Special case handling for D&D SRD.
         if ( packageName === "n5eb" ) {
-          tag = flags?.dnd5e?.sourceBook?.replace("SRD ", "");
+          tag = (flags?.n5eb?.sourceBook ?? flags?.dnd5e?.sourceBook)?.replace("SRD ", "");
         }
         return {
           tag, title,
@@ -33595,7 +33598,7 @@ class CompendiumBrowser extends Application5e {
         && sources.has(p.collection)
 
         // If types are set and specified in compendium flag, only include those that include the correct types
-        && (!types.size || !p.metadata.flags.dnd5e?.types || new Set(p.metadata.flags.dnd5e.types).intersects(types)))
+        && (!types.size || !getPackTypes(p) || new Set(getPackTypes(p)).intersects(types)))
 
       // Generate an index based on the needed fields
       .map(async p => await Promise.all((await p.getIndex({ fields: Array.from(indexFields) })
@@ -33613,7 +33616,7 @@ class CompendiumBrowser extends Application5e {
         // Remove any documents that don't match the specified types or the provided filters
         .filter(i =>
           (!types.size || (types.has(i.type)
-            && (!p.metadata.flags.dnd5e?.types || p.metadata.flags.dnd5e.types.includes(i.type))))
+            && (!getPackTypes(p) || getPackTypes(p).includes(i.type))))
             && (!filters.length || performCheck(i, filters))
         )
 
@@ -33801,6 +33804,15 @@ class CompendiumBrowser extends Application5e {
     }
     return final;
   }
+}
+
+/**
+ * Get item types declared by a compendium pack.
+ * @param {CompendiumCollection} pack  Compendium pack to inspect.
+ * @returns {string[]|undefined}
+ */
+function getPackTypes(pack) {
+  return pack.metadata.flags.n5eb?.types ?? pack.metadata.flags.dnd5e?.types;
 }
 
 /**
@@ -34170,7 +34182,7 @@ class BaseSummonActivityData extends BaseActivityData {
   get summonedCreatures() {
     if ( !this.actor ) return [];
     return dnd5e.registry.summons.creatures(this.actor)
-      .filter(i => i?.getFlag("dnd5e", "summon.origin") === this.uuid);
+      .filter(i => i?.getFlag("n5eb", "summon.origin") === this.uuid);
   }
 
   /* -------------------------------------------- */
@@ -34366,7 +34378,7 @@ class SummonActivity extends ActivityMixin(BaseSummonActivityData) {
     const summonUuid = this.summon.mode === "cr" ? await this.queryActor(profile) : profile.uuid;
     if ( !summonUuid ) return;
     const actor = await dnd5e.documents.Actor5e.fetchExisting(summonUuid, {
-      origin: { key: "flags.dnd5e.summon.origin", value: this.item?.uuid }
+      origin: { key: "flags.n5eb.summon.origin", value: this.item?.uuid }
     });
 
     // Verify ownership of actor
@@ -34481,7 +34493,7 @@ class SummonActivity extends ActivityMixin(BaseSummonActivityData) {
     const prof = rollData.attributes?.prof ?? 0;
 
     // Add flags
-    actorUpdates["flags.dnd5e.summon"] = {
+    actorUpdates["flags.n5eb.summon"] = {
       level: this.relevantLevel,
       mod: rollData.mod,
       origin: this.item.uuid,
@@ -35462,7 +35474,7 @@ class TransformActivity extends ActivityMixin(BaseTransformActivityData) {
   async _finalizeMessageConfig(usageConfig, messageConfig, results) {
     await super._finalizeMessageConfig(usageConfig, messageConfig, results);
     if ( usageConfig.transform?.profile ) {
-      foundry.utils.setProperty(messageConfig.data, "flags.dnd5e.transform.profile", usageConfig.transform.profile);
+      foundry.utils.setProperty(messageConfig.data, "flags.n5eb.transform.profile", usageConfig.transform.profile);
     }
   }
 
@@ -35496,8 +35508,8 @@ class TransformActivity extends ActivityMixin(BaseTransformActivityData) {
     if ( profile ) {
       const uuid = !this.transform.mode ? profile.uuid : await this.queryActor(profile);
       if ( uuid ) {
-        if ( results.message instanceof ChatMessage ) results.message.setFlag("dnd5e", "transform.uuid", uuid);
-        else foundry.utils.setProperty(results.message, "flags.dnd5e.transform.uuid", uuid);
+        if ( results.message instanceof ChatMessage ) results.message.setFlag("n5eb", "transform.uuid", uuid);
+        else foundry.utils.setProperty(results.message, "flags.n5eb.transform.uuid", uuid);
       }
     }
     await super._finalizeUsage(config, results);
@@ -35544,9 +35556,9 @@ class TransformActivity extends ActivityMixin(BaseTransformActivityData) {
       return;
     }
 
-    const profileId = message.getFlag("dnd5e", "transform.profile");
+    const profileId = message.getFlag("n5eb", "transform.profile");
     const profile = this.profiles.find(p => p._id === profileId) || this.profiles[0];
-    const uuid = message.getFlag("dnd5e", "transform.uuid") ?? await this.queryActor(profile);
+    const uuid = message.getFlag("n5eb", "transform.uuid") ?? await this.queryActor(profile);
     const source = await fromUuid(uuid);
     if ( !source ) {
       ui.notifications.warn("DND5E.TRANSFORM.Warning.SourceActor", { localize: true });
@@ -36122,7 +36134,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    * @type {boolean}
    */
   get isPolymorphed() {
-    return this.getFlag("dnd5e", "isPolymorphed") || false;
+    return this.getFlag("n5eb", "isPolymorphed") || false;
   }
 
   /* -------------------------------------------- */
@@ -36162,7 +36174,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     for ( const effect of this.effects ) {
       if ( !effect.statuses.has(CONFIG.specialStatusEffects.CONCENTRATING) ) continue;
-      const data = effect.getFlag("dnd5e", "item");
+      const data = effect.getFlag("n5eb", "item");
       concentration.effects.add(effect);
       if ( data ) {
         let item = this.items.get(data.id);
@@ -36206,7 +36218,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     // Migrate encounter groups to their own Actor type.
     if ( (source.type === "group") && (source.system?.type?.value === "encounter") ) {
       source.type = "encounter";
-      foundry.utils.setProperty(source, "flags.dnd5e.persistSourceMigration", true);
+      foundry.utils.setProperty(source, "flags.n5eb.persistSourceMigration", true);
     }
 
     source = super._initializeSource(source, options);
@@ -36332,7 +36344,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
   *allApplicableEffects() {
     for ( const effect of super.allApplicableEffects() ) {
       if ( effect.type === "enchantment" ) continue;
-      if ( effect.parent?.getFlag("dnd5e", "riders.effect")?.includes(effect.id) ) continue;
+      if ( effect.parent?.getFlag("n5eb", "riders.effect")?.includes(effect.id) ) continue;
       yield effect;
     }
   }
@@ -36365,7 +36377,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     const localActor = game.actors.find(a => {
       const matchesOrigin = !origin || (foundry.utils.getProperty(a, origin.key) === origin.value);
       // Has been auto-imported by this process.
-      return (a.getFlag("dnd5e", "isAutoImported") || a.getFlag("dnd5e", "summonedCopy")) // Back-compat
+      return (a.getFlag("n5eb", "isAutoImported") || a.getFlag("n5eb", "summonedCopy")) // Back-compat
       // User has ownership of existing actor
       && a.isOwner
       // Sourced from the desired actor UUID.
@@ -36382,12 +36394,12 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     if ( actor.pack ) {
       // Template actor resides only in a compendium, import the actor into the world.
       return game.actors.importFromCompendium(game.packs.get(actor.pack), actor.id, {
-        "flags.dnd5e.isAutoImported": true
+        "flags.n5eb.isAutoImported": true
       });
     } else {
       // A linked world actor was found. Create a copy to avoid affecting the original.
       return actor.clone({
-        "flags.dnd5e.isAutoImported": true,
+        "flags.n5eb.isAutoImported": true,
         "_stats.compendiumSource": actor._stats.compendiumSource,
         "_stats.duplicateSource": actor.uuid
       }, { save: true });
@@ -36402,7 +36414,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    */
   async getPreferredArtwork() {
     if ( !this._preferredArtwork ) {
-      const showTokenPortrait = this.getFlag("dnd5e", "showTokenPortrait") === true;
+      const showTokenPortrait = this.getFlag("n5eb", "showTokenPortrait") === true;
       const token = this.isToken ? this.token : this.prototypeToken;
       const defaultArtwork = Actor.implementation.getDefaultArtwork(this._source)?.img;
       let texture = token?.texture.src;
@@ -36425,7 +36437,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
   /** @inheritDoc */
   prepareDerivedData() {
-    const origin = this.getFlag("dnd5e", "summon.origin");
+    const origin = this.getFlag("n5eb", "summon.origin");
     if ( origin && this.token?.id ) {
       const { collection, primaryId } = foundry.utils.parseUuid(origin);
       dnd5e.registry.summons.track(collection?.get?.(primaryId)?.uuid, this.uuid);
@@ -36775,8 +36787,8 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     if ( Hooks.call("dnd5e.preCalculateDamage", this, damages, options) === false ) return false;
 
     const multiplier = options.multiplier ?? 1;
-    const treatAs = options.originatingMessage?.flags?.dnd5e?.roll?.type
-      ? options.originatingMessage.flags.dnd5e.roll.type === "healing" ? "healing" : "damage"
+    const treatAs = options.originatingMessage?.flags?.n5eb?.roll?.type
+      ? options.originatingMessage.flags.n5eb.roll.type === "healing" ? "healing" : "damage"
       : options.only ?? "damage";
 
     const skipped = type => {
@@ -37048,7 +37060,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     else if ( target instanceof ActiveEffect5e ) effect = effects.has(target) ? target : null;
     else if ( target instanceof Item5e ) {
       effect = effects.find(e => {
-        const data = e.getFlag("dnd5e", "item") ?? {};
+        const data = e.getFlag("n5eb", "item") ?? {};
         return (data.id === target._id) || (data.data?._id === target._id);
       });
     }
@@ -37128,7 +37140,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    * @private
    */
   _isRemarkableAthlete(ability) {
-    return (dnd5e.settings.rulesVersion === "legacy") && this.getFlag("dnd5e", "remarkableAthlete")
+    return (dnd5e.settings.rulesVersion === "legacy") && this.getFlag("n5eb", "remarkableAthlete")
       && CONFIG.DND5E.characterFlags.remarkableAthlete.abilities.includes(ability);
   }
 
@@ -37163,7 +37175,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    */
   static async handleSkillCheckRequest(actor, request, config, { event }={}) {
     const data = {};
-    foundry.utils.setProperty(data, "flags.dnd5e.requestResult", { actorUuid: actor.uuid, requestId: request.id });
+    foundry.utils.setProperty(data, "flags.n5eb.requestResult", { actorUuid: actor.uuid, requestId: request.id });
     const [roll] = (await actor.rollSkill({ ...config, event }, {}, { data })) ?? [];
     return roll?.parent ?? null;
   }
@@ -37241,8 +37253,8 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     const alternate = type === "skill" ? this.system.tools?.[config.tool] : this.system.skills?.[config.skill];
     const abilityId = config.ability ?? relevant?.ability ?? (type === "skill" ? skillConfig.ability : toolConfig.ability);
     const ability = this.system.abilities?.[abilityId];
-    const hostActor = this.isPolymorphed && this.flags?.dnd5e?.transformOptions?.mergeSkills && (type === "skill")
-      ? game.actors.get(this.flags.dnd5e?.originalActor) : null;
+    const hostActor = this.isPolymorphed && this.flags?.n5eb?.transformOptions?.mergeSkills && (type === "skill")
+      ? game.actors.get(this.flags.n5eb?.originalActor) : null;
     const buildConfig = this._buildSkillToolConfig.bind(this, type, hostActor);
     const doubleProf = !!relevant?.prof.hasProficiency && !!alternate?.prof.hasProficiency;
     const pace = TravelField.getTravelPaceMode(config.pace, config.skill);
@@ -37258,8 +37270,8 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     const rollConfig = foundry.utils.mergeObject({
       advantage, disadvantage,
       ability: relevant?.ability ?? (type === "skill" ? skillConfig.ability : toolConfig?.ability),
-      halflingLucky: this.getFlag("dnd5e", "halflingLucky"),
-      reliableTalent: (relevant?.value >= 1) && this.getFlag("dnd5e", "reliableTalent")
+      halflingLucky: this.getFlag("n5eb", "halflingLucky"),
+      reliableTalent: (relevant?.value >= 1) && this.getFlag("n5eb", "reliableTalent")
     }, config);
     rollConfig.hookNames = [...(config.hookNames ?? []), type, "abilityCheck", "d20Test"];
     rollConfig.rolls = [CONFIG.Dice.D20Roll.mergeConfigs({
@@ -37469,7 +37481,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     };
 
     const rollConfig = foundry.utils.mergeObject({
-      halflingLucky: this.getFlag("dnd5e", "halflingLucky")
+      halflingLucky: this.getFlag("n5eb", "halflingLucky")
     }, config);
     rollConfig.hookNames = [...(config.hookNames ?? []), name, "d20Test"];
     rollConfig.rolls = [
@@ -37552,7 +37564,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     };
 
     // Diamond Soul adds proficiency
-    if ( this.getFlag("dnd5e", "diamondSoul") ) {
+    if ( this.getFlag("n5eb", "diamondSoul") ) {
       parts.push("@prof");
       data.prof = new Proficiency(this.system.attributes.prof, 1).term;
     }
@@ -37764,7 +37776,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
    */
   getInitiativeRollConfig(options={}) {
     const init = this.system.attributes?.init;
-    const flags = this.flags.dnd5e ?? {};
+    const flags = this.flags.n5eb ?? {};
     const abilityId = init?.ability || CONFIG.DND5E.defaultAbilities.initiative;
     const ability = this.system.abilities?.[abilityId];
 
@@ -37955,7 +37967,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         speaker: ChatMessage.implementation.getSpeaker({actor: this}),
         flavor,
         title: `${flavor}: ${this.name}`,
-        "flags.dnd5e.roll": {type: "hitDie"}
+        "flags.n5eb.roll": {type: "hitDie"}
       }
     }, message);
 
@@ -38030,7 +38042,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       title: `${flavor}: ${this.name}`,
       flavor,
       speaker: ChatMessage.implementation.getSpeaker({ actor: this }),
-      "flags.dnd5e.roll": { type: "hitPoints" }
+      "flags.n5eb.roll": { type: "hitPoints" }
     };
 
     /**
@@ -38083,7 +38095,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       title: `${flavor}: ${this.name}`,
       flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      "flags.dnd5e.roll": { type: "hitPoints" }
+      "flags.n5eb.roll": { type: "hitPoints" }
     };
 
     /**
@@ -38359,7 +38371,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         type: result.type
       }
     };
-    if ( config.request ) foundry.utils.setProperty(chatData, "flags.dnd5e.requestResult", {
+    if ( config.request ) foundry.utils.setProperty(chatData, "flags.n5eb.requestResult", {
       actorUuid: this.uuid, requestId: config.request.id
     });
     ChatMessage.applyRollMode(chatData, CONFIG.Dice.BasicRoll.getMessageMode());
@@ -38717,8 +38729,8 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     let originalSaves = null;
     let originalSkills = null;
     if ( this.isPolymorphed ) {
-      const transformOptions = this.flags.dnd5e?.transformOptions;
-      const original = game.actors?.get(this.flags.dnd5e?.originalActor);
+      const transformOptions = this.flags.n5eb?.transformOptions;
+      const original = game.actors?.get(this.flags.n5eb?.originalActor);
       if ( original ) {
         if ( transformOptions.mergeSaves ) originalSaves = original.system.abilities;
         if ( transformOptions.mergeSkills ) originalSkills = original.system.skills;
@@ -38748,8 +38760,8 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     // Get the original Actor data and the new source data
     const o = this.toObject();
-    o.flags.dnd5e = o.flags.dnd5e || {};
-    o.flags.dnd5e.transformOptions = {
+    o.flags.n5eb = o.flags.n5eb || {};
+    o.flags.n5eb.transformOptions = {
       ...settings.toObject(),
       mergeSaves: settings.merge.has("saves"),
       mergeSkills: settings.merge.has("skills")
@@ -38987,11 +38999,11 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     }
 
     // Set new data flags
-    if ( !this.isPolymorphed || !d.flags.dnd5e.originalActor ) d.flags.dnd5e.originalActor = this.id;
-    d.flags.dnd5e.isPolymorphed = true;
+    if ( !this.isPolymorphed || !d.flags.n5eb.originalActor ) d.flags.n5eb.originalActor = this.id;
+    d.flags.n5eb.isPolymorphed = true;
 
     // Gather previous actor data
-    const previousActorIds = this.getFlag("dnd5e", "previousActorIds") || [];
+    const previousActorIds = this.getFlag("n5eb", "previousActorIds") || [];
     previousActorIds.push(this._id);
     foundry.utils.setProperty(d.flags, "dnd5e.previousActorIds", previousActorIds);
 
@@ -39011,7 +39023,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         tokenData.name = `${this.token.name} (${sourceData.name})`;
       }
 
-      if ( !this.token.flags.dnd5e?.previousActorData ) {
+      if ( !this.token.flags.n5eb?.previousActorData ) {
         const previousActorData = this.token.delta.toObject();
         const previousTokenData = { texture: {} };
         for ( const k of [...tokenPropsFromSource, ...tokenPropsFromSelf, "name"] ) {
@@ -39020,8 +39032,8 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         for ( const k of tokenTexturePropsFromSource ) {
           previousTokenData.texture[k] = this.token.texture[k];
         }
-        foundry.utils.setProperty(tokenData, "flags.dnd5e.previousActorData", previousActorData);
-        foundry.utils.setProperty(tokenData, "flags.dnd5e.previousTokenData", previousTokenData);
+        foundry.utils.setProperty(tokenData, "flags.n5eb.previousActorData", previousActorData);
+        foundry.utils.setProperty(tokenData, "flags.n5eb.previousTokenData", previousTokenData);
       }
       await this.sheet?.close();
       const update = await this.token.update(tokenData);
@@ -39078,10 +39090,10 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         newTokenData.name = `${t.document.name} (${sourceData.name})`;
       }
 
-      const dOriginalActor = foundry.utils.getProperty(d, "flags.dnd5e.originalActor");
-      foundry.utils.setProperty(newTokenData, "flags.dnd5e.originalActor", dOriginalActor);
-      foundry.utils.setProperty(newTokenData, "flags.dnd5e.isPolymorphed", true);
-      if ( !t.document.flags.dnd5e?.previousTokenData ) {
+      const dOriginalActor = foundry.utils.getProperty(d, "flags.n5eb.originalActor");
+      foundry.utils.setProperty(newTokenData, "flags.n5eb.originalActor", dOriginalActor);
+      foundry.utils.setProperty(newTokenData, "flags.n5eb.isPolymorphed", true);
+      if ( !t.document.flags.n5eb?.previousTokenData ) {
         const previousTokenData = { texture: {} };
         for ( const k of [...tokenPropsFromSource, ...tokenPropsFromSelf, "name"] ) {
           previousTokenData[k] = t.document[k];
@@ -39089,7 +39101,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         for ( const k of tokenTexturePropsFromSource ) {
           previousTokenData.texture[k] = t.document.texture[k];
         }
-        foundry.utils.setProperty(newTokenData, "flags.dnd5e.previousTokenData", previousTokenData);
+        foundry.utils.setProperty(newTokenData, "flags.n5eb.previousTokenData", previousTokenData);
       }
       return newTokenData;
     });
@@ -39125,12 +39137,12 @@ class Actor5e extends SystemDocumentMixin(Actor) {
      */
     Hooks.callAll("dnd5e.revertOriginalForm", this, options);
 
-    const transformOptions = this.getFlag("dnd5e", "transformOptions");
-    const previousActorIds = this.getFlag("dnd5e", "previousActorIds") ?? [];
+    const transformOptions = this.getFlag("n5eb", "transformOptions");
+    const previousActorIds = this.getFlag("n5eb", "previousActorIds") ?? [];
     const isRendered = this.sheet.rendered;
 
     // Obtain a reference to the original actor
-    const original = game.actors.get(this.getFlag("dnd5e", "originalActor"));
+    const original = game.actors.get(this.getFlag("n5eb", "originalActor"));
 
     const update = {};
     if ( transformOptions?.keep?.includes("hp") ) {
@@ -39150,22 +39162,22 @@ class Actor5e extends SystemDocumentMixin(Actor) {
       const baseActor = original ? original : game.actors.get(this.token.actorId);
       if ( !baseActor ) {
         ui.notifications.warn(game.i18n.format("DND5E.TRANSFORM.Warning.OriginalActor", {
-          reference: this.getFlag("dnd5e", "originalActor")
+          reference: this.getFlag("n5eb", "originalActor")
         }));
         return;
       }
       const prototypeTokenData = (await baseActor.getTokenDocument()).toObject();
-      const actorData = this.token.getFlag("dnd5e", "previousActorData");
+      const actorData = this.token.getFlag("n5eb", "previousActorData");
       foundry.utils.mergeObject(actorData, update);
       const tokenUpdate = this.token.toObject();
       actorData._id = tokenUpdate.delta._id;
       tokenUpdate.delta = actorData;
 
-      foundry.utils.mergeObject(tokenUpdate, this.token.getFlag("dnd5e", "previousTokenData"));
+      foundry.utils.mergeObject(tokenUpdate, this.token.getFlag("n5eb", "previousTokenData"));
       tokenUpdate.sight = prototypeTokenData.sight;
       tokenUpdate.detectionModes = prototypeTokenData.detectionModes;
-      delete tokenUpdate.flags.dnd5e.previousActorData;
-      delete tokenUpdate.flags.dnd5e.previousTokenData;
+      delete tokenUpdate.flags.n5eb.previousActorData;
+      delete tokenUpdate.flags.n5eb.previousTokenData;
 
       await this.sheet.close();
       const token = await TokenDocument.implementation.create(tokenUpdate, { parent: this.token.parent, render: true });
@@ -39176,7 +39188,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     if ( !original ) {
       ui.notifications.warn(game.i18n.format("DND5E.TRANSFORM.Warning.OriginalActor", {
-        reference: this.getFlag("dnd5e", "originalActor")
+        reference: this.getFlag("n5eb", "originalActor")
       }));
       return;
     }
@@ -39191,7 +39203,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
         update.elevation = t.document.elevation;
         update.hidden = t.document.hidden;
         update.rotation = t.document.rotation;
-        foundry.utils.mergeObject(update, t.document.getFlag("dnd5e", "previousTokenData"));
+        foundry.utils.mergeObject(update, t.document.getFlag("n5eb", "previousTokenData"));
         delete update.x;
         delete update.y;
         return update;
@@ -39209,7 +39221,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     } else {
       // Remove the flags
       const actorUpdates = polymorphedActorIds.filter(id => game.actors.get(id).isOwner).map(p => {
-        return { _id: p, "flags.dnd5e": { "-=isPolymorphed": null, "-=previousActorIds": null } };
+        return { _id: p, "flags.n5eb": { "-=isPolymorphed": null, "-=previousActorIds": null } };
       });
       await Actor.implementation.updateDocuments(actorUpdates);
 
@@ -39330,7 +39342,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
 
     super._onDelete(options, userId);
 
-    const origin = this.getFlag("dnd5e", "summon.origin");
+    const origin = this.getFlag("n5eb", "summon.origin");
     if ( origin ) {
       const { collection, primaryId } = foundry.utils.parseUuid(origin);
       dnd5e.registry.summons.untrack(collection?.get?.(primaryId)?.uuid, this.uuid);
@@ -39489,10 +39501,10 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     if ( level < 1 ) return effect?.delete();
     else if ( effect ) {
       const originalExhaustion = foundry.utils.getProperty(options, "dnd5e.originalExhaustion");
-      return effect.update({ "flags.dnd5e.exhaustionLevel": level }, { dnd5e: { originalExhaustion } });
+      return effect.update({ "flags.n5eb.exhaustionLevel": level }, { dnd5e: { originalExhaustion } });
     } else {
       effect = await ActiveEffect.implementation.fromStatusEffect("exhaustion", { parent: this });
-      effect.updateSource({ "flags.dnd5e.exhaustionLevel": level });
+      effect.updateSource({ "flags.n5eb.exhaustionLevel": level });
       return ActiveEffect.implementation.create(effect, { parent: this, keepId: true });
     }
   }
@@ -39515,7 +39527,7 @@ class Actor5e extends SystemDocumentMixin(Actor) {
     return ActiveEffect.implementation.create({
       _id: ActiveEffect5e.ID.BLOODIED,
       img: CONFIG.DND5E.bloodied.img,
-      flags: { dnd5e: { isTemporary: true } },
+      flags: { n5eb: { isTemporary: true } },
       name: game.i18n.localize(CONFIG.DND5E.bloodied.name),
       statuses: ["bloodied"],
       showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON?.CONDITIONAL
@@ -41119,7 +41131,7 @@ class ItemChoiceFlow extends ItemGrantFlow$1 {
       isCurrentLevel: true,
       items: [...this.pool, ...dropped].reduce((arr, item) => {
         const { id, name, img } = item;
-        const uuid = item.flags.dnd5e?.sourceId ?? item.uuid;
+        const uuid = item.flags.n5eb?.sourceId ?? item.uuid;
         const validFeature = !item.system.validatePrerequisites || (item.system.validatePrerequisites(
           this.advancement.actor, { added, removed, level: this.featureLevel }
         ) === true);
@@ -41799,7 +41811,7 @@ class ItemGrantAdvancement extends Advancement {
     const existing = new Set(Object.values(added));
     for ( const uuid of selected ) {
       if ( existing.has(uuid) ) continue;
-      let itemData = retainedData.items?.find(i => i.flags?.dnd5e?.sourceId ?? i._stats?.compendiumSource);
+      let itemData = retainedData.items?.find(i => i.flags?.n5eb?.sourceId ?? i._stats?.compendiumSource);
       if ( !itemData ) {
         itemData = await this.createItemData(uuid);
         if ( !itemData ) continue;
@@ -41844,7 +41856,7 @@ class ItemGrantAdvancement extends Advancement {
     const updates = {};
     for ( const item of data.items ?? [] ) {
       this.actor.updateSource({ items: [item] });
-      updates[item._id] = item.flags.dnd5e.sourceId;
+      updates[item._id] = item.flags.n5eb.sourceId;
     }
     this.updateSource({
       "value.ability": data.ability,
@@ -41867,7 +41879,7 @@ class ItemGrantAdvancement extends Advancement {
       const item = this.actor.items.get(id);
       if ( item ) {
         items.push(item.toObject());
-        items[item.flags.dnd5e?.sourceId ?? item._stats.compendiumSource ?? item.uuid] = item.toObject();
+        items[item.flags.n5eb?.sourceId ?? item._stats.compendiumSource ?? item.uuid] = item.toObject();
       }
       this.actor.items.delete(id);
       added[`-=${id}`] = null;
@@ -42046,7 +42058,7 @@ class ItemChoiceAdvancement extends ItemGrantAdvancement {
     const items = [];
     const messages = [];
     for ( const item of data.items ?? [] ) {
-      const original = await fromUuid(item.flags.dnd5e.sourceId);
+      const original = await fromUuid(item.flags.n5eb.sourceId);
       try {
         original?.system.validatePrerequisites?.(this.actor, {
           level: level || this.actor.system.details?.level, throwError: true
@@ -43289,7 +43301,7 @@ class SubclassFlow extends AdvancementFlow$1 {
 
   /** @inheritDoc */
   async _prepareContext(options) {
-    const uuid = foundry.utils.getProperty(this.retainedData ?? {}, "flags.dnd5e.sourceId");
+    const uuid = foundry.utils.getProperty(this.retainedData ?? {}, "flags.n5eb.sourceId");
     if ( uuid ) await this.advancement.apply(this.level, { retainedData: this.retainedData, uuid });
     return super._prepareContext(options);
   }
@@ -43478,12 +43490,12 @@ class SubclassAdvancement extends Advancement {
   async apply(level, { retainedData={}, uuid }={}, options={}) {
     if ( options.initial ) return;
 
-    const useRetained = uuid === foundry.utils.getProperty(retainedData, "flags.dnd5e.sourceId");
+    const useRetained = uuid === foundry.utils.getProperty(retainedData, "flags.n5eb.sourceId");
     let itemData = useRetained ? retainedData : null;
     if ( !itemData ) {
       itemData = await this.createItemData(uuid);
-      delete itemData.flags?.dnd5e?.advancementOrigin;
-      delete itemData.flags?.dnd5e?.advancementRoot;
+      delete itemData.flags?.n5eb?.advancementOrigin;
+      delete itemData.flags?.n5eb?.advancementRoot;
       foundry.utils.setProperty(itemData, "system.classIdentifier", this.item.identifier);
     }
     if ( itemData ) {
@@ -43500,7 +43512,7 @@ class SubclassAdvancement extends Advancement {
     this.actor.updateSource({ items: [data] });
     this.updateSource({
       value: {
-        document: data._id, uuid: data._stats?.compendiumSource ?? data.flags?.dnd5e?.sourceId
+        document: data._id, uuid: data._stats?.compendiumSource ?? data.flags?.n5eb?.sourceId
       }
     });
   }
@@ -52348,7 +52360,7 @@ class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
   async _prepareEffectsContext(context, options) {
     const effectMap = {};
     const riders = [];
-    const riderIds = new Set(this.item.getFlag("dnd5e", "riders.effect") ?? []);
+    const riderIds = new Set(this.item.getFlag("n5eb", "riders.effect") ?? []);
     context.tab = context.tabs.effects;
     context.effects = EffectsElement.prepareCategories(this.item.effects, { parent: this.item });
     for ( const category of Object.values(context.effects) ) {
@@ -54499,8 +54511,8 @@ class InitiativeConfig extends BaseConfigSheet {
     context.flags = {
       alert: {
         field: new BooleanField$e({ label: game.i18n.localize("DND5E.FlagsAlert") }),
-        name: "flags.dnd5e.initiativeAlert",
-        value: source.flags.dnd5e?.initiativeAlert
+        name: "flags.n5eb.initiativeAlert",
+        value: source.flags.n5eb?.initiativeAlert
       }
     };
 
@@ -55384,7 +55396,7 @@ class ItemListControlsElement extends MaybeAdoptable$3 {
    * @type {TabPreferences5e}
    */
   get prefs() {
-    return game.user.getFlag("dnd5e", `sheetPrefs.${this.app.document.type}.tabs.${this.tab}`);
+    return game.user.getFlag("n5eb", `sheetPrefs.${this.app.document.type}.tabs.${this.tab}`);
   }
 
   /* -------------------------------------------- */
@@ -55663,8 +55675,8 @@ class ItemListControlsElement extends MaybeAdoptable$3 {
     const { action } = event.currentTarget.dataset;
     const flag = `sheetPrefs.${this.app.document.type}.tabs.${this.tab}.${action}`;
     const modes = Object.keys(action === "group" ? this.#groups : this.#modes);
-    const current = Math.max(0, modes.indexOf(game.user.getFlag("dnd5e", flag)));
-    await game.user.setFlag("dnd5e", flag, modes[(current + 1) % modes.length]);
+    const current = Math.max(0, modes.indexOf(game.user.getFlag("n5eb", flag)));
+    await game.user.setFlag("n5eb", flag, modes[(current + 1) % modes.length]);
     if ( action === "group" ) {
       this._initGrouping();
       this._applyGrouping();
@@ -55704,7 +55716,7 @@ class BaseActorSheet extends PrimarySheetMixin(
   constructor(options={}) {
     // Set initial size based on saved size
     const key = `${options.document?.type}${options.document?.limited ? ":limited" : ""}`;
-    const { width, height } = game.user.getFlag("dnd5e", `sheetPrefs.${key}`) ?? {};
+    const { width, height } = game.user.getFlag("n5eb", `sheetPrefs.${key}`) ?? {};
     options.position ??= {};
     if ( width && !("width" in options.position) ) options.position.width = width;
     if ( height && !("height" in options.position) ) options.position.height = height;
@@ -55861,7 +55873,7 @@ class BaseActorSheet extends PrimarySheetMixin(
         ? this.actor.system.source.rules === "2024"
         : dnd5e.settings.rulesVersion === "modern",
       rollableClass: this.isEditable ? "rollable" : "",
-      sidebarCollapsed: !!game.user.getFlag("dnd5e", this._sidebarCollapsedKeyPath),
+      sidebarCollapsed: !!game.user.getFlag("n5eb", this._sidebarCollapsedKeyPath),
       system: this.actor.system,
       user: game.user,
       warnings: foundry.utils.deepClone(this.actor._preparationWarnings)
@@ -55995,13 +56007,13 @@ class BaseActorSheet extends PrimarySheetMixin(
       classes: Object.values(this.document.classes)
         .map(cls => ({ value: cls.id, label: cls.name }))
         .sort((lhs, rhs) => lhs.label.localeCompare(rhs.label, game.i18n.lang)),
-      data: source.flags?.dnd5e ?? {},
+      data: source.flags?.n5eb ?? {},
       disabled: this._mode === this.constructor.MODES.PLAY
     };
 
     // Character Flags
     for ( const [key, config] of Object.entries(CONFIG.DND5E.characterFlags) ) {
-      const flag = { ...config, name: `flags.dnd5e.${key}`, value: foundry.utils.getProperty(flags.data, key) };
+      const flag = { ...config, name: `flags.n5eb.${key}`, value: foundry.utils.getProperty(flags.data, key) };
       const fieldOptions = { label: config.name, hint: config.hint };
       if ( config.type === Boolean ) {
         flag.field = new BooleanField$d(fieldOptions);
@@ -56263,7 +56275,7 @@ class BaseActorSheet extends PrimarySheetMixin(
       method = spellcasting?.getSpellSlotKey?.(level) ?? method;
 
       // Spells from items
-      if ( spell.getFlag("dnd5e", "cachedFor") ) {
+      if ( spell.getFlag("n5eb", "cachedFor") ) {
         method = "item";
         if ( !spell.system.linkedActivity?.displayInSpellbook ) return;
         registerSection(method);
@@ -56486,7 +56498,7 @@ class BaseActorSheet extends PrimarySheetMixin(
       : game.i18n.localize("DND5E.AbbreviationDC") : null;
 
     // Linked Uses
-    const cachedFor = fromUuidSync(item.flags.dnd5e?.cachedFor, { relative: item.parent, strict: false });
+    const cachedFor = fromUuidSync(item.flags.n5eb?.cachedFor, { relative: item.parent, strict: false });
     if ( cachedFor ) {
       const targetItemUses = cachedFor.consumption?.targets.find(t => t.type === "itemUses");
       ctx.linkedUses = cachedFor.consumption?.targets.find(t => t.type === "activityUses")
@@ -56617,7 +56629,7 @@ class BaseActorSheet extends PrimarySheetMixin(
       sourceLabel = grantingItem?.name;
     } else {
       // Check spells added from advancements
-      const advancementOrigin = item.getFlag("dnd5e", "advancementOrigin");
+      const advancementOrigin = item.getFlag("n5eb", "advancementOrigin");
       if ( advancementOrigin ) {
         const [itemId] = advancementOrigin.split(".");
         const grantingItem = item.parent.items.get(itemId);
@@ -56785,7 +56797,7 @@ class BaseActorSheet extends PrimarySheetMixin(
 
     // Collapse sidebar
     if ( this.tabGroups.primary ) {
-      const sidebarCollapsed = !!game.user.getFlag("dnd5e", this._sidebarCollapsedKeyPath);
+      const sidebarCollapsed = !!game.user.getFlag("n5eb", this._sidebarCollapsedKeyPath);
       this.element.classList.toggle("sidebar-collapsed", sidebarCollapsed);
     }
 
@@ -56908,7 +56920,7 @@ class BaseActorSheet extends PrimarySheetMixin(
     }));
 
     // Toggle sidebar
-    const sidebarCollapsed = game.user.getFlag("dnd5e", this._sidebarCollapsedKeyPath);
+    const sidebarCollapsed = game.user.getFlag("n5eb", this._sidebarCollapsedKeyPath);
     if ( sidebarCollapsed !== undefined ) this._toggleSidebar(sidebarCollapsed);
   }
 
@@ -57084,7 +57096,7 @@ class BaseActorSheet extends PrimarySheetMixin(
     if ( height !== "auto" ) prefs.height = height;
     if ( foundry.utils.isEmpty(prefs) ) return;
     const key = `${this.actor.type}${this.actor.limited ? ":limited": ""}`;
-    game.user.setFlag("dnd5e", `sheetPrefs.${key}`, prefs);
+    game.user.setFlag("n5eb", `sheetPrefs.${key}`, prefs);
   }
 
   /* -------------------------------------------- */
@@ -57224,7 +57236,7 @@ class BaseActorSheet extends PrimarySheetMixin(
    */
   static #toggleSidebar(event, target) {
     const collapsed = this._toggleSidebar();
-    game.user.setFlag("dnd5e", this._sidebarCollapsedKeyPath, collapsed);
+    game.user.setFlag("n5eb", this._sidebarCollapsedKeyPath, collapsed);
   }
 
   /* -------------------------------------------- */
@@ -57257,15 +57269,15 @@ class BaseActorSheet extends PrimarySheetMixin(
     const submitData = super._processFormData(event, form, formData);
 
     // Remove any flags that are false-ish
-    for ( const [key, value] of Object.entries(submitData.flags?.dnd5e ?? {}) ) {
+    for ( const [key, value] of Object.entries(submitData.flags?.n5eb ?? {}) ) {
       if ( value ) continue;
 
       // Keep the flag for synthetic actor overrides
-      if ( this.actor.isToken && this.actor.parent.baseActor.getFlag("dnd5e", key) ) continue;
+      if ( this.actor.isToken && this.actor.parent.baseActor.getFlag("n5eb", key) ) continue;
 
-      delete submitData.flags.dnd5e[key];
-      if ( foundry.utils.hasProperty(this.document._source, `flags.dnd5e.${key}`) ) {
-        submitData.flags.dnd5e[`-=${key}`] = null;
+      delete submitData.flags.n5eb[key];
+      if ( foundry.utils.hasProperty(this.document._source, `flags.n5eb.${key}`) ) {
+        submitData.flags.n5eb[`-=${key}`] = null;
       }
     }
 
@@ -58630,7 +58642,7 @@ class CharacterActorSheet extends BaseActorSheet {
 
     await super._prepareItemFeature(item, ctx);
 
-    const [originId] = (item.getFlag("dnd5e", "advancementRoot") ?? item.getFlag("dnd5e", "advancementOrigin"))
+    const [originId] = (item.getFlag("n5eb", "advancementRoot") ?? item.getFlag("n5eb", "advancementOrigin"))
       ?.split(".") ?? [];
     const group = item.parent.items.get(originId);
     ctx.groups.origin = "other";
@@ -59213,7 +59225,7 @@ class MultiActorSheet extends BaseActorSheet {
    * @protected
    */
   async _prepareMemberPortrait(actor, context) {
-    const showTokenPortrait = this.actor.getFlag("dnd5e", "showTokenPortrait");
+    const showTokenPortrait = this.actor.getFlag("n5eb", "showTokenPortrait");
     const token = actor.isToken ? actor.token : actor.prototypeToken;
     const defaults = Actor.implementation.getDefaultArtwork(actor._source);
     let src = showTokenPortrait ? token.texture.src : actor.img;
@@ -59343,7 +59355,7 @@ class MultiActorSheet extends BaseActorSheet {
    */
   static addDocumentSheetConfigOptions(app, html) {
     const { document: doc } = app.options;
-    const showTokenPortrait = doc.getFlag("dnd5e", "showTokenPortrait");
+    const showTokenPortrait = doc.getFlag("n5eb", "showTokenPortrait");
     const artOptions = {
       false: game.i18n.localize("DND5E.Group.Config.Art.portraits"),
       true: game.i18n.localize("DND5E.Group.Config.Art.tokens")
@@ -59354,7 +59366,7 @@ class MultiActorSheet extends BaseActorSheet {
       <div class="form-group">
         <label>${game.i18n.localize("DND5E.Group.Config.Art.Label")}</label>
         <div class="form-fields">
-          <select name="flags.dnd5e.showTokenPortrait" data-dtype="Boolean">
+          <select name="flags.n5eb.showTokenPortrait" data-dtype="Boolean">
             ${foundry.applications.handlebars.selectOptions(artOptions, { hash: { selected: showTokenPortrait } })}
           </select>
         </div>
@@ -59610,7 +59622,7 @@ class EncounterActorSheet extends MultiActorSheet {
     new Award({
       award: {
         currency: { ...this.actor.system.currency },
-        savedDestinations: this.actor.getFlag("dnd5e", "awardDestinations"),
+        savedDestinations: this.actor.getFlag("n5eb", "awardDestinations"),
         xp: await this.actor.system.getXPValue()
       }
     }).render({ force: true });
@@ -59790,7 +59802,7 @@ class GroupActorSheet extends MultiActorSheet {
 
   /** @inheritDoc */
   get inventorySource() {
-    const inventorySource = this.actor.getFlag("dnd5e", "inventorySource") ?? "group";
+    const inventorySource = this.actor.getFlag("n5eb", "inventorySource") ?? "group";
     const { primaryVehicle } = this.actor.system;
     if ( (inventorySource === "vehicle") && primaryVehicle?.isOwner ) return primaryVehicle;
     return super.inventorySource;
@@ -60085,7 +60097,7 @@ class GroupActorSheet extends MultiActorSheet {
    */
   static #onAward() {
     new Award({
-      award: { savedDestinations: this.actor.getFlag("dnd5e", "awardDestinations") },
+      award: { savedDestinations: this.actor.getFlag("n5eb", "awardDestinations") },
       origin: this.actor
     }).render({ force: true });
   }
@@ -60163,7 +60175,7 @@ class GroupActorSheet extends MultiActorSheet {
    */
   static #onToggleInventory(event, target) {
     const { inventory } = target.dataset;
-    this.actor.setFlag("dnd5e", "inventorySource", inventory);
+    this.actor.setFlag("n5eb", "inventorySource", inventory);
   }
 
   /* -------------------------------------------- */
@@ -61079,9 +61091,9 @@ class VehicleActorSheet extends BaseActorSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.options = {
-      showAbilities: this.actor.getFlag("dnd5e", "showVehicleAbilities"),
-      showInitiative: this.actor.getFlag("dnd5e", "showVehicleInitiative"),
-      showQuality: this.actor.getFlag("dnd5e", "showVehicleQuality")
+      showAbilities: this.actor.getFlag("n5eb", "showVehicleAbilities"),
+      showInitiative: this.actor.getFlag("n5eb", "showVehicleInitiative"),
+      showQuality: this.actor.getFlag("n5eb", "showVehicleQuality")
     };
     return context;
   }
@@ -61367,7 +61379,7 @@ class VehicleActorSheet extends BaseActorSheet {
       || context.itemCategories.features?.length
       || context.itemCategories.stations?.length
       || context.system.draft?.value.length
-      || this.actor.getFlag("dnd5e", "showVehicleAbilities");
+      || this.actor.getFlag("n5eb", "showVehicleAbilities");
     this.element.classList.toggle("has-stations", !!hasStations);
   }
 
@@ -62116,7 +62128,7 @@ class ItemGrantFlow extends AdvancementFlow {
    */
   async getContext() {
     const config = this.advancement.configuration;
-    const added = this.retainedData?.items.map(i => foundry.utils.getProperty(i, "flags.dnd5e.sourceId"))
+    const added = this.retainedData?.items.map(i => foundry.utils.getProperty(i, "flags.n5eb.sourceId"))
       ?? this.advancement.value.added;
     const checked = new Set(Object.values(added ?? {}));
     return {
@@ -62184,7 +62196,7 @@ class ItemGrantFlow extends AdvancementFlow {
   /** @inheritDoc */
   async _updateObject(event, formData) {
     const retainedData = this.retainedData?.items.reduce((obj, i) => {
-      obj[foundry.utils.getProperty(i, "flags.dnd5e.sourceId")] = i;
+      obj[foundry.utils.getProperty(i, "flags.n5eb.sourceId")] = i;
       return obj;
     }, {});
     await this.advancement.apply(this.level, formData, retainedData);
@@ -62756,7 +62768,7 @@ function TargetedApplicationMixin(Base) {
       this.targetSourceControl.querySelectorAll("button").forEach(b =>
         b.addEventListener("click", this._onChangeTargetMode.bind(this))
       );
-      if ( !this.chatMessage?.getFlag("dnd5e", "targets")?.length ) this.targetSourceControl.hidden = true;
+      if ( !this.chatMessage?.getFlag("n5eb", "targets")?.length ) this.targetSourceControl.hidden = true;
 
       this.targetList = document.createElement("ul");
       this.targetList.classList.add("targets", "unlist");
@@ -62774,7 +62786,7 @@ function TargetedApplicationMixin(Base) {
       const targetedTokens = new Map();
       switch ( this.targetingMode ) {
         case "targeted":
-          this.chatMessage?.getFlag("dnd5e", "targets")?.forEach(t => targetedTokens.set(t.uuid, t.name));
+          this.chatMessage?.getFlag("n5eb", "targets")?.forEach(t => targetedTokens.set(t.uuid, t.name));
           break;
         case "selected":
           canvas.tokens?.controlled?.forEach(t => {
@@ -63578,7 +63590,7 @@ class EnchantmentApplicationElement extends MaybeAdoptable$2 {
     // Calculate the maximum targets
     let item = this.enchantmentItem;
     const scaling = this.chatMessage.system.scaling;
-    if ( scaling ) item = item.clone({ "flags.dnd5e.scaling": scaling });
+    if ( scaling ) item = item.clone({ "flags.n5eb.scaling": scaling });
     const activity = item.system.activities.get(this.enchantmentActivity.id);
     const maxTargets = activity.target?.affects?.count;
     if ( maxTargets ) {
@@ -63655,7 +63667,7 @@ class EnchantmentApplicationElement extends MaybeAdoptable$2 {
     }
 
     this.enchantmentActivity.applyEnchantment(
-      this.chatMessage.getFlag("dnd5e", "use.enchantmentProfile"),
+      this.chatMessage.getFlag("n5eb", "use.enchantmentProfile"),
       droppedItem,
       { chatMessage: this.chatMessage, concentration }
     );
@@ -64456,7 +64468,7 @@ class InventoryElement extends (foundry.applications.elements.AdoptableHTMLEleme
       name: "DND5E.Scroll.CreateScroll",
       icon: '<i class="fa-solid fa-scroll"></i>',
       condition: () => {
-        const isSpell = (item.type === "spell") && !item.getFlag("dnd5e", "cachedFor");
+        const isSpell = (item.type === "spell") && !item.getFlag("n5eb", "cachedFor");
         const canEdit = this.actor.isOwner && !this.actor.collection.locked;
         return isSpell && canEdit;
       },
@@ -64496,7 +64508,7 @@ class InventoryElement extends (foundry.applications.elements.AdoptableHTMLEleme
         const isPrepared = CONFIG.DND5E.spellcasting[item.system.method]?.prepares;
         const isAlways = item.system.prepared === CONFIG.DND5E.spellPreparationStates.always.value;
         const canEdit = item.isOwner && !compendiumLocked;
-        return !item.hasRecharge && isPrepared && !isAlways && canEdit && !item.getFlag("dnd5e", "cachedFor");
+        return !item.hasRecharge && isPrepared && !isAlways && canEdit && !item.getFlag("n5eb", "cachedFor");
       },
       callback: li => this._onAction(li, "prepare"),
       group: "state"
@@ -66840,14 +66852,14 @@ class JournalNavigationConfig extends DocumentSheet5e {
   /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const data = this.document.getFlag("dnd5e", "navigation") ?? {};
+    const data = this.document.getFlag("n5eb", "navigation") ?? {};
     const entryOptions = getCollectionDocumentOptions(this.document.collection, {
       disabled: entry => entry._id === this.document.id
     });
     context.fields = ["previous", "up", "next"].map(name => ({
       field: new StringField$o(),
       label: game.i18n.localize(`DND5E.JOURNALENTRY.Navigation.${name.capitalize()}`),
-      name: `flags.dnd5e.navigation.${name}`,
+      name: `flags.n5eb.navigation.${name}`,
       options: entryOptions,
       value: data[name]
     }));
@@ -66862,10 +66874,10 @@ class JournalNavigationConfig extends DocumentSheet5e {
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
 
-    const navigation = submitData.flags.dnd5e.navigation;
-    const keys = Object.keys(this.document.flags.dnd5e ?? {});
+    const navigation = submitData.flags.n5eb.navigation;
+    const keys = Object.keys(this.document.flags.n5eb ?? {});
     if ( Object.values(navigation).some(v => v) ) {
-      submitData.flags.dnd5e.navigation = Object.entries(navigation).reduce((obj, [k, v]) => {
+      submitData.flags.n5eb.navigation = Object.entries(navigation).reduce((obj, [k, v]) => {
         if ( v ) obj[k] = v;
         else obj[`-=${k}`] = null;
         return obj;
@@ -67041,7 +67053,7 @@ class JournalEntrySheet5e extends foundry.applications.sheets.journal.JournalEnt
    * @internal
    */
   static async _injectNavigation(entry, html) {
-    const nav = entry.getFlag("dnd5e", "navigation");
+    const nav = entry.getFlag("n5eb", "navigation");
     if ( !nav ) return;
     const getDocument = id => entry.pack ? entry.collection.getDocument(id) : entry.collection.get(id);
     const previous = nav.previous ? await getDocument(nav.previous) : null;
@@ -67645,7 +67657,7 @@ class TableOfContentsCompendium extends foundry.applications.sidebar.apps.Compen
     context.chapters = [];
     const specialEntries = [];
     for ( const entry of documents ) {
-      const flags = entry.flags?.dnd5e;
+      const flags = entry.flags?.n5eb;
       if ( !flags ) continue;
       const keys = Object.keys(flags);
       if ( flags.tocHidden || !keys.length || ((keys.length === 1) && (keys[0] === "navigation")) ) continue;
@@ -67666,7 +67678,7 @@ class TableOfContentsCompendium extends foundry.applications.sidebar.apps.Compen
         name: flags.title ?? entry.name,
         pages: Array.from(entry.pages).map(({ flags, id, name, sort }) => ({
           id, sort, flags,
-          name: flags.dnd5e?.title ?? name,
+          name: flags.n5eb?.title ?? name,
           entryId: entry.id
         }))
       };
@@ -68417,7 +68429,7 @@ class BasicRoll extends Roll {
     }
 
     // Store the roll type in roll.options so it can be accessed from only the roll
-    const rollType = foundry.utils.getProperty(message, "data.flags.dnd5e.roll.type");
+    const rollType = foundry.utils.getProperty(message, "data.flags.n5eb.roll.type");
     if ( rollType ) rolls.forEach(roll => roll.options.rollType ??= rollType);
 
     /**
@@ -68467,7 +68479,7 @@ class BasicRoll extends Roll {
   static async buildPost(rolls, config, message) {
     message.data = foundry.utils.expandObject(message.data ?? {});
     const messageId = config.event?.target.closest("[data-message-id]")?.dataset.messageId;
-    if ( messageId ) foundry.utils.setProperty(message.data, "flags.dnd5e.originatingMessage", messageId);
+    if ( messageId ) foundry.utils.setProperty(message.data, "flags.n5eb.originatingMessage", messageId);
 
     if ( rolls?.length && (config.evaluate !== false) ) {
       message[message.create !== false ? "document" : "data"] = await this.toMessage(
@@ -69031,7 +69043,7 @@ class ChatMessage5e extends ChatMessage {
    * @type {boolean}
    */
   get canApplyDamage() {
-    const type = this.flags.dnd5e?.roll?.type;
+    const type = this.flags.n5eb?.roll?.type;
     if ( type && (type !== "damage") ) return false;
     return this.isRoll && this.isContentVisible && !!canvas.tokens?.controlled.length;
   }
@@ -69043,7 +69055,7 @@ class ChatMessage5e extends ChatMessage {
    * @type {boolean}
    */
   get canSelectTargets() {
-    if ( this.flags.dnd5e?.roll?.type !== "attack" ) return false;
+    if ( this.flags.n5eb?.roll?.type !== "attack" ) return false;
     return this.isRoll && this.isContentVisible;
   }
 
@@ -69052,7 +69064,7 @@ class ChatMessage5e extends ChatMessage {
   /** @inheritDoc */
   get isRoll() {
     if ( this.system?.isRoll !== undefined ) return this.system.isRoll;
-    return super.isRoll && !this.flags.dnd5e?.rest;
+    return super.isRoll && !this.flags.n5eb?.rest;
   }
 
   /* -------------------------------------------- */
@@ -69086,16 +69098,17 @@ class ChatMessage5e extends ChatMessage {
   /** @inheritDoc */
   static migrateData(source) {
     source = super.migrateData(source);
-    if ( foundry.utils.hasProperty(source, "flags.dnd5e.itemData") ) {
-      foundry.utils.setProperty(source, "flags.dnd5e.item.data", source.flags.dnd5e.itemData);
-      delete source.flags.dnd5e.itemData;
+    if ( source.flags?.dnd5e && !source.flags.n5eb ) source.flags.n5eb = foundry.utils.deepClone(source.flags.dnd5e);
+    if ( foundry.utils.hasProperty(source, "flags.n5eb.itemData") ) {
+      foundry.utils.setProperty(source, "flags.n5eb.item.data", source.flags.n5eb.itemData);
+      delete source.flags.n5eb.itemData;
     }
-    if ( foundry.utils.hasProperty(source, "flags.dnd5e.use") ) {
-      const use = source.flags.dnd5e.use;
-      if ( source.type !== "usage" ) foundry.utils.setProperty(source, "flags.dnd5e.messageType", "usage");
-      if ( use.type ) foundry.utils.setProperty(source, "flags.dnd5e.item.type", use.type);
-      if ( use.itemId ) foundry.utils.setProperty(source, "flags.dnd5e.item.id", use.itemId);
-      if ( use.itemUuid ) foundry.utils.setProperty(source, "flags.dnd5e.item.uuid", use.itemUuid);
+    if ( foundry.utils.hasProperty(source, "flags.n5eb.use") ) {
+      const use = source.flags.n5eb.use;
+      if ( source.type !== "usage" ) foundry.utils.setProperty(source, "flags.n5eb.messageType", "usage");
+      if ( use.type ) foundry.utils.setProperty(source, "flags.n5eb.item.type", use.type);
+      if ( use.itemId ) foundry.utils.setProperty(source, "flags.n5eb.item.id", use.itemId);
+      if ( use.itemUuid ) foundry.utils.setProperty(source, "flags.n5eb.item.uuid", use.itemUuid);
     }
     return source;
   }
@@ -69107,9 +69120,9 @@ class ChatMessage5e extends ChatMessage {
   /** @inheritDoc */
   prepareData() {
     super.prepareData();
-    if ( !this.flags.dnd5e?.item?.data && this.flags.dnd5e?.item?.id ) {
-      const itemData = this.system.deltas?.deleted?.find(i => i._id === this.flags.dnd5e.item.id);
-      if ( itemData ) Object.defineProperty(this.flags.dnd5e.item, "data", { value: itemData });
+    if ( !this.flags.n5eb?.item?.data && this.flags.n5eb?.item?.id ) {
+      const itemData = this.system.deltas?.deleted?.find(i => i._id === this.flags.n5eb.item.id);
+      if ( itemData ) Object.defineProperty(this.flags.n5eb.item, "data", { value: itemData });
     }
     dnd5e.registry.messages.track(this);
   }
@@ -69210,7 +69223,7 @@ class ChatMessage5e extends ChatMessage {
     const originatingMessage = this.getOriginatingMessage();
     const displayChallenge = originatingMessage?.shouldDisplayChallenge;
     const displayAttackResult = game.user.isGM || (game.settings.get("n5eb", "attackRollVisibility") !== "none");
-    const forceSuccess = this.flags.dnd5e?.roll?.forceSuccess === true;
+    const forceSuccess = this.flags.n5eb?.roll?.forceSuccess === true;
 
     /**
      * Create an icon to indicate success or failure.
@@ -69241,8 +69254,8 @@ class ChatMessage5e extends ChatMessage {
       const total = totals[index];
       if ( !total ) continue;
       // Only attack rolls and death saves can crit or fumble.
-      const canCrit = ["attack", "death"].includes(this.getFlag("dnd5e", "roll.type"));
-      const isAttack = this.getFlag("dnd5e", "roll.type") === "attack";
+      const canCrit = ["attack", "death"].includes(this.getFlag("n5eb", "roll.type"));
+      const isAttack = this.getFlag("n5eb", "roll.type") === "attack";
       const showResult = isAttack ? displayAttackResult : displayChallenge;
       if ( d.options.target && showResult ) {
         if ( d20Roll.isSuccess || forceSuccess ) total.classList.add("success");
@@ -69341,7 +69354,7 @@ class ChatMessage5e extends ChatMessage {
     });
 
     // Enriched roll flavor
-    const roll = this.getFlag("dnd5e", "roll");
+    const roll = this.getFlag("n5eb", "roll");
     const item = this.getAssociatedItem();
     const activity = this.getAssociatedActivity();
     if ( this.isContentVisible && item && roll ) {
@@ -69447,7 +69460,7 @@ class ChatMessage5e extends ChatMessage {
     const isVisible = game.user.isGM || (visibility !== "none");
     if ( !isVisible ) return;
 
-    const targets = this.getFlag("dnd5e", "targets");
+    const targets = this.getFlag("n5eb", "targets");
     if ( !targets?.length ) return;
     const tray = document.createElement("div");
     tray.innerHTML = `
@@ -69555,7 +69568,7 @@ class ChatMessage5e extends ChatMessage {
     `;
     html.querySelector(".message-content").appendChild(roll);
 
-    const damageOnSave = this.getFlag("dnd5e", "roll.damageOnSave");
+    const damageOnSave = this.getFlag("n5eb", "roll.damageOnSave");
     if ( damageOnSave ) {
       const p = document.createElement("p");
       p.classList.add("supplement");
@@ -69640,7 +69653,7 @@ class ChatMessage5e extends ChatMessage {
    */
   _enrichSaveTooltip(html) {
     const actor = this.getAssociatedActor();
-    const roll = this.getFlag("dnd5e", "roll");
+    const roll = this.getFlag("n5eb", "roll");
     if ( !actor?.system.isNPC || (roll?.type !== "save") || this.rolls.some(r => r.isSuccess) ) return;
 
     const content = document.createElement("div");
@@ -69962,9 +69975,9 @@ class ChatMessage5e extends ChatMessage {
    * @returns {Activity|void}
    */
   getAssociatedActivity() {
-    const activity = fromUuidSync(this.getFlag("dnd5e", "activity.uuid"), { strict: false });
+    const activity = fromUuidSync(this.getFlag("n5eb", "activity.uuid"), { strict: false });
     if ( activity ) return activity;
-    return this.getAssociatedItem()?.system.activities?.get(this.getFlag("dnd5e", "activity.id"));
+    return this.getAssociatedItem()?.system.activities?.get(this.getFlag("n5eb", "activity.id"));
   }
 
   /* -------------------------------------------- */
@@ -69989,11 +70002,11 @@ class ChatMessage5e extends ChatMessage {
    * @returns {Item5e|void}
    */
   getAssociatedItem() {
-    const item = fromUuidSync(this.getFlag("dnd5e", "item.uuid"), { strict: false });
+    const item = fromUuidSync(this.getFlag("n5eb", "item.uuid"), { strict: false });
     if ( item ) return item;
     const actor = this.getAssociatedActor();
     if ( !actor ) return;
-    const storedData = this.getFlag("dnd5e", "item.data") ?? this.getOriginatingMessage().getFlag("dnd5e", "item.data");
+    const storedData = this.getFlag("n5eb", "item.data") ?? this.getOriginatingMessage().getFlag("n5eb", "item.data");
     if ( storedData ) return new Item.implementation(storedData, { parent: actor });
   }
 
@@ -70016,7 +70029,7 @@ class ChatMessage5e extends ChatMessage {
    * @type {ChatMessage5e}
    */
   getOriginatingMessage() {
-    return game.messages.get(this.getFlag("dnd5e", "originatingMessage")) ?? this;
+    return game.messages.get(this.getFlag("n5eb", "originatingMessage")) ?? this;
   }
 }
 
@@ -70190,9 +70203,9 @@ class SheetConfig5e extends foundry.applications.apps.DocumentSheetConfig {
     delete formData.defaultClass;
     this.object.update(formData);
 
-    if ( "flags.dnd5e.theme" in formData ) {
+    if ( "flags.n5eb.theme" in formData ) {
       const sheet = this.object.sheet.element?.[0];
-      if ( sheet ) setTheme(sheet, formData["flags.dnd5e.theme"]);
+      if ( sheet ) setTheme(sheet, formData["flags.n5eb.theme"]);
     }
   }
 }
@@ -70426,7 +70439,7 @@ class TokenLayer5e extends foundry.canvas.layers.TokenLayer {
   isOccupiedGridSpaceBlocking(gridSpace, token, { preview=false }={}) {
     const tokenSize = CONFIG.DND5E.actorSizes[token.actor?.system.traits.size]?.numerical ?? 2;
     const modernRules = dnd5e.settings.rulesVersion === "modern";
-    const halflingNimbleness = token.actor?.getFlag("dnd5e", "halflingNimbleness");
+    const halflingNimbleness = token.actor?.getFlag("n5eb", "halflingNimbleness");
     const found = this.#getRelevantOccupyingTokens(gridSpace, token, { preview }).filter(t => {
       // Only creatures block movement.
       if ( !t.actor?.system.isCreature ) return false;
@@ -71768,7 +71781,7 @@ class CreatureTemplate extends CommonTemplate {
    *                                             If undefined, `this.getRollData()` is used.
    * @param {object} [options.originalSkills]    Original skills if actor is polymorphed.
    *                                             If undefined, the skills of the actor identified by
-   *                                             `this.flags.dnd5e.originalActor` are used.
+   *                                             `this.flags.n5eb.originalActor` are used.
    * @param {object} [options.globalBonuses]     Global ability bonuses for this actor.
    *                                             If undefined, `this.system.bonuses.abilities` is used.
    * @param {number} [options.globalCheckBonus]  Global check bonus for this actor.
@@ -71783,7 +71796,7 @@ class CreatureTemplate extends CommonTemplate {
     skillData, rollData, originalSkills, globalBonuses,
     globalCheckBonus, globalSkillBonus, ability
   }={}) {
-    const flags = this.parent.flags.dnd5e ?? {};
+    const flags = this.parent.flags.n5eb ?? {};
 
     skillData ??= foundry.utils.deepClone(this.skills[skillId]);
     rollData ??= this.parent.getRollData();
@@ -73493,10 +73506,10 @@ class NPCData extends CreatureTemplate {
    */
   async resistSave(message) {
     if ( this.resources.legres.value === 0 ) throw new Error("No legendary resistances remaining.");
-    if ( message.flags.dnd5e?.roll?.type !== "save" ) throw new Error("Chat message must contain a save roll.");
-    if ( message.flags.dnd5e?.roll?.forceSuccess ) throw new Error("Save has already been resisted.");
+    if ( message.flags.n5eb?.roll?.type !== "save" ) throw new Error("Chat message must contain a save roll.");
+    if ( message.flags.n5eb?.roll?.forceSuccess ) throw new Error("Save has already been resisted.");
     await this.parent.update({ "system.resources.legres.spent": this.resources.legres.spent + 1 });
-    await message.setFlag("dnd5e", "roll.forceSuccess", true);
+    await message.setFlag("n5eb", "roll.forceSuccess", true);
   }
 
   /* -------------------------------------------- */
@@ -73550,7 +73563,7 @@ class NPCData extends CreatureTemplate {
       ...Array.from(value).map(t => keyLabel(t, { trait: trait$1 })).filter(_ => _),
       ...splitSemicolons(custom ?? "")
     ].sort((lhs, rhs) => lhs.localeCompare(rhs, game.i18n.lang)));
-    const o = this.parent.flags.dnd5e?.statBlockOverride ?? {};
+    const o = this.parent.flags.n5eb?.statBlockOverride ?? {};
 
     const prepareSpeed = () => {
       const standard = formatter.format([
@@ -74336,8 +74349,8 @@ class RequestMessageData extends ChatMessageDataModel {
   static async #handleRequest(event, target) {
     const actor = fromUuidSync(target.closest("[data-uuid]").dataset.uuid);
     const result = await CONFIG.DND5E.requests[this.handler](actor, this.parent, this.data, { event });
-    if ( (result instanceof ChatMessage) && !result.getFlag("dnd5e", "requestResult") ) {
-      return result.setFlag("dnd5e", "requestResult", { actorUuid: actor.uuid, requestId: this.parent.id });
+    if ( (result instanceof ChatMessage) && !result.getFlag("n5eb", "requestResult") ) {
+      return result.setFlag("n5eb", "requestResult", { actorUuid: actor.uuid, requestId: this.parent.id });
     }
   }
 
@@ -74348,7 +74361,7 @@ class RequestMessageData extends ChatMessageDataModel {
    * @param {ChatMessage5e} message  The created chat message.
    */
   static onCreateMessage(message) {
-    const flag = message.getFlag("dnd5e", "requestResult");
+    const flag = message.getFlag("n5eb", "requestResult");
     if ( flag && (game.users.activeGM === game.user) ) RequestMessageData.#updateRequestTargets(message, flag);
   }
 
@@ -74362,7 +74375,7 @@ class RequestMessageData extends ChatMessageDataModel {
    * @param {string} userId
    */
   static onUpdateResultMessage(message, changes, options, userId) {
-    const flag = foundry.utils.getProperty(changes, "flags.dnd5e.requestResult");
+    const flag = foundry.utils.getProperty(changes, "flags.n5eb.requestResult");
     if ( flag && (game.users.activeGM === game.user) ) RequestMessageData.#updateRequestTargets(message, flag);
   }
 
@@ -74983,7 +74996,7 @@ class ConsumableData extends ItemDataModel$1.mixin(
    * @returns {number}
    */
   get proficiencyMultiplier() {
-    const isProficient = this.parent?.actor?.getFlag("dnd5e", "tavernBrawlerFeat");
+    const isProficient = this.parent?.actor?.getFlag("n5eb", "tavernBrawlerFeat");
     return isProficient ? 1 : 0;
   }
 
@@ -75144,7 +75157,7 @@ class ConsumableData extends ItemDataModel$1.mixin(
   /** @inheritDoc */
   getRollData(...options) {
     const data = super.getRollData(...options);
-    const spellLevel = this.parent.getFlag("dnd5e", "spellLevel");
+    const spellLevel = this.parent.getFlag("n5eb", "spellLevel");
     if ( spellLevel ) data.item.level = spellLevel.value ?? spellLevel.base;
     return data;
   }
@@ -76683,7 +76696,7 @@ class WeaponData extends ItemDataModel$1.mixin(
       });
     }
 
-    const isLight = this.properties.has("lgt") || (this.parent.actor?.getFlag("dnd5e", "enhancedDualWielding")
+    const isLight = this.properties.has("lgt") || (this.parent.actor?.getFlag("n5eb", "enhancedDualWielding")
       && ((this.attackType === "melee") && !this.properties.has("two")));
 
     // Weapons with the "Light" property will have Offhand attack
@@ -76775,7 +76788,7 @@ class WeaponData extends ItemDataModel$1.mixin(
 
   /** @override */
   get criticalThreshold() {
-    return this.parent?.actor?.flags.dnd5e?.weaponCriticalThreshold ?? Infinity;
+    return this.parent?.actor?.flags.n5eb?.weaponCriticalThreshold ?? Infinity;
   }
 
   /* -------------------------------------------- */
@@ -76864,7 +76877,7 @@ class WeaponData extends ItemDataModel$1.mixin(
     const itemProf = config[this.type.value];
     const actorProfs = actor.system.traits?.weaponProf?.value ?? new Set();
     const natural = this.type.value === "natural";
-    const improvised = (this.type.value === "improv") && !!actor.getFlag("dnd5e", "tavernBrawlerFeat");
+    const improvised = (this.type.value === "improv") && !!actor.getFlag("n5eb", "tavernBrawlerFeat");
     const isProficient = natural || improvised || actorProfs.has(itemProf) || actorProfs.has(this.type.baseItem);
     return Number(isProficient);
   }
@@ -77217,7 +77230,7 @@ class MapLocationJournalPageData extends foundry.abstract.TypeDataModel {
     if ( !this.code ) return;
     const { icon: IconClass, ...style } = foundry.utils.mergeObject(
       CONFIG.DND5E.mapLocationMarker.default,
-      CONFIG.DND5E.mapLocationMarker[this.parent.getFlag("dnd5e", "mapMarkerStyle")] ?? {},
+      CONFIG.DND5E.mapLocationMarker[this.parent.getFlag("n5eb", "mapMarkerStyle")] ?? {},
       {inplace: false}
     );
     return new IconClass({code: this.code, ...options, ...style});
@@ -79652,7 +79665,7 @@ class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
   _onDelete(options, userId) {
     super._onDelete(options, userId);
 
-    const origin = this.actor?.getFlag("dnd5e", "summon.origin");
+    const origin = this.actor?.getFlag("n5eb", "summon.origin");
     if ( origin ) {
       const { collection, primaryId } = foundry.utils.parseUuid(origin);
       dnd5e.registry.summons.untrack(collection?.get?.(primaryId)?.uuid, this.actor.uuid);
@@ -80582,11 +80595,11 @@ function migrateItemData(item, itemData, migrationData, flags={}) {
 
   // Migrate embedded effects
   if ( itemData.effects ) {
-    const riders = foundry.utils.getProperty(itemData, "flags.dnd5e.riders.effect");
-    if ( riders?.length ) updateData["flags.dnd5e.riders.effect"] = riders;
+    const riders = foundry.utils.getProperty(itemData, "flags.n5eb.riders.effect");
+    if ( riders?.length ) updateData["flags.n5eb.riders.effect"] = riders;
     const effects = migrateEffects(itemData, migrationData, updateData, flags);
-    if ( riders?.length === updateData["flags.dnd5e.riders.effect"]?.length ) {
-      delete updateData["flags.dnd5e.riders.effect"];
+    if ( riders?.length === updateData["flags.n5eb.riders.effect"]?.length ) {
+      delete updateData["flags.n5eb.riders.effect"];
     }
     if ( effects.length > 0 ) updateData.effects = effects;
   }
@@ -80606,13 +80619,13 @@ function migrateItemData(item, itemData, migrationData, flags={}) {
   }
 
   // Migrate properties
-  const migratedProperties = foundry.utils.getProperty(itemData, "flags.dnd5e.migratedProperties");
+  const migratedProperties = foundry.utils.getProperty(itemData, "flags.n5eb.migratedProperties");
   if ( migratedProperties?.length ) {
     flags.persistSourceMigration = true;
     const properties = new Set(foundry.utils.getProperty(itemData, "system.properties") ?? [])
       .union(new Set(migratedProperties));
     updateData["system.properties"] = Array.from(properties);
-    updateData["flags.dnd5e.-=migratedProperties"] = null;
+    updateData["flags.n5eb.-=migratedProperties"] = null;
   }
 
   // Migrate gear property
@@ -80631,13 +80644,13 @@ function migrateItemData(item, itemData, migrationData, flags={}) {
   if ( (itemData.type === "spell") && !itemData.system?.sourceItem && flags.actorData?.items ) {
     // Try to identify the granting item from advancement or cast-activity flags.
     let grantingItemData;
-    const advancementOrigin = item.getFlag("dnd5e", "advancementOrigin");
+    const advancementOrigin = item.getFlag("n5eb", "advancementOrigin");
     if ( advancementOrigin ) {
       const [itemId] = advancementOrigin.split(".");
       grantingItemData = flags.actorData.items.find(i => i._id === itemId);
     }
     if ( !grantingItemData ) {
-      const cachedFor = item.getFlag("dnd5e", "cachedFor");
+      const cachedFor = item.getFlag("n5eb", "cachedFor");
       if ( cachedFor ) {
         const { embedded } = foundry.utils.parseUuid(cachedFor, { relative: item.parent }) ?? {};
         const [, itemId] = embedded ?? [];
@@ -80650,9 +80663,9 @@ function migrateItemData(item, itemData, migrationData, flags={}) {
     }
   }
 
-  if ( foundry.utils.getProperty(itemData, "flags.dnd5e.persistSourceMigration") ) {
+  if ( foundry.utils.getProperty(itemData, "flags.n5eb.persistSourceMigration") ) {
     flags.persistSourceMigration = true;
-    updateData["flags.dnd5e.-=persistSourceMigration"] = null;
+    updateData["flags.n5eb.-=persistSourceMigration"] = null;
   }
 
   return updateData;
@@ -80673,14 +80686,14 @@ function migrateEffects(parent, migrationData, itemUpdateData, flags={}) {
   return parent.effects.reduce((arr, e) => {
     const effectData = e instanceof CONFIG.ActiveEffect.documentClass ? e.toObject() : e;
     let effectUpdate = migrateEffectData(effectData, migrationData, { parent });
-    if ( effectData.flags?.dnd5e?.rider ) {
-      itemUpdateData["flags.dnd5e.riders.effect"] ??= [];
-      itemUpdateData["flags.dnd5e.riders.effect"].push(effectData._id);
-      effectUpdate["flags.dnd5e.-=rider"] = null;
+    if ( effectData.flags?.n5eb?.rider ) {
+      itemUpdateData["flags.n5eb.riders.effect"] ??= [];
+      itemUpdateData["flags.n5eb.riders.effect"].push(effectData._id);
+      effectUpdate["flags.n5eb.-=rider"] = null;
     }
-    if ( effectData.flags?.dnd5e?.persistSourceMigration ) {
+    if ( effectData.flags?.n5eb?.persistSourceMigration ) {
       flags.persistSourceMigration = true;
-      effectUpdate["flags.dnd5e.-=persistSourceMigration"] = null;
+      effectUpdate["flags.n5eb.-=persistSourceMigration"] = null;
     }
     if ( !foundry.utils.isEmpty(effectUpdate) ) {
       effectUpdate._id = effectData._id;
@@ -80763,8 +80776,8 @@ function migrateMessageData(messageData) {
   const updateData = {};
   const { flags } = messageData;
 
-  if ( (flags?.dnd5e?.messageType === "usage") && (messageData.type !== "usage") ) {
-    const use = flags.dnd5e.use;
+  if ( (flags?.n5eb?.messageType === "usage") && (messageData.type !== "usage") ) {
+    const use = flags.n5eb.use;
     updateData.type = "usage";
     updateData["==system"] = {
       cause: use?.cause,
@@ -80774,20 +80787,20 @@ function migrateMessageData(messageData) {
       scaling: use?.scaling,
       spellLevel: use?.spellLevel
     };
-    updateData["flags.dnd5e.-=messageType"] = null;
-    updateData["flags.dnd5e.-=scaling"] = null;
-    updateData["flags.dnd5e.use.-=cause"] = null;
-    updateData["flags.dnd5e.use.-=concentrationId"] = null;
-    updateData["flags.dnd5e.use.-=consumed"] = null;
-    updateData["flags.dnd5e.use.-=effects"] = null;
-    updateData["flags.dnd5e.use.-=spellLevel"] = null;
+    updateData["flags.n5eb.-=messageType"] = null;
+    updateData["flags.n5eb.-=scaling"] = null;
+    updateData["flags.n5eb.use.-=cause"] = null;
+    updateData["flags.n5eb.use.-=concentrationId"] = null;
+    updateData["flags.n5eb.use.-=consumed"] = null;
+    updateData["flags.n5eb.use.-=effects"] = null;
+    updateData["flags.n5eb.use.-=spellLevel"] = null;
   }
 
-  else if ( flags?.dnd5e?.bastion && (messageData.type === "base") ) {
-    const bastion = flags.dnd5e.bastion;
+  else if ( flags?.n5eb?.bastion && (messageData.type === "base") ) {
+    const bastion = flags.n5eb.bastion;
     updateData.type = "orders" in bastion ? "bastionTurn" : "bastionAttack";
     updateData["==system"] = bastion;
-    updateData["flags.dnd5e.-=bastion"] = null;
+    updateData["flags.n5eb.-=bastion"] = null;
   }
 
   return updateData;
@@ -80935,11 +80948,11 @@ function _migrateActorAC(actorData, updateData) {
  * @private
  */
 function _migrateActorFlags(actorData, updateData) {
-  const initiativeAdv = foundry.utils.getProperty(actorData, "flags.dnd5e.initiativeAdv");
+  const initiativeAdv = foundry.utils.getProperty(actorData, "flags.n5eb.initiativeAdv");
   if ( initiativeAdv ) {
     const key = "system.attributes.init.roll.mode";
     updateData[key] = Math.min(1, (foundry.utils.getProperty(actorData, key) ?? 0) + 1);
-    updateData["flags.dnd5e.-=initiativeAdv"] = null;
+    updateData["flags.n5eb.-=initiativeAdv"] = null;
   }
   return updateData;
 }
@@ -81040,13 +81053,13 @@ function _migrateEffectArmorClass(effect, updateData) {
  * @param {object} flags       Track the needs migration flag.
  */
 function _migrateItemUses(item, itemData, updateData, flags) {
-  const value = foundry.utils.getProperty(itemData, "flags.dnd5e.migratedUses");
+  const value = foundry.utils.getProperty(itemData, "flags.n5eb.migratedUses");
   const max = foundry.utils.getProperty(item, "system.uses.max");
   if ( (value !== undefined) && (max !== undefined) && Number.isNumeric(value) && Number.isNumeric(max) ) {
     foundry.utils.setProperty(updateData, "system.uses.spent", parseInt(max) - parseInt(value));
     flags.persistSourceMigration = true;
   }
-  if ( value !== undefined ) updateData["flags.dnd5e.-=migratedUses"] = null;
+  if ( value !== undefined ) updateData["flags.n5eb.-=migratedUses"] = null;
 }
 
 /* -------------------------------------------- */
@@ -81097,8 +81110,8 @@ function _migrateMacroCommands(macro, updateData) {
  */
 async function purgeFlags(pack) {
   const cleanFlags = flags => {
-    const flags5e = flags.dnd5e || null;
-    return flags5e ? {dnd5e: flags5e} : {};
+    const flags5e = flags.n5eb ?? flags.dnd5e ?? null;
+    return flags5e ? {n5eb: flags5e} : {};
   };
   await pack.configure({locked: false});
   const content = await pack.getDocuments();
@@ -81175,26 +81188,28 @@ const registerMethods = [registerSourceBooks, registerSpellLists];
 /* -------------------------------------------- */
 
 /**
- * Register package source books from `flags.dnd5e.sourceBooks`.
+ * Register package source books from system flags.
  * @param {Module|System|World} manifest  Manifest from which to register data.
  * @returns {string|void}                 Description of the data registered.
  */
 function registerSourceBooks(manifest) {
-  if ( !manifest.flags.dnd5e?.sourceBooks ) return;
-  Object.assign(CONFIG.DND5E.sourceBooks, manifest.flags.dnd5e.sourceBooks);
+  const sourceBooks = manifest.flags.n5eb?.sourceBooks ?? manifest.flags.dnd5e?.sourceBooks;
+  if ( !sourceBooks ) return;
+  Object.assign(CONFIG.DND5E.sourceBooks, sourceBooks);
   return "source books";
 }
 
 /* -------------------------------------------- */
 
 /**
- * Register package spell lists from `flags.dnd5e.spellLists`.
+ * Register package spell lists from system flags.
  * @param {Module|System|World} manifest  Manifest from which to register data.
  * @returns {string|void}                 Description of the data registered.
  */
 function registerSpellLists(manifest) {
-  if ( !Array.isArray(manifest.flags.dnd5e?.spellLists) ) return;
-  manifest.flags.dnd5e.spellLists.forEach(uuid => dnd5e.registry.spellLists.register(uuid));
+  const spellLists = manifest.flags.n5eb?.spellLists ?? manifest.flags.dnd5e?.spellLists;
+  if ( !Array.isArray(spellLists) ) return;
+  spellLists.forEach(uuid => dnd5e.registry.spellLists.register(uuid));
   return "spell lists";
 }
 
@@ -81225,12 +81240,12 @@ const setupMethods = [setupPackDisplay, setupPackSorting];
 /* -------------------------------------------- */
 
 /**
- * Set application based on `flags.dnd5e.display`.
+ * Set application based on pack display flags.
  * @param {Compendium} pack  Pack to set up.
  * @returns {string|void}    Description of the step.
  */
 function setupPackDisplay(pack) {
-  const display = pack.metadata.flags.display ?? pack.metadata.flags.dnd5e?.display;
+  const display = pack.metadata.flags.display ?? pack.metadata.flags.n5eb?.display ?? pack.metadata.flags.dnd5e?.display;
   if ( display !== "table-of-contents" ) return;
   pack.applicationClass = TableOfContentsCompendium;
   return "table of contents";
@@ -81242,14 +81257,15 @@ let collectionSortingModes;
 let sortingChanged = false;
 
 /**
- * Set default sorting order based on `flags.dnd5e.sorting`.
+ * Set default sorting order based on pack sorting flags.
  * @param {Compendium} pack  Pack to set up.
  * @returns {string|void}    Description of the step.
  */
 function setupPackSorting(pack) {
   collectionSortingModes ??= game.settings.get("core", "collectionSortingModes") ?? {};
-  if ( !pack.metadata.flags.dnd5e?.sorting || collectionSortingModes[pack.metadata.id] ) return;
-  collectionSortingModes[pack.metadata.id] = pack.metadata.flags.dnd5e.sorting;
+  const sorting = pack.metadata.flags.n5eb?.sorting ?? pack.metadata.flags.dnd5e?.sorting;
+  if ( !sorting || collectionSortingModes[pack.metadata.id] ) return;
+  collectionSortingModes[pack.metadata.id] = sorting;
   sortingChanged = true;
   return "default sorting";
 }
@@ -81598,8 +81614,8 @@ class MessageRegistry {
    * @param {ChatMessage5e} message  Message to add to the registry.
    */
   static track(message) {
-    const origin = message.getFlag("dnd5e", "originatingMessage");
-    const type = message.getFlag("dnd5e", "roll.type");
+    const origin = message.getFlag("n5eb", "originatingMessage");
+    const type = message.getFlag("n5eb", "roll.type");
     if ( !origin || !type ) return;
     if ( !MessageRegistry.#messages.has(origin) ) MessageRegistry.#messages.set(origin, new Map());
     const originMap = MessageRegistry.#messages.get(origin);
@@ -81614,8 +81630,8 @@ class MessageRegistry {
    * @param {ChatMessage5e} message  Message to remove from the registry.
    */
   static untrack(message) {
-    const origin = message.getFlag("dnd5e", "originatingMessage");
-    const type = message.getFlag("dnd5e", "roll.type");
+    const origin = message.getFlag("n5eb", "originatingMessage");
+    const type = message.getFlag("n5eb", "roll.type");
     MessageRegistry.#messages.get(origin)?.get(type)?.delete(message.id);
   }
 }
