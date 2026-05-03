@@ -1,670 +1,743 @@
 {
-  "id": "n5eb",
-  "title": "N5eB",
-  "description": "The N5e System forked from the DnD5e Foundry System. Made and altered by Benni.",
-  "version": "2.1.0",
-  "compatibility": {
-    "minimum": "11.315",
-    "verified": "12"
-  },
-  "url": "https://github.com/ImBenni/n5eb/",
-  "manifest": "https://raw.githubusercontent.com/ImBenni/n5eb/main/system.json",
-  "download": "https://github.com/ImBenni/n5eb/releases/download/release-2.1.0/n5eb-2.1.0.zip",
-  "authors": [
-    {
-      "name": "Benni",
-      "url": "https://github.com/ImBenni",
-      "discord": "imbenni",
-      "flags": {}
+    "id": "n5eb",
+    "title": "N5eB - Naruto 5e Benni",
+    "description": "Naruto 5e Benni, a Naruto 5e system for Foundry Virtual Tabletop derived from the dnd5e 5.3.2 baseline.",
+    "version": "0.1.0",
+    "compatibility": {
+        "minimum": "13.347",
+        "verified": "14"
+    },
+    "url": "https://github.com/ImBenni/n5eb/",
+    "manifest": "https://raw.githubusercontent.com/ImBenni/n5eb/main/system.json",
+    "download": "https://github.com/ImBenni/n5eb/releases/download/release-0.1.0/n5eb-release-0.1.0.zip",
+    "authors": [
+        {
+            "name": "Benni",
+            "flags": {}
+        },
+        {
+            "name": "Atropos",
+            "url": "https://foundryvtt.com",
+            "flags": {}
+        }
+    ],
+    "esmodules": [
+        "dnd5e.mjs"
+    ],
+    "styles": [
+        "dnd5e.css"
+    ],
+    "documentTypes": {
+        "ActiveEffect": {
+            "enchantment": {}
+        },
+        "Actor": {
+            "character": {
+                "htmlFields": [
+                    "details.biography.value",
+                    "details.biography.public",
+                    "bastion.description"
+                ]
+            },
+            "encounter": {
+                "htmlFields": [
+                    "description.full",
+                    "description.summary"
+                ]
+            },
+            "group": {
+                "htmlFields": [
+                    "description.full",
+                    "description.summary"
+                ]
+            },
+            "npc": {
+                "htmlFields": [
+                    "details.biography.value",
+                    "details.biography.public"
+                ]
+            },
+            "vehicle": {
+                "htmlFields": [
+                    "details.biography.value",
+                    "details.biography.public"
+                ]
+            }
+        },
+        "ChatMessage": {
+            "bastionAttack": {},
+            "bastionTurn": {},
+            "request": {},
+            "rest": {},
+            "turn": {},
+            "usage": {}
+        },
+        "Item": {
+            "weapon": {
+                "filePathFields": {
+                    "activities.*.img": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "description.value",
+                    "description.chat",
+                    "unidentified.description"
+                ]
+            },
+            "equipment": {
+                "filePathFields": {
+                    "activities.*.img": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "description.value",
+                    "description.chat",
+                    "unidentified.description"
+                ]
+            },
+            "consumable": {
+                "filePathFields": {
+                    "activities.*.img": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "description.value",
+                    "description.chat",
+                    "unidentified.description"
+                ]
+            },
+            "tool": {
+                "filePathFields": {
+                    "activities.*.img": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "description.value",
+                    "description.chat",
+                    "unidentified.description"
+                ]
+            },
+            "loot": {
+                "htmlFields": [
+                    "description.value",
+                    "description.chat",
+                    "unidentified.description"
+                ]
+            },
+            "race": {
+                "filePathFields": {
+                    "advancement.*.icon": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "advancement.*.hint",
+                    "description.value",
+                    "description.chat"
+                ]
+            },
+            "background": {
+                "filePathFields": {
+                    "advancement.*.icon": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "advancement.*.hint",
+                    "description.value",
+                    "description.chat"
+                ]
+            },
+            "class": {
+                "filePathFields": {
+                    "advancement.*.icon": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "advancement.*.hint",
+                    "description.value",
+                    "description.chat"
+                ]
+            },
+            "subclass": {
+                "filePathFields": {
+                    "advancement.*.icon": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "advancement.*.hint",
+                    "description.value",
+                    "description.chat"
+                ]
+            },
+            "spell": {
+                "filePathFields": {
+                    "activities.*.img": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "description.value",
+                    "description.chat"
+                ]
+            },
+            "feat": {
+                "filePathFields": {
+                    "activities.*.img": [
+                        "IMAGE"
+                    ],
+                    "advancement.*.icon": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "advancement.*.hint",
+                    "description.value",
+                    "description.chat"
+                ]
+            },
+            "container": {
+                "htmlFields": [
+                    "description.value",
+                    "description.chat",
+                    "unidentified.description"
+                ]
+            },
+            "backpack": {
+                "htmlFields": [
+                    "description.value",
+                    "description.chat",
+                    "unidentified.description"
+                ]
+            },
+            "facility": {
+                "filePathFields": {
+                    "activities.*.img": [
+                        "IMAGE"
+                    ]
+                },
+                "htmlFields": [
+                    "description.value",
+                    "description.chat"
+                ]
+            }
+        },
+        "JournalEntryPage": {
+            "class": {
+                "htmlFields": [
+                    "details.value",
+                    "details.additionalHitPoints",
+                    "description.additionalTraits",
+                    "description.additionalEquipment",
+                    "description.subclass"
+                ]
+            },
+            "map": {},
+            "rule": {
+                "htmlFields": [
+                    "tooltip"
+                ]
+            },
+            "spells": {},
+            "subclass": {
+                "htmlFields": [
+                    "details.value"
+                ]
+            }
+        },
+        "RegionBehavior": {
+            "dnd5e.difficultTerrain": {},
+            "dnd5e.rotateArea": {}
+        }
+    },
+    "packs": [
+        {
+            "name": "heroes",
+            "label": "Starter Heroes",
+            "system": "n5eb",
+            "path": "packs/heroes",
+            "type": "Actor",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "character"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "monsters",
+            "label": "Monsters (SRD)",
+            "system": "n5eb",
+            "path": "packs/monsters",
+            "type": "Actor",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "npc"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "items",
+            "label": "Items (SRD)",
+            "system": "n5eb",
+            "path": "packs/items",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "weapon",
+                        "equipment",
+                        "consumable",
+                        "tool",
+                        "loot",
+                        "feat",
+                        "container"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "tradegoods",
+            "label": "Trade Goods (SRD)",
+            "system": "n5eb",
+            "path": "packs/tradegoods",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "loot"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "spells",
+            "label": "Spells (SRD)",
+            "system": "n5eb",
+            "path": "packs/spells",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sorting": "m",
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "spell"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "backgrounds",
+            "label": "Backgrounds (SRD)",
+            "system": "n5eb",
+            "path": "packs/backgrounds",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "background",
+                        "feat"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "classes",
+            "label": "Classes (SRD)",
+            "system": "n5eb",
+            "path": "packs/classes",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "class"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "subclasses",
+            "label": "Subclasses (SRD)",
+            "system": "n5eb",
+            "path": "packs/subclasses",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "subclass"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "classfeatures",
+            "label": "Class & Subclass Features (SRD)",
+            "system": "n5eb",
+            "path": "packs/classfeatures",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "feat",
+                        "weapon"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "races",
+            "label": "Races (SRD)",
+            "system": "n5eb",
+            "path": "packs/races",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "race",
+                        "feat"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "monsterfeatures",
+            "label": "Monster Features (SRD)",
+            "system": "n5eb",
+            "path": "packs/monsterfeatures",
+            "type": "Item",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.1",
+                    "types": [
+                        "feat",
+                        "weapon"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "rules",
+            "label": "Rules (SRD)",
+            "system": "n5eb",
+            "path": "packs/rules",
+            "type": "JournalEntry",
+            "private": false,
+            "flags": {
+                "dnd5e": {
+                    "display": "table-of-contents"
+                }
+            }
+        },
+        {
+            "name": "tables",
+            "label": "Tables (SRD)",
+            "system": "n5eb",
+            "path": "packs/tables",
+            "type": "RollTable",
+            "private": false,
+            "flags": {}
+        },
+        {
+            "name": "content24",
+            "label": "Rules",
+            "path": "packs/content24",
+            "type": "JournalEntry",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            },
+            "system": "n5eb",
+            "flags": {
+                "display": "table-of-contents"
+            }
+        },
+        {
+            "name": "classes24",
+            "label": "Character Classes",
+            "path": "packs/classes24",
+            "type": "Item",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            },
+            "system": "n5eb",
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.2",
+                    "types": [
+                        "class",
+                        "subclass",
+                        "feat"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "origins24",
+            "label": "Character Origins",
+            "path": "packs/origins24",
+            "type": "Item",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            },
+            "system": "n5eb",
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.2",
+                    "types": [
+                        "race",
+                        "background",
+                        "feat"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "feats24",
+            "label": "Feats",
+            "path": "packs/feats24",
+            "type": "Item",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            },
+            "system": "n5eb",
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.2",
+                    "types": [
+                        "feat"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "spells24",
+            "label": "Spells",
+            "path": "packs/spells24",
+            "type": "Item",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            },
+            "system": "n5eb",
+            "flags": {
+                "dnd5e": {
+                    "sorting": "m",
+                    "sourceBook": "SRD 5.2",
+                    "types": [
+                        "spell"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "equipment24",
+            "label": "Equipment",
+            "path": "packs/equipment24",
+            "type": "Item",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            },
+            "system": "n5eb",
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.2",
+                    "types": [
+                        "weapon",
+                        "equipment",
+                        "consumable",
+                        "tool",
+                        "loot",
+                        "feat",
+                        "container"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "tables24",
+            "label": "Roll Tables",
+            "path": "packs/tables24",
+            "type": "RollTable",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            },
+            "system": "n5eb"
+        },
+        {
+            "name": "actors24",
+            "label": "Actors",
+            "path": "packs/actors24",
+            "type": "Actor",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            },
+            "system": "n5eb",
+            "flags": {
+                "dnd5e": {
+                    "sorting": "m",
+                    "sourceBook": "SRD 5.2"
+                }
+            }
+        },
+        {
+            "name": "monsterfeatures24",
+            "label": "Monster Features",
+            "path": "packs/monsterfeatures24",
+            "type": "Item",
+            "ownership": {
+                "ASSISTANT": "OWNER"
+            },
+            "system": "n5eb",
+            "flags": {
+                "dnd5e": {
+                    "sourceBook": "SRD 5.2",
+                    "types": [
+                        "feat",
+                        "weapon"
+                    ]
+                }
+            }
+        }
+    ],
+    "packFolders": [
+        {
+            "name": "D&D Modern Content",
+            "color": "#cd2c1e",
+            "sorting": "m",
+            "packs": [
+                "content24",
+                "classes24",
+                "origins24",
+                "feats24",
+                "spells24",
+                "tables24",
+                "actors24",
+                "equipment24",
+                "monsterfeatures24"
+            ]
+        },
+        {
+            "name": "D&D Legacy Content",
+            "sorting": "m",
+            "color": "#cd2c1e",
+            "packs": [
+                "rules",
+                "tables",
+                "heroes"
+            ],
+            "folders": [
+                {
+                    "name": "Character Features",
+                    "sorting": "m",
+                    "color": "#b72c1f",
+                    "packs": [
+                        "classes",
+                        "subclasses",
+                        "classfeatures",
+                        "backgrounds",
+                        "races"
+                    ]
+                },
+                {
+                    "name": "Items & Spells",
+                    "sorting": "m",
+                    "color": "#941919 ",
+                    "packs": [
+                        "items",
+                        "spells",
+                        "tradegoods"
+                    ]
+                },
+                {
+                    "name": "Monsters",
+                    "sorting": "m",
+                    "color": "#7d160c",
+                    "packs": [
+                        "monsters",
+                        "monsterfeatures"
+                    ]
+                }
+            ]
+        }
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json",
+            "flags": {}
+        }
+    ],
+    "media": [
+        {
+            "type": "cover",
+            "loop": false,
+            "flags": {}
+        },
+        {
+            "type": "setup",
+            "url": "systems/n5eb/ui/official/dnd5e-repo.jpg",
+            "thumbnail": "systems/n5eb/ui/official/dnd5e-thumbnail.jpg"
+        }
+    ],
+    "socket": true,
+    "grid": {
+        "distance": 5,
+        "units": "ft"
+    },
+    "primaryTokenAttribute": "attributes.hp",
+    "background": "systems/n5eb/ui/official/dnd5e-background.webp",
+    "flags": {
+        "compendiumArtMappings": {
+            "n5eb": {
+                "mapping": "systems/n5eb/json/fa-token-mapping.json",
+                "credit": "<em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em>"
+            }
+        },
+        "dnd5e": {
+            "sourceBooks": {
+                "SRD 5.1": "SOURCE.BOOK.SRD51",
+                "SRD 5.2": "SOURCE.BOOK.SRD52",
+                "Free Rules": "SOURCE.BOOK.FreeRules"
+            }
+        },
+        "needsMigrationVersion": "5.3.0",
+        "compatibleMigrationVersion": "0.8",
+        "hotReload": false
     }
-  ],
-  "esmodules": ["n5eb.mjs"],
-  "styles": ["n5eb.css"],
-  "packs": [
-    {
-      "name": "items",
-      "label": "Items",
-      "system": "n5eb",
-      "path": "packs/items",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["weapon", "equipment", "consumable", "tool", "loot", "feat", "container"]
-        }
-      }
-    },
-    {
-      "name": "jutsus",
-      "label": "Jutsus",
-      "system": "n5eb",
-      "path": "packs/jutsus",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["spell"]
-        }
-      }
-    },
-    {
-      "name": "backgrounds",
-      "label": "Backgrounds",
-      "system": "n5eb",
-      "path": "packs/backgrounds",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["background", "feat"]
-        }
-      }
-    },
-    {
-      "name": "traits-quirks",
-      "label": "Traits / Quirks",
-      "system": "n5eb",
-      "path": "packs/traits-quirks",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["feat"]
-        }
-      }
-    },
-    {
-      "name": "class",
-      "label": "Class",
-      "system": "n5eb",
-      "path": "packs/class",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "subclass",
-      "label": "Subclass",
-      "system": "n5eb",
-      "path": "packs/subclass",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "clan",
-      "label": "Clans",
-      "system": "n5eb",
-      "path": "packs/clan",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["race", "feat"]
-        }
-      }
-    },
-    {
-      "name": "rules",
-      "label": "Rules",
-      "system": "n5eb",
-      "path": "packs/rules",
-      "type": "JournalEntry",
-      "private": false
-    },
-    {
-      "name": "conditions",
-      "label": "Conditions",
-      "system": "n5eb",
-      "path": "packs/conditions",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["feat"]
-        }
-      }
-    },
-    {
-      "name": "feats",
-      "label": "Feats & Stances",
-      "system": "n5eb",
-      "path": "packs/feats",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["feat"]
-        }
-      }
-    },
-    {
-      "name": "classmod",
-      "label": "Class Mods",
-      "system": "n5eb",
-      "path": "packs/classmod",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["class", "subclass", "feat"]
-        }
-      }
-    },
-    {
-      "name": "adversary",
-      "label": "Adversaries",
-      "system": "n5eb",
-      "path": "packs/adversary",
-      "type": "Actor",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["npc", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "adversary-traits",
-      "label": "Adversary Traits",
-      "system": "n5eb",
-      "path": "packs/adversary-traits",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["npc", "feat"]
-        }
-      }
-    },
-    {
-      "name": "adversary-passives",
-      "label": "Adversary Passives",
-      "system": "n5eb",
-      "path": "packs/adversary-passives",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["npc", "feat"]
-        }
-      }
-    },
-    {
-      "name": "summons",
-      "label": "Summons",
-      "system": "n5eb",
-      "path": "packs/summons",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["feat", "class"]
-        }
-      }
-    },
-    {
-      "name": "npc",
-      "label": "NPC",
-      "system": "n5eb",
-      "path": "packs/npc",
-      "type": "Actor",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["npc", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "cheat-sheets",
-      "label": "Cheat Sheets",
-      "system": "n5eb",
-      "path": "packs/cheat-sheets",
-      "type": "JournalEntry",
-      "private": false
-    },
-    {
-      "name": "t7-class",
-      "label": "T7 Class",
-      "system": "n5eb",
-      "path": "packs/t7-class",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "t7-subclass",
-      "label": "T7 Subclass",
-      "system": "n5eb",
-      "path": "packs/t7-subclass",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "t7-clan",
-      "label": "T7 Clan",
-      "system": "n5eb",
-      "path": "packs/t7-clan",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["race", "feat"]
-        }
-      }
-    },
-    {
-      "name": "t7-backgrounds",
-      "label": "T7 Backgrounds",
-      "system": "n5eb",
-      "path": "packs/t7-backgrounds",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["background", "feat"]
-        }
-      }
-    },
-    {
-      "name": "t7-feats",
-      "label": "T7 Feats & Stances",
-      "system": "n5eb",
-      "path": "packs/t7-feats",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["feat"]
-        }
-      }
-    },
-    {
-      "name": "t7-classmod",
-      "label": "T7 Class Mods",
-      "system": "n5eb",
-      "path": "packs/t7-classmod",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["class", "subclass", "feat"]
-        }
-      }
-    },
-    {
-      "name": "t7-items",
-      "label": "T7 Items",
-      "system": "n5eb",
-      "path": "packs/t7-items",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["weapon", "equipment", "consumable", "tool", "loot", "feat", "container"]
-        }
-      }
-    },
-    {
-      "name": "t7-jutsus",
-      "label": "T7 Jutsus",
-      "system": "n5eb",
-      "path": "packs/t7-jutsus",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["spell"]
-        }
-      }
-    },
-    {
-      "name": "t7-adversary",
-      "label": "T7 Adversaries",
-      "system": "n5eb",
-      "path": "packs/t7-adversary",
-      "type": "Actor",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["npc", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "t7-summons",
-      "label": "T7 Summons",
-      "system": "n5eb",
-      "path": "packs/t7-summons",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["feat", "class"]
-        }
-      }
-    },
-    {
-      "name": "t7-npc",
-      "label": "T7 NPC",
-      "system": "n5eb",
-      "path": "packs/t7-npc",
-      "type": "Actor",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["npc", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "t7-cheat-sheets",
-      "label": "T7 Cheat Sheets",
-      "system": "n5eb",
-      "path": "packs/t7-cheat-sheets",
-      "type": "JournalEntry",
-      "private": false
-    },
-    {
-      "name": "hb-class",
-      "label": "HB Class",
-      "system": "n5eb",
-      "path": "packs/hb-class",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "hb-subclass",
-      "label": "HB Subclass",
-      "system": "n5eb",
-      "path": "packs/hb-subclass",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "hb-clan",
-      "label": "HB Clan",
-      "system": "n5eb",
-      "path": "packs/hb-clan",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["race", "feat"]
-        }
-      }
-    },
-    {
-      "name": "hb-backgrounds",
-      "label": "HB Backgrounds",
-      "system": "n5eb",
-      "path": "packs/hb-backgrounds",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["background", "feat"]
-        }
-      }
-    },
-    {
-      "name": "hb-feats",
-      "label": "HB Feats & Stances",
-      "system": "n5eb",
-      "path": "packs/hb-feats",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["feat"]
-        }
-      }
-    },
-    {
-      "name": "hb-classmod",
-      "label": "HB Class Mods",
-      "system": "n5eb",
-      "path": "packs/hb-classmod",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["class", "subclass", "feat"]
-        }
-      }
-    },
-    {
-      "name": "hb-items",
-      "label": "HB Items",
-      "system": "n5eb",
-      "path": "packs/hb-items",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["weapon", "equipment", "consumable", "tool", "loot", "feat", "container"]
-        }
-      }
-    },
-    {
-      "name": "hb-jutsus",
-      "label": "HB Jutsus",
-      "system": "n5eb",
-      "path": "packs/hb-jutsus",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["spell"]
-        }
-      }
-    },
-    {
-      "name": "hb-adversary",
-      "label": "HB Adversaries",
-      "system": "n5eb",
-      "path": "packs/hb-adversary",
-      "type": "Actor",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["npc", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "hb-summons",
-      "label": "HB Summons",
-      "system": "n5eb",
-      "path": "packs/hb-summons",
-      "type": "Item",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["feat", "class"]
-        }
-      }
-    },
-    {
-      "name": "hb-npc",
-      "label": "HB NPC",
-      "system": "n5eb",
-      "path": "packs/hb-npc",
-      "type": "Actor",
-      "private": false,
-      "flags": {
-        "n5eb": {
-          "types": ["npc", "feat", "weapon"]
-        }
-      }
-    },
-    {
-      "name": "hb-cheat-sheets",
-      "label": "HB Cheat Sheets",
-      "system": "n5eb",
-      "path": "packs/hb-cheat-sheets",
-      "type": "JournalEntry",
-      "private": false
-    }
-  ],
-  "packFolders": [
-    {
-      "name": "N5E Content",
-      "sorting": "a",
-      "color": "#ed991a",
-      "packs": [],
-      "folders": [
-        {
-          "name": "Character Features",
-          "sorting": "m",
-          "color": "#338ec7",
-          "packs": ["class", "subclass", "backgrounds", "traits-quirks", "clan", "feats", "classmod"]
-        },
-        {
-          "name": "Items & Jutsus",
-          "sorting": "m",
-          "color": "#af35b1",
-          "packs": ["items", "jutsus"]
-        },
-        {
-          "name": "Adversary & Summons",
-          "sorting": "m",
-          "color": "#5db027",
-          "packs": ["adversary", "npc", "adversary-traits", "adversary-passives", "summons"]
-        },
-        {
-          "name": "Other",
-          "sorting": "a",
-          "color": "#698a2c",
-          "packs": ["rules", "cheat-sheets", "conditions"]
-        }
-      ]
-    },
-    {
-      "name": "N5E Team 7 Content",
-      "sorting": "a",
-      "color": "#ed3d1a",
-      "packs": [],
-      "folders": [
-        {
-          "name": "T7 Character Features",
-          "sorting": "a",
-          "color": "#242670",
-          "packs": ["t7-class", "t7-subclass", "t7-backgrounds", "t7-clan", "t7-feats", "t7-classmod"]
-        },
-        {
-          "name": "T7 Items & Jutsus",
-          "sorting": "a",
-          "color": "#602478",
-          "packs": ["t7-items", "t7-jutsus"]
-        },
-        {
-          "name": "T7 Adversary & Summons",
-          "sorting": "a",
-          "color": "#4e781c",
-          "packs": ["t7-adversary", "t7-npc", "t7-summons"]
-        },
-        {
-          "name": "T7 Other",
-          "sorting": "a",
-          "color": "#4c6125",
-          "packs": ["t7-cheat-sheets"]
-        }
-      ]
-    },
-    {
-      "name": "N5E Homebrew Content",
-      "sorting": "a",
-      "color": "#d3d624",
-      "packs": [],
-      "folders": [
-        {
-          "name": "HB Character Features",
-          "sorting": "a",
-          "color": "#4e6ce4",
-          "packs": ["hb-class", "hb-subclass", "hb-backgrounds", "hb-clan", "hb-feats", "hb-classmod"]
-        },
-        {
-          "name": "HB Items & Jutsus",
-          "sorting": "a",
-          "color": "#cf548f",
-          "packs": ["hb-items", "hb-jutsus"]
-        },
-        {
-          "name": "HB Adversary & Summons",
-          "sorting": "a",
-          "color": "#6ad29c",
-          "packs": ["hb-adversary", "hb-npc", "hb-summons"]
-        },
-        {
-          "name": "HB Other",
-          "sorting": "a",
-          "color": "#57a441",
-          "packs": ["hb-cheat-sheets"]
-        }
-      ]
-    }
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json",
-      "flags": {}
-    }
-  ],
-  "media": [
-    {
-      "type": "cover",
-      "loop": false,
-      "flags": {}
-    },
-    {
-      "type": "setup",
-      "url": "systems/n5eb/ui/official/n5eb-repo.jpg",
-      "thumbnail": "systems/n5eb/ui/official/n5eb-thumbnail.jpg"
-    }
-  ],
-  "socket": true,
-  "gridDistance": 5,
-  "gridUnits": "ft",
-  "grid": {
-    "distance": 5,
-    "units": "ft"
-  },
-  "primaryTokenAttribute": "attributes.hp",
-  "background": "systems/n5eb/ui/official/n5eb-background.webp",
-  "flags": {
-    "needsMigrationVersion": "3.1.0",
-    "compatibleMigrationVersion": "0.8",
-    "hotReload": false
-  }
 }

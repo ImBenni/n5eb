@@ -1,91 +1,92 @@
 <fieldset>
-    <legend>{{ localize "N5EB.SpellDetails" }}</legend>
+    <legend>{{ localize "DND5E.SpellDetails" }}</legend>
 
     {{!-- Spell Level --}}
-    {{ formField fields.level value=source.level choices=config.spellLevels localize=true }}
+    {{ formField fields.level value=source.level choices=CONFIG.spellLevels localize=true rootId=partId }}
 
     {{!-- Spell School --}}
-    {{ formField fields.school value=source.school choices=config.spellSchools labelAttr="label" blank=""
-                 localize=true }}
+    {{ formField fields.school value=source.school choices=CONFIG.spellSchools labelAttr="label" blank=""
+                 localize=true rootId=partId }}
 
     {{!-- Spell Components --}}
-    {{ formField fields.properties options=properties.options label="N5EB.SpellComponents" localize=true
+    {{ formField fields.properties options=properties.options label="DND5E.SpellComponents" localize=true
                  input=inputs.createMultiCheckboxInput stacked=true classes="checkbox-grid checkbox-grid-3" }}
 
     {{!-- Material Components --}}
     {{#if properties.object.material}}
     <div class="form-group split-group">
-        <label>{{ localize "N5EB.SpellMaterials" }}</label>
+        <label>{{ localize "DND5E.SpellMaterials" }}</label>
         <div class="form-fields">
 
             {{!-- Material Supply --}}
-            {{ formField fields.materials.fields.supply value=source.materials.supply label="N5EB.Supply" localize=true
-                         classes="label-top" placeholder="0" }}
+            {{ formField fields.materials.fields.supply value=source.materials.supply label="DND5E.Supply" localize=true
+                         classes="label-top" placeholder="0" rootId=partId }}
 
             {{!-- Material Cost --}}
             <div class="form-group label-top">
-                <label class="label-icon currency gp" aria-label="{{ localize "N5EB.CostGP" }}">
-                    {{ localize "N5EB.Cost" }}
+                <label class="label-icon currency gp" aria-label="{{ localize "DND5E.CostGP" }}">
+                    {{ localize "DND5E.Cost" }}
                 </label>
                 <div class="form-fields">
-                    {{ formInput fields.materials.fields.cost value=source.materials.cost placeholder="—" }}
+                    {{ formInput fields.materials.fields.cost value=source.materials.cost placeholder="—"
+                                 rootId=partId }}
                 </div>
             </div>
 
             {{!-- Material Consumption --}}
-            {{ formField fields.materials.fields.consumed value=source.materials.consumed label="N5EB.Consumed"
-                         localize=true input=inputs.createCheckboxInput classes="checkbox" }}
+            {{ formField fields.materials.fields.consumed value=source.materials.consumed label="DND5E.Consumed"
+                         localize=true input=inputs.createCheckboxInput classes="checkbox" rootId=partId }}
         </div>
 
         {{!-- Materials Description --}}
         {{ formInput fields.materials.fields.value value=source.materials.value input=inputs.createTextInput
-                     classes="full-width" }}
+                     classes="full-width" rootId=partId }}
     </div>
     {{/if}}
 
-    {{!-- Preparation Mode --}}
+    {{!-- Spellcasting --}}
     <div class="form-group">
-        <label>{{ localize "N5EB.SpellPreparation.Mode" }}</label>
+        <label>{{ localize "DND5E.SpellPreparation.Method" }}</label>
         <div class="form-fields">
 
-            {{!-- Prepared --}}
-            {{#if (eq source.preparation.mode "prepared")}}
-            {{ formInput fields.preparation.fields.prepared value=source.preparation.prepared
-                         dataset=(n5eb-object tooltip="N5EB.Prepared") input=inputs.createCheckboxInput
-                         ariaLabel=(localize "N5EB.Prepared") }}
-            {{/if}}
+            {{!-- Method --}}
+            {{ formField fields.method value=source.method options=spellcastingMethods label="DND5E.Method"
+                         classes="label-top" localize=true rootId=partId }}
 
-            {{!-- Mode --}}
-            {{ formInput fields.preparation.fields.mode value=source.preparation.mode
-                         choices=config.spellPreparationModes labelAttr="label" }}
+            {{!-- Prepared --}}
+            {{#if canPrepare}}
+            {{ formField fields.prepared value=source.prepared choices=CONFIG.spellPreparationStates labelAttr="label"
+                         valueAttr="value" label="DND5E.Preparation" classes="label-top" localize=true rootId=partId }}
+            {{/if}}
         </div>
     </div>
 
-    {{!-- Source Class --}}
+    {{!-- Spell Source --}}
     {{#if isEmbedded}}
-    {{ formField fields.sourceClass value=source.sourceClass localize=true choices=item.parent.spellcastingClasses
-                 labelAttr="name" blank="" }}
+    {{ formField fields.sourceItem value=source.sourceItem localize=true
+                 options=spellcastingClasses blank="" label="DND5E.SourceItem.Label" rootId=partId
+                 disabled=sourceItemLocked hint=sourceItemHint }}
 
-    {{ formField fields.ability value=source.ability localize=true choices=config.abilities
-                 labelAttr="label" blank=defaultAbility }}
+    {{ formField fields.ability value=source.ability localize=true choices=CONFIG.abilities
+                 labelAttr="label" blank=defaultAbility rootId=partId }}
     {{/if}}
 </fieldset>
 
 <fieldset>
-    <legend>{{ localize "N5EB.Casting" }}</legend>
+    <legend>{{ localize "DND5E.Casting" }}</legend>
 
     {{!-- Activation --}}
-    {{> "n5eb.field-activation" activation=system.activation fields=fields.activation.fields data=source.activation
-        activationTypes=activationTypes inputs=inputs label="N5EB.SpellCastTime" }}
+    {{> "dnd5e.field-activation" activation=system.activation fields=fields.activation.fields data=source.activation
+        activationTypes=activationTypes inputs=inputs label="DND5E.SpellCastTime" }}
 
     {{!-- Range --}}
-    {{> "n5eb.field-range" range=system.range fields=fields.range.fields data=source.range rangeTypes=rangeTypes
+    {{> "dnd5e.field-range" range=system.range fields=fields.range.fields data=source.range rangeTypes=rangeTypes
         inputs=inputs }}
 
     {{!-- Duration --}}
-    {{> "n5eb.field-duration" duration=system.duration fields=fields.duration.fields data=source.duration
+    {{> "dnd5e.field-duration" duration=system.duration fields=fields.duration.fields data=source.duration
         durationUnits=durationUnits inputs=inputs }}
 </fieldset>
 
-{{> "n5eb.field-targets" target=system.target fields=fields.target.fields data=source.target inputs=inputs
+{{> "dnd5e.field-targets" target=system.target fields=fields.target.fields data=source.target inputs=inputs
     disabled=false }}

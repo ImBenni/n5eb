@@ -1,22 +1,25 @@
-<form id="document-create" autocomplete="off">
+<div>
     <header>
-        <input type="text" class="document-name uninput" name="name" value="{{ name }}" autofocus>
+        <input type="text" class="document-name uninput" name="name" value="{{ name }}" autofocus
+               placeholder="{{ localize 'Name' }}">
         {{#if hasFolders}}
-        <select class="unselect" name="folder" form="document-create">
-            {{ selectOptions folders selected=folder labelAttr="name" nameAttr="id"
-                             blank=(localize "DOCUMENT.Folder") }}
+        <select class="unselect" name="folder">
+            {{ selectOptions folders selected=folder labelAttr="name" valueAttr="id" }}
         </select>
         {{/if}}
     </header>
+    {{#if hasTypes}}
     <ol class="unlist card">
         {{#each types}}
-        <li>
+        <li {{~#if hint}} data-tooltip="{{ hint }}"{{/if}}>
             <label>
-                <img src="{{ icon }}" alt="{{ label }}">
+                {{ dnd5e-icon icon alt=label }}
                 <span>{{ label }}</span>
-                <input type="radio" name="type" value="{{ type }}">
+                <input type="radio" name="type" value="{{ type }}" required {{checked (eq type ../type)}}
+                       {{ disabled disabled }}>
             </label>
         </li>
         {{/each}}
     </ol>
-</form>
+    {{/if}}
+</div>

@@ -1,38 +1,67 @@
-<form id="{{appId}}" data-level="{{level}}" data-id="{{advancement.id}}" data-type="{{type}}">
-    <h3>{{{this.title}}}</h3>
-    {{#if advancement.hint}}<p>{{ advancement.hint }}</p>{{/if}}
-
-    <ul class="ability-scores {{#if feat}}disabled{{/if}}">
+<div class="standard-form">
+    {{#if showImprovement}}
+    <ul class="ability-scores unlist {{#if lockImprovement}}disabled{{/if}}">
         {{#unless staticIncrease}}
         <label>
-            {{#if feat}}
-            {{localize "N5EB.AdvancementAbilityScoreImprovementLockedHint"}}
+            {{#if lockImprovement}}
+            {{ localize "DND5E.ADVANCEMENT.AbilityScoreImprovement.LockedHint" }}
             {{else}}
             {{ pointsRemaining }}
-            {{#if advancement.configuration.cap}}<p class="cap">{{pointCap}}</p>{{/if}}
+            {{#if advancement.configuration.cap}}<p class="cap">{{ pointCap }}</p>{{/if}}
             {{/if}}
         </label>
         {{/unless}}
         {{#each abilities}}
-        {{> "n5eb.advancement-ability-score-control" this canAdjust=(not @root.staticIncrease)}}
+        {{> "systems/n5eb/templates/advancement/parts/advancement-ability-score-control.hbs" this
+            canAdjust=(not @root.staticIncrease) }}
         {{/each}}
     </ul>
+    {{/if}}
 
     {{#if advancement.allowFeat}}
-        <h3>{{localize "N5EB.Feature.Feat"}}</h3>
+    <div class="feat-section flexcol">
+        {{#if showImprovement}}<h3>{{ localize "DND5E.Feature.Feat.Label" }}</h3>{{/if}}
 
-        <div class="item-name flexrow drop-area {{#unless feat}}empty{{/unless}}">
+        {{#with recommendation}}
+        <div class="pill-lg {{#if locked}}locked{{/if}}" data-uuid="{{ uuid }}">
+            <img class="gold-icon" data-action="viewItem" src="{{ img }}" alt="{{ name }}">
+            <div class="name-stacked">
+                <div class="title">{{ localize name }}</div>
+            </div>
+            <dnd5e-checkbox class="item-control" name="recommendation-selected" {{ checked checked }}
+                            {{ disabled locked }}></dnd5e-checkbox>
+        </div>
+        {{/with}}
+
+        {{#if showASIFeat}}
+        <div class="pill-lg {{#if lockImprovement}}locked{{/if}}">
+            <img class="gold-icon" src="icons/skills/melee/weapons-crossed-swords-white-blue.webp"
+                 alt="{{ localize 'DND5E.ADVANCEMENT.AbilityScoreImprovement.Feat.ASIName' }}">
+            <div class="name-stacked">
+                <div class="title">{{ localize "DND5E.ADVANCEMENT.AbilityScoreImprovement.Feat.ASIName" }}</div>
+            </div>
+            <dnd5e-checkbox class="item-control" name="asi-selected" {{ checked isASI }}
+                            {{ disabled lockImprovement }}></dnd5e-checkbox>
+        </div>
+        {{/if}}
+
+        {{#if showBrowseButton}}
+        <div class="pill-lg {{#unless feat}}roboto-upper empty{{/unless}}"
+             {{~#if feat}} data-uuid="{{ feat.uuid }}"{{else}} data-action="browse"{{/if}}>
             {{#if feat}}
-            <div class="item-image" style="background-image: url('{{feat.img}}');"></div>
-            <h4>
-                <a data-uuid="{{feat.uuid}}">{{feat.name}}</a>
-            </h4>
-            <a class="item-control" data-action="delete" title="{{localize 'N5EB.ItemDelete'}}">
-                <i class="fas fa-trash"></i>
-            </a>
+            <img class="gold-icon" data-action="viewItem" src="{{ feat.img }}" alt="{{ feat.name }}">
+            <div class="name-stacked">
+                <div class="title">{{ feat.name }}</div>
+            </div>
+            <button type="button" class="unbutton control-button item-control" data-action="deleteItem"
+                    data-tooltip aria-label="{{ localize 'DND5E.ItemDelete' }}">
+                <i class="fas fa-trash" inert></i>
+            </button>
             {{else}}
-            {{localize "N5EB.AdvancementAbilityScoreImprovementFeatHint"}}
+            {{ localize "DND5E.ADVANCEMENT.AbilityScoreImprovement.Action.Select" }}
             {{/if}}
         </div>
+        {{/if}}
+    </div>
     {{/if}}
-</form>
+</div>

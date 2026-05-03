@@ -1,16 +1,12 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
-    {{> journalEntryPageHeader}}
-    {{editor editor.content target="text.content" class="journal-page-content" button=false editable=true
-             engine=editor.engine collaborate=editor.collaborate}}
-    <div class="separator">
-        <h3>{{localize "N5EB.Rule.Tooltip"}}</h3>
+<section class="separator">
+    <div>
+        <h3>{{localize "DND5E.Rule.Tooltip"}}</h3>
         <label>
-            {{localize "N5EB.Rule.Type.Label"}}
+            {{localize "DND5E.Rule.Type.Label"}}
             <select name="system.type">
                 {{selectOptions CONFIG.ruleTypes selected=document.system.type labelAttr="label"}}
             </select>
         </label>
     </div>
-    {{editor enrichedTooltip target="system.tooltip" class="journal-page-content" button=false editable=true
-             engine=editor.engine collaborate=editor.collaborate}}
-</form>
+    <prose-mirror name="system.tooltip" value="{{ source.system.tooltip }}" class="journal-page-content"></prose-mirror>
+</section>

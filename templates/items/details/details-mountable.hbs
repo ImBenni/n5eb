@@ -1,49 +1,72 @@
 <fieldset>
     <legend>
-        {{#if (eq item.type "weapon")}}{{ localize "N5EB.ItemSiegeProperties" }}
-        {{else if (eq item.type "equipment")}}{{ localize "N5EB.ItemVehicleProperties" }}{{/if}}
+        {{#if (eq item.type "weapon")}}{{ localize "DND5E.ItemSiegeProperties" }}
+        {{else if (eq item.type "equipment")}}{{ localize "DND5E.ItemVehicleProperties" }}{{/if}}
     </legend>
 
     {{!-- Armor Class --}}
-    {{ formField fields.armor.fields.value value=source.armor.value localize=true }}
+    {{ formField fields.armor.fields.value value=source.armor.value localize=true rootId=partId }}
+
+    {{!-- Crew --}}
+    <div class="form-group split-group">
+        <label>{{ localize "DND5E.VEHICLE.MOUNTABLE.FIELDS.crew.label" }}</label>
+        <div class="form-fields">
+
+            {{!-- Max --}}
+            {{ formField fields.crew.fields.max value=source.crew.max label="DND5E.Max" placeholder="—" localize=true
+                         classes="label-top" rootId=partId }}
+
+            {{!-- Cover --}}
+            {{ formField fields.cover value=source.cover label="DND5E.VEHICLE.MOUNTABLE.FIELDS.cover.label"
+                         hint="DND5E.VEHICLE.MOUNTABLE.FIELDS.cover.hint" localize=true classes="label-top"
+                         rootId=partId options=coverOptions }}
+
+        </div>
+    </div>
 
     {{!-- Hit Points --}}
     <div class="form-group split-group">
-        <label>{{ localize "N5EB.HitPoints" }}</label>
+        <label>{{ localize "DND5E.HitPoints" }}</label>
         <div class="form-fields">
 
             {{!-- Current --}}
-            {{ formField fields.hp.fields.value value=source.hp.value label="N5EB.Current" placeholder="0"
-                         localize=true classes="label-top" }}
+            {{ formField fields.hp.fields.value value=source.hp.value label="DND5E.Current" placeholder="0"
+                         localize=true classes="label-top" rootId=partId }}
 
             {{!-- Max --}}
-            {{ formField fields.hp.fields.max value=source.hp.max label="N5EB.Max" placeholder="0" localize=true
-                         classes="label-top" }}
+            {{ formField fields.hp.fields.max value=source.hp.max label="DND5E.Max" placeholder="0" localize=true
+                         classes="label-top" rootId=partId }}
 
             {{!-- Threshold --}}
-            {{ formField fields.hp.fields.dt value=source.hp.dt label="N5EB.Threshold" placeholder="—" localize=true
-                         classes="label-top" }}
+            {{ formField fields.hp.fields.dt value=source.hp.dt label="DND5E.Threshold" placeholder="—" localize=true
+                         classes="label-top" rootId=partId }}
         </div>
 
         {{!-- Conditions --}}
         {{ formInput fields.hp.fields.conditions value=source.hp.conditions input=inputs.createTextInput
-                     placeholder=(localize "N5EB.HealthConditions") localize=true classes="full-width" }}
+                     placeholder=(localize "DND5E.VEHICLE.MOUNTABLE.FIELDS.hp.conditions.label") localize=true
+                     classes="full-width" rootId=partId }}
     </div>
 
     {{!-- Speed --}}
     {{#if (eq item.type "equipment")}}
     <div class="form-group split-group">
-        <label>{{ localize "N5EB.Speed" }}</label>
+        <label>{{ localize "DND5E.Speed" }}</label>
         <div class="form-fields">
 
             {{!-- Value --}}
-            {{ formField fields.speed.fields.value value=source.speed.value placeholder="0" label="N5EB.Value"
-                         localize=true classes="label-top" }}
+            {{ formField fields.speed.fields.value value=source.speed.value placeholder="0" label="DND5E.Value"
+                         localize=true classes="label-top" rootId=partId }}
+
+            {{!-- Units --}}
+            {{ formField fields.speed.fields.units value=source.speed.units label="DND5E.Unit" localize=true
+                         classes="label-top" rootId=partId options=unitsOptions }}
         </div>
 
         {{!-- Conditions --}}
         {{ formInput fields.speed.fields.conditions value=source.speed.conditions input=inputs.createTextInput
-                     placeholder=(localize "N5EB.SpeedConditions") localize=true classes="full-width" }}
+                     placeholder=(localize "DND5E.VEHICLE.MOUNTABLE.FIELDS.speed.conditions.label") localize=true
+                     classes="full-width" rootId=partId }}
     </div>
     {{/if}}
 </fieldset>

@@ -2,10 +2,11 @@
     {{#each additional}}
     {{#if (eq type "boolean")}}
     <div class="filter filter-boolean" data-filter-id="{{ key }}">
-        <label>
-            <filter-state name="additional.{{ key }}" value="{{ value }}" {{ disabled locked }}></filter-state>
-            <span>{{ localize label }}</span>
-        </label>
+        <span>
+            <filter-state name="additional.{{ key }}" value="{{ value }}" id="{{ partId }}-additional-key"
+                          {{ disabled locked }}></filter-state>
+            <label for="{{ partId }}-additional-key">{{ localize label }}</label>
+        </span>
     </div>
     {{else if (eq type "range")}}
     <div class="filter filter-range form-group label-top" data-filter-id="{{ key }}">
@@ -14,7 +15,7 @@
             <input type="number" name="additional.{{ key }}.min" value="{{ value.min }}"
                    min="{{ config.min }}" max="{{ config.max }}" step="any" placeholder="{{ config.min }}"
                    {{ disabled locked.min }}>
-            <span class="sep"><n5eb-icon src="systems/n5eb/icons/svg/range-connector.svg"></n5eb-icon></span>
+            <span class="sep"><dnd5e-icon src="systems/n5eb/icons/svg/range-connector.svg"></dnd5e-icon></span>
             <input type="number" name="additional.{{ key }}.max" value="{{ value.max }}"
                    min="{{ config.min }}" max="{{ config.max }}" step="any" placeholder="{{ config.max }}"
                    {{ disabled locked.max }}>

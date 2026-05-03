@@ -1,0 +1,67 @@
+<div class="statblock npc rules-{{ rulesVersion }}">
+    <h4 class="statblock-title" data-no-toc>{{#if anchor}}{{{ anchor }}}{{else}}{{ name }}{{/if}}</h4>
+    <span class="statblock-tags">{{ summary.tag }}</span>
+    <div class="statblock-content">
+        <div class="statblock-header">
+            {{> ".definitionList" entries=definitions.upper }}
+            <div class="abilities">
+                {{#each abilityTables}}
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="visually-hidden">{{ localize "DND5E.Ability" }}</th>
+                            <th scope="col" class="visually-hidden">{{ localize "DND5E.AbilityScoreShort" }}</th>
+                            <th scope="col">{{ localize "DND5E.AbilityModifierShort" }}</th>
+                            <th scope="col">{{ localize "DND5E.SavingThrowShort" }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each abilities}}
+                        <tr>
+                            <th scope="row">{{ label }}</th>
+                            <td class="score">{{ dnd5e-numberFormat value }}</td>
+                            <td>{{ dnd5e-numberFormat mod signDisplay="always" }}</td>
+                            <td>{{ dnd5e-numberFormat save.value signDisplay="always" }}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{else}}
+                {{#each system.abilities}}
+                <div class="ability">
+                    <span class="name">{{ lookup (lookup @root.CONFIG.abilities @key) "abbreviation" }}</span>
+                    <span class="score">{{ dnd5e-numberFormat value }} ({{ dnd5e-numberFormat mod signDisplay="always" }})</span>
+                </div>
+                {{/each}}
+                {{/each}}
+            </div>
+            {{> ".definitionList" entries=definitions.lower }}
+        </div>
+        {{#each actionSections}}
+        <div class="statblock-actions {{ @key }}">
+            {{#unless hideLabel}}<h5 class="statblock-actions-title" data-no-toc>{{ label }}</h5>{{/unless}}
+            {{{ description }}}
+            {{#each actions}}
+            <div class="statblock-action" {{ dnd5e-dataset dataset }}>
+                {{{ openingTag }}}
+                <span class="name">{{ name }}</span>
+                {{{ description }}}
+            </div>
+            {{/each}}
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+{{#*inline ".definitionList" }}
+<dl>
+    {{#each entries}}
+    <div {{~#if classes}} class="{{ classes }}"{{/if}}>
+        <dt>{{ localize label }}</dt>
+        {{~#each definitions}}{{#unless (eq this undefined)~}}
+        <dd>{{#if ../allowHTML}}{{{ this }}}{{else}}{{ this }}{{/if}}</dd>
+        {{~/unless}}{{/each}}
+    </div>
+    {{/each}}
+</dl>
+{{/inline}}

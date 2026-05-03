@@ -4,7 +4,7 @@
 
     {{#if abilities.options}}
     <div class="form-group">
-        <label>{{ localize "N5EB.SpellAbility" }}</label>
+        <label>{{ localize "DND5E.SpellAbility" }}</label>
         <select name="ability">
             {{ selectOptions abilities.options selected=abilities.selected }}
         </select>
@@ -19,7 +19,7 @@
                 <a data-uuid="{{ uuid }}">{{ name }}</a>
             </h4>
             {{#if optional}}
-            <input type="checkbox" name="{{ uuid }}" {{ checked checked }}>
+            <dnd5e-checkbox name="{{ uuid }}" {{ checked checked }}></dnd5e-checkbox>
             {{else}}
             <input type="hidden" name="{{ uuid }}" value="true" data-dtype="Boolean">
             {{/if}}
