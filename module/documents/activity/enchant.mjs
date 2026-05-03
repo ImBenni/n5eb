@@ -1,0 +1,294 @@
+import EnchantSheet from "../../applications/activity/enchant-sheet.mjs";
+import EnchantUsageDialog from "../../applications/activity/enchant-usage-dialog.mjs";
+import BaseEnchantActivityData from "../../data/activity/enchant-data.mjs";
+import Item5e from "../../documents/item.mjs";
+import { getSceneTargets } from "../../utils.mjs";
+import ActivityMixin from "./mixin.mjs";
+
+/**
+ * Activity for enchanting items.
+ */
+export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityData) {
+  /* -------------------------------------------- */
+  /*  Model Configuration                         */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "DND5E.ENCHANT"];
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static metadata = Object.freeze(
+    foundry.utils.mergeObject(super.metadata, {
+      type: "enchant",
+      img: "systems/n5eb/icons/svg/activity/enchant.svg",
+      title: "DND5E.ENCHANT.Title",
+      hint: "DND5E.ENCHANT.Hint",
+      sheetClass: EnchantSheet,
+      usage: {
+        dialog: EnchantUsageDialog
+      }
+    }, { inplace: false })
+  );
+
+  /* -------------------------------------------- */
+  /*  Properties                                  */
+  /* -------------------------------------------- */
+
+  /**
+   * List of item types that are enchantable.
+   * @type {Set<string>}
+   */
+  get enchantableTypes() {
+    return Object.entries(CONFIG.Item.dataModels).reduce((set, [k, v]) => {
+      if ( v.metadata?.enchantable ) set.add(k);
+      return set;
+    }, new Set());
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Existing enchantment applied by this activity on this activity's item.
+   * @type {ActiveEffect5e}
+   */
+  get existingEnchantment() {
+    return this.enchant.self
+      ? this.item.effects.find(e => e.isAppliedEnchantment && (e.origin === this.uuid)) : undefined;
+  }
+
+  /* -------------------------------------------- */
+  /*  Activation                                  */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareUsageConfig(config) {
+    config = super._prepareUsageConfig(config);
+    const existingProfile = this.existingEnchantment?.flags.n5eb?.enchantmentProfile;
+    config.enchantmentProfile ??= this.item.effects.has(existingProfile) ? existingProfile
+      : this.availableEnchantments[0]?._id;
+    return config;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _requiresConfigurationDialog(config) {
+    return super._requiresConfigurationDialog(config) || (this.availableEnchantments.length > 1);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _finalizeMessageConfig(usageConfig, messageConfig, results) {
+    super._finalizeMessageConfig(usageConfig, messageConfig, results);
+
+    // Store selected enchantment profile in message flag
+    if ( usageConfig.enchantmentProfile ) foundry.utils.setProperty(
+      messageConfig, "data.flags.n5eb.use.enchantmentProfile", usageConfig.enchantmentProfile
+    );
+
+    // Don't display message if just auto-disabling existing enchantment
+    if ( this.existingEnchantment?.flags.n5eb?.enchantmentProfile === usageConfig.enchantmentProfile ) {
+      messageConfig.create = false;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  onRenderChatCard(message, element) {
+    const enchantmentProfile = message.getFlag("n5eb", "use.enchantmentProfile");
+    if ( !enchantmentProfile || !message.isContentVisible ) return;
+
+    // Ensure concentration is still being maintained
+    const concentrationId = message.system.concentration;
+    if ( concentrationId && !message.getAssociatedActor()?.effects.get(concentrationId) ) return;
+
+    // Create the enchantment tray
+    const enchantmentApplication = document.createElement("enchantment-application");
+    enchantmentApplication.classList.add("dnd5e2");
+    const afterElement = element.querySelector(".card-footer");
+    if ( afterElement ) afterElement.insertAdjacentElement("beforebegin", enchantmentApplication);
+    else element.querySelector(".chat-card")?.append(enchantmentApplication);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _triggerSubsequentActions(config, results) {
+    if ( !this.enchant.self ) return;
+
+    // If enchantment from this activity already exists, remove it
+    const existingEnchantment = this.existingEnchantment;
+    if ( existingEnchantment ) await existingEnchantment?.delete({ chatMessageOrigin: results.message?.id });
+
+    // If no existing enchantment, or existing enchantment profile doesn't match provided one, create new enchantment
+    if ( !existingEnchantment || (existingEnchantment.flags.n5eb?.enchantmentProfile !== config.enchantmentProfile) ) {
+      const concentration = results.effects.find(e => e.statuses.has(CONFIG.specialStatusEffects.CONCENTRATING));
+      this.applyEnchantment(config.enchantmentProfile, this.item, {
+        chatMessage: results.message, concentration, strict: false
+      });
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Helpers                                     */
+  /* -------------------------------------------- */
+
+  /**
+   * Apply an enchantment to the provided item.
+   * @param {string} profile                  ID of the enchantment profile to apply.
+   * @param {Item5e} item                     Item to which to apply the enchantment.
+   * @param {object} [options={}]
+   * @param {ChatMessage5e} [options.chatMessage]     Chat message used to make the enchantment, if applicable.
+   * @param {ActiveEffect5e} [options.concentration]  Concentration active effect to associate with this enchantment.
+   * @param {boolean} [options.strict]        Display UI errors and prevent creation if enchantment isn't allowed.
+   * @returns {Promise<ActiveEffect5e|null>}  Created enchantment effect if the process was successful.
+   */
+  async applyEnchantment(profile, item, { chatMessage, concentration, strict=true }={}) {
+    const effect = this.item.effects.get(profile);
+    if ( !effect ) return null;
+
+    // Validate against the enchantment's restraints on the origin item
+    if ( strict ) {
+      const errors = this.canEnchant(item);
+      if ( errors?.length ) {
+        errors.forEach(err => ui.notifications.error(err.message, { console: false }));
+        return null;
+      }
+    }
+
+    // If concentration is required, ensure it is still being maintained & GM is present
+    if ( !game.user.isGM && concentration && !concentration.isOwner ) {
+      if ( strict ) {
+        ui.notifications.error("DND5E.EffectApplyWarningConcentration", { console: false, localize: true });
+        return null;
+      } else {
+        concentration = null;
+      }
+    }
+
+    const flags = { enchantmentProfile: profile };
+    if ( concentration ) flags.dependentOn = concentration.uuid;
+    const enchantmentData = effect.clone({ origin: this.uuid, "flags.n5eb": flags }).toObject();
+
+    /**
+     * Hook that fires before an enchantment is applied to an item.
+     * @function dnd5e.preApplyEnchantment
+     * @memberof hookEvents
+     * @param {Item5e} item                Item to which the enchantment will be applied.
+     * @param {object} enchantmentData     Data for the enchantment effect that will be created.
+     * @param {object} options
+     * @param {Activity} options.activity  Enchant activity applied the enchantment.
+     * @returns {boolean}                  Explicitly return `false` to prevent enchantment from being applied.
+     */
+    if ( Hooks.call("dnd5e.preApplyEnchantment", item, enchantmentData, { activity: this }) === false ) return null;
+
+    // For compendium items, create on actor
+    if ( item.inCompendium ) {
+      const actor = this.actor.isOwner ? this.actor : (getSceneTargets()[0]?.actor ?? game.user.character);
+      if ( !actor ) {
+        ui.notifications.warn("DND5E.ENCHANT.Warning.NoTargetActor", { localize: true });
+        return null;
+      }
+      enchantmentData._id = foundry.utils.randomID();
+      const toCreate = await Item5e.createWithContents([item], {
+        transformAll: item => item.clone({ "flags.n5eb.dependentOn": `.ActiveEffect.${enchantmentData._id}` })
+      });
+      [item] = await Item5e.createDocuments(toCreate, { keepId: true, parent: actor });
+    }
+
+    const enchantment = await ActiveEffect.create(enchantmentData, {
+      parent: item, keepId: true, keepOrigin: true, chatMessageOrigin: chatMessage?.id
+    });
+
+    /**
+     * Hook that fires after an enchantment has been applied to an item.
+     * @function dnd5e.applyEnchantment
+     * @memberof hookEvents
+     * @param {Item5e} item                 Item to which the enchantment was be applied.
+     * @param {ActiveEffect5e} enchantment  The enchantment effect that was be created.
+     * @param {object} options
+     * @param {Activity} options.activity   Enchant activity applied the enchantment.
+     */
+    Hooks.callAll("dnd5e.applyEnchantment", item, enchantment, { activity: this });
+
+    return enchantment;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine whether the provided item can be enchanted based on this enchantment's restrictions.
+   * @param {Item5e} item  Item that might be enchanted.
+   * @returns {true|EnchantmentError[]}
+   */
+  canEnchant(item) {
+    const errors = [];
+
+    if ( !this.restrictions.allowMagical && item.system.properties?.has("mgc")
+      && ("quantity" in item.system) ) {
+      errors.push(new EnchantmentError(game.i18n.localize("DND5E.ENCHANT.Warning.NoMagicalItems")));
+    }
+
+    if ( this.restrictions.type && (item.type !== this.restrictions.type) ) {
+      errors.push(new EnchantmentError(game.i18n.format("DND5E.ENCHANT.Warning.WrongType", {
+        incorrectType: game.i18n.localize(CONFIG.Item.typeLabels[item.type]),
+        allowedType: game.i18n.localize(CONFIG.Item.typeLabels[this.restrictions.type])
+      })));
+    }
+
+    if ( this.restrictions.categories.size && !this.restrictions.categories.has(item.system.type?.value) ) {
+      const getLabel = key => {
+        const config = CONFIG.Item.dataModels[this.restrictions.type]?.itemCategories[key];
+        if ( !config ) return key;
+        if ( foundry.utils.getType(config) === "string" ) return config;
+        return config.label;
+      };
+      errors.push(new EnchantmentError(game.i18n.format(
+        `DND5E.ENCHANT.Warning.${item.system.type?.value ? "WrongType" : "NoSubtype"}`,
+        {
+          allowedType: game.i18n.getListFormatter({ type: "disjunction" }).format(
+            Array.from(this.restrictions.categories).map(c => getLabel(c).toLowerCase())
+          ),
+          incorrectType: getLabel(item.system.type?.value)
+        }
+      )));
+    }
+
+    if ( this.restrictions.properties.size
+      && !this.restrictions.properties.intersection(item.system.properties ?? new Set()).size ) {
+      errors.push(new EnchantmentError(game.i18n.format("DND5E.Enchantment.Warning.MissingProperty", {
+        validProperties: game.i18n.getListFormatter({ type: "disjunction" }).format(
+          Array.from(this.restrictions.properties).map(p => CONFIG.DND5E.itemProperties[p]?.label ?? p)
+        )
+      })));
+    }
+
+    /**
+     * A hook event that fires while validating whether an enchantment can be applied to a specific item.
+     * @function dnd5e.canEnchant
+     * @memberof hookEvents
+     * @param {EnchantActivity} activity   The activity performing the enchanting.
+     * @param {Item5e} item                Item to which the enchantment will be applied.
+     * @param {EnchantmentError[]} errors  List of errors containing failed restrictions. The item will be enchanted
+     *                                     so long as no errors are listed, otherwise the provided errors will be
+     *                                     displayed to the user.
+     */
+    Hooks.callAll("dnd5e.canEnchant", this, item, errors);
+
+    return errors.length ? errors : true;
+  }
+}
+
+/**
+ * Error to throw when an item cannot be enchanted.
+ */
+export class EnchantmentError extends Error {
+  constructor(...args) {
+    super(...args);
+    this.name = "EnchantmentError";
+  }
+}

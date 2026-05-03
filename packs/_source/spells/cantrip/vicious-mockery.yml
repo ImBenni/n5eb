@@ -1,0 +1,180 @@
+_id: cdrYKaFi98YWaBMw
+name: Vicious Mockery
+ownership:
+  default: 0
+type: spell
+system:
+  description:
+    value: >-
+      <p>You unleash a string of insults laced with subtle enchantments at a
+      creature you can see within range. If the target can hear you (though it
+      need not understand you), it must succeed on a Wisdom saving throw or take
+      1d4 psychic damage and have disadvantage on the next attack roll it makes
+      before the end of its next turn.</p><p>This spell's damage increases by
+      1d4 when you reach 5th level (2d4), 11th level (3d4), and 17th level
+      (4d4).</p>
+    chat: ''
+  source:
+    custom: ''
+    book: ''
+    page: ''
+    license: CC-BY-4.0
+    rules: '2014'
+  activation:
+    type: action
+    condition: ''
+    value: 1
+  duration:
+    value: ''
+    units: inst
+  target:
+    affects:
+      type: creature
+      count: '1'
+      choice: false
+      special: ''
+    template:
+      units: ''
+      contiguous: false
+      type: ''
+  range:
+    value: '60'
+    units: ft
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 0
+  school: enc
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  properties:
+    - vocal
+  activities:
+    dnd5eactivity000:
+      _id: dnd5eactivity000
+      type: save
+      activation:
+        type: action
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: true
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects:
+        - _id: imsGW3YRra9KF6iK
+          onSave: false
+          level:
+            min: null
+            max: null
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      damage:
+        onSave: none
+        parts:
+          - number: 1
+            denomination: 4
+            bonus: ''
+            types:
+              - psychic
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: whole
+              number: 1
+              formula: ''
+      save:
+        ability: wis
+        dc:
+          calculation: spellcasting
+          formula: ''
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      name: Cast
+      img: ''
+      visibility:
+        level:
+          min: null
+          max: null
+  identifier: vicious-mockery
+sort: 0
+flags: {}
+img: icons/creatures/magical/spirit-poison-smoke-green.webp
+effects:
+  - name: Vicious Mockery
+    img: icons/creatures/magical/spirit-poison-smoke-green.webp
+    origin: Compendium.n5eb.spells.Item.cdrYKaFi98YWaBMw
+    transfer: false
+    _id: imsGW3YRra9KF6iK
+    type: base
+    system: {}
+    changes: []
+    disabled: false
+    duration:
+      startTime: null
+      combat: null
+      seconds: 6
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    description: >-
+      <p>You have disadvantage on the next attack roll you make before the end
+      of your next turn.</p>
+    tint: '#ffffff'
+    statuses: []
+    sort: 0
+    flags:
+      n5eb:
+        riders:
+          statuses: []
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: n5eb
+      systemVersion: 5.3.0
+      createdTime: 1772660959541
+      modifiedTime: 1772660981291
+      lastModifiedBy: dnd5ebuilder0000
+    _key: '!items.effects!cdrYKaFi98YWaBMw.imsGW3YRra9KF6iK'
+folder: Z8kZlnggh1PtuF3Y
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.3.0
+  createdTime: 1725037360458
+  modifiedTime: 1772738686492
+  lastModifiedBy: dnd5ebuilder0000
+  exportSource: null
+_key: '!items!cdrYKaFi98YWaBMw'

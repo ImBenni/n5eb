@@ -1,0 +1,171 @@
+name: Sun
+system:
+  description:
+    value: >-
+      <p> A magic item (chosen by the DM) appears on your person. In addition,
+      you gain 10 Temporary Hit Points daily at dawn until you die.</p>
+    chat: ''
+  price:
+    value: 0
+    denomination: gp
+  activities:
+    rlvVvMiI0yOfkNs3:
+      type: utility
+      name: Card Effect
+      sort: 0
+      activation:
+        type: ''
+        value: null
+        override: false
+        condition: Card's effect occurs immediately upon draw
+      consumption:
+        scaling:
+          allowed: false
+        spellSlot: true
+        targets:
+          - type: itemUses
+            value: '1'
+            target: ''
+      description:
+        chatFlavor: ''
+      duration:
+        units: perm
+        concentration: false
+        override: false
+      effects:
+        - _id: enZ79fOzsta0vlqK
+          level:
+            min: null
+            max: null
+      range:
+        override: false
+        units: self
+        special: ''
+      target:
+        template:
+          contiguous: false
+          units: ft
+          type: ''
+        affects:
+          choice: false
+          count: ''
+          type: self
+          special: ''
+        override: false
+        prompt: true
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      roll:
+        prompt: false
+        visible: false
+        name: ''
+        formula: ''
+      img: icons/svg/card-joker.svg
+      _id: rlvVvMiI0yOfkNs3
+      appliedEffects:
+        - enZ79fOzsta0vlqK
+      visibility:
+        requireMagic: true
+        level:
+          min: null
+          max: null
+        identifier: ''
+  uses:
+    spent: 0
+    recovery: []
+    autoDestroy: true
+    max: '1'
+  identifier: sun
+  source:
+    revision: 1
+    rules: '2024'
+    license: CC-BY-4.0
+    book: ''
+  identified: true
+  unidentified:
+    description: ''
+  container: null
+  quantity: 1
+  weight:
+    value: 0
+    units: lb
+  rarity: ''
+  attunement: ''
+  attuned: false
+  equipped: false
+  type:
+    value: trinket
+    subtype: ''
+  damage:
+    base:
+      number: null
+      denomination: null
+      types: []
+      custom:
+        enabled: false
+      scaling:
+        number: 1
+    replace: false
+  magicalBonus: null
+  properties:
+    - mgc
+_id: dmgDmtSun0000000
+type: consumable
+folder: XVXuU21XyvevGap7
+img: icons/magic/nature/symbol-sun-yellow.webp
+effects:
+  - name: 'Sun Card: Daily Temp HP'
+    img: icons/magic/time/day-night-sunset-sunrise.webp
+    origin: Compendium.n5eb.equipment24.Item.dmgDmtSun0000000
+    transfer: false
+    _id: enZ79fOzsta0vlqK
+    type: base
+    system: {}
+    changes: []
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    description: >-
+      <p><em>Source:
+      @UUID[Compendium.n5eb.equipment24.Item.dmgDmtSun0000000]{Sun}</em></p><p>You
+      gain [[/healing 10 temp]] daily at dawn until you die.</p>
+    tint: '#ffffff'
+    statuses: []
+    sort: 0
+    flags:
+      n5eb:
+        riders:
+          statuses: []
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '13.351'
+      systemId: n5eb
+      systemVersion: 5.2.3
+      createdTime: 1729205768672
+      modifiedTime: 1765823916155
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!dmgDmtSun0000000.enZ79fOzsta0vlqK'
+sort: 1200000
+ownership:
+  default: 0
+flags: {}
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.2.0
+  createdTime: 1729205718209
+  modifiedTime: 1764615953629
+  lastModifiedBy: dnd5ebuilder0000
+  exportSource: null
+_key: '!items!dmgDmtSun0000000'

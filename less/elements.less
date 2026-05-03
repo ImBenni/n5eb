@@ -1,0 +1,249 @@
+/* ---------------------------------- */
+/*  Copyable Text                     */
+/* ---------------------------------- */
+
+copyable-text {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  cursor: var(--cursor-pointer);
+  &:hover, &:has(:focus-visible) {
+    text-decoration-color: var(--color-shadow-primary);
+    button { text-shadow: 0 0 4px var(--color-shadow-primary); }
+  }
+  button.copy-button {
+    display: inline;
+    block-size: unset;
+    inline-size: unset;
+    margin: 0;
+    margin-inline-start: 3px;
+    border: none;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    color: currentcolor;
+    font-size: inherit;
+    line-height: normal;
+
+    &:hover, &:focus { box-shadow: none; }
+  }
+}
+
+/* ---------------------------------- */
+/*  Filter State                      */
+/* ---------------------------------- */
+
+filter-state {
+  --filter-state-background-color: var(--checkbox-background-color);
+  --filter-state-focus-color: var(--color-warm-2);
+  --filter-state-positive-color: rgb(0 128 0);
+  --filter-state-negative-color: rgb(185 46 36);
+  --filter-state-size: 1em;
+
+  display: inline-block;
+  flex: 0 0 var(--filter-state-size);
+  width: var(--filter-state-size);
+  height: var(--filter-state-size);
+
+  &:focus, &:focus-visible { outline: none; }
+
+  .indicator {
+    transition: all 250ms ease, outline-color .5s;
+    border-radius: 3px;
+    outline: 2px solid transparent;
+
+    &::before {
+      content: "\f0c8";
+      width: var(--filter-state-size);
+      height: var(--filter-state-size);
+      color: var(--filter-state-background-color);
+      font-family: var(--font-awesome);
+      font-size: var(--filter-state-size);
+      line-height: var(--filter-state-size);
+    }
+    &[data-value="1"]::before {
+      content: "\f151";
+      color: var(--filter-state-positive-color);
+    }
+    &[data-value="-1"]::before {
+      content: "\f150";
+      color: var(--filter-state-negative-color);
+    }
+  }
+
+  &:not(:disabled) .indicator {
+    cursor: var(--cursor-pointer);
+  }
+  &:focus-visible .indicator {
+    outline: 2px solid var(--filter-state-focus-color);
+  }
+}
+
+/* ---------------------------------- */
+/*  Slide Toggles                     */
+/* ---------------------------------- */
+
+slide-toggle {
+  --slide-toggle-height: 20px;
+  --slide-toggle-width: 36px;
+  --slide-toggle-padding: 3px;
+  --slide-toggle-thumb-width: calc(var(--slide-toggle-height) - var(--slide-toggle-padding) * 2);
+  --slide-toggle-thumb-height: var(--slide-toggle-thumb-width);
+  --slide-toggle-transition-time: 250ms;
+
+  display: inline-block;
+  width: var(--slide-toggle-width);
+  height: var(--slide-toggle-height);
+  cursor: var(--cursor-pointer);
+
+  .slide-toggle-track {
+    width: 100%;
+    height: 100%;
+    background: var(--slide-toggle-track-color-unchecked, black);
+    border-radius: calc((var(--slide-toggle-height) * 2) / 3);
+    box-shadow: 0 0 8px rgb(0 0 0 / 45%);
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    padding: var(--slide-toggle-padding);
+  }
+
+  .slide-toggle-thumb {
+    width: var(--slide-toggle-thumb-width);
+    height: var(--slide-toggle-thumb-height);
+    border-radius: 100%;
+    background: var(--slide-toggle-thumb-color, white);
+    box-shadow: 0 0 8px rgb(0 0 0 / 45%);
+    text-align: center;
+    transition: margin-left var(--slide-toggle-transition-time) ease;
+  }
+
+  /* Checked state */
+  &[checked] .slide-toggle-track { background: var(--slide-toggle-track-color-checked, #3ba55d); }
+  &[checked] .slide-toggle-thumb { margin-left: calc(100% - var(--slide-toggle-thumb-width)); }
+}
+
+/* ---------------------------------- */
+/*  Icon                              */
+/* ---------------------------------- */
+
+dnd5e-icon {
+  &[data-edit] { cursor: var(--cursor-pointer); }
+  &.fa-fw { --icon-width: 1.25em };
+}
+
+/* ---------------------------------- */
+/*  Item List Controls                */
+/* ---------------------------------- */
+
+.dnd5e2 item-list-controls search, .dnd5e2 .filter-element search {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  background: var(--dnd5e-background-card);
+  box-shadow: 0 0 6px var(--dnd5e-shadow-45);
+  border: var(--dnd5e-border-gold);
+  padding-right: .25rem;
+  position: relative;
+
+  > input[type="text"] {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: .75rem .5rem .75rem 2.25rem;
+    font-size: var(--font-size-13);
+    height: unset;
+    line-height: 1;
+    font-family: var(--dnd5e-font-roboto);
+    outline: none;
+
+    &:hover, &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 12px var(--dnd5e-color-gold);
+    }
+  }
+
+  &::before {
+    content: "\f002";
+    font-family: var(--font-awesome);
+    font-weight: bold;
+    color: var(--color-text-tertiary);
+    position: absolute;
+    left: .75rem;
+  }
+
+  .controls {
+    display: flex;
+    padding: .5rem 0;
+    align-self: stretch;
+    align-items: stretch;
+  }
+
+  .filter-control {
+    height: 100%;
+    color: var(--filter-control-color);
+    font-size: var(--font-size-16);
+    padding: 0 .375rem;
+
+    &.active {
+      color: var(--filter-control-active-color);
+      &[data-action=filter] { color: var(--dnd5e-color-red); }
+    }
+
+    &:hover:not(.disabled) { text-shadow: 0 0 8px var(--color-shadow-primary); }
+
+    &:hover:not(.disabled), &:focus {
+      box-shadow: none;
+      outline: 0;
+    }
+  }
+
+  .filter-control.filter {
+    border-right: var(--dnd5e-border-separator-faint);
+    padding-right: .625rem;
+    &:hover { border-right: var(--dnd5e-border-separator-faint); }
+  }
+
+  .filter-control[data-action="sort"] { padding-left: .625rem; }
+}
+
+/* ---------------------------------- */
+/*  Multi Select                      */
+/* ---------------------------------- */
+
+.dnd5e multi-select .tags {
+  flex-wrap: wrap;
+  .tag { cursor: var(--cursor-pointer); }
+}
+
+/* ---------------------------------- */
+/*  Document Tags                     */
+/* ---------------------------------- */
+
+document-tags:has(> .content-link) {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* ---------------------------------- */
+/*  Secrets                           */
+/* ---------------------------------- */
+
+section.secret > button.reveal {
+  width: unset;
+  height: unset;
+  padding: 3px 6px;
+  margin: -10px auto -8px;
+  font-size: var(--font-size-10);
+  border-style: solid;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: var(--dnd5e-font-roboto);
+}
+
+/* -------------------------------------------- */
+/*  ProseMirror                                 */
+/* -------------------------------------------- */
+
+prose-mirror {
+  button.toggle:disabled { display: none; }
+}

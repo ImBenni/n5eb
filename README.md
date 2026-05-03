@@ -30,7 +30,7 @@ URL into the **Install System** dialog on the Setup menu of the application.
 
 https://raw.githubusercontent.com/foundryvtt/dnd5e/master/system.json
 
-If you wish to manually install the system, you must clone or extract it into the `Data/systems/dnd5e` folder. You
+If you wish to manually install the system, you must clone or extract it into the `Data/systems/n5eb` folder. You
 may do this by cloning the repository or downloading a zip archive from the
 [Releases Page](https://github.com/foundryvtt/dnd5e/releases).
 

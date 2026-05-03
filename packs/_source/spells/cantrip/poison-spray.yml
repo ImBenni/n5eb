@@ -1,0 +1,136 @@
+_id: g2u9PYfqWQAyg9OI
+name: Poison Spray
+ownership:
+  default: 0
+type: spell
+system:
+  description:
+    value: >-
+      <p>You extend your hand toward a creature you can see within range and
+      project a puff of noxious gas from your palm. The creature must succeed on
+      a Constitution saving throw or take 1d12 poison damage.</p><p>This spell's
+      damage increases by 1d12 when you reach 5th level (2d12), 11th level
+      (3d12), and 17th level (4d12).</p>
+    chat: ''
+  source:
+    custom: ''
+    book: ''
+    page: ''
+    license: CC-BY-4.0
+    rules: '2014'
+  activation:
+    type: action
+    condition: ''
+    value: 1
+  duration:
+    value: ''
+    units: inst
+  target:
+    affects:
+      type: creature
+      count: '1'
+      choice: false
+      special: ''
+    template:
+      units: ''
+      contiguous: false
+      type: ''
+  range:
+    value: '10'
+    units: ft
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 0
+  school: con
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  properties:
+    - vocal
+    - somatic
+  activities:
+    dnd5eactivity000:
+      _id: dnd5eactivity000
+      type: save
+      activation:
+        type: action
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: true
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      damage:
+        onSave: none
+        parts:
+          - number: 1
+            denomination: 12
+            bonus: ''
+            types:
+              - poison
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: whole
+              number: 1
+              formula: ''
+      save:
+        ability: con
+        dc:
+          calculation: spellcasting
+          formula: ''
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      name: Cast
+      img: ''
+      visibility:
+        level:
+          min: null
+          max: null
+  identifier: poison-spray
+sort: 0
+flags: {}
+img: icons/skills/toxins/cauldron-bubbles-overflow-green.webp
+effects: []
+folder: Z8kZlnggh1PtuF3Y
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.3.0
+  createdTime: 1725037362481
+  modifiedTime: 1772738740163
+  lastModifiedBy: dnd5ebuilder0000
+  exportSource: null
+_key: '!items!g2u9PYfqWQAyg9OI'

@@ -1,0 +1,134 @@
+name: Boon of Fate
+system:
+  description:
+    value: >-
+      <p>You gain the following benefits.</p><p><strong>Ability Score
+      Increase.</strong> Increase one ability score of your choice by 1, to a
+      maximum of 30.</p><p><strong>Improve Fate.</strong> When you or another
+      creature within 60 feet of you succeeds on or fails a D20 Test, you can
+      roll 2d4 and apply the total rolled as a bonus or penalty to the d20 roll.
+      Once you use this benefit, you can't use it again until you roll
+      Initiative or finish a Short or Long Rest.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: '2024'
+    revision: 2
+    license: CC-BY-4.0
+    book: ''
+  uses:
+    max: '1'
+    spent: 0
+    recovery:
+      - period: sr
+        type: recoverAll
+      - period: initiative
+        type: recoverAll
+  type:
+    value: feat
+    subtype: epicBoon
+  prerequisites:
+    level: null
+    repeatable: false
+  properties: []
+  requirements: ''
+  activities:
+    BSFYZ98EvNknWsaE:
+      type: utility
+      name: Improve Fate
+      _id: BSFYZ98EvNknWsaE
+      activation:
+        type: ''
+        value: null
+        override: false
+        condition: >-
+          When you or another creature within 60 feet of you succeeds or fails a
+          D20 Test
+      consumption:
+        scaling:
+          allowed: false
+        spellSlot: true
+        targets:
+          - type: itemUses
+            value: '1'
+            target: ''
+            scaling: {}
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      range:
+        override: false
+        units: ft
+        special: ''
+        value: '60'
+      target:
+        template:
+          contiguous: false
+          units: ft
+          type: ''
+        affects:
+          choice: false
+          count: '1'
+          type: creature
+          special: ''
+        override: false
+        prompt: false
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      roll:
+        prompt: false
+        visible: false
+        name: Bonus/Penalty
+        formula: 2d4
+      img: systems/n5eb/icons/svg/dice/d4.svg
+  enchant: {}
+  identifier: boon-of-fate
+  advancement:
+    - _id: zNqJRAI2ON8SRu40
+      type: AbilityScoreImprovement
+      configuration:
+        cap: 1
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        locked: []
+        points: 1
+        max: 30
+      value: {}
+      level: 0
+      title: ''
+      hint: ''
+_id: phbBoonofFate000
+type: feat
+img: icons/magic/air/air-smoke-casting.webp
+effects: []
+folder: 7zo2bljGLQY3uwXI
+sort: 125000
+ownership:
+  default: 0
+flags:
+  n5eb:
+    riders:
+      activity: []
+      effect: []
+_stats:
+  duplicateSource: null
+  coreVersion: '13.346'
+  systemId: n5eb
+  systemVersion: 5.1.0
+  createdTime: 1735865940774
+  modifiedTime: 1753301831301
+  lastModifiedBy: dnd5ebuilder0000
+  exportSource: null
+_key: '!items!phbBoonofFate000'

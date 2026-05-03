@@ -1,0 +1,161 @@
+_id: B0pnIcc52O6G8hi8
+name: Longstrider
+ownership:
+  default: 0
+type: spell
+system:
+  description:
+    value: >-
+      <p>You touch a creature. The target's speed increases by 10 feet until the
+      spell ends.</p><p><strong>At Higher Levels.</strong> When you cast this
+      spell using a spell slot of 2nd level or higher, you can target one
+      additional creature for each slot level above 1st.</p>
+    chat: ''
+  source:
+    custom: ''
+    book: ''
+    page: ''
+    license: CC-BY-4.0
+    rules: '2014'
+  activation:
+    type: action
+    condition: ''
+    value: 1
+  duration:
+    value: '1'
+    units: hour
+  target:
+    affects:
+      type: creature
+      count: '@item.level'
+      choice: false
+      special: ''
+    template:
+      units: ''
+      contiguous: false
+      type: ''
+  range:
+    units: touch
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 1
+  school: trs
+  materials:
+    value: A pinch of dirt
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  properties:
+    - vocal
+    - somatic
+    - material
+  activities:
+    dnd5eactivity000:
+      _id: dnd5eactivity000
+      type: utility
+      activation:
+        type: action
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: true
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects:
+        - _id: hfN31FqOkSYoQVz3
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      name: Cast
+      img: ''
+      visibility:
+        level:
+          min: null
+          max: null
+  identifier: longstrider
+sort: 0
+flags: {}
+img: icons/skills/movement/feet-winged-boots-brown.webp
+effects:
+  - name: Longstrider
+    img: icons/skills/movement/feet-winged-boots-brown.webp
+    origin: Compendium.n5eb.spells.Item.B0pnIcc52O6G8hi8
+    transfer: false
+    _id: hfN31FqOkSYoQVz3
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.bonus
+        mode: 2
+        value: '10'
+        priority: null
+    disabled: false
+    duration:
+      startTime: null
+      combat: null
+      seconds: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    description: <p>Your speed increases by 10 feet until the spell ends.</p>
+    tint: '#ffffff'
+    statuses: []
+    sort: 0
+    flags:
+      n5eb:
+        riders:
+          statuses: []
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: n5eb
+      systemVersion: 5.3.0
+      createdTime: 1772823676300
+      modifiedTime: 1772823702800
+      lastModifiedBy: dnd5ebuilder0000
+    _key: '!items.effects!B0pnIcc52O6G8hi8.hfN31FqOkSYoQVz3'
+folder: ERuXllkhTQF51rDJ
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.3.0
+  createdTime: 1725037350256
+  modifiedTime: 1772823676326
+  lastModifiedBy: dnd5ebuilder0000
+  exportSource: null
+_key: '!items!B0pnIcc52O6G8hi8'

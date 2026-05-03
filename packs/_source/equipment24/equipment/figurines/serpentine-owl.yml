@@ -1,0 +1,163 @@
+name: Serpentine Owl
+system:
+  description:
+    value: >-
+      <p><em>See
+      @UUID[Compendium.n5eb.equipment24.Item.dmgFigurineOfWon]{Figurine of
+      Wondrous Power}</em></p><p>This serpentine statuette of an owl can become
+      a <strong>@UUID[Compendium.n5eb.actors24.Actor.mmGiantOwl000000]{Giant
+      Owl}</strong> for up to 8 hours. The owl can communicate telepathically
+      with you at any range if you and it are on the same plane of existence.
+      Once it has been used, it can't be used again until 2 days have
+      passed.</p><section class="secret"
+      id="secret-lvDPI4uyHQj4dE5a"><p><strong>Foundry Note</strong></p><p>This
+      item's limited uses represent the 2 days required before the figurine can
+      be used again.</p></section>
+    chat: ''
+  price:
+    value: 4000
+    denomination: gp
+  activities:
+    2cF8xpCCBF1acnMx:
+      type: summon
+      _id: 2cF8xpCCBF1acnMx
+      sort: 0
+      activation:
+        type: action
+        value: null
+        override: false
+        condition: ''
+      consumption:
+        scaling:
+          allowed: false
+        spellSlot: true
+        targets:
+          - type: itemUses
+            value: '@item.uses.max'
+            target: ''
+      description:
+        chatFlavor: ''
+      duration:
+        units: hour
+        concentration: false
+        override: false
+        value: '8'
+      effects: []
+      range:
+        override: false
+        units: ft
+        special: ''
+        value: '60'
+      target:
+        template:
+          contiguous: false
+          units: ft
+          type: ''
+        affects:
+          choice: false
+          count: '1'
+          type: space
+          special: unoccupied space
+        override: false
+        prompt: true
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      bonuses:
+        ac: ''
+        hd: ''
+        hp: ''
+        attackDamage: ''
+        saveDamage: ''
+        healing: ''
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: false
+        proficiency: false
+        saves: false
+        ability: ''
+      profiles:
+        - count: ''
+          name: ''
+          _id: BcEYpyd1XmoGOaPj
+          uuid: Compendium.n5eb.actors24.Actor.VVXly3ue0i3YgGrB
+          level:
+            min: null
+            max: null
+      summon:
+        prompt: true
+        mode: ''
+        identifier: ''
+      name: ''
+      img: ''
+      appliedEffects: []
+      visibility:
+        requireMagic: true
+        level:
+          min: null
+          max: null
+        identifier: ''
+  uses:
+    spent: 0
+    recovery:
+      - period: day
+        type: formula
+        formula: '1'
+    max: '2'
+  identifier: serpentine-owl-rare
+  source:
+    revision: 1
+    rules: '2024'
+    book: ''
+    license: CC-BY-4.0
+  identified: true
+  unidentified:
+    description: ''
+  container: null
+  quantity: 1
+  weight:
+    value: 0
+    units: lb
+  rarity: rare
+  attunement: ''
+  attuned: false
+  equipped: false
+  armor:
+    value: null
+    magicalBonus: null
+    dex: null
+  cover: null
+  crewed: false
+  hp:
+    value: null
+    max: null
+    dt: null
+    conditions: ''
+  type:
+    value: wondrous
+    baseItem: ''
+  properties:
+    - mgc
+  strength: null
+  proficient: null
+_id: dmgFwpSerpentine
+type: equipment
+img: icons/commodities/materials/feather-white.webp
+effects: []
+folder: EK3hCTgvAmjsKlfl
+sort: 175000
+ownership:
+  default: 0
+flags: {}
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.2.0
+  createdTime: 1729781760022
+  modifiedTime: 1764615759976
+  lastModifiedBy: dnd5ebuilder0000
+  exportSource: null
+_key: '!items!dmgFwpSerpentine'

@@ -1,0 +1,631 @@
+.dnd5e2.sheet.item {
+
+  /* ---------------------------------- */
+  /*  Outer Window                      */
+  /* ---------------------------------- */
+
+  --dnd5e-sheet-header-height: 170px;
+  border: var(--dnd5e-border-gold);
+
+  &:not(.minimized)::before {
+    content: var(--dnd5e-item-header-content, none);
+    background: var(--dnd5e-item-header-image) no-repeat top center / cover;
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 150px;
+    border-radius: 5px 5px 0 0;
+    opacity: .2;
+    mask-image: linear-gradient(to bottom, black, transparent);
+  }
+
+  .window-header { flex-wrap: nowrap; }
+
+  .window-header .header-elements {
+    display: contents;
+    flex: none;
+    color: var(--color-text-primary);
+    font-family: var(--dnd5e-font-roboto-condensed);
+    line-height: 1;
+
+    .source-book {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    button {
+      margin: 0;
+      display: grid;
+      place-content: center;
+      &[hidden] { display: none; }
+    }
+
+    i {
+      font-size: var(--font-size-11);
+      color: var(--color-text-tertiary);
+      margin: 0;
+    }
+  }
+
+  .window-header .state-toggle.active { color: var(--item-state-toggle-active); }
+
+  &:not(.minimized) .window-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 12px 8px;
+    gap: 8px;
+  }
+
+  &.minimized {
+    box-shadow: 0 0 20px var(--color-shadow-dark);
+    background: url("../../ui/denim075.png");
+    border: unset;
+
+    .window-header {
+      .window-title { visibility: visible; }
+      :is(slide-toggle, .header-elements) { display: none; }
+    }
+  }
+
+  /* ---------------------------------- */
+  /*  Sheet Header                      */
+  /* ---------------------------------- */
+
+  .sheet-header {
+    display: flex;
+    padding: 0 12px;
+    margin-top: 8px;
+    align-items: stretch;
+    gap: 8px;
+    min-height: 104px;
+    --dnd5e-document-image-size: 96px;
+
+    input, select { background: var(--dnd5e-background-5); }
+
+    > .left { flex: none; }
+
+    > .middle {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    > .right {
+      flex: 0 0 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: end;
+    }
+
+    /* Name */
+    .document-name {
+      text-align: center;
+      font-size: var(--font-size-32);
+      font-family: var(--dnd5e-font-modesto);
+      font-weight: bold;
+    }
+
+    input.document-name { text-align: center; }
+
+    /* Subtitles */
+    .identity-info .subtitles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-14);
+      height: 32px;
+
+      &:empty { display: none; }
+
+      li {
+        &::after {
+          content: "•";
+          margin-left: 4px;
+        }
+
+        &:last-child::after, &:has(+ .full-width)::after {
+          content: "";
+          margin: 0;
+        }
+
+        &.full-width {
+          flex: 1 0 100%;
+          font-size: var(--font-size-12);
+          text-align: center;
+          &::before { display: none; }
+        }
+      }
+
+      /* Rarity */
+      .item-rarity {
+        text-transform: capitalize;
+        > select { text-transform: capitalize; }
+      }
+    }
+
+    /* Spell School */
+    .school {
+      --icon-size: 48px;
+      --icon-fill: var(--dnd5e-color-gold);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+    }
+
+    /* Weight, Price, & Quantity */
+    .common-fields {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-13);
+      gap: 8px;
+
+      &.physical {
+        justify-content: start;
+        padding-top: 10px;
+      }
+
+      .weight, .price, .quantity {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      input { text-align: center; }
+
+      select {
+        color: var(--color-text-primary);
+        font-size: var(--font-size-11);
+        padding: 0;
+      }
+    }
+  }
+
+  /* ---------------------------------- */
+  /*  Tabs                              */
+  /* ---------------------------------- */
+
+  nav.tabs {
+    justify-content: space-evenly;
+    font-family: var(--dnd5e-font-roboto);
+    text-transform: uppercase;
+    font-size: var(--font-size-13);
+    font-weight: bold;
+    align-items: start;
+    border: none;
+
+    .item {
+      color: var(--color-text-secondary);
+      text-align: center;
+      flex: 1;
+
+      > span { padding-bottom: 1px; }
+
+      &.active {
+        color: var(--color-text-primary);
+        text-shadow: none;
+        > span { border-bottom: 3px solid var(--dnd5e-color-gold); }
+      }
+    }
+  }
+
+  form > hr.ampersand { margin-bottom: -4px; }
+
+  /* ---------------------------------- */
+  /*  Sheet Body                        */
+  /* ---------------------------------- */
+
+  .tab {
+    max-height: ~"calc(min(max(70vh, 1000px), 95vh) - var(--dnd5e-sheet-header-height))";
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: -6px -11px -6px -6px;
+    padding: 6px 2px 6px 6px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--dnd5e-color-scrollbar) transparent;
+    scrollbar-gutter: stable;
+
+    &:not(.active) { display: none; }
+    &.effects, &.activities { padding: 12px 2px 58px 6px; }
+
+    > .pills .pill {
+      font-size: var(--font-size-10);
+      padding: 3px 6px;
+      line-height: 1;
+    }
+
+    &.single-description {
+      padding-right: 9px;
+      scrollbar-gutter: auto;
+    }
+
+    &.editing {
+      scrollbar-gutter: auto;
+      margin-inline: -12px;
+      padding-inline: 0;
+
+      .pills { padding-inline: 12px; }
+    }
+  }
+
+  .spell-block {
+    width: 250px;
+    margin: 4px auto 4px;
+  }
+
+  .info-block {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 16px;
+
+    > div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .label {
+        font-family: var(--dnd5e-font-roboto-condensed);
+        font-size: var(--font-size-11);
+        color: var(--color-text-secondary);
+        text-transform: uppercase;
+
+        .config-button { color: var(--color-text-tertiary); }
+      }
+
+      div.value {
+        font-size: var(--font-size-14);
+        font-family: var(--dnd5e-font-roboto);
+      }
+
+      &.info-sm div.value {
+        margin-top: 4px;
+        font-size: var(--font-size-11);
+      }
+
+      &.info-lg div.value {
+        font-family: var(--dnd5e-font-roboto-slab);
+        font-weight: bold;
+        font-size: var(--font-size-24);
+      }
+
+      .sign {
+        color: var(--color-text-tertiary);
+        font-size: var(--font-size-18);
+      }
+
+      &.info-grid div.value {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 4px;
+      }
+
+      &.damage div.value {
+        --icon-fill: var(--color-text-secondary);
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+
+  /* Descriptions */
+  .item-descriptions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .description {
+      padding: 8px;
+      font-family: var(--dnd5e-font-roboto-condensed);
+      box-shadow: 0 0 6px var(--dnd5e-shadow-15);
+
+      > .header {
+        background: none;
+        border: none;
+        color: var(--color-text-primary);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        > span {
+          flex: 1;
+          font-family: var(--dnd5e-font-roboto-slab);
+          font-weight: bold;
+          text-align: center;
+          font-size: var(--font-size-14);
+        }
+
+        > button {
+          flex: none;
+          width: unset;
+
+          &:hover, &:focus-visible {
+            box-shadow: none;
+            text-shadow: 0 0 8px var(--color-shadow-primary);
+          }
+        }
+      }
+
+      &:not(.collapsible) > .header { padding-left: 14px; }
+
+      &.collapsible {
+        > .header {
+          cursor: var(--cursor-pointer);
+
+          &::before {
+            content: "\f078";
+            font-family: var(--font-awesome);
+            font-weight: bold;
+            color: var(--color-text-secondary);
+            transition: all 250ms ease;
+          }
+        }
+
+        &.empty > .header {
+          cursor: unset;
+          &::before { visibility: hidden; }
+        }
+
+        &.collapsed > .header::before { transform: rotate(-90deg); }
+
+        .editor { overflow: hidden; }
+      }
+
+      .editor { padding: 0 6px; }
+    }
+  }
+
+  /* Container Contents */
+  .inventory-element {
+    .top .containers { justify-content: end; }
+
+    .items-section {
+      .item-uses, .item-charges { display: none; }
+      .item-price { display: flex; }
+    }
+
+    .bottom {
+      position: sticky;
+      bottom: -6px;
+
+      .encumbrance {
+        border: var(--dnd5e-border-gold);
+        border-radius: 3px;
+        box-shadow: 0 0 6px var(--dnd5e-shadow-45);
+        width: unset;
+
+        .breakpoint { display: none; }
+        .meter { border-radius: 3px; }
+      }
+    }
+  }
+
+  /* Advancements */
+  .tab.advancement {
+    padding: 12px 2px 58px 6px;
+
+    .items-header {
+      .item-controls {
+        align-items: center;
+        justify-content: end;
+        padding-right: 12px;
+      }
+
+      .info-control, .item-control {
+        position: unset;
+        color: var(--dnd5e-color-gold);
+      }
+    }
+
+    .item-name {
+      .name {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .tags { --icon-size: 18px; }
+
+      .title {
+        font-family: var(--dnd5e-font-roboto-slab);
+        font-size: var(--font-size-13);
+        font-weight: bold;
+      }
+
+      .summary {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: var(--font-size-10);
+        color: var(--color-text-secondary);
+
+        p { margin: 0; }
+
+        .content-link {
+          color: var(--advancement-summary-link-color);
+          text-decoration-style: dotted;
+          > i { color: var(--advancement-summary-link-color); }
+        }
+
+        .tag {
+          padding: 0 3px;
+          text-decoration: underline dotted;
+        }
+      }
+    }
+
+    .advancement-value { width: 50px; }
+
+    .item-detail.advancement-value { font-size: var(--font-size-13); }
+
+    .svg .item-image {
+      border: none;
+      background: none;
+      box-shadow: none;
+      filter: var(--advancement-icon-filter, none);
+    }
+  }
+
+  /* Details */
+  .tab.details {
+    .starting-equipment {
+      font-family: var(--dnd5e-font-roboto-condensed);
+
+      &.empty {
+        padding: 8px;
+        text-align: center;
+        font-style: italic;
+        color: var(--color-text-secondary);
+      }
+
+      li { line-height: 1.5; }
+    }
+
+    .form-group .sep.unit {
+      margin-inline: 4px;
+      font-weight: bold;
+    }
+
+    legend .control-button { font-size: var(--font-size-11); }
+  }
+
+  /* Activities */
+  .activities { gap: 0; }
+  .activities-list .activity:first-child { border-left: 4px solid var(--dnd5e-color-gold); }
+
+  /* Facilities */
+  fieldset.harvesting {
+    display: grid;
+    grid-template: "a a" "b c" / 1fr 60px;
+    column-gap: 8px;
+
+    > .form-group { grid-area: a; }
+    .facility-craft { grid-area: b; }
+
+    .quantity {
+      grid-area: c;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .separator { color: var(--color-text-secondary); }
+    }
+  }
+
+  /* ---------------------------------- */
+  /*  Editable                          */
+  /* ---------------------------------- */
+
+  form.editable {
+    .sheet-header {
+      .common-fields {
+        gap: 4px;
+        .separator { padding: 0 4px 0 6px; }
+        &.physical {
+          justify-content: center;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  /* ---------------------------------- */
+  /*  Locked                            */
+  /* ---------------------------------- */
+
+  form.locked {
+    .item-descriptions .description:not(.collapsible) > .header { display: none; }
+  }
+
+}
+
+/* ----------------------------------------- */
+/*  Starting Equipment Configuration         */
+/* ----------------------------------------- */
+
+.dnd5e2.starting-equipment {
+
+
+  select, input { height: calc(var(--form-field-height) + 1px); }
+  button[data-action="add-entry"] { width: 100%; }
+
+  ul {
+    margin-block-end: 0;
+    padding: 0;
+    list-style: none;
+    gap: 12px;
+  }
+  li[data-entry-id] {
+    position: relative;
+    padding: 8px;
+    background: var(--background-depth-1);
+    border: var(--dnd5e-border-gold);
+    border-radius: 4px;
+    box-shadow: 0 0 4px var(--dnd5e-shadow-45);
+
+    &:has(.drag-bar) { padding-inline-end: 18px; }
+    &[data-depth="2"] { background: var(--background-depth-2); }
+    &[data-depth="3"] { background: var(--background-depth-3); }
+
+    .controls, .data { gap: 4px; }
+    .controls {
+      justify-content: space-between;
+      margin-block-end: 4px;
+    }
+    .drag-bar {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      inset-block: 0;
+      inset-inline-end: 0;
+      inline-size: 16px;
+      cursor: var(--cursor-grab);
+      color: var(--dnd5e-color-faint);
+    }
+    [data-action="delete-entry"] {
+      --size: 26px;
+      flex: 0 0 var(--size);
+      margin: 0;
+      padding: 0;
+      block-size: var(--size);
+      inline-size: var(--size);
+      border: none;
+      background: none;
+      text-align: center;
+
+      &:hover, &:focus { box-shadow: none; }
+      &:hover, &:focus-visible { text-shadow: 0 0 5px var(--color-shadow-primary); }
+    }
+    [name$=".count"] { flex: 0 0 3em; }
+    .content-link, .drop-area {
+      display: flex;
+      align-items: center;
+    }
+    .drop-area {
+      border: 1px dashed var(--color-border-light-2);
+      border-radius: 4px;
+      padding: 6px;
+      font-size: var(--font-size-11);
+      color: var(--color-text-secondary);
+    }
+    .require-proficiency {
+      flex: 0.66;
+      align-items: center;
+      gap: 4px;
+      font-size: var(--font-size-11);
+      text-align: end;
+
+      dnd5e-checkbox {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}
