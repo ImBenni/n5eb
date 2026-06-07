@@ -19,10 +19,10 @@
 
 ## Smoke Test Follow-Ups
 
-- [ ] Verify non-zero hit point rest recovery; non-zero chakra and chakra dice recovery has been verified.
-- [ ] Verify Mastery override/cap UX beyond display and roll-formula checks.
-- [ ] Recheck startup, sheet, and roll cleanup only if new active `n5eb` errors appear.
-- [ ] Verify insufficient-chakra warning with the starter jutsu set; the earlier smoke test covered this with a temporary C-rank jutsu.
+- [x] Verify non-zero hit point rest recovery; non-zero chakra and chakra dice recovery has been verified.
+- [x] Verify Mastery override/cap UX beyond display and roll-formula checks.
+- [x] Recheck startup, sheet, and roll cleanup only if new active `n5eb` errors appear.
+- [x] Verify insufficient-chakra warning with the starter jutsu set; the earlier smoke test covered this with a temporary C-rank jutsu.
 - [x] Investigate the starter `Substitution Technique` utility activity; the world has a successful `Substitution Technique - Cast` chat card with chakra spent, and the source actor/compendium copies now use the corrected reaction utility activity.
 
 ## Playable Content MVP
