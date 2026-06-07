@@ -70,7 +70,10 @@ export async function actorValues(actor, trait) {
   };
 
   if ( ["skills", "tool"].includes(trait) ) {
-    Object.entries(data).forEach(([k, d]) => setValue(k, d.value));
+    Object.entries(data).forEach(([k, d]) => {
+      const value = Number(d.value ?? 0);
+      setValue(k, value >= 1 ? 1 : value >= .5 ? .5 : 0);
+    });
   } else if ( trait === "saves" ) {
     Object.entries(data).forEach(([k, d]) => setValue(k, d.proficient));
   } else if ( trait === "dm" ) {
@@ -143,8 +146,11 @@ export async function categories(trait) {
       return obj;
     }, {});
 
+    const includeKeys = traitConfig.subtypes.includeKeys ? new Set(traitConfig.subtypes.includeKeys) : null;
+
     // Fetch base items for all IDs
     const baseItems = await Promise.all(Object.entries(ids).map(async ([key, id]) => {
+      if ( includeKeys && !includeKeys.has(key) ) return [key, null];
       if ( foundry.utils.getType(id) === "Object" ) id = id.id;
       const index = await getBaseItem(id);
       return [key, index];
@@ -159,7 +165,10 @@ export async function categories(trait) {
       if ( map?.[type] ) type = map[type];
 
       // No category for this type, add at top level
-      if ( !config[type] ) config[key] = { label: index.name };
+      if ( !config[type] ) {
+        if ( traitConfig.subtypes.skipUnknown ) continue;
+        config[key] = { label: index.name };
+      }
 
       // Add as child of appropriate category
       else {

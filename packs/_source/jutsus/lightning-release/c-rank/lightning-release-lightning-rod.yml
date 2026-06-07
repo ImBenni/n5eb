@@ -1,0 +1,283 @@
+name: Lightning Release Lightning Rod
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/lightning.webp
+system:
+  description:
+    value: >-
+      <p>You conjure your lightning release chakra creating a lightning release lance, staff or polearm of your
+      description. This projected polearm has a reach of 10 feet, the trip, deadly and thrown (90/120)
+      properties.</p><p>For the duration of this jutsu you do not need to spend chakra to maintain concentration on this
+      jutsu.</p><p>While wielding this polearm you gain the following options using the corresponding
+      actions</p><p>Action: Make a Melee Ninjutsu attack dealing 4d10 lightning damage on a hit.</p><p>Action: Make a
+      Ranged Ninjutsu attack, throwing the lance targeting a creature you can see, within throwing range, dealing
+      lightning damage equal to 5d6 + Ninjutsu ability modifier. Regardless of a hit or miss, the lance then explodes,
+      creatures within 20 feet of the target must succeed a Dexterity saving throw, taking 3d8 lightning damage on a
+      failed save or half as much on a successful save. The Jutsu then ends.</p><p>Bonus Action: You compress your
+      polearm into its most basic form using it to supercharge the next jutsu you cast with the Lightning Release
+      Keyword before the end of your turn. The next jutsu you cast with the Lightning Release Keyword that has a casting
+      time of 1 Action has its cost reduced by half and deals additional damage equal to your Ninjutsu ability modifier.
+      This jutsu then ends.</p><p>Reaction: You spin your polearm in an attempt to deflect incoming attacks. Roll 1d6.
+      You gain a bonus to your AC equal to the result and a bonus to your Strength and Dexterity saves equal to half of
+      the result (Min 1.) until the beginning of your next turn.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: ninjutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 4d10
+        - lightning
+    versatile: 5d6+@mod
+  formula: 3d8
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: lightning-release-lightning-rod
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: lightning-release/c-rank/lightning-release-lightning-rod.json
+      sourceId: lETI2gTsU9UzQGon
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You conjure your lightning release chakra creating a lightning release lance, staff or polearm of your
+            description. This projected polearm has a reach of 10 feet, the trip, deadly and thrown (90/120)
+            properties.</p><p>For the duration of this jutsu you do not need to spend chakra to maintain concentration
+            on this jutsu.</p><p>While wielding this polearm you gain the following options using the corresponding
+            actions</p><p>Action: Make a Melee Ninjutsu attack dealing 4d10 lightning damage on a hit.</p><p>Action:
+            Make a Ranged Ninjutsu attack, throwing the lance targeting a creature you can see, within throwing range,
+            dealing lightning damage equal to 5d6 + Ninjutsu ability modifier. Regardless of a hit or miss, the lance
+            then explodes, creatures within 20 feet of the target must succeed a Dexterity saving throw, taking 3d8
+            lightning damage on a failed save or half as much on a successful save. The Jutsu then ends.</p><p>Bonus
+            Action: You compress your polearm into its most basic form using it to supercharge the next jutsu you cast
+            with the Lightning Release Keyword before the end of your turn. The next jutsu you cast with the Lightning
+            Release Keyword that has a casting time of 1 Action has its cost reduced by half and deals additional damage
+            equal to your Ninjutsu ability modifier. This jutsu then ends.</p><p>Reaction: You spin your polearm in an
+            attempt to deflect incoming attacks. Roll 1d6. You gain a bonus to your AC equal to the result and a bonus
+            to your Strength and Dexterity saves equal to half of the result (Min 1.) until the beginning of your next
+            turn.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: ninjutsu
+        actionType: mnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 4d10
+              - lightning
+          versatile: 5d6+@mod
+        formula: 3d8
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - lightning
+        chakraCost: 9
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+    otherCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756941476
+  modifiedTime: 1728756941476
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: lightning-release/c-rank/lightning-release-lightning-rod.json
+folder: grQaz55604Xzx6aG
+sort: 4400000
+ownership:
+  default: 0
+_id: lETI2gTsU9UzQGon
+_key: '!items!lETI2gTsU9UzQGon'

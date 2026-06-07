@@ -1,0 +1,58 @@
+<fieldset>
+    <legend>{{ localize "N5EB.DOWNTIME.TemplateDetails" }}</legend>
+
+    {{!-- Category --}}
+    {{ formField fields.category value=source.category choices=downtime.categories labelAttr="label" localize=true
+                 rootId=partId }}
+
+    {{!-- Weeks --}}
+    {{ formField fields.weeks.fields.value value=source.weeks.value rootId=partId }}
+    {{ formField fields.weeks.fields.max value=source.weeks.max rootId=partId }}
+    {{ formField fields.weeks.fields.mode value=source.weeks.mode choices=downtime.weekModes labelAttr="label"
+                 localize=true rootId=partId }}
+    {{ formField fields.weeks.fields.note value=source.weeks.note rootId=partId }}
+
+    {{!-- Cost --}}
+    {{ formField fields.cost.fields.mode value=source.cost.mode choices=downtime.pricingModes labelAttr="label"
+                 localize=true rootId=partId }}
+    {{ formField fields.cost.fields.due value=source.cost.due choices=downtime.dueTimings labelAttr="label"
+                 localize=true rootId=partId }}
+    {{ formField fields.cost.fields.fixed value=source.cost.fixed rootId=partId }}
+    {{ formField fields.cost.fields.perWeek value=source.cost.perWeek rootId=partId }}
+    {{ formField fields.cost.fields.manualTotal value=source.cost.manualTotal rootId=partId }}
+    {{ formField fields.cost.fields.dueAmount value=source.cost.dueAmount rootId=partId }}
+    {{ formField fields.cost.fields.rank value=source.cost.rank choices=downtime.ranks labelAttr="label"
+                 blank="" localize=true rootId=partId }}
+    {{ formField fields.cost.fields.override value=source.cost.override input=inputs.createCheckboxInput rootId=partId }}
+    {{ formField fields.cost.fields.reason value=source.cost.reason rootId=partId }}
+    <fieldset>
+        <legend>{{ localize "N5EB.DOWNTIME.Cost.RankTable" }}</legend>
+        {{#each downtime.ranks as |rank key|}}
+        {{ formField (lookup @root.fields.cost.fields.rankTable.fields key) value=(lookup @root.source.cost.rankTable key)
+                     label=rank.label localize=true rootId=@root.partId }}
+        {{/each}}
+    </fieldset>
+    {{ formField fields.cost.fields.note value=source.cost.note rootId=partId }}
+</fieldset>
+
+<fieldset>
+    <legend>{{ localize "N5EB.DOWNTIME.Roll.Label" }}</legend>
+
+    {{ formField fields.roll.fields.enabled value=source.roll.enabled input=inputs.createCheckboxInput rootId=partId }}
+    {{ formField fields.roll.fields.label value=source.roll.label rootId=partId }}
+    {{ formField fields.roll.fields.ability value=source.roll.ability choices=downtime.rollAbilities
+                 labelAttr="label" blank="" localize=true rootId=partId }}
+    {{ formField fields.roll.fields.skill value=source.roll.skill choices=downtime.rollSkills labelAttr="label"
+                 blank="" localize=true rootId=partId }}
+    {{ formField fields.roll.fields.tool value=source.roll.tool choices=downtime.rollTools labelAttr="label"
+                 blank="" localize=true rootId=partId }}
+    {{ formField fields.roll.fields.dc value=source.roll.dc rootId=partId }}
+</fieldset>
+
+<fieldset>
+    <legend>{{ localize "N5EB.DOWNTIME.Target.Label" }}</legend>
+
+    {{ formField fields.target.fields.type value=source.target.type rootId=partId }}
+    {{ formField fields.target.fields.uuid value=source.target.uuid rootId=partId }}
+    {{ formField fields.completion value=source.completion rootId=partId }}
+</fieldset>

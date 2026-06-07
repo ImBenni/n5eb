@@ -193,8 +193,10 @@ export default class VehicleData extends CommonTemplate {
    */
   static #migrateCargoCapacity(source) {
     const cargo = source.attributes?.capacity?.cargo;
-    if ( typeof cargo !== "number" ) return;
-    source.attributes.capacity.cargo = { value: cargo, units: "tn" };
+    if ( typeof cargo === "number" ) source.attributes.capacity.cargo = { value: cargo, units: "bulk" };
+    else if ( foundry.utils.getType(cargo) === "Object" ) cargo.units = "bulk";
+    const weight = source.traits?.weight;
+    if ( foundry.utils.getType(weight) === "Object" ) weight.units = "bulk";
   }
 
   /* -------------------------------------------- */

@@ -1,0 +1,408 @@
+name: Breath of Rain Downpour
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: "<p>You begin to collect and manifest water release chakra until it laces the striking portion of your weapon. The water release chakra\_ begins to transform into streams of water, capable of being seen\_ and felt as you fire a single shot into the sky, which then scatters and rains downs an innumerable number of beasts made of water onto creatures of your choice.</p><p>Select a number of creatures you can see within range equal to your proficiency bonus, as you fire your attack into the air. Make one ranged taijutsu attacks using your weapon comparing the result to each targets AC. On a successful hit, you deal your weapons damage + 3d8 cold damage. If any target has any ranks of the\_ chilled, or are Dazed, you make your attacks at advantage. If you\_ score a critical hit with this attack, only one creature, of your choice suffers the effects of a critical hit.</p><p>At Higher Ranks: For each rank you cast this jutsu above B-Rank increase the cost of this jutsu by 3 and the damage by 1d6, and the number of creatures you can target by +1.\_</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Any Range
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 13
+    scale: false
+  ability: taijutsu
+  actionType: rsak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 3d8
+        - cold
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 5
+  school: trs
+  materials:
+    value: (Any Range),
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d6
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: breath-of-rain-downpour
+  jutsu:
+    components:
+      - cm
+      - m
+      - w
+    keywords:
+      - bukijutsu
+      - clash
+      - water
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: b
+  chakra:
+    cost: '13'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Chilled
+    origin: Compendium.n5eb.jutsus.Item.LAMrhUriBhi4n8vo
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/chilled.svg
+    _id: JhoqJw6yoL0El413
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.abilities.dex.bonuses.check
+        mode: 2
+        value: '-1'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!LAMrhUriBhi4n8vo.JhoqJw6yoL0El413'
+  - name: Dazed
+    origin: Compendium.n5eb.jutsus.Item.LAMrhUriBhi4n8vo
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: MTCdX0OOgvmx14Dj
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow and cannot take as many actions as
+      usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition lasts until the End of the affected
+      creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!LAMrhUriBhi4n8vo.MTCdX0OOgvmx14Dj'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - molding
+      - weapon
+      - chakramolding
+      - weapons
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/b-rank/breath-of-rain-downpour.json
+      sourceId: LAMrhUriBhi4n8vo
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You begin to collect and manifest water release chakra until it laces the striking portion of your weapon. The water release chakra\_ begins to transform into streams of water, capable of being seen\_ and felt as you fire a single shot into the sky, which then scatters and rains downs an innumerable number of beasts made of water onto creatures of your choice.</p><p>Select a number of creatures you can see within range equal to your proficiency bonus, as you fire your attack into the air. Make one ranged taijutsu attacks using your weapon comparing the result to each targets AC. On a successful hit, you deal your weapons damage + 3d8 cold damage. If any target has any ranks of the\_ chilled, or are Dazed, you make your attacks at advantage. If you\_ score a critical hit with this attack, only one creature, of your choice suffers the effects of a critical hit.</p><p>At Higher Ranks: For each rank you cast this jutsu above B-Rank increase the cost of this jutsu by 3 and the damage by 1d6, and the number of creatures you can target by +1.\_</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Any Range
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 13
+          scale: false
+        ability: taijutsu
+        actionType: rtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 3d8
+              - cold
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 3
+        school: buki
+        materials:
+          value: (Any Range),
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d6
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+          - weapons
+          - molding
+          - weapon
+        keywords:
+          - bukijutsu
+          - clash
+          - water
+        chakraCost: 13
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755893853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/b-rank/breath-of-rain-downpour.json
+folder: Jl06pbyhjmFzL4c2
+sort: 1100000
+ownership:
+  default: 0
+_id: LAMrhUriBhi4n8vo
+_key: '!items!LAMrhUriBhi4n8vo'

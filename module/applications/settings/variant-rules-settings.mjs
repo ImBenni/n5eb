@@ -42,6 +42,7 @@ export default class VariantRulesSettingsConfig extends BaseSettingsConfig {
           dnd5e.settings.rulesVersion === "legacy" ? this.createSettingField("allowFeats") : null,
           this.createSettingField("restVariant"),
           this.createSettingField("proficiencyModifier"),
+          this.createSettingField("useExpertise"),
           this.createSettingField("levelingMode")
         ].filter(_ => _);
         context.legend = game.i18n.localize("SETTINGS.DND5E.General");

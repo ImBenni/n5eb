@@ -1,4 +1,5 @@
-import { formatNumber, getPluralRules, simplifyBonus, splitSemicolons } from "../../utils.mjs";
+import { getClassmodArtsSpellcastingCards } from "../../classmod-arts.mjs";
+import { formatNumber, getPluralRules, splitSemicolons } from "../../utils.mjs";
 import { createCheckboxInput } from "../fields.mjs";
 import BaseActorSheet from "./api/base-actor-sheet.mjs";
 import HabitatConfig from "./config/habitat-config.mjs";
@@ -440,34 +441,28 @@ export default class NPCActorSheet extends BaseActorSheet {
   /** @inheritDoc */
   async _prepareSpellsContext(context, options) {
     context = await super._prepareSpellsContext(context, options);
-    context.classSpellcasting = Object.values(this.actor.classes).some(c => c.spellcasting?.levels);
 
-    const { abilities, attributes, bonuses } = this.actor.system;
-    context.spellcasting = [];
-    const msak = simplifyBonus(bonuses.msak.attack, context.rollData);
-    const rsak = simplifyBonus(bonuses.rsak.attack, context.rollData);
-    const spellcaster = Object.values(this.actor.spellcastingClasses)[0];
-    const ability = spellcaster?.spellcasting.ability ?? attributes.spellcasting;
-    const spellAbility = abilities[ability];
-    const mod = spellAbility?.mod ?? 0;
-    const attackBonus = msak === rsak ? msak : 0;
-    context.spellcasting.push({
-      label: game.i18n.format("DND5E.SpellcastingClass", {
-        class: spellcaster?.name ?? game.i18n.format("DND5E.NPC.Label")
-      }),
-      level: spellcaster?.system.levels ?? attributes.spell.level,
-      ability: {
-        ability, mod,
-        label: CONFIG.DND5E.abilities[ability]?.label
-      },
-      attack: mod + attributes.prof + attackBonus,
-      save: spellAbility?.dc ?? 0,
-      noSpellcaster: !spellcaster,
-      concentration: {
-        mod: attributes.concentration.save,
-        tooltip: game.i18n.format("DND5E.AbilityConfigure", { ability: game.i18n.localize("DND5E.Concentration") })
-      }
+    const { attributes } = this.actor.system;
+    context.spellcasting = Object.entries(CONFIG.DND5E.jutsuCastingTypes).map(([key, config]) => {
+      const casting = attributes.jutsu[key];
+      return {
+        key,
+        label: config.label,
+        ability: {
+          ability: casting.ability,
+          label: casting.abilityLabel,
+          mod: casting.mod
+        },
+        attack: casting.attack,
+        save: casting.dc,
+        concentration: {
+          mod: attributes.concentration.save,
+          tooltip: game.i18n.format("DND5E.AbilityConfigure", { ability: game.i18n.localize("DND5E.Concentration") })
+        }
+      };
     });
+    context.spellcasting.push(...getClassmodArtsSpellcastingCards(this.actor));
+    context.jutsuKnown = attributes.jutsu.known;
 
     return context;
   }

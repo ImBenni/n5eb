@@ -1,0 +1,276 @@
+name: Explosion Release Atomic Missile
+type: spell
+img: systems/n5eb/assets/content/clans/bakuton.webp
+system:
+  description:
+    value: >-
+      <p>Reckless Style</p><p>You propel yourself at a target within range. The target can be a space, a creature,
+      object or structure as your use your explosion release launches you like a missile. While propelling yourself,
+      your chakra rotates you furiously like a bullet as smoke begins to trail behind you, as you ram into your target
+      causing a reckless explosion on impact.</p><p>All creatures, objects and structures within 60 feet of the target,
+      excluding you must succeed a Dexterity saving throw. On a failed save taking your unarmed damage + 10d8 force
+      damage or half as much on a successful save.</p><p>Additionally, all creatures within 15 feet of the target
+      excluding you must succeed a Constitution Saving Throw. On a failed save, they take 6d8 Force damage and all
+      equipment they are carrying or wearing of Greater Quality or lower is destroyed, or they take half as much damage
+      and no other effects on a success.</p><p>At Higher Ranks: For each rank you cast this jutsu above A-Rank, increase
+      the cost of this jutsu by 3 and damage by 2d8.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: fullturnaction
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '60'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: 120
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 20
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 10d8
+        - force
+    versatile: 6d8
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 7
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 2d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: level
+    formula: 2d8
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: explosion-release-atomic-missile
+  jutsu:
+    components:
+      - cm
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - earth
+      - lightning
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: a
+  chakra:
+    cost: '20'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: bakuton/clan-hijutsu/a-rank/explosion-release-atomic-missile.json
+      sourceId: vAw2VSQxc6HJYINO
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Reckless Style</p><p>You propel yourself at a target within range. The target can be a space, a creature,
+            object or structure as your use your explosion release launches you like a missile. While propelling
+            yourself, your chakra rotates you furiously like a bullet as smoke begins to trail behind you, as you ram
+            into your target causing a reckless explosion on impact.</p><p>All creatures, objects and structures within
+            60 feet of the target, excluding you must succeed a Dexterity saving throw. On a failed save taking your
+            unarmed damage + 10d8 force damage or half as much on a successful save.</p><p>Additionally, all creatures
+            within 15 feet of the target excluding you must succeed a Constitution Saving Throw. On a failed save, they
+            take 6d8 Force damage and all equipment they are carrying or wearing of Greater Quality or lower is
+            destroyed, or they take half as much damage and no other effects on a success.</p><p>At Higher Ranks: For
+            each rank you cast this jutsu above A-Rank, increase the cost of this jutsu by 3 and damage by 2d8.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: fullturnaction
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '60'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: 120
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 20
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 10d8
+              - force
+          versatile: 6d8
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 4
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 2d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+          - molding
+        keywords:
+          - taijutsu
+          - hijutsu
+          - earth
+          - lightning
+        chakraCost: 20
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: 2d8
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728752446620
+  modifiedTime: 1728752504821
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: bakuton/clan-hijutsu/a-rank/explosion-release-atomic-missile.json
+folder: W3hzZrRtdU0MQjym
+sort: 300000
+ownership:
+  default: 0
+_id: vAw2VSQxc6HJYINO
+_key: '!items!vAw2VSQxc6HJYINO'

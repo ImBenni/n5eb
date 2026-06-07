@@ -107,9 +107,14 @@ export default class BaseSaveActivityData extends BaseActivityData {
     let ability;
     if ( this.save.dc.calculation ) ability = this.ability;
     else this.save.dc.value = simplifyBonus(this.save.dc.formula, rollData);
-    this.save.dc.value ??= this.actor?.system.abilities?.[ability]?.dc
+    const jutsuCasting = this.isSpell ? this.item.system.jutsuCastingType : null;
+    this.save.dc.value ??= this.actor?.system.attributes?.jutsu?.[jutsuCasting]?.dc
+      ?? this.actor?.system.abilities?.[ability]?.dc
       ?? 8 + (this.actor?.system.attributes?.prof ?? 0);
     this.save.dc.value += bonus;
+    this.save.dc.value = Math.max(0, this.save.dc.value - (this.actor?.getConditionDCPenalty?.({
+      activity: this, item: this.item
+    }) ?? 0));
 
     if ( this.save.dc.value ) this.labels.save = game.i18n.format("DND5E.SaveDC", {
       dc: this.save.dc.value,

@@ -1,0 +1,158 @@
+folder: ir65v5RJQJORnJYn
+name: Volatile Swarm
+type: spell
+_id: n5ebVolatileSwm1
+img: systems/n5eb/assets/content/jutsu-icons/non-elemental.webp
+system:
+  description:
+    value: >-
+      <p>You unleash a torrent of tunneling centipedes and burrowing beetles in a 45-foot long, 5-foot wide line
+      originating from you. Creatures in the line must make a Dexterity saving throw, taking 5d6 poison damage on a
+      failed save, or half as much on a successful save.</p><p>At Higher Ranks: For each rank you cast this jutsu above
+      C-Rank, increase the cost by 3 and the damage by 2d6.</p>
+    chat: ''
+  source:
+    custom: ''
+    book: Naruto 5e
+    page: '8'
+    license: ''
+    rules: n5eb
+  activation:
+    type: action
+    condition: ''
+    value: 1
+  duration:
+    value: ''
+    units: inst
+  target:
+    affects:
+      type: creature
+      count: ''
+      choice: false
+      special: ''
+    template:
+      count: '1'
+      contiguous: false
+      type: line
+      size: '45'
+      width: '5'
+      height: ''
+      units: ft
+  range:
+    value: null
+    units: self
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 3
+  rank: c
+  school: trs
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - hs
+      - cm
+    keywords:
+      - hijutsu
+      - ninjutsu
+    countsKnown: true
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  properties: []
+  activities:
+    n5ebVolatileSv1:
+      _id: n5ebVolatileSv1
+      type: save
+      activation:
+        type: action
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: true
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      name: Cast
+      img: ''
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 5
+            denomination: 6
+            bonus: ''
+            types:
+              - poison
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: whole
+              number: 2
+              formula: ''
+        onSave: half
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ''
+  identifier: volatile-swarm
+effects: []
+sort: 999000
+ownership:
+  default: 0
+flags:
+  n5eb:
+    bookParityFix:
+      added: true
+      source: Book Parity Fix Pass 5.3.10
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.3.10
+  createdTime: 1779926400000
+  modifiedTime: 1779926400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!n5ebVolatileSwm1'

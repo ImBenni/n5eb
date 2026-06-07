@@ -1,0 +1,456 @@
+name: Breath of Rose Futility
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You begin to collect and manifest medical chakra until it laces the striking portion of your weapon. The
+      medical chakra begins to create a visage of a poisonous flowers as your move your weapon.</p><p>Select one create
+      you can see within range you begin to move around them, imitating the movements of a throned stem striking them
+      with each passing gesture.</p><p>Make three melee Taijutsu attack with your weapon, dealing your [weapons damage
+      die] + 2d6 poison damage.</p><p>A creature who you successfully hit with at least one attack granted by this
+      jutsu, must make a Constitution saving throw gaining 1 rank of lacerated and envenomed on a failed save. A
+      creature hit with three attacks makes this save at disadvantage.</p><p>At Higher Ranks: For each rank you cast
+      this jutsu above B-Rank increase the cost of this jutsu by 3 and the damage by 1d6.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Any Melee
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 13
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d6
+        - poison
+    versatile: ''
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: taijutsu
+  level: 5
+  school: trs
+  materials:
+    value: (Any Melee),
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d6
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: breath-of-rose-futility
+  jutsu:
+    components:
+      - cm
+      - m
+      - w
+    keywords:
+      - bukijutsu
+      - clash
+      - medical
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: b
+  chakra:
+    cost: '13'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Poisoned/Envenomed
+    origin: Compendium.n5eb.jutsus.Item.cEW0cY4S9P9qjJFO
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    _id: LKoU77NNujhL1eNx
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d6,
+          damageType=poison,
+          label=Poisoned/Envenomed,
+          chatFlavor=YUCK I feel SICK,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: poisoned
+        priority: 20
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
+      been exposed to some kind of venom or toxin, causing their vitality and immune health to drop
+      rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it
+      has, at the start of each of their turns for the duration of this condition</p></li><li><p>An
+      <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An
+      <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune
+      to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature
+      suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!cEW0cY4S9P9qjJFO.LKoU77NNujhL1eNx'
+  - name: Lacerated
+    origin: Compendium.n5eb.jutsus.Item.cEW0cY4S9P9qjJFO
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/lacerated.svg
+    _id: tLiEZfawH7HFGz0K
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: lacerated
+        priority: 0
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=start,
+          damageRoll=1d6,
+          damageType=necrotic,
+          label=Lacerated,
+          chatFlavor=THIS A BIG CUT CUH,
+          saveDC=20,
+          actionSave=dialog,
+          rollType=skill,
+          actionSave=true,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 100</p><hr /><p>A <strong>Lacerated</strong> creature has suffered a major wound on
+      their body and begins to bleed profusely, the rushing blood causing the wound to grow in intensity with each
+      passing second.</p><ul><li><p>A <strong>Lacerated</strong> creature is counted as <strong>Bleeding</strong> for
+      the purposes of interacting with Features, Traits and Jutsu</p></li><li><p>At the beginning of a
+      <strong>Lacerated</strong> creatures turn, they take 1d6 necrotic damage per rank of Lacerated they
+      have.</p></li><li><p>A <strong>Lacerated</strong> creature that gains ranks of Bleeding, gains ranks of Lacerated
+      instead.</p></li><li><p>A <strong>Lacerated</strong> creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, A <strong>Lacerated</strong> creature may attempt to stop the Laceration by
+      succeeding on a DC 20 Medicine check with a Medicine Kit.</p></li><li><p>A creature with ranks of lacerated gains
+      one rank of laceration at the end of its turns.</p></li><li><p>A creature immune to the bleeding condition is
+      immune to the lacerated condition.</p></li><li><p>Outside of combat, every 10-minutes a creature suffers the
+      effects of this condition as if a turn has passed in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.0imnrcSgN8C9eC29.ActiveEffect.Uydv91vQ1g52vDiO
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!cEW0cY4S9P9qjJFO.tLiEZfawH7HFGz0K'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - molding
+      - weapon
+      - medical
+      - clash
+      - chakramolding
+      - weapons
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/b-rank/breath-of-rose-futility.json
+      sourceId: cEW0cY4S9P9qjJFO
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You begin to collect and manifest medical chakra until it laces the striking portion of your weapon. The
+            medical chakra begins to create a visage of a poisonous flowers as your move your weapon.</p><p>Select one
+            create you can see within range you begin to move around them, imitating the movements of a throned stem
+            striking them with each passing gesture.</p><p>Make three melee Taijutsu attack with your weapon, dealing
+            your [weapons damage die] + 2d6 poison damage.</p><p>A creature who you successfully hit with at least one
+            attack granted by this jutsu, must make a Constitution saving throw gaining 1 rank of lacerated and
+            envenomed on a failed save. A creature hit with three attacks makes this save at disadvantage.</p><p>At
+            Higher Ranks: For each rank you cast this jutsu above B-Rank increase the cost of this jutsu by 3 and the
+            damage by 1d6.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Any Melee
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 13
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d6
+              - poison
+          versatile: ''
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: taijutsu
+        level: 3
+        school: buki
+        materials:
+          value: (Any Melee),
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d6
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+          - weapons
+          - molding
+          - weapon
+          - medical
+          - clash
+        keywords:
+          - bukijutsu
+          - clash
+          - medical
+        chakraCost: 13
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755893853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/b-rank/breath-of-rose-futility.json
+folder: Jl06pbyhjmFzL4c2
+sort: 2700000
+ownership:
+  default: 0
+_id: cEW0cY4S9P9qjJFO
+_key: '!items!cEW0cY4S9P9qjJFO'

@@ -4,6 +4,46 @@
     {{!-- Deltas --}}
     {{#if deltas.length}}{{> "dnd5e.card-deltas" }}{{/if}}
 
+    {{!-- Concentration Maintain Costs --}}
+    {{#if concentration.length}}
+    <section class="concentration-maintain">
+        <strong class="roboto-condensed-upper">{{ localize "N5EB.JUTSU.MaintainConcentration" }}</strong>
+        <ul class="action-list unlist">
+            {{#each concentration}}
+            <li class="activity flexrow" data-effect-id="{{ effect }}">
+                <img class="gold-icon" src="{{ img }}" alt="{{ name }}">
+                <span class="name-stacked">
+                    <span class="title">{{ name }}</span>
+                    <span class="subtitle">{{ rankLabel }} &bull; {{ localize "N5EB.JUTSU.MaintainCost" cost=cost }}</span>
+                </span>
+                <div class="card-buttons">
+                    {{#if ended}}
+                    <button type="button" disabled>
+                        <i class="fa-solid fa-xmark" inert></i>
+                        {{ localize "DND5E.ConcentratingEnd" }}
+                    </button>
+                    {{else if paid}}
+                    <button type="button" disabled>
+                        <i class="fa-solid fa-check" inert></i>
+                        {{ localize "N5EB.JUTSU.MaintainPaid" }}
+                    </button>
+                    {{else}}
+                    <button type="button" data-action="payConcentration" {{#if insufficient}}class="warning"{{/if}}>
+                        <i class="fa-solid fa-fire-flame-simple" inert></i>
+                        {{ localize "N5EB.JUTSU.PayMaintain" }}
+                    </button>
+                    <button type="button" data-action="endConcentration">
+                        <i class="fa-solid fa-ban" inert></i>
+                        {{ localize "DND5E.ConcentratingEnd" }}
+                    </button>
+                    {{/if}}
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </section>
+    {{/if}}
+
     {{!-- Actions --}}
     {{#if activities.length}}{{> "dnd5e.card-activities" }}{{/if}}
 

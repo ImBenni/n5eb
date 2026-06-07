@@ -97,9 +97,10 @@ export default class LootData extends ItemDataModel.mixin(
    * @type {string[]}
    */
   get chatProperties() {
+    const units = CONFIG.DND5E.weightUnits[this.weight?.units]?.abbreviation ?? game.i18n.localize("N5EB.BulkAbbr");
     return [
       this.type.label,
-      this.weight ? `${this.weight.value} ${game.i18n.localize("DND5E.AbbreviationLbs")}` : null,
+      this.weight ? `${this.weight.value} ${units}` : null,
       this.priceLabel
     ];
   }

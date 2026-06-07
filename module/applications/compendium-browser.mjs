@@ -145,6 +145,13 @@ export default class CompendiumBrowser extends Application5e {
       types: ["subclass"]
     },
     {
+      tab: "classmods",
+      label: "TYPES.Item.classmodPl",
+      svg: "systems/n5eb/icons/svg/items/classmod.svg",
+      documentClass: "Item",
+      types: ["classmod"]
+    },
+    {
       tab: "races",
       label: "TYPES.Item.racePl",
       svg: "systems/n5eb/icons/svg/items/race.svg",
@@ -178,6 +185,13 @@ export default class CompendiumBrowser extends Application5e {
       icon: "fas fa-book",
       documentClass: "Item",
       types: ["spell"]
+    },
+    {
+      tab: "downtime",
+      label: "TYPES.Item.downtimePl",
+      icon: "fas fa-hourglass-half",
+      documentClass: "Item",
+      types: ["downtime"]
     },
     {
       tab: "monsters",

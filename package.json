@@ -10,6 +10,9 @@
     "compile": "npm run build:db",
     "dist": "node ./utils/dist.mjs",
     "extract": "npm run build:source",
+    "audit:automation": "node ./utils/audit-automation.mjs",
+    "import:old-compendiums": "node ./utils/import-old-n5eb-compendiums.mjs",
+    "optimize:assets": "node ./utils/optimize-n5eb-assets.mjs",
     "lint": "eslint --ext .mjs --ignore-path .gitignore ./",
     "lint:fix": "eslint --ext .mjs --ignore-path .gitignore ./ --fix",
     "postinstall": "npm run build:css && npm run build:db",
@@ -25,6 +28,7 @@
     "less": "^4.2.0",
     "less-watch-compiler": "^1.16.3",
     "rollup": "^3.29.5",
+    "sharp": "^0.34.5",
     "yargs": "^17.7.2"
   }
 }

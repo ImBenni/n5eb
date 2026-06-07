@@ -68,7 +68,7 @@
                 {{/if}}
             </div>
 
-            {{else if (eq item.type "class")}}
+            {{else if (or (eq item.type "class") (eq item.type "classmod"))}}
             <div class="item-detail item-action">
                 <select class="level-selector">
                     {{ selectOptions ctx.availableLevels selected=0 }}

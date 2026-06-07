@@ -64,7 +64,9 @@ export default class EquippableItemTemplate extends SystemDataModel {
       this.attuned ? game.i18n.localize("DND5E.AttunementAttuned")
         : CONFIG.DND5E.attunementTypes[this.attunement] ?? null,
       game.i18n.localize(this.equipped ? "DND5E.Equipped" : "DND5E.Unequipped"),
-      ("proficient" in this) ? CONFIG.DND5E.proficiencyLevels[this.prof?.multiplier || 0] : null
+      ("proficient" in this) ? CONFIG.DND5E.proficiencyLevels[this.prof?.multiplier || 0] : null,
+      ("masteryRank" in this) && this.masteryRank
+        ? CONFIG.DND5E.masteryLevels[dnd5e.settings.useExpertise ? 1 : this.masteryRank] : null
     ];
   }
 

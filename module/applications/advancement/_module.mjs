@@ -8,6 +8,8 @@ export {default as AdvancementMigrationDialog} from "./advancement-migration-dia
 
 export {default as AbilityScoreImprovementConfig} from "./ability-score-improvement-config.mjs";
 export {default as AbilityScoreImprovementFlow} from "./ability-score-improvement-flow.mjs";
+export {default as ChakraConfig} from "./chakra-config.mjs";
+export {default as ChakraFlow} from "./chakra-flow.mjs";
 export {default as HitPointsConfig} from "./hit-points-config.mjs";
 export {default as HitPointsFlow} from "./hit-points-flow.mjs";
 export {default as ItemChoiceConfig} from "./item-choice-config.mjs";

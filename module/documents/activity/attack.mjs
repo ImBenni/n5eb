@@ -1,5 +1,6 @@
 import AttackSheet from "../../applications/activity/attack-sheet.mjs";
 import AttackRollConfigurationDialog from "../../applications/dice/attack-configuration-dialog.mjs";
+import * as Conditions from "../../conditions.mjs";
 import BaseAttackActivityData from "../../data/activity/attack-data.mjs";
 import { getTargetDescriptors } from "../../utils.mjs";
 import ActivityMixin from "./mixin.mjs";
@@ -254,6 +255,7 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
     if ( ammunition !== undefined ) options.ammunition = ammunition;
     if ( attackMode !== undefined ) options.attackMode = attackMode;
     if ( mastery !== undefined ) options.mastery = mastery;
+    Conditions.applyAttackConditionOptions(this, options);
 
     config.parts = [...(config.parts ?? []), ...parts];
     config.data = { ...data, ...(config.data ?? {}) };

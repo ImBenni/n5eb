@@ -15,6 +15,7 @@ export {default as User5e} from "./user.mjs";
 
 // Helper Methods
 export {default as Bastion} from "./actor/bastion.mjs";
+export {default as ChakraDice} from "./actor/chakra-dice.mjs";
 export {default as HitDice} from "./actor/hit-dice.mjs";
 export {default as Proficiency} from "./actor/proficiency.mjs";
 export {default as SelectChoices} from "./actor/select-choices.mjs";

@@ -34,22 +34,26 @@
 "TYPES.Item.containerPl": "Containers",
 "TYPES.Item.class": "Class",
 "TYPES.Item.classPl": "Classes",
+"TYPES.Item.classmod": "Class Mod",
+"TYPES.Item.classmodPl": "Class Mods",
 "TYPES.Item.consumable": "Consumable",
 "TYPES.Item.consumablePl": "Consumables",
 "TYPES.Item.equipment": "Equipment",
 "TYPES.Item.equipmentPl": "Equipment",
 "TYPES.Item.facility": "Facility",
 "TYPES.Item.facilityPl": "Facilities",
+"TYPES.Item.downtime": "Downtime Activity",
+"TYPES.Item.downtimePl": "Downtime Activities",
 "TYPES.Item.feat": "Feature",
 "TYPES.Item.featurePl": "Features",
 "TYPES.Item.loot": "Loot",
 "TYPES.Item.lootPl": "Loot",
-"TYPES.Item.race": "Species",
-"TYPES.Item.racePl": "Species",
-"TYPES.Item.raceLegacy": "Race",
-"TYPES.Item.raceLegacyPl": "Races",
-"TYPES.Item.spell": "Spell",
-"TYPES.Item.spellPl": "Spells",
+"TYPES.Item.race": "Clan",
+"TYPES.Item.racePl": "Clans",
+"TYPES.Item.raceLegacy": "Clan",
+"TYPES.Item.raceLegacyPl": "Clans",
+"TYPES.Item.spell": "Jutsu",
+"TYPES.Item.spellPl": "Jutsu",
 "TYPES.Item.subclass": "Subclass",
 "TYPES.Item.subclassPl": "Subclasses",
 "TYPES.Item.tool": "Tool",
@@ -76,7 +80,7 @@
 "DND5E.AbbreviationKg": "kg",
 "DND5E.AbbreviationLR": "LR",
 "DND5E.AbbreviationLevel": "Lvl",
-"DND5E.AbbreviationLbs": "lbs.",
+"DND5E.AbbreviationLbs": "Bulk",
 "DND5E.AbbreviationSR": "SR",
 
 "DND5E.ABILITY": {
@@ -660,6 +664,16 @@
         "Hint": "Use this for numerical values that represent a distance, such as unarmored movement speed, or aura of protection radius.",
         "Label": "Distance"
       },
+      "JutsuRank": {
+        "FIELDS": {
+          "value": {
+            "label": "Rank"
+          }
+        },
+        "Hint": "Use this for N5eB jutsu rank progression such as Highest Rank Jutsu Known.",
+        "Identifier": "This scale value for the current level will be available in a formula using:<br><copyable-text>@scale.{class}.{identifier}</copyable-text>",
+        "Label": "Jutsu Rank"
+      },
       "Number": {
         "Hint": "Use this for purely numerical values like rage damage bonus or number of uses per day.",
         "Label": "Numeric"
@@ -783,9 +797,20 @@
         "Hint": "Gain mastery with a weapon in which you already have proficiency.",
         "Label": "Mastery"
       },
+      "SkillMastery": {
+        "Hint": "Gain a rank of Mastery in a skill or tool in which you already have proficiency.",
+        "Label": "Mastery"
+      },
+      "ForceMastery": {
+        "Hint": "Gain a rank of Mastery in a skill or tool regardless of your previous proficiency level.",
+        "Label": "Forced Mastery"
+      },
       "Upgrade": {
         "Hint": "Gain proficiency in a trait unless you already have it, otherwise gain expertise.",
         "Label": "Upgrade"
+      },
+      "UpgradeMastery": {
+        "Hint": "Gain proficiency in a trait unless you already have it, otherwise gain a rank of Mastery."
       }
     },
     "TraitType": "Trait Type",
@@ -1002,7 +1027,7 @@
   "NoDestinations": "No Destinations Available",
   "NoPrimaryParty": "No primary party set, displaying characters assigned to players instead.",
   "NotGMError": "The /award command is only available to GMs.",
-  "UnrecognizedWarning": "Unable to parse {commands}. The /award command should be used with XP & currencies values such as '/award 10gp 50xp'."
+"UnrecognizedWarning": "Unable to parse {commands}. The /award command should be used with XP & currency values such as '/award 10ryo 50xp'."
 },
 "DND5E.Background": "Background",
 "DND5E.BackgroundAdd": "Add Background",
@@ -1416,6 +1441,192 @@
 "DND5E.Casting": "Casting",
 "DND5E.Conditions": "Conditions",
 
+"N5EB.DOWNTIME.ActiveActivities": "Active Activities",
+"N5EB.DOWNTIME.Activities": "Downtime Activities",
+"N5EB.DOWNTIME.AddActivity": "Add Downtime Activity",
+"N5EB.DOWNTIME.AddCustom": "Add Custom",
+"N5EB.DOWNTIME.AddFromCompendium": "Add From Compendium",
+"N5EB.DOWNTIME.Category.Label": "Category",
+"N5EB.DOWNTIME.Category.Carousing": "Carousing",
+"N5EB.DOWNTIME.Category.Crafting": "Crafting",
+"N5EB.DOWNTIME.Category.Custom": "Custom",
+"N5EB.DOWNTIME.Category.JutsuCreation": "Jutsu Creation",
+"N5EB.DOWNTIME.Category.JutsuLearning": "Jutsu Learning",
+"N5EB.DOWNTIME.Category.Recuperating": "Recuperating",
+"N5EB.DOWNTIME.Category.Researching": "Researching",
+"N5EB.DOWNTIME.Category.Shopping": "Shopping",
+"N5EB.DOWNTIME.Category.Toolkit": "Toolkit",
+"N5EB.DOWNTIME.Category.Training": "Training",
+"N5EB.DOWNTIME.Complete": "Complete",
+"N5EB.DOWNTIME.CompletedActivities": "Completed Activities",
+"N5EB.DOWNTIME.Completion": "Completion",
+"N5EB.DOWNTIME.Cost.Activity": "Activity",
+"N5EB.DOWNTIME.Cost.Fixed": "{cost} fixed",
+"N5EB.DOWNTIME.Cost.Label": "Cost",
+"N5EB.DOWNTIME.Cost.None": "No Ryo cost",
+"N5EB.DOWNTIME.Cost.Note": "Cost Notes",
+"N5EB.DOWNTIME.Cost.Paid": "Paid",
+"N5EB.DOWNTIME.Cost.Per.Activity": "Per Activity",
+"N5EB.DOWNTIME.Cost.Per.Label": "Cost Mode",
+"N5EB.DOWNTIME.Cost.Per.Week": "Per Week",
+"N5EB.DOWNTIME.Cost.PerWeek": "{cost} per week",
+"N5EB.DOWNTIME.Cost.Unpaid": "Unpaid",
+"N5EB.DOWNTIME.Cost.Value": "Ryo Cost",
+"N5EB.DOWNTIME.Cost.Mode.Label": "Pricing Mode",
+"N5EB.DOWNTIME.Cost.Mode.None": "No Cost",
+"N5EB.DOWNTIME.Cost.Mode.Fixed": "Fixed Cost",
+"N5EB.DOWNTIME.Cost.Mode.PerWeek": "Per Week",
+"N5EB.DOWNTIME.Cost.Mode.RankTable": "Rank Table",
+"N5EB.DOWNTIME.Cost.Mode.Manual": "Manual",
+"N5EB.DOWNTIME.Cost.Due.Label": "Due Timing",
+"N5EB.DOWNTIME.Cost.Due.Start": "At Start",
+"N5EB.DOWNTIME.Cost.Due.Weekly": "Weekly",
+"N5EB.DOWNTIME.Cost.Due.Completion": "On Completion",
+"N5EB.DOWNTIME.Cost.Due.Manual": "Manual Due",
+"N5EB.DOWNTIME.Cost.FixedValue": "Fixed Ryo",
+"N5EB.DOWNTIME.Cost.PerWeekValue": "Ryo Per Week",
+"N5EB.DOWNTIME.Cost.ManualTotal": "Manual Total",
+"N5EB.DOWNTIME.Cost.DueAmount": "Manual Due Now",
+"N5EB.DOWNTIME.Cost.RankTable": "Rank Cost Table",
+"N5EB.DOWNTIME.Cost.RankedCost": "{rank}: {cost}",
+"N5EB.DOWNTIME.Cost.ManualCost": "{cost} manual",
+"N5EB.DOWNTIME.Cost.Override": "Override Template Cost",
+"N5EB.DOWNTIME.Cost.OverrideReason": "Override Reason",
+"N5EB.DOWNTIME.CustomActivity": "Custom Downtime Activity",
+"N5EB.DOWNTIME.Delete": "Delete Downtime Activity",
+"N5EB.DOWNTIME.DeleteConfirm": "Delete {name}?",
+"N5EB.DOWNTIME.Edit": "Edit Downtime Activity",
+"N5EB.DOWNTIME.Label": "Downtime",
+"N5EB.DOWNTIME.NewActivity": "New Downtime Activity",
+"N5EB.DOWNTIME.NoActive": "No active downtime activities.",
+"N5EB.DOWNTIME.NoCompleted": "No completed downtime activities.",
+"N5EB.DOWNTIME.Notes": "Notes",
+"N5EB.DOWNTIME.Payment.ActorRyo": "Actor Ryo: {amount}",
+"N5EB.DOWNTIME.Payment.Amount": "{paid} / {due}",
+"N5EB.DOWNTIME.Payment.AmountLabel": "Amount",
+"N5EB.DOWNTIME.Payment.ChangeCurrency": "Change actor Ryo",
+"N5EB.DOWNTIME.Payment.CurrencyChanged": "Ryo changed",
+"N5EB.DOWNTIME.Payment.Due": "Due: {amount}",
+"N5EB.DOWNTIME.Payment.History": "Payment History",
+"N5EB.DOWNTIME.Payment.InsufficientRyo": "Not enough Ryo to record that payment with actor currency deduction.",
+"N5EB.DOWNTIME.Payment.LegacyPaid": "Migrated from the legacy paid downtime flag.",
+"N5EB.DOWNTIME.Payment.NoAmount": "Enter a payment amount above 0.",
+"N5EB.DOWNTIME.Payment.Note": "Payment Note",
+"N5EB.DOWNTIME.Payment.Projected": "Projected: {amount}",
+"N5EB.DOWNTIME.Payment.Quick.Custom": "Custom",
+"N5EB.DOWNTIME.Payment.Quick.Due": "Remaining due ({amount})",
+"N5EB.DOWNTIME.Payment.Quick.Full": "Full projected remaining ({amount})",
+"N5EB.DOWNTIME.Payment.Quick.Label": "Quick Amount",
+"N5EB.DOWNTIME.Payment.Quick.Week": "Current week ({amount})",
+"N5EB.DOWNTIME.Payment.Record": "Record",
+"N5EB.DOWNTIME.Payment.Remaining": "Remaining: {amount}",
+"N5EB.DOWNTIME.Payment.Status.NoCost": "No Cost",
+"N5EB.DOWNTIME.Payment.Status.Paid": "Paid",
+"N5EB.DOWNTIME.Payment.Status.Partial": "Partial",
+"N5EB.DOWNTIME.Payment.Status.Unpaid": "Unpaid",
+"N5EB.DOWNTIME.Payment.Status.Waived": "Waived",
+"N5EB.DOWNTIME.Payment.Title": "Payment: {name}",
+"N5EB.DOWNTIME.Payment.Type.Adjustment": "Adjustment",
+"N5EB.DOWNTIME.Payment.Type.Label": "Entry Type",
+"N5EB.DOWNTIME.Payment.Type.Payment": "Payment",
+"N5EB.DOWNTIME.Payment.Type.Refund": "Refund",
+"N5EB.DOWNTIME.Payment.Type.Waiver": "Waiver",
+"N5EB.DOWNTIME.Progress": "Progress",
+"N5EB.DOWNTIME.Rank.Label": "Rank",
+"N5EB.DOWNTIME.Rank.E": "E-rank",
+"N5EB.DOWNTIME.Rank.D": "D-rank",
+"N5EB.DOWNTIME.Rank.C": "C-rank",
+"N5EB.DOWNTIME.Rank.B": "B-rank",
+"N5EB.DOWNTIME.Rank.A": "A-rank",
+"N5EB.DOWNTIME.Rank.S": "S-rank",
+"N5EB.DOWNTIME.Reopen": "Reopen",
+"N5EB.DOWNTIME.Roll.Action": "Roll Check",
+"N5EB.DOWNTIME.Roll.DC": "DC {dc}",
+"N5EB.DOWNTIME.Roll.Enabled": "Has Roll",
+"N5EB.DOWNTIME.Roll.Label": "Roll",
+"N5EB.DOWNTIME.Roll.NoRoll": "This downtime activity does not have a configured roll.",
+"N5EB.DOWNTIME.SpendWeek": "Spend Week",
+"N5EB.DOWNTIME.SpendWeekOverride": "Spend Week Anyway",
+"N5EB.DOWNTIME.Status.Active": "Active",
+"N5EB.DOWNTIME.Status.Completed": "Completed",
+"N5EB.DOWNTIME.Status.Label": "Status",
+"N5EB.DOWNTIME.Target.Label": "Target",
+"N5EB.DOWNTIME.Target.Type": "Target Type",
+"N5EB.DOWNTIME.Target.UUID": "Target UUID",
+"N5EB.DOWNTIME.TemplateDetails": "Downtime Template",
+"N5EB.DOWNTIME.WeekBank": "Week Bank",
+"N5EB.DOWNTIME.Weeks.Add": "Add Week",
+"N5EB.DOWNTIME.Weeks.Base": "Base Weeks",
+"N5EB.DOWNTIME.Weeks.Count": "{value} Weeks",
+"N5EB.DOWNTIME.Weeks.Label": "Downtime Weeks",
+"N5EB.DOWNTIME.Weeks.Mode.Fixed": "Fixed",
+"N5EB.DOWNTIME.Weeks.Mode.Label": "Week Mode",
+"N5EB.DOWNTIME.Weeks.Mode.Ranked": "Ranked",
+"N5EB.DOWNTIME.Weeks.Mode.Variable": "Variable",
+"N5EB.DOWNTIME.Weeks.NoRemaining": "No downtime weeks remain. Use the override button to spend anyway.",
+"N5EB.DOWNTIME.Weeks.Note": "Week Notes",
+"N5EB.DOWNTIME.Weeks.Remove": "Remove Week",
+"N5EB.DOWNTIME.Weeks.Required": "Required Weeks",
+"N5EB.DOWNTIME.WeeksAvailable": "Available",
+"N5EB.DOWNTIME.WeeksRemaining": "Remaining",
+"N5EB.DOWNTIME.WeeksSource": "Source",
+"N5EB.DOWNTIME.WeeksSpent": "Spent",
+"N5EB.Migration": "Migration",
+
+"N5EB.CONDITION.Dying": "Dying",
+"N5EB.CONDITION.Incapacitated": "Incapacitated",
+"N5EB.CONDITION.Exhaustion": "Exhaustion",
+"N5EB.CONDITION.Unconscious": "Unconscious",
+"N5EB.CONDITION.Petrified": "Petrified",
+"N5EB.CONDITION.Burned": "Burned",
+"N5EB.CONDITION.Chilled": "Chilled",
+"N5EB.CONDITION.Corroded": "Corroded",
+"N5EB.CONDITION.Shocked": "Shocked",
+"N5EB.CONDITION.Envenomed": "Envenomed",
+"N5EB.CONDITION.Bruised": "Bruised",
+"N5EB.CONDITION.Staggered": "Staggered",
+"N5EB.CONDITION.Bleeding": "Bleeding",
+"N5EB.CONDITION.Lacerated": "Lacerated",
+"N5EB.CONDITION.Dazed": "Dazed",
+"N5EB.CONDITION.Grappled": "Grappled",
+"N5EB.CONDITION.Prone": "Prone",
+"N5EB.CONDITION.Restrained": "Restrained",
+"N5EB.CONDITION.Stunned": "Stunned",
+"N5EB.CONDITION.Weakened": "Weakened",
+"N5EB.CONDITION.Berserk": "Berserk",
+"N5EB.CONDITION.Charmed": "Charmed",
+"N5EB.CONDITION.Concussed": "Concussed",
+"N5EB.CONDITION.Confused": "Confused",
+"N5EB.CONDITION.Demoralized": "Demoralized",
+"N5EB.CONDITION.Slowed": "Slowed",
+"N5EB.CONDITION.Sealed": "Sealed",
+"N5EB.CONDITION.Blinded": "Blinded",
+"N5EB.CONDITION.Dazzled": "Dazzled",
+"N5EB.CONDITION.Deafened": "Deafened",
+"N5EB.CONDITION.Invisible": "Invisible",
+"N5EB.CONDITION.RankDisplay": "Rank {rank}/{max}",
+"N5EB.CONDITION.ConditionRank": "Rank",
+"N5EB.CONDITION.ConditionTag": "Condition",
+"N5EB.CONDITION.Increase": "Increase condition rank",
+"N5EB.CONDITION.Decrease": "Decrease condition rank",
+"N5EB.CONDITION.Damage": "{condition} damage",
+"N5EB.CONDITION.Roll.Demoralized": "Demoralized recovery check",
+"N5EB.CONDITION.Roll.Shocked": "Shocked reaction flat check vs DC {dc}",
+"N5EB.CONDITION.Warning.Berserk": "{actor} is Berserk. Confirm the target/action is valid before resolving.",
+"N5EB.CONDITION.Warning.Blinded": "{actor} is Blinded. Confirm this action can be resolved without sight before resolving.",
+"N5EB.CONDITION.Warning.Charmed": "{actor} is Charmed. Confirm this is not a hostile action against the source of infatuation before resolving.",
+"N5EB.CONDITION.Warning.Confused": "{actor} is Confused. Make the targeting flat check vs DC {dc} before resolving.",
+"N5EB.CONDITION.Warning.DazedAction": "{actor} is Dazed and already moved this turn.",
+"N5EB.CONDITION.Warning.DazedBonus": "{actor} is Dazed and cannot take bonus actions.",
+"N5EB.CONDITION.Warning.DazedMove": "{actor} is Dazed and has already acted this turn.",
+"N5EB.CONDITION.Warning.DazzledRange": "{actor} is Dazzled. Effective range is reduced to {range} ft unless overridden.",
+"N5EB.CONDITION.Warning.Deafened": "{actor} is Deafened. Confirm this action does not require hearing before resolving.",
+"N5EB.CONDITION.Warning.RestBlocked": "{actor} cannot benefit from this rest while affected by: {conditions}.",
+"N5EB.CONDITION.Warning.ShockedFailed": "{actor} failed the Shocked check. Reaction jutsu chakra cost is doubled.",
+"N5EB.CONDITION.Warning.ShockedInsufficient": "{name} costs {cost} chakra after Shocked, but only {available} is available.",
+"N5EB.CONDITION.Warning.Slowed": "{actor} is Slowed. Confirm this attack or jutsu is still allowed this turn.",
+"N5EB.CONDITION.Warning.Staggered": "{actor} is Staggered. Confirm this restricted action/reaction is allowed before resolving.",
+
 "DND5E.CONTAINER": {
   "Details": "Container Details",
   "FIELDS": {
@@ -1434,12 +1645,12 @@
         }
       },
       "weight": {
-        "label": "Weight Capacity",
+        "label": "Bulk Capacity",
         "units": {
-          "label": "Weight Units"
+          "label": "Bulk Units"
         },
         "value": {
-          "label": "Maximum Weight"
+          "label": "Maximum Bulk"
         }
       }
     },
@@ -1567,6 +1778,8 @@
 "DND5E.ClassOriginal": "Original Class",
 "DND5E.ClassSaves": "Saving Throws",
 "DND5E.Confirm": "Confirm",
+"DND5E.Delete": "Delete",
+"DND5E.Edit": "Edit",
 
 "DND5E.COMBAT": {
   "Group": {
@@ -1998,11 +2211,13 @@
 "DND5E.PowerfulCritical": "Powerful Critical",
 "DND5E.CRLabel": "CR {cr}",
 "DND5E.Currency": "Currency",
+"DND5E.CurrencyAbbrRyo": "Ryo",
 "DND5E.CurrencyAbbrCP": "cp",
 "DND5E.CurrencyAbbrEP": "ep",
 "DND5E.CurrencyAbbrGP": "gp",
 "DND5E.CurrencyAbbrPP": "pp",
 "DND5E.CurrencyAbbrSP": "sp",
+"DND5E.CurrencyRyo": "Ryo",
 "DND5E.CurrencyCP": "Copper",
 "DND5E.CurrencyEP": "Electrum",
 "DND5E.CurrencyGP": "Gold",
@@ -2120,6 +2335,8 @@
     "Acid": "Acid",
     "Bludgeoning": "Bludgeoning",
     "Cold": "Cold",
+    "Chakra": "Chakra",
+    "Earth": "Earth",
     "Fire": "Fire",
     "Force": "Force",
     "Lightning": "Lightning",
@@ -2127,9 +2344,8 @@
     "Piercing": "Piercing",
     "Poison": "Poison",
     "Psychic": "Psychic",
-    "Radiant": "Radiant",
     "Slashing": "Slashing",
-    "Thunder": "Thunder"
+    "Wind": "Wind"
   }
 },
 
@@ -2478,6 +2694,14 @@
 
 "DND5E.Expertise": "Expertise",
 
+"DND5E.MASTERY": {
+  "Capped": "{selected} (effective: {effective})",
+  "Label": "Mastery",
+  "Rank1": "Chunin Mastery",
+  "Rank2": "Jonin Mastery",
+  "Rank3": "Sanin/Kage Mastery"
+},
+
 "DND5E.FACILITY": {
   "Action": {
     "DeleteDefender": "Delete Defender",
@@ -2786,8 +3010,10 @@
     "Origin": "Origin Feat"
   },
   "Monster": "Monster Feature",
-  "Species": "Species Feature",
-  "SpeciesLegacy": "Race Feature",
+  "Species": "Clan Feature",
+  "SpeciesLegacy": "Clan Feature",
+  "ClanFeat": "Clan Feat",
+  "LatentAbility": "Latent Ability",
   "SupernaturalGift": {
     "Label": "Supernatural Gift",
     "Blessing": "Blessing",
@@ -2846,7 +3072,7 @@
 },
 "DND5E.EffectUnavailable": "Unavailable Effects",
 "DND5E.EffectUnavailableInfo": "Source item must be equipped or attuned to activate these",
-"DND5E.Encumbrance": "Encumbrance",
+"DND5E.Encumbrance": "Bulk Capacity",
 "DND5E.Eyes": "Eyes",
 "DND5E.Faith": "Faith",
 "DND5E.FeatureActive": "Active Abilities",
@@ -2868,8 +3094,8 @@
 "DND5E.FilterGroupCategory": "Group by Category",
 "DND5E.FilterGroupOrigin": "Group by Origin",
 "DND5E.FilterGroupAction": "Group by Action",
-"DND5E.FilterNoSpells": "No spells found for this set of filters.",
-"DND5E.NoSpellLevels": "This character has no spellcaster levels, but you may add spells manually.",
+"DND5E.FilterNoSpells": "No jutsu found for this set of filters.",
+"DND5E.NoSpellLevels": "This character has no jutsu ranks yet, but you may add jutsu manually.",
 
 "DND5E.FLAGS": {
   "EnhancedDualWielding": {
@@ -3066,12 +3292,18 @@
   "Hint": "Heal a creature",
   "Title": "Heal",
   "Type": {
+    "ChakraHealing": "Chakra Healing",
+    "ChakraHealingShort": "Chakra",
     "Healing": "Hit Points",
     "HealingShort": "Healing",
     "Maximum": "Maximum Hit Points",
     "MaximumShort": "Max HP",
+    "MaximumChakra": "Maximum Chakra",
+    "MaximumChakraShort": "Max CP",
     "Temporary": "Temporary Hit Points",
-    "TemporaryShort": "Temp HP"
+    "TemporaryShort": "Temp HP",
+    "TemporaryChakra": "Temporary Chakra",
+    "TemporaryChakraShort": "Temp CP"
   }
 },
 
@@ -3209,8 +3441,8 @@
 "DND5E.ItemRequiredStr": "Required Strength",
 "DND5E.Items": "Items",
 "DND5E.ItemSiegeProperties": "Siege Properties",
-"DND5E.ItemSpeciesDetails": "Species Details",
-"DND5E.ItemSpeciesDetailsLegacy": "Race Details",
+"DND5E.ItemSpeciesDetails": "Clan Details",
+"DND5E.ItemSpeciesDetailsLegacy": "Clan Details",
 "DND5E.ItemSubclassDetails": "Subclass Details",
 "DND5E.ItemToolBase": "Base Tool",
 "DND5E.ItemToolBonus": "Tool Bonus",
@@ -3262,7 +3494,7 @@
     "TwoHanded": "Two-Handed",
     "Versatile": "Versatile",
     "Verbal": "Verbal",
-    "WeightlessContents": "Weightless Contents"
+    "WeightlessContents": "Sealed Contents"
   },
   "SECTIONS": {
     "Activities": "Activities",
@@ -3538,8 +3770,8 @@
 "DND5E.QuantityAbbr": "Qty",
 "DND5E.QuantityFormula": "Quantity Formula",
 "DND5E.QuantityRoll": "Roll Quantities",
-"DND5E.RacialTraits": "Species Traits",
-"DND5E.RacialTraitsLegacy": "Racial Traits",
+"DND5E.RacialTraits": "Clan Traits",
+"DND5E.RacialTraitsLegacy": "Clan Traits",
 
 "DND5E.RANGE": {
   "FIELDS": {
@@ -3720,13 +3952,23 @@
     "Select": "Select Dice to Roll"
   },
   "Label": "Rest",
+  "Full": {
+    "Abbreviation": "FR",
+    "Hint": {
+      "Group": "On a full rest group members will fully recover hit points, chakra points, hit dice, chakra dice, class resources, limited use item charges, and spell slots. A full rest counts as a new day, recovering limited use abilities that recharge at dawn, dusk, or on a new day.",
+      "Normal": "On a full rest you will fully recover hit points, chakra points, hit dice, chakra dice, class resources, limited use item charges, and spell slots. A full rest counts as a new day, recovering limited use abilities that recharge at dawn, dusk, or on a new day."
+    },
+    "Label": "Full Rest",
+    "LabelShort": "F. Rest",
+    "Recovery": "Recovers after Full Rest"
+  },
   "Long": {
     "Abbreviation": "LR",
     "Hint": {
-      "Group": "On a long rest group members will recover hit points, hit dice, class resources, limited use item charges, and spell slots.",
-      "GroupLegacy": "On a long rest group members will recover hit points, half of their maximum hit dice, class resources, limited use item charges, and spell slots.",
-      "Normal": "On a long rest you will recover hit points, hit dice, class resources, limited use item charges, and spell slots.",
-      "NormalLegacy": "On a long rest you will recover hit points, half your maximum hit dice, class resources, limited use item charges, and spell slots."
+      "Group": "On a long rest group members will recover half their maximum hit points and chakra points, half their spent hit dice and chakra dice, class resources, limited use item charges, and spell slots.",
+      "GroupLegacy": "On a long rest group members will recover half their maximum hit points and chakra points, half their spent hit dice and chakra dice, class resources, limited use item charges, and spell slots.",
+      "Normal": "On a long rest you will recover half your maximum hit points and chakra points, half your spent hit dice and chakra dice, class resources, limited use item charges, and spell slots.",
+      "NormalLegacy": "On a long rest you will recover half your maximum hit points and chakra points, half your spent hit dice and chakra dice, class resources, limited use item charges, and spell slots."
     },
     "Label": "Long Rest",
     "LabelShort": "L. Rest",
@@ -3739,7 +3981,7 @@
     }
   },
   "NewDay": {
-    "Hint": "Recover limited use abilities which recharge at dusk, dawn, or on a new day.",
+    "Hint": "Recover limited use abilities that recharge at dawn, dusk, or on a new day.",
     "Label": "New Day"
   },
   "RecoverTempHP": {
@@ -3759,8 +4001,8 @@
   "Short": {
     "Abbreviation": "SR",
     "Hint": {
-      "Group": "On a short rest group members can spend Hit Dice and will recover item uses.",
-      "Normal": "On a short rest you may spend remaining Hit Dice and recover item uses."
+      "Group": "On a short rest group members can spend Hit Dice and Chakra Dice and will recover item uses.",
+      "Normal": "On a short rest you may spend remaining Hit Dice and Chakra Dice and recover item uses."
     },
     "Label": "Short Rest",
     "LabelShort": "S. Rest",
@@ -3772,6 +4014,465 @@
   },
   "Warning": {
     "OnlyByRequest": "Rests can only be performed at the request of the GM."
+  }
+},
+
+"N5EB": {
+  "Bulk": "Bulk",
+  "BulkAbbr": "Bulk",
+  "BulkCounted": {
+    "narrow": {
+      "one": "{number} Bulk",
+      "other": "{number} Bulk"
+    },
+    "short": {
+      "one": "{number} Bulk",
+      "other": "{number} Bulk"
+    },
+    "long": {
+      "one": "{number} Bulk",
+      "other": "{number} Bulk"
+    }
+  },
+  "Chakra": "Chakra",
+  "ChakraConfig": "Configure Chakra",
+  "ChakraCurrent": "Current Chakra",
+  "ChakraDie": "Chakra Die",
+  "ChakraDice": "Chakra Dice",
+  "ChakraDiceConfig": "Adjust Chakra Dice",
+  "ChakraDiceMax": "Maximum Chakra Dice",
+  "ChakraDiceRemaining": "Remaining Chakra Dice",
+  "ChakraDiceRoll": "Roll Chakra Dice",
+  "ChakraDiceSpent": "Spent Chakra Dice",
+  "ChakraDiceWarn": "{name} has no available {formula} Chakra Dice remaining!",
+  "ChakraDiceNPCWarn": "{name} has no available Chakra Dice remaining!",
+  "ChakraFormula": "Chakra Formula",
+  "ChakraFormulaError": "The provided chakra formula could not be evaluated.",
+  "ChakraFormulaRollMessage": "Roll Chakra Formula",
+  "ChakraMax": "Maximum Chakra",
+  "ChakraBonusLevel": "Per Level Bonus",
+  "ChakraBonusOverall": "Overall Bonus",
+  "ChakraOverride": "Maximum Override",
+  "ChakraOverrideHint": "Override automatically calculated chakra, ignoring any chakra from bonuses.",
+  "ChakraTemp": "Temporary Chakra",
+  "ChakraTempMax": "Temporary Maximum",
+  "ChakraTempMaxHint": "Temporary change to the maximum Chakra.",
+  "Language": {
+    "Category": {
+      "Standard": "Standard Languages"
+    },
+    "Common": "Common",
+    "Fire": "Fire Dialect",
+    "Earth": "Earth Dialect",
+    "Water": "Water Dialect",
+    "Cloud": "Cloud Dialect",
+    "Sand": "Sand Dialect",
+    "Speaks": {
+      "Bug": "Bug Speak",
+      "Cat": "Cat Speak",
+      "Dog": "Dog Speak",
+      "Machine": "Machine Speak",
+      "Snake": "Snake Speak"
+    }
+  },
+  "Migration": "Migration",
+  "DOWNTIME": {
+    "ActiveActivities": "Active Activities",
+    "Activities": "Downtime Activities",
+    "AddActivity": "Add Downtime Activity",
+    "AddCustom": "Add Custom",
+    "AddFromCompendium": "Add From Compendium",
+    "Category": {
+      "Label": "Category",
+      "Carousing": "Carousing",
+      "Crafting": "Crafting",
+      "Custom": "Custom",
+      "JutsuCreation": "Jutsu Creation",
+      "JutsuLearning": "Jutsu Learning",
+      "Recuperating": "Recuperating",
+      "Researching": "Researching",
+      "Shopping": "Shopping",
+      "Toolkit": "Toolkit",
+      "Training": "Training"
+    },
+    "Complete": "Complete",
+    "CompletedActivities": "Completed Activities",
+    "Completion": "Completion",
+    "Cost": {
+      "Activity": "Activity",
+      "Fixed": "{cost} fixed",
+      "Label": "Cost",
+      "None": "No Ryo cost",
+      "Note": "Cost Notes",
+      "Paid": "Paid",
+      "Mode": {
+        "Label": "Pricing Mode",
+        "None": "No Cost",
+        "Fixed": "Fixed Cost",
+        "PerWeek": "Per Week",
+        "RankTable": "Rank Table",
+        "Manual": "Manual"
+      },
+      "Due": {
+        "Label": "Due Timing",
+        "Start": "At Start",
+        "Weekly": "Weekly",
+        "Completion": "On Completion",
+        "Manual": "Manual Due"
+      },
+      "FixedValue": "Fixed Ryo",
+      "PerWeekValue": "Ryo Per Week",
+      "ManualTotal": "Manual Total",
+      "DueAmount": "Manual Due Now",
+      "RankTable": "Rank Cost Table",
+      "RankedCost": "{rank}: {cost}",
+      "ManualCost": "{cost} manual",
+      "Override": "Override Template Cost",
+      "OverrideReason": "Override Reason",
+      "Per": {
+        "Activity": "Per Activity",
+        "Label": "Cost Mode",
+        "Week": "Per Week"
+      },
+      "PerWeek": "{cost} per week",
+      "Unpaid": "Unpaid",
+      "Value": "Ryo Cost"
+    },
+    "CustomActivity": "Custom Downtime Activity",
+    "Delete": "Delete Downtime Activity",
+    "DeleteConfirm": "Delete {name}?",
+    "Edit": "Edit Downtime Activity",
+    "Label": "Downtime",
+    "NewActivity": "New Downtime Activity",
+    "NoActive": "No active downtime activities.",
+    "NoCompleted": "No completed downtime activities.",
+    "Notes": "Notes",
+    "Payment": {
+      "ActorRyo": "Actor Ryo: {amount}",
+      "Amount": "{paid} / {due}",
+      "AmountLabel": "Amount",
+      "ChangeCurrency": "Change actor Ryo",
+      "CurrencyChanged": "Ryo changed",
+      "Due": "Due: {amount}",
+      "History": "Payment History",
+      "InsufficientRyo": "Not enough Ryo to record that payment with actor currency deduction.",
+      "LegacyPaid": "Migrated from the legacy paid downtime flag.",
+      "NoAmount": "Enter a payment amount above 0.",
+      "Note": "Payment Note",
+      "Projected": "Projected: {amount}",
+      "Quick": {
+        "Custom": "Custom",
+        "Due": "Remaining due ({amount})",
+        "Full": "Full projected remaining ({amount})",
+        "Label": "Quick Amount",
+        "Week": "Current week ({amount})"
+      },
+      "Record": "Record",
+      "Remaining": "Remaining: {amount}",
+      "Status": {
+        "NoCost": "No Cost",
+        "Paid": "Paid",
+        "Partial": "Partial",
+        "Unpaid": "Unpaid",
+        "Waived": "Waived"
+      },
+      "Title": "Payment: {name}",
+      "Type": {
+        "Adjustment": "Adjustment",
+        "Label": "Entry Type",
+        "Payment": "Payment",
+        "Refund": "Refund",
+        "Waiver": "Waiver"
+      }
+    },
+    "Progress": "Progress",
+    "Rank": {
+      "Label": "Rank",
+      "E": "E-rank",
+      "D": "D-rank",
+      "C": "C-rank",
+      "B": "B-rank",
+      "A": "A-rank",
+      "S": "S-rank"
+    },
+    "Reopen": "Reopen",
+    "Roll": {
+      "Action": "Roll Check",
+      "DC": "DC {dc}",
+      "Enabled": "Has Roll",
+      "Label": "Roll",
+      "NoRoll": "This downtime activity does not have a configured roll."
+    },
+    "SpendWeek": "Spend Week",
+    "SpendWeekOverride": "Spend Week Anyway",
+    "Status": {
+      "Active": "Active",
+      "Completed": "Completed",
+      "Label": "Status"
+    },
+    "Target": {
+      "Label": "Target",
+      "Type": "Target Type",
+      "UUID": "Target UUID"
+    },
+    "TemplateDetails": "Downtime Template",
+    "WeekBank": "Week Bank",
+    "Weeks": {
+      "Add": "Add Week",
+      "Base": "Base Weeks",
+      "Count": "{value} Weeks",
+      "Label": "Downtime Weeks",
+      "Mode": {
+        "Fixed": "Fixed",
+        "Label": "Week Mode",
+        "Ranked": "Ranked",
+        "Variable": "Variable"
+      },
+      "NoRemaining": "No downtime weeks remain. Use the override button to spend anyway.",
+      "Note": "Week Notes",
+      "Remove": "Remove Week",
+      "Required": "Required Weeks"
+    },
+    "WeeksAvailable": "Available",
+    "WeeksRemaining": "Remaining",
+    "WeeksSource": "Source",
+    "WeeksSpent": "Spent"
+  },
+  "CONDITION": {
+    "Berserk": "Berserk",
+    "Bleeding": "Bleeding",
+    "Blinded": "Blinded",
+    "Bruised": "Bruised",
+    "Burned": "Burned",
+    "Charmed": "Charmed",
+    "Chilled": "Chilled",
+    "Concussed": "Concussed",
+    "Confused": "Confused",
+    "Corroded": "Corroded",
+    "Dazed": "Dazed",
+    "Dazzled": "Dazzled",
+    "Deafened": "Deafened",
+    "Decrease": "Decrease Rank",
+    "Demoralized": "Demoralized",
+    "Damage": "{condition} deals {damage} damage.",
+    "Dying": "Dying",
+    "Envenomed": "Envenomed",
+    "Exhaustion": "Exhaustion",
+    "Grappled": "Grappled",
+    "Incapacitated": "Incapacitated",
+    "Increase": "Increase Rank",
+    "Invisible": "Invisible",
+    "Lacerated": "Lacerated",
+    "Petrified": "Petrified",
+    "Prone": "Prone",
+    "RankDisplay": "Rank {rank}/{max}",
+    "Restrained": "Restrained",
+    "Sealed": "Sealed",
+    "Shocked": "Shocked",
+    "Slowed": "Slowed",
+    "Staggered": "Staggered",
+    "Stunned": "Stunned",
+    "Unconscious": "Unconscious",
+    "Weakened": "Weakened",
+    "Roll": {
+      "Demoralized": "Demoralized recovery check",
+      "Shocked": "Shocked reaction jutsu flat check DC {dc}"
+    },
+    "Warning": {
+      "Berserk": "{actor} is Berserk and must focus actions on harming the nearest perceived creature unless overridden.",
+      "Blinded": "{actor} is Blinded. Confirm this action can be resolved without sight before resolving.",
+      "Charmed": "{actor} is Charmed. Confirm this is not a hostile action against the source of infatuation before resolving.",
+      "Confused": "{actor} is Confused. Targeting requires a DC {dc} flat check; on failure, retarget to the closest creature if possible.",
+      "DazedAction": "{actor} is Dazed and has already moved this turn.",
+      "DazedBonus": "{actor} is Dazed and cannot take bonus actions unless overridden.",
+      "DazedMove": "{actor} is Dazed and has already acted this turn.",
+      "DazzledRange": "{actor} is Dazzled. Effective range is reduced to {range} ft unless overridden.",
+      "Deafened": "{actor} is Deafened. Confirm this action does not require hearing before resolving.",
+      "RestBlocked": "{actor} cannot benefit from this rest while affected by {conditions}.",
+      "ShockedFailed": "{actor} failed the Shocked reaction flat check DC {dc}; reaction jutsu chakra cost is doubled.",
+      "ShockedInsufficient": "{name} costs {cost} chakra after Shocked, but only {available} is available.",
+      "Slowed": "{actor} is Slowed and has already made the limited attack or jutsu use this turn.",
+      "Staggered": "{actor} is Staggered and cannot Dash, Disengage, Dodge, or use reactions unless overridden."
+    }
+  },
+  "JUTSU": {
+    "AbilityOverride": "Ability Override",
+    "AttackBonus": "Attack Bonus",
+    "CastAtRank": "Cast at Rank",
+    "Chakra": "Chakra",
+    "ChakraCost": "Chakra Cost",
+    "ChakraCostLabel": "{cost} Chakra",
+    "CastingAbilities": "Jutsu Casting Abilities",
+    "ClassCasting": "Jutsu Known Limits",
+    "ClassTags": "Class Tags",
+    "CompatibilityLevel": "Legacy Level",
+    "Components": "Jutsu Components",
+    "ConcentrationCheck": "Constitution (Chakra Control)",
+    "ConcentrationGuidance": "Maintain cost is {cost} chakra at the start of each of your turns. Chakra Control concentration DC is 12 + combined maintained rank value, or half damage taken, whichever is higher.",
+    "CountsKnown": "Counts Against Jutsu Known",
+    "Casting": "Jutsu Casting",
+    "CastingAbility": "Casting Ability",
+    "DCBonus": "Save DC Bonus",
+    "Details": "Jutsu Details",
+    "GenjutsuStimuli": "Genjutsu Stimuli",
+    "GenjutsuAbility": "Genjutsu Ability",
+    "HighestRankKnown": "Highest Rank Jutsu Known",
+    "Keywords": "Keywords",
+    "Known": "Jutsu Known",
+    "KnownLimit": "Jutsu Known Limit",
+    "KnownMax": "Maximum Jutsu Known",
+    "Label": "Jutsu",
+    "LegacyCasting": "Compatibility",
+    "MaxRank": "Max Rank",
+    "MaintainConcentration": "Maintain Concentration",
+    "MaintainCost": "Maintain {cost} Chakra",
+    "MaintainPaid": "Maintained",
+    "NinjutsuAbility": "Ninjutsu Ability",
+    "PayMaintain": "Pay Maintain",
+    "Progression": "Jutsu Progression",
+    "ProgressionHint": "Edit Jutsu Known and Highest Rank Jutsu Known from this class's Scale Value advancements.",
+    "SpecialCost": "Special Cost",
+    "SpendChakra": "Spend {cost} Chakra?",
+    "SpendChakraHint": "Available chakra: {available}. Cost: {cost}. Uncheck to handle the spend manually.",
+    "TaijutsuAbility": "Taijutsu Ability",
+    "Unclassified": "Unclassified",
+    "WarnAbilityRequirement": "{rank} jutsu normally require {ability} {required} or higher. Current value: {value}.",
+    "WarnCastRank": "This actor's configured max rank is {max}; {rank} is above it.",
+    "WarnInsufficientChakra": "{name} costs {cost} chakra, but only {available} is available. Uncheck chakra spending to proceed manually.",
+    "WarnKnownExceeded": "Jutsu known exceeds this class's soft limit ({value}/{max}).",
+    "WarnMaxRankExceeded": "{name} is {rank}, above configured max rank {max}.",
+    "Scaling": {
+      "ChakraCost": "Scaled chakra cost: {cost} (base {base}).",
+      "Hint": "Rank scaling adds this value for each jutsu rank above the base rank.",
+      "Label": "Chakra Scaling",
+      "Mode": "Scaling Mode",
+      "None": "None",
+      "Rank": "Per Rank Above Base",
+      "Value": "Chakra per Rank"
+    },
+    "Component": {
+      "ChakraMolding": "Chakra Molding",
+      "ChakraMoldingAbbr": "CM",
+      "ChakraSeals": "Chakra Seals",
+      "ChakraSealsAbbr": "CS",
+      "HandSeals": "Hand Seals",
+      "HandSealsAbbr": "HS",
+      "Mobility": "Mobility",
+      "MobilityAbbr": "M",
+      "NinjaTools": "Ninja Tools",
+      "NinjaToolsAbbr": "NT",
+      "Weapon": "Weapon",
+      "WeaponAbbr": "W"
+    },
+    "Keyword": {
+      "Auditory": "Auditory",
+      "Bukijutsu": "Bukijutsu",
+      "Chain": "Chain",
+      "Clash": "Clash",
+      "Clone": "Clone",
+      "Combination": "Combination",
+      "Combo": "Combo",
+      "Construct": "Construct",
+      "EarthRelease": "Earth Release",
+      "Finisher": "Finisher",
+      "FireRelease": "Fire Release",
+      "Fuinjutsu": "Fuinjutsu",
+      "Genjutsu": "Genjutsu",
+      "Hijutsu": "Hijutsu",
+      "Inhaled": "Inhaled",
+      "Kinjutsu": "Kinjutsu",
+      "LightningRelease": "Lightning Release",
+      "Medical": "Medical",
+      "Ninjutsu": "Ninjutsu",
+      "Sensory": "Sensory",
+      "Taijutsu": "Taijutsu",
+      "Tactile": "Tactile",
+      "Unaware": "Unaware",
+      "Visual": "Visual",
+      "WaterRelease": "Water Release",
+      "WindRelease": "Wind Release"
+    },
+    "Rank": {
+      "Label": "Rank",
+      "A": "A-Rank",
+      "AAbbr": "A",
+      "B": "B-Rank",
+      "BAbbr": "B",
+      "C": "C-Rank",
+      "CAbbr": "C",
+      "D": "D-Rank",
+      "DAbbr": "D",
+      "E": "E-Rank",
+      "EAbbr": "E",
+      "S": "S-Rank",
+      "SAbbr": "S"
+    },
+    "Type": {
+      "Label": "Jutsu Type",
+      "Bukijutsu": "Bukijutsu",
+      "Genjutsu": "Genjutsu",
+      "Ninjutsu": "Ninjutsu",
+      "Taijutsu": "Taijutsu"
+    }
+  },
+  "ADVANCEMENT": {
+    "Chakra": {
+      "Action": {
+        "RollClass": "Roll {class} Chakra",
+        "RollDie": "Roll {die}"
+      },
+      "Average": "Average",
+      "Breakdown": {
+        "Average": "Avg.",
+        "Bonus": "Bonus",
+        "Final": "Final",
+        "Max": "Max",
+        "Previous": "Prev.",
+        "Roll": "Roll"
+      },
+      "Hint": "Track the player's chakra for each level in the class.",
+      "MaxAtFirstLevel": "Max at 1st Level: <strong>{max}</strong>",
+      "Options": "Options",
+      "Starting": "Chakra at 1st Level",
+      "TakeAverage": "Take Average",
+      "Title": "Chakra",
+      "Warning": {
+        "Empty": "Chakra must be rolled or the average value must be taken.",
+        "Invalid": "Chakra must be a valid whole number."
+      }
+    }
+  },
+  "CHAKRA": {
+    "Counted": {
+      "one": "{number} chakra point",
+      "other": "{number} chakra points"
+    }
+  },
+  "CHAKRADICE": {
+    "Available": "{number} available",
+    "Counted": {
+      "one": "{number} chakra die",
+      "other": "{number} chakra dice"
+    }
+  },
+  "REST": {
+    "ChakraDice": {
+      "None": "No Chakra Dice remaining to roll during this rest."
+    },
+    "Points": "Hit Points & Chakra",
+    "RecoverTemp": {
+      "Label": "Remove Temp HP & Chakra"
+    },
+    "RecoverTempMax": {
+      "Hint": "Remove any adjustments to maximum Hit Points and maximum Chakra.",
+      "Label": "Recover Max HP & Chakra"
+    },
+    "Result": {
+      "Recovered": "{name} takes a {rest} and recovers {recovered}.",
+      "Short": "{name} takes a {rest}.",
+      "Spent": "{name} takes a {rest} and spends {spent}.",
+      "SpentRecovered": "{name} takes a {rest}, spends {spent}, and recovers {recovered}."
+    }
   }
 },
 
@@ -3993,19 +4694,22 @@
 "DND5E.Skills": "Skills",
 "DND5E.SkillAcr": "Acrobatics",
 "DND5E.SkillAni": "Animal Handling",
-"DND5E.SkillArc": "Arcana",
 "DND5E.SkillAth": "Athletics",
+"DND5E.SkillCcl": "Chakra Control",
+"DND5E.SkillCra": "Crafting",
 "DND5E.SkillDec": "Deception",
 "DND5E.SkillHis": "History",
+"DND5E.SkillIll": "Illusions",
 "DND5E.SkillIns": "Insight",
 "DND5E.SkillInv": "Investigation",
 "DND5E.SkillItm": "Intimidation",
+"DND5E.SkillMar": "Martial Arts",
 "DND5E.SkillMed": "Medicine",
 "DND5E.SkillNat": "Nature",
+"DND5E.SkillNsh": "Ninshou",
 "DND5E.SkillPer": "Persuasion",
 "DND5E.SkillPrc": "Perception",
 "DND5E.SkillPrf": "Performance",
-"DND5E.SkillRel": "Religion",
 "DND5E.SkillSlt": "Sleight of Hand",
 "DND5E.SkillSte": "Stealth",
 "DND5E.SkillSur": "Survival",
@@ -4072,12 +4776,12 @@
 "DND5E.SpecialHint": "Special values separated by semi-colons.",
 "DND5E.SpecialTraits": "Special Traits",
 "DND5E.Species": {
-  "Label": "Species",
-  "Add": "Add Species",
-  "AddLegacy": "Add Race",
-  "Features": "Species Features",
-  "FeaturesLegacy": "Race Features",
-  "Name": "Species Name"
+  "Label": "Clan",
+  "Add": "Add Clan",
+  "AddLegacy": "Add Clan",
+  "Features": "Clan Features",
+  "FeaturesLegacy": "Clan Features",
+  "Name": "Clan Name"
 },
 "DND5E.Speed": "Speed",
 "DND5E.SpeedSpecial": "Special Movement",
@@ -4096,19 +4800,19 @@
   }
 },
 
-"DND5E.SpellAbility": "Spellcasting Ability",
-"DND5E.SpellAbilitySet": "Set as Primary Spellcasting Ability",
-"DND5E.SpellAdd": "Add Spell",
-"DND5E.SpellAttackBonus": "Spell Attack Bonus",
-"DND5E.SpellCantrip": "Cantrip",
-"DND5E.SpellCastConsume": "Consume Spell Slot?",
+"DND5E.SpellAbility": "Jutsu Casting Ability",
+"DND5E.SpellAbilitySet": "Set as Primary Jutsu Casting Ability",
+"DND5E.SpellAdd": "Add Jutsu",
+"DND5E.SpellAttackBonus": "Jutsu Attack Bonus",
+"DND5E.SpellCantrip": "E-Rank Jutsu",
+"DND5E.SpellCastConsume": "Spend Chakra?",
 "DND5E.SpellCastNoSlots": "You have no available {level} spell slots with which to cast {name}",
 "DND5E.SpellCastNoSlotsLeft": "You have no available spell slots with which to cast {name}!",
 "DND5E.SpellCastTime": "Casting Time",
-"DND5E.SpellCastUpcast": "Cast at Level",
-"DND5E.SpellcasterLevel": "Spellcaster Level",
-"DND5E.SpellCastingHeader": "Spell Casting",
-"DND5E.Spellcasting": "Spellcasting",
+"DND5E.SpellCastUpcast": "Cast at Rank",
+"DND5E.SpellcasterLevel": "Jutsu Caster Level",
+"DND5E.SpellCastingHeader": "Jutsu Casting",
+"DND5E.Spellcasting": "Jutsu Casting",
 
 "DND5E.SPELLCASTING": {
   "METHODS": {
@@ -4164,42 +4868,42 @@
   "Unlabeled": "Unlabeled Spellcasting"
 },
 
-"DND5E.SpellcastingClass": "{class} Spellcasting",
-"DND5E.SpellComponent": "Spell Component",
-"DND5E.SpellComponents": "Spell Components",
+"DND5E.SpellcastingClass": "{class} Jutsu Casting",
+"DND5E.SpellComponent": "Jutsu Component",
+"DND5E.SpellComponents": "Jutsu Components",
 "DND5E.SpellComponentsMaterial": "{components} ({materials})",
-"DND5E.SpellCreate": "Create Spell",
-"DND5E.SpellDC": "Spell DC",
-"DND5E.SpellDetails": "Spell Details",
-"DND5E.SpellEffects": "Spell Effects",
+"DND5E.SpellCreate": "Create Jutsu",
+"DND5E.SpellDC": "Jutsu DC",
+"DND5E.SpellDetails": "Jutsu Details",
+"DND5E.SpellEffects": "Jutsu Effects",
 "DND5E.SpellHeader": {
   "Formula": "Formula",
   "Range": "Range",
   "Roll": "Roll",
-  "School": "School",
+  "School": "Type",
   "Target": "Target",
   "Time": "Time"
 },
-"DND5E.SpellLevel": "Spell Level",
-"DND5E.SpellLevels": "Spell Levels",
-"DND5E.SpellLevel0": "Cantrip",
-"DND5E.SpellLevel1": "1st Level",
-"DND5E.SpellLevel2": "2nd Level",
-"DND5E.SpellLevel3": "3rd Level",
-"DND5E.SpellLevel4": "4th Level",
-"DND5E.SpellLevel5": "5th Level",
-"DND5E.SpellLevel6": "6th Level",
-"DND5E.SpellLevel7": "7th Level",
-"DND5E.SpellLevel8": "8th Level",
-"DND5E.SpellLevel9": "9th Level",
+"DND5E.SpellLevel": "Rank",
+"DND5E.SpellLevels": "Jutsu Ranks",
+"DND5E.SpellLevel0": "E-Rank",
+"DND5E.SpellLevel1": "D-Rank",
+"DND5E.SpellLevel2": "D-Rank",
+"DND5E.SpellLevel3": "C-Rank",
+"DND5E.SpellLevel4": "C-Rank",
+"DND5E.SpellLevel5": "B-Rank",
+"DND5E.SpellLevel6": "B-Rank",
+"DND5E.SpellLevel7": "A-Rank",
+"DND5E.SpellLevel8": "A-Rank",
+"DND5E.SpellLevel9": "S-Rank",
 "DND5E.SpellLevelSpell": "{level} ({n} Slots)",
 "DND5E.SpellLevelPact": "Pact Slot [Level {level}] ({n} Slots)",
-"DND5E.SpellMaterials": "Spellcasting Materials",
+"DND5E.SpellMaterials": "Legacy Materials",
 "DND5E.SpellMaterialsConsumed": "Consume Materials",
 "DND5E.SpellMaterialsCost": "Material Cost",
 "DND5E.SpellMaterialsDescription": "Material Description",
 "DND5E.SpellMaterialsSupply": "Material Supply",
-"DND5E.SpellName": "Spell Name",
+"DND5E.SpellName": "Jutsu Name",
 "DND5E.SpellNone": "None",
 "DND5E.SpellPrepAtWill": "At-Will",
 "DND5E.SpellPrepInnate": "Innate Spellcasting",
@@ -4207,9 +4911,9 @@
 "DND5E.SpellPrepPrepared": "Prepared",
 "DND5E.SpellPrepAlways": "Always Prepared",
 "DND5E.SpellPreparation": {
-  "Label": "Spell Preparation",
+  "Label": "Legacy Spell Preparation",
   "Formula": "Preparation Formula",
-  "Method": "Spellcasting Method"
+  "Method": "Legacy Casting Method"
 },
 "DND5E.SpellPrepared": "Prepared",
 "DND5E.SpellProgArt": "Artificer",
@@ -4220,9 +4924,9 @@
 "DND5E.SpellProgOverride": "Override slots",
 "DND5E.SpellProgPact": "Pact Magic",
 "DND5E.SpellProgThird": "Third Caster",
-"DND5E.SpellProgression": "Spell Progression",
-"DND5E.SpellsSearch": "Search spells",
-"DND5E.SpellSchool": "Spell School",
+"DND5E.SpellProgression": "Jutsu Progression",
+"DND5E.SpellsSearch": "Search jutsu",
+"DND5E.SpellSchool": "Legacy School",
 "DND5E.SpellScroll": "Spell Scroll",
 "DND5E.SpellSlotExpended": "Expended Spell Slot",
 "DND5E.SpellSlotN.one": "{n}st spell slot",
@@ -4235,12 +4939,12 @@
 "DND5E.SpellSlotsN.few": "{n}rd Level Slots",
 "DND5E.SpellSlotsN.other": "{n}th Level Slots",
 "DND5E.SpellSlotsPact": "Pact Slots",
-"DND5E.SpellSlotsConfig": "Configure Spell Slots",
-"DND5E.SpellTag": "Spell Tag",
-"DND5E.SpellTarget": "Spell Target",
+"DND5E.SpellSlotsConfig": "Configure Legacy Slots",
+"DND5E.SpellTag": "Jutsu Tag",
+"DND5E.SpellTarget": "Jutsu Target",
 "DND5E.SpellUnprepared": "Unprepared",
-"DND5E.SpellUsage": "Spell Usage",
-"DND5E.Spellbook": "Spellbook",
+"DND5E.SpellUsage": "Jutsu Usage",
+"DND5E.Spellbook": "Jutsu List",
 "DND5E.Spent": "Spent",
 "DND5E.StartingEquipment": {
   "Title": "Starting Equipment",
@@ -4763,6 +5467,7 @@
 
 "DND5E.ToolArtisans": "Artisan's Tools",
 "DND5E.ToolBonuses": "Tool Bonuses",
+"DND5E.Tool": "Tool",
 "DND5E.ToolCheck": "Tool Check",
 "DND5E.ToolConfigure": "Configure Tool Proficiency",
 "DND5E.ToolDisguiseKit": "Disguise Kit",
@@ -4775,6 +5480,7 @@
 "DND5E.ToolPromptTitle": "{tool} Check",
 "DND5E.ToolThieves": "Thieves' Tools",
 "DND5E.ToolVehicle": "Vehicles",
+"N5EB.ToolKits": "Kits",
 "DND5E.TraitAll": "All {category}",
 "DND5E.TraitArmorPlural.one": "Armor Training",
 "DND5E.TraitArmorPlural.other": "Armor Training",
@@ -5211,7 +5917,7 @@
     }
   },
   "WEIGHT": {
-    "Label": "Weight Units",
+    "Label": "Bulk Units",
     "Kilogram": {
       "Label": "Kilogram",
       "Abbreviation": "kg"
@@ -5613,7 +6319,7 @@
 "DND5E.WeaponSimpleM": "Simple Melee",
 "DND5E.WeaponSimpleProficiency": "Simple",
 "DND5E.WeaponSimpleR": "Simple Ranged",
-"DND5E.Weight": "Weight",
+"DND5E.Weight": "Bulk",
 "DND5E.WhisperedTo": "Whispered to",
 "DND5E.Wiki": "Wiki",
 "DND5E.available": "available",
@@ -5906,7 +6612,7 @@
     },
     "WeightUnits": {
       "Name": "Use Metric Weight Units",
-      "Hint": "Replaces all reference to lbs with kgs and updates the encumbrance calculations to use metric weight units."
+      "Hint": "N5eB uses Bulk for carried items; this setting no longer changes inventory capacity units."
     }
   },
   "NPCS": {
@@ -5950,6 +6656,16 @@
     "Legacy": "Legacy Rules (2014)",
     "Modern": "Modern Rules (2024)"
   },
+  "SHEET": {
+    "AbilityColors": {
+      "Name": "Color Ability Abbreviations",
+      "Hint": "Color STR, DEX, CON, WIS, INT, and CHA abbreviations on actor sheets."
+    },
+    "SortSkillsByAbility": {
+      "Name": "Sort Skills by Ability",
+      "Hint": "Sort skills by their ability score first: STR, DEX, CON, WIS, INT, then CHA."
+    }
+  },
   "VARIANT": {
     "Hint": "Enable and configure rules variations offered by the system.",
     "Label": "Configure Variant Rules",
@@ -5959,15 +6675,15 @@
       "Name": "Allow Feats"
     },
     "CurrencyWeight": {
-      "Hint": "Carried currency affects character encumbrance.",
-      "Name": "Track Currency Weight"
+      "Hint": "Disabled for N5eB Bulk by default; the free wallet holds normal Ryo without using Bulk.",
+      "Name": "Track Currency Bulk"
     },
     "Encumbrance": {
-      "Hint": "Enable automatic tracking of encumbrance and the application of status effects for characters carrying too much.",
-      "Name": "Encumbrance Tracking",
+      "Hint": "Enable automatic tracking of N5eB Bulk capacity and the encumbered status for characters carrying too much.",
+      "Name": "Bulk Tracking",
       "None": "None",
-      "Normal": "Normal (max carrying capacity)",
-      "Variant": "Variant (encumbered & heavily encumbered)"
+      "Normal": "Bulk display only",
+      "Variant": "N5eB Bulk"
     },
     "HonorScore": {
       "Hint": "Enable the use of the optional Honor ability score.",
@@ -5985,6 +6701,10 @@
       "Dice": "DMG: Dice (1d4, 1d6, 1d8, 1d10, 1d12)",
       "Hint": "Configure proficiency modifier to use a fixed bonus or a dice roll.",
       "Name": "Proficiency Variant"
+    },
+    "UseExpertise": {
+      "Hint": "Use classic Expertise for skills and tools instead of N5e Mastery ranks.",
+      "Name": "Use Expertise Instead of Mastery"
     },
     "Rest": {
       "Epic": "Epic Heroism (LR: 1 hour, SR: 1 min)",
@@ -6035,5 +6755,17 @@
 "SOURCE.BOOK.FreeRules": "Free Rules",
 "SOURCE.BOOK.SRD51": "System Reference Document 5.1",
 "SOURCE.BOOK.SRD52": "System Reference Document 5.2",
+"N5EB.CLASSMOD.ArtsFormula": "Formula",
+"N5EB.CLASSMOD.ArtsLabel": "{classmod} Arts",
+"N5EB.CLASSMOD.AttackBonus": "Attack Bonus",
+"N5EB.CLASSMOD.Color": "Arts Color",
+"N5EB.CLASSMOD.Details": "Class Mod Details",
+"N5EB.CLASSMOD.MaxLevelExceeded": "This class mod is already at its maximum level.",
+"N5EB.CLASSMOD.Save": "Save DC",
+"N5EB.EquipmentPack.ToolkitPrompt.Invalid": "Choose exactly {count} toolkit option(s).",
+"N5EB.EquipmentPack.ToolkitPrompt.Prompt": "Choose {count} toolkit option(s) for {pack}.",
+"N5EB.EquipmentPack.ToolkitPrompt.Title": "{pack}: Toolkit Choice",
+"N5EB.FeaturesClassmod": "{classmod} Features",
+"N5EB.SenseChakrasight": "Chakra Sight",
 "SIDEBAR.SortModePriority": "Sort by priority"
 }

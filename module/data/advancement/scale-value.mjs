@@ -455,6 +455,89 @@ export class ScaleValueTypeDistance extends ScaleValueTypeNumber {
   }
 }
 
+/**
+ * Scale value data type that stores a jutsu rank.
+ * @extends {ScaleValueType<ScaleValueStringTypeData>}
+ * @mixes ScaleValueStringTypeData
+ */
+export class ScaleValueTypeJutsuRank extends ScaleValueType {
+
+  /* -------------------------------------------- */
+  /*  Model Configuration                         */
+  /* -------------------------------------------- */
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["DND5E.ADVANCEMENT.ScaleValue.Type.JutsuRank"];
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static defineSchema() {
+    return {
+      value: new StringField({
+        required: true, blank: true,
+        validate: v => !v || (v in CONFIG.DND5E.jutsuRanks),
+        validationError: "must be a valid jutsu rank"
+      })
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static get metadata() {
+    return foundry.utils.mergeObject(super.metadata, {
+      label: "DND5E.ADVANCEMENT.ScaleValue.Type.JutsuRank.Label",
+      hint: "DND5E.ADVANCEMENT.ScaleValue.Type.JutsuRank.Hint",
+      identifier: "DND5E.ADVANCEMENT.ScaleValue.Type.JutsuRank.Identifier"
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  get display() {
+    return this.value ? game.i18n.localize(CONFIG.DND5E.jutsuRanks[this.value]?.label) : "";
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static convertFrom(original, options) {
+    const value = normalizeJutsuRank(original.formula);
+    if ( !value ) return null;
+    return new this({ value }, options);
+  }
+
+  /* -------------------------------------------- */
+  /*  Helpers                                     */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static getFields(level, value, lastValue) {
+    const fields = super.getFields(level, value, lastValue);
+    fields.value.options = [
+      { value: "", label: fields.value.placeholder || "—" },
+      { rule: true },
+      ...CONFIG.DND5E.jutsuRankOrder.map(value => ({
+        value,
+        label: game.i18n.localize(CONFIG.DND5E.jutsuRanks[value].label)
+      }))
+    ];
+    return fields;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static getPlaceholder(name, lastValue) {
+    if ( (name === "value") && lastValue?.value ) {
+      return game.i18n.localize(CONFIG.DND5E.jutsuRanks[lastValue.value]?.label);
+    }
+    return super.getPlaceholder(name, lastValue);
+  }
+}
+
 
 /**
  * The available types of scaling value.
@@ -465,5 +548,22 @@ export const TYPES = {
   number: ScaleValueTypeNumber,
   cr: ScaleValueTypeCR,
   dice: ScaleValueTypeDice,
-  distance: ScaleValueTypeDistance
+  distance: ScaleValueTypeDistance,
+  jutsuRank: ScaleValueTypeJutsuRank
 };
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize user-facing jutsu rank values into internal rank keys.
+ * @param {string} value  Value to normalize.
+ * @returns {string}
+ */
+function normalizeJutsuRank(value) {
+  if ( typeof value !== "string" ) return "";
+  const lower = value.trim().toLowerCase().replace(/-?rank$/, "");
+  if ( lower in CONFIG.DND5E.jutsuRanks ) return lower;
+  return Object.entries(CONFIG.DND5E.jutsuRanks).find(([, config]) => {
+    return [config.label, config.abbreviation].some(label => game.i18n.localize(label).toLowerCase() === lower);
+  })?.[0] ?? "";
+}

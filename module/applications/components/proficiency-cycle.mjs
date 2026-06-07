@@ -48,9 +48,9 @@ export default class ProficiencyCycleElement extends AdoptedStyleSheetMixin(
         border-radius: 100%;
       }
 
-      &:has([value="1"])::before { background: var(--_fill); }
+      :host(:not([type="mastery"])) &:has([value="1"])::before { background: var(--_fill); }
 
-      &:has([value="0.5"], [value="2"])::after {
+      &:has([value="0.5"])::after {
         content: "";
         position: absolute;
         background: var(--_fill);
@@ -63,16 +63,24 @@ export default class ProficiencyCycleElement extends AdoptedStyleSheetMixin(
         border-radius: 100% 0 0 100%;
       }
 
-      &:has([value="2"]) {
+      :host([type="mastery"]) &:has([value="1"], [value="2"], [value="3"]) {
         &::before {
           inset: 1px;
           border-width: 2px;
         }
 
         &::after {
+          content: "";
+          position: absolute;
+          background: var(--_fill);
           inset: 5px;
           border-radius: 100%;
         }
+      }
+
+      :host([type="mastery"]) &:has([value="2"])::after { box-shadow: 0 0 0 2px var(--_fill); }
+      :host([type="mastery"]) &:has([value="3"])::after {
+        box-shadow: 0 0 0 2px var(--_fill), 0 0 0 4px var(--_fill);
       }
     }
 
@@ -112,16 +120,18 @@ export default class ProficiencyCycleElement extends AdoptedStyleSheetMixin(
 
   /**
    * Type of proficiency represented by this control (e.g. "ability" or "skill").
-   * @type {"ability"|"skill"|"tool"}
+   * @type {"ability"|"skill"|"tool"|"mastery"}
    */
   get type() { return this.getAttribute("type") ?? "ability"; }
 
   set type(value) {
-    if ( !["ability", "skill", "tool"].includes(value) ) throw new Error("Type must be 'ability', 'skill', or 'tool'.");
+    if ( !["ability", "skill", "tool", "mastery"].includes(value) ) {
+      throw new Error("Type must be 'ability', 'skill', 'tool', or 'mastery'.");
+    }
     this.setAttribute("type", value);
     this._internals.ariaValueMin = 0;
-    this._internals.ariaValueMax = value === "ability" ? 1 : 2;
-    this._internals.ariaValueStep = value === "ability" ? 1 : 0.5;
+    this._internals.ariaValueMax = value === "mastery" && !dnd5e.settings.useExpertise ? 3 : 1;
+    this._internals.ariaValueStep = value === "mastery" ? 1 : 0.5;
   }
 
   /* -------------------------------------------- */
@@ -131,7 +141,9 @@ export default class ProficiencyCycleElement extends AdoptedStyleSheetMixin(
    * @type {number[]}
    */
   get validValues() {
-    return this.type === "ability" ? [0, 1] : [0, 1, .5, 2];
+    if ( this.type === "ability" ) return [0, .5, 1];
+    if ( this.type === "mastery" ) return dnd5e.settings.useExpertise ? [0, 1] : [0, 1, 2, 3];
+    return [0, 1, .5];
   }
 
   /* -------------------------------------------- */
@@ -173,7 +185,8 @@ export default class ProficiencyCycleElement extends AdoptedStyleSheetMixin(
     const input = this.#shadowRoot.querySelector("input");
     input.setAttribute("value", this._value);
     this._internals.ariaValueNow = this._value;
-    this._internals.ariaValueText = CONFIG.DND5E.proficiencyLevels[this._value];
+    const levels = this.type === "mastery" ? CONFIG.DND5E.masteryLevels : CONFIG.DND5E.proficiencyLevels;
+    this._internals.ariaValueText = levels[this._value];
     this._internals.setFormValue(this._value);
     this._primaryInput = this.#shadowRoot.querySelector("input");
   }

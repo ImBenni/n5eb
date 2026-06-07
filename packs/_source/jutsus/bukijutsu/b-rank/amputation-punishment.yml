@@ -1,0 +1,245 @@
+name: Amputation Punishment
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: "<p>You leap over your opponent while hooking your blade being an enemy's limbs and pulling violently to sever them. Make a melee taijutsu attack, dealing your weapons damage + 5d8 and the target must succeed a Dexterity saving throw. On a failed save the target loses mobility and function in one of their arms being unable to hold things, form handseals or manipulate objects with it until they complete a rest.</p><p>A jutsu that removes conditions, cast at C-Rank or Higher can heal the targets arm(s), granting it mobility and function.</p><p>If a creature has both arms disabled by\_ this jutsu, and would have an arm disabled for the second time, they make a constitution\_ \_saving throw. <span style=\"font-family:var(--font-primary)\">On a failed save, one of their arms is amputated.\_</span></p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 12
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d8
+        - ''
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  level: 5
+  school: trs
+  materials:
+    value: (Chained Hand Scythe, Hand Scythe, Scythe),
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: amputation-punishment
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: b
+  chakra:
+    cost: '12'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - weapon
+      - weapons
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/b-rank/amputation-punishment.json
+      sourceId: OfaHe5Ff104Mw53T
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You leap over your opponent while hooking your blade being an enemy's limbs and pulling violently to sever them. Make a melee taijutsu attack, dealing your weapons damage + 5d8 and the target must succeed a Dexterity saving throw. On a failed save the target loses mobility and function in one of their arms being unable to hold things, form handseals or manipulate objects with it until they complete a rest.</p><p>A jutsu that removes conditions, cast at C-Rank or Higher can heal the targets arm(s), granting it mobility and function.</p><p>If a creature has both arms disabled by\_ this jutsu, and would have an arm disabled for the second time, they make a constitution\_ \_saving throw. <span style=\"font-family:var(--font-primary)\">On a failed save, one of their arms is amputated.\_</span></p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 12
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d8
+              - ''
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        level: 3
+        school: buki
+        materials:
+          value: (Chained Hand Scythe, Hand Scythe, Scythe),
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - mobility
+          - weapons
+          - weapon
+        keywords:
+          - bukijutsu
+        chakraCost: 12
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755893853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/b-rank/amputation-punishment.json
+folder: Jl06pbyhjmFzL4c2
+sort: 1600000
+ownership:
+  default: 0
+_id: OfaHe5Ff104Mw53T
+_key: '!items!OfaHe5Ff104Mw53T'

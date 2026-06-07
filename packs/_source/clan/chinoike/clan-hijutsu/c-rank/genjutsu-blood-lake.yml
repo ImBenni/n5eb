@@ -1,0 +1,365 @@
+name: Genjutsu Blood Lake!
+type: spell
+img: systems/n5eb/assets/content/clans/chinoike.webp
+system:
+  description:
+    value: >-
+      <p>A genjutsu that causes the target to experience a drowning sensation, exhausting themselves as if their body
+      truly underwent physical trauma. Select one target within range. This creature must succeed a Wisdom saving
+      throw.</p><p>If this jutsu is used while your Ketsuryūgan is active, all creatures within 5 feet of the target, of
+      your choice, must also make this saving throw.</p><p>Critical Success: The creature is able to resist this jutsu
+      effects, and cannot be affected by this jutsu for 1 minute</p><p>Success: The creature is able to resist this
+      jutsu's effects.</p><p>Failure: The creature loses sight of their surroundings, and sees a small fissure open
+      underneath their feet, revealing a red ocean. The creature falls into water and feels as though it has been
+      trapped for several days, constantly trying to escape and not drown. The creature gains 2 ranks of Exhaustion for
+      1d4 rounds.</p><p>Critical Failure: Same effects as a failure, but the target takes 4d8 psychic damage, and the
+      Exhaustion lasts for 1d4+2 rounds. They also gain 3 ranks of Exhaustion.</p><p>At Higher Ranks: For each rank you
+      cast this jutsu above C-Rank, increase the cost of this jutsu by 3, the range by 15 feet, and the duration of the
+      Exhaustion condition by 1 round.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: genjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 4d8
+        - psychic
+    versatile: 1d4
+  formula: 1d4+2
+  save:
+    ability: wis
+    dc: null
+    scaling: genjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: genjutsu-blood-lake
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - hijutsu
+      - tactile
+      - water
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Exhaustion
+    origin: Compendium.n5eb.clan.Item.QpX2bXV7nW5dbVe2
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/exhaustion.svg
+    _id: VgGoFIaLC9lBA1Nz
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Attacks
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.bonuses.abilities.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.bonuses.abilities.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p>Some special abilities and environmental hazards, such as and the long-term effects of freezing or scorching
+      temperatures, can lead to a special condition called exhaustion.</p><p>If an already exhausted creature suffers
+      another effect that causes exhaustion, its current level of exhaustion increases by 1 rank.</p><p>An effect that
+      removes exhaustion reduces its rank by 1. Finishing a long rest reduces a creature’s exhaustion level by 1,
+      provided that the creature has also ingested some food and drink. When a creature exceeds 10 ranks of exhaustion,
+      they die.</p><p>For every rank of exhaustion, a creature has all of the following statistics are reduced by 1, and
+      for every two ranks of exhaustion a creatures speed is reduced by 5;</p><ul><li><p>Armor
+      Class</p></li><li><p>Ability Checks</p></li><li><p>Skill Checks</p></li><li><p>Saving Throws</p></li><li><p>Attack
+      Rolls</p></li><li><p>Damage Rolls</p></li><li><p>Save DC’s</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - exhaustion
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.uZorNyJB1OLmWYiq.ActiveEffect.JZF20dElgZ79eI8h
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!QpX2bXV7nW5dbVe2.VgGoFIaLC9lBA1Nz'
+folder: NWFOuxXnmtbeb7eK
+flags:
+  n5eb:
+    migratedProperties:
+      - handseals
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: chinoike/clan-hijutsu/c-rank/genjutsu-blood-lake.json
+      sourceId: QpX2bXV7nW5dbVe2
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>A genjutsu that causes the target to experience a drowning sensation, exhausting themselves as if their
+            body truly underwent physical trauma. Select one target within range. This creature must succeed a Wisdom
+            saving throw.</p><p>If this jutsu is used while your Ketsuryūgan is active, all creatures within 5 feet of
+            the target, of your choice, must also make this saving throw.</p><p>Critical Success: The creature is able
+            to resist this jutsu effects, and cannot be affected by this jutsu for 1 minute</p><p>Success: The creature
+            is able to resist this jutsu's effects.</p><p>Failure: The creature loses sight of their surroundings, and
+            sees a small fissure open underneath their feet, revealing a red ocean. The creature falls into water and
+            feels as though it has been trapped for several days, constantly trying to escape and not drown. The
+            creature gains 2 ranks of Exhaustion for 1d4 rounds.</p><p>Critical Failure: Same effects as a failure, but
+            the target takes 4d8 psychic damage, and the Exhaustion lasts for 1d4+2 rounds. They also gain 3 ranks of
+            Exhaustion.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this
+            jutsu by 3, the range by 15 feet, and the duration of the Exhaustion condition by 1 round.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: genjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 4d8
+              - psychic
+          versatile: 1d4
+        formula: 1d4+2
+        save:
+          ability: wis
+          dc: null
+          scaling: genjutsu
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        keywords:
+          - genjutsu
+          - hijutsu
+          - tactile
+          - water
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+        chakraCost: 9
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728752533749
+  modifiedTime: 1728752573579
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: chinoike/clan-hijutsu/c-rank/genjutsu-blood-lake.json
+_id: QpX2bXV7nW5dbVe2
+sort: 200000
+ownership:
+  default: 0
+_key: '!items!QpX2bXV7nW5dbVe2'

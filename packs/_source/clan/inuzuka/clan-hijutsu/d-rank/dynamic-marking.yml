@@ -1,0 +1,242 @@
+name: Dynamic Marking
+type: spell
+img: systems/n5eb/assets/content/clans/inuzuka.webp
+system:
+  description:
+    value: "<p>Your Nin-Dog leaps into the air, and spins while releasing Chakra charged urine over the area.\_<br />Creatures in a 10-foot radius centered on the Nin-Dog are covered in the Urine.\_<br />Affected creatures exude a faint but obvious stench that can be tracked by you or your Nin-Dog.\_<br />For the duration, you &amp; your nin- dog have blindsight when searching for or attacking creatures affected by this jutsu.\_<br />When you make a perception check to find an affected creature, you gain advantage on the roll.\_<br />Also, when you or your Nin-Dog make an attack using an Inuzuka clan jutsu against an affected creature, roll a 1d4, adding the result to your attack roll.\_</p><p><br />At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the radius of this jutsu, by 5ft.</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '10'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '10'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: null
+  actionType: ''
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: dynamic-marking
+  jutsu:
+    components:
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - sensory
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - sensory
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: inuzuka/clan-hijutsu/d-rank/dynamic-marking.json
+      sourceId: 6ga5e0PYeUalQdWn
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>Your Nin-Dog leaps into the air, and spins while releasing Chakra charged urine over the area.\_<br />Creatures in a 10-foot radius centered on the Nin-Dog are covered in the Urine.\_<br />Affected creatures exude a faint but obvious stench that can be tracked by you or your Nin-Dog.\_<br />For the duration, you &amp; your nin- dog have blindsight when searching for or attacking creatures affected by this jutsu.\_<br />When you make a perception check to find an affected creature, you gain advantage on the roll.\_<br />Also, when you or your Nin-Dog make an attack using an Inuzuka clan jutsu against an affected creature, roll a 1d4, adding the result to your attack roll.\_</p><p><br />At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the radius of this jutsu, by 5ft.</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '10'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '10'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: null
+        actionType: ''
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - mobility
+          - sensory
+        keywords:
+          - taijutsu
+          - hijutsu
+          - sensory
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728753496172
+  modifiedTime: 1728753562690
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: inuzuka/clan-hijutsu/d-rank/dynamic-marking.json
+folder: QxtGm7GW3YM0IF3q
+sort: 200000
+ownership:
+  default: 0
+_id: 6ga5e0PYeUalQdWn
+_key: '!items!6ga5e0PYeUalQdWn'

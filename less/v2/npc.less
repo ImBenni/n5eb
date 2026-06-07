@@ -419,7 +419,7 @@
         border-radius: 0 4px 0 0;
 
         + .meter { border-radius: 0 0 4px 0; }
-        &:is(.hit-points, .hit-dice) .label { padding-inline-start: 12px; }
+        &:is(.hit-points, .hit-dice, .chakra, .chakra-dice) .label { padding-inline-start: 12px; }
 
         &.hit-points {
           block-size: 20px;
@@ -427,7 +427,13 @@
           .bonus { font-size: var(--font-size-10); }
         }
 
-        &.hit-dice, &.split {
+        &.chakra {
+          block-size: 18px;
+          font-size: var(--font-size-11);
+          .bonus { font-size: var(--font-size-10); }
+        }
+
+        &.hit-dice, &.chakra-dice, &.split {
           block-size: 16px;
           font-size: var(--font-size-10);
           margin-top: -1px;
@@ -623,7 +629,7 @@
         }
       }
 
-      .vitals .hit-points .label {
+      .vitals :is(.hit-points, .chakra) .label {
         padding-inline-end: 6px;
 
         .config-button {

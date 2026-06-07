@@ -1,7 +1,7 @@
 import * as Trait from "../../../documents/actor/trait.mjs";
 import Item5e from "../../../documents/item.mjs";
 import {
-  formatLength, formatNumber, getPluralRules, parseInputDelta, simplifyBonus, splitSemicolons, staticID
+  formatLength, formatNumber, parseInputDelta, simplifyBonus, splitSemicolons, staticID
 } from "../../../utils.mjs";
 
 import AdvancementConfirmationDialog from "../../advancement/advancement-confirmation-dialog.mjs";
@@ -9,6 +9,7 @@ import AdvancementManager from "../../advancement/advancement-manager.mjs";
 import ApplicationV2Mixin from "../../api/application-v2-mixin.mjs";
 import PrimarySheetMixin from "../../api/primary-sheet-mixin.mjs";
 import EffectsElement from "../../components/effects.mjs";
+import * as Conditions from "../../../conditions.mjs";
 import { createCheckboxInput } from "../../fields.mjs";
 import CreatureTypeConfig from "../../shared/creature-type-config.mjs";
 import MovementSensesConfig from "../../shared/movement-senses-config.mjs";
@@ -16,6 +17,8 @@ import SourceConfig from "../../shared/source-config.mjs";
 
 import AbilityConfig from "../config/ability-config.mjs";
 import ArmorClassConfig from "../config/armor-class-config.mjs";
+import ChakraConfig from "../config/chakra-config.mjs";
+import ChakraDiceConfig from "../config/chakra-dice-config.mjs";
 import ConcentrationConfig from "../config/concentration-config.mjs";
 import DamagesConfig from "../config/damages-config.mjs";
 import DeathConfig from "../config/death-config.mjs";
@@ -33,6 +36,8 @@ import TransformDialog from "../transform-dialog.mjs";
 import ItemListControlsElement from "../../components/item-list-controls.mjs";
 
 const { BooleanField, NumberField, SchemaField, StringField } = foundry.data.fields;
+const SKILL_ABILITY_SORT_ORDER = ["str", "dex", "con", "wis", "int", "cha"];
+const SKILL_ABILITY_SORT_INDEX = Object.fromEntries(SKILL_ABILITY_SORT_ORDER.map((key, index) => [key, index]));
 
 /**
  * @import { DropEffectValue } from "../../../_types.mjs"
@@ -233,21 +238,28 @@ export default class BaseActorSheet extends PrimarySheetMixin(
     context.effects = EffectsElement.prepareCategories(this.actor.allApplicableEffects());
 
     const conditionIds = new Set();
-    context.conditions = Object.entries(CONFIG.DND5E.conditionTypes).reduce((arr, [k, c]) => {
-      if ( c.pseudo ) return arr; // Filter out pseudo-conditions.
-      let { name, img, reference } = c;
+    context.conditions = [];
+    for ( const [k, c] of Object.entries(CONFIG.DND5E.conditionTypes) ) {
+      if ( c.pseudo ) continue; // Filter out pseudo-conditions.
+      const { name, img } = c;
       const id = staticID(`dnd5e${k}`);
       conditionIds.add(id);
       const existing = this.actor.effects.get(id);
       const { disabled } = existing ?? {};
-      arr.push({
-        name, reference,
+      const canonical = Conditions.canonicalizeConditionId(k);
+      const rank = this.actor.getConditionRank?.(canonical) ?? 0;
+      const maxRank = c.maxRank ?? c.levels ?? 1;
+      context.conditions.push({
+        name,
         id: k,
         img: existing?.img ?? img,
-        disabled: existing ? disabled : true
+        disabled: existing ? disabled : true,
+        ranked: c.ranked,
+        rank,
+        maxRank,
+        tooltip: await Conditions.getConditionTooltip(canonical, { rank })
       });
-      return arr;
-    }, []);
+    }
 
     for ( const category of Object.values(context.effects) ) {
       category.effects = await category.effects.reduce(async (arr, effect) => {
@@ -394,9 +406,10 @@ export default class BaseActorSheet extends PrimarySheetMixin(
         { key: "bonus", label: "DND5E.BonusAction" },
         { key: "reaction", label: "DND5E.Reaction" },
         { key: "concentration", label: "DND5E.Concentration" },
-        { key: "ritual", label: "DND5E.Ritual" },
-        { key: "prepared", label: "DND5E.Prepared" },
-        ...Object.entries(CONFIG.DND5E.spellSchools).map(([key, { label }]) => ({ key, label }))
+        ...Object.entries(CONFIG.DND5E.jutsuTypes).map(([key, { label }]) => ({ key, label })),
+        ...Object.entries(CONFIG.DND5E.jutsuComponents)
+          .map(([key, { abbreviation }]) => ({ key, label: abbreviation })),
+        ...Object.entries(CONFIG.DND5E.jutsuKeywords).map(([key, { label }]) => ({ key, label }))
       ],
       sorting: [
         { key: "a", label: "SIDEBAR.SortModeAlpha", dataset: { icon: "fa-solid fa-arrow-down-a-z" } },
@@ -518,18 +531,53 @@ export default class BaseActorSheet extends PrimarySheetMixin(
       if ( property === "skills" ) src = CONFIG.DND5E.skills[key]?.ability;
       return src ?? "int";
     };
+    const sortByAbility = (property === "skills") && game.settings.get("n5eb", "sortSkillsByAbility");
+    const sortAlphabetically = (a, b) => a.label.localeCompare(b.label, game.i18n.lang);
     return Object.entries(context.system[property] ?? {})
       .filter(([key]) => key in CONFIG.DND5E[property])
-      .map(([key, entry]) => ({
-        ...entry, key,
-        abbreviation: CONFIG.DND5E.abilities[entry.ability]?.abbreviation,
-        baseAbility: baseAbility(key),
-        hover: CONFIG.DND5E.proficiencyLevels[entry.value],
-        label: (property === "skills") ? CONFIG.DND5E.skills[key]?.label : Trait.keyLabel(key, { trait: "tool" }),
-        link: { action: "roll", key, type: property === "skills" ? "skill" : "tool" },
-        source: context.source[property]?.[key],
-        value: entry.total
-      })).sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
+      .map(([key, entry]) => {
+        const base = baseAbility(key);
+        const ability = entry.ability ?? base;
+        const source = context.source[property]?.[key];
+        const normalize = dnd5e.dataModels.actor.CommonTemplate.normalizeSkillToolProficiency;
+        const sourceProficiency = normalize(
+          source?.value ?? entry.effectValue ?? entry.value,
+          source?.mastery ?? entry.effectMastery ?? entry.mastery
+        );
+        const baseValue = sourceProficiency.value;
+        const effectiveValue = Number(entry.value ?? 0);
+        const baseMastery = sourceProficiency.mastery;
+        const effectiveMastery = Number(entry.mastery ?? 0);
+        const displayMastery = dnd5e.settings.useExpertise && effectiveMastery ? 1 : effectiveMastery;
+        const displayBaseMastery = dnd5e.settings.useExpertise && baseMastery ? 1 : baseMastery;
+        const hover = CONFIG.DND5E.proficiencyLevels[context.editable ? baseValue : effectiveValue];
+        let masteryHover = CONFIG.DND5E.masteryLevels[context.editable ? displayBaseMastery : displayMastery];
+        if ( context.editable && !dnd5e.settings.useExpertise && (baseMastery > effectiveMastery) ) {
+          masteryHover = game.i18n.format("DND5E.MASTERY.Capped", {
+            selected: CONFIG.DND5E.masteryLevels[baseMastery],
+            effective: CONFIG.DND5E.masteryLevels[effectiveMastery]
+          });
+        }
+        return {
+          ...entry, key, ability,
+          abbreviation: CONFIG.DND5E.abilities[ability]?.abbreviation,
+          baseValue,
+          baseMastery: displayBaseMastery,
+          baseAbility: base,
+          hover,
+          label: (property === "skills") ? CONFIG.DND5E.skills[key]?.label : Trait.keyLabel(key, { trait: "tool" }),
+          link: { action: "roll", key, type: property === "skills" ? "skill" : "tool" },
+          masteryHover,
+          source,
+          value: entry.total
+        };
+      }).sort((a, b) => {
+        if ( sortByAbility ) {
+          const byAbility = (SKILL_ABILITY_SORT_INDEX[a.ability] ?? 999) - (SKILL_ABILITY_SORT_INDEX[b.ability] ?? 999);
+          if ( byAbility ) return byAbility;
+        }
+        return sortAlphabetically(a, b);
+      });
   }
 
   /* -------------------------------------------- */
@@ -541,86 +589,55 @@ export default class BaseActorSheet extends PrimarySheetMixin(
    * @protected
    */
   _prepareSpellbook(context) {
-    const { SingleLevelSpellcasting } = dnd5e.dataModels.spellcasting;
     const spellbook = {};
+    const rankOrder = CONFIG.DND5E.jutsuRankOrder;
+    const maxRank = context.system.attributes.jutsu?.known?.maxRank;
+    const configuredCap = rankOrder.indexOf(maxRank);
+    const displayCap = configuredCap >= 0 ? configuredCap : rankOrder.indexOf("e");
+    const spellsByRank = Object.fromEntries(rankOrder.map(rank => [rank, []]));
     const columns = customElements.get(this.options.elements.inventory).mapColumns([
-      "school", "time", "range", "target", "roll", { id: "uses", order: 650, priority: 300 },
+      "chakra", "time", "range", "target", "roll", { id: "uses", order: 650, priority: 300 },
       { id: "formula", priority: 200 }, "controls"
     ]);
 
     /**
-     * Register a section in the spellbook.
-     * @param {string} key                  The section's unique identifier.
-     * @param {number} [level]              The level of spells in this section. Only relevant for spellcasting methods
-     *                                      that provide multi-level slots.
-     * @param {SpellcastingModel} [config]  The spellcasting model, if any.
+     * Register a jutsu rank section.
+     * @param {string} rank  Jutsu rank key.
      */
-    const registerSection = (key, level, config) => {
-      level = config?.slots ? level : 1;
-      if ( key in spellbook ) return;
-      const label = config?.getLabel({ level }) ?? game.i18n.localize("DND5E.CAST.SECTIONS.Spellbook");
-      const method = config?.key ?? key;
-      const order = level === 0 ? 0 : (config?.order ?? 1000);
-      const usesSlots = config?.slots && (level !== 0);
-      const section = spellbook[key] = {
-        label, columns, order, usesSlots,
-        id: method,
-        slot: key,
+    const registerSection = rank => {
+      if ( rank in spellbook ) return;
+      const config = CONFIG.DND5E.jutsuRanks[rank];
+      spellbook[rank] = {
+        label: config?.label ?? rank.toUpperCase(),
+        columns,
+        order: CONFIG.DND5E.jutsuRankOrder.indexOf(rank),
+        usesSlots: false,
+        id: rank,
+        slot: rank,
         items: [],
         minWidth: 220,
         draggable: true,
-        dataset: { level, method, type: "spell" }
+        dataset: { rank, type: "spell" }
       };
-      if ( !usesSlots ) return;
-      const spells = foundry.utils.getProperty(this.actor.system.spells, key);
-      const maxSlots = spells.override ?? spells.max ?? 0;
-      section.pips = Array.fromRange(Math.max(maxSlots, spells.value ?? 0), 1).map(n => {
-        const filled = spells.value >= n;
-        const temp = n > maxSlots;
-        const label = temp
-          ? game.i18n.localize("DND5E.SpellSlotTemporary")
-          : filled
-            ? game.i18n.format(`DND5E.SpellSlotN.${getPluralRules({ type: "ordinal" }).select(n)}`, { n })
-            : game.i18n.localize("DND5E.SpellSlotExpended");
-        const classes = ["pip"];
-        if ( filled ) classes.push("filled");
-        if ( temp ) classes.push("tmp");
-        return { n, label, filled, tooltip: label, classes: classes.join(" ") };
-      });
     };
 
-    // Register sections for the available spellcasting methods this character has.
-    for ( const spellcasting of Object.values(CONFIG.DND5E.spellcasting) ) {
-      const levels = spellcasting.getAvailableLevels?.(this.actor) ?? [];
-      if ( !levels.length ) continue;
-      if ( spellcasting.cantrips ) registerSection("spell0", 0, CONFIG.DND5E.spellcasting.spell);
-      levels.forEach(l => registerSection(spellcasting.getSpellSlotKey(l), l, spellcasting));
-    }
-
-    // Iterate over every spell item, adding spells to the spellbook by section
+    // Iterate over every jutsu item, grouping it before deciding which empty sections to show.
     (context.itemCategories.spells ?? []).forEach(spell => {
-      let method = spell.system.method;
-      if ( !(method in CONFIG.DND5E.spellcasting) ) method = "innate";
-      const spellcasting = CONFIG.DND5E.spellcasting[method];
-      const level = spellcasting instanceof SingleLevelSpellcasting && spell.system.level !== 0
-        ? null : (spell.system.level || 0);
-      method = spellcasting?.getSpellSlotKey?.(level) ?? method;
-
-      // Spells from items
       if ( spell.getFlag("n5eb", "cachedFor") ) {
-        method = "item";
         if ( !spell.system.linkedActivity?.displayInSpellbook ) return;
-        registerSection(method);
       }
 
-      // Sections for higher-level spells which the caster does not have any slots for.
-      else registerSection(method, level, spellcasting);
-
-      // Add the spell to the relevant heading
-      spellbook[method].items.push(spell);
+      let rank = spell.system.effectiveRank ?? CONFIG.DND5E.jutsuRankBySpellLevel[spell.system.level] ?? "d";
+      if ( !rankOrder.includes(rank) ) rank = "d";
+      (spellsByRank[rank] ??= []).push(spell);
     });
 
-    // Sort the spellbook by section level
+    for ( const rank of rankOrder ) {
+      if ( (rankOrder.indexOf(rank) > displayCap) && !spellsByRank[rank].length ) continue;
+      registerSection(rank);
+      spellbook[rank].items.push(...spellsByRank[rank]);
+    }
+
     return spellbook;
   }
 
@@ -855,13 +872,19 @@ export default class BaseActorSheet extends PrimarySheetMixin(
    */
   async _prepareItemFeature(item, ctx) {
     // Classes & Subclasses
-    if ( ["class", "subclass"].includes(item.type) ) {
+    if ( ["class", "subclass", "classmod"].includes(item.type) ) {
       ctx.prefixedImage = item.img ? foundry.utils.getRoute(item.img) : null;
       if ( item.type === "class" ) ctx.availableLevels = Array.fromRange(CONFIG.DND5E.maxLevel, 1).map(level => {
         const value = level - item.system.levels;
         const label = value ? `${level} (${formatNumber(value, { signDisplay: "always" })})` : `${level}`;
         return { label, value, disabled: value > (CONFIG.DND5E.maxLevel - (item.parent.system.details?.level ?? 0)) };
       });
+      else if ( item.type === "classmod" ) ctx.availableLevels = Array.fromRange(CONFIG.DND5E.maxClassModLevel, 1)
+        .map(level => {
+          const value = level - item.system.levels;
+          const label = value ? `${level} (${formatNumber(value, { signDisplay: "always" })})` : `${level}`;
+          return { label, value };
+        });
     }
 
     ctx.subtitle = [item.system.type?.label, item.isActive ? item.labels.activation : null].filterJoin(" • ");
@@ -938,20 +961,8 @@ export default class BaseActorSheet extends PrimarySheetMixin(
       else ctx.range = { distance: false };
     }
 
-    // Prepared
-    const { method, prepared } = item.system;
-    const config = CONFIG.DND5E.spellcasting[method];
-    if ( config?.prepares && !linked ) {
-      const isAlways = prepared === CONFIG.DND5E.spellPreparationStates.always.value;
-      ctx.preparation = {
-        applicable: true,
-        disabled: !item.isOwner || isAlways,
-        cls: prepared ? "active" : "",
-        icon: `<i class="fa-${prepared ? "solid" : "regular"} fa-${isAlways ? "certificate" : "sun"}" inert></i>`,
-        title: CONFIG.DND5E.spellPreparationStates[isAlways ? "always" : prepared ? "prepared" : "unprepared"].label
-      };
-    }
-    else ctx.preparation = { applicable: false };
+    // Jutsu are always learned once known; preparation remains legacy data only.
+    ctx.preparation = { applicable: false };
 
     // Subtitle
     let sourceLabel;
@@ -968,7 +979,14 @@ export default class BaseActorSheet extends PrimarySheetMixin(
         if ( grantingItem ) sourceLabel = grantingItem.name;
       }
     }
-    ctx.subtitle = [sourceLabel, item.labels.components.vsm].filterJoin(" • ");
+    ctx.subtitle = [
+      sourceLabel,
+      item.labels.rank,
+      item.labels.jutsuType,
+      item.labels.chakra,
+      item.labels.jutsuComponents?.short
+    ].filterJoin(" • ");
+    Object.assign(ctx.groups, { type: item.system.jutsu?.type || "unclassified" });
   }
 
   /* -------------------------------------------- */
@@ -1198,7 +1216,7 @@ export default class BaseActorSheet extends PrimarySheetMixin(
    */
   _addDocumentItemTypes(tab) {
     switch ( tab ) {
-      case "features": return ["feat", "race", "background", "class", "subclass"];
+      case "features": return ["feat", "race", "background", "class", "subclass", "classmod"];
       case "inventory": return Object.entries(CONFIG.Item.dataModels)
         .filter(([type, model]) => ("inventorySection" in model) && (type !== "backpack"))
         .map(([type]) => type);
@@ -1221,7 +1239,9 @@ export default class BaseActorSheet extends PrimarySheetMixin(
     if ( !delta || !classId ) return;
     const classItem = this.actor.items.get(classId);
     if ( !game.settings.get("n5eb", "disableAdvancements") ) {
-      const manager = AdvancementManager.forLevelChange(this.actor, classId, delta);
+      const manager = classItem.type === "classmod"
+        ? AdvancementManager.forClassModLevelChange(this.actor, classId, delta)
+        : AdvancementManager.forLevelChange(this.actor, classId, delta);
       if ( manager.steps.length ) {
         if ( delta > 0 ) return this._renderChild(manager);
         try {
@@ -1482,6 +1502,10 @@ export default class BaseActorSheet extends PrimarySheetMixin(
         return this._renderChild(new AbilityConfig({ ...config, key: ability }));
       case "armorClass":
         return this._renderChild(new ArmorClassConfig(config));
+      case "chakra":
+        return this._renderChild(new ChakraConfig(config));
+      case "chakraDice":
+        return this._renderChild(new ChakraDiceConfig(config));
       case "creatureType":
         return this._renderChild(new CreatureTypeConfig(this.actor.system.details.race?.id
           ? { document: this.actor.system.details.race, keyPath: "type" } : config));
@@ -1596,9 +1620,85 @@ export default class BaseActorSheet extends PrimarySheetMixin(
   /*  Form Handling                               */
   /* -------------------------------------------- */
 
+  /**
+   * Determine the highest Mastery value normally allowed for this actor's level.
+   * @returns {number}
+   * @protected
+   */
+  _maximumSheetMasteryValue() {
+    const { level, cr } = this.actor.system.details ?? {};
+    const effectiveLevel = Math.max(Number(level) || 0, Number(cr) || 0, 1);
+    return effectiveLevel >= 12 ? 3 : effectiveLevel >= 7 ? 2 : 1;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Should a manually selected skill or tool value bypass the level-based Mastery cap?
+   * @param {number} mastery  Submitted Mastery rank.
+   * @returns {boolean}
+   * @protected
+   */
+  _shouldBypassMasteryCap(mastery) {
+    return !dnd5e.settings.useExpertise && (mastery > this._maximumSheetMasteryValue());
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Mark changed skill and tool ranks from the actor sheet as manual Mastery overrides.
+   * @param {object} submitData  Expanded form submission data.
+   * @protected
+   */
+  _setManualMasteryOverrides(submitData) {
+    for ( const type of ["skills", "tools"] ) {
+      const entries = foundry.utils.getProperty(submitData, `system.${type}`);
+      if ( !entries ) continue;
+
+      for ( const [key, data] of Object.entries(entries) ) {
+        if ( !("mastery" in data) ) continue;
+        const mastery = Number(data.mastery);
+        const sourceMastery = Number(this.actor.system._source[type]?.[key]?.mastery ?? 0);
+        if ( mastery === sourceMastery ) continue;
+
+        foundry.utils.setProperty(
+          submitData, `flags.n5eb.masteryOverride.${type}.${key}`, this._shouldBypassMasteryCap(mastery)
+        );
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Preserve Mastery ranks above 1 when Expertise mode displays them as a single state.
+   * @param {object} submitData  Expanded form submission data.
+   * @param {Event} event        Triggering event.
+   * @protected
+   */
+  _preserveExpertiseMasteryRanks(submitData, event) {
+    if ( !dnd5e.settings.useExpertise ) return;
+    const changed = event?.target?.name ?? event?.target?.getAttribute?.("name");
+    for ( const type of ["skills", "tools"] ) {
+      const entries = foundry.utils.getProperty(submitData, `system.${type}`);
+      if ( !entries ) continue;
+
+      for ( const [key, data] of Object.entries(entries) ) {
+        const sourceMastery = Number(this.actor.system._source[type]?.[key]?.mastery ?? 0);
+        if ( (Number(data.mastery) === 1) && (sourceMastery > 1) && (changed !== `system.${type}.${key}.mastery`) ) {
+          data.mastery = sourceMastery;
+        }
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
+    this._preserveExpertiseMasteryRanks(submitData, event);
+    this._setManualMasteryOverrides(submitData);
 
     // Remove any flags that are false-ish
     for ( const [key, value] of Object.entries(submitData.flags?.n5eb ?? {}) ) {
@@ -1623,6 +1723,16 @@ export default class BaseActorSheet extends PrimarySheetMixin(
     if ( proto ) {
       const randomImg = proto.randomImg ?? this.actor.prototypeToken.randomImg;
       if ( randomImg ) delete submitData.prototypeToken;
+    }
+
+    // The actor sheet only exposes some chakra fields inline. Preserve hidden siblings so editing temp max cannot
+    // replace the entire chakra object with a partial form payload.
+    const chakra = foundry.utils.getProperty(submitData, "system.attributes.chakra");
+    if ( chakra ) {
+      const source = this.actor.system._source.attributes?.chakra ?? {};
+      for ( const key of ["max", "temp", "tempmax", "formula", "value"] ) {
+        if ( !(key in chakra) && (key in source) ) chakra[key] = source[key];
+      }
     }
 
     return submitData;
@@ -2024,8 +2134,12 @@ export default class BaseActorSheet extends PrimarySheetMixin(
   _filterItems(items, filters) {
     const actions = ["action", "bonus", "reaction", "lair", "legendary"];
     const recoveries = ["lr", "sr"];
-    const spellSchools = new Set(Object.keys(CONFIG.DND5E.spellSchools));
-    const schoolFilter = spellSchools.intersection(filters);
+    const jutsuTypes = new Set(Object.keys(CONFIG.DND5E.jutsuTypes));
+    const jutsuTypeFilter = jutsuTypes.intersection(filters);
+    const jutsuComponents = new Set(Object.keys(CONFIG.DND5E.jutsuComponents));
+    const jutsuComponentFilter = jutsuComponents.intersection(filters);
+    const jutsuKeywords = new Set(Object.keys(CONFIG.DND5E.jutsuKeywords));
+    const jutsuKeywordFilter = jutsuKeywords.intersection(filters);
     const spellcastingClasses = new Set(Object.keys(this.actor.spellcastingClasses));
     const classFilter = spellcastingClasses.intersection(filters);
 
@@ -2046,12 +2160,30 @@ export default class BaseActorSheet extends PrimarySheetMixin(
         if ( item.system.activities.every(a => a.activation?.type !== f) ) return false;
       }
 
-      // Spell-specific filters
-      if ( filters.has("ritual") && !item.system.properties?.has("ritual") ) return false;
+      // Jutsu-specific filters
       if ( filters.has("concentration") && !item.system.properties?.has("concentration") ) return false;
-      if ( schoolFilter.size && !schoolFilter.has(item.system.school) ) return false;
+      if ( jutsuTypeFilter.size && !jutsuTypeFilter.has(item.system.jutsu?.type) ) return false;
+      if ( jutsuComponentFilter.size ) {
+        let hasComponent = false;
+        for ( const component of jutsuComponentFilter ) {
+          if ( item.system.jutsu?.components?.has(component) ) {
+            hasComponent = true;
+            break;
+          }
+        }
+        if ( !hasComponent ) return false;
+      }
+      if ( jutsuKeywordFilter.size ) {
+        let hasKeyword = false;
+        for ( const keyword of jutsuKeywordFilter ) {
+          if ( item.system.jutsu?.keywords?.has(keyword) ) {
+            hasKeyword = true;
+            break;
+          }
+        }
+        if ( !hasKeyword ) return false;
+      }
       if ( classFilter.size && !classFilter.has(item.system.classIdentifier) ) return false;
-      if ( filters.has("prepared") ) return item.system.canPrepare && item.system.prepared;
 
       // Equipment-specific filters
       if ( filters.has("equipped") && (item.system.equipped !== true) ) return false;

@@ -166,14 +166,19 @@ export default class PhysicalItemTemplate extends SystemDataModel {
 
   /**
    * Migrate the item's weight from a single field to an object with units & convert null weights to 0.
+   * N5eB keeps the upstream `weight` data path for compatibility, but treats the value as Bulk.
    * @param {object} source  The candidate source data from which the model will be constructed.
    */
   static #migrateWeight(source) {
-    if ( !("weight" in source) || (foundry.utils.getType(source.weight) === "Object") ) return;
-    source.weight = {
-      value: Number.isNumeric(source.weight) ? Number(source.weight) : 0,
-      units: defaultUnits("weight")
-    };
+    if ( !("weight" in source) ) return;
+    if ( foundry.utils.getType(source.weight) !== "Object" ) {
+      source.weight = {
+        value: Number.isNumeric(source.weight) ? Number(source.weight) : 0,
+        units: defaultUnits("weight")
+      };
+    }
+    source.weight.value = Number.isNumeric(source.weight.value) ? Number(source.weight.value) : 0;
+    source.weight.units = "bulk";
   }
 
   /* -------------------------------------------- */

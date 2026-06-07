@@ -1,0 +1,447 @@
+name: Sealing Art Bind
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/non-elemental.webp
+system:
+  description:
+    value: >-
+      <p>You infuse chakra into a chakra seal as you attempt to mark a person with the seal of binding. A creature
+      within range, must make a Charisma saving throw. On a failed save the target creature is Restrained for the
+      duration and gains 1 rank of Sealed.</p><p>A creature restrained by this jutsu remakes their save at the end of
+      each of their turns.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of
+      this jutsu by 3 and the number of targets by +1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: ninjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: sealing-art-bind
+  jutsu:
+    components:
+      - hs
+      - cm
+      - cs
+    keywords:
+      - ninjutsu
+      - fuinjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Sealed
+    origin: Compendium.n5eb.jutsus.Item.6WzahMSAzABNk8YM
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/sealed.svg
+    _id: 3v3RuEFO039DvPbL
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: sealed
+        priority: 20
+      - key: system.attributes.ninjutsudc
+        mode: 0
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.attributes.genjutsudc
+        mode: 0
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=start,
+          label=Sealed,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=MY CHAKRA ITS GONE,
+          rollType=skill,
+          saveAbility=nin|ill,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Sealed creature has a limiter on their chakra network, causing
+      their chakra to become inefficient and wasteful. This condition is usually the result of a
+      Fuinjutsu.</p><ul><li><p>A <strong>Sealed</strong> creature increases the base chakra cost of Ninjutsu &amp;
+      Genjutsu by +2, for each rank it has.</p></li><li><p>A <strong>Sealed</strong> creature suffers a -1 penalty to
+      all of their Ninjutsu &amp; Genjutsu Save DCs for each rank it has.</p></li><li><p>A creature can spend its action
+      to make a DC 15 Ninshou or Illusions check to remove 1 rank of this condition. For every +5 their result is over
+      the DC, they remove 1 additional rank of <strong>Sealed</strong>.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.KZhkgzm0QOWCbyVx.ActiveEffect.67Zr4SffTsSb5mM1
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!6WzahMSAzABNk8YM.3v3RuEFO039DvPbL'
+  - name: Restrained
+    origin: Compendium.n5eb.jutsus.Item.6WzahMSAzABNk8YM
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/restrained.svg
+    _id: A1WjjwvX1v9ua2yN
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.dex
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: restrained
+        priority: 20
+    description: >-
+      <p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their
+      space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its
+      speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have
+      disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!6WzahMSAzABNk8YM.A1WjjwvX1v9ua2yN'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - chakraseals
+      - handseals
+      - molding
+      - fuinjutsu
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: non-elemental/d-rank/sealing-art-bind.json
+      sourceId: 6WzahMSAzABNk8YM
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You infuse chakra into a chakra seal as you attempt to mark a person with the seal of binding. A creature
+            within range, must make a Charisma saving throw. On a failed save the target creature is Restrained for the
+            duration and gains 1 rank of Sealed.</p><p>A creature restrained by this jutsu remakes their save at the end
+            of each of their turns.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the
+            cost of this jutsu by 3 and the number of targets by +1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: ninjutsu
+        level: 1
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - chakraseals
+          - concentration
+          - molding
+          - fuinjutsu
+        keywords:
+          - ninjutsu
+          - fuinjutsu
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757276506
+  modifiedTime: 1728757276506
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: non-elemental/d-rank/sealing-art-bind.json
+folder: LM9CuLBCsw70gQXV
+sort: 2700000
+ownership:
+  default: 0
+_id: 6WzahMSAzABNk8YM
+_key: '!items!6WzahMSAzABNk8YM'

@@ -1,0 +1,500 @@
+name: Wind Release Pressure Shockwave
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/wind.webp
+system:
+  description:
+    value: "<p>When you see another allied creature cast another jutsu, you create a tornado like mass that is compressed until it has a high density before being released as a shockwave, intended to boost their jutsu's effects. If the triggering jutsu does not have a nature release keyword, the allied creature makes their attack roll at advantage or one hostile creature of your choice within range makes their saving throw at disadvantage.\_</p><p>If the triggering jutsu has a nature release keyword, then all hostile creatures in a 60-foot cone, originating from you, must make a Strength saving throw or be pulled 15 feet towards your allied creature, take 5d6 wind damage, and causing Swirl on a failed save, or half as much and no further effect on a success.</p><p>Additionally, it amplifies the triggering jutsu based on its nature release;</p><p>• Earth Release: On a failed save target cannot take reactions.</p><p>• Wind Release: On a failed save target gains 2 ranks of bleeding.</p><p>• Fire Release: On a failed save the triggering jutsu increases its damage die by 1 step.</p><p>• Water Release: On a failed save the target gains 1 rank of chilled.</p><p>• Lightning Release: On a failed save the target gains 1 rank of shocked.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the damage by 1d6.</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: reaction
+    cost: 1
+    condition: which you take when an allied creature casts a jutsu.
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 8
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d6
+        - wind
+    versatile: ''
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d6
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: wind-release-pressure-shockwave
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - wind
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Chilled
+    origin: Compendium.n5eb.jutsus.Item.nCPKYTcVQl6Yelve
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/chilled.svg
+    _id: CHRv8EMC4LQMgWzl
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.abilities.dex.bonuses.check
+        mode: 2
+        value: '-1'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!nCPKYTcVQl6Yelve.CHRv8EMC4LQMgWzl'
+  - name: Shocked
+    origin: Compendium.n5eb.jutsus.Item.nCPKYTcVQl6Yelve
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    _id: sFB9Fa2fzUJT62y4
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          rollType=skill,
+          saveAbility=sur,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with
+      electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
+      reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A
+      <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a
+      failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC
+      12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has
+      resistance to this condition. A creature immune to Lightning damage has immunity to this
+      condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground
+      themselves, dispersing the electricity in their body ending this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!nCPKYTcVQl6Yelve.sFB9Fa2fzUJT62y4'
+  - name: Bleeding
+    origin: Compendium.n5eb.jutsus.Item.nCPKYTcVQl6Yelve
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    _id: UiY3ha8AqqujCZgw
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d4, damageType=necrotic,
+          label=Bleeding,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=Lil paper cut fr,
+          rollType=skill,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bleeding
+        priority: 0
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has suffered a minor abrasion to their flesh,
+      causing slow blood loss if untreated.</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4
+      necrotic damage for each rank of Bleed they have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop the bleeding by succeeding on a DC 15
+      Medicine check.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bleeding condition
+      immediately gains 5 ranks of the Lacerated condition, ending the Bleeding condition.</p><ul><li><p>The first time
+      per rest a Bleeding creature would gain the Lacerated this way, they must succeed a DC 11 flat check, immediately
+      taking the damage of their Lacerated ranks as they suffer a great wound.</p></li></ul></li><li><p>Outside of
+      combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in
+      combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!nCPKYTcVQl6Yelve.UiY3ha8AqqujCZgw'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: wind-release/c-rank/wind-release-pressure-shockwave.json
+      sourceId: nCPKYTcVQl6Yelve
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>When you see another allied creature cast another jutsu, you create a tornado like mass that is compressed until it has a high density before being released as a shockwave, intended to boost their jutsu's effects. If the triggering jutsu does not have a nature release keyword, the allied creature makes their attack roll at advantage or one hostile creature of your choice within range makes their saving throw at disadvantage.\_</p><p>If the triggering jutsu has a nature release keyword, then all hostile creatures in a 60-foot cone, originating from you, must make a Strength saving throw or be pulled 15 feet towards your allied creature, take 5d6 wind damage, and causing Swirl on a failed save, or half as much and no further effect on a success.</p><p>Additionally, it amplifies the triggering jutsu based on its nature release;</p><p>• Earth Release: On a failed save target cannot take reactions.</p><p>• Wind Release: On a failed save target gains 2 ranks of bleeding.</p><p>• Fire Release: On a failed save the triggering jutsu increases its damage die by 1 step.</p><p>• Water Release: On a failed save the target gains 1 rank of chilled.</p><p>• Lightning Release: On a failed save the target gains 1 rank of shocked.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the damage by 1d6.</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take when an allied creature casts a jutsu.
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 8
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d6
+              - wind
+          versatile: ''
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d6
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - ninjutsu
+          - wind
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    reactionCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757601216
+  modifiedTime: 1728757601216
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: wind-release/c-rank/wind-release-pressure-shockwave.json
+folder: ByLMwcO1oQUvwEac
+sort: 4200000
+ownership:
+  default: 0
+_id: nCPKYTcVQl6Yelve
+_key: '!items!nCPKYTcVQl6Yelve'

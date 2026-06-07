@@ -1,0 +1,388 @@
+name: Dragons Ascension
+type: spell
+img: systems/n5eb/assets/content/clans/ryu.webp
+system:
+  description:
+    value: "<p>You keep all of your Chakra inside you not allowing any of it to leak out enhancing your physical attributes past their limits, matching your physical prowess to that of a Dragons.\_<br />Your Strength, Dexterity and Constitution all becomes 24 for the duration.\_<br />Your speed is doubled and you gain more feral sounding speaking patterns.\_<br />You gain a +2 bonus on Intelligence and Charisma saving throws.\_<br />You lose the ability to cast and concentrate on Non-Ryu Clan jutsu for the duration.\_<br />When this jutsu ends, make a constitution save vs a DC 20 + 1 for every round this jutsu remained active.\_<br />On a failure, you fall to the ground prone and stunned for a number of minutes equal to rounds you had this jutsu active.\_<br />If you cast this jutsu while you are gaining the benefits of Dragons Rage, Dragons Wrath or Dragons Cloak you reduce the cost of this jutsu by 4 for each one currently active.\_<br />Additionally, if you are gaining the benefits of Dragons Wrath and/or Dragons Cloak you no longer need to maintain concentration on that jutsu but you still gain its benefits for the duration of this jutsu</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 20
+    scale: false
+  ability: null
+  actionType: ''
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 7
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: dragons-ascension
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: a
+  chakra:
+    cost: '20'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Stunned
+    origin: Compendium.n5eb.clan.Item.Jb1lV8phUHRiIQAO
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    _id: Rxara1q3fH5vsIJh
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.fail.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.fail.ability.save.str
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: stunned
+        priority: 20
+    description: >-
+      <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
+      falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
+      throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Jb1lV8phUHRiIQAO.Rxara1q3fH5vsIJh'
+  - name: Prone
+    origin: Compendium.n5eb.clan.Item.Jb1lV8phUHRiIQAO
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: v05tSUoMOOWA5n0T
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Jb1lV8phUHRiIQAO.v05tSUoMOOWA5n0T'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: ryu/clan-hijutsu/a-rank/dragons-ascension.json
+      sourceId: Jb1lV8phUHRiIQAO
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You keep all of your Chakra inside you not allowing any of it to leak out enhancing your physical attributes past their limits, matching your physical prowess to that of a Dragons.\_<br />Your Strength, Dexterity and Constitution all becomes 24 for the duration.\_<br />Your speed is doubled and you gain more feral sounding speaking patterns.\_<br />You gain a +2 bonus on Intelligence and Charisma saving throws.\_<br />You lose the ability to cast and concentrate on Non-Ryu Clan jutsu for the duration.\_<br />When this jutsu ends, make a constitution save vs a DC 20 + 1 for every round this jutsu remained active.\_<br />On a failure, you fall to the ground prone and stunned for a number of minutes equal to rounds you had this jutsu active.\_<br />If you cast this jutsu while you are gaining the benefits of Dragons Rage, Dragons Wrath or Dragons Cloak you reduce the cost of this jutsu by 4 for each one currently active.\_<br />Additionally, if you are gaining the benefits of Dragons Wrath and/or Dragons Cloak you no longer need to maintain concentration on that jutsu but you still gain its benefits for the duration of this jutsu</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 20
+          scale: false
+        ability: null
+        actionType: ''
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 4
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - ninjutsu
+          - hijutsu
+        chakraCost: 20
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754431903
+  modifiedTime: 1728754454853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: ryu/clan-hijutsu/a-rank/dragons-ascension.json
+folder: G41mqOY3IhA5R56x
+sort: 100000
+ownership:
+  default: 0
+_id: Jb1lV8phUHRiIQAO
+_key: '!items!Jb1lV8phUHRiIQAO'

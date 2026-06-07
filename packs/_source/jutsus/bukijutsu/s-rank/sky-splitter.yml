@@ -1,0 +1,263 @@
+name: Sky Splitter
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You make a single swing with enough force to split to sky and the earth from the weight of your attack alone.
+      All creatures in a 100-foot long, 15 feet wide line, originating from you, must make a Dexterity saving throw
+      taking your [weapons damage] +10d10 on a failed save or half as much on a successful save. The ground tears open
+      and leaves a 50-foot-deep crevasse from this bukijutsu. Creatures who are more than 5 feet from the edge of either
+      crevasse must make a Dexterity saving throw or fall the full distance to the bottom.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Any Melee Weapon
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '100'
+    width: 15
+    units: ft
+    type: line
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 30
+    scale: false
+  ability: taijutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 10d10
+        - ''
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  level: 9
+  school: trs
+  materials:
+    value: (Any Melee Weapon),
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: sky-splitter
+  jutsu:
+    components:
+      - cm
+      - m
+      - w
+    keywords:
+      - bukijutsu
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: s
+  chakra:
+    cost: '30'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - molding
+      - weapon
+      - chakramolding
+      - weapons
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/s-rank/sky-splitter.json
+      sourceId: 9vzChsGGZU0nBru7
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You make a single swing with enough force to split to sky and the earth from the weight of your attack
+            alone. All creatures in a 100-foot long, 15 feet wide line, originating from you, must make a Dexterity
+            saving throw taking your [weapons damage] +10d10 on a failed save or half as much on a successful save. The
+            ground tears open and leaves a 50-foot-deep crevasse from this bukijutsu. Creatures who are more than 5 feet
+            from the edge of either crevasse must make a Dexterity saving throw or fall the full distance to the
+            bottom.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Any Melee Weapon
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '100'
+          width: 15
+          units: ft
+          type: line
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 30
+          scale: false
+        ability: taijutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 10d10
+              - ''
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        level: 5
+        school: buki
+        materials:
+          value: (Any Melee Weapon),
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+          - weapons
+          - molding
+          - weapon
+        keywords:
+          - bukijutsu
+        chakraCost: 30
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755893853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/s-rank/sky-splitter.json
+folder: we8zZBJpYvgNjOWo
+sort: 0
+ownership:
+  default: 0
+_id: 9vzChsGGZU0nBru7
+_key: '!items!9vzChsGGZU0nBru7'

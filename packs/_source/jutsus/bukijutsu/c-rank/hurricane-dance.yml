@@ -1,0 +1,258 @@
+folder: w8bfWqi87gJKGpvX
+name: Hurricane Dance
+type: spell
+_id: bUdIrAtHyjrdD827
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You throw your weapon in a circle around you, slicing at all around you and making it hard to even stand near
+      you. All creatures in a 15-foot radius around you must make a Dexterity saving throw when this jutsu is cast. On a
+      failed save they take 5d6 slashing damage and lower their movement speed by 20 feet. On a successful save they
+      take half damage and no further effects.</p><p>At the start of a creature who failed this save turn they must make
+      a Constitution saving throw. On a failed save they take an additional 3d6 slashing damage and cannot move towards
+      you this turn as the weapons slash into their tendons.</p><p>At Higher Ranks: For each rank you cast this jutsu
+      above C-Rank increase the cost of this jutsu by 3 and the damage by 1d6.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d6
+        - slashing
+    versatile: 3d6
+  enchantment: null
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  summons: null
+  level: 3
+  school: trs
+  properties: []
+  materials:
+    value: Ranged Slashing
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d6
+  versatileScaling:
+    mode: level
+    formula: 1d6
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: hurricane-dance
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+sort: 2400000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/c-rank/hurricane-dance.json
+      sourceId: bUdIrAtHyjrdD827
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You throw your weapon in a circle around you, slicing at all around you and making it hard to even stand
+            near you. All creatures in a 15-foot radius around you must make a Dexterity saving throw when this jutsu is
+            cast. On a failed save they take 5d6 slashing damage and lower their movement speed by 20 feet. On a
+            successful save they take half damage and no further effects.</p><p>At the start of a creature who failed
+            this save turn they must make a Constitution saving throw. On a failed save they take an additional 3d6
+            slashing damage and cannot move towards you this turn as the weapons slash into their tendons.</p><p>At
+            Higher Ranks: For each rank you cast this jutsu above C-Rank increase the cost of this jutsu by 3 and the
+            damage by 1d6.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d6
+              - slashing
+          versatile: 3d6
+        enchantment: null
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        summons: null
+        level: 2
+        school: buki
+        properties:
+          - mobility
+          - weapons
+        keywords:
+          - bukijutsu
+        materials:
+          value: Ranged Slashing
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d6
+        versatileScaling:
+          mode: level
+          formula: 1d6
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 3
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728756228504
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/c-rank/hurricane-dance.json
+_key: '!items!bUdIrAtHyjrdD827'

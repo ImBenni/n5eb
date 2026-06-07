@@ -1,0 +1,422 @@
+name: Medical Release Play Dead
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/medical.webp
+system:
+  description:
+    value: >-
+      <p>You touch a willing creature putting it intoa cataleptic state that is indistinguishable from death.</p><p>For
+      the jutsu's duration, or until you use an action to touch the target and dismiss this jutsu, the target appears
+      dead to all outward inspection and to jutsu used to determine the targets status. The target is blinded and
+      incapacitated, and its speed drops to 0. The target has Resistance to all damage. If the target is diseased or
+      poisoned when you case this jutsu, or becomes diseased or poisoned while under this Jutsu's effect, the disease
+      and poison have no effect until this jutsu ends.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: hour
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: touch
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 6
+    scale: false
+  ability: null
+  actionType: ''
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: medical-release-play-dead
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - medical
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '6'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Incapacitated
+    origin: Compendium.n5eb.jutsus.Item.p5KWgDYuGtAUi6a2
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/incapacitated.svg
+    _id: CojO1nfjnckP4UTs
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.climb
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: incapacitated
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - incapacitated
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.oPKLZHKQOBZsE7k5.ActiveEffect.4SS62Wm6W6fzv1z7
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!p5KWgDYuGtAUi6a2.CojO1nfjnckP4UTs'
+  - name: Blinded
+    origin: Compendium.n5eb.jutsus.Item.p5KWgDYuGtAUi6a2
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/blinded.svg
+    _id: HFKzCLlWlf5dv22x
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: blinded
+        priority: 20
+    description: >-
+      <p>• A <strong>Blinded</strong> creature cannot target another creature with effects that require them to “target
+      a creature they can see” unless they have a special sense that does not require sight, such as <strong>Tremor
+      Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A blinded creature can’t see and automatically fails
+      any check that requires sight.</p><p>• A <strong>Blinded</strong> creature has disadvantage on Dexterity saving
+      throws.</p><p>• Attack rolls against a <strong>Blinded</strong> creature have advantage, and a
+      <strong>Blinded</strong> creature’s attack rolls have disadvantage without the aid of a special sense that does
+      not require sight, such as <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A creature
+      can willingly close their eyes as a free action for an extended period of time. Doing so imposes this Condition on
+      them until the beginning of their next turn, they cannot reopen their eyes until then, unless they are forced to
+      do so by some other means.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!p5KWgDYuGtAUi6a2.HFKzCLlWlf5dv22x'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - medical
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: medical-release/c-rank/medical-release-play-dead.json
+      sourceId: p5KWgDYuGtAUi6a2
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You touch a willing creature putting it intoa cataleptic state that is indistinguishable from
+            death.</p><p>For the jutsu's duration, or until you use an action to touch the target and dismiss this
+            jutsu, the target appears dead to all outward inspection and to jutsu used to determine the targets status.
+            The target is blinded and incapacitated, and its speed drops to 0. The target has Resistance to all damage.
+            If the target is diseased or poisoned when you case this jutsu, or becomes diseased or poisoned while under
+            this Jutsu's effect, the disease and poison have no effect until this jutsu ends.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: hour
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: touch
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 6
+          scale: false
+        ability: null
+        actionType: ''
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 2
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+          - medical
+        keywords:
+          - ninjutsu
+          - medical
+        chakraCost: 6
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757151654
+  modifiedTime: 1728757151654
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: medical-release/c-rank/medical-release-play-dead.json
+folder: BNoUdpynKbvzZLa6
+sort: 0
+ownership:
+  default: 0
+_id: p5KWgDYuGtAUi6a2
+_key: '!items!p5KWgDYuGtAUi6a2'

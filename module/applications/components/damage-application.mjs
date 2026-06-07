@@ -127,7 +127,8 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
 
     // Calculate damage to apply
     const targetOptions = this.getTargetOptions(uuid);
-    const { temp, tempMax, total, active } = this.calculateDamage(actor, targetOptions);
+    const { chakraTemp, chakraTempMax, chakraTotal, temp, tempMax, total, active } =
+      this.calculateDamage(actor, targetOptions);
 
     const types = [];
     for ( const [change, values] of Object.entries(active) ) {
@@ -163,6 +164,15 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
       <div class="calculated temp-max" data-tooltip="DND5E.HEAL.Type.Maximum">
         ${tempMax}
       </div>
+      <div class="calculated chakra" data-tooltip="DND5E.DAMAGE.Type.Chakra">
+        ${chakraTotal}
+      </div>
+      <div class="calculated chakra temp" data-tooltip="DND5E.HEAL.Type.TemporaryChakra">
+        ${chakraTemp}
+      </div>
+      <div class="calculated chakra temp-max" data-tooltip="DND5E.HEAL.Type.MaximumChakra">
+        ${chakraTempMax}
+      </div>
       <menu class="damage-multipliers unlist"></menu>
     `;
     Object.assign(li.querySelector(".gold-icon"), { alt: name, src: actor.img });
@@ -190,11 +200,12 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
    * Calculate the total damage that will be applied to an actor.
    * @param {Actor5e} actor
    * @param {DamageApplicationOptions} options
-   * @returns {{temp: number, total: number, active: Record<string, Set<string>>}}
+   * @returns {{chakraTemp: number, chakraTempMax: number, chakraTotal: number, temp: number, total: number,
+   *   active: Record<string, Set<string>>}}
    */
   calculateDamage(actor, options) {
     const damages = actor.calculateDamage(this.damages, options);
-    let { amount, temp, tempMax } = damages;
+    let { amount, chakraAmount, chakraTemp, chakraTempMax, temp, tempMax } = damages;
 
     let active = {
       modification: new Set(), resistance: new Set(), vulnerability: new Set(), immunity: new Set(), threshold: false
@@ -210,6 +221,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
       }
     }
     temp = Math.floor(Math.max(0, temp));
+    chakraTemp = Math.floor(Math.max(0, chakraTemp));
 
     // Add values from options to prevent active changes from being lost when re-rendering target list
     const union = t => {
@@ -224,7 +236,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
     }
     active.threshold ||= options.ignore?.threshold;
 
-    return { temp, tempMax, total: amount, active };
+    return { chakraTemp, chakraTempMax, chakraTotal: chakraAmount, temp, tempMax, total: amount, active };
   }
 
   /* -------------------------------------------- */
@@ -280,12 +292,13 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
    * @param {DamageApplicationOptions} options
    */
   refreshListEntry(token, entry, options) {
-    const { active, temp, tempMax, total } = this.calculateDamage(token, options);
+    const { active, chakraTemp, chakraTempMax, chakraTotal, temp, tempMax, total } =
+      this.calculateDamage(token, options);
     const calculatedDamage = entry.querySelector(".calculated.damage");
     calculatedDamage.innerText = formatNumber(-total, { signDisplay: "exceptZero" });
     calculatedDamage.classList.toggle("healing", total < 0);
     calculatedDamage.dataset.tooltip = `DND5E.${total < 0 ? "Healing" : "Damage"}`;
-    calculatedDamage.hidden = !total && (!!temp || !!tempMax);
+    calculatedDamage.hidden = !total && (!!temp || !!tempMax || !!chakraTotal || !!chakraTemp || !!chakraTempMax);
     const calculatedTemp = entry.querySelector(".calculated.temp");
     calculatedTemp.innerText = temp;
     calculatedTemp.hidden = !temp;
@@ -293,6 +306,18 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
     calculatedTempMax.innerText = formatNumber(-tempMax, { signDisplay: "always" });
     calculatedTempMax.classList.toggle("healing", tempMax < 0);
     calculatedTempMax.hidden = !tempMax;
+    const calculatedChakra = entry.querySelector(".calculated.chakra:not(.temp):not(.temp-max)");
+    calculatedChakra.innerText = formatNumber(-chakraTotal, { signDisplay: "exceptZero" });
+    calculatedChakra.classList.toggle("healing", chakraTotal < 0);
+    calculatedChakra.dataset.tooltip = chakraTotal < 0 ? "DND5E.HEAL.Type.ChakraHealing" : "DND5E.DAMAGE.Type.Chakra";
+    calculatedChakra.hidden = !chakraTotal;
+    const calculatedChakraTemp = entry.querySelector(".calculated.chakra.temp");
+    calculatedChakraTemp.innerText = chakraTemp;
+    calculatedChakraTemp.hidden = !chakraTemp;
+    const calculatedChakraTempMax = entry.querySelector(".calculated.chakra.temp-max");
+    calculatedChakraTempMax.innerText = formatNumber(-chakraTempMax, { signDisplay: "always" });
+    calculatedChakraTempMax.classList.toggle("healing", chakraTempMax < 0);
+    calculatedChakraTempMax.hidden = !chakraTempMax;
 
     const pressedMultiplier = entry.querySelector('.multiplier-button[aria-pressed="true"]');
     if ( Number(pressedMultiplier?.dataset.multiplier) !== options.multiplier ) {

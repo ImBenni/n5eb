@@ -13,6 +13,8 @@ export {default as MultiActorSheet} from "./api/multi-actor-sheet.mjs";
 export {default as AbilityConfig} from "./config/ability-config.mjs";
 export {default as ArmorClassConfig} from "./config/armor-class-config.mjs";
 export {default as BaseProficiencyConfig} from "./config/base-proficiency-config.mjs";
+export {default as ChakraConfig} from "./config/chakra-config.mjs";
+export {default as ChakraDiceConfig} from "./config/chakra-dice-config.mjs";
 export {default as ConcentrationConfig} from "./config/concentration-config.mjs";
 export {default as DamagesConfig} from "./config/damages-config.mjs";
 export {default as DeathConfig} from "./config/death-config.mjs";

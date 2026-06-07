@@ -1,0 +1,218 @@
+folder: wWIxJDVTfoPzGGSz
+name: Incinerating Frenzy
+type: feat
+_id: d27sM1MsOlexQYje
+img: systems/n5eb/assets/content/clans/hutetsuu.webp
+system:
+  description:
+    value: >-
+      <p>Beginning at 1st level, while below your maximum hit points at the start of your turn, you may choose to enter
+      a <em><strong>Frenzy</strong></em> for 1 minute. You are treated as gaining the Berserk condition, though you
+      remain in control of your actions. This feature takes up a concentration slot as if concentrating on a jutsu, but
+      you cannot lose concentration of it as the result of failing a concentration check. You may end your Frenzy as a
+      bonus action on your turn, and may Frenzy once per rest.</p><p>While in your <em><strong>Frenzy</strong></em>, you
+      gain advantage on the first Strength or Constitution check or saving throw you make per round, gain a number of
+      temporary hit points equal to your proficiency bonus at the start of each of your turns, and creatures that damage
+      you while within 5 feet of you take fire damage equal to your Constitution modifier, once per turn.</p><p>At 7th
+      level, while in your <em><strong>Frenzy</strong></em> you are immune to the Charmed and Frightened conditions, and
+      gain an additional reaction per round which can only be taken to take an attack of opportunity. With this
+      reaction, you may cast a Hutetsuu Hijutsu of C-Rank or lower that deals fire damage.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: special
+    cost: null
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: 1
+    max: '1'
+    per: sr
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: heal
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - '@prof'
+        - temphp
+    versatile: '@abilities.con.mod'
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  type:
+    value: race
+    subtype: ''
+    nestedsubtype: ''
+  prerequisites:
+    level: null
+  properties:
+    - concentration
+  requirements: ''
+  identifier: incinerating-frenzy
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: hutetsuu/clan-features/incinerating-frenzy.json
+      sourceId: d27sM1MsOlexQYje
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>Beginning at 1st level, while below your maximum hit points at the start of your turn, you may choose to
+            enter a <em><strong>Frenzy</strong></em> for 1 minute. You are treated as gaining the Berserk condition,
+            though you remain in control of your actions. This feature takes up a concentration slot as if concentrating
+            on a jutsu, but you cannot lose concentration of it as the result of failing a concentration check. You may
+            end your Frenzy as a bonus action on your turn, and may Frenzy once per rest.</p><p>While in your
+            <em><strong>Frenzy</strong></em>, you gain advantage on the first Strength or Constitution check or saving
+            throw you make per round, gain a number of temporary hit points equal to your proficiency bonus at the start
+            of each of your turns, and creatures that damage you while within 5 feet of you take fire damage equal to
+            your Constitution modifier, once per turn.</p><p>At 7th level, while in your
+            <em><strong>Frenzy</strong></em> you are immune to the Charmed and Frightened conditions, and gain an
+            additional reaction per round which can only be taken to take an attack of opportunity. With this reaction,
+            you may cast a Hutetsuu Hijutsu of C-Rank or lower that deals fire damage.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: special
+          cost: null
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: 1
+          max: '1'
+          per: sr
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: heal
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - '@prof'
+              - temphp
+          versatile: '@abilities.con.mod'
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        type:
+          value: race
+          subtype: ''
+          nestedsubtype: ''
+        prerequisites:
+          level: null
+        properties:
+          - concentration
+        requirements: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1732812351810
+  modifiedTime: 1734017477692
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: hutetsuu/clan-features/incinerating-frenzy.json
+_key: '!items!d27sM1MsOlexQYje'

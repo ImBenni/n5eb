@@ -1,0 +1,446 @@
+name: Wind Release Whirlwind Thrust
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/wind.webp
+system:
+  description:
+    value: >-
+      <p>You create an updraft of cycling wind release chakra that erupts from the ground under a group of creatures.
+      Select a space within range. All creatures within 15 feet of the selected space must make a Strength saving throw.
+      On a failed save, creatures are thrown 30 feet upwards into the air taking 3d10 wind damage and causing Swirl. If
+      a creature cannot safely land, they take falling damage as normal.</p><p>If the space this jutsu is casted
+      overlaps with a source of Fire or Water additional effects happen.</p><p>Fire: This Jutsu ignites and becomes a
+      flaming whirlwind instead dealing 3d12 fire damage instead of 3d10 Wind Damage. Creatures must also succeed a
+      Constitution saving throw gaining the burned condition on a failed save.</p><p>Water: This jutsu becomes swirled
+      with a powerful torrent of Water instead dealing 3d12 Cold damage instead of 3d10 Wind Damage. Creatures must also
+      succeed a Constitution saving throw gaining the chilled condition on a failed save.</p><p>At Higher Ranks: For
+      each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the damage by 1d10 or
+      1d12.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: 90
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 8
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 3d10
+        - wind
+    versatile: 3d12
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d10
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: level
+    formula: 1d12
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: wind-release-whirlwind-thrust
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - wind
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Burned
+    origin: Compendium.n5eb.jutsus.Item.hMm8faCTR98JLoqy
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/burning.svg
+    _id: tglOJ4ScUJO2tr7g
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          rollType=skill,
+          saveAbility=sur,
+          saveDC=15,
+          actionSave=dialog,
+          damageBeforeSave=true,
+          damageRoll=1d8,
+          damageType=fire,
+          saveRemove=true,
+          name=Burned,
+          chatFlavor=It's very hot!,
+          fastForwardDamage=true,
+        priority: 20
+      - key: system.attributes.concentration.bonuses.save
+        mode: 2
+        value: '-2 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it
+      has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration
+      Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this
+      condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has
+      passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put
+      out the flames. On a successful check, the condition ends or submerging themselves fully into a body of
+      water.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!hMm8faCTR98JLoqy.tglOJ4ScUJO2tr7g'
+  - name: Chilled
+    origin: Compendium.n5eb.jutsus.Item.hMm8faCTR98JLoqy
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/chilled.svg
+    _id: jsDP7ws6diD60BeQ
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.abilities.dex.bonuses.check
+        mode: 2
+        value: '-1'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!hMm8faCTR98JLoqy.jsDP7ws6diD60BeQ'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: wind-release/c-rank/wind-release-whirlwind-thrust.json
+      sourceId: hMm8faCTR98JLoqy
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You create an updraft of cycling wind release chakra that erupts from the ground under a group of
+            creatures. Select a space within range. All creatures within 15 feet of the selected space must make a
+            Strength saving throw. On a failed save, creatures are thrown 30 feet upwards into the air taking 3d10 wind
+            damage and causing Swirl. If a creature cannot safely land, they take falling damage as normal.</p><p>If the
+            space this jutsu is casted overlaps with a source of Fire or Water additional effects happen.</p><p>Fire:
+            This Jutsu ignites and becomes a flaming whirlwind instead dealing 3d12 fire damage instead of 3d10 Wind
+            Damage. Creatures must also succeed a Constitution saving throw gaining the burned condition on a failed
+            save.</p><p>Water: This jutsu becomes swirled with a powerful torrent of Water instead dealing 3d12 Cold
+            damage instead of 3d10 Wind Damage. Creatures must also succeed a Constitution saving throw gaining the
+            chilled condition on a failed save.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank,
+            increase the cost of this jutsu by 3 and the damage by 1d10 or 1d12.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: 90
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 8
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 3d10
+              - wind
+          versatile: 3d12
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d10
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - ninjutsu
+          - wind
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: 1d12
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757601216
+  modifiedTime: 1728757601216
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: wind-release/c-rank/wind-release-whirlwind-thrust.json
+folder: ByLMwcO1oQUvwEac
+sort: 3800000
+ownership:
+  default: 0
+_id: hMm8faCTR98JLoqy
+_key: '!items!hMm8faCTR98JLoqy'

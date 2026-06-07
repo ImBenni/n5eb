@@ -111,7 +111,7 @@ function setupPackSorting(pack) {
 /* -------------------------------------------- */
 
 /**
- * Add compendium UUID redirects from core premium modules to SRD if module's aren't enabled.
+ * Add compendium UUID redirects from optional modules.
  */
 export function registerModuleRedirects() {
   log("Registering Module Redirects", { level: "groupCollapsed" });
@@ -126,27 +126,4 @@ export function registerModuleRedirects() {
   console.groupEnd();
 }
 
-const moduleRedirects = {
-  "dnd-players-handbook": {
-    "Compendium.dnd-players-handbook.actors": "Compendium.n5eb.actors24",
-    "Compendium.dnd-players-handbook.classes": "Compendium.n5eb.classes24",
-    "Compendium.dnd-players-handbook.content": "Compendium.n5eb.content24",
-    "Compendium.dnd-players-handbook.equipment": "Compendium.n5eb.equipment24",
-    "Compendium.dnd-players-handbook.feats": "Compendium.n5eb.feats24",
-    "Compendium.dnd-players-handbook.origins": "Compendium.n5eb.origins24",
-    "Compendium.dnd-players-handbook.spells": "Compendium.n5eb.spells24",
-    "Compendium.dnd-players-handbook.tables": "Compendium.n5eb.tables24"
-  },
-  "dnd-dungeon-masters-guide": {
-    "Compendium.dnd-dungeon-masters-guide.actors": "Compendium.n5eb.actors24",
-    "Compendium.dnd-dungeon-masters-guide.content": "Compendium.n5eb.content24",
-    "Compendium.dnd-dungeon-masters-guide.equipment": "Compendium.n5eb.equipment24",
-    "Compendium.dnd-dungeon-masters-guide.tables": "Compendium.n5eb.tables24"
-  },
-  "dnd-monster-manual": {
-    "Compendium.dnd-monster-manual.actors": "Compendium.n5eb.actors24",
-    "Compendium.dnd-monster-manual.content": "Compendium.n5eb.content24",
-    "Compendium.dnd-monster-manual.features": "Compendium.n5eb.monsterfeatures24",
-    "Compendium.dnd-monster-manual.tables": "Compendium.n5eb.tables24"
-  }
-};
+const moduleRedirects = {};

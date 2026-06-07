@@ -1,0 +1,260 @@
+name: Corruption Temerity
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>You collect and build illusionary chakra, attempting to suppress their boldness in combat.</p><p>Select one
+      creature you can see within range, forcing them to make a Charisma saving throw.</p><p>Critical Success: Affected
+      creature is able to resist this jutsu's effect, becoming immune to further castings of this jutsu until the end of
+      the casters next turn.</p><p>Success: Affected creature is able to resist most of this jutsu's
+      effects.</p><p>Failure: Affected creature loses the benefit of jutsu based bonuses to speed, becoming unable to
+      benefit from them for the duration. An affected creature remakes their saving throw at the end of each of their
+      turns.</p><p>Critical Failure: Same as failure, but this also extends into class and class features as
+      well.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3
+      and the number of creatures you can target by +1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: genjutsu
+  level: 1
+  school: ill
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: corruption-temerity
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - visual
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/d-rank/corruption-temerity.json
+      sourceId: VasWEPQ3TuLU3RHQ
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You collect and build illusionary chakra, attempting to suppress their boldness in combat.</p><p>Select
+            one creature you can see within range, forcing them to make a Charisma saving throw.</p><p>Critical Success:
+            Affected creature is able to resist this jutsu's effect, becoming immune to further castings of this jutsu
+            until the end of the casters next turn.</p><p>Success: Affected creature is able to resist most of this
+            jutsu's effects.</p><p>Failure: Affected creature loses the benefit of jutsu based bonuses to speed,
+            becoming unable to benefit from them for the duration. An affected creature remakes their saving throw at
+            the end of each of their turns.</p><p>Critical Failure: Same as failure, but this also extends into class
+            and class features as well.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase
+            the cost of this jutsu by 3 and the number of creatures you can target by +1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: genjutsu
+        level: 1
+        school: gen
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - genjutsu
+          - visual
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/d-rank/corruption-temerity.json
+folder: AmeoViai9zpWZpeh
+sort: 21100000
+ownership:
+  default: 0
+_id: VasWEPQ3TuLU3RHQ
+_key: '!items!VasWEPQ3TuLU3RHQ'

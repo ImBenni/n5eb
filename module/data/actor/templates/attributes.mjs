@@ -1,6 +1,9 @@
 import ActiveEffect5e from "../../../documents/active-effect.mjs";
 import Proficiency from "../../../documents/actor/proficiency.mjs";
-import { convertLength, convertWeight, defaultUnits, replaceFormulaData, simplifyBonus } from "../../../utils.mjs";
+import {
+  getClassmodArtsCastingKey, getClassmodArtsColor, getClassmodArtsLabel, isClassmodArtsCastingKey
+} from "../../../classmod-arts.mjs";
+import { convertLength, defaultUnits, replaceFormulaData, simplifyBonus } from "../../../utils.mjs";
 import AdvantageModeField from "../../fields/advantage-mode-field.mjs";
 import FormulaField from "../../fields/formula-field.mjs";
 import MovementField from "../../shared/movement-field.mjs";
@@ -8,10 +11,20 @@ import RollConfigField from "../../shared/roll-config-field.mjs";
 import SensesField from "../../shared/senses-field.mjs";
 
 const { NumberField, SchemaField, StringField } = foundry.data.fields;
+const JUTSU_KNOWN_SCALE_ID = "jutsu-known";
+const JUTSU_MAX_RANK_SCALE_ID = "jutsu-max-rank";
+const JUTSU_MAX_RANK_SCALE_ALIASES = new Set([
+  JUTSU_MAX_RANK_SCALE_ID,
+  "highest-rank-jutsu-known",
+  "max-rank",
+  "highest-rank-known"
+]);
 
 /**
  * @import { ActorRollData } from "../../../documents/_types.mjs";
- * @import { ArmorClassData, AttributesCommonData, AttributesCreatureData, HitPointsData } from "./_types.mjs";
+ * @import {
+ *   ArmorClassData, AttributesCommonData, AttributesCreatureData, ChakraPointsData, HitPointsData
+ * } from "./_types.mjs";
  */
 
 /**
@@ -50,6 +63,40 @@ export default class AttributesFields {
   /* -------------------------------------------- */
 
   /**
+   * Chakra point fields shared between characters and NPCs.
+   * @type {ChakraPointsData}
+   */
+  static get chakraPoints() {
+    return {
+      max: new NumberField({ nullable: true, integer: true, min: 0, initial: null, label: "N5EB.ChakraMax" }),
+      temp: new NumberField({ integer: true, initial: 0, min: 0, label: "N5EB.ChakraTemp" }),
+      tempmax: new NumberField({ integer: true, initial: 0,
+        label: "N5EB.ChakraTempMax", hint: "N5EB.ChakraTempMaxHint" }),
+      formula: new FormulaField({ required: true, label: "N5EB.ChakraFormula" }),
+      value: new NumberField({ nullable: true, integer: true, min: 0, initial: null, label: "N5EB.ChakraCurrent" })
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Jutsu casting fields for a creature.
+   * @param {string} ability  Default ability.
+   * @returns {object}
+   */
+  static jutsuCasting(ability) {
+    return {
+      ability: new StringField({ required: true, blank: false, initial: ability, label: "N5EB.JUTSU.CastingAbility" }),
+      bonuses: new SchemaField({
+        attack: new FormulaField({ deterministic: true, required: true, label: "N5EB.JUTSU.AttackBonus" }),
+        dc: new FormulaField({ deterministic: true, required: true, label: "N5EB.JUTSU.DCBonus" })
+      }, { label: "DND5E.Bonuses" })
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Fields shared between characters, NPCs, and vehicles.
    * @type {AttributesCommonData}
    */
@@ -79,6 +126,16 @@ export default class AttributesFields {
       }, { label: "DND5E.Attunement" }),
       senses: new SensesField(),
       spellcasting: new StringField({ required: true, blank: true, label: "DND5E.SpellAbility" }),
+      jutsu: new SchemaField({
+        ninjutsu: new SchemaField(this.jutsuCasting("int"), { label: "N5EB.JUTSU.Type.Ninjutsu" }),
+        taijutsu: new SchemaField(this.jutsuCasting("str"), { label: "N5EB.JUTSU.Type.Taijutsu" }),
+        genjutsu: new SchemaField(this.jutsuCasting("wis"), { label: "N5EB.JUTSU.Type.Genjutsu" }),
+        known: new SchemaField({
+          value: new NumberField({ integer: true, min: 0, initial: 0, label: "N5EB.JUTSU.Known" }),
+          max: new NumberField({ integer: true, min: 0, initial: 0, label: "N5EB.JUTSU.KnownMax" }),
+          maxRank: new StringField({ required: true, blank: true, initial: "", label: "N5EB.JUTSU.MaxRank" })
+        }, { label: "N5EB.JUTSU.Known" })
+      }, { label: "N5EB.JUTSU.Casting" }),
       exhaustion: new NumberField({
         required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.Exhaustion"
       }),
@@ -87,7 +144,7 @@ export default class AttributesFields {
         bonuses: new SchemaField({
           save: new FormulaField({ required: true, label: "DND5E.ConcentrationBonus" })
         }),
-        limit: new NumberField({ integer: true, min: 0, initial: 1, label: "DND5E.ConcentrationLimit" })
+        limit: new NumberField({ integer: true, min: 0, initial: 2, label: "DND5E.ConcentrationLimit" })
       }, { label: "DND5E.Concentration" }),
       loyalty: new SchemaField({
         value: new NumberField({ integer: true, min: 0, max: 20, label: "DND5E.Loyalty" })
@@ -176,7 +233,7 @@ export default class AttributesFields {
 
       // Flat AC (no additional bonuses)
       case "flat":
-        ac.value = Number(ac.flat);
+        ac.value = Math.max(0, Number(ac.flat) - (this.parent.getExhaustionPenalty?.() ?? 0));
         return;
 
       // Natural AC (includes bonuses)
@@ -231,7 +288,10 @@ export default class AttributesFields {
     // Compute total AC and return
     ac.min = simplifyBonus(ac.min, rollData);
     ac.bonus = simplifyBonus(ac.bonus, rollData);
-    ac.value = Math.max(ac.min, ac.base + ac.shield + ac.bonus + ac.cover);
+    const exhaustionPenalty = this.parent.getExhaustionPenalty?.() ?? 0;
+    const conditionPenalty = this.parent.getConditionACPenalty?.() ?? 0;
+    ac.value = Math.max(0, Math.max(ac.min, ac.base + ac.shield + ac.bonus + ac.cover)
+      - exhaustionPenalty - conditionPenalty);
   }
 
   /* -------------------------------------------- */
@@ -243,10 +303,11 @@ export default class AttributesFields {
    */
   static prepareConcentration(rollData) {
     const { concentration } = this.attributes;
-    const abilityId = concentration.ability || CONFIG.DND5E.defaultAbilities.concentration;
+    const abilityId = concentration.ability || "con";
+    const skill = this.skills?.ccl;
     const ability = this.abilities?.[abilityId] || {};
     const bonus = simplifyBonus(concentration.bonuses.save, rollData);
-    concentration.save = (ability.save?.value ?? 0) + bonus;
+    concentration.save = (skill?.total ?? ability.check?.value ?? 0) + bonus;
   }
 
   /* -------------------------------------------- */
@@ -261,71 +322,52 @@ export default class AttributesFields {
   static prepareEncumbrance(rollData, { validateItem }={}) {
     const config = CONFIG.DND5E.encumbrance;
     const encumbrance = this.attributes.encumbrance ??= {};
-    const baseUnits = CONFIG.DND5E.encumbrance.baseUnits[this.parent.type]
-      ?? CONFIG.DND5E.encumbrance.baseUnits.default;
-    const unitSystem = game.settings.get("n5eb", "metricWeightUnits") ? "metric" : "imperial";
     const { attributes } = this;
 
-    // Get the total weight from items
-    let weight = this.parent.items
-      .filter(item => !item.container && (validateItem?.(item) ?? true))
-      .reduce((weight, item) => weight + (item.system.totalWeightIn?.(baseUnits[unitSystem]) ?? 0), 0);
-
-    // [Optional] add Currency Weight (for non-transformed actors)
-    const currency = this.currency;
-    if ( game.settings.get("n5eb", "currencyWeight") && currency ) {
-      const numCoins = Object.values(currency).reduce((val, denom) => val + Math.max(denom, 0), 0);
-      const currencyPerWeight = config.currencyPerWeight[unitSystem];
-      weight += convertWeight(
-        numCoins / currencyPerWeight,
-        config.baseUnits.default[unitSystem],
-        baseUnits[unitSystem]
-      );
+    // Get the total Bulk from top-level carried items and the best capacity bonus from each storage tool type.
+    const storageBonuses = new Map();
+    let bulk = 0;
+    for ( const item of this.parent.items ) {
+      if ( item.container || !(validateItem?.(item) ?? true) ) continue;
+      bulk += item.system.totalWeightIn?.("bulk") ?? 0;
+      const storage = item.getFlag?.("n5eb", "bulk");
+      const bonus = Number(storage?.capacityBonus ?? 0);
+      if ( !bonus || !item.system.equipped ) continue;
+      const key = storage.capacityType || item.system.identifier || item.id;
+      storageBonuses.set(key, Math.max(storageBonuses.get(key) ?? 0, bonus));
     }
 
-    // Determine the Encumbrance size class
-    const keys = Object.keys(CONFIG.DND5E.actorSizes);
-    const index = keys.findIndex(k => k === this.traits.size);
-    const sizeConfig = CONFIG.DND5E.actorSizes[
-      keys[this.parent.flags.n5eb?.powerfulBuild ? Math.min(index + 1, keys.length - 1) : index]
-    ];
-    const sizeMod = sizeConfig?.capacityMultiplier ?? sizeConfig?.token ?? 1;
-    let maximumMultiplier;
+    const storage = Array.from(storageBonuses.values()).reduce((total, bonus) => total + bonus, 0);
+    const strMod = Math.max(0, this.abilities.str?.mod ?? 0);
+    const base = (config.bulk?.base ?? 10) + (strMod * (config.bulk?.perStrengthModifier ?? 2));
 
-    const calculateThreshold = threshold => {
-      let base = this.abilities.str?.value ?? 10;
-      const bonus = simplifyBonus(encumbrance.bonuses?.[threshold], rollData)
-        + simplifyBonus(encumbrance.bonuses?.overall, rollData);
-      let multiplier = simplifyBonus(encumbrance.multipliers[threshold], rollData)
-        * simplifyBonus(encumbrance.multipliers.overall, rollData);
-      if ( threshold === "maximum" ) maximumMultiplier = multiplier;
-      if ( this.isVehicle ) {
-        const { cargo } = attributes.capacity;
-        base = convertWeight(cargo.value || Infinity, cargo.units, baseUnits[unitSystem]);
-      }
-      else multiplier *= (config.threshold[threshold]?.[unitSystem] ?? 1) * sizeMod;
-      return (base * multiplier).toNearest(0.1) + bonus;
-    };
+    const capacityBonus = simplifyBonus(encumbrance.bonuses?.maximum, rollData)
+      + simplifyBonus(encumbrance.bonuses?.overall, rollData);
+    const capacityMultiplier = simplifyBonus(encumbrance.multipliers?.maximum ?? "1", rollData)
+      * simplifyBonus(encumbrance.multipliers?.overall ?? "1", rollData);
+    const maximum = this.isVehicle
+      ? (attributes.capacity?.cargo?.value || Infinity)
+      : Math.max(0, ((base + storage + capacityBonus) * capacityMultiplier).toNearest(0.1));
+    const encumbered = bulk > maximum;
 
     // Populate final Encumbrance values
-    encumbrance.value = weight.toNearest(0.1);
+    encumbrance.bulk = true;
+    encumbrance.value = bulk.toNearest(0.1);
+    encumbrance.base = this.isVehicle ? 0 : base;
+    encumbrance.storage = storage;
     encumbrance.thresholds = {
-      encumbered: calculateThreshold("encumbered"),
-      heavilyEncumbered: calculateThreshold("heavilyEncumbered"),
-      maximum: calculateThreshold("maximum")
+      encumbered: maximum,
+      heavilyEncumbered: maximum,
+      maximum
     };
-    encumbrance.max = encumbrance.thresholds.maximum;
-    encumbrance.mod = (sizeMod * maximumMultiplier).toNearest(0.1);
+    encumbrance.max = maximum;
+    encumbrance.mod = capacityMultiplier.toNearest(0.1);
     encumbrance.stops = {
-      encumbered: Number.isFinite(encumbrance.max)
-        ? Math.clamp((encumbrance.thresholds.encumbered * 100) / encumbrance.max, 0, 100)
-        : 0,
-      heavilyEncumbered: Number.isFinite(encumbrance.max)
-        ? Math.clamp((encumbrance.thresholds.heavilyEncumbered * 100) / encumbrance.max, 0, 100)
-        : 0
+      encumbered: 100,
+      heavilyEncumbered: 100
     };
-    encumbrance.pct = Math.clamp((encumbrance.value * 100) / encumbrance.max, 0, 100);
-    encumbrance.encumbered = encumbrance.value > encumbrance.heavilyEncumbered;
+    encumbrance.pct = Number.isFinite(maximum) ? Math.clamp((encumbrance.value * 100) / maximum, 0, 100) : 0;
+    encumbrance.encumbered = encumbered;
   }
 
   /* -------------------------------------------- */
@@ -336,7 +378,8 @@ export default class AttributesFields {
    */
   static prepareExhaustionLevel() {
     const exhaustion = this.parent.effects.get(ActiveEffect5e.ID.EXHAUSTION);
-    const level = exhaustion?.getFlag("n5eb", "exhaustionLevel");
+    const level = exhaustion?.getFlag("n5eb", "exhaustionLevel")
+      ?? exhaustion?.getFlag("n5eb", "condition.rank");
     this.attributes.exhaustion = Number.isFinite(level) ? level : 0;
   }
 
@@ -361,6 +404,27 @@ export default class AttributesFields {
     hp.value = Math.min(hp.value, hp.effectiveMax);
     hp.damage = hp.effectiveMax - hp.value;
     hp.pct = Math.clamp(hp.effectiveMax ? (hp.value / hp.effectiveMax) * 100 : 0, 0, 100);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Calculate maximum chakra points, taking an provided advancement into consideration.
+   * @param {object} chakra           Chakra object to calculate.
+   * @param {object} [options={}]
+   * @param {ChakraAdvancement[]} [options.advancement=[]]  Advancement items from which to get chakra per-level.
+   * @param {number} [options.bonus=0]  Additional bonus to add atop the calculated value.
+   * @param {number} [options.mod=0]    Modifier for the ability to add to chakra from advancement.
+   */
+  static prepareChakraPoints(chakra, { advancement=[], mod=0, bonus=0 }={}) {
+    const base = advancement.reduce((total, advancement) => total + advancement.getAdjustedTotal(mod), 0);
+    chakra.max = Math.max(Math.floor((chakra.max ?? 0) + base + bonus), 0);
+    chakra.temp = Math.max(Math.floor(chakra.temp ?? 0), 0);
+    chakra.tempmax = Math.floor(chakra.tempmax ?? 0);
+    chakra.effectiveMax = Math.max(chakra.max + chakra.tempmax, 0);
+    chakra.value = Math.min(Math.max(Math.floor(chakra.value ?? 0), 0), chakra.effectiveMax);
+    chakra.damage = chakra.effectiveMax - chakra.value;
+    chakra.pct = Math.clamp(chakra.effectiveMax ? (chakra.value / chakra.effectiveMax) * 100 : 0, 0, 100);
   }
 
   /* -------------------------------------------- */
@@ -428,22 +492,24 @@ export default class AttributesFields {
     const heavilyEncumbered = statuses.has("heavilyEncumbered");
     const exceedingCarryingCapacity = statuses.has("exceedingCarryingCapacity");
     const units = this.attributes.movement.units ??= defaultUnits("length");
-    let reduction = dnd5e.settings.rulesVersion === "modern" && !this.traits?.ci?.value?.has("exhaustion")
-      ? (this.attributes.exhaustion ?? 0) * (CONFIG.DND5E.conditionTypes.exhaustion?.reduction?.speed ?? 0) : 0;
+    let reduction = (this.parent.getExhaustionSpeedReduction?.() ?? 0)
+      + (this.parent.getConditionSpeedReduction?.() ?? 0);
     reduction = convertLength(reduction, CONFIG.DND5E.defaultUnits.length.imperial, units);
-    const bonus = simplifyBonus(this.attributes.movement.bonus, rollData);
+    const ignoreSpeedBonus = (this.parent.getConditionRank?.("slowed") ?? 0) > 0;
+    const bonus = ignoreSpeedBonus ? 0 : simplifyBonus(this.attributes.movement.bonus, rollData);
     this.attributes.movement.max = 0;
     for ( const type of Object.keys(CONFIG.DND5E.movementTypes) ) {
       let speed = Math.max(0, this.attributes.movement[type] - reduction);
       if ( speed ) {
         speed = Math.max(0, speed + bonus);
         if ( halfMovement ) speed *= 0.5;
-        if ( heavilyEncumbered ) {
+        if ( encumbered && this.attributes.encumbrance?.bulk ) speed *= 0.5;
+        else if ( heavilyEncumbered ) {
           speed = Math.max(0, speed - (CONFIG.DND5E.encumbrance.speedReduction.heavilyEncumbered[units] ?? 0));
         } else if ( encumbered ) {
           speed = Math.max(0, speed - (CONFIG.DND5E.encumbrance.speedReduction.encumbered[units] ?? 0));
         }
-        if ( exceedingCarryingCapacity ) {
+        if ( exceedingCarryingCapacity && !this.attributes.encumbrance?.bulk ) {
           speed = Math.min(speed, CONFIG.DND5E.encumbrance.speedReduction.exceedingCarryingCapacity[units] ?? 0);
         }
       }
@@ -498,6 +564,96 @@ export default class AttributesFields {
     this.attributes.spell.attack = ability ? ability.attack : this.attributes.prof;
     this.attributes.spell.dc = ability ? ability.dc : 8 + this.attributes.prof;
     this.attributes.spell.mod = ability ? ability.mod : 0;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare N5eB jutsu casting statistics and known counters.
+   * @this {CharacterData|NPCData}
+   * @param {ActorRollData} rollData  The Actor's roll data.
+   */
+  static prepareJutsuCasting(rollData) {
+    const { attributes } = this;
+    attributes.jutsu ??= {};
+
+    for ( const [key, config] of Object.entries(CONFIG.DND5E.jutsuCastingTypes) ) {
+      const casting = attributes.jutsu[key] ??= {};
+      const sourceAbility = foundry.utils.getProperty(this.parent._source, `system.attributes.jutsu.${key}.ability`);
+      const classAbility = Object.values(this.parent.classes ?? {})
+        .map(cls => cls.system.jutsu?.abilities?.[key])
+        .find(ability => ability);
+      const abilityId = sourceAbility || classAbility || casting.ability || config.ability;
+      const ability = this.abilities?.[abilityId];
+      const attackBonus = simplifyBonus(casting.bonuses?.attack, rollData);
+      const dcBonus = simplifyBonus(casting.bonuses?.dc, rollData);
+      casting.label = config.label;
+      casting.ability = abilityId;
+      casting.abilityLabel = CONFIG.DND5E.abilities[abilityId]?.label ?? "";
+      casting.mod = ability?.mod ?? 0;
+      casting.attack = (ability?.attack ?? (casting.mod + (attributes.prof ?? 0))) + attackBonus;
+      casting.dc = (ability?.dc ?? (8 + (attributes.prof ?? 0) + casting.mod)) + dcBonus;
+    }
+
+    for ( const key of Object.keys(attributes.jutsu) ) {
+      if ( isClassmodArtsCastingKey(key) ) delete attributes.jutsu[key];
+    }
+
+    for ( const [identifier, classmod] of Object.entries(this.parent.classmods ?? {}) ) {
+      const castingKey = getClassmodArtsCastingKey(identifier);
+      const casting = attributes.jutsu[castingKey] ??= {};
+      const attack = simplifyBonus(
+        classmod.system.attackBonus?.value ?? classmod.system.attackBonus?.formula, rollData
+      );
+      const dc = simplifyBonus(classmod.system.save?.value ?? classmod.system.save?.formula, rollData);
+      casting.label = getClassmodArtsLabel(classmod);
+      casting.classmod = identifier;
+      casting.isClassmodArts = true;
+      casting.color = getClassmodArtsColor(classmod);
+      casting.ability = "";
+      casting.abilityLabel = game.i18n.localize("N5EB.CLASSMOD.ArtsFormula");
+      casting.mod = null;
+      casting.attack = Number.isFinite(attack) ? attack : 0;
+      casting.dc = Number.isFinite(dc) ? dc : 0;
+    }
+
+    const known = attributes.jutsu.known ??= {};
+    known.value = this.parent.itemTypes.spell.reduce((total, item) => {
+      if ( item.getFlag("n5eb", "cachedFor") ) return total;
+      return item.system.jutsu?.countsKnown === false ? total : total + 1;
+    }, 0);
+
+    const rankOrder = CONFIG.DND5E.jutsuRankOrder;
+    const progressionClass = getJutsuProgressionClass(this);
+    const progression = getJutsuProgression(progressionClass);
+    known.max = progression.known;
+    known.hasMax = Number.isFinite(known.max);
+    const maxRank = progression.maxRank;
+    const max = rankOrder.indexOf(maxRank);
+    known.maxRank = maxRank;
+    known.maxRankLabel = maxRank ? game.i18n.localize(CONFIG.DND5E.jutsuRanks[maxRank]?.label) : "";
+
+    if ( known.hasMax && (known.value > known.max) ) this.parent._preparationWarnings.push({
+      message: game.i18n.format("N5EB.JUTSU.WarnKnownExceeded", {
+        value: known.value,
+        max: known.max
+      }),
+      type: "warning"
+    });
+    if ( max >= 0 ) {
+      const overRank = this.parent.itemTypes.spell.find(item => {
+        if ( item.system.jutsu?.countsKnown === false ) return false;
+        return rankOrder.indexOf(item.system.effectiveRank) > max;
+      });
+      if ( overRank ) this.parent._preparationWarnings.push({
+        message: game.i18n.format("N5EB.JUTSU.WarnMaxRankExceeded", {
+          name: overRank.name,
+          rank: CONFIG.DND5E.jutsuRanks[overRank.system.effectiveRank]?.label ?? overRank.system.effectiveRank,
+          max: known.maxRankLabel
+        }),
+        type: "warning"
+      });
+    }
   }
 
   /* -------------------------------------------- */
@@ -563,4 +719,85 @@ export default class AttributesFields {
      */
     Hooks.callAll(`dnd5e.${changes.total > 0 ? "heal" : "damage"}Actor`, this.parent, changes, changed, userId);
   }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Determine which class controls jutsu known progression.
+ * @param {CharacterData|NPCData} system  Actor system data.
+ * @returns {Item5e|null}
+ */
+function getJutsuProgressionClass(system) {
+  if ( system.isCharacter ) return system.parent.items.get(system.details.originalClass) ?? null;
+  return Object.values(system.parent.classes ?? {}).sort((a, b) => b.system.levels - a.system.levels)[0] ?? null;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Retrieve jutsu known progression from a class's reserved scale values, with legacy fallbacks.
+ * @param {Item5e|null} cls  Class item.
+ * @returns {{known: number|null, maxRank: string}}
+ */
+function getJutsuProgression(cls) {
+  if ( !cls ) return { known: null, maxRank: "" };
+
+  const knownScale = cls.scaleValues?.[JUTSU_KNOWN_SCALE_ID]?.value;
+  const legacyKnown = cls.system.jutsu?.known;
+  let known = Number.isFinite(knownScale) ? knownScale : null;
+  if ( !Number.isFinite(known) && legacyKnown ) {
+    known = simplifyBonus(legacyKnown, cls.getRollData({ deterministic: true }));
+  }
+
+  return {
+    known,
+    maxRank: getJutsuMaxRank(cls)
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Retrieve the current highest jutsu rank from a class's scale values.
+ * @param {Item5e} cls  Class item.
+ * @returns {string}
+ */
+function getJutsuMaxRank(cls) {
+  const scaleValues = cls.scaleValues ?? {};
+  const reserved = normalizeJutsuRank(scaleValues[JUTSU_MAX_RANK_SCALE_ID]?.value);
+  if ( reserved ) return reserved;
+
+  for ( const identifier of JUTSU_MAX_RANK_SCALE_ALIASES ) {
+    const rank = normalizeJutsuRank(scaleValues[identifier]?.value);
+    if ( rank ) return rank;
+  }
+
+  const level = cls.system.levels ?? 0;
+  for ( const advancement of cls.advancement?.byType?.ScaleValue ?? [] ) {
+    const identifier = advancement.identifier;
+    if ( !JUTSU_MAX_RANK_SCALE_ALIASES.has(identifier) && (advancement.configuration.type !== "jutsuRank") ) {
+      continue;
+    }
+    const rank = normalizeJutsuRank(advancement.valueForLevel(level)?.value);
+    if ( rank ) return rank;
+  }
+
+  return normalizeJutsuRank(cls.system.jutsu?.maxRank);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize user-facing jutsu rank values into internal rank keys.
+ * @param {string} value  Value to normalize.
+ * @returns {string}
+ */
+function normalizeJutsuRank(value) {
+  if ( typeof value !== "string" ) return "";
+  const lower = value.trim().toLowerCase().replace(/-?rank$/, "");
+  if ( lower in CONFIG.DND5E.jutsuRanks ) return lower;
+  return Object.entries(CONFIG.DND5E.jutsuRanks).find(([, config]) => {
+    return [config.label, config.abbreviation].some(label => game.i18n.localize(label).toLowerCase() === lower);
+  })?.[0] ?? "";
 }

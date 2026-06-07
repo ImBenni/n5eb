@@ -164,6 +164,47 @@
                 {{/with}}
             </div>
 
+            {{!-- Chakra --}}
+            <div class="meter-group">
+                <div class="label roboto-condensed-upper">
+                    <span>{{ localize "N5EB.Chakra" }}</span>
+                    {{#if editable}}
+                    <button type="button" class="config-button unbutton" data-action="showConfiguration"
+                            data-config="chakra" data-tooltip="N5EB.ChakraConfig"
+                            aria-label="{{ localize 'N5EB.ChakraConfig' }}">
+                        <i class="fas fa-cog" inert></i>
+                    </button>
+                    {{/if}}
+                </div>
+                {{#with system.attributes.chakra}}
+                <div class="meter sectioned chakra">
+                    <div class="progress chakra
+                         {{~#if (gt tempmax 0)}} temp-positive
+                         {{~else if (lt tempmax 0)}} temp-negative{{/if}}"
+                         role="meter" aria-valuemin="0"
+                         aria-valuenow="{{ value }}" aria-valuemax="{{ max }}"
+                         style="--bar-percentage: {{ pct }}%">
+                        <div class="label">
+                            <span class="value">{{ value }}</span>
+                            <span class="separator">&sol;</span>
+                            <span class="max">{{ effectiveMax }}</span>
+                            {{#if tempmax}}
+                            <span class="bonus">{{dnd5e-numberFormat tempmax signDisplay="always"}}</span>
+                            {{/if}}
+                        </div>
+                        <input type="text" name="system.attributes.chakra.value" data-dtype="Number"
+                               data-max="{{ ifThen effectiveMax effectiveMax max }}"
+                               placeholder="0" value="{{ value }}" hidden>
+                    </div>
+                    <div class="tmp">
+                        <input type="text" name="system.attributes.chakra.temp" data-dtype="Number"
+                               placeholder="{{ localize 'DND5E.TMP' }}"
+                               value="{{#if temp}}{{ temp }}{{/if}}">
+                    </div>
+                </div>
+                {{/with}}
+            </div>
+
             {{!-- Hit Dice --}}
             {{#with system.attributes.hd}}
             <div class="meter-group">
@@ -178,6 +219,31 @@
                     {{/if}}
                 </div>
                 <div class="meter hit-dice progress" role="meter" aria-valuemin="0"
+                     aria-valuenow="{{ value }}" aria-valuemax="{{ max }}"
+                     style="--bar-percentage: {{ pct }}%">
+                    <div class="label">
+                        <span class="value">{{ value }}</span>
+                        <span class="separator">&sol;</span>
+                        <span class="max">{{ max }}</span>
+                    </div>
+                </div>
+            </div>
+            {{/with}}
+
+            {{!-- Chakra Dice --}}
+            {{#with system.attributes.cd}}
+            <div class="meter-group">
+                <div class="label roboto-condensed-upper">
+                    <span>{{ localize "N5EB.ChakraDice" }}</span>
+                    {{#if @root.editable}}
+                    <button type="button" class="config-button unbutton" data-action="showConfiguration"
+                            data-config="chakraDice" data-tooltip="N5EB.ChakraDiceConfig"
+                            aria-label="{{ localize 'N5EB.ChakraDiceConfig' }}">
+                        <i class="fas fa-cog" inert></i>
+                    </button>
+                    {{/if}}
+                </div>
+                <div class="meter chakra-dice progress" role="meter" aria-valuemin="0"
                      aria-valuenow="{{ value }}" aria-valuemax="{{ max }}"
                      style="--bar-percentage: {{ pct }}%">
                     <div class="label">

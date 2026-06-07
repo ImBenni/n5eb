@@ -1,0 +1,258 @@
+folder: i3QTgPkQ2SdGemU5
+name: Flame Vent
+type: spell
+_id: qlG71QSk1Qa3LR8S
+img: systems/n5eb/assets/content/clans/vermillion.webp
+system:
+  description:
+    value: >-
+      <p>You vent some of the excess heat you produce in an attempt to try and damage those surrounding you. All
+      creatures of your choice within range must attempt a Dexterity saving throw, taking 2d6 + your Taijutsu modifier
+      and gaining 1 rank of burned on a failed save or half as much damage and no other effects on a success.</p><p>You
+      can spend 1 <em><strong>Flame Die</strong></em> to change the range of this jutsu to a 15-foot cone, or a 30-foot
+      long 5-foot-wide line.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank,
+      increase the cost by 3, the range by 5 feet, and the damage by 2d6+2.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: charges
+    target: Compendium.n5eb.t7-clan.Item.zc7TEiyaJBSDN8xl
+    amount: 1
+    scale: false
+  ability: taijutsu
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d6+@mod
+        - fire
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 2d6+2
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: flame-vent
+  jutsu:
+    components:
+      - cm
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - fire
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '3'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: vermillion/clan-hijutsu/d-rank/flame-vent.json
+      sourceId: qlG71QSk1Qa3LR8S
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You vent some of the excess heat you produce in an attempt to try and damage those surrounding you. All
+            creatures of your choice within range must attempt a Dexterity saving throw, taking 2d6 + your Taijutsu
+            modifier and gaining 1 rank of burned on a failed save or half as much damage and no other effects on a
+            success.</p><p>You can spend 1 <em><strong>Flame Die</strong></em> to change the range of this jutsu to a
+            15-foot cone, or a 30-foot long 5-foot-wide line.</p><p><strong>At Higher Ranks:</strong> For each rank you
+            cast this jutsu above D-Rank, increase the cost by 3, the range by 5 feet, and the damage by 2d6+2.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: charges
+          target: Compendium.n5eb.t7-clan.Item.zc7TEiyaJBSDN8xl
+          amount: 1
+          scale: false
+        ability: taijutsu
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d6+@mod
+              - fire
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - chakramolding
+          - mobility
+        keywords:
+          - taijutsu
+          - hijutsu
+          - fire
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 2d6+2
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 3
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733931457247
+  modifiedTime: 1734020384071
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: vermillion/clan-hijutsu/d-rank/flame-vent.json
+_key: '!items!qlG71QSk1Qa3LR8S'

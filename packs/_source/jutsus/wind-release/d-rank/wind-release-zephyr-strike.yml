@@ -1,0 +1,373 @@
+folder: 2XqvongJAEZP1u6H
+name: Wind Release Zephyr Strike
+type: spell
+_id: y5jlnc2XIsVURgO6
+img: icons/magic/movement/pinwheel-turning-blue.webp
+system:
+  description:
+    value: >-
+      <p>You move like the wind. For the duration, your movement doesn't provoke opportunity attacks. Your movement
+      speed increases by 30 feet until the end of the turn you cast this jutsu. Also, once before the jutsu ends, you
+      can give yourself advantage on one attack roll on your turn. On a hit, the attack deals an extra 2d8 wind damage
+      and immediately ends this jutsu.</p>
+    chat: >-
+      <p>: You move like the wind. For the duration, your movement doesn’t provoke opportunity attacks. Your movement
+      speed increases by 30 feet until the end of the turn you cast this jutsu. Also, once before the jutsu ends, you
+      can give yourself advantage on one attack roll on your turn. On a hit, the attack deals an extra 2d8 wind damage
+      and immediately ends this jutsu.</p>
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    formula: ''
+  identifier: wind-release-zephyr-strike
+  jutsu:
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - wind
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: 'Zephyr Strike: Speed'
+    origin: Compendium.n5eb.jutsus.Item.y5jlnc2XIsVURgO6
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: 1
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: true
+        selfTarget: true
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - 1Attack
+      core:
+        overlay: false
+    img: Wind%20Release.webp
+    _id: 7R7tH0w5qSF7gPae
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '30'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,0
+      createdTime: 1724126794860
+      modifiedTime: 1724526298413
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!y5jlnc2XIsVURgO6.7R7tH0w5qSF7gPae'
+  - name: 'Wind Release: Zephyr Strike'
+    origin: Compendium.n5eb.jutsus.Item.y5jlnc2XIsVURgO6
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: true
+        selfTarget: true
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - 1Attack
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: Wind%20Release.webp
+    _id: sZan4LVNLdXlGbXN
+    type: base
+    system: {}
+    changes:
+      - key: flags.n5eb.advantage.attack.all
+        mode: 0
+        value: '1'
+        priority: 20
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: 2d8[wind]
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1724526300274
+      modifiedTime: 1724526399263
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!y5jlnc2XIsVURgO6.sZan4LVNLdXlGbXN'
+sort: 2600000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: wind-release/d-rank/wind-release-zephyr-strike.json
+      sourceId: y5jlnc2XIsVURgO6
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You move like the wind. For the duration, your movement doesn't provoke opportunity attacks. Your
+            movement speed increases by 30 feet until the end of the turn you cast this jutsu. Also, once before the
+            jutsu ends, you can give yourself advantage on one attack roll on your turn. On a hit, the attack deals an
+            extra 2d8 wind damage and immediately ends this jutsu.</p>
+          chat: >-
+            <p>: You move like the wind. For the duration, your movement doesn’t provoke opportunity attacks. Your
+            movement speed increases by 30 feet until the end of the turn you cast this jutsu. Also, once before the
+            jutsu ends, you can give yourself advantage on one attack roll on your turn. On a hit, the attack deals an
+            extra 2d8 wind damage and immediately ends this jutsu.</p>
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        level: 1
+        school: nin
+        properties:
+          - chakramolding
+        keywords:
+          - ninjutsu
+          - wind
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        chakraCost: 4
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          formula: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1724110191554
+  modifiedTime: 1728757787726
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: wind-release/d-rank/wind-release-zephyr-strike.json
+_key: '!items!y5jlnc2XIsVURgO6'

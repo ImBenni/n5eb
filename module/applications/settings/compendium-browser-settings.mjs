@@ -343,8 +343,9 @@ export default class CompendiumBrowserSettingsConfig extends Application5e {
   static collateSources() {
     const sources = new Set();
     const setting = game.settings.get("n5eb", "packSourceConfiguration");
-    for ( const { collection, documentName } of game.packs ) {
+    for ( const { collection, documentName, metadata } of game.packs ) {
       if ( (documentName !== "Actor") && (documentName !== "Item") ) continue;
+      if ( metadata.flags?.n5eb?.hiddenFromN5eB && (setting[collection] !== true) ) continue;
       if ( setting[collection] !== false ) sources.add(collection);
     }
     return sources;

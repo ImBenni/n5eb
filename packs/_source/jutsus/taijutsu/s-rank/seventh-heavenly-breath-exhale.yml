@@ -1,0 +1,403 @@
+name: Seventh Heavenly Breath Exhale
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/taijutsu.webp
+system:
+  description:
+    value: >-
+      <p>As a requirement to activate this jutsu, you must have Sixth Heavenly Breath: Gasp currently active. You end
+      your concentration on that jutsu and this one takes its place. You retain all of the effects and duration of that
+      jutsu, stacking them with this jutsu's effects.</p><p>You turn off your heart's limiters allowing it to pump an
+      unquantifiable amount of oxygen through your body. The aura that surrounds you begins to glow far more intensely
+      as it begins to take a shape of your choice such as a skull, eyes, or a demon. Your first two taijutsu attacks per
+      turn gain a +5 bonus to hit and are made at advantage, deal 7d8 bonus damage, and you gain 40 Temporary Hit Points
+      which stack with other Temporary Hit Points granted by Heavenly Breath taijutsu.</p><p>Upon ending this jutsu, you
+      gain 7 ranks of the weakened condition and 7 ranks of the slowed condition until you finish a One week of
+      downtime. This cannot be removed or ended early by any means.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '10'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 20
+    scale: false
+  ability: ''
+  actionType: other
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 7d8
+        - ''
+    versatile: '40'
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 9
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: seventh-heavenly-breath-exhale
+  jutsu:
+    components:
+      - cm
+    keywords:
+      - taijutsu
+      - kinjutsu
+    countsKnown: true
+    ability: ''
+    type: taijutsu
+  rank: s
+  chakra:
+    cost: '20'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Slowed
+    origin: Compendium.n5eb.jutsus.Item.EipH0szrD1XMMtvB
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    _id: rsEgLcRc8Wxn2n3c
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-(10 * @stackCount)'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: slowed
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!EipH0szrD1XMMtvB.rsEgLcRc8Wxn2n3c'
+  - name: Weakened
+    origin: Compendium.n5eb.jutsus.Item.EipH0szrD1XMMtvB
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: Ybefr6d9uksJgLPv
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!EipH0szrD1XMMtvB.Ybefr6d9uksJgLPv'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: taijutsu/s-rank/seventh-heavenly-breath-exhale.json
+      sourceId: EipH0szrD1XMMtvB
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>As a requirement to activate this jutsu, you must have Sixth Heavenly Breath: Gasp currently active. You
+            end your concentration on that jutsu and this one takes its place. You retain all of the effects and
+            duration of that jutsu, stacking them with this jutsu's effects.</p><p>You turn off your heart's limiters
+            allowing it to pump an unquantifiable amount of oxygen through your body. The aura that surrounds you begins
+            to glow far more intensely as it begins to take a shape of your choice such as a skull, eyes, or a demon.
+            Your first two taijutsu attacks per turn gain a +5 bonus to hit and are made at advantage, deal 7d8 bonus
+            damage, and you gain 40 Temporary Hit Points which stack with other Temporary Hit Points granted by Heavenly
+            Breath taijutsu.</p><p>Upon ending this jutsu, you gain 7 ranks of the weakened condition and 7 ranks of the
+            slowed condition until you finish a One week of downtime. This cannot be removed or ended early by any
+            means.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '10'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 20
+          scale: false
+        ability: ''
+        actionType: other
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 7d8
+              - ''
+          versatile: '40'
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 5
+        school: tai
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - taijutsu
+          - kinjutsu
+        chakraCost: 20
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+    otherCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757579263
+  modifiedTime: 1728757579263
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: taijutsu/s-rank/seventh-heavenly-breath-exhale.json
+folder: iBxKk1Gz3ajwjxoV
+sort: 0
+ownership:
+  default: 0
+_id: EipH0szrD1XMMtvB
+_key: '!items!EipH0szrD1XMMtvB'

@@ -191,6 +191,10 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
       user: game.user
     };
     context.source = context.editable ? this.item.system._source : this.item.system;
+    context.expanded = this.expandedSections.entries().reduce((obj, [k, v]) => {
+      obj[k] = v;
+      return obj;
+    }, {});
 
     context.properties = {
       active: [],
@@ -304,11 +308,6 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
    * @protected
    */
   async _prepareDescriptionContext(context, options) {
-    context.expanded = this.expandedSections.entries().reduce((obj, [k, v]) => {
-      obj[k] = v;
-      return obj;
-    }, {});
-
     const enrichmentOptions = {
       secrets: this.item.isOwner, relativeTo: this.item, rollData: this.item.getRollData()
     };
@@ -851,6 +850,15 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
     // Handle properties
     if ( foundry.utils.hasProperty(submitData, "system.properties") ) {
       submitData.system.properties = filteredKeys(submitData.system.properties);
+    }
+    if ( foundry.utils.hasProperty(submitData, "system.jutsu.components") ) {
+      submitData.system.jutsu.components = filteredKeys(submitData.system.jutsu.components);
+    }
+    if ( foundry.utils.hasProperty(submitData, "system.jutsu.keywords") ) {
+      submitData.system.jutsu.keywords = filteredKeys(submitData.system.jutsu.keywords);
+    }
+    if ( foundry.utils.hasProperty(submitData, "system.rank") ) {
+      submitData.system.level = CONFIG.DND5E.jutsuSpellLevelByRank[submitData.system.rank] ?? submitData.system.level;
     }
 
     return submitData;

@@ -1,0 +1,361 @@
+name: Lightning Release Lightning Wall
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/lightning.webp
+system:
+  description:
+    value: >-
+      <p>You conjure your lightning release chakra until you create a wall of lightning that you can place on a solid
+      surface or suspend midair. You can make the wall up to 90 feet long, 60 feet high and 5 feet thick, or a ringed
+      wall up to 40 feet in diameter, 60 feet high, and 5 feet thick. This wall is opaque and lasts for the
+      duration.</p><p>When the wall appears, each creature within its area must make a Dexterity saving throw. On a
+      failed save, a creature takes 8d8 lighting damage and becomes shocked or half as much damage and no further
+      effects on a successful save.</p><p>On both sides of the wall each creature that ends its turn within 10 feet of
+      it takes 8d8 Lighting damage and must make a Constitution saving throw gaining 1 rank of shocked on a failed save.
+      A creature takes the same damage and gains the same condition when it enters the wall for the first time or ends
+      its turn there.</p><p>The wall has a number of hit points equal to the collective total of all Casters Ninjutsu
+      Save DC. Resistance to Earth Damage and Vulnerability to Wind Damage.</p><p>Its casters can decide to allow Jutsu
+      to pass through only one side of the wall if they choose.</p><p>Combination: If this jutsu is cast as a
+      Combination jutsu with 2 or more casters increase the damage by 1d8.</p><p>Any creature who assists in casting
+      this jutsu as a combination jutsu increases this Jutsu's defensive abilities based on the highest Charisma
+      Modifier within the group of casters. (+0-1: No Change, +2-3: Increase the walls Hit points by 15. +4-5: Increase
+      the walls Hit points by 45).</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: fullturnaction
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 120
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 50
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 8d8
+        - lightning
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: lightning-release-lightning-wall
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - construct
+      - combination
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '50'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Shocked
+    origin: Compendium.n5eb.jutsus.Item.Bm21sbStJFRez5rm
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    _id: wsc8KUJDjrg9OUBW
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          rollType=skill,
+          saveAbility=sur,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with
+      electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
+      reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A
+      <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a
+      failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC
+      12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has
+      resistance to this condition. A creature immune to Lightning damage has immunity to this
+      condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground
+      themselves, dispersing the electricity in their body ending this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Bm21sbStJFRez5rm.wsc8KUJDjrg9OUBW'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: lightning-release/c-rank/lightning-release-lightning-wall.json
+      sourceId: Bm21sbStJFRez5rm
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You conjure your lightning release chakra until you create a wall of lightning that you can place on a
+            solid surface or suspend midair. You can make the wall up to 90 feet long, 60 feet high and 5 feet thick, or
+            a ringed wall up to 40 feet in diameter, 60 feet high, and 5 feet thick. This wall is opaque and lasts for
+            the duration.</p><p>When the wall appears, each creature within its area must make a Dexterity saving throw.
+            On a failed save, a creature takes 8d8 lighting damage and becomes shocked or half as much damage and no
+            further effects on a successful save.</p><p>On both sides of the wall each creature that ends its turn
+            within 10 feet of it takes 8d8 Lighting damage and must make a Constitution saving throw gaining 1 rank of
+            shocked on a failed save. A creature takes the same damage and gains the same condition when it enters the
+            wall for the first time or ends its turn there.</p><p>The wall has a number of hit points equal to the
+            collective total of all Casters Ninjutsu Save DC. Resistance to Earth Damage and Vulnerability to Wind
+            Damage.</p><p>Its casters can decide to allow Jutsu to pass through only one side of the wall if they
+            choose.</p><p>Combination: If this jutsu is cast as a Combination jutsu with 2 or more casters increase the
+            damage by 1d8.</p><p>Any creature who assists in casting this jutsu as a combination jutsu increases this
+            Jutsu's defensive abilities based on the highest Charisma Modifier within the group of casters. (+0-1: No
+            Change, +2-3: Increase the walls Hit points by 15. +4-5: Increase the walls Hit points by 45).</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: fullturnaction
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 120
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 50
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 8d8
+              - lightning
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - construct
+          - combination
+          - lightning
+        chakraCost: 50
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756941476
+  modifiedTime: 1728756941476
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: lightning-release/c-rank/lightning-release-lightning-wall.json
+folder: grQaz55604Xzx6aG
+sort: 1100000
+ownership:
+  default: 0
+_id: Bm21sbStJFRez5rm
+_key: '!items!Bm21sbStJFRez5rm'

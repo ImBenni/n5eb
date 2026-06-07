@@ -1,0 +1,324 @@
+name: Dragons Strike
+type: spell
+img: systems/n5eb/assets/content/clans/ryu.webp
+system:
+  description:
+    value: "<p>(This jutsu takes on the Nature Affinity of your Blood of the Dragon Clan Feature) You bathe your katana in your chakra, so much so that it vibrates and hums loud enough to sound like revolving fan blades. You make a single decisive slash releasing the attack and destroying everything in your path. You have two options for the size and shape of this attack.</p><p>Horizontal Slash. You swing your sword from left to right releasing a violent gale of your elemental energy catching all creatures in a 25-foot cone. Creatures in range must succeed a Dexterity saving throw taking 5d8 damage and being knocked prone on a failed save or half as much on a successful one.</p><p>Vertical Slash. You swing your sword straight down releasing a single beam of elemental energy from your katana. The Beam flies down a straight line 60 feet long and 10 feet wide. Creatures in range must succeed a Dexterity saving throw taking 7d6 damage and being knocked prone on a failed save or half as much on a successful one.\_</p><p>At Higher Ranks: For each rank you cast this jutsu above C- Rank, increase the cost of this jutsu by 3 and the Horizontal damage by 2d8 or the Vertical damage by 2d6.\_</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Katana
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 8
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d8
+        - ''
+    versatile: 7d6
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: katana
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 2d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: level
+    formula: 2d6
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: dragons-strike
+  jutsu:
+    components:
+      - hs
+      - cm
+      - w
+    keywords:
+      - ninjutsu
+      - bukijutsu
+      - hijutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Prone
+    origin: Compendium.n5eb.clan.Item.V3Xa94gdMZMq7Ssp
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: 79cd9UMx4gClZtm5
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!V3Xa94gdMZMq7Ssp.79cd9UMx4gClZtm5'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - weapon
+      - chakramolding
+      - weapons
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: ryu/clan-hijutsu/c-rank/dragons-strike.json
+      sourceId: V3Xa94gdMZMq7Ssp
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>(This jutsu takes on the Nature Affinity of your Blood of the Dragon Clan Feature) You bathe your katana in your chakra, so much so that it vibrates and hums loud enough to sound like revolving fan blades. You make a single decisive slash releasing the attack and destroying everything in your path. You have two options for the size and shape of this attack.</p><p>Horizontal Slash. You swing your sword from left to right releasing a violent gale of your elemental energy catching all creatures in a 25-foot cone. Creatures in range must succeed a Dexterity saving throw taking 5d8 damage and being knocked prone on a failed save or half as much on a successful one.</p><p>Vertical Slash. You swing your sword straight down releasing a single beam of elemental energy from your katana. The Beam flies down a straight line 60 feet long and 10 feet wide. Creatures in range must succeed a Dexterity saving throw taking 7d6 damage and being knocked prone on a failed save or half as much on a successful one.\_</p><p>At Higher Ranks: For each rank you cast this jutsu above C- Rank, increase the cost of this jutsu by 3 and the Horizontal damage by 2d8 or the Vertical damage by 2d6.\_</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Katana
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 8
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d8
+              - ''
+          versatile: 7d6
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: hi
+        materials:
+          value: katana
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 2d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - weapons
+          - molding
+          - weapon
+        keywords:
+          - ninjutsu
+          - bukijutsu
+          - hijutsu
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 0
+        versatileScaling:
+          mode: level
+          formula: 2d6
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754431903
+  modifiedTime: 1728754461170
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: ryu/clan-hijutsu/c-rank/dragons-strike.json
+folder: m2ntiAkPgVzvs5L4
+sort: 100000
+ownership:
+  default: 0
+_id: V3Xa94gdMZMq7Ssp
+_key: '!items!V3Xa94gdMZMq7Ssp'

@@ -1,0 +1,242 @@
+folder: EOR7pdE0kHFSmbx3
+name: Fastest Man Alive
+type: classmod
+_id: rbsYa4QcLaxdgOkj
+img: systems/n5eb/assets/content/items/fastestman.webp
+system:
+  description:
+    value: >-
+      <h1>The Fastest Man Alive</h1><p>The Namikaze Are known for their speed, being able to out pace even lightning.
+      But very few have earned the title of "Flash." Such as the Fabled Minato who earned the title of "The Yellow
+      Flash." To earn this legendary title, one must truly be, the fastest man alive.</p><h2>Acquisition</h2><p>To
+      acquire this class mod you must be a full Namikaze, so you cannot be a latent nor realized. And you must break a
+      certain level of speed. As always this comes down to the DM.</p><h2>Leveling it Up</h2><p>In order to level this
+      class mod up, you must generate enough Kenetic energy, you gain 1 potential energy for every 100ft you move in one
+      turn, inside of combat, you also gain potential energy when you use a Kinetic Art, each cost gives its own
+      amount.</p><h2>Drained</h2><p>Every time you use an ability granted by this class mod you gain a number of drained
+      points, and based on the amount you have, you gain certain debuffs. Depending on your level you have an energy
+      limit, you only gain debuffs when you go past your Energy limit. You reduce drained by 2d6 after a full rest, 10d4
+      after a full week of downtime spent recuperating.</p><h3>Drained Effect</h3><table
+      border="1"><thead><tr><th>Amount</th><th>Effect</th></tr></thead><tbody><tr><td>10+</td><td>Your movement speed is
+      reduced by 5ft for every 5 drain you have past your limit.</td></tr><tr><td>15+</td><td>You have a minus 1 penalty
+      to strength and constitution-based rolls for every 10 points of drained you have above your energy
+      limit.</td></tr><tr><td>20+</td><td>You can't take the dash or dodge action.</td></tr><tr><td>25+</td><td>You are
+      under the effect of the weakened condition.</td></tr><tr><td>30+</td><td>You are under the effects of the slowed 2
+      condition.</td></tr></tbody></table><h1>Features</h1><table border="1"><thead><tr><th>Level</th><th>Character
+      level</th><th>Potential Energy Requirement</th><th>Enhanced Movement Speed</th><th>Energy Limit</th><th>Maximum
+      Kinetic Chakra</th><th>Kinetic Arts</th><th>Features</th></tr></thead><tbody><tr><td>1</td><td>4th
+      level</td><td>0</td><td>20ft</td><td>5</td><td>50</td><td>2</td><td>Kinetic Burst, Speed Boost, Speed Die
+      enhancement, Kinetic
+      Arts</td></tr><tr><td>2</td><td>-</td><td>20</td><td>40ft</td><td>10</td><td>100</td><td>3</td><td>Kinetic
+      Absorption, Living Lightning</td></tr><tr><td>3</td><td>12th
+      level</td><td>40</td><td>60ft</td><td>15</td><td>150</td><td>4</td><td>Supersonic, Kinetic Cloak, Speed die
+      enhancement(2)</td></tr><tr><td>4</td><td>-</td><td>60</td><td>80ft</td><td>20</td><td>200</td><td>5</td><td>Kinetic
+      Arts(2), Kinetic
+      Absorption(2)</td></tr><tr><td>5</td><td>-</td><td>80</td><td>100ft</td><td>25</td><td>250</td><td>6</td><td>Kinetic
+      Cloak(2), Superluminal</td></tr></tbody></table>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  identifier: fastest-man-alive
+  levels: 1
+  advancement:
+    gmU8kO4NTvYgwZCi:
+      _id: gmU8kO4NTvYgwZCi
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-classmod.Item.Mp459Ll5YA0desTX
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.lNzKYaHgEbvSwosL
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.2ajrVKueqHz3hGcS
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.0QxDegg5MQpkd797
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.nFDwCbFdRa2caCbM
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.dMUDpHuR58oanN97
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 1
+      title: Grant Features
+      hint: ''
+    Tb5x0DeSeRcC51hM:
+      _id: Tb5x0DeSeRcC51hM
+      type: ScaleValue
+      configuration:
+        identifier: ''
+        type: number
+        distance:
+          units: ''
+        scale:
+          '1':
+            value: 50
+          '2':
+            value: 100
+          '3':
+            value: 150
+          '4':
+            value: 200
+          '5':
+            value: 250
+      value: {}
+      title: Kinetic Chakra
+      hint: ''
+    cC0CR2p0PBa5wyev:
+      _id: cC0CR2p0PBa5wyev
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-classmod.Item.1RFErFP4L2yfXtvO
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.rUt9PPOnLIP4yk5A
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 2
+      title: Grant Features
+      hint: ''
+  save:
+    formula: 12 + @prof +  @classmods.fastest-man-alive.levels
+    value: 12 + @prof +  @classmods.fastest-man-alive.levels
+    scaling: ''
+  attackBonus:
+    formula: '@classmods.fastest-man-alive.levels + @prof*2'
+    value: '@classmods.fastest-man-alive.levels + @prof*2'
+    scaling: ''
+  color: '#cfd232'
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-classmod
+      sourcePath: fastest-man-alive/fastest-man-alive.json
+      sourceId: rbsYa4QcLaxdgOkj
+      sourceType: classmod
+      originalSystem:
+        description:
+          value: >-
+            <h1>The Fastest Man Alive</h1><p>The Namikaze Are known for their speed, being able to out pace even
+            lightning. But very few have earned the title of "Flash." Such as the Fabled Minato who earned the title of
+            "The Yellow Flash." To earn this legendary title, one must truly be, the fastest man
+            alive.</p><h2>Acquisition</h2><p>To acquire this class mod you must be a full Namikaze, so you cannot be a
+            latent nor realized. And you must break a certain level of speed. As always this comes down to the
+            DM.</p><h2>Leveling it Up</h2><p>In order to level this class mod up, you must generate enough Kenetic
+            energy, you gain 1 potential energy for every 100ft you move in one turn, inside of combat, you also gain
+            potential energy when you use a Kinetic Art, each cost gives its own amount.</p><h2>Drained</h2><p>Every
+            time you use an ability granted by this class mod you gain a number of drained points, and based on the
+            amount you have, you gain certain debuffs. Depending on your level you have an energy limit, you only gain
+            debuffs when you go past your Energy limit. You reduce drained by 2d6 after a full rest, 10d4 after a full
+            week of downtime spent recuperating.</p><h3>Drained Effect</h3><table
+            border="1"><thead><tr><th>Amount</th><th>Effect</th></tr></thead><tbody><tr><td>10+</td><td>Your movement
+            speed is reduced by 5ft for every 5 drain you have past your limit.</td></tr><tr><td>15+</td><td>You have a
+            minus 1 penalty to strength and constitution-based rolls for every 10 points of drained you have above your
+            energy limit.</td></tr><tr><td>20+</td><td>You can't take the dash or dodge
+            action.</td></tr><tr><td>25+</td><td>You are under the effect of the weakened
+            condition.</td></tr><tr><td>30+</td><td>You are under the effects of the slowed 2
+            condition.</td></tr></tbody></table><h1>Features</h1><table
+            border="1"><thead><tr><th>Level</th><th>Character level</th><th>Potential Energy
+            Requirement</th><th>Enhanced Movement Speed</th><th>Energy Limit</th><th>Maximum Kinetic
+            Chakra</th><th>Kinetic Arts</th><th>Features</th></tr></thead><tbody><tr><td>1</td><td>4th
+            level</td><td>0</td><td>20ft</td><td>5</td><td>50</td><td>2</td><td>Kinetic Burst, Speed Boost, Speed Die
+            enhancement, Kinetic
+            Arts</td></tr><tr><td>2</td><td>-</td><td>20</td><td>40ft</td><td>10</td><td>100</td><td>3</td><td>Kinetic
+            Absorption, Living Lightning</td></tr><tr><td>3</td><td>12th
+            level</td><td>40</td><td>60ft</td><td>15</td><td>150</td><td>4</td><td>Supersonic, Kinetic Cloak, Speed die
+            enhancement(2)</td></tr><tr><td>4</td><td>-</td><td>60</td><td>80ft</td><td>20</td><td>200</td><td>5</td><td>Kinetic
+            Arts(2), Kinetic
+            Absorption(2)</td></tr><tr><td>5</td><td>-</td><td>80</td><td>100ft</td><td>25</td><td>250</td><td>6</td><td>Kinetic
+            Cloak(2), Superluminal</td></tr></tbody></table>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        identifier: fastest-man-alive
+        levels: 1
+        advancement:
+          - _id: gmU8kO4NTvYgwZCi
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.classmod.Item.Mp459Ll5YA0desTX
+                  optional: false
+                - uuid: Compendium.n5eb.classmod.Item.lNzKYaHgEbvSwosL
+                  optional: false
+                - uuid: Compendium.n5eb.classmod.Item.2ajrVKueqHz3hGcS
+                  optional: false
+                - uuid: Compendium.n5eb.classmod.Item.0QxDegg5MQpkd797
+                  optional: false
+                - uuid: Compendium.n5eb.classmod.Item.nFDwCbFdRa2caCbM
+                  optional: false
+                - uuid: Compendium.n5eb.classmod.Item.dMUDpHuR58oanN97
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 1
+            title: Grant Features
+            hint: ''
+          - _id: Tb5x0DeSeRcC51hM
+            type: ScaleValue
+            configuration:
+              identifier: ''
+              type: number
+              distance:
+                units: ''
+              scale:
+                '1':
+                  value: 50
+                '2':
+                  value: 100
+                '3':
+                  value: 150
+                '4':
+                  value: 200
+                '5':
+                  value: 250
+            value: {}
+            title: Kinetic Chakra
+            hint: ''
+          - _id: cC0CR2p0PBa5wyev
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.classmod.Item.1RFErFP4L2yfXtvO
+                  optional: false
+                - uuid: Compendium.n5eb.classmod.Item.rUt9PPOnLIP4yk5A
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 2
+            title: Grant Features
+            hint: ''
+        save:
+          formula: 12 + @prof +  @classmods.fastest-man-alive.levels
+          value: null
+        attackBonus:
+          formula: '@classmods.fastest-man-alive.levels + @prof*2'
+          value: 0
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 2.0.0
+  createdTime: 1734704309802
+  modifiedTime: 1734704309802
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-classmod
+    sourcePath: fastest-man-alive/fastest-man-alive.json
+_key: '!items!rbsYa4QcLaxdgOkj'

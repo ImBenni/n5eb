@@ -1,3 +1,4 @@
+import ChakraDice from "../../documents/actor/chakra-dice.mjs";
 import HitDice from "../../documents/actor/hit-dice.mjs";
 import Proficiency from "../../documents/actor/proficiency.mjs";
 import { defaultUnits, simplifyBonus } from "../../utils.mjs";
@@ -65,6 +66,17 @@ export default class CharacterData extends CreatureTemplate {
             overall: new FormulaField({ deterministic: true, label: "DND5E.HitPointsBonusOverall" })
           })
         }, { label: "DND5E.HitPoints" }),
+        chakra: new SchemaField({
+          ...AttributesFields.chakraPoints,
+          max: new NumberField({
+            nullable: true, integer: true, min: 0, initial: null, label: "N5EB.ChakraOverride",
+            hint: "N5EB.ChakraOverrideHint"
+          }),
+          bonuses: new SchemaField({
+            level: new FormulaField({ deterministic: true, label: "N5EB.ChakraBonusLevel" }),
+            overall: new FormulaField({ deterministic: true, label: "N5EB.ChakraBonusOverall" })
+          })
+        }, { label: "N5EB.Chakra" }),
         death: new RollConfigField({
           ability: false,
           success: new NumberField({
@@ -122,6 +134,7 @@ export default class CharacterData extends CreatureTemplate {
         secondary: makeResourceField({ label: "DND5E.ResourceSecondary" }),
         tertiary: makeResourceField({ label: "DND5E.ResourceTertiary" })
       }, { label: "DND5E.Resources" }),
+      downtime: makeDowntimeField({ label: "N5EB.DOWNTIME.Label" }),
       favorites: new ArrayField(new SchemaField({
         type: new StringField({ required: true, blank: false }),
         id: new StringField({ required: true, blank: false }),
@@ -150,6 +163,7 @@ export default class CharacterData extends CreatureTemplate {
   static _migrateData(source) {
     super._migrateData(source);
     AttributesFields._migrateInitiative(source.attributes);
+    migrateDowntime(source);
   }
 
   /* -------------------------------------------- */
@@ -159,6 +173,7 @@ export default class CharacterData extends CreatureTemplate {
   /** @inheritDoc */
   prepareBaseData() {
     this.attributes.hd = new HitDice(this.parent);
+    this.attributes.cd = new ChakraDice(this.parent);
     this.details.level = 0;
     this.attributes.attunement.value = 0;
 
@@ -231,6 +246,7 @@ export default class CharacterData extends CreatureTemplate {
     AttributesFields.prepareInitiative.call(this, rollData);
     AttributesFields.prepareMovement.call(this, rollData);
     AttributesFields.prepareSpellcastingAbility.call(this);
+    AttributesFields.prepareJutsuCasting.call(this, rollData);
     TraitsFields.prepareLanguages.call(this);
     TraitsFields.prepareResistImmune.call(this);
 
@@ -244,6 +260,17 @@ export default class CharacterData extends CreatureTemplate {
       hpOptions.mod = this.abilities[CONFIG.DND5E.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0;
     }
     AttributesFields.prepareHitPoints.call(this, this.attributes.hp, hpOptions);
+
+    // Chakra
+    const chakraOptions = {};
+    if ( this.attributes.chakra.max === null ) {
+      chakraOptions.advancement = Object.values(this.parent.classes)
+        .map(c => c.advancement.byType.Chakra?.[0]).filter(a => a);
+      chakraOptions.bonus = (simplifyBonus(this.attributes.chakra.bonuses.level, rollData) * this.details.level)
+        + simplifyBonus(this.attributes.chakra.bonuses.overall, rollData);
+      chakraOptions.mod = this.abilities[CONFIG.DND5E.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0;
+    }
+    AttributesFields.prepareChakraPoints.call(this, this.attributes.chakra, chakraOptions);
   }
 
   /* -------------------------------------------- */
@@ -361,4 +388,219 @@ function makeResourceField(schemaOptions={}) {
     lr: new BooleanField({required: true, labels: "DND5E.REST.Long.Recovery"}),
     label: new StringField({required: true, labels: "DND5E.ResourceLabel"})
   }, schemaOptions);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Produce the schema field for character downtime tracking.
+ * @param {object} schemaOptions  Options passed to the outer schema.
+ * @returns {SchemaField}
+ */
+function makeDowntimeField(schemaOptions={}) {
+  return new SchemaField({
+    weeks: new SchemaField({
+      available: new NumberField({
+        required: true, nullable: false, integer: true, min: 0, initial: 0,
+        label: "N5EB.DOWNTIME.WeeksAvailable"
+      }),
+      spent: new NumberField({
+        required: true, nullable: false, integer: true, min: 0, initial: 0,
+        label: "N5EB.DOWNTIME.WeeksSpent"
+      }),
+      source: new StringField({ required: true, initial: "", label: "N5EB.DOWNTIME.WeeksSource" }),
+      notes: new HTMLField({ required: true, nullable: true, label: "N5EB.DOWNTIME.Notes" })
+    }, { label: "N5EB.DOWNTIME.Weeks.Label" }),
+    activities: new ArrayField(new SchemaField({
+      _id: new StringField({ required: true, blank: false }),
+      templateUuid: new StringField({ required: true, initial: "" }),
+      sourceId: new StringField({ required: true, initial: "" }),
+      custom: new BooleanField({ required: true, initial: false }),
+      sort: new IntegerSortField(),
+      name: new StringField({ required: true, blank: false, initial: "New Downtime Activity" }),
+      img: new StringField({ required: true, initial: "icons/svg/clockwork.svg" }),
+      category: new StringField({ required: true, blank: false, initial: "custom" }),
+      status: new StringField({ required: true, blank: false, initial: "active" }),
+      progress: new SchemaField({
+        value: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+        max: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 1 })
+      }),
+      cost: new SchemaField({
+        value: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+        denomination: new StringField({ required: true, blank: false, initial: "ryo" }),
+        per: new StringField({ required: true, blank: false, initial: "activity" }),
+        paid: new BooleanField({ required: true, initial: false }),
+        mode: new StringField({ required: true, blank: false, initial: "fixed" }),
+        due: new StringField({ required: true, blank: false, initial: "completion" }),
+        fixed: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+        perWeek: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+        manualTotal: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+        dueAmount: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+        rank: new StringField({ required: true, initial: "" }),
+        rankTable: new SchemaField({
+          e: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+          d: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+          c: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+          b: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+          a: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+          s: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 })
+        }),
+        override: new BooleanField({ required: true, initial: false }),
+        reason: new StringField({ required: true, initial: "" }),
+        note: new StringField({ required: true, initial: "" }),
+        ledger: new ArrayField(new SchemaField({
+          _id: new StringField({ required: true, blank: false }),
+          type: new StringField({ required: true, blank: false, initial: "payment" }),
+          amount: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+          note: new StringField({ required: true, initial: "" }),
+          user: new StringField({ required: true, initial: "" }),
+          userName: new StringField({ required: true, initial: "" }),
+          timestamp: new StringField({ required: true, initial: "" }),
+          deducted: new BooleanField({ required: true, initial: false })
+        }))
+      }),
+      roll: new SchemaField({
+        enabled: new BooleanField({ required: true, initial: false }),
+        ability: new StringField({ required: true, initial: "" }),
+        skill: new StringField({ required: true, initial: "" }),
+        tool: new StringField({ required: true, initial: "" }),
+        dc: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+        label: new StringField({ required: true, initial: "" })
+      }),
+      target: new SchemaField({
+        type: new StringField({ required: true, initial: "" }),
+        uuid: new StringField({ required: true, initial: "" }),
+        name: new StringField({ required: true, initial: "" }),
+        img: new StringField({ required: true, initial: "" })
+      }),
+      description: new HTMLField({ required: true, nullable: true }),
+      completion: new HTMLField({ required: true, nullable: true }),
+      notes: new HTMLField({ required: true, nullable: true }),
+      completedAt: new StringField({ required: true, initial: "" })
+    }), { label: "N5EB.DOWNTIME.Activities" })
+  }, schemaOptions);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Initialize character downtime data without disturbing existing entries.
+ * @param {object} source  Source system data.
+ */
+function migrateDowntime(source) {
+  source.downtime ??= {};
+  source.downtime.weeks ??= {};
+  source.downtime.weeks.available ??= 0;
+  source.downtime.weeks.spent ??= 0;
+  source.downtime.weeks.source ??= "";
+  source.downtime.weeks.notes ??= "";
+  if ( !Array.isArray(source.downtime.activities) ) source.downtime.activities = [];
+  for ( const activity of source.downtime.activities ) {
+    activity._id ||= foundry.utils.randomID();
+    activity.templateUuid ??= "";
+    activity.sourceId ??= "";
+    activity.custom ??= false;
+    activity.name ||= "Downtime Activity";
+    activity.img ||= "icons/svg/clockwork.svg";
+    activity.category ||= "custom";
+    activity.status ||= "active";
+    activity.progress ??= {};
+    activity.progress.value ??= 0;
+    activity.progress.max ??= 1;
+    activity.cost ??= {};
+    activity.cost.value ??= 0;
+    activity.cost.denomination ||= "ryo";
+    activity.cost.per ||= "activity";
+    activity.cost.paid ??= false;
+    migrateDowntimeCost(activity);
+    activity.cost.note ??= "";
+    activity.roll ??= {};
+    activity.roll.enabled ??= false;
+    activity.roll.ability ??= "";
+    activity.roll.skill ??= "";
+    activity.roll.tool ??= "";
+    activity.roll.dc ??= 0;
+    activity.roll.label ??= "";
+    activity.target ??= {};
+    activity.target.type ??= "";
+    activity.target.uuid ??= "";
+    activity.target.name ??= "";
+    activity.target.img ??= "";
+    activity.description ??= "";
+    activity.completion ??= "";
+    activity.notes ??= "";
+    activity.completedAt ??= "";
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Initialize structured downtime cost data and migrate old paid flags into a ledger entry.
+ * @param {object} activity  Downtime activity source.
+ */
+function migrateDowntimeCost(activity) {
+  const cost = activity.cost;
+  const legacyMode = cost.per === "week" ? "per-week" : (cost.value ? "fixed" : "none");
+  cost.mode ||= legacyMode;
+  cost.due ||= cost.mode === "per-week" ? "weekly" : (cost.mode === "none" ? "manual" : "completion");
+  cost.fixed ??= cost.per === "activity" ? Number(cost.value ?? 0) : 0;
+  cost.perWeek ??= cost.per === "week" ? Number(cost.value ?? 0) : 0;
+  cost.manualTotal ??= 0;
+  cost.dueAmount ??= 0;
+  cost.rank ??= "";
+  cost.rankTable ??= {};
+  for ( const rank of ["e", "d", "c", "b", "a", "s"] ) cost.rankTable[rank] ??= 0;
+  cost.override ??= false;
+  cost.reason ??= "";
+  cost.note ??= "";
+  cost.ledger = Array.isArray(cost.ledger) ? cost.ledger : [];
+  for ( const entry of cost.ledger ) migrateDowntimeLedgerEntry(entry);
+
+  if ( cost.paid && !cost.ledger.length ) {
+    const amount = getLegacyDowntimeDue(activity);
+    if ( amount > 0 ) cost.ledger.push({
+      _id: foundry.utils.randomID(),
+      type: "payment",
+      amount,
+      note: "Migrated from the legacy paid downtime flag.",
+      user: "",
+      userName: "Migration",
+      timestamp: "",
+      deducted: false
+    });
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Initialize a downtime payment ledger entry.
+ * @param {object} entry  Ledger entry source.
+ */
+function migrateDowntimeLedgerEntry(entry) {
+  entry._id ||= foundry.utils.randomID();
+  entry.type ||= "payment";
+  entry.amount ??= 0;
+  entry.note ??= "";
+  entry.user ??= "";
+  entry.userName ??= "";
+  entry.timestamp ??= "";
+  entry.deducted ??= false;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Calculate the old paid flag settlement amount.
+ * @param {object} activity  Downtime activity source.
+ * @returns {number}
+ */
+function getLegacyDowntimeDue(activity) {
+  const cost = activity.cost ?? {};
+  const progress = activity.progress ?? {};
+  const value = Math.max(0, Number(cost.value ?? 0));
+  if ( !value ) return 0;
+  if ( cost.per === "week" ) return value * Math.max(0, Number(progress.value ?? 0));
+  return value;
 }

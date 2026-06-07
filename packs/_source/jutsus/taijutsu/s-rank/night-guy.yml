@@ -1,0 +1,278 @@
+name: Night Guy
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/taijutsu.webp
+system:
+  description:
+    value: >-
+      <p>As a part of casting this jutsu, you must currently have at least the Seventh Heavenly Breath: Exhale or the
+      8th Gate of Death from the 8 Inner Gates Taijutsu Specialist, Passionate Youth class feature active.</p><p>You
+      begin to emit an enormous amount of red steam, known as the 'Steam of Blood', and your chakra manifests into a red
+      burning beast of your description around your body. You then shout an activation word of your choice, before
+      dashing forward with such force that space in front of you becomes distorted.</p><p>You may select any creature or
+      space you can see or within 120 feet of you. You move in as straight a line as possible. You move through all
+      structures, environmental obstructions and anything similar as if you could phase through them. You ignore
+      summoned constructs and structures created by Jutsu, features or traits.</p><p>Additionally, the target cannot
+      gain the benefits of any Reaction they use until the beginning of their next turn.</p><p>You then kick, with the
+      force required to distort time and space. Make a melee taijutsu attack, at advantage, rerolling any result that's
+      less than 8 on the die. On a hit, the target must succeed a Strength Saving Throw. On a failure, they are reduced
+      to 0 Hit Points and their body is atomized, becoming unable to be revived by any means.</p><p>On a success you
+      instead deal Xd12 + 100 bludgeoning damage, where X = the casters level + Proficiency + Taijutsu ability
+      modifier.</p><p>At the conclusion of this attack, all of the blood in the users body is boiled out of them,
+      forcing the end of their Heavenly breaths and/or 8 Inner Gates, they then begin to turn to ash, crumbling into
+      dust over the course of the next minute.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 1
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - (@details.level+@prof+@mod)d12+100
+        - bludgeoning
+    versatile: ''
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: taijutsu
+  level: 9
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: night-guy
+  jutsu:
+    components:
+      - cm
+      - m
+    keywords:
+      - taijutsu
+    countsKnown: true
+    ability: ''
+    type: taijutsu
+  rank: s
+  chakra:
+    cost: '1'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: taijutsu/s-rank/night-guy.json
+      sourceId: J7rUcrcSOcMCz0eb
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>As a part of casting this jutsu, you must currently have at least the Seventh Heavenly Breath: Exhale or
+            the 8th Gate of Death from the 8 Inner Gates Taijutsu Specialist, Passionate Youth class feature
+            active.</p><p>You begin to emit an enormous amount of red steam, known as the 'Steam of Blood', and your
+            chakra manifests into a red burning beast of your description around your body. You then shout an activation
+            word of your choice, before dashing forward with such force that space in front of you becomes
+            distorted.</p><p>You may select any creature or space you can see or within 120 feet of you. You move in as
+            straight a line as possible. You move through all structures, environmental obstructions and anything
+            similar as if you could phase through them. You ignore summoned constructs and structures created by Jutsu,
+            features or traits.</p><p>Additionally, the target cannot gain the benefits of any Reaction they use until
+            the beginning of their next turn.</p><p>You then kick, with the force required to distort time and space.
+            Make a melee taijutsu attack, at advantage, rerolling any result that's less than 8 on the die. On a hit,
+            the target must succeed a Strength Saving Throw. On a failure, they are reduced to 0 Hit Points and their
+            body is atomized, becoming unable to be revived by any means.</p><p>On a success you instead deal Xd12 + 100
+            bludgeoning damage, where X = the casters level + Proficiency + Taijutsu ability modifier.</p><p>At the
+            conclusion of this attack, all of the blood in the users body is boiled out of them, forcing the end of
+            their Heavenly breaths and/or 8 Inner Gates, they then begin to turn to ash, crumbling into dust over the
+            course of the next minute.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 1
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - (@details.level+@prof+@mod)d12+100
+              - bludgeoning
+          versatile: ''
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: taijutsu
+        level: 5
+        school: tai
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+          - molding
+        keywords:
+          - taijutsu
+        chakraCost: 1
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757579263
+  modifiedTime: 1728757579263
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: taijutsu/s-rank/night-guy.json
+folder: iBxKk1Gz3ajwjxoV
+sort: 0
+ownership:
+  default: 0
+_id: J7rUcrcSOcMCz0eb
+_key: '!items!J7rUcrcSOcMCz0eb'

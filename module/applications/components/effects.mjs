@@ -1,4 +1,5 @@
 import Actor5e from "../../documents/actor/actor.mjs";
+import * as Conditions from "../../conditions.mjs";
 import {staticID} from "../../utils.mjs";
 import ContextMenu5e from "../context-menu.mjs";
 
@@ -12,6 +13,8 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
 
     for ( const control of this.querySelectorAll("[data-action]") ) {
       control.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopPropagation();
         this._onAction(event.currentTarget, event.currentTarget.dataset.action);
       });
     }
@@ -233,6 +236,10 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
     if ( action === "toggleCondition" ) {
       return this._onToggleCondition(target.closest("[data-condition-id]")?.dataset.conditionId);
     }
+    if ( action === "increaseCondition" || action === "decreaseCondition" ) {
+      const conditionId = target.closest("[data-condition-id]")?.dataset.conditionId;
+      return this._onAdjustCondition(conditionId, action === "increaseCondition" ? 1 : -1);
+    }
 
     const dataset = target.closest("[data-effect-id]")?.dataset;
     const effect = this.getEffect(dataset);
@@ -266,10 +273,31 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
    * @protected
    */
   async _onToggleCondition(conditionId) {
+    conditionId = Conditions.canonicalizeConditionId(conditionId);
+    if ( this.document instanceof Actor5e && Conditions.getConditionConfig(conditionId)?.ranked ) {
+      const current = this.document.getConditionRank(conditionId);
+      return this.document.updateConditionRank(conditionId, current ? 0 : 1);
+    }
     const existing = this.document.effects.get(staticID(`dnd5e${conditionId}`));
     if ( existing ) return existing.delete();
     const effect = await ActiveEffect.implementation.fromStatusEffect(conditionId);
     return ActiveEffect.implementation.create(effect, { parent: this.document, keepId: true });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Adjust a ranked condition.
+   * @param {string} conditionId  Condition id.
+   * @param {number} delta        Rank delta.
+   * @returns {Promise}
+   * @protected
+   */
+  async _onAdjustCondition(conditionId, delta) {
+    if ( !(this.document instanceof Actor5e) ) return;
+    conditionId = Conditions.canonicalizeConditionId(conditionId);
+    const current = this.document.getConditionRank(conditionId);
+    return this.document.updateConditionRank(conditionId, current + delta);
   }
 
   /* -------------------------------------------- */

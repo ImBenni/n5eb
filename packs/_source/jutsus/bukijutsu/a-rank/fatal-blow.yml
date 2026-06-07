@@ -1,0 +1,285 @@
+name: Fatal Blow
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>As part of casting this jutsu, your target must be prone, restrained, or incapacitated.</p><p>You take a great
+      leap bringing your weapon into a spiraling ascent towards a target. The target must make a Dexterity saving throw.
+      On a failed saving throw, they take your [Weapon's Damage] + X damage to their hit points, and half as much as
+      chakra damage. The value of X is decided by your current chain. Also on a failed saving throw, roll a d20. On an
+      18-20, double this jutsu's damage die.</p><p>On a successful saving throw, the target completely avoids your
+      saving throw as they roll out of the way.</p><p>If this jutsu is cast while under a lightning storm, your weapon
+      is struck magnificently with a strike of lightning as you ascend and is imbued with the wrath of the sky. This
+      jutsu's damage type becomes lightning and its damage die is increased by +2, and the range you must roll on the
+      d20 to double this jutsu's damage die is increased by +1. These special effects can also be triggered if your
+      weapon is under the effects of a Jutsu with the Lightning Release keyword.</p><p>You may cast this jutsu Chain 1,
+      2, or 3, depending on your current chain number, which determines this jutsu's damage and effects. Casting this
+      jutsu breaks your current chain upon its conclusion.</p><p>• Chain 1: You may cast this jutsu as a Chain 1 if your
+      Chain number is 0 or 1. This jutsu's damage becomes 5d10.</p><p>• Chain 2: You may cast this jutsu as a Chain 2 if
+      your Chain number is 1 or 2. This jutsu's damage becomes 6d10, and the target makes their saving throw with
+      disadvantage.</p><p>• Chain 3: You may cast this jutsu as a Chain 3 if your Chain number is 2 or 3. This jutsu's
+      damage becomes 7d12, the target makes their saving throw with disadvantage, and the range you must roll on the d20
+      to double this jutsu's damage die is increased by +1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Any Melee
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 15
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 20
+    scale: false
+  ability: str
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d10
+        - ''
+    versatile: 6d10
+  formula: 7d12
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  level: 7
+  school: trs
+  materials:
+    value: (Any Melee),
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: fatal-blow
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+      - chainx
+      - special
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: a
+  chakra:
+    cost: '20'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - weapon
+      - weapons
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/a-rank/fatal-blow.json
+      sourceId: SgCsFmmFLFGEDjmy
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>As part of casting this jutsu, your target must be prone, restrained, or incapacitated.</p><p>You take a
+            great leap bringing your weapon into a spiraling ascent towards a target. The target must make a Dexterity
+            saving throw. On a failed saving throw, they take your [Weapon's Damage] + X damage to their hit points, and
+            half as much as chakra damage. The value of X is decided by your current chain. Also on a failed saving
+            throw, roll a d20. On an 18-20, double this jutsu's damage die.</p><p>On a successful saving throw, the
+            target completely avoids your saving throw as they roll out of the way.</p><p>If this jutsu is cast while
+            under a lightning storm, your weapon is struck magnificently with a strike of lightning as you ascend and is
+            imbued with the wrath of the sky. This jutsu's damage type becomes lightning and its damage die is increased
+            by +2, and the range you must roll on the d20 to double this jutsu's damage die is increased by +1. These
+            special effects can also be triggered if your weapon is under the effects of a Jutsu with the Lightning
+            Release keyword.</p><p>You may cast this jutsu Chain 1, 2, or 3, depending on your current chain number,
+            which determines this jutsu's damage and effects. Casting this jutsu breaks your current chain upon its
+            conclusion.</p><p>• Chain 1: You may cast this jutsu as a Chain 1 if your Chain number is 0 or 1. This
+            jutsu's damage becomes 5d10.</p><p>• Chain 2: You may cast this jutsu as a Chain 2 if your Chain number is 1
+            or 2. This jutsu's damage becomes 6d10, and the target makes their saving throw with disadvantage.</p><p>•
+            Chain 3: You may cast this jutsu as a Chain 3 if your Chain number is 2 or 3. This jutsu's damage becomes
+            7d12, the target makes their saving throw with disadvantage, and the range you must roll on the d20 to
+            double this jutsu's damage die is increased by +1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Any Melee
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 15
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 20
+          scale: false
+        ability: str
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d10
+              - ''
+          versatile: 6d10
+        formula: 7d12
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        level: 4
+        school: buki
+        materials:
+          value: (Any Melee),
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - mobility
+          - weapons
+          - weapon
+        keywords:
+          - bukijutsu
+          - chainx
+          - special
+        chakraCost: 20
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755893853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/a-rank/fatal-blow.json
+folder: TDJ8kdZlLUUBzPJ1
+sort: 0
+ownership:
+  default: 0
+_id: SgCsFmmFLFGEDjmy
+_key: '!items!SgCsFmmFLFGEDjmy'

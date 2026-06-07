@@ -42,6 +42,13 @@ const { argv } = yargs(hideBin(process.argv))
 const { freeRules, out } = argv;
 const paths = { dist: out, free: freeRules };
 
+const SRD_PACKS = new Set([
+  "heroes", "monsters", "srd-items", "tradegoods", "spells", "srd-backgrounds", "classes", "subclasses",
+  "classfeatures", "races", "monsterfeatures", "srd-rules", "tables",
+  "content24", "classes24", "origins24", "feats24", "spells24", "equipment24", "tables24", "actors24",
+  "monsterfeatures24"
+]);
+
 /* -------------------------------------------- */
 
 /**
@@ -72,11 +79,14 @@ function compileManifest() {
   console.info("Making manifest changes...");
 
   // Load both manifests.
-  const freeManifest = JSON.parse(fs.readFileSync(path.join(paths.free, "module.json"), "utf8"));
   const systemManifest = JSON.parse(fs.readFileSync(path.join(paths.dist, "system.json"), "utf8"));
 
-  // Merge changes.
-  Object.assign(systemManifest.flags.n5eb.sourceBooks, freeManifest.flags?.n5eb?.sourceBooks ?? {});
+  systemManifest.flags.n5eb.sourceBooks = {
+    "Naruto 5e": "Naruto 5e",
+    "Team 7": "Team 7",
+    Homebrew: "Homebrew"
+  };
+  stripSRDPacks(systemManifest);
 
   // Remove flags.
   delete systemManifest.flags.hotReload;
@@ -94,6 +104,35 @@ function compileManifest() {
   // Write updated manifest.
   const manifest = `${JSON.stringify(systemManifest, null, 2)}\n`;
   fs.writeFileSync(path.join(paths.dist, "system.json"), manifest, { mode: 0o644 });
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Remove SRD packs from a distribution manifest.
+ * @param {object} manifest  Manifest data to mutate.
+ */
+function stripSRDPacks(manifest) {
+  console.info("Stripping SRD compendium packs...");
+  manifest.packs = (manifest.packs ?? []).filter(pack => !SRD_PACKS.has(pack.name));
+  manifest.packFolders = stripPackFolders(manifest.packFolders ?? []);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Remove hidden SRD packs and empty folders from a pack folder tree.
+ * @param {object[]} folders  Pack folders to filter.
+ * @returns {object[]}        Filtered folder tree.
+ */
+function stripPackFolders(folders) {
+  return folders.reduce((filtered, folder) => {
+    const next = { ...folder };
+    if ( Array.isArray(next.packs) ) next.packs = next.packs.filter(pack => !SRD_PACKS.has(pack));
+    if ( Array.isArray(next.folders) ) next.folders = stripPackFolders(next.folders);
+    if ( (next.packs?.length ?? 0) || (next.folders?.length ?? 0) ) filtered.push(next);
+    return filtered;
+  }, []);
 }
 
 /* -------------------------------------------- */

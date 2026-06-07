@@ -1,0 +1,266 @@
+folder: d4Wm3hvqeQcuFhgN
+name: Self-Destruction
+type: spell
+_id: kT2ivGHG2kZnPPtV
+img: systems/n5eb/assets/content/clans/yohra.webp
+system:
+  description:
+    value: >-
+      <p>You invoke your innate ability to self-destruct, releasing a wave of explosive force in the area immediately
+      around you.</p><p>All creatures within range must make a Constitution saving throw with a penalty equal to half
+      the result of your hit die, taking unreducible force damage equal to your maximum hit points + half of your
+      maximum chakra points, as well as being Dazed for the next minute, Weakened, and knocked prone on a failure, or
+      half as much and only being knocked prone on a success.</p><p>At the conclusion of this jutsu, your hit points are
+      set to 1, armor you are wearing of Superior or lower quality is atomized, and you become unconscious. While
+      unconscious in this way, you cannot regain consciousness or be healed for the next minute, after which you can
+      only be healed up to half of your maximum hit points until you complete a long rest.</p><p>While you are
+      unconscious in this way, your Pod acts autonomously in your place, and allied creatures can use it to perform
+      YoRHa Hijutsu that require it as a component as if they knew them, ignoring the YoRHa weapon
+      component.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above B-Rank, increase the
+      cost of this jutsu by 3 and the hit die spent and applied to the penalty by 1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: fullturnaction
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: null
+    units: ft
+    type: sphere
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: hitDice
+    target: largest
+    amount: 1
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 5
+  school: trs
+  properties: []
+  materials:
+    value: Black Box
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: self-destruction
+  jutsu:
+    components:
+      - nt
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - fuinjutsu
+      - kinjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '14'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: yorha/clan-hijutsu/b-rank/self-destruction.json
+      sourceId: kT2ivGHG2kZnPPtV
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You invoke your innate ability to self-destruct, releasing a wave of explosive force in the area
+            immediately around you.</p><p>All creatures within range must make a Constitution saving throw with a
+            penalty equal to half the result of your hit die, taking unreducible force damage equal to your maximum hit
+            points + half of your maximum chakra points, as well as being Dazed for the next minute, Weakened, and
+            knocked prone on a failure, or half as much and only being knocked prone on a success.</p><p>At the
+            conclusion of this jutsu, your hit points are set to 1, armor you are wearing of Superior or lower quality
+            is atomized, and you become unconscious. While unconscious in this way, you cannot regain consciousness or
+            be healed for the next minute, after which you can only be healed up to half of your maximum hit points
+            until you complete a long rest.</p><p>While you are unconscious in this way, your Pod acts autonomously in
+            your place, and allied creatures can use it to perform YoRHa Hijutsu that require it as a component as if
+            they knew them, ignoring the YoRHa weapon component.</p><p><strong>At Higher Ranks:</strong> For each rank
+            you cast this jutsu above B-Rank, increase the cost of this jutsu by 3 and the hit die spent and applied to
+            the penalty by 1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: fullturnaction
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: null
+          units: ft
+          type: sphere
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: hitDice
+          target: largest
+          amount: 1
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 3
+        school: hi
+        properties:
+          - ninjatools
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - fuinjutsu
+          - kinjutsu
+        materials:
+          value: Black Box
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 14
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1740646093055
+  modifiedTime: 1741604595943
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: yorha/clan-hijutsu/b-rank/self-destruction.json
+_key: '!items!kT2ivGHG2kZnPPtV'

@@ -1,0 +1,365 @@
+folder: 9tCuWvvqqeZhZOYn
+name: Uchiha Awaiting Stance
+type: spell
+_id: NMYwooTfaKFnTHYu
+img: icons/magic/air/wind-vortex-swirl-red.webp
+system:
+  description:
+    value: >-
+      <p>As a reaction, you force the triggering creature and all subsequent attacks targeting you, to roll at
+      disadvantage or you gain advantage on the triggering Dexterity saving throw and all subsequent Dexterity saving
+      throws until the beginning of your next turn.</p><p>When a creature misses you with an attack or you pass a
+      Dexterity saving throw, you immediately make a melee weapon attack or cast a D-Rank taijutsu or Bukijutsu that you
+      know. If the jutsu cast is an Uchiha clan Hijutsu, you may cast it at 0 Cost. You can attack or cast a jutsu, in
+      this way, once per casting of this jutsu.</p><hr /><p><strong>At Higher Ranks</strong>: For each rank you cast
+      this jutsu above D-Rank, increase the cost of this jutsu by 3 and the rank of the jutsu cast by 1
+      (D&gt;C&gt;B&gt;A&gt;S).</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: reaction
+    cost: 1
+    condition: When you are targeted by an attack or would make a Dexterity saving throw.
+  duration:
+    value: '1'
+    units: round
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: enemy
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  identifier: uchiha-awaiting-stance
+  jutsu:
+    components:
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: 'Uchiha Awaiting Stance: Dis on ATK'
+    origin: Compendium.n5eb.clan.Item.NMYwooTfaKFnTHYu
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: 1
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/magic/air/wind-vortex-swirl-red.webp
+    _id: tQZkxDawjzXDBPA2
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 0
+        value: '1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727271840371
+      modifiedTime: 1727440623575
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!NMYwooTfaKFnTHYu.tQZkxDawjzXDBPA2'
+  - name: 'Uchiha Awaiting Stance: Adv on Dex Save'
+    origin: Compendium.n5eb.clan.Item.NMYwooTfaKFnTHYu
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: true
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/magic/air/wind-vortex-swirl-red.webp
+    _id: 3es8m2nE7orInfve
+    type: base
+    system: {}
+    changes:
+      - key: flags.n5eb.advantage.ability.save.dex
+        mode: 0
+        value: '1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727272004070
+      modifiedTime: 1727440634096
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!NMYwooTfaKFnTHYu.3es8m2nE7orInfve'
+sort: 300000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    reactionCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: uchiha/clan-hijutsu/d-rank/uchiha-awaiting-stance.json
+      sourceId: NMYwooTfaKFnTHYu
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>As a reaction, you force the triggering creature and all subsequent attacks targeting you, to roll at
+            disadvantage or you gain advantage on the triggering Dexterity saving throw and all subsequent Dexterity
+            saving throws until the beginning of your next turn.</p><p>When a creature misses you with an attack or you
+            pass a Dexterity saving throw, you immediately make a melee weapon attack or cast a D-Rank taijutsu or
+            Bukijutsu that you know. If the jutsu cast is an Uchiha clan Hijutsu, you may cast it at 0 Cost. You can
+            attack or cast a jutsu, in this way, once per casting of this jutsu.</p><hr /><p><strong>At Higher
+            Ranks</strong>: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the
+            rank of the jutsu cast by 1 (D&gt;C&gt;B&gt;A&gt;S).</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: reaction
+          cost: 1
+          condition: When you are targeted by an attack or would make a Dexterity saving throw.
+        duration:
+          value: '1'
+          units: round
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: enemy
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        level: 1
+        school: hi
+        properties:
+          - mobility
+        keywords:
+          - taijutsu
+          - hijutsu
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1727271454856
+  modifiedTime: 1728755112847
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: uchiha/clan-hijutsu/d-rank/uchiha-awaiting-stance.json
+_key: '!items!NMYwooTfaKFnTHYu'

@@ -5,7 +5,7 @@
  * @import { SimpleTraitData, TravelData, TravelPace5e } from "./fields/_types.mjs";
  * @import {
  *   ArmorClassData, AttributesCommonData, AttributesCreatureData, DetailsCommonData,
- *   DetailsCreatureData, HitPointsData, TraitsCommonData, TraitsCreatureData
+ *   ChakraPointsData, DetailsCreatureData, HitPointsData, TraitsCommonData, TraitsCreatureData
  * } from "./templates/_types.mjs";
  */
 
@@ -16,6 +16,11 @@
  * @property {object} attributes.hp.bonuses
  * @property {string} attributes.hp.bonuses.level         Bonus formula applied for each class level.
  * @property {string} attributes.hp.bonuses.overall       Bonus formula applied to total HP.
+ * @property {ChakraPointsData} attributes.chakra
+ * @property {string} attributes.chakra.formula           Formula used to determine chakra points.
+ * @property {object} attributes.chakra.bonuses
+ * @property {string} attributes.chakra.bonuses.level     Bonus formula applied for each class level.
+ * @property {string} attributes.chakra.bonuses.overall   Bonus formula applied to total Chakra.
  * @property {Omit<RollConfigData, "ability">} attributes.death
  * @property {number} attributes.death.success            Number of successful death saves.
  * @property {number} attributes.death.failure            Number of failed death saves.
@@ -133,6 +138,8 @@
  * @property {number} attributes.hd.spent        Number of hit dice spent.
  * @property {HitPointsData} attributes.hp
  * @property {string} attributes.hp.formula      Formula used to determine hit points.
+ * @property {ChakraPointsData} attributes.chakra
+ * @property {string} attributes.chakra.formula  Formula used to determine chakra points.
  * @property {Omit<RollConfigData, "ability">} attributes.death
  * @property {number} attributes.death.success        Number of successful death saves.
  * @property {number} attributes.death.failure        Number of failed death saves.

@@ -1,0 +1,250 @@
+name: Draw!
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/taijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You quickly dash backwards creating distance between yourself and another creature.</p><p>As a as a reaction
+      when you would take damage from an attack, you can dodge backwards, moving up to 10 feet away from the triggering
+      target in an attempt to escape the attacks range. When you do, make a contested Dexterity saving throw vs the
+      attack roll result. On a success the triggering attack misses you. You then immediately move up to 20 feet towards
+      the triggering creature, making an unarmed attack, on a hit you deal your [Unarmed Damage] + 2 [Unarmed Damage
+      die].</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank increase the cost of this jutsu by 3
+      and the damage by +1 [Unarmed Damage die].</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: reaction
+    cost: 1
+    condition: which you take when you take damage from an attack
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: taijutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: 1
+    scaling: flat
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: draw
+  jutsu:
+    components:
+      - m
+    keywords:
+      - taijutsu
+    countsKnown: true
+    ability: ''
+    type: taijutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: taijutsu/d-rank/draw.json
+      sourceId: fsJGM2Kv1wQvwrz1
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You quickly dash backwards creating distance between yourself and another creature.</p><p>As a as a
+            reaction when you would take damage from an attack, you can dodge backwards, moving up to 10 feet away from
+            the triggering target in an attempt to escape the attacks range. When you do, make a contested Dexterity
+            saving throw vs the attack roll result. On a success the triggering attack misses you. You then immediately
+            move up to 20 feet towards the triggering creature, making an unarmed attack, on a hit you deal your
+            [Unarmed Damage] + 2 [Unarmed Damage die].</p><p>At Higher Ranks: For each rank you cast this jutsu above
+            D-Rank increase the cost of this jutsu by 3 and the damage by +1 [Unarmed Damage die].</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take when you take damage from an attack
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: taijutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: 1
+          scaling: flat
+        level: 1
+        school: tai
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - mobility
+        keywords:
+          - taijutsu
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    reactionCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757579263
+  modifiedTime: 1728757579263
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: taijutsu/d-rank/draw.json
+folder: AH3DmgNxQgMUfUqX
+sort: 15800000
+ownership:
+  default: 0
+_id: fsJGM2Kv1wQvwrz1
+_key: '!items!fsJGM2Kv1wQvwrz1'

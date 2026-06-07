@@ -1,0 +1,206 @@
+<section class="tab downtime {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+
+    {{!-- Week Bank --}}
+    <section class="downtime-weeks card">
+        <div class="card-header">
+            <h3 class="icon">
+                <i class="fas fa-calendar-week" inert></i>
+                <span class="roboto-upper">{{ localize "N5EB.DOWNTIME.WeekBank" }}</span>
+            </h3>
+            {{#if owner}}
+            <div class="controls">
+                <button type="button" class="unbutton control-button always-interactive"
+                        data-action="adjustDowntimeWeeks" data-delta="-1"
+                        data-tooltip="N5EB.DOWNTIME.Weeks.Remove" aria-label="{{ localize "N5EB.DOWNTIME.Weeks.Remove" }}">
+                    <i class="fas fa-minus" inert></i>
+                </button>
+                <button type="button" class="unbutton control-button always-interactive"
+                        data-action="adjustDowntimeWeeks" data-delta="1"
+                        data-tooltip="N5EB.DOWNTIME.Weeks.Add" aria-label="{{ localize "N5EB.DOWNTIME.Weeks.Add" }}">
+                    <i class="fas fa-plus" inert></i>
+                </button>
+            </div>
+            {{/if}}
+        </div>
+
+        <div class="week-summary">
+            <div>
+                <span class="label">{{ localize "N5EB.DOWNTIME.WeeksAvailable" }}</span>
+                <span class="value">{{ downtime.weeks.available }}</span>
+            </div>
+            <div>
+                <span class="label">{{ localize "N5EB.DOWNTIME.WeeksSpent" }}</span>
+                <span class="value">{{ downtime.weeks.spent }}</span>
+            </div>
+            <div class="{{#if downtime.weeks.overspent}}warning{{/if}}">
+                <span class="label">{{ localize "N5EB.DOWNTIME.WeeksRemaining" }}</span>
+                <span class="value">{{ downtime.weeks.remaining }}</span>
+            </div>
+        </div>
+
+        {{#if editable}}
+        <div class="form-group">
+            <label>{{ localize "N5EB.DOWNTIME.WeeksSource" }}</label>
+            <input type="text" name="system.downtime.weeks.source" value="{{ source.downtime.weeks.source }}">
+        </div>
+        <div class="form-group stacked">
+            <label>{{ localize "N5EB.DOWNTIME.Notes" }}</label>
+            <textarea name="system.downtime.weeks.notes" rows="2">{{ source.downtime.weeks.notes }}</textarea>
+        </div>
+        {{else if downtime.weeks.notes}}
+        <div class="editor">
+            <div class="editor-content">{{{ downtime.weeks.notes }}}</div>
+        </div>
+        {{/if}}
+    </section>
+
+    {{!-- Active Activities --}}
+    <section class="downtime-list active">
+        <h3 class="icon">
+            <i class="fas fa-list-check" inert></i>
+            <span class="roboto-upper">{{ localize "N5EB.DOWNTIME.ActiveActivities" }}</span>
+        </h3>
+        {{#each downtime.active as |activity|}}
+            {{> ".downtime-activity" activity=activity }}
+        {{else}}
+        <p class="empty">{{ localize "N5EB.DOWNTIME.NoActive" }}</p>
+        {{/each}}
+        {{#if owner}}
+        <div class="downtime-additions">
+            <div class="pill-lg empty roboto-upper downtime-add always-interactive" data-action="addDowntimeActivity"
+                 data-mode="compendium" role="button" tabindex="0">
+                {{ localize "N5EB.DOWNTIME.AddActivity" }}
+            </div>
+        </div>
+        {{/if}}
+    </section>
+
+    {{!-- Completed Activities --}}
+    <section class="downtime-list completed">
+        <h3 class="icon">
+            <i class="fas fa-circle-check" inert></i>
+            <span class="roboto-upper">{{ localize "N5EB.DOWNTIME.CompletedActivities" }}</span>
+        </h3>
+        {{#each downtime.completed as |activity|}}
+            {{> ".downtime-activity" activity=activity completed=true }}
+        {{else}}
+        <p class="empty">{{ localize "N5EB.DOWNTIME.NoCompleted" }}</p>
+        {{/each}}
+    </section>
+</section>
+
+{{#*inline ".downtime-activity"}}
+<article class="downtime-activity card" data-activity-id="{{ activity._id }}">
+    <header>
+        <img src="{{ activity.img }}" alt="{{ activity.name }}">
+        <div class="name-stacked">
+            <span class="title">{{ activity.name }}</span>
+            <span class="subtitle">
+                {{ activity.categoryLabel }}
+                {{#if activity.targetLabel}} &bull; {{ activity.targetLabel }}{{/if}}
+            </span>
+        </div>
+        {{#if @root.owner}}
+        <div class="controls">
+            {{#unless completed}}
+            <button type="button" class="unbutton control-button always-interactive" data-action="spendDowntimeWeek"
+                    data-tooltip="N5EB.DOWNTIME.SpendWeek" aria-label="{{ localize "N5EB.DOWNTIME.SpendWeek" }}">
+                <i class="fas fa-calendar-plus" inert></i>
+            </button>
+            <button type="button" class="unbutton control-button always-interactive"
+                    data-action="spendDowntimeWeek" data-override="true"
+                    data-tooltip="N5EB.DOWNTIME.SpendWeekOverride"
+                    aria-label="{{ localize "N5EB.DOWNTIME.SpendWeekOverride" }}">
+                <i class="fas fa-triangle-exclamation" inert></i>
+            </button>
+            {{#if activity.rollLabel}}
+            <button type="button" class="unbutton control-button always-interactive" data-action="rollDowntimeActivity"
+                    data-tooltip="{{ activity.rollLabel }}" aria-label="{{ localize "N5EB.DOWNTIME.Roll.Action" }}">
+                <i class="fas fa-dice-d20" inert></i>
+            </button>
+            {{/if}}
+            <button type="button" class="unbutton control-button always-interactive" data-action="completeDowntimeActivity"
+                    data-tooltip="N5EB.DOWNTIME.Complete" aria-label="{{ localize "N5EB.DOWNTIME.Complete" }}">
+                <i class="fas fa-check" inert></i>
+            </button>
+            {{else}}
+            <button type="button" class="unbutton control-button always-interactive" data-action="reopenDowntimeActivity"
+                    data-tooltip="N5EB.DOWNTIME.Reopen" aria-label="{{ localize "N5EB.DOWNTIME.Reopen" }}">
+                <i class="fas fa-rotate-left" inert></i>
+            </button>
+            {{/unless}}
+            <button type="button" class="unbutton payment-button {{ activity.payment.statusClass }} always-interactive"
+                    data-action="manageDowntimePayment" data-tooltip="{{ activity.payment.remainingLabel }}"
+                    aria-label="{{ activity.payment.statusLabel }}">
+                <i class="fas fa-coins" inert></i>
+                <span class="status">{{ activity.payment.statusLabel }}</span>
+                <span class="amount">{{ activity.payment.amountLabel }}</span>
+            </button>
+            <button type="button" class="unbutton control-button always-interactive" data-action="addDowntimeActivity"
+                    data-mode="edit" data-downtime-edit="true"
+                    data-tooltip="DND5E.Edit" aria-label="{{ localize "DND5E.Edit" }}">
+                <i class="fas fa-pen-to-square" inert></i>
+            </button>
+            <button type="button" class="unbutton control-button always-interactive" data-action="deleteDowntimeActivity"
+                    data-tooltip="DND5E.Delete" aria-label="{{ localize "DND5E.Delete" }}">
+                <i class="fas fa-trash" inert></i>
+            </button>
+        </div>
+        {{/if}}
+    </header>
+
+    <div class="downtime-progress meter progress" role="meter" aria-valuemin="0"
+         aria-valuenow="{{ activity.progress.value }}" aria-valuemax="{{ activity.progress.max }}"
+         style="--bar-percentage: {{ activity.progress.pct }}%">
+        <div class="label">
+            <span class="value">{{ activity.progress.value }}</span>
+            <span class="separator">&sol;</span>
+            <span class="max">{{ activity.progress.max }}</span>
+            <span class="bonus">{{ activity.costLabel }}</span>
+        </div>
+    </div>
+
+    <div class="meta">
+        {{#if activity.rollLabel}}<span><i class="fas fa-dice-d20" inert></i>{{ activity.rollLabel }}</span>{{/if}}
+        {{#if activity.costNote}}<span><i class="fas fa-circle-info" inert></i>{{ activity.costNote }}</span>{{/if}}
+        <span><i class="fas fa-sack-dollar" inert></i>{{ activity.payment.projectedLabel }}</span>
+        <span><i class="fas fa-receipt" inert></i>{{ activity.payment.remainingLabel }}</span>
+        {{#if activity.completedAt}}<span><i class="fas fa-clock" inert></i>{{ activity.completedAt }}</span>{{/if}}
+    </div>
+
+    {{#if activity.payment.hasLedger}}
+    <details class="payment-history">
+        <summary>{{ localize "N5EB.DOWNTIME.Payment.History" }}</summary>
+        <ol>
+            {{#each activity.payment.ledger as |entry|}}
+            <li>
+                <span class="entry-main">
+                    <strong>{{ entry.typeLabel }}</strong>
+                    <span>{{ entry.amountLabel }}</span>
+                </span>
+                <span class="entry-sub">
+                    {{#if entry.timestampLabel}}{{ entry.timestampLabel }}{{/if}}
+                    {{#if entry.userLabel}} &bull; {{ entry.userLabel }}{{/if}}
+                    {{#if entry.deductedLabel}} &bull; {{ entry.deductedLabel }}{{/if}}
+                </span>
+                {{#if entry.note}}<span class="entry-note">{{ entry.note }}</span>{{/if}}
+            </li>
+            {{/each}}
+        </ol>
+    </details>
+    {{/if}}
+
+    {{#if activity.description}}
+    <div class="description">{{{ activity.description }}}</div>
+    {{/if}}
+    {{#if activity.completion}}
+    <div class="completion">
+        <strong>{{ localize "N5EB.DOWNTIME.Completion" }}.</strong>
+        {{{ activity.completion }}}
+    </div>
+    {{/if}}
+    {{#if activity.notes}}
+    <div class="notes">{{{ activity.notes }}}</div>
+    {{/if}}
+</article>
+{{/inline}}

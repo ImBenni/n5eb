@@ -1,0 +1,274 @@
+folder: HERZCKQJPOejW0EQ
+name: Memento Mori
+type: spell
+_id: iKogWxQNCTlBMCZH
+img: systems/n5eb/assets/content/clans/seol.webp
+system:
+  description:
+    value: >-
+      <p>You carve into your opponent's soul, allowing your Spirit to summon forth vestiges from its world to assail
+      your enemies. This jutsu can only be cast as a <em><strong>Finisher.</strong></em></p><p>Make a melee or ranged
+      Taijutsu attack, dealing your weapon's damage + 4d8 on a hit. A creature hit by this jutsu must then make a Wisdom
+      Saving Throw as spirits begin to tear into them.</p><p>On a failure, they become Dazed, and are marked for death
+      by the otherworldly spirits. At the start of each of their turns, they take 1d10 + your Ninjutsu Ability Modifier
+      in Psychic damage. If you roll a 10 on at least 1 of the d10s, the target also gains 1 rank of Slowed that remains
+      for the duration. At the end of each of their turn that they remain under the effects of this jutsu, the creature
+      can remake their Wisdom Saving Throw to end its effects on them. On a success, any ranks of Slowed they gained are
+      also lost.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above C-Rank, increase the
+      cost of this jutsu by 3, the initial damage by 1d8, and the Psychic damage by 1d10.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 4d8
+        - ''
+    versatile: 1d10+@attributes.ninjutsumod
+  enchantment: null
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: taijutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 3
+  school: trs
+  properties:
+    - concentration
+  materials:
+    value: Ego Weapon
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d8
+  versatileScaling:
+    mode: level
+    formula: 1d10
+  identifier: memento-mori
+  jutsu:
+    components:
+      - cm
+      - m
+      - w
+    keywords:
+      - ninjutsu
+      - bukijutsu
+      - hijutsu
+      - finisher
+      - fuinjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: seol/clan-hijutsu/c-rank/memento-mori.json
+      sourceId: iKogWxQNCTlBMCZH
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You carve into your opponent's soul, allowing your Spirit to summon forth vestiges from its world to
+            assail your enemies. This jutsu can only be cast as a <em><strong>Finisher.</strong></em></p><p>Make a melee
+            or ranged Taijutsu attack, dealing your weapon's damage + 4d8 on a hit. A creature hit by this jutsu must
+            then make a Wisdom Saving Throw as spirits begin to tear into them.</p><p>On a failure, they become Dazed,
+            and are marked for death by the otherworldly spirits. At the start of each of their turns, they take 1d10 +
+            your Ninjutsu Ability Modifier in Psychic damage. If you roll a 10 on at least 1 of the d10s, the target
+            also gains 1 rank of Slowed that remains for the duration. At the end of each of their turn that they remain
+            under the effects of this jutsu, the creature can remake their Wisdom Saving Throw to end its effects on
+            them. On a success, any ranks of Slowed they gained are also lost.</p><p><strong>At Higher Ranks:</strong>
+            For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3, the initial damage by
+            1d8, and the Psychic damage by 1d10.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 4d8
+              - ''
+          versatile: 1d10+@attributes.ninjutsumod
+        enchantment: null
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: taijutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 2
+        school: hi
+        properties:
+          - chakramolding
+          - mobility
+          - weapons
+          - concentration
+        keywords:
+          - ninjutsu
+          - bukijutsu
+          - hijutsu
+          - finisher
+          - fuinjutsu
+        materials:
+          value: Ego Weapon
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d8
+        versatileScaling:
+          mode: level
+          formula: 1d10
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733767920320
+  modifiedTime: 1734019419112
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: seol/clan-hijutsu/c-rank/memento-mori.json
+_key: '!items!iKogWxQNCTlBMCZH'

@@ -1,0 +1,350 @@
+name: Medical Release Acidic Blast
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/medical.webp
+system:
+  description:
+    value: >-
+      <p>You begin to generate acidic medical chakra and release it into a spray of boiling acid.</p><p>All creatures in
+      range must make a Dexterity saving throw, taking 6d6 acid damage on a failed save and half as much on a successful
+      save.</p><p>A creature who fails their saving throw gains 1 rank of the corroded condition.</p><p>At Higher Ranks:
+      For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the damage by 1d6.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: null
+    units: ft
+    type: cone
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 7
+    scale: false
+  ability: int
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 6d6
+        - acid
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: int
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d6
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: medical-release-acidic-blast
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - medical
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '7'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Corroded
+    origin: Compendium.n5eb.jutsus.Item.qvyA9qQLJwKzuPCc
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/corroded.svg
+    _id: cBVQKPw29MKj4gk9
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.con.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: flags.midi-qol.DR.all
+        mode: 2
+        value: '-2 * @stackCount'
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 0
+        value: |-
+          saveDC=15,
+          label=Corroded,
+          saveAbility=dex|con,
+          saveRemove=true,
+          rollType=check,
+          chatFlavor=This shit sticky yo,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Corroded</strong> creature has been exposed to some kind of
+      acidic compound, causing their flesh and equipment to wither and deteriorate if left untreated.</p><ul><li><p>A
+      <strong>Corroded</strong> creature gains a -2 penalty to its DR (damage reduction) for each rank it
+      has.</p></li><li><p>A <strong>Corroded</strong> creature gains a -1 penalty to all Constitution based checks &amp;
+      saves for each rank it has.</p></li><li><p>A creature can end the corroded condition by using their action making
+      a DC 15 Dexterity or Constitution Ability Check or submerging themselves fully into a body of water.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.TJkoBRRPODGhibDp.ActiveEffect.gXQCDxapEi50ixYD
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!qvyA9qQLJwKzuPCc.cBVQKPw29MKj4gk9'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - medical
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: medical-release/c-rank/medical-release-acidic-blast.json
+      sourceId: qvyA9qQLJwKzuPCc
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You begin to generate acidic medical chakra and release it into a spray of boiling acid.</p><p>All
+            creatures in range must make a Dexterity saving throw, taking 6d6 acid damage on a failed save and half as
+            much on a successful save.</p><p>A creature who fails their saving throw gains 1 rank of the corroded
+            condition.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this
+            jutsu by 3 and the damage by 1d6.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: null
+          units: ft
+          type: cone
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 7
+          scale: false
+        ability: int
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 6d6
+              - acid
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: int
+        level: 2
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d6
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+          - medical
+        keywords:
+          - ninjutsu
+          - medical
+        chakraCost: 7
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757151654
+  modifiedTime: 1728757151654
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: medical-release/c-rank/medical-release-acidic-blast.json
+folder: BNoUdpynKbvzZLa6
+sort: 0
+ownership:
+  default: 0
+_id: qvyA9qQLJwKzuPCc
+_key: '!items!qvyA9qQLJwKzuPCc'

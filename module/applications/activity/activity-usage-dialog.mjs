@@ -202,6 +202,17 @@ export default class ActivityUsageDialog extends Dialog5e {
       value: this.config.concentration?.begin,
       input: context.inputs.createCheckboxInput
     }];
+    if ( this.activity.isSpell ) {
+      const rank = this.config.jutsu?.rank ?? this.item.system.effectiveRank;
+      const cost = this.item.system.getChakraCost({ rank });
+      const maintainCost = this.item.system.getMaintainCost({ rank, cost });
+      context.notes.push({
+        type: "info",
+        message: game.i18n.format("N5EB.JUTSU.ConcentrationGuidance", {
+          cost: formatNumber(maintainCost)
+        })
+      });
+    }
     if ( this.config.concentration?.begin ) {
       const existingConcentration = Array.from(this.actor.concentration.effects).map(effect => {
         const data = effect.getFlag("n5eb", "item");
@@ -286,6 +297,29 @@ export default class ActivityUsageDialog extends Dialog5e {
       name: "consume.spellSlot",
       value: this.config.consume?.spellSlot
     });
+
+    if ( this.activity.isSpell && this._shouldDisplay("consume.chakra") && !this.config.cause ) {
+      const rank = this.config.jutsu?.rank ?? this.item.system.effectiveRank;
+      const cost = this.item.system.getChakraCost({ rank });
+      const chakra = this.actor.system.attributes.chakra;
+      const available = this.actor.getChakraAvailable?.() ?? ((chakra?.temp ?? 0) + (chakra?.value ?? 0));
+      if ( cost > 0 ) {
+        const value = (this.config.consume !== false) && (this.config.consume?.chakra !== false);
+        context.fields.push({
+          value,
+          warn: value && (available < cost),
+          field: new BooleanField({
+            label: game.i18n.format("N5EB.JUTSU.SpendChakra", { cost: formatNumber(cost) }),
+            hint: game.i18n.format("N5EB.JUTSU.SpendChakraHint", {
+              available: formatNumber(available),
+              cost: formatNumber(cost)
+            })
+          }),
+          input: context.inputs.createCheckboxInput,
+          name: "consume.chakra"
+        });
+      }
+    }
 
     if ( this._shouldDisplay("consume.resources") ) {
       const addResources = (targets, keyPath) => {
@@ -377,7 +411,62 @@ export default class ActivityUsageDialog extends Dialog5e {
     const scale = (context.linkedActivity ?? this.activity).consumption.scaling;
     const rollData = (context.linkedActivity ?? this.activity).getRollData({ deterministic: true });
 
-    if ( this.activity.requiresSpellSlot && context.linkedActivity && (this.config.scaling !== false) ) {
+    if ( this.activity.isSpell && (this.config.scaling !== false) ) {
+      const rankOrder = CONFIG.DND5E.jutsuRankOrder;
+      const baseRank = this.item.system.effectiveRank;
+      const baseIndex = Math.max(rankOrder.indexOf(baseRank), 0);
+      const currentLevel = this.item.system.level + (this.config.scaling ?? 0);
+      const currentRank = this.config.jutsu?.rank
+        ?? CONFIG.DND5E.jutsuRankBySpellLevel[Math.clamp(currentLevel, 0, 9)]
+        ?? baseRank;
+      const rankOptions = rankOrder.slice(baseIndex).map(rank => ({
+        value: rank,
+        label: CONFIG.DND5E.jutsuRanks[rank].label,
+        selected: rank === currentRank
+      }));
+      context.spellSlots = {
+        field: new StringField({ required: true, blank: false, label: game.i18n.localize("N5EB.JUTSU.CastAtRank") }),
+        name: "jutsu.rank",
+        value: currentRank,
+        options: rankOptions
+      };
+
+      const actorMaxRank = this.actor.system.attributes.jutsu?.known?.maxRank;
+      const actorMaxIndex = rankOrder.indexOf(actorMaxRank);
+      const currentIndex = rankOrder.indexOf(currentRank);
+      if ( (actorMaxIndex >= 0) && (currentIndex > actorMaxIndex) ) context.notes.push({
+        type: "warn",
+        message: game.i18n.format("N5EB.JUTSU.WarnCastRank", {
+          rank: CONFIG.DND5E.jutsuRanks[currentRank]?.label ?? currentRank,
+          max: CONFIG.DND5E.jutsuRanks[actorMaxRank]?.label ?? actorMaxRank
+        })
+      });
+
+      const abilityId = this.item.system.availableAbilities.first();
+      const ability = this.actor.system.abilities[abilityId];
+      const minimumAbility = CONFIG.DND5E.jutsuRanks[currentRank]?.minimumAbility ?? 0;
+      if ( minimumAbility && ((ability?.value ?? 0) < minimumAbility) ) context.notes.push({
+        type: "warn",
+        message: game.i18n.format("N5EB.JUTSU.WarnAbilityRequirement", {
+          ability: CONFIG.DND5E.abilities[abilityId]?.label ?? abilityId,
+          value: ability?.value ?? 0,
+          required: minimumAbility,
+          rank: CONFIG.DND5E.jutsuRanks[currentRank]?.label ?? currentRank
+        })
+      });
+
+      const chakraCost = this.item.system.getChakraCost({ rank: currentRank });
+      const baseCost = this.item.system.getChakraCost({ rank: baseRank });
+      if ( chakraCost !== baseCost ) context.notes.push({
+        type: "info",
+        message: game.i18n.format("N5EB.JUTSU.Scaling.ChakraCost", {
+          cost: formatNumber(chakraCost),
+          base: formatNumber(baseCost)
+        })
+      });
+    }
+
+    else if ( this.activity.requiresSpellSlot && context.linkedActivity && (this.config.scaling !== false) ) {
       const max = simplifyBonus(scale.max, rollData);
       const minimumLevel = context.linkedActivity.spell?.level ?? this.item.system.level ?? 1;
       const maximumLevel = scale.allowed ? scale.max ? minimumLevel + max - 1 : Infinity : minimumLevel;
@@ -508,7 +597,11 @@ export default class ActivityUsageDialog extends Dialog5e {
    */
   async _prepareSubmitData(event, formData) {
     const submitData = foundry.utils.expandObject(formData.object);
-    if ( foundry.utils.hasProperty(submitData, "spell.slot") ) {
+    if ( foundry.utils.hasProperty(submitData, "jutsu.rank") ) {
+      submitData.jutsu.rank ||= this.#config.jutsu?.rank ?? this.item.system.effectiveRank;
+      const level = CONFIG.DND5E.jutsuSpellLevelByRank[submitData.jutsu.rank] ?? this.item.system.level;
+      submitData.scaling = Math.max(0, level - this.item.system.level);
+    } else if ( foundry.utils.hasProperty(submitData, "spell.slot") ) {
       submitData.spell.slot ||= this.#config.spell?.slot;
       const level = this.actor.system.spells?.[submitData.spell.slot]?.level ?? 0;
       submitData.scaling = Math.max(0, level - this.item.system.level);

@@ -1,0 +1,330 @@
+name: Psionics Assurance!
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>You see a creature take damage, and can see the impact it leaves. You take this opportunity to ensure that the
+      damage dealt, sticks. The triggering creature must make an Intelligence saving throw.</p><p>Success: Affected
+      creature is able to resist most of this jutsu's effects, taking 2d6 psychic damage.</p><p>Failure: Affected
+      creature takes an amount of psychic damage equal to Xd6, where X equals your Genjutsu ability
+      modifier.</p><p>Critical Failure: Affected creature suffers the effects of a failure and becoming Slowed until the
+      end of their next turn.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: reaction
+    cost: 1
+    condition: which you take when you see a hostile creature take damage
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: genjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - (@mod)d6
+        - psychic
+    versatile: 2d6
+  formula: ''
+  save:
+    ability: int
+    dc: null
+    scaling: genjutsu
+  level: 1
+  school: ill
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: psionics-assurance
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - tactile
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Slowed
+    origin: Compendium.n5eb.jutsus.Item.NxV8R7Rupj2H0Oou
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    _id: phzA32LQIFWMbvqr
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-(10 * @stackCount)'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: slowed
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!NxV8R7Rupj2H0Oou.phzA32LQIFWMbvqr'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/d-rank/psionics-assurance.json
+      sourceId: NxV8R7Rupj2H0Oou
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You see a creature take damage, and can see the impact it leaves. You take this opportunity to ensure
+            that the damage dealt, sticks. The triggering creature must make an Intelligence saving
+            throw.</p><p>Success: Affected creature is able to resist most of this jutsu's effects, taking 2d6 psychic
+            damage.</p><p>Failure: Affected creature takes an amount of psychic damage equal to Xd6, where X equals your
+            Genjutsu ability modifier.</p><p>Critical Failure: Affected creature suffers the effects of a failure and
+            becoming Slowed until the end of their next turn.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take when you see a hostile creature take damage
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: genjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - (@mod)d6
+              - psychic
+          versatile: 2d6
+        formula: ''
+        save:
+          ability: int
+          dc: null
+          scaling: genjutsu
+        level: 1
+        school: gen
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - genjutsu
+          - tactile
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    reactionCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/d-rank/psionics-assurance.json
+folder: AmeoViai9zpWZpeh
+sort: 15300000
+ownership:
+  default: 0
+_id: NxV8R7Rupj2H0Oou
+_key: '!items!NxV8R7Rupj2H0Oou'

@@ -1,6 +1,6 @@
 <section class="flexcol">
     <div class="note info">
-        {{ localize (ifThen isGroup "DND5E.REST.Short.Hint.Group" "DND5E.REST.Short.Hint.Normal") }}
+        {{ localize restHint }}
     </div>
 
     {{> "dnd5e.formlist" formSections }}
@@ -23,6 +23,27 @@
     {{else}}
     <div class="note warn">
         {{ localize "DND5E.REST.HitDice.None" }}
+    </div>
+    {{/if}}
+    {{/if}}
+
+    {{#if chakraDice}}
+    {{#if chakraDice.canRoll}}
+    <fieldset>
+        <legend>{{ localize "N5EB.ChakraDice" }}</legend>
+        <div class="form-fields">
+            <select name="chakraDenom">
+                {{ selectOptions chakraDice.options selected=chakraDice.denomination }}
+            </select>
+            <button type="button" class="dice-button" data-action="rollChakraDie" data-tooltip
+                    aria-label="{{ localize 'DND5E.Roll' }}">
+                <i class="fa-solid fa-dice-d20" inert></i>
+            </button>
+        </div>
+    </fieldset>
+    {{else}}
+    <div class="note warn">
+        {{ localize "N5EB.REST.ChakraDice.None" }}
     </div>
     {{/if}}
     {{/if}}

@@ -32,9 +32,46 @@
     {{ formField fields.hd.fields.additional value=source.hd.additional localize=true rootId=partId }}
     {{/if}}
 
+    {{!-- Chakra Dice --}}
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.ChakraDice" }}</label>
+        <div class="form-fields">
+
+            {{!-- Denomination --}}
+            {{ formField fields.cd.fields.denomination value=source.cd.denomination options=chakraDieOptions
+                         label="DND5E.Denomination" localize=true classes="label-top" rootId=partId }}
+
+            {{!-- Spent --}}
+            {{ formField fields.cd.fields.spent value=source.cd.spent placeholder="0" localize=true label="DND5E.Spent"
+                         classes="label-top" rootId=partId }}
+        </div>
+    </div>
+
+    {{#if source.cd.additional}}
+    {{ formField fields.cd.fields.additional value=source.cd.additional localize=true rootId=partId }}
+    {{/if}}
+
+    {{!-- Jutsu Progression --}}
+    <div class="form-group split-group jutsu-progression-summary">
+        <label>{{ localize "N5EB.JUTSU.Progression" }}</label>
+        <div class="form-fields">
+            <div class="jutsu-progression-value label-top">
+                <label>{{ localize "N5EB.JUTSU.KnownLimit" }}</label>
+                <span>{{#if jutsuProgression.hasKnownLimit}}{{ jutsuProgression.known }}{{else}}&mdash;{{/if}}</span>
+            </div>
+            <div class="jutsu-progression-value label-top">
+                <label>{{ localize "N5EB.JUTSU.HighestRankKnown" }}</label>
+                <span>{{#if jutsuProgression.hasMaxRank}}{{ jutsuProgression.maxRank }}{{else}}&mdash;{{/if}}</span>
+            </div>
+        </div>
+        <p class="hint">{{ localize "N5EB.JUTSU.ProgressionHint" }}</p>
+    </div>
+
     {{!-- Class Properties --}}
-    {{ formField fields.properties options=properties.options input=inputs.createMultiCheckboxInput stacked=true
-                 classes="checkbox-grid checkbox-grid-3" }}
+    {{#if properties.options}}
+    {{ formField fields.properties options=properties.options label="N5EB.JUTSU.ClassTags" localize=true
+                 input=inputs.createMultiCheckboxInput stacked=true classes="checkbox-grid checkbox-grid-3" }}
+    {{/if}}
 </fieldset>
 
 <fieldset>

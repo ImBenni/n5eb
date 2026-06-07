@@ -25,6 +25,10 @@
                          label="DND5E.Proficiency" blank="DND5E.Automatic" localize=true classes="label-top"
                          rootId=partId }}
 
+            {{!-- Mastery --}}
+            {{ formField fields.mastery value=masteryValue choices=masteryChoices label=masteryLabel
+                         localize=true classes="label-top" rootId=partId }}
+
             {{!-- Ability --}}
             {{ formField fields.ability value=source.ability choices=CONFIG.abilities labelAttr="label"
                          label="DND5E.Ability" blank="DND5E.Default" localize=true classes="label-top" rootId=partId }}

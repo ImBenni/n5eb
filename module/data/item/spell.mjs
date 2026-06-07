@@ -1,6 +1,8 @@
 import { getRulesVersion } from "../../enrichers.mjs";
-import { filteredKeys, formatNumber } from "../../utils.mjs";
+import { getClassmodArtsCastingKey, getClassmodIdentifierFromCastingKey } from "../../classmod-arts.mjs";
+import { filteredKeys, formatNumber, simplifyBonus } from "../../utils.mjs";
 import ItemDataModel from "../abstract/item-data-model.mjs";
+import FormulaField from "../fields/formula-field.mjs";
 import IdentifierField from "../fields/identifier-field.mjs";
 import ActivationField from "../shared/activation-field.mjs";
 import DurationField from "../shared/duration-field.mjs";
@@ -43,6 +45,27 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
       activation: new ActivationField(),
       duration: new DurationField(),
       level: new NumberField({ required: true, integer: true, initial: 1, min: 0, label: "DND5E.SpellLevel" }),
+      rank: new StringField({ required: true, blank: false, initial: "d", label: "N5EB.JUTSU.Rank.Label" }),
+      jutsu: new SchemaField({
+        type: new StringField({ required: true, blank: true, initial: "", label: "N5EB.JUTSU.Type.Label" }),
+        ability: new StringField({ required: true, blank: true, initial: "", label: "N5EB.JUTSU.AbilityOverride" }),
+        components: new SetField(new StringField(), { label: "N5EB.JUTSU.Components" }),
+        keywords: new SetField(new StringField(), { label: "N5EB.JUTSU.Keywords" }),
+        countsKnown: new BooleanField({ required: true, initial: true, label: "N5EB.JUTSU.CountsKnown" })
+      }, { label: "N5EB.JUTSU.Label" }),
+      chakra: new SchemaField({
+        cost: new FormulaField({ deterministic: true, label: "N5EB.JUTSU.ChakraCost" }),
+        scaling: new SchemaField({
+          mode: new StringField({
+            required: true, blank: false, initial: "none", choices: () => CONFIG.DND5E.jutsuChakraScalingModes,
+            label: "N5EB.JUTSU.Scaling.Mode"
+          }),
+          value: new NumberField({
+            required: true, integer: true, initial: 0, min: 0, label: "N5EB.JUTSU.Scaling.Value"
+          })
+        }, { label: "N5EB.JUTSU.Scaling.Label" }),
+        special: new StringField({ required: true, blank: true, initial: "", label: "N5EB.JUTSU.SpecialCost" })
+      }, { label: "N5EB.JUTSU.Chakra" }),
       materials: new SchemaField({
         value: new StringField({ required: true, label: "DND5E.SpellMaterialsDescription" }),
         consumed: new BooleanField({ required: true, label: "DND5E.SpellMaterialsConsumed" }),
@@ -53,7 +76,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
       prepared: new NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
       properties: new SetField(new StringField(), { label: "DND5E.SpellComponents" }),
       range: new RangeField(),
-      school: new StringField({ required: true, label: "DND5E.SpellSchool" }),
+      school: new StringField({ required: true, blank: true, initial: "", label: "DND5E.SpellSchool" }),
       sourceItem: new IdentifierField({ allowType: true, label: "DND5E.SourceItem.Label" }),
       target: new TargetField()
     });
@@ -150,6 +173,19 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   /* -------------------------------------------- */
 
   /**
+   * The identifier of the classmod associated with this jutsu, if any.
+   * @type {string}
+   */
+  get classmodIdentifier() {
+    const sourceIdentifier = getClassmodIdentifierFromCastingKey(this.sourceItem);
+    if ( sourceIdentifier ) return sourceIdentifier;
+    const sourceItem = this.parent?.actor?.identifiedItems.get(this.sourceItem)?.first();
+    return sourceItem?.type === "classmod" ? sourceItem.identifier : "";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * @deprecated since 5.3
    * @ignore
    */
@@ -163,7 +199,12 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
 
   /** @override */
   get availableAbilities() {
+    if ( this.jutsu.ability ) return new Set([this.jutsu.ability]);
     if ( this.ability ) return new Set([this.ability]);
+
+    const jutsuCasting = this.jutsuCastingType;
+    const jutsuAbility = this.parent?.actor?.system.attributes?.jutsu?.[jutsuCasting]?.ability;
+    if ( jutsuAbility ) return new Set([jutsuAbility]);
 
     const spellcasting = this.parent?.actor?.spellcastingClasses[this.classIdentifier]?.spellcasting.ability
       ?? this.parent?.actor?.system.attributes?.spellcasting;
@@ -184,14 +225,14 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    * @type {boolean}
    */
   get canPrepare() {
-    return !!CONFIG.DND5E.spellcasting[this.method]?.prepares;
+    return false;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   get canScale() {
-    return (this.level > 0) && !!CONFIG.DND5E.spellcasting[this.method]?.slots;
+    return this.level > 0;
   }
 
   /* -------------------------------------------- */
@@ -209,11 +250,13 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    */
   get chatProperties() {
     return [
-      this.parent.labels.level,
-      this.parent.labels.components.vsm + (this.parent.labels.materials ? ` (${this.parent.labels.materials})` : ""),
+      this.parent.labels.rank,
+      this.parent.labels.jutsuType,
+      this.parent.labels.chakra,
+      this.parent.labels.jutsuComponents?.short,
       ...this.parent.labels.components.tags,
       this.parent.labels.duration
-    ];
+    ].filter(_ => _);
   }
 
   /* -------------------------------------------- */
@@ -223,9 +266,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    * @type {boolean}
    */
   get countsPrepared() {
-    return !!CONFIG.DND5E.spellcasting[this.method]?.prepares
-      && (this.level > 0)
-      && (this.prepared === CONFIG.DND5E.spellPreparationStates.prepared.value);
+    return false;
   }
 
   /* -------------------------------------------- */
@@ -283,7 +324,103 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
 
   /** @override */
   get tooltipSubtitle() {
-    return [this.parent.labels.level, CONFIG.DND5E.spellSchools[this.school]?.label];
+    return [this.parent.labels.rank, this.parent.labels.jutsuType];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Effective jutsu rank.
+   * @type {string}
+   */
+  get effectiveRank() {
+    return this.rank || SpellData.rankForLevel(this.level);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The actor casting stat block used by this jutsu.
+   * @type {"ninjutsu"|"taijutsu"|"genjutsu"|null}
+   */
+  get jutsuCastingType() {
+    const classmodIdentifier = this.classmodIdentifier;
+    if ( classmodIdentifier && this.parent?.actor?.classmods?.[classmodIdentifier] ) {
+      return getClassmodArtsCastingKey(classmodIdentifier);
+    }
+    return CONFIG.DND5E.jutsuTypes[this.jutsu.type]?.casting ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The evaluated chakra cost.
+   * @type {number}
+   */
+  get chakraCost() {
+    return this.getChakraCost();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The base jutsu rank index, clamped to a known rank.
+   * @type {number}
+   */
+  get baseRankIndex() {
+    return Math.max(CONFIG.DND5E.jutsuRankOrder.indexOf(this.effectiveRank), 0);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Calculate the number of ranks this jutsu is being cast above its base rank.
+   * @param {string} [rank]  Cast rank.
+   * @returns {number}
+   */
+  getRankDelta(rank=this.effectiveRank) {
+    const rankIndex = CONFIG.DND5E.jutsuRankOrder.indexOf(rank);
+    return Math.max((rankIndex >= 0 ? rankIndex : this.baseRankIndex) - this.baseRankIndex, 0);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Calculate the chakra cost for this jutsu at a given rank.
+   * @param {object} [options={}]
+   * @param {string} [options.rank]  Cast rank.
+   * @returns {number}
+   */
+  getChakraCost({ rank=this.effectiveRank }={}) {
+    const rollData = this.parent.actor?.getRollData({ deterministic: true }) ?? {};
+    rollData.item ??= {};
+    rollData.item.level = SpellData.levelForRank(rank);
+    rollData.item.rank = rank;
+    rollData.item.rankDelta = this.getRankDelta(rank);
+
+    const baseCost = simplifyBonus(this.chakra.cost, rollData);
+    let cost = Number.isFinite(baseCost) ? baseCost : 0;
+    if ( this.chakra.scaling?.mode === "rank" ) {
+      cost += (Number(this.chakra.scaling.value) || 0) * rollData.item.rankDelta;
+    }
+    if ( ["ninjutsu", "genjutsu"].includes(this.jutsuCastingType) ) {
+      cost += (this.parent.actor?.getConditionRank?.("sealed") ?? 0) * 2;
+    }
+    return Math.max(0, Math.floor(cost));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Calculate the concentration maintain cost for this jutsu at a given rank.
+   * @param {object} [options={}]
+   * @param {string} [options.rank]  Cast rank.
+   * @param {number} [options.cost]  Precalculated cast cost.
+   * @returns {number}
+   */
+  getMaintainCost({ rank=this.effectiveRank, cost=null }={}) {
+    cost ??= this.getChakraCost({ rank });
+    return Math.max(0, Math.floor((Number(cost) || 0) / 2));
   }
 
   /* -------------------------------------------- */
@@ -308,8 +445,10 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   /** @inheritDoc */
   static _migrateData(source) {
     super._migrateData(source);
+    SpellData.#migrateLegacyN5eBJutsu(source);
     ActivitiesTemplate.migrateActivities(source);
     SpellData.#migrateActivation(source);
+    SpellData.#migrateJutsuData(source);
     SpellData.#migrateTarget(source);
     SpellData.#migratePreparation(source);
     SpellData.#migrateSourceItem(source);
@@ -337,6 +476,184 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    */
   static #migrateActivation(source) {
     if ( source.activation?.cost ) source.activation.value = source.activation.cost;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate old N5eB jutsu fields into the current v14 jutsu structure.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateLegacyN5eBJutsu(source) {
+    const schoolMap = {
+      buki: "bukijutsu",
+      gen: "genjutsu",
+      hi: "ninjutsu",
+      nin: "ninjutsu",
+      tai: "taijutsu"
+    };
+    const componentMap = {
+      chakramolding: "cm",
+      chakraseals: "cs",
+      handseals: "hs",
+      mobility: "m",
+      molding: "cm",
+      ninjatool: "nt",
+      ninjatools: "nt",
+      weapon: "w",
+      weapons: "w"
+    };
+    const keywordMap = {
+      bukijutsu: "bukijutsu",
+      chain: "chain",
+      clash: "clash",
+      clone: "clone",
+      combo: "combo",
+      combination: "combination",
+      construct: "construct",
+      fire: "fire",
+      fuinjutsu: "fuinjutsu",
+      genjutsu: "genjutsu",
+      hijutsu: "hijutsu",
+      kinjutsu: "kinjutsu",
+      lightning: "lightning",
+      medical: "medical",
+      ninjutsu: "ninjutsu",
+      sensory: "sensory",
+      taijutsu: "taijutsu",
+      water: "water",
+      wind: "wind",
+      earth: "earth"
+    };
+
+    const getKeys = value => {
+      if ( Array.isArray(value) ) return value;
+      if ( value instanceof Set ) return Array.from(value);
+      if ( foundry.utils.getType(value) === "Object" ) return filteredKeys(value);
+      return [];
+    };
+
+    const oldProperties = getKeys(source.properties);
+    const oldKeywords = getKeys(source.keywords);
+    source.jutsu ??= {};
+    const components = new Set(getKeys(source.jutsu.components));
+    const keywords = new Set([...getKeys(source.jutsu.keywords), ...oldKeywords]);
+
+    const jutsuType = schoolMap[source.school];
+    if ( jutsuType ) {
+      if ( !source.jutsu.type ) source.jutsu.type = jutsuType;
+      keywords.add(jutsuType);
+      if ( source.school === "hi" ) keywords.add("hijutsu");
+      source.school = jutsuType === "genjutsu" ? "ill" : "trs";
+    }
+
+    for ( const property of oldProperties ) {
+      const component = componentMap[property];
+      if ( component ) components.add(component);
+      const keyword = keywordMap[property];
+      if ( keyword ) keywords.add(keyword);
+    }
+
+    if ( "chakraCost" in source ) {
+      source.chakra ??= {};
+      if ( !source.chakra.cost ) source.chakra.cost = `${source.chakraCost ?? ""}`;
+      delete source.chakraCost;
+    }
+    SpellData.#migrateChakraScaling(source);
+
+    source.jutsu.components = Array.from(components);
+    source.jutsu.keywords = Array.from(keywords);
+    source.properties = oldProperties.filter(p => ["concentration", "material", "ritual", "somatic", "vocal"].includes(p));
+    delete source.keywords;
+
+    source.actionType = {
+      abil: "abil",
+      mgak: "msak",
+      mnak: "msak",
+      mtak: "msak",
+      rgak: "rsak",
+      rnak: "rsak",
+      rtak: "rsak"
+    }[source.actionType] ?? source.actionType;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate old N5eB chakra scaling values into the structured scaling schema.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateChakraScaling(source) {
+    source.chakra ??= {};
+    const current = source.chakra.scaling;
+    if ( current?.mode ) {
+      delete source.chakraScaling;
+      return;
+    }
+
+    const legacy = source.chakraScaling ?? SpellData.#parseLegacyChakraScaling(source.chakra.special);
+    if ( legacy ) {
+      const mode = `${legacy.mode ?? ""}`.toLowerCase();
+      const value = Number(legacy.value ?? 0);
+      if ( (mode === "level") && Number.isFinite(value) && (value > 0) ) {
+        source.chakra.scaling = { mode: "rank", value: Math.floor(value) };
+        if ( SpellData.#isLegacyScalingNote(source.chakra.special) ) source.chakra.special = "";
+      } else {
+        source.chakra.scaling = { mode: "none", value: 0 };
+        if ( SpellData.#isLegacyScalingNote(source.chakra.special) ) source.chakra.special = "";
+      }
+    } else if ( source.chakra.special && Number.isNumeric(source.chakra.special) ) {
+      source.chakra.scaling = { mode: "rank", value: Math.floor(Number(source.chakra.special)) };
+      source.chakra.special = "";
+    } else {
+      source.chakra.scaling = { mode: "none", value: 0 };
+    }
+    delete source.chakraScaling;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Parse an old chakra scaling value stored as text.
+   * @param {*} value  Candidate value.
+   * @returns {object|null}
+   */
+  static #parseLegacyChakraScaling(value) {
+    if ( foundry.utils.getType(value) === "Object" ) return value;
+    if ( Number.isNumeric(value) ) return { mode: "level", value: Number(value) };
+    if ( typeof value !== "string" ) return null;
+    const trimmed = value.trim();
+    if ( !trimmed ) return null;
+    if ( Number.isNumeric(trimmed) ) return { mode: "level", value: Number(trimmed) };
+    try {
+      const parsed = JSON.parse(trimmed);
+      return foundry.utils.getType(parsed) === "Object" ? parsed : null;
+    } catch{
+      return null;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this special chakra text a legacy mechanical scaling placeholder.
+   * @param {*} value  Candidate value.
+   * @returns {boolean}
+   */
+  static #isLegacyScalingNote(value) {
+    if ( !value ) return false;
+    const trimmed = `${value}`.trim();
+    return Number.isNumeric(trimmed) || /^\{.*"mode".*"value".*\}$/.test(trimmed);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Derive jutsu compatibility data from legacy spell level data.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateJutsuData(source) {
+    if ( !("rank" in source) && ("level" in source) ) source.rank = SpellData.rankForLevel(source.level);
   }
 
   /* -------------------------------------------- */
@@ -403,6 +720,29 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Convert legacy spell level to jutsu rank.
+   * @param {number} level  Legacy spell level.
+   * @returns {string}
+   */
+  static rankForLevel(level) {
+    level = Math.clamp(Number(level) || 0, 0, 9);
+    return CONFIG.DND5E.jutsuRankBySpellLevel[level] ?? "d";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Convert jutsu rank to the compatibility spell level.
+   * @param {string} rank  Jutsu rank.
+   * @returns {number}
+   */
+  static levelForRank(rank) {
+    return CONFIG.DND5E.jutsuSpellLevelByRank[rank] ?? 1;
+  }
+
+  /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
@@ -414,8 +754,18 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     this.duration.concentration = this.properties.has("concentration");
 
     const labels = this.parent.labels ??= {};
-    labels.level = CONFIG.DND5E.spellLevels[this.level];
+    const rank = this.effectiveRank;
+    const rankConfig = CONFIG.DND5E.jutsuRanks[rank];
+    labels.rank = rankConfig?.label ?? rank;
+    labels.rankAbbr = rankConfig?.abbreviation ?? rank.toUpperCase();
+    labels.level = labels.rank;
     labels.school = CONFIG.DND5E.spellSchools[this.school]?.label;
+    labels.jutsuType = CONFIG.DND5E.jutsuTypes[this.jutsu.type]?.label ?? game.i18n.localize("N5EB.JUTSU.Unclassified");
+    labels.chakraCost = this.chakraCost;
+    labels.chakra = labels.chakraCost ? game.i18n.format("N5EB.JUTSU.ChakraCostLabel", {
+      cost: formatNumber(labels.chakraCost)
+    }) : "";
+    labels.maintainCost = this.getMaintainCost({ cost: labels.chakraCost });
     if ( this.properties.has("material") ) labels.materials = this.materials.value;
 
     labels.components = this.properties.reduce((obj, c) => {
@@ -439,6 +789,27 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     labels.components.full = labels.materials ? game.i18n.format("DND5E.SpellComponentsMaterial", {
       components: labels.components.vsm, materials: labels.materials
     }) : labels.components.vsm;
+
+    const componentLabels = Array.from(this.jutsu.components ?? []).map(component => {
+      const config = CONFIG.DND5E.jutsuComponents[component];
+      if ( !config ) return null;
+      return { key: component, label: config.label, abbreviation: config.abbreviation };
+    }).filter(_ => _);
+    labels.jutsuComponents = {
+      all: componentLabels,
+      short: game.i18n.getListFormatter({ style: "narrow" }).format(componentLabels.map(c => c.abbreviation)),
+      full: game.i18n.getListFormatter().format(componentLabels.map(c => c.label))
+    };
+
+    const keywordLabels = Array.from(this.jutsu.keywords ?? []).map(keyword => {
+      const config = CONFIG.DND5E.jutsuKeywords[keyword];
+      if ( !config ) return null;
+      return { key: keyword, label: config.label, limited: config.limited };
+    }).filter(_ => _);
+    labels.jutsuKeywords = {
+      all: keywordLabels,
+      short: game.i18n.getListFormatter().format(keywordLabels.map(k => k.label))
+    };
 
     const uuid = this.parent._stats.compendiumSource ?? this.parent.uuid;
     Object.defineProperty(labels, "classes", {
@@ -479,8 +850,9 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   async getCardData(enrichmentOptions={}) {
     const context = await super.getCardData(enrichmentOptions);
     context.isSpell = true;
-    const { activation, components, duration, range, target } = this.parent.labels;
-    context.properties = [components?.vsm, activation, duration, range, target].filter(_ => _);
+    const { activation, chakra, duration, jutsuComponents, jutsuType, rank, range, target } = this.parent.labels;
+    context.properties = [rank, jutsuType, chakra, jutsuComponents?.short, activation, duration, range, target]
+      .filter(_ => _);
     if ( !this.properties.has("material") ) delete context.materials;
     return context;
   }
@@ -490,7 +862,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   /** @inheritDoc */
   async getFavoriteData() {
     return foundry.utils.mergeObject(await super.getFavoriteData(), {
-      subtitle: [this.parent.labels.components.vsm, this.parent.labels.activation],
+      subtitle: [this.parent.labels.rank, this.parent.labels.jutsuType, this.parent.labels.chakra],
       modifier: this.parent.labels.modifier,
       range: this.range,
       save: this.activities.getByType("save")[0]?.save
@@ -501,11 +873,19 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
 
   /** @inheritDoc */
   async getSheetData(context) {
-    context.properties.active = [...(this.parent.labels?.components?.tags ?? []), ...(context.labels.classes ?? [])];
+    context.source.rank ??= this.effectiveRank;
+    context.source.jutsu ??= foundry.utils.deepClone(this.jutsu);
+    context.source.chakra ??= foundry.utils.deepClone(this.chakra);
+    context.source.chakra.scaling ??= foundry.utils.deepClone(this.chakra.scaling);
+    context.properties.active = [
+      ...(this.parent.labels?.jutsuComponents?.all ?? []).map(c => c.label),
+      ...(this.parent.labels?.jutsuKeywords?.all ?? []).map(k => k.label),
+      ...(context.labels.classes ?? [])
+    ];
     context.subtitles = [
-      { label: context.labels.level },
-      { label: context.labels.school },
-      { label: CONFIG.DND5E.spellcasting[this.method]?.label }
+      { label: context.labels.rank },
+      { label: context.labels.jutsuType },
+      { label: context.labels.chakra }
     ];
 
     context.parts = ["dnd5e.details-spell", "dnd5e.field-uses"];
@@ -518,17 +898,23 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
         ? this.parent.actor.identifiedItems.get(this.sourceItem)?.first()
         : null;
 
+      const jutsuCasting = this.jutsuCastingType;
+      const casting = this.parent.actor.system.attributes?.jutsu?.[jutsuCasting];
       const ability = CONFIG.DND5E.abilities[
-        this.parent.actor.spellcastingClasses[this.classIdentifier]?.spellcasting.ability
+        casting?.ability
+          ?? this.parent.actor.spellcastingClasses[this.classIdentifier]?.spellcasting.ability
           ?? this.parent.actor.system.attributes?.spellcasting
       ]?.label?.toLowerCase();
-      if ( ability ) context.defaultAbility = game.i18n.format("DND5E.DefaultSpecific", { default: ability });
+      if ( casting?.isClassmodArts ) context.defaultAbility = game.i18n.localize("N5EB.CLASSMOD.ArtsFormula");
+      else if ( ability ) context.defaultAbility = game.i18n.format("DND5E.DefaultSpecific", { default: ability });
       else context.defaultAbility = game.i18n.localize("DND5E.Default");
       context.spellcastingClasses = Object.entries(this.parent.actor.spellcastingClasses ?? {})
         .map(([value, cls]) => ({ value: `class:${value}`, label: cls.name }));
+      context.spellcastingClasses.push(...Object.entries(this.parent.actor.classmods ?? {})
+        .map(([value, classmod]) => ({ value: `classmod:${value}`, label: classmod.name })));
 
-      // Spells granted by non-class Items are locked.
-      if ( sourceItem?.type !== "class" ) {
+      // Spells granted by non-class/classmod Items are locked.
+      if ( !["class", "classmod"].includes(sourceItem?.type) ) {
         let grantingItem = sourceItem;
 
         // Fallback to detecting from flags.
@@ -552,8 +938,10 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
 
           if ( !this.sourceItem ) context.source.sourceItem = `${grantingItem.type}:${grantingItem.identifier}`;
 
-          context.sourceItemLocked = true;
-          context.sourceItemHint = "DND5E.SourceItem.LockedHint";
+          if ( !["class", "classmod"].includes(grantingItem.type) ) {
+            context.sourceItemLocked = true;
+            context.sourceItemHint = "DND5E.SourceItem.LockedHint";
+          }
         }
       }
     }
@@ -603,6 +991,30 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
 
     // Spellcasting
     context.canPrepare = this.canPrepare;
+    context.jutsuRankOptions = CONFIG.DND5E.jutsuRankOrder.map(rank => ({
+      value: rank,
+      label: CONFIG.DND5E.jutsuRanks[rank].label
+    }));
+    context.jutsuChakraScalingModeOptions = Object.entries(CONFIG.DND5E.jutsuChakraScalingModes)
+      .map(([value, label]) => ({ value, label }));
+    context.jutsuTypeOptions = Object.entries(CONFIG.DND5E.jutsuTypes).map(([value, { label }]) => ({ value, label }));
+    context.jutsuComponentOptions = Object.entries(CONFIG.DND5E.jutsuComponents).map(([value, { label }]) => ({
+      value, label, selected: this.jutsu.components.has(value)
+    }));
+    const genjutsuStimuli = new Set(["visual", "auditory", "inhaled", "tactile", "unaware"]);
+    const keywordOptions = Object.entries(CONFIG.DND5E.jutsuKeywords).map(([value, { label }]) => ({
+      value, label, selected: this.jutsu.keywords.has(value)
+    }));
+    context.jutsuKeywordOptions = keywordOptions.filter(option => !genjutsuStimuli.has(option.value));
+    context.genjutsuStimulusOptions = keywordOptions.filter(option => genjutsuStimuli.has(option.value));
+    const stimuliExpandId = "system.jutsu.keywords.genjutsuStimuli";
+    const hasStimulus = context.genjutsuStimulusOptions.some(option => option.selected);
+    const storedStimuliExpanded = context.expanded?.[stimuliExpandId];
+    context.genjutsuStimuli = {
+      expandId: stimuliExpandId,
+      selectedCount: context.genjutsuStimulusOptions.filter(option => option.selected).length,
+      expanded: (this.jutsu.type === "genjutsu") || hasStimulus || (storedStimuliExpanded === true)
+    };
     context.spellcastingMethods = Object.values(CONFIG.DND5E.spellcasting).map(({ key, label }) => {
       return { label, value: key };
     });
@@ -625,7 +1037,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
       const list = event.target.closest(".item-list"); // Dropped inside an existing list.
       header = list?.previousElementSibling;
     }
-    const { method } = header?.closest("[data-level]")?.dataset ?? {};
+    const { method, rank } = header?.closest("[data-rank], [data-level]")?.dataset ?? {};
 
     // Determine the actor's spell slot progressions, if any.
     const spellcastKeys = Object.keys(CONFIG.DND5E.spellcasting);
@@ -636,6 +1048,10 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     }, new Set());
 
     const { system } = itemData;
+    if ( rank in CONFIG.DND5E.jutsuRanks ) {
+      system.rank = rank;
+      system.level = SpellData.levelForRank(rank);
+    }
     const methods = CONFIG.DND5E.spellcasting;
     if ( methods[method] ) system.method = method;
     else if ( progs.size ) system.method = progs.first();
@@ -651,6 +1067,11 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     const data = super.getRollData(...options);
     data.item.level = data.item.level + (this.parent.getFlag("n5eb", "scaling")
       ?? (this.level !== 0 ? this.scalingIncrease : 0));
+    data.item.rank = CONFIG.DND5E.jutsuRankBySpellLevel[Math.clamp(data.item.level, 0, 9)] ?? this.effectiveRank;
+    data.item.rankDelta = this.getRankDelta(data.item.rank);
+    data.item.rankValue = CONFIG.DND5E.jutsuRankValues[data.item.rank] ?? 0;
+    data.item.chakraCost = this.getChakraCost({ rank: data.item.rank });
+    data.item.maintainCost = this.getMaintainCost({ rank: data.item.rank, cost: data.item.chakraCost });
     return data;
   }
 
@@ -670,17 +1091,8 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     const tag = document.createElement("p");
     tag.classList.add("item-entry-tag");
     const classes = labels.classes;
-    tag.innerText = game.i18n.format(
-      `DND5E.SPELL.Embed.Tag.${!this.level ? "Cantrip" : "Leveled"}${rulesVersion === "2014" ? "Legacy" : ""}`,
-      {
-        level: formatNumber(this.level),
-        levelOrdinal: formatNumber(this.level, { ordinal: true }),
-        school: CONFIG.DND5E.spellSchools[this.school]?.label ?? ""
-      }
-    );
-    if ( (rulesVersion === "2014") && this.properties.has("ritual") ) {
-      tag.innerText = game.i18n.format("DND5E.SPELL.Embed.Tag.Ritual", { levelSchool: tag.innerText });
-    } else if ( (rulesVersion === "2024") && classes?.length ) {
+    tag.innerText = [labels.rank, labels.jutsuType].filterJoin(" ");
+    if ( (rulesVersion === "2024") && classes?.length ) {
       tag.innerText = game.i18n.format("DND5E.SPELL.Embed.Tag.Classes", {
         classes: game.i18n.getListFormatter({ type: "unit" }).format(classes),
         levelSchool: tag.innerText
@@ -695,7 +1107,8 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     const specifics = [
       ["DND5E.SpellCastTime", castingTime],
       ["DND5E.SpellHeader.Range", labels.description.range || labels.range],
-      ["DND5E.Components", labels.components.full],
+      ["N5EB.JUTSU.Components", labels.jutsuComponents.full],
+      ["N5EB.JUTSU.Chakra", labels.chakra],
       ["DND5E.Duration", labels.concentrationDuration]
     ];
     const dl = document.createElement("dl");

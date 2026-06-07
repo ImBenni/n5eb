@@ -1,0 +1,45 @@
+folder: downtimeCore0001
+name: Crafting Chakra-Enhanced Items
+type: downtime
+_id: craftChakra00001
+img: icons/magic/symbols/rune-sigil-green.webp
+system:
+  description:
+    value: >-
+      <p>Track chakra-enhanced item crafting and enhancement seal work. The book uses rank-based downtime costs for
+      enhanced items: D 2 weeks, C 4 weeks, B 8 weeks, A 12 weeks, and S 20 weeks. Required Crafting DCs, toolkits,
+      materials, seal effects, and Ryo costs are set by the specific item or seal.</p>
+    chat: ''
+  identifier: crafting-chakra-enhanced-items
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  category: crafting
+  weeks:
+    value: 2
+    max: 2
+    mode: ranked
+    note: 'Rank-based: D 2, C 4, B 8, A 12, S 20 weeks.'
+  cost:
+    value: 0
+    denomination: ryo
+    per: activity
+    note: Use the target item or seal Ryo cost.
+  roll:
+    enabled: true
+    ability: int
+    skill: cra
+    tool: ''
+    dc: 0
+    label: Enhancement seal crafting check.
+  target:
+    type: item-or-seal
+    uuid: ''
+  completion: Record the finished enhanced item, seal, DC result, and paid Ryo.
+effects: []
+flags: {}
+sort: 300000
+ownership:
+  default: 0
+_key: '!items!craftChakra00001'

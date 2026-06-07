@@ -1,0 +1,335 @@
+folder: dBrYO41bkN846Axv
+name: Far-Reaching Fang
+type: spell
+_id: l0v0ZsuxbCRCiI8n
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>Your weapon is just an extension of yourself, it is your fang to defend what needs defending. You flood your
+      weapon with chakra to enhance its ability to fly far and it's damage power. Make a Ranged Taijutsu Attack against
+      a creature in range. On a hit you deal your [weapons damage] +2d10 and the target creature must make a Strength
+      Saving throw or be knockback 15 feet. If they hit a structure or construct, they are pinned to it, being grappled
+      to the wall until they use an action to free themselves</p><p>At Higher Ranks: For every rank you cast this jutsu
+      above D-Rank, increase the cost by 3 and the damage by 1d8. If cast at B-rank, they are knocked back an additional
+      15 feet. If cast at S-rank, they are knocked back an additional 15 feet.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: taijutsu
+  actionType: rsak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d10
+        - ''
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: taijutsu
+  summons: null
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: Ranged Piercing
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d8
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: far-reaching-fang
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Grappled
+    origin: Compendium.n5eb.jutsus.Item.l0v0ZsuxbCRCiI8n
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/grappled.svg
+    _id: 7iuoEngvwdumJho5
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.climb
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.KfqyjVTZEhRigxiO.ActiveEffect.Eme0Y4daNNi3gpIR
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!l0v0ZsuxbCRCiI8n.7iuoEngvwdumJho5'
+sort: 4100000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/d-rank/far-reaching-fang.json
+      sourceId: l0v0ZsuxbCRCiI8n
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Your weapon is just an extension of yourself, it is your fang to defend what needs defending. You flood
+            your weapon with chakra to enhance its ability to fly far and it's damage power. Make a Ranged Taijutsu
+            Attack against a creature in range. On a hit you deal your [weapons damage] +2d10 and the target creature
+            must make a Strength Saving throw or be knockback 15 feet. If they hit a structure or construct, they are
+            pinned to it, being grappled to the wall until they use an action to free themselves</p><p>At Higher Ranks:
+            For every rank you cast this jutsu above D-Rank, increase the cost by 3 and the damage by 1d8. If cast at
+            B-rank, they are knocked back an additional 15 feet. If cast at S-rank, they are knocked back an additional
+            15 feet.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: taijutsu
+        actionType: rtak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d10
+              - ''
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: taijutsu
+        summons: null
+        level: 1
+        school: buki
+        properties:
+          - mobility
+          - weapons
+        keywords:
+          - bukijutsu
+        materials:
+          value: Ranged Piercing
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d8
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755942285
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/d-rank/far-reaching-fang.json
+_key: '!items!l0v0ZsuxbCRCiI8n'

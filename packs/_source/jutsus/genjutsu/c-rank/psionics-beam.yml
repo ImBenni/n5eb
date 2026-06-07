@@ -1,0 +1,353 @@
+name: Psionics Beam
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>You manifest a wave of psionic chakra that disorients creatures that are touched by it.</p><p>All creatures of
+      your choice in a 5-feet wide, 60-feet long line, originating from you must make an Intelligence saving
+      throw.</p><p>Success: Affected creature is able to resist this jutsu's effects.</p><p>Failure: Affected creature
+      takes 2d10 psychic damage and becomes confused.</p><p>Critical Failure: Affected creature takes 3d10 psychic
+      damage and gains 2 ranks of confused.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank,
+      increase the cost of this jutsu by 3 and the damage by 1d10.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: '60'
+    width: 5
+    units: ft
+    type: line
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: wis
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d10
+        - psychic
+    versatile: 3d10
+  formula: ''
+  save:
+    ability: int
+    dc: null
+    scaling: genjutsu
+  level: 3
+  school: ill
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d10
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: level
+    formula: 1d10
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: psionics-beam
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - visual
+      - tactile
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Confused
+    origin: Compendium.n5eb.jutsus.Item.9HylMRfyiOuH07KL
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/confused.svg
+    _id: 0oiSexK6Rjx3Fs4f
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: confused
+        priority: 20
+      - key: system.abilities.wis.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          saveAbility=int,
+          rollType=check,
+          saveRemove=true,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><p>A Confused creature has difficulty distinguishing friend from foe and
+      experiences lapsing judgement.</p><ul><li><p>A Confused creature suffers a -1 penalty to all Wisdom based checks,
+      attack rolls, and saving throws for each rank it has.</p></li><li><p>A Confused creature who would target hostile
+      or friendly creature with an attack, jutsu, feature or trait (even themselves) must first make a DC 8 Flat check.
+      On a failure, they must target the closest creature to them, ignoring allied or hostile distinctions. For rank of
+      Confused beyond the first, increase this DC by +1 (Max DC 12).</p></li><li><p>A Confused creature cannot choose
+      targets when a jutsu, feature or trait would allow them to pick. All creatures in range become the target,
+      ignoring ally or hostile distinctions.</p></li><li><p>As an Action, a Confused creature can make a DC 15
+      Intelligence ability check, ending this condition on a success.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.T4ZSbPxGKQwZ0WRG.ActiveEffect.TlQn0pODrzXO8IRz
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!9HylMRfyiOuH07KL.0oiSexK6Rjx3Fs4f'
+folder: BbIYmdyQ2kjNmaur
+flags:
+  n5eb:
+    migratedProperties:
+      - handseals
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/c-rank/psionics-beam.json
+      sourceId: 9HylMRfyiOuH07KL
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You manifest a wave of psionic chakra that disorients creatures that are touched by it.</p><p>All
+            creatures of your choice in a 5-feet wide, 60-feet long line, originating from you must make an Intelligence
+            saving throw.</p><p>Success: Affected creature is able to resist this jutsu's effects.</p><p>Failure:
+            Affected creature takes 2d10 psychic damage and becomes confused.</p><p>Critical Failure: Affected creature
+            takes 3d10 psychic damage and gains 2 ranks of confused.</p><p>At Higher Ranks: For each rank you cast this
+            jutsu above C-Rank, increase the cost of this jutsu by 3 and the damage by 1d10.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: '60'
+          width: 5
+          units: ft
+          type: line
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: wis
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d10
+              - psychic
+          versatile: 3d10
+        formula: ''
+        save:
+          ability: int
+          dc: null
+          scaling: genjutsu
+        level: 2
+        school: gen
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d10
+        keywords:
+          - genjutsu
+          - visual
+          - tactile
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+        chakraCost: 9
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: 1d10
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/c-rank/psionics-beam.json
+_id: 9HylMRfyiOuH07KL
+sort: 0
+ownership:
+  default: 0
+_key: '!items!9HylMRfyiOuH07KL'

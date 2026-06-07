@@ -1,0 +1,441 @@
+name: Sealing Art Banishing Seal
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/non-elemental.webp
+system:
+  description:
+    value: >-
+      <p>You infuse chakra into a chakra seal as you attempt to send them away with the seal of banishment.</p><p>Choose
+      one creature you can see within range as you force them to make a Charisma saving throw or be sent to a pocket
+      dimension of your creation. On a failed save they are banished to this pocket dimension. While banished, they are
+      incapacitated and are unaware of any actions or happenings in the dimension they were just banished from. When
+      this jutsu ends, they are summoned back into the same space they were originally banished from and gain 2 ranks of
+      Sealed.</p><p>At Higher Ranks: For each rank you cast this jutsu above B-Rank, increase the cost of this jutsu by
+      3 and the number of creatures you can target by +1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 14
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: ninjutsu
+  level: 5
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: sealing-art-banishing-seal
+  jutsu:
+    components:
+      - hs
+      - cm
+      - cs
+    keywords:
+      - ninjutsu
+      - fuinjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '14'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Incapacitated
+    origin: Compendium.n5eb.jutsus.Item.K59PTYNQYdmSWxO6
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/incapacitated.svg
+    _id: QYtKH1PPKeQnYPFX
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.climb
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: incapacitated
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - incapacitated
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.oPKLZHKQOBZsE7k5.ActiveEffect.4SS62Wm6W6fzv1z7
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!K59PTYNQYdmSWxO6.QYtKH1PPKeQnYPFX'
+  - name: Sealed
+    origin: Compendium.n5eb.jutsus.Item.K59PTYNQYdmSWxO6
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/sealed.svg
+    _id: x6cqqOt3CkXb1ZI5
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: sealed
+        priority: 20
+      - key: system.attributes.ninjutsudc
+        mode: 0
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.attributes.genjutsudc
+        mode: 0
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=start,
+          label=Sealed,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=MY CHAKRA ITS GONE,
+          rollType=skill,
+          saveAbility=nin|ill,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Sealed creature has a limiter on their chakra network, causing
+      their chakra to become inefficient and wasteful. This condition is usually the result of a
+      Fuinjutsu.</p><ul><li><p>A <strong>Sealed</strong> creature increases the base chakra cost of Ninjutsu &amp;
+      Genjutsu by +2, for each rank it has.</p></li><li><p>A <strong>Sealed</strong> creature suffers a -1 penalty to
+      all of their Ninjutsu &amp; Genjutsu Save DCs for each rank it has.</p></li><li><p>A creature can spend its action
+      to make a DC 15 Ninshou or Illusions check to remove 1 rank of this condition. For every +5 their result is over
+      the DC, they remove 1 additional rank of <strong>Sealed</strong>.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.KZhkgzm0QOWCbyVx.ActiveEffect.67Zr4SffTsSb5mM1
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!K59PTYNQYdmSWxO6.x6cqqOt3CkXb1ZI5'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - chakraseals
+      - handseals
+      - molding
+      - fuinjutsu
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: non-elemental/b-rank/sealing-art-banishing-seal.json
+      sourceId: K59PTYNQYdmSWxO6
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You infuse chakra into a chakra seal as you attempt to send them away with the seal of
+            banishment.</p><p>Choose one creature you can see within range as you force them to make a Charisma saving
+            throw or be sent to a pocket dimension of your creation. On a failed save they are banished to this pocket
+            dimension. While banished, they are incapacitated and are unaware of any actions or happenings in the
+            dimension they were just banished from. When this jutsu ends, they are summoned back into the same space
+            they were originally banished from and gain 2 ranks of Sealed.</p><p>At Higher Ranks: For each rank you cast
+            this jutsu above B-Rank, increase the cost of this jutsu by 3 and the number of creatures you can target by
+            +1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 14
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: ninjutsu
+        level: 3
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - chakraseals
+          - concentration
+          - molding
+          - fuinjutsu
+        keywords:
+          - ninjutsu
+          - fuinjutsu
+        chakraCost: 14
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757276506
+  modifiedTime: 1728757276506
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: non-elemental/b-rank/sealing-art-banishing-seal.json
+folder: 0npCsr4fjKoZ5Ngu
+sort: 1300000
+ownership:
+  default: 0
+_id: K59PTYNQYdmSWxO6
+_key: '!items!K59PTYNQYdmSWxO6'

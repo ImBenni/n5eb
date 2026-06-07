@@ -50,6 +50,7 @@ export default class BaseHealActivityData extends BaseActivityData {
     if ( !this.healing.formula ) return foundry.utils.mergeObject({ rolls: [] }, config);
 
     const rollConfig = foundry.utils.mergeObject({ critical: { allow: false } }, config);
+    rollConfig.applyExhaustionReduction = false;
     const rollData = this.getRollData();
     rollConfig.rolls = [this._processDamagePart(this.healing, rollConfig, rollData)].concat(config.rolls ?? []);
 

@@ -4,7 +4,7 @@
     <div class="left">
 
         {{!-- Skills --}}
-        <filigree-box class="skills">
+        <filigree-box class="skills{{#if colorAbilityAbbreviations}} ability-colors{{/if}}">
             <h3>
                 <i class="fas fa-briefcase" inert></i>
                 <span class="roboto-upper">{{ localize "DND5E.Skills" }}</span>
@@ -182,15 +182,20 @@
 
 {{#*inline ".skill-prof"}}
 <li data-key="{{ key }}" {{~#if reference}} data-reference-tooltip="{{ reference }}"{{/if}}>
-    <proficiency-cycle type="skill" name="{{ path }}.value" data-tooltip="{{ hover }}"
-                       value="{{#if @root.editable}}{{ source.value }}{{else}}{{ prof.multiplier }}{{/if}}"
+    <div class="proficiency-controls">
+    <proficiency-cycle type="{{ type }}" name="{{ path }}.value" data-tooltip="{{ hover }}"
+                       value="{{#if @root.editable}}{{ baseValue }}{{else}}{{ prof.multiplier }}{{/if}}"
                        aria-label="{{ localize hover }}" {{disabled (not @root.editable)}}></proficiency-cycle>
+    <proficiency-cycle type="mastery" name="{{ path }}.mastery" data-tooltip="{{ masteryHover }}"
+                       value="{{#if @root.editable}}{{ baseMastery }}{{else}}{{ mastery }}{{/if}}"
+                       aria-label="{{ localize masteryHover }}" {{disabled (not @root.editable)}}></proficiency-cycle>
+    </div>
     {{#if @root.editable}}
-    <select name="{{ path }}.ability" class="ability roboto-upper unselect">
-        {{ selectOptions @root.CONFIG.abilities selected=baseAbility labelAttr="abbreviation" }}
+    <select name="{{ path }}.ability" class="ability roboto-upper unselect" data-ability="{{ ability }}">
+        {{ selectOptions @root.CONFIG.abilities selected=ability labelAttr="abbreviation" }}
     </select>
     {{else}}
-    <div class="ability roboto-upper">{{ abbreviation }}</div>
+    <div class="ability roboto-upper" data-ability="{{ ability }}">{{ abbreviation }}</div>
     {{/if}}
     <a class="draggable name {{ @root.rollableClass }} {{ roll }}" data-action="roll" data-type="{{ type }}">
         {{ label }}
@@ -217,7 +222,8 @@
                        {{ disabled (not @root.editable) }}></proficiency-cycle>
     {{/if}}
     <a class="name saving-throw full {{ @root.rollableClass }}" data-action="roll" data-type="ability">{{ label }}</a>
-    <a class="name saving-throw abbr {{ @root.rollableClass }}" data-action="roll" data-type="ability">{{ abbr }}</a>
+    <a class="name saving-throw abbr {{ @root.rollableClass }}" data-action="roll" data-type="ability"
+       data-ability="{{ @key }}">{{ abbr }}</a>
     <div class="bonus">{{ dnd5e-formatModifier save.value }}</div>
     {{#if @root.editable}}
     <button type="button" class="config-button unbutton" data-action="showConfiguration" data-config="ability"

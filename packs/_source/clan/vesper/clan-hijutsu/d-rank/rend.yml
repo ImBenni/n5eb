@@ -1,0 +1,354 @@
+name: Rend
+type: spell
+img: systems/n5eb/assets/content/clans/vesper.webp
+system:
+  description:
+    value: >-
+      <p>To cast this jutsu, you must be benefitting from the Claws of Night jutsu. You lash out at a creature with your
+      claws, attempting to unleash the blood within.</p><p>Make 2 melee Taijutsu Attacks, each dealing your [Unarmed
+      Damage] + 1d6 Necrotic Damage, but do not add your ability modifier to the damage dealt. For every two attacks you
+      hit with this jutsu, the target gains 1 rank of Bleeding.</p><p>Until the end of the current turn, you may target
+      one affected creature with a Taijutsu with the Finisher keyword, as an action or bonus action, regardless of
+      range, ignoring the jutsu's listed casting time.</p><p>At Higher Ranks: For each rank you cast this jutsu above
+      D-Rank, increase the cost of this jutsu by 3. If cast to C-Rank or higher, add half your ability modifier to the
+      damage of this jutsu. If cast to B-Rank or higher, make an additional attack with this jutsu. If cast to A-Rank or
+      higher, you instead add your full ability modifier to the damage of this jutsu. If cast to S-Rank or higher, make
+      an additional attack with this jutsu</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: touch
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 1d6
+        - necrotic
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: rend
+  jutsu:
+    components:
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - combo
+      - medical
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Bleeding
+    origin: Compendium.n5eb.clan.Item.FdvdVJ801U6Gh666
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    _id: 0UJcDUd1UB4VYr8R
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d4, damageType=necrotic,
+          label=Bleeding,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=Lil paper cut fr,
+          rollType=skill,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bleeding
+        priority: 0
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has suffered a minor abrasion to their flesh,
+      causing slow blood loss if untreated.</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4
+      necrotic damage for each rank of Bleed they have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop the bleeding by succeeding on a DC 15
+      Medicine check.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bleeding condition
+      immediately gains 5 ranks of the Lacerated condition, ending the Bleeding condition.</p><ul><li><p>The first time
+      per rest a Bleeding creature would gain the Lacerated this way, they must succeed a DC 11 flat check, immediately
+      taking the damage of their Lacerated ranks as they suffer a great wound.</p></li></ul></li><li><p>Outside of
+      combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in
+      combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!FdvdVJ801U6Gh666.0UJcDUd1UB4VYr8R'
+folder: MaWyF8gd03VP1xOJ
+flags:
+  n5eb:
+    migratedProperties:
+      - mobility
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: vesper/clan-hijutsu/d-rank/rend.json
+      sourceId: FdvdVJ801U6Gh666
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>To cast this jutsu, you must be benefitting from the Claws of Night jutsu. You lash out at a creature
+            with your claws, attempting to unleash the blood within.</p><p>Make 2 melee Taijutsu Attacks, each dealing
+            your [Unarmed Damage] + 1d6 Necrotic Damage, but do not add your ability modifier to the damage dealt. For
+            every two attacks you hit with this jutsu, the target gains 1 rank of Bleeding.</p><p>Until the end of the
+            current turn, you may target one affected creature with a Taijutsu with the Finisher keyword, as an action
+            or bonus action, regardless of range, ignoring the jutsu's listed casting time.</p><p>At Higher Ranks: For
+            each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3. If cast to C-Rank or
+            higher, add half your ability modifier to the damage of this jutsu. If cast to B-Rank or higher, make an
+            additional attack with this jutsu. If cast to A-Rank or higher, you instead add your full ability modifier
+            to the damage of this jutsu. If cast to S-Rank or higher, make an additional attack with this jutsu</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: touch
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 1d6
+              - necrotic
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        keywords:
+          - taijutsu
+          - hijutsu
+          - combo
+          - medical
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - mobility
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755285254
+  modifiedTime: 1728755364188
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: vesper/clan-hijutsu/d-rank/rend.json
+_id: FdvdVJ801U6Gh666
+sort: 100000
+ownership:
+  default: 0
+_key: '!items!FdvdVJ801U6Gh666'

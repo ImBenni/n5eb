@@ -5,16 +5,41 @@ const { ArrayField, BooleanField, NumberField, SetField, SchemaField, StringFiel
  */
 
 /**
- * Map language category changes.
+ * Map old D&D language grants to Naruto Common.
  * @type {Record<string, string>}
  */
 const _MAP = {
-  "languages:exotic:draconic": "languages:standard:draconic",
-  "languages:cant": "languages:exotic:cant",
-  "languages:druidic": "languages:exotic:druidic"
+  "languages:exotic:draconic": "languages:standard:common",
+  "languages:standard:draconic": "languages:standard:common",
+  "languages:standard:dwarvish": "languages:standard:common",
+  "languages:standard:elvish": "languages:standard:common",
+  "languages:standard:giant": "languages:standard:common",
+  "languages:standard:gnomish": "languages:standard:common",
+  "languages:standard:goblin": "languages:standard:common",
+  "languages:standard:halfling": "languages:standard:common",
+  "languages:standard:orc": "languages:standard:common",
+  "languages:standard:sign": "languages:standard:common",
+  "languages:exotic:aarakocra": "languages:standard:common",
+  "languages:exotic:abyssal": "languages:standard:common",
+  "languages:exotic:cant": "languages:standard:common",
+  "languages:exotic:celestial": "languages:standard:common",
+  "languages:exotic:deep": "languages:standard:common",
+  "languages:exotic:druidic": "languages:standard:common",
+  "languages:exotic:gith": "languages:standard:common",
+  "languages:exotic:gnoll": "languages:standard:common",
+  "languages:exotic:infernal": "languages:standard:common",
+  "languages:exotic:primordial": "languages:standard:common",
+  "languages:exotic:primordial:aquan": "languages:standard:common",
+  "languages:exotic:primordial:auran": "languages:standard:common",
+  "languages:exotic:primordial:ignan": "languages:standard:common",
+  "languages:exotic:primordial:terran": "languages:standard:common",
+  "languages:exotic:sylvan": "languages:standard:common",
+  "languages:exotic:undercommon": "languages:standard:common",
+  "languages:cant": "languages:standard:common",
+  "languages:druidic": "languages:standard:common"
 };
 
-const LANGUAGE_MAP = { modern: _MAP, legacy: foundry.utils.invertObject(_MAP) };
+const LANGUAGE_MAP = { modern: _MAP, legacy: _MAP };
 
 /**
  * Configuration data for the TraitAdvancement.

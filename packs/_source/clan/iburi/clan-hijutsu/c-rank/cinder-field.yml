@@ -1,0 +1,268 @@
+name: Cinder Field
+type: spell
+img: systems/n5eb/assets/content/clans/iburi.webp
+system:
+  description:
+    value: >-
+      <p>You breathe out an enormous quantity of smoke from your mouth creating a field of heavy gas all around you. You
+      do not need to spend chakra to concentrate on this jutsu.</p><p>For the duration, a 15-foot radius of smoke
+      surrounds you, lightly obscuring you from creatures who cannot see through chakra enhanced smoke. Creatures, other
+      than you, that enter or start their turn within the field of smoke take 5 Fire damage, plus an additonal 5 Fire
+      damage for every 5 feet they willingly move within this radius, as the air they breath burns their lungs. This
+      damage cannot be reduced by any means. Creatures who possess a breathing apparatus do not take damage from walking
+      in this jutsu's area of effect.</p><p>Also, when you deal fire damage to creatures within this radius, you deal an
+      additional die of fire damage, once per turn, and ignore resistance to fire damage.</p><p>This jutsu ends early if
+      you move more than 90 feet from your original location.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: ''
+  actionType: other
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - '5'
+        - fire
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: cinder-field
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - fire
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+folder: 4xGEAQANt5kGWnuI
+flags:
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: iburi/clan-hijutsu/c-rank/cinder-field.json
+      sourceId: XLWLWixQ21qGvZ8v
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You breathe out an enormous quantity of smoke from your mouth creating a field of heavy gas all around
+            you. You do not need to spend chakra to concentrate on this jutsu.</p><p>For the duration, a 15-foot radius
+            of smoke surrounds you, lightly obscuring you from creatures who cannot see through chakra enhanced smoke.
+            Creatures, other than you, that enter or start their turn within the field of smoke take 5 Fire damage, plus
+            an additonal 5 Fire damage for every 5 feet they willingly move within this radius, as the air they breath
+            burns their lungs. This damage cannot be reduced by any means. Creatures who possess a breathing apparatus
+            do not take damage from walking in this jutsu's area of effect.</p><p>Also, when you deal fire damage to
+            creatures within this radius, you deal an additional die of fire damage, once per turn, and ignore
+            resistance to fire damage.</p><p>This jutsu ends early if you move more than 90 feet from your original
+            location.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: ''
+        actionType: other
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - '5'
+              - fire
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - fire
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+        chakraCost: 9
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728753438083
+  modifiedTime: 1728753472239
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: iburi/clan-hijutsu/c-rank/cinder-field.json
+_id: XLWLWixQ21qGvZ8v
+sort: 200000
+ownership:
+  default: 0
+_key: '!items!XLWLWixQ21qGvZ8v'

@@ -130,6 +130,15 @@ export default class TraitAdvancement extends Advancement {
         existingValue = new Set(existingValue);
         existingValue.add(key.split(":").pop());
         updates[keyPath] = Array.from(existingValue);
+      } else if ( TraitAdvancement.#isSkillToolKey(key) ) {
+        const masteryPath = keyPath.replace(/\.value$/, ".mastery");
+        existingValue = Number(existingValue ?? 0);
+        const existingMastery = Number(updates[masteryPath] ?? foundry.utils.getProperty(this.actor, masteryPath) ?? 0);
+        if ( this.configuration.mode === "default" ) updates[keyPath] = 1;
+        else if ( this.configuration.mode === "expertise" ) {
+          if ( existingValue !== 0 ) updates[masteryPath] = Math.max(existingMastery, 1);
+        } else if ( (this.configuration.mode === "upgrade") && (existingValue === 0) ) updates[keyPath] = 1;
+        else updates[masteryPath] = Math.max(existingMastery, 1);
       } else if ( (this.configuration.mode !== "expertise") || (existingValue !== 0) ) {
         updates[keyPath] = (this.configuration.mode === "default")
           || ((this.configuration.mode === "upgrade") && (existingValue === 0)) ? 1 : 2;
@@ -138,6 +147,8 @@ export default class TraitAdvancement extends Advancement {
       if ( key.startsWith("tool") ) {
         const toolId = key.split(":").pop();
         const ability = CONFIG.DND5E.tools[toolId]?.ability;
+        const valueKp = `system.tools.${toolId}.value`;
+        if ( !(valueKp in updates) && !foundry.utils.hasProperty(this.actor, valueKp) ) updates[valueKp] = 0;
         const kp = `system.tools.${toolId}.ability`;
         if ( ability && !foundry.utils.hasProperty(this.actor, kp) ) updates[kp] = ability;
       }
@@ -189,6 +200,15 @@ export default class TraitAdvancement extends Advancement {
         updates[keyPath] = Array.from(existingValue);
       }
 
+      else if ( TraitAdvancement.#isSkillToolKey(key) ) {
+        const masteryPath = keyPath.replace(/\.value$/, ".mastery");
+        const existingMastery = Number(updates[masteryPath] ?? foundry.utils.getProperty(this.actor, masteryPath) ?? 0);
+        if ( this.configuration.mode === "upgrade" ) {
+          if ( existingMastery > 0 ) updates[masteryPath] = 0;
+          else updates[keyPath] = 0;
+        } else if ( this.configuration.mode === "default" ) updates[keyPath] = 0;
+        else updates[masteryPath] = 0;
+      }
       else if ( this.configuration.mode === "expertise" ) updates[keyPath] = 1;
       else if ( this.configuration.mode === "upgrade" ) updates[keyPath] = existingValue === 1 ? 0 : 1;
       else updates[keyPath] = 0;
@@ -204,6 +224,42 @@ export default class TraitAdvancement extends Advancement {
 
   /* -------------------------------------------- */
   /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Does a trait key represent an actor skill or tool entry?
+   * @param {string} key  Prefixed trait key.
+   * @returns {boolean}
+   */
+  static #isSkillToolKey(key) {
+    return key.startsWith("skills:") || key.startsWith("tool:");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get split base proficiency and Mastery state for a skill or tool choice.
+   * @param {Actor5e} actor                 Actor being inspected.
+   * @param {"skills"|"tool"} trait         Trait type.
+   * @param {string} key                    Prefixed trait key.
+   * @returns {{ value: number, mastery: number }}
+   */
+  static #skillToolState(actor, trait, key) {
+    const data = foundry.utils.getProperty(actor._source, Trait.actorKeyPath(trait)) ?? {};
+    const normalize = dnd5e.dataModels.actor.CommonTemplate.normalizeSkillToolProficiency;
+    const parts = key.split(":");
+    const id = parts.pop();
+    const entry = normalize(data[id]?.value, data[id]?.mastery);
+    if ( trait !== "tool" ) return entry;
+
+    const category = parts.pop();
+    const categoryEntry = normalize(data[category]?.value, data[category]?.mastery);
+    return {
+      value: Math.max(entry.value, categoryEntry.value),
+      mastery: Math.max(entry.mastery, categoryEntry.mastery)
+    };
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -225,8 +281,10 @@ export default class TraitAdvancement extends Advancement {
       const choices = await Trait.choices(trait, { prefixed: true });
       for ( const key of choices.asSet() ) {
         const value = actorValues[key] ?? 0;
+        const state = TraitAdvancement.#isSkillToolKey(key)
+          ? TraitAdvancement.#skillToolState(this.actor, trait, key) : { value, mastery: value >= 2 ? 1 : 0 };
         if ( this.configuration.mode === "default" ) {
-          if ( value >= 1 ) selected.add(key);
+          if ( state.value >= 1 ) selected.add(key);
           else available.add(key);
         } else if ( this.configuration.mode === "mastery" ) {
           const split = key.split(":");
@@ -234,8 +292,18 @@ export default class TraitAdvancement extends Advancement {
           const category = split.join(":");
           if ( value === 2 ) selected.add(key);
           if ( (value === 1) || (actorValues[category] === 1) ) available.add(key);
+        } else if ( TraitAdvancement.#isSkillToolKey(key) ) {
+          if ( this.configuration.mode === "expertise" ) {
+            if ( (state.value >= 1) && (state.mastery >= 1) ) selected.add(key);
+            if ( (state.value >= 1) && (state.mastery < 1) ) available.add(key);
+          } else if ( this.configuration.mode === "upgrade" ) {
+            if ( (state.value >= 1) && (state.mastery >= 1) ) selected.add(key);
+            if ( (state.value < 1) || (state.mastery < 1) ) available.add(key);
+          } else {
+            (state.mastery >= 1 ? selected : available).add(key);
+          }
         } else {
-          if ( value === 2 ) selected.add(key);
+          if ( value >= 2 ) selected.add(key);
           if ( (this.configuration.mode === "expertise") && (value === 1) ) available.add(key);
           else if ( (this.configuration.mode !== "expertise") && (value < 2) ) available.add(key);
         }

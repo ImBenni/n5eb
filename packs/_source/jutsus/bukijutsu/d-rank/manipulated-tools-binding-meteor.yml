@@ -1,0 +1,239 @@
+name: Manipulated Tools Binding Meteor
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: "<p>You summon forth a weighted chain from your \_weapon scroll and use it to restrain multiple targets you can see within range. Make a melee taijutsu attack against up to three targets, who are within 25 feet of one another. On a hit you grapple them and chain them to each other. Creatures chained together cannot move more than 25 feet from one another.</p><p>Additionally, creatures chained together can, as an action, make a Dexterity (Acrobatics) or (Sleight of Hand) check vs your Taijutsu save DC, escaping the chains on a success. A creature who fails this check makes it harder to escape for other chained creatures. All other chained creatures who attempt to escape after another\_ \_creature has failed, suffers a -2 penalty to their check, until the end of their next turn.</p><p>This penalty stacks.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the number of creatures you can target by +1.\_</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Weapon Scroll
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 25
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 3
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: manipulated-tools-binding-meteor
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: d
+  chakra:
+    cost: '3'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - weapon
+      - weapons
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/d-rank/manipulated-tools-binding-meteor.json
+      sourceId: ZLg176cUhXpwkFvV
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You summon forth a weighted chain from your \_weapon scroll and use it to restrain multiple targets you can see within range. Make a melee taijutsu attack against up to three targets, who are within 25 feet of one another. On a hit you grapple them and chain them to each other. Creatures chained together cannot move more than 25 feet from one another.</p><p>Additionally, creatures chained together can, as an action, make a Dexterity (Acrobatics) or (Sleight of Hand) check vs your Taijutsu save DC, escaping the chains on a success. A creature who fails this check makes it harder to escape for other chained creatures. All other chained creatures who attempt to escape after another\_ \_creature has failed, suffers a -2 penalty to their check, until the end of their next turn.</p><p>This penalty stacks.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the number of creatures you can target by +1.\_</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Weapon Scroll
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 25
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 3
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        level: 1
+        school: buki
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - mobility
+          - weapons
+          - weapon
+        keywords:
+          - bukijutsu
+        chakraCost: 3
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755942285
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/d-rank/manipulated-tools-binding-meteor.json
+folder: dBrYO41bkN846Axv
+sort: 8800000
+ownership:
+  default: 0
+_id: ZLg176cUhXpwkFvV
+_key: '!items!ZLg176cUhXpwkFvV'

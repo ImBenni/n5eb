@@ -57,10 +57,23 @@ export default class NPCData extends CreatureTemplate {
         hd: new SchemaField({
           spent: new NumberField({ integer: true, min: 0, initial: 0 })
         }, { label: "DND5E.HitDice" }),
+        cd: new SchemaField({
+          denomination: new StringField({
+            required: true, blank: false, initial: "d6", label: "DND5E.Denomination",
+            validate: v => /d\d+/.test(v), validationError: "must be a dice value in the format d#"
+          }),
+          max: new NumberField({
+            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.ChakraDiceMax"
+          }),
+          spent: new NumberField({
+            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.ChakraDiceSpent"
+          })
+        }, { label: "N5EB.ChakraDice" }),
         hp: new SchemaField({
           ...AttributesFields.hitPoints,
           formula: new FormulaField({ required: true, label: "DND5E.HPFormula" })
         }, { label: "DND5E.HitPoints" }),
+        chakra: new SchemaField(AttributesFields.chakraPoints, { label: "N5EB.Chakra" }),
         death: new RollConfigField({
           ability: false,
           success: new NumberField({
@@ -354,6 +367,10 @@ export default class NPCData extends CreatureTemplate {
     const [, max, denomination] = this.attributes.hp.formula?.match(/(\d*)d(\d+)/i) ?? [];
     this.attributes.hd.max = Number(max ?? 0);
     this.attributes.hd.denomination = Number(denomination ?? CONFIG.DND5E.actorSizes[this.traits.size]?.hitDie ?? 4);
+    this.attributes.cd.value = Math.max(this.attributes.cd.max - this.attributes.cd.spent, 0);
+    this.attributes.cd.pct = Math.clamp(
+      this.attributes.cd.max ? (this.attributes.cd.value / this.attributes.cd.max) * 100 : 0, 0, 100
+    );
 
     for ( const item of this.parent.items ) {
       // Class levels & hit dice
@@ -424,6 +441,7 @@ export default class NPCData extends CreatureTemplate {
     AttributesFields.prepareInitiative.call(this, rollData);
     AttributesFields.prepareMovement.call(this, rollData);
     AttributesFields.prepareSpellcastingAbility.call(this);
+    AttributesFields.prepareJutsuCasting.call(this, rollData);
     SourceField.prepareData.call(this.source, this.parent._stats?.compendiumSource ?? this.parent.uuid);
     TraitsFields.prepareLanguages.call(this);
     TraitsFields.prepareResistImmune.call(this);
@@ -439,6 +457,11 @@ export default class NPCData extends CreatureTemplate {
       mod: this.abilities[CONFIG.DND5E.defaultAbilities.hitPoints ?? "con"]?.mod ?? 0
     };
     AttributesFields.prepareHitPoints.call(this, this.attributes.hp, hpOptions);
+    const chakraOptions = {
+      advancement: Object.values(this.parent.classes).map(c => c.advancement.byType.Chakra?.[0]).filter(a => a),
+      mod: this.abilities[CONFIG.DND5E.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0
+    };
+    AttributesFields.prepareChakraPoints.call(this, this.attributes.chakra, chakraOptions);
 
     // Legendary Actions & Resistances
     const { legact, legres } = this.resources;
@@ -711,7 +734,7 @@ export default class NPCData extends CreatureTemplate {
         // Saves (e.g. `Dex +7, Con +15, Wis +10, Cha +12`)
         saves: formatter.format(
           Object.entries(CONFIG.DND5E.abilities)
-            .filter(([k]) => this.abilities[k].saveProf.multiplier !== 0)
+            .filter(([k]) => this.abilities[k].saveProf.multiplier >= 1)
             .map(([k, { abbreviation }]) =>
               `${abbreviation.capitalize()} ${formatNumber(this.abilities[k].save.value, { signDisplay: "always" })}`
             )

@@ -180,6 +180,50 @@
                 </div>
                 {{/with}}
 
+                {{!-- Chakra --}}
+                {{#with system.attributes.chakra}}
+                <div class="meter chakra sectioned">
+                    <div class="progress chakra {{#if (gt tempmax 0)}}temp-positive{{else if (lt tempmax 0)~}}
+                         temp-negative{{/if}}" role="meter" aria-valuemin="0" aria-valuenow="{{ value }}"
+                         aria-valuemax="{{ max }}" style="--bar-percentage: {{ pct }}%">
+                        <div class="label">
+                            <span class="value">{{ value }}</span>
+                            <span class="separator">&sol;</span>
+                            <span class="max">{{ effectiveMax }}</span>
+                            {{#if tempmax}}
+                            <span class="bonus">{{ dnd5e-numberFormat tempmax signDisplay="always" }}</span>
+                            {{/if}}
+                            {{#if @root.editable}}
+                            <button type="button" class="config-button unbutton" data-action="showConfiguration"
+                                    data-config="chakra" data-tooltip="N5EB.ChakraConfig"
+                                    aria-label="{{ localize 'N5EB.ChakraConfig' }}">
+                                <i class="fas fa-cog" inert></i>
+                            </button>
+                            {{/if}}
+                        </div>
+                        <input type="text" name="system.attributes.chakra.value" data-dtype="Number" placeholder="0"
+                               data-max="{{ ifThen effectiveMax effectiveMax max }}"
+                               value="{{ value }}" inputmode="numeric" pattern="^[+=\-]?\d*" hidden>
+                    </div>
+                </div>
+                {{/with}}
+
+                {{!-- Temp Chakra & Tempmax Chakra --}}
+                {{#with system._source.attributes.chakra}}
+                <div class="meter sectioned split chakra-split">
+                    <div class="temp">
+                        <input type="text" name="system.attributes.chakra.temp" data-dtype="Number" inputmode="numeric"
+                               placeholder="{{ localize 'DND5E.TMP' }}" value="{{#if temp}}{{ temp }}{{/if}}"
+                               pattern="^[+=\-]?\d*">
+                    </div>
+                    <div class="tempmax">
+                        <input type="text" name="system.attributes.chakra.tempmax" data-dtype="Number"
+                               inputmode="numeric" placeholder="+{{ localize 'DND5E.Max' }}"
+                               value="{{#if tempmax}}{{ tempmax }}{{/if}}" pattern="^[+=\-]?\d*">
+                    </div>
+                </div>
+                {{/with}}
+
             </div>
 
         </div>

@@ -250,6 +250,9 @@ export default class AdvancementManager extends Application5e {
         manager.clone.updateSource({ "system.details.originalClass": dataClone._id });
       }
     }
+    else if ( itemData.type === "classmod" ) {
+      dataClone.system.levels = 0;
+    }
 
     // Add item to clone & get new instance from clone
     manager.clone.updateSource({ items: [dataClone] });
@@ -258,6 +261,9 @@ export default class AdvancementManager extends Application5e {
     // For class items, prepare level change data
     if ( itemData.type === "class" ) {
       return manager.createLevelChangeSteps(clonedItem, itemData.system?.levels ?? 1);
+    }
+    if ( itemData.type === "classmod" ) {
+      return manager.createClassModLevelChangeSteps(clonedItem, itemData.system?.levels ?? 1);
     }
 
     // All other items, just create some flows up to current character level (or class level for subclasses)
@@ -388,6 +394,70 @@ export default class AdvancementManager extends Application5e {
   /* -------------------------------------------- */
 
   /**
+   * Construct a manager for a change in a class mod's levels.
+   * @param {Actor5e} actor         Actor whose class mod level has changed.
+   * @param {string} classmodId     ID of the class mod being changed.
+   * @param {number} levelDelta     Levels by which to increase or decrease the class mod.
+   * @param {object} options        Rendering options passed to the application.
+   * @returns {AdvancementManager}  Prepared manager.
+   */
+  static forClassModLevelChange(actor, classmodId, levelDelta, options={}) {
+    const manager = new this(actor, options);
+    const clonedItem = manager.clone.items.get(classmodId);
+    if ( !clonedItem ) return manager;
+    return manager.createClassModLevelChangeSteps(clonedItem, levelDelta);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create steps for an isolated class mod level change.
+   * @param {Item5e} classmodItem   Class mod being changed.
+   * @param {number} levelDelta     Levels by which to increase or decrease the class mod.
+   * @returns {AdvancementManager}  Manager with new steps.
+   */
+  createClassModLevelChangeSteps(classmodItem, levelDelta) {
+    const pushSteps = (flows, data) => this.steps.push(...flows.map(flow => ({ flow, ...data })));
+    const getItemFlows = classmodLevel => this.clone.items.contents.flatMap(i => {
+      if ( ["class", "subclass", "race", "classmod"].includes(i.type) ) return [];
+      if ( i.system.advancementRootItem?.type !== "classmod" || !i.system.advancementClassLinked ) return [];
+      if ( i.system.advancementRootItem !== classmodItem ) return [];
+      return this.constructor.flowsForLevel(i, classmodLevel);
+    });
+
+    for ( let offset = 1; offset <= levelDelta; offset++ ) {
+      const classmodLevel = classmodItem.system.levels + offset;
+      const stepData = {
+        type: "forward", class: { item: classmodItem, level: classmodLevel },
+        level: this.actor.system.details.level ?? 0
+      };
+      pushSteps(this.constructor.flowsForLevel(classmodItem, classmodLevel), stepData);
+      pushSteps(getItemFlows(classmodLevel), stepData);
+    }
+
+    for ( let offset = 0; offset > levelDelta; offset-- ) {
+      const classmodLevel = classmodItem.system.levels + offset;
+      const stepData = {
+        type: "reverse", class: { item: classmodItem, level: classmodLevel },
+        automatic: true, level: this.actor.system.details.level ?? 0
+      };
+      pushSteps(getItemFlows(classmodLevel).reverse(), stepData);
+      pushSteps(this.constructor.flowsForLevel(classmodItem, classmodLevel).reverse(), stepData);
+      if ( classmodLevel === 1 ) this.steps.push({ type: "delete", item: classmodItem, automatic: true });
+    }
+
+    this.steps.push({
+      type: "forward", automatic: true,
+      class: { item: classmodItem, level: classmodItem.system.levels += levelDelta },
+      level: this.actor.system.details.level ?? 0
+    });
+
+    return this;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Create steps based on the provided level change data.
    * @param {string} classItem      Class being changed.
    * @param {number} levelDelta     Levels by which to increase or decrease the class.
@@ -397,7 +467,7 @@ export default class AdvancementManager extends Application5e {
     const raceItem = this.clone.system?.details?.race instanceof Item ? this.clone.system.details.race : null;
     const pushSteps = (flows, data) => this.steps.push(...flows.map(flow => ({ flow, ...data })));
     const getItemFlows = (characterLevel, classLevel) => this.clone.items.contents.flatMap(i => {
-      if ( ["class", "subclass", "race"].includes(i.type) ) return [];
+      if ( ["class", "subclass", "race", "classmod"].includes(i.type) ) return [];
       if ( ["class", "subclass"].includes(i.system.advancementRootItem?.type) && i.system.advancementClassLinked ) {
         const rootClass = i.system.advancementRootItem.class ?? i.system.advancementRootItem;
         if ( rootClass !== classItem ) return [];

@@ -1,0 +1,338 @@
+name: Lightning Release Enhanced Ability
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/lightning.webp
+system:
+  description:
+    value: >-
+      <p>You touch a willing creature and bestow upon it a vast increase in one of its physical abilities. Choose one of
+      the following effects; the target gains the effect until the jutsu ends. You can only have this jutsu active on
+      one creature at a time.</p><p>Agility. The target has advantage on Dexterity Saving Throws. It also doesn't take
+      damage from falling 20 feet or less if it's not incapacitated.</p><p>Endurance. The target has advantage on
+      Constitution saving throws. It also gains 10 Temporary Hit points, which are lost when the jutsu
+      ends.</p><p>Strength. The target has advantage on Strength Saving Throws. It also increases damage done with
+      attack rolls using its Strength by +2</p><p>Overcharge. When you cast this jutsu with its listed casting time, you
+      can choose to spend your Bonus Action or Reaction to overcharge its effects. When you do, the following effects
+      are enhanced in the following ways;</p><p>Agility. The target can dash as a bonus action for the
+      duration.</p><p>Endurance. The target gains an additional 15 temporary hit points.</p><p>Strength. The target
+      gains immunity to the Weakened condition for the next minute.</p><p>At Higher Ranks: For each rank you cast this
+      jutsu above D-Rank, increase the cost of this jutsu by 3 and the number of creatures you can have this active on
+      at once increases by +1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: touch
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: null
+  actionType: ''
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: lightning-release-enhanced-ability
+  jutsu:
+    components:
+      - hs
+      - cm
+      - m
+    keywords:
+      - ninjutsu
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Weakened
+    origin: Compendium.n5eb.jutsus.Item.ECuTppioI83u2Q4i
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: 5kYrF9qbG0pALTYL
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!ECuTppioI83u2Q4i.5kYrF9qbG0pALTYL'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - mobility
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: lightning-release/d-rank/lightning-release-enhanced-ability.json
+      sourceId: ECuTppioI83u2Q4i
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You touch a willing creature and bestow upon it a vast increase in one of its physical abilities. Choose
+            one of the following effects; the target gains the effect until the jutsu ends. You can only have this jutsu
+            active on one creature at a time.</p><p>Agility. The target has advantage on Dexterity Saving Throws. It
+            also doesn't take damage from falling 20 feet or less if it's not incapacitated.</p><p>Endurance. The target
+            has advantage on Constitution saving throws. It also gains 10 Temporary Hit points, which are lost when the
+            jutsu ends.</p><p>Strength. The target has advantage on Strength Saving Throws. It also increases damage
+            done with attack rolls using its Strength by +2</p><p>Overcharge. When you cast this jutsu with its listed
+            casting time, you can choose to spend your Bonus Action or Reaction to overcharge its effects. When you do,
+            the following effects are enhanced in the following ways;</p><p>Agility. The target can dash as a bonus
+            action for the duration.</p><p>Endurance. The target gains an additional 15 temporary hit
+            points.</p><p>Strength. The target gains immunity to the Weakened condition for the next minute.</p><p>At
+            Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the
+            number of creatures you can have this active on at once increases by +1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: touch
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: null
+        actionType: ''
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 1
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - mobility
+          - molding
+        keywords:
+          - ninjutsu
+          - lightning
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756941476
+  modifiedTime: 1728756941476
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: lightning-release/d-rank/lightning-release-enhanced-ability.json
+folder: Ydod4bZequHA872U
+sort: 3500000
+ownership:
+  default: 0
+_id: ECuTppioI83u2Q4i
+_key: '!items!ECuTppioI83u2Q4i'

@@ -1,0 +1,297 @@
+folder: 5TxsXMrZiAniLCZX
+name: Charmed
+type: feat
+_id: W7xYf9O8awd8TITw
+img: systems/n5eb/icons/svg/statuses/charmed.svg
+system:
+  description:
+    value: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><ul><li><p>A <strong>Charmed</strong> creature is partially infatuated
+      with a particular target.</p></li><li><p>A <strong>Charmed</strong> creature increases its attitude to you, by 1
+      rank, for each rank of Charmed it has.</p></li><li><p>A <strong>Charmed</strong> creatures suffers a -2 penalty to
+      Intelligence &amp; Wisdom based skill checks made against its infatuation for each rank it has.</p></li><li><p>A
+      <strong>Charmed</strong> creature cannot take hostile actions towards the source of its infatuations. If they
+      would suffer a hostile effect or damage from the source of its infatuations or one of its infatuations allies,
+      they remove all ranks of this condition.</p></li></ul>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: ''
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  type:
+    value: ''
+    subtype: ''
+  prerequisites:
+    level: null
+  properties: []
+  requirements: ''
+  identifier: charmed
+effects:
+  - name: Charmed
+    origin: Compendium.n5eb.conditions.Item.W7xYf9O8awd8TITw
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      core:
+        overlay: false
+      n5eb:
+        legacyImport:
+          originalConditionEffect:
+            name: Charmed
+            img: systems/n5eb/icons/svg/statuses/charmed.svg
+            statuses: []
+            changes:
+              - key: system.abilities.int.bonuses.check
+                mode: 2
+                value: '-2'
+                priority: 20
+              - key: system.abilities.wis.bonuses.check
+                mode: 2
+                value: '-2'
+                priority: 20
+            flags:
+              dae:
+                enableCondition: ''
+                disableCondition: ''
+                disableIncapacitated: false
+                selfTarget: false
+                selfTargetAlways: false
+                dontApply: false
+                stackable: countDeleteDecrement
+                showIcon: false
+                durationExpression: ''
+                macroRepeat: none
+                specialDuration:
+                  - isDamaged
+              ActiveAuras:
+                isAura: false
+                aura: None
+                nameOverride: ''
+                radius: ''
+                alignment: ''
+                type: ''
+                customCheck: ''
+                ignoreSelf: false
+                height: false
+                hidden: false
+                displayTemp: false
+                hostile: false
+                onlyOnce: false
+                wallsBlock: system
+        condition:
+          id: charmed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/charmed.svg
+    _id: q6BnBoFI5WGgWuGi
+    type: base
+    system: {}
+    changes: []
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><ul><li><p>A <strong>Charmed</strong> creature is partially infatuated
+      with a particular target.</p></li><li><p>A <strong>Charmed</strong> creature increases its attitude to you, by 1
+      rank, for each rank of Charmed it has.</p></li><li><p>A <strong>Charmed</strong> creatures suffers a -2 penalty to
+      Intelligence &amp; Wisdom based skill checks made against its infatuation for each rank it has.</p></li><li><p>A
+      <strong>Charmed</strong> creature cannot take hostile actions towards the source of its infatuations. If they
+      would suffer a hostile effect or damage from the source of its infatuations or one of its infatuations allies,
+      they remove all ranks of this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - charmed
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1728323723016
+      modifiedTime: 1728942698215
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!W7xYf9O8awd8TITw.q6BnBoFI5WGgWuGi'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: conditions
+      sourcePath: mental/charmed.json
+      sourceId: W7xYf9O8awd8TITw
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p><strong>Max Ranks</strong>: 5</p><hr /><ul><li><p>A <strong>Charmed</strong> creature is partially
+            infatuated with a particular target.</p></li><li><p>A <strong>Charmed</strong> creature increases its
+            attitude to you, by 1 rank, for each rank of Charmed it has.</p></li><li><p>A <strong>Charmed</strong>
+            creatures suffers a -2 penalty to Intelligence &amp; Wisdom based skill checks made against its infatuation
+            for each rank it has.</p></li><li><p>A <strong>Charmed</strong> creature cannot take hostile actions towards
+            the source of its infatuations. If they would suffer a hostile effect or damage from the source of its
+            infatuations or one of its infatuations allies, they remove all ranks of this condition.</p></li></ul>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: ''
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        type:
+          value: ''
+          subtype: ''
+        prerequisites:
+          level: null
+        properties: []
+        requirements: ''
+      originalConditionItemFlags:
+        midiProperties:
+          confirmTargets: default
+          autoFailFriendly: false
+          autoSaveFriendly: false
+          critOther: false
+          offHandWeapon: false
+          magicdam: false
+          magiceffect: false
+          noConcentrationCheck: false
+          toggleEffect: false
+          ignoreTotalCover: false
+          idr: false
+          idi: false
+          idv: false
+          ida: false
+        midi-qol:
+          rollAttackPerTarget: default
+          itemCondition: ''
+          effectCondition: ''
+    condition:
+      id: charmed
+      maxRank: 5
+      category: mental
+      source: main-book
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728323549018
+  modifiedTime: 1728323702584
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: conditions
+    sourcePath: mental/charmed.json
+_key: '!items!W7xYf9O8awd8TITw'

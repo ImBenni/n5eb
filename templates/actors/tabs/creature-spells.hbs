@@ -1,28 +1,32 @@
 <section class="tab {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
-    {{!-- Spellcasting --}}
-    <section class="top">
+    {{!-- Jutsu Casting --}}
+    <section class="top jutsu-casting-overview">
+        <div class="jutsu-casting-row">
         {{#each spellcasting}}
-        <div class="spellcasting card {{#if primary}}primary{{/if}}" data-ability="{{ ability.ability }}">
+        <div class="spellcasting card {{#if isClassmodArts}}classmod-arts{{/if}}" data-jutsu-type="{{ key }}"
+             data-ability="{{ ability.ability }}" {{#if style}}style="{{ style }}"{{/if}}>
             <div class="header">
                 <h3>{{ label }}</h3>
-                {{#if @root.isNPC}}
-                {{#if (and @root.editable noSpellcaster)}}
-                <select name="system.attributes.spellcasting">
+                {{#if isClassmodArts}}
+                <span class="spellcasting-ability subtitle">{{ ability.label }}</span>
+                {{else}}
+                {{#if @root.editable}}
+                <select name="system.attributes.jutsu.{{ key }}.ability">
                     {{ selectOptions @root.CONFIG.abilities selected=ability.ability labelAttr="label" blank="" }}
                 </select>
                 {{else}}
                 <span class="spellcasting-ability subtitle">{{ ability.label }}</span>
                 {{/if}}
-                {{else}}
-                <button type="button" class="radio-button" data-action="setSpellcastingAbility"
-                        data-tooltip="DND5E.SpellAbilitySet" aria-pressed="{{#if primary}}true{{else}}false{{/if}}"
-                        aria-label="{{ localize "DND5E.SpellAbilitySet" }}"></button>
                 {{/if}}
             </div>
             <div class="info">
                 <div class="ability">
                     <span class="label">{{ localize "DND5E.Ability" }}</span>
+                    {{#if isClassmodArts}}
+                    <span class="value">&mdash;</span>
+                    {{else}}
                     <span class="value">{{ dnd5e-formatModifier ability.mod }}</span>
+                    {{/if}}
                 </div>
                 <div class="attack">
                     <span class="label">{{ localize "DND5E.Attack" }}</span>
@@ -32,47 +36,45 @@
                     <span class="label">{{ localize "DND5E.SpellDC" }}</span>
                     <span class="value">{{ save }}</span>
                 </div>
-                {{#if (or preparation.value preparation.max)}}
-                <div class="prepared">
-                    <span class="label">{{ localize "DND5E.Prepared" }}</span>
-                    <span class="value {{#if preparation.max}}max-preparations{{/if}}">
-                        <span class="count">{{ preparation.value }}</span>
-                        {{#if preparation.max}}
-                        <span class="separator">&sol;</span>
-                        <span class="max">{{ preparation.max }}</span>
-                        {{/if}}
-                    </span>
+                {{#unless isClassmodArts}}
+                {{#if @root.editable}}
+                {{#with (lookup @root.source.attributes.jutsu key) as |sourceCasting|}}
+                <div class="attack-bonus">
+                    <span class="label">{{ localize "N5EB.JUTSU.AttackBonus" }}</span>
+                    <input type="text" name="system.attributes.jutsu.{{ ../key }}.bonuses.attack"
+                           value="{{ sourceCasting.bonuses.attack }}" placeholder="0">
                 </div>
+                <div class="save-bonus">
+                    <span class="label">{{ localize "N5EB.JUTSU.DCBonus" }}</span>
+                    <input type="text" name="system.attributes.jutsu.{{ ../key }}.bonuses.dc"
+                           value="{{ sourceCasting.bonuses.dc }}" placeholder="0">
+                </div>
+                {{/with}}
                 {{/if}}
-                {{#if @root.isNPC}}
-                <div class="level">
-                    <span class="label">{{ localize "DND5E.Level" }}</span>
-                    {{#if (and @root.editable noSpellcaster)}}
-                    {{ numberInput @root.system.attributes.spell.level name="system.attributes.spell.level" min=0 step=1
-                                placeholder="—" }}
-                    {{else}}
-                    <span class="value">{{ level }}</span>
-                    {{/if}}
-                </div>
-                <div class="concentration" data-ability="concentration">
-                    <a class="label saving-throw {{ @root.rollableClass }}" data-action="roll"
-                       data-type="ability">{{ localize "DND5E.Concentration" }}</a>
-                    {{#if @root.editable}}
-                    <button type="button" class="config-button unbutton" data-action="showConfiguration"
-                            data-config="ability" data-tooltip="{{ tooltip }}" aria-label="{{ tooltip }}">
-                        <i class="fas fa-cog" inert></i>
-                    </button>
-                    {{else}}
-                    <span class="value">{{ dnd5e-formatModifier concentration.mod }}</span>
-                    {{/if}}
-                </div>
-                {{/if}}
+                {{/unless}}
             </div>
         </div>
         {{/each}}
+        </div>
+
+        <div class="jutsu-known-row">
+        {{#with jutsuKnown}}
+        <div class="spellcasting card jutsu-known">
+            <div class="header">
+                <h3>{{ localize "N5EB.JUTSU.Known" }}</h3>
+                <span class="jutsu-known-summary subtitle">
+                    <span class="count">{{ value }}</span>
+                    {{#if hasMax}}<span class="separator">&sol;</span><span class="max">{{ max }}</span>{{/if}}
+                    <span class="dot">&middot;</span>
+                    <span class="rank">{{#if maxRankLabel}}{{ maxRankLabel }}{{else}}&mdash;{{/if}}</span>
+                </span>
+            </div>
+        </div>
+        {{/with}}
+        </div>
     </section>
 
-    {{!-- Spells --}}
+    {{!-- Jutsu --}}
     {{> "systems/n5eb/templates/inventory/inventory.hbs" keepEmpty=true }}
 
 </section>

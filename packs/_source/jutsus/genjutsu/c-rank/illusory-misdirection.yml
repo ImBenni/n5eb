@@ -1,0 +1,491 @@
+name: Illusory Misdirection
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>You conjure a beautiful illusory creature of your description. All creatures who aren't blinded within 30 feet
+      of the conjured illusion must succeed a Charisma saving throw. On a failed save they become charmed by the
+      illusory creature for the duration.</p><p>As a bonus action, on your turn, you can reveal that the creature you
+      created, is actually not what the charmed creatures believed it to be, while still having the same beautiful
+      features as when you created them. Affected creatures must succeed a Charisma saving throw. On a failed save, they
+      are in shock from the realization of the creature turning into something else entirely, as they become dazed for
+      1d4 rounds. On a success they steel themselves, ending the charmed condition. Regardless, when you reveal the
+      illusory creatures true nature, regardless if affected creatures pass or fail, this jutsu immediately ends.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 7
+    scale: false
+  ability: wis
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: genjutsu
+  level: 3
+  school: ill
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: illusory-misdirection
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - visual
+      - unaware
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: c
+  chakra:
+    cost: '7'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Charmed
+    origin: Compendium.n5eb.jutsus.Item.Q8U6v0vwC0giUGZJ
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - isDamaged
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/charmed.svg
+    _id: 5D7Xl59JYNEhD0Nn
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+      - key: system.abilities.wis.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><ul><li><p>A <strong>Charmed</strong> creature is partially infatuated
+      with a particular target.</p></li><li><p>A <strong>Charmed</strong> creature increases its attitude to you, by 1
+      rank, for each rank of Charmed it has.</p></li><li><p>A <strong>Charmed</strong> creatures suffers a -2 penalty to
+      Intelligence &amp; Wisdom based skill checks made against its infatuation for each rank it has.</p></li><li><p>A
+      <strong>Charmed</strong> creature cannot take hostile actions towards the source of its infatuations. If they
+      would suffer a hostile effect or damage from the source of its infatuations or one of its infatuations allies,
+      they remove all ranks of this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.W7xYf9O8awd8TITw.ActiveEffect.q6BnBoFI5WGgWuGi
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Q8U6v0vwC0giUGZJ.5D7Xl59JYNEhD0Nn'
+  - name: Dazed
+    origin: Compendium.n5eb.jutsus.Item.Q8U6v0vwC0giUGZJ
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: qxEfEO4njAiAQj6S
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow and cannot take as many actions as
+      usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition lasts until the End of the affected
+      creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Q8U6v0vwC0giUGZJ.qxEfEO4njAiAQj6S'
+  - name: Blinded
+    origin: Compendium.n5eb.jutsus.Item.Q8U6v0vwC0giUGZJ
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/blinded.svg
+    _id: U7fkOh1av0L5zaE5
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: blinded
+        priority: 20
+    description: >-
+      <p>• A <strong>Blinded</strong> creature cannot target another creature with effects that require them to “target
+      a creature they can see” unless they have a special sense that does not require sight, such as <strong>Tremor
+      Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A blinded creature can’t see and automatically fails
+      any check that requires sight.</p><p>• A <strong>Blinded</strong> creature has disadvantage on Dexterity saving
+      throws.</p><p>• Attack rolls against a <strong>Blinded</strong> creature have advantage, and a
+      <strong>Blinded</strong> creature’s attack rolls have disadvantage without the aid of a special sense that does
+      not require sight, such as <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A creature
+      can willingly close their eyes as a free action for an extended period of time. Doing so imposes this Condition on
+      them until the beginning of their next turn, they cannot reopen their eyes until then, unless they are forced to
+      do so by some other means.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Q8U6v0vwC0giUGZJ.U7fkOh1av0L5zaE5'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/c-rank/illusory-misdirection.json
+      sourceId: Q8U6v0vwC0giUGZJ
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You conjure a beautiful illusory creature of your description. All creatures who aren't blinded within 30
+            feet of the conjured illusion must succeed a Charisma saving throw. On a failed save they become charmed by
+            the illusory creature for the duration.</p><p>As a bonus action, on your turn, you can reveal that the
+            creature you created, is actually not what the charmed creatures believed it to be, while still having the
+            same beautiful features as when you created them. Affected creatures must succeed a Charisma saving throw.
+            On a failed save, they are in shock from the realization of the creature turning into something else
+            entirely, as they become dazed for 1d4 rounds. On a success they steel themselves, ending the charmed
+            condition. Regardless, when you reveal the illusory creatures true nature, regardless if affected creatures
+            pass or fail, this jutsu immediately ends.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 7
+          scale: false
+        ability: wis
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: genjutsu
+        level: 2
+        school: gen
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - genjutsu
+          - visual
+          - unaware
+        chakraCost: 7
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/c-rank/illusory-misdirection.json
+folder: BbIYmdyQ2kjNmaur
+sort: 7100000
+ownership:
+  default: 0
+_id: Q8U6v0vwC0giUGZJ
+_key: '!items!Q8U6v0vwC0giUGZJ'

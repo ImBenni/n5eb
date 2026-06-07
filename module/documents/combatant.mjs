@@ -2,6 +2,33 @@ import ActivationsField from "../data/chat-message/fields/activations-field.mjs"
 import { ActorDeltasField } from "../data/chat-message/fields/deltas-field.mjs";
 
 /**
+ * Call all hook listeners and await any asynchronous recovery handlers.
+ * @param {string} hook  Hook name.
+ * @param {...*} args    Arguments passed to the hook callbacks.
+ * @returns {Promise<void>}
+ */
+async function callAllAsync(hook, ...args) {
+  if ( CONFIG.debug.hooks ) {
+    console.log(`DEBUG | Calling ${hook} hook with args:`);
+    console.log(args);
+  }
+  const events = Hooks.events[hook];
+  if ( !events ) return;
+  for ( const entry of Array.from(events) ) {
+    if ( entry.once ) Hooks.off(hook, entry.id);
+    try {
+      await entry.fn(...args);
+    } catch(err) {
+      const msg = `Error thrown in hooked function '${entry.fn?.name}' for hook '${hook}'`;
+      console.warn(`${CONST.vtt} | ${msg}`);
+      if ( hook !== "error" ) Hooks.onError("Combatant5e.recoverCombatUses", err, {
+        msg, hook, fn: entry.fn, log: "error"
+      });
+    }
+  }
+}
+
+/**
  * @import { ActorDeltasData } from "../data/chat-message/fields/_types.mjs";
  * @import { CombatRecoveryResults } from "./_types.mjs";
  */
@@ -13,12 +40,13 @@ export default class Combatant5e extends Combatant {
   /**
    * Create a chat message representing actor changes and displaying possible actions for this turn.
    * @param {object} [data={}]
+   * @param {object[]} [data.concentration]
    * @param {ActorDeltasData} [data.deltas]
    * @param {string[]} [data.periods]
    * @param {BasicRoll[]} [data.rolls]
    * @returns {ChatMessage5e|void}
    */
-  async createTurnMessage({ deltas, periods, rolls }={}) {
+  async createTurnMessage({ concentration, deltas, periods, rolls }={}) {
     if ( !this.actor ) return;
 
     const messageConfig = {
@@ -27,7 +55,7 @@ export default class Combatant5e extends Combatant {
         rolls,
         speaker: ChatMessage.getSpeaker({ actor: this.actor, token: this.token }),
         system: {
-          deltas, periods,
+          concentration, deltas, periods,
           activations: ActivationsField.getActivations(this.actor, periods),
           origin: {
             combat: this.combat.id,
@@ -40,7 +68,8 @@ export default class Combatant5e extends Combatant {
     };
 
     if ( !foundry.utils.isEmpty(messageConfig.data.system.deltas)
-      || !foundry.utils.isEmpty(messageConfig.data.system.activations) ) messageConfig.create = true;
+      || !foundry.utils.isEmpty(messageConfig.data.system.activations)
+      || !foundry.utils.isEmpty(messageConfig.data.system.concentration) ) messageConfig.create = true;
 
     /**
      * A hook event that fires before a combat state change chat message is created.
@@ -129,7 +158,9 @@ export default class Combatant5e extends Combatant {
     if ( results.delete.length ) await this.actor.deleteEmbeddedDocuments("Item", results.delete);
     if ( results.item.length ) await this.actor.updateEmbeddedDocuments("Item", results.item);
 
-    const message = await this.createTurnMessage({ deltas, periods, rolls: results.rolls });
+    const concentration = periods.includes("turnStart")
+      ? this.actor?.getConcentrationMaintainData({ combat: this.combat, combatant: this }) : [];
+    const message = await this.createTurnMessage({ concentration, deltas, periods, rolls: results.rolls });
 
     /**
      * A hook event that fires after combat-related recovery changes have been applied.
@@ -139,7 +170,7 @@ export default class Combatant5e extends Combatant {
      * @param {string[]} periods            Periods that were recovered.
      * @param {ChatMessage5e|void} message  Chat message created, if any.
      */
-    Hooks.callAll("dnd5e.postCombatRecovery", this, periods, message);
+    await callAllAsync("dnd5e.postCombatRecovery", this, periods, message);
   }
 
   /* -------------------------------------------- */

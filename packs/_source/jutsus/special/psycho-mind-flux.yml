@@ -1,0 +1,255 @@
+name: Psycho Mind Flux
+type: spell
+img: icons/magic/symbols/triangle-glowing-green.webp
+system:
+  description:
+    value: "<p>You combine the two unique Yamanaka clan jutsu into this new one, Psycho Mind Flux.<br />Select one creature you can see within range.<br />It must make a charisma saving throw.</p><p>Critical Success: No further effects.</p><p>Success: Targe take 4d8 psychic damage.</p><p>Failure: Target take 5d8 psychic damage and must make one weapon attack against one of its closest allied creatures.</p><p>Critical Failure: Same as failure, but instead of a weapon attack, the target must cast a damaging jutsu at the highest rank possible against its closest allied creature.</p><p>\_</p><p>At Higher Ranks: for each rank you cast this jutsu above the D-Rank, increase the damage by 4d8 and the number of creatures you can targer by +1.</p><p>\_</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 120
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 13
+    scale: false
+  ability: genjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 4d8
+        - psychic
+    versatile: 5d8
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: genjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 4d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: level
+    formula: 4d8
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: psycho-mind-flux
+  jutsu:
+    components:
+      - hs
+      - cs
+      - cm
+    keywords:
+      - genjutsu
+      - tactile
+      - fuinjutsu
+      - ninjutsu
+      - hijutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '1'
+    scaling:
+      mode: rank
+      value: 1
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - chakraseals
+      - handseals
+      - molding
+      - fuinjutsu
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: special/psycho-mind-flux.json
+      sourceId: Z4SrXZO5kzGMbIxh
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You combine the two unique Yamanaka clan jutsu into this new one, Psycho Mind Flux.<br />Select one creature you can see within range.<br />It must make a charisma saving throw.</p><p>Critical Success: No further effects.</p><p>Success: Targe take 4d8 psychic damage.</p><p>Failure: Target take 5d8 psychic damage and must make one weapon attack against one of its closest allied creatures.</p><p>Critical Failure: Same as failure, but instead of a weapon attack, the target must cast a damaging jutsu at the highest rank possible against its closest allied creature.</p><p>\_</p><p>At Higher Ranks: for each rank you cast this jutsu above the D-Rank, increase the damage by 4d8 and the number of creatures you can targer by +1.</p><p>\_</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 120
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 13
+          scale: false
+        ability: genjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 4d8
+              - psychic
+          versatile: 5d8
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: genjutsu
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 4d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakraseals
+          - molding
+          - fuinjutsu
+        keywords:
+          - genjutsu
+          - tactile
+          - fuinjutsu
+        chakraCost: 1
+        chakraScaling:
+          mode: level
+          value: 1
+        versatileScaling:
+          mode: level
+          formula: 4d8
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757527663
+  modifiedTime: 1728757527663
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: special/psycho-mind-flux.json
+folder: jQ8edA820tpsz4CE
+sort: 500000
+ownership:
+  default: 0
+_id: Z4SrXZO5kzGMbIxh
+_key: '!items!Z4SrXZO5kzGMbIxh'

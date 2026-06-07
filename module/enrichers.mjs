@@ -1444,7 +1444,7 @@ function createPassiveTag(label, dataset) {
  * @returns {string}
  */
 export function createRollLabel(config) {
-  const { label: ability, abbreviation } = CONFIG.DND5E.abilities[config.ability] ?? {};
+  const { label: ability } = CONFIG.DND5E.abilities[config.ability] ?? {};
   const skill = CONFIG.DND5E.skills[config.skill]?.label;
   const toolUUID = CONFIG.DND5E.enrichmentLookup.tools[config.tool];
   const tool = toolUUID?.id ? Trait.getBaseItem(toolUUID.id, { indexOnly: true })?.name : toolUUID?.label ?? null;
@@ -1472,10 +1472,15 @@ export function createRollLabel(config) {
       break;
     case "concentration":
     case "save":
-      if ( config.type === "save" ) label = ability;
-      else label = `${game.i18n.localize("DND5E.Concentration")} ${ability ? `(${abbreviation})` : ""}`;
-      if ( showDC ) label = game.i18n.format("EDITOR.DND5E.Inline.DC", { dc: config.dc, check: label });
-      label = game.i18n.format(`EDITOR.DND5E.Inline.Save${longSuffix}`, { save: label });
+      if ( config.type === "save" ) {
+        label = ability;
+        if ( showDC ) label = game.i18n.format("EDITOR.DND5E.Inline.DC", { dc: config.dc, check: label });
+        label = game.i18n.format(`EDITOR.DND5E.Inline.Save${longSuffix}`, { save: label });
+      } else {
+        label = game.i18n.localize("N5EB.JUTSU.ConcentrationCheck");
+        if ( showDC ) label = game.i18n.format("EDITOR.DND5E.Inline.DC", { dc: config.dc, check: label });
+        label = game.i18n.format(`EDITOR.DND5E.Inline.Check${longSuffix}`, { check: label });
+      }
       break;
     default:
       return "";

@@ -1,0 +1,16 @@
+<fieldset>
+    <legend>{{ localize "N5EB.CLASSMOD.Details" }}</legend>
+
+    {{ formField fields.identifier value=source.identifier placeholder=item.identifier hint="DND5E.IdentifierError"
+                 localize=true rootId=partId }}
+
+    {{ formField fields.levels value=source.levels label="DND5E.Level" localize=true rootId=partId }}
+
+    {{ formField fields.color value=source.color label="N5EB.CLASSMOD.Color" localize=true rootId=partId }}
+
+    {{ formField fields.save.fields.value value=source.save.value label="N5EB.CLASSMOD.Save"
+                 localize=true rootId=partId }}
+
+    {{ formField fields.attackBonus.fields.value value=source.attackBonus.value label="N5EB.CLASSMOD.AttackBonus"
+                 localize=true rootId=partId }}
+</fieldset>

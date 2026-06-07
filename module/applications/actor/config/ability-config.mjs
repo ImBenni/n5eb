@@ -36,6 +36,7 @@ export default class AbilityConfig extends BaseProficiencyConfig {
     context = await super._preparePartContext(partId, context, options);
     context.proficiencyOptions = [
       { value: 0, label: CONFIG.DND5E.proficiencyLevels[0] },
+      { value: 0.5, label: CONFIG.DND5E.proficiencyLevels[0.5] },
       { value: 1, label: CONFIG.DND5E.proficiencyLevels[1] }
     ];
     context.checkLabel = game.i18n.format("DND5E.ABILITY.Configure.CheckLabel", { ability: context.label });

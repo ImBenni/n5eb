@@ -315,6 +315,80 @@
     }
   }
 
+  /* Jutsu Details */
+  .jutsu-progression-summary {
+    .jutsu-progression-value {
+      flex: 1;
+      min-width: 0;
+
+      > span {
+        display: block;
+        min-height: 26px;
+        padding: 6px 8px;
+        border-radius: 4px;
+        background: var(--dnd5e-background-5);
+        color: var(--color-text-secondary);
+        font-family: var(--dnd5e-font-roboto);
+      }
+    }
+
+    .hint {
+      flex-basis: 100%;
+      margin-block-start: 4px;
+    }
+  }
+
+  .genjutsu-stimuli {
+    margin-block: 7px 2px;
+
+    .genjutsu-stimuli-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: auto;
+      min-height: 22px;
+      padding: 1px 7px;
+      border: 1px solid color-mix(in oklab, var(--dnd5e-color-gold), transparent 45%);
+      border-radius: 3px;
+      background: var(--dnd5e-background-10);
+      color: var(--color-text-secondary);
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-11);
+
+      &:is(:hover, :focus-visible) {
+        box-shadow: 0 0 5px var(--dnd5e-shadow-45);
+        color: var(--color-text-primary);
+      }
+
+      .fa-caret-down {
+        color: var(--dnd5e-color-gold);
+        font-size: var(--font-size-10);
+      }
+    }
+
+    .stimuli-count {
+      display: inline-grid;
+      place-content: center;
+      min-width: 16px;
+      height: 16px;
+      padding-inline: 4px;
+      border-radius: 999px;
+      background: var(--dnd5e-color-gold);
+      color: var(--dnd5e-color-black);
+      font-size: var(--font-size-10);
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .wrapper { padding-top: 5px; }
+
+    .genjutsu-stimuli-options {
+      padding: 6px 8px;
+      border-left: 1px solid color-mix(in oklab, var(--dnd5e-color-gold), transparent 40%);
+      background: var(--dnd5e-background-5);
+    }
+  }
+
   /* Descriptions */
   .item-descriptions {
     display: flex;

@@ -1,0 +1,601 @@
+name: Water Release Giant Vortex Tsunami
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/water.webp
+system:
+  description:
+    value: >-
+      <p>You Collect water from up to 100 feet away from all sources of moisture even down to other creatures' sweat.
+      You collect it into a massive 20 Feet tall 15 Feet wide vortex. You fire this highly destructive cyclone of water
+      collecting, upheaving, and blowing everything in its path away in a 120-foot-cone. Creatures caught in the range
+      of the jutsu, must make a Strength saving throw to resist being picked up by the cyclone, taking 15d10 cold
+      damage, gaining 3 ranks of Concussed, and 3 ranks of chilled, being dragged by the vortex to the end of its path,
+      landing prone and being Stunned until the end of their next turn on a failed saving throw, or half as much damage
+      on a success.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '120'
+    width: null
+    units: ft
+    type: cone
+    prompt: true
+  range:
+    value: 120
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 25
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 15d10
+        - cold
+    versatile: ''
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: ninjutsu
+  level: 9
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: water-release-giant-vortex-tsunami
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - water
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: s
+  chakra:
+    cost: '25'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Chilled
+    origin: Compendium.n5eb.jutsus.Item.MlAFCissC0xcVIuB
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/chilled.svg
+    _id: eI6RleGtIOGebdR4
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.abilities.dex.bonuses.check
+        mode: 2
+        value: '-1'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!MlAFCissC0xcVIuB.eI6RleGtIOGebdR4'
+  - name: Concussed
+    origin: Compendium.n5eb.jutsus.Item.MlAFCissC0xcVIuB
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/concussed.svg
+    _id: 1eHFVF4KArzyP2Qz
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: concussed
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental
+      acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A
+      Concussed creature suffers a -1 penalty to all of their Save DCs for each rank it has.</p></li><li><p>A Concussed
+      creature suffers a -1 penalty to all Intelligence based checks, attack rolls and saving throws and checks for each
+      rank it has.</p></li><li><p>A concussed creature cannot gain the benefit of a Rest.</p></li><li><p>A creature can
+      spend its Action if it has a Medicine kit to make a DC 20 Medicine check, ending this condition on a
+      success.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!MlAFCissC0xcVIuB.1eHFVF4KArzyP2Qz'
+  - name: Stunned
+    origin: Compendium.n5eb.jutsus.Item.MlAFCissC0xcVIuB
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    _id: MBWolOLpzCFBq32R
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.fail.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.fail.ability.save.str
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: stunned
+        priority: 20
+    description: >-
+      <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
+      falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
+      throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!MlAFCissC0xcVIuB.MBWolOLpzCFBq32R'
+  - name: Prone
+    origin: Compendium.n5eb.jutsus.Item.MlAFCissC0xcVIuB
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: 8LpFEL6vQHpCcswt
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!MlAFCissC0xcVIuB.8LpFEL6vQHpCcswt'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: water-release/s-rank/water-release-giant-vortex-tsunami.json
+      sourceId: MlAFCissC0xcVIuB
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You Collect water from up to 100 feet away from all sources of moisture even down to other creatures'
+            sweat. You collect it into a massive 20 Feet tall 15 Feet wide vortex. You fire this highly destructive
+            cyclone of water collecting, upheaving, and blowing everything in its path away in a 120-foot-cone.
+            Creatures caught in the range of the jutsu, must make a Strength saving throw to resist being picked up by
+            the cyclone, taking 15d10 cold damage, gaining 3 ranks of Concussed, and 3 ranks of chilled, being dragged
+            by the vortex to the end of its path, landing prone and being Stunned until the end of their next turn on a
+            failed saving throw, or half as much damage on a success.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '120'
+          width: null
+          units: ft
+          type: cone
+          prompt: true
+        range:
+          value: 120
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 25
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 15d10
+              - cold
+          versatile: ''
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: ninjutsu
+        level: 5
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - ninjutsu
+          - water
+        chakraCost: 25
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757587600
+  modifiedTime: 1728757587600
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: water-release/s-rank/water-release-giant-vortex-tsunami.json
+folder: F5OxLqyIggPtniZj
+sort: 0
+ownership:
+  default: 0
+_id: MlAFCissC0xcVIuB
+_key: '!items!MlAFCissC0xcVIuB'

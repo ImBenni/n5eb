@@ -1,0 +1,416 @@
+name: Lightning Release Tenacious Jolts
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/lightning.webp
+system:
+  description:
+    value: >-
+      <p>You conjure your lightning release chakra forming a jolt of lightning that you use to strike a creature within
+      range.</p><p>Make a ranged ninjutsu attack. On a hit you deal 5d10 Lightning damage. The target must make a
+      Constitution saving throw. On a failed save the affected creature becomes shocked and dazed.</p><p>Overcharge.
+      When you cast this jutsu with its listed casting time, you can choose to spend your Bonus Action or Reaction to
+      overcharge its effects. When you do, then all creatures within 10 feet of the target of your choice must make the
+      same saving throw, taking 5d8 lighting damage on a failed save or half as much on a success.</p><p>At Higher
+      Ranks: For each rank you cast this jutsu above B-Rank, increase the cost of this jutsu by 3 and the damage by
+      1d10.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 90
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 11
+    scale: false
+  ability: ninjutsu
+  actionType: rsak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d10
+        - lightning
+    versatile: 5d8
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  level: 5
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d10
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: level
+    formula: 1d8
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: lightning-release-tenacious-jolts
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '11'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Shocked
+    origin: Compendium.n5eb.jutsus.Item.TufotjROAe3fRQZq
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    _id: U0SkdQ6v2rm1Lhm7
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          rollType=skill,
+          saveAbility=sur,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with
+      electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
+      reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A
+      <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a
+      failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC
+      12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has
+      resistance to this condition. A creature immune to Lightning damage has immunity to this
+      condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground
+      themselves, dispersing the electricity in their body ending this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!TufotjROAe3fRQZq.U0SkdQ6v2rm1Lhm7'
+  - name: Dazed
+    origin: Compendium.n5eb.jutsus.Item.TufotjROAe3fRQZq
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: cz2B6b0kbkDKT79k
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow and cannot take as many actions as
+      usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition lasts until the End of the affected
+      creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!TufotjROAe3fRQZq.cz2B6b0kbkDKT79k'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: lightning-release/b-rank/lightning-release-tenacious-jolts.json
+      sourceId: TufotjROAe3fRQZq
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You conjure your lightning release chakra forming a jolt of lightning that you use to strike a creature
+            within range.</p><p>Make a ranged ninjutsu attack. On a hit you deal 5d10 Lightning damage. The target must
+            make a Constitution saving throw. On a failed save the affected creature becomes shocked and
+            dazed.</p><p>Overcharge. When you cast this jutsu with its listed casting time, you can choose to spend your
+            Bonus Action or Reaction to overcharge its effects. When you do, then all creatures within 10 feet of the
+            target of your choice must make the same saving throw, taking 5d8 lighting damage on a failed save or half
+            as much on a success.</p><p>At Higher Ranks: For each rank you cast this jutsu above B-Rank, increase the
+            cost of this jutsu by 3 and the damage by 1d10.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 90
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 11
+          scale: false
+        ability: ninjutsu
+        actionType: rnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d10
+              - lightning
+          versatile: 5d8
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        level: 3
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d10
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - lightning
+        chakraCost: 11
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: 1d8
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756941476
+  modifiedTime: 1728756941476
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: lightning-release/b-rank/lightning-release-tenacious-jolts.json
+folder: LPXimTd5tAYrzhd8
+sort: 0
+ownership:
+  default: 0
+_id: TufotjROAe3fRQZq
+_key: '!items!TufotjROAe3fRQZq'

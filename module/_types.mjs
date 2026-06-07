@@ -410,13 +410,19 @@
  * @property {string[]} [activationPeriods]         Activation types that should be displayed in the chat card.
  * @property {number} [exhaustionDelta]             Delta exhaustion to apply to creatures undergoing the rest.
  * @property {boolean} [recoverHitDice]             Should hit dice be recovered during this rest?
+ * @property {number} [recoverHitDiceFraction]      Fraction of max hit dice to recover during this rest.
  * @property {boolean} [recoverHitPoints]           Should hit points be recovered during this rest?
+ * @property {number} [recoverHitPointsFraction]    Fraction of max hit points to recover during this rest.
+ * @property {boolean} [recoverChakra]              Should chakra be recovered during this rest?
+ * @property {number} [recoverChakraFraction]       Fraction of max chakra to recover during this rest.
+ * @property {boolean} [recoverChakraDice]          Should chakra dice be recovered during this rest?
+ * @property {number} [recoverChakraDiceFraction]   Fraction of max chakra dice to recover during this rest.
  * @property {string[]} [recoverPeriods]            What recovery periods should be applied when this rest is taken. The
  *                                                  ordering of the periods determines which is applied if more than one
  *                                                  recovery profile is found.
  * @property {Set<string>} [recoverSpellSlotTypes]  Types of spellcasting slots to recover during this rest.
- * @property {boolean} [recoverTemp]                Reset temp HP to zero.
- * @property {boolean} [recoverTempMax]             Reset temp max HP to zero.
+ * @property {boolean} [recoverTemp]                Reset temp HP and temp chakra to zero.
+ * @property {boolean} [recoverTempMax]             Reset temp max HP and temp max chakra to zero.
  */
 
 /* -------------------------------------------- */
@@ -525,11 +531,13 @@
  * @property {string} name         Localized name for the condition.
  * @property {boolean} [pseudo]    Is this a pseudo-condition, i.e. one that does not appear in the conditions appendix
  *                                 but acts as a status effect?
- * @property {number} [levels]     The number of levels of exhaustion an actor can obtain.
- * @property {{ rolls: number, speed: number }} [reduction]  Amount D20 Tests & Speed are reduced per exhaustion level
- *                                                           when using the modern rules. Speed reduction is measured
- *                                                           in the default imperial units and converted to metric
- *                                                           if necessary.
+ * @property {number} [levels]      The number of non-dead levels of exhaustion an actor can obtain.
+ * @property {number} [deathAt]     Exhaustion level at which the actor is dead.
+ * @property {number} [iconLevels]  Number of level-specific icons available.
+ * @property {{ rolls: number, speed: number, speedInterval?: number }} [reduction]  Amount D20 Tests, AC, damage,
+ *                                                            save DCs, & Speed are reduced by exhaustion. Speed
+ *                                                            reduction is measured in the default imperial units and
+ *                                                            converted to metric if necessary.
  */
 
 /**

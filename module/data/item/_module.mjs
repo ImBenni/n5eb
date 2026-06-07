@@ -1,7 +1,9 @@
 import BackgroundData from "./background.mjs";
+import ClassModData from "./classmod.mjs";
 import ClassData from "./class.mjs";
 import ConsumableData from "./consumable.mjs";
 import ContainerData from "./container.mjs";
+import DowntimeData from "./downtime.mjs";
 import EquipmentData from "./equipment.mjs";
 import FacilityData from "./facility.mjs";
 import FeatData from "./feat.mjs";
@@ -14,9 +16,11 @@ import WeaponData from "./weapon.mjs";
 
 export {
   BackgroundData,
+  ClassModData,
   ClassData,
   ConsumableData,
   ContainerData,
+  DowntimeData,
   EquipmentData,
   FacilityData,
   FeatData,
@@ -41,9 +45,11 @@ export * as startingEquipment from "./templates/starting-equipment.mjs";
 
 export const config = {
   background: BackgroundData,
+  classmod: ClassModData,
   container: ContainerData,
   class: ClassData,
   consumable: ConsumableData,
+  downtime: DowntimeData,
   equipment: EquipmentData,
   facility: FacilityData,
   feat: FeatData,

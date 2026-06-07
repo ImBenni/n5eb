@@ -121,6 +121,7 @@ export default class BaseRestDialog extends Dialog5e {
       hd: this.actor.system.attributes?.hd,
       hp: this.actor.system.attributes?.hp,
       isGroup: this.actor.type === "group",
+      restHint: `DND5E.REST.${this.config.type.capitalize()}.Hint.${this.actor.type === "group" ? "Group" : "Normal"}`,
       variant: game.settings.get("n5eb", "restVariant")
     };
     if ( this.promptNewDay ) context.fields.push({
@@ -138,7 +139,7 @@ export default class BaseRestDialog extends Dialog5e {
     if ( "recoverTemp" in rest ) context.hitPoints.push({
       disabled: !!this.config.request,
       field: new BooleanField({
-        label: game.i18n.localize("DND5E.REST.RecoverTempHP.Label")
+        label: game.i18n.localize("N5EB.REST.RecoverTemp.Label")
       }),
       input: context.inputs.createCheckboxInput,
       name: "recoverTemp",
@@ -147,8 +148,8 @@ export default class BaseRestDialog extends Dialog5e {
     if ( "recoverTempMax" in rest ) context.hitPoints.push({
       disabled: !!this.config.request,
       field: new BooleanField({
-        label: game.i18n.localize("DND5E.REST.RecoverTempMaxHP.Label"),
-        hint: game.i18n.localize("DND5E.REST.RecoverTempMaxHP.Hint")
+        label: game.i18n.localize("N5EB.REST.RecoverTempMax.Label"),
+        hint: game.i18n.localize("N5EB.REST.RecoverTempMax.Hint")
       }),
       input: context.inputs.createCheckboxInput,
       name: "recoverTempMax",
@@ -159,7 +160,7 @@ export default class BaseRestDialog extends Dialog5e {
       context.formSections.push({ legend: "DND5E.REST.Configuration", fields: context.fields });
     }
     if ( context.hitPoints.length ) {
-      context.formSections.push({ legend: "DND5E.HitPoints", fields: context.hitPoints });
+      context.formSections.push({ legend: "N5EB.REST.Points", fields: context.hitPoints });
     }
 
     if ( this.isPartyGroup ) {

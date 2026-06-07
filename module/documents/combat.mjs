@@ -111,7 +111,7 @@ export default class Combat5e extends Combat {
   /** @inheritDoc */
   async _onEndTurn(combatant) {
     await super._onEndTurn(combatant);
-    this._recoverUses({ turnEnd: combatant });
+    await this._recoverUses({ turnEnd: combatant });
   }
 
   /* -------------------------------------------- */
@@ -119,7 +119,7 @@ export default class Combat5e extends Combat {
   /** @inheritDoc */
   async _onStartRound(combatant) {
     await super._onStartRound(combatant);
-    this._recoverUses({ round: true });
+    await this._recoverUses({ round: true });
   }
 
   /* -------------------------------------------- */
@@ -127,7 +127,7 @@ export default class Combat5e extends Combat {
   /** @inheritDoc */
   async _onStartTurn(combatant) {
     await super._onStartTurn(combatant);
-    this._recoverUses({ turn: true, turnStart: combatant });
+    await this._recoverUses({ turn: true, turnStart: combatant });
   }
 
   /* -------------------------------------------- */

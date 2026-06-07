@@ -1,0 +1,269 @@
+_id: n5ebJutsuBind001
+name: Binding Threads
+type: spell
+img: icons/magic/control/debuff-chains-ropes-net-blue.webp
+system:
+  description:
+    value: >-
+      <p><strong>Starter placeholder jutsu.</strong> Chakra threads lash out toward one creature within range. The
+      target makes a Dexterity saving throw. On a failed save, the GM may apply a narrative restraint until the end of
+      your next turn.</p> <p>This item is intentionally light on automation so the starter slice can test D-Rank
+      Ninjutsu save activities, chakra cost prompts, hand seal and chakra molding components, and the Ninjutsu
+      keyword.</p>
+    chat: ''
+  source:
+    custom: ''
+    book: Naruto 5e
+    page: 8, 126-129
+    license: ''
+    rules: n5eb
+  activation:
+    type: action
+    condition: ''
+    value: 1
+  duration:
+    value: '1'
+    units: round
+  target:
+    affects:
+      type: creature
+      count: '1'
+      choice: false
+      special: ''
+    template:
+      units: ''
+      contiguous: false
+      type: ''
+  range:
+    value: '30'
+    units: ft
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 1
+  rank: d
+  school: trs
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+    countsKnown: true
+  chakra:
+    cost: '5'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  properties: []
+  activities:
+    n5ebBindSave01:
+      _id: n5ebBindSave01
+      type: save
+      activation:
+        type: action
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: true
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      damage:
+        parts: []
+        onSave: none
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ''
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      name: Cast
+      img: ''
+      visibility:
+        level:
+          min: null
+          max: null
+  identifier: binding-threads
+sort: 300000
+flags:
+  n5eb:
+    placeholder: true
+    legacyImport:
+      sourceSystem: n5eb current source
+      sourcePack: n5eb-jutsu
+      sourcePath: binding-threads.yml
+      sourceId: n5ebJutsuBind001
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p><strong>Starter placeholder jutsu.</strong> Chakra threads lash out toward one creature within range. The
+            target makes a Dexterity saving throw. On a failed save, the GM may apply a narrative restraint until the
+            end of your next turn.</p> <p>This item is intentionally light on automation so the starter slice can test
+            D-Rank Ninjutsu save activities, chakra cost prompts, hand seal and chakra molding components, and the
+            Ninjutsu keyword.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+          page: 8, 126-129
+          license: ''
+          rules: n5eb
+        activation:
+          type: action
+          condition: ''
+          value: 1
+        duration:
+          value: '1'
+          units: round
+        target:
+          affects:
+            type: creature
+            count: '1'
+            choice: false
+            special: ''
+          template:
+            units: ''
+            contiguous: false
+            type: ''
+        range:
+          value: '30'
+          units: ft
+          special: ''
+        uses:
+          max: ''
+          recovery: []
+          spent: 0
+        level: 1
+        rank: d
+        school: con
+        jutsu:
+          type: ninjutsu
+          ability: ''
+          components:
+            - hs
+            - cm
+          keywords:
+            - ninjutsu
+          countsKnown: true
+        chakra:
+          cost: '5'
+          special: ''
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        method: spell
+        prepared: 1
+        properties: []
+        activities:
+          n5ebBindSave01:
+            _id: n5ebBindSave01
+            type: save
+            activation:
+              type: action
+              value: null
+              override: false
+            consumption:
+              targets: []
+              scaling:
+                allowed: false
+                max: ''
+              spellSlot: true
+            description:
+              chatFlavor: ''
+            duration:
+              units: inst
+              concentration: false
+              override: false
+            effects: []
+            range:
+              override: false
+            target:
+              prompt: true
+              template:
+                contiguous: false
+                units: ft
+              affects:
+                choice: false
+              override: false
+            damage:
+              parts: []
+              onSave: none
+            save:
+              ability:
+                - dex
+              dc:
+                calculation: spellcasting
+                formula: ''
+            uses:
+              spent: 0
+              recovery: []
+              max: ''
+            sort: 0
+            name: Cast
+            img: ''
+            visibility:
+              level:
+                min: null
+                max: null
+        identifier: binding-threads
+      currentSource:
+        sourcePack: n5eb-jutsu
+        sourcePath: binding-threads.yml
+        sourceId: n5ebJutsuBind001
+        documentName: Item
+effects: []
+folder: null
+ownership:
+  default: 0
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.3.2
+  createdTime: 1772048400000
+  modifiedTime: 1772048400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: n5eb-jutsu
+    sourcePath: binding-threads.yml
+_key: '!items!n5ebJutsuBind001'

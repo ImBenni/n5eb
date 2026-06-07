@@ -25,6 +25,9 @@ export default class UsageMessageData extends ChatMessageDataModel {
       concentration: new DocumentIdField({ required: false }),
       deltas: new ActorDeltasField({}, { initial: null, nullable: true }),
       effects: new ArrayField(new StringField({ blank: false })), // TODO: Replace with UUID field in DnD5e 6.0
+      chakraCost: new NumberField({ integer: true, min: 0 }),
+      jutsuRank: new StringField(),
+      maintainCost: new NumberField({ integer: true, min: 0 }),
       scaling: new NumberField({ integer: true, min: 0, initial: 0 }),
       spellLevel: new NumberField({ integer: true, min: 0 })
     };

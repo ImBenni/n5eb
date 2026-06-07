@@ -1,0 +1,443 @@
+name: Lightning Release Lightning Rope
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/lightning.webp
+system:
+  description:
+    value: >-
+      <p>You conjure your lightning release chakra to manifest a rope made of lightning.</p><p>Make a ranged ninjutsu
+      attack against a single creature you can see within range. On a successful hit, the target becomes restrained for
+      the duration and gains 1 rank of shocked. A creature Restrained by this jutsu takes lightning damage equal to your
+      Ninjutsu Ability Modifier at the beginning of each of their turns.</p><p>A creature restrained by this jutsu may
+      make a Strength saving throw once on their turns as an action to end this jutsu's effects on them on a
+      success.</p><p>While maintaining concentration on this jutsu you must hold the lightning rope with one hand within
+      range. Letting it go immediately ends this jutsu.</p><p>Overcharge. When you cast this jutsu with its listed
+      casting time, you can choose to spend your Bonus Action or Reaction to overcharge its effects. When you do, all
+      creatures who fail the initial saving throw gain 1 additional rank of shocked</p><p>At Higher Ranks: For each rank
+      you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the number of creatures you can target
+      with this jutsu by +1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 6
+    scale: false
+  ability: ninjutsu
+  actionType: rsak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: lightning-release-lightning-rope
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '6'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Shocked
+    origin: Compendium.n5eb.jutsus.Item.YfGGQ5rkOubSLR2Z
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    _id: GGwE4JQvCqdj0vJT
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          rollType=skill,
+          saveAbility=sur,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with
+      electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
+      reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A
+      <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a
+      failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC
+      12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has
+      resistance to this condition. A creature immune to Lightning damage has immunity to this
+      condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground
+      themselves, dispersing the electricity in their body ending this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!YfGGQ5rkOubSLR2Z.GGwE4JQvCqdj0vJT'
+  - name: Restrained
+    origin: Compendium.n5eb.jutsus.Item.YfGGQ5rkOubSLR2Z
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/restrained.svg
+    _id: vL9pjZJkZDcgKun3
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.dex
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: restrained
+        priority: 20
+    description: >-
+      <p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their
+      space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its
+      speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have
+      disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!YfGGQ5rkOubSLR2Z.vL9pjZJkZDcgKun3'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: lightning-release/c-rank/lightning-release-lightning-rope.json
+      sourceId: YfGGQ5rkOubSLR2Z
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You conjure your lightning release chakra to manifest a rope made of lightning.</p><p>Make a ranged
+            ninjutsu attack against a single creature you can see within range. On a successful hit, the target becomes
+            restrained for the duration and gains 1 rank of shocked. A creature Restrained by this jutsu takes lightning
+            damage equal to your Ninjutsu Ability Modifier at the beginning of each of their turns.</p><p>A creature
+            restrained by this jutsu may make a Strength saving throw once on their turns as an action to end this
+            jutsu's effects on them on a success.</p><p>While maintaining concentration on this jutsu you must hold the
+            lightning rope with one hand within range. Letting it go immediately ends this jutsu.</p><p>Overcharge. When
+            you cast this jutsu with its listed casting time, you can choose to spend your Bonus Action or Reaction to
+            overcharge its effects. When you do, all creatures who fail the initial saving throw gain 1 additional rank
+            of shocked</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this
+            jutsu by 3 and the number of creatures you can target with this jutsu by +1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 6
+          scale: false
+        ability: ninjutsu
+        actionType: rnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - lightning
+        chakraCost: 6
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756941476
+  modifiedTime: 1728756941476
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: lightning-release/c-rank/lightning-release-lightning-rope.json
+folder: grQaz55604Xzx6aG
+sort: 3500000
+ownership:
+  default: 0
+_id: YfGGQ5rkOubSLR2Z
+_key: '!items!YfGGQ5rkOubSLR2Z'

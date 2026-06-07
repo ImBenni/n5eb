@@ -75,15 +75,32 @@
             <ul class="conditions-list unlist">
                 {{#each conditions}}
                 <li class="condition {{#unless disabled}}active{{/unless}} {{#if reference}}content-link{{/if}}"
-                    data-action="toggleCondition" data-uuid="{{ reference }}" data-condition-id="{{ id }}"
-                    data-tooltip="<section class=&quot;loading&quot;><i class=&quot;fas fa-spinner fa-spin-pulse&quot;></i></section>">
+                    data-action="toggleCondition" {{#if reference}}data-uuid="{{ reference }}"{{/if}}
+                    data-condition-id="{{ id }}" {{#if tooltip}}data-tooltip="{{ tooltip }}"
+                    data-tooltip-class="dnd5e2 dnd5e-tooltip item-tooltip themed theme-light n5eb-condition-tooltip"
+                    data-tooltip-direction="LEFT"{{/if}}>
                     <div class="icon">
                         <dnd5e-icon src="{{ img }}"></dnd5e-icon>
                     </div>
                     <div class="name-stacked">
                         <span class="title">{{ name }}</span>
+                        {{#if ranked}}
+                        <span class="subtitle">{{ localize "N5EB.CONDITION.RankDisplay" rank=rank max=maxRank }}</span>
+                        {{/if}}
                     </div>
-                    <i class="fa-solid fa-toggle-{{ ifThen disabled "off" "on" }}"></i>
+                    {{#if ranked}}
+                    <div class="rank-controls">
+                        <button type="button" data-action="decreaseCondition"
+                                aria-label="{{ localize "N5EB.CONDITION.Decrease" }}">
+                            <i class="fa-solid fa-minus" inert></i>
+                        </button>
+                        <span>{{ rank }}</span>
+                        <button type="button" data-action="increaseCondition"
+                                aria-label="{{ localize "N5EB.CONDITION.Increase" }}">
+                            <i class="fa-solid fa-plus" inert></i>
+                        </button>
+                    </div>
+                    {{/if}}
                 </li>
                 {{/each}}
             </ul>

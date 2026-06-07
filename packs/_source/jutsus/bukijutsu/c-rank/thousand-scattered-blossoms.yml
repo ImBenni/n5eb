@@ -1,0 +1,351 @@
+folder: w8bfWqi87gJKGpvX
+name: Thousand Scattered Blossoms
+type: spell
+_id: cnuoLMZbp7yf3Y2c
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You throw your weapon towards a point and using your skill and chakra you bounce it around at high speeds in
+      that area, as if lethal blossoms had been scattered. Choose a point in your weapons range. All creatures within a
+      15-foot radius sphere centered on that point need to make Dexterity Saving throws, taking your [weapons damage]
+      +2d4 damage and gaining a rank of bleeding. If a creature fails by 5 or more, they instead gain 2 ranks of
+      Bleeding.</p><p>If this jutsu is cast as a Chain 2, increase the damage die by 2. If this jutsu is cast as a Chain
+      3 creature's have a d4 penalty to their saving throw.</p><p>At Higher Ranks: For each rank you cast this jutsu
+      above C-Rank, increase the cost of this jutsu by 3 and the damage die by 2d4.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: sphere
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d4
+        - ''
+    versatile: 4d4
+  enchantment: null
+  formula: 1d4
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  summons: null
+  level: 3
+  school: trs
+  properties: []
+  materials:
+    value: Any Thrown
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 2d4
+  versatileScaling:
+    mode: level
+    formula: 2d4
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: thousand-scattered-blossoms
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+      - chainx
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Bleeding
+    origin: Compendium.n5eb.jutsus.Item.cnuoLMZbp7yf3Y2c
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    _id: FVXUc1riRFhiZouY
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d4, damageType=necrotic,
+          label=Bleeding,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=Lil paper cut fr,
+          rollType=skill,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bleeding
+        priority: 0
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has suffered a minor abrasion to their flesh,
+      causing slow blood loss if untreated.</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4
+      necrotic damage for each rank of Bleed they have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop the bleeding by succeeding on a DC 15
+      Medicine check.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bleeding condition
+      immediately gains 5 ranks of the Lacerated condition, ending the Bleeding condition.</p><ul><li><p>The first time
+      per rest a Bleeding creature would gain the Lacerated this way, they must succeed a DC 11 flat check, immediately
+      taking the damage of their Lacerated ranks as they suffer a great wound.</p></li></ul></li><li><p>Outside of
+      combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in
+      combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!cnuoLMZbp7yf3Y2c.FVXUc1riRFhiZouY'
+sort: 2500000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/c-rank/thousand-scattered-blossoms.json
+      sourceId: cnuoLMZbp7yf3Y2c
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You throw your weapon towards a point and using your skill and chakra you bounce it around at high speeds
+            in that area, as if lethal blossoms had been scattered. Choose a point in your weapons range. All creatures
+            within a 15-foot radius sphere centered on that point need to make Dexterity Saving throws, taking your
+            [weapons damage] +2d4 damage and gaining a rank of bleeding. If a creature fails by 5 or more, they instead
+            gain 2 ranks of Bleeding.</p><p>If this jutsu is cast as a Chain 2, increase the damage die by 2. If this
+            jutsu is cast as a Chain 3 creature's have a d4 penalty to their saving throw.</p><p>At Higher Ranks: For
+            each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the damage die by
+            2d4.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: sphere
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d4
+              - ''
+          versatile: 4d4
+        enchantment: null
+        formula: 1d4
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        summons: null
+        level: 2
+        school: buki
+        properties: []
+        keywords:
+          - bukijutsu
+          - chainx
+        materials:
+          value: Any Thrown
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 2d4
+        versatileScaling:
+          mode: level
+          formula: 2d4
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 3
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+    bookParityFix:
+      source: Book Parity Fix Pass 5.3.10
+      compendiumSourceId: cnuoLMZbp7yf3Y2c
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728756228504
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/c-rank/thousand-scattered-blossoms.json
+_key: '!items!cnuoLMZbp7yf3Y2c'

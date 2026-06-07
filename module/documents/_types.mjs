@@ -76,9 +76,12 @@
 
 /**
  * @typedef {Array<DamageDescription>} DamageSummary
- * @property {number} amount   Total amount of damage/healing across all damage types.
- * @property {number} temp     Total amount of temp HP across all damage types.
- * @property {number} tempMax  Total amount of temp max HP across all damage types.
+ * @property {number} amount          Total amount of HP damage/healing across all damage types.
+ * @property {number} temp            Total amount of temp HP across all damage types.
+ * @property {number} tempMax         Total amount of temp max HP across all damage types.
+ * @property {number} chakraAmount    Total amount of Chakra damage/healing across all damage types.
+ * @property {number} chakraTemp      Total amount of temporary Chakra across all damage types.
+ * @property {number} chakraTempMax   Total amount of temporary max Chakra across all damage types.
  */
 
 /* -------------------------------------------- */
@@ -111,8 +114,8 @@
  * @property {boolean} [autoHD]                     Should hit dice be spent automatically during the rest?
  * @property {number} [autoHDThreshold]             How many hit points should be missing before hit dice are
  *                                                  automatically spent during the rest.
- * @property {boolean} [recoverTemp]                Reset temp HP to zero.
- * @property {boolean} [recoverTempMax]             Reset temp max HP to zero.
+ * @property {boolean} [recoverTemp]                Reset temp HP and temp chakra to zero.
+ * @property {boolean} [recoverTempMax]             Reset temp max HP and temp max chakra to zero.
  * @property {number} [exhaustionDelta]             A delta exhaustion to apply to creatures undergoing this rest.
  * @property {ChatMessage5e} [request]              Rest request chat message for which this rest was performed.
  */

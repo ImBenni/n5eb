@@ -1,0 +1,341 @@
+folder: w8bfWqi87gJKGpvX
+name: 1080 Psi Air Cannon
+type: spell
+_id: J6MRNhEZByuYcTnC
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You use the air itself to slash all who stand before you. As you swing your sword you launch an air- compressed
+      cross slash, spiraling forward. All creatures in the area of effect must make a Constitution Saving throw, taking
+      twice your [weapons damage] on a failure, and gaining 1 rank of Bleeding, or half as much damage on a
+      success.</p><p>If this jutsu is cast as a Chain 2, increase the rank of bleeding by 1. If this jutsu is cast as a
+      Chain 3 creatures gain disadvantage on their saving throw.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '90'
+    width: 5
+    units: ft
+    type: line
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: taijutsu
+  summons: null
+  level: 3
+  school: trs
+  properties: []
+  materials:
+    value: Any blade
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: 1080-psi-air-cannon
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+      - chainx
+      - clash
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Bleeding
+    origin: Compendium.n5eb.jutsus.Item.J6MRNhEZByuYcTnC
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    _id: 24JJFbmGlgsoDpJl
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d4, damageType=necrotic,
+          label=Bleeding,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=Lil paper cut fr,
+          rollType=skill,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bleeding
+        priority: 0
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has suffered a minor abrasion to their flesh,
+      causing slow blood loss if untreated.</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4
+      necrotic damage for each rank of Bleed they have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop the bleeding by succeeding on a DC 15
+      Medicine check.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bleeding condition
+      immediately gains 5 ranks of the Lacerated condition, ending the Bleeding condition.</p><ul><li><p>The first time
+      per rest a Bleeding creature would gain the Lacerated this way, they must succeed a DC 11 flat check, immediately
+      taking the damage of their Lacerated ranks as they suffer a great wound.</p></li></ul></li><li><p>Outside of
+      combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in
+      combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!J6MRNhEZByuYcTnC.24JJFbmGlgsoDpJl'
+sort: 9700000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/c-rank/1080-psi-air-cannon.json
+      sourceId: J6MRNhEZByuYcTnC
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You use the air itself to slash all who stand before you. As you swing your sword you launch an air-
+            compressed cross slash, spiraling forward. All creatures in the area of effect must make a Constitution
+            Saving throw, taking twice your [weapons damage] on a failure, and gaining 1 rank of Bleeding, or half as
+            much damage on a success.</p><p>If this jutsu is cast as a Chain 2, increase the rank of bleeding by 1. If
+            this jutsu is cast as a Chain 3 creatures gain disadvantage on their saving throw.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '90'
+          width: 5
+          units: ft
+          type: line
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: taijutsu
+        summons: null
+        level: 2
+        school: buki
+        properties:
+          - mobility
+          - weapons
+        keywords:
+          - bukijutsu
+          - chainx
+          - clash
+        materials:
+          value: Any blade
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 8
+        chakraScaling:
+          mode: none
+          value: 0
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728756228504
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/c-rank/1080-psi-air-cannon.json
+_key: '!items!J6MRNhEZByuYcTnC'

@@ -1,0 +1,357 @@
+name: Binding Glare Snake Spell
+type: spell
+img: systems/n5eb/assets/content/clans/synthetic-human.webp
+system:
+  description:
+    value: >-
+      <p>The user summons up to two snakes which crawl out from one's sleeves. Up to two creatures of your choice within
+      the range of your unarmed attack must succeed a Dexterity saving throw, gaining the restrained condition until
+      this jutsu ends and taking 2d8 bludgeoning damage on a failure. A restrained creature can attempt to end being
+      restrained by succeeding a Strength saving throw on their turns.</p><p>At Higher Ranks: For each rank you cast
+      this jutsu above D-Rank, increase the cost of this jutsu by 3 and the damage by 1d12. If cast at B-Rank, increase
+      the amount of creatures to 3 and the radius by 5 feet. If cast at S-Rank, increase the amount of creatures to 4
+      and the radius by 5 feet</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '2'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 5
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d8
+        - bludgeoning
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d12
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: binding-glare-snake-spell
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Restrained
+    origin: Compendium.n5eb.clan.Item.bIJP0mVa7A7vYYYp
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/restrained.svg
+    _id: mHiAA9XPhoToSzMn
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.dex
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: restrained
+        priority: 20
+    description: >-
+      <p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their
+      space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its
+      speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have
+      disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!bIJP0mVa7A7vYYYp.mHiAA9XPhoToSzMn'
+folder: Tgk4vcjjWqUeBFUz
+flags:
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: synthetic-human/clan-hijutsu/d-rank/binding-glare-snake-spell.json
+      sourceId: bIJP0mVa7A7vYYYp
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>The user summons up to two snakes which crawl out from one's sleeves. Up to two creatures of your choice
+            within the range of your unarmed attack must succeed a Dexterity saving throw, gaining the restrained
+            condition until this jutsu ends and taking 2d8 bludgeoning damage on a failure. A restrained creature can
+            attempt to end being restrained by succeeding a Strength saving throw on their turns.</p><p>At Higher Ranks:
+            For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the damage by 1d12.
+            If cast at B-Rank, increase the amount of creatures to 3 and the radius by 5 feet. If cast at S-Rank,
+            increase the amount of creatures to 4 and the radius by 5 feet</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '2'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 5
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d8
+              - bludgeoning
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d12
+        keywords:
+          - ninjutsu
+          - hijutsu
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754839012
+  modifiedTime: 1728754860343
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: synthetic-human/clan-hijutsu/d-rank/binding-glare-snake-spell.json
+_id: bIJP0mVa7A7vYYYp
+sort: 100000
+ownership:
+  default: 0
+_key: '!items!bIJP0mVa7A7vYYYp'

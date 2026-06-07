@@ -258,6 +258,14 @@ export default class BaseAttackActivityData extends BaseActivityData {
    */
   getAttackData({ ammunition, attackMode, situational }={}) {
     const rollData = this.getRollData();
+    let actorBonus = this.actor?.system.bonuses?.[this.getActionType(attackMode)]?.attack;
+    if ( this.isSpell ) {
+      const casting = this.actor?.system.attributes?.jutsu?.[this.item.system.jutsuCastingType];
+      if ( casting ) {
+        const bonus = casting.attack - (rollData.mod ?? 0) - (this.actor.system.attributes.prof ?? 0);
+        actorBonus = [actorBonus, String(bonus)].filterJoin(" + ");
+      }
+    }
     if ( this.attack.flat ) return CONFIG.Dice.BasicRoll.constructParts({ toHit: this.attack.bonus }, rollData);
 
     const weapon = this.item.system;
@@ -268,12 +276,15 @@ export default class BaseAttackActivityData extends BaseActivityData {
       bonus: this.attack.bonus,
       weaponMagic: weapon.magicAvailable ? weapon.magicalBonus : null,
       ammoMagic: ammo?.magicAvailable ? ammo.magicalBonus : null,
-      actorBonus: this.actor?.system.bonuses?.[this.getActionType(attackMode)]?.attack,
+      actorBonus,
       situational
     }, rollData);
 
     // Add exhaustion reduction
     this.actor?.addRollExhaustion(parts, data);
+    this.actor?.addConditionRollPenalties(parts, data, {
+      type: "attack", ability: this.ability ?? this.attack.ability, activity: this
+    });
 
     return { data, parts };
   }

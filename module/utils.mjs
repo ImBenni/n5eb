@@ -865,8 +865,10 @@ export async function preloadHandlebarsTemplates() {
     // Item Sheet Partials
     "systems/n5eb/templates/items/details/details-background.hbs",
     "systems/n5eb/templates/items/details/details-class.hbs",
+    "systems/n5eb/templates/items/details/details-classmod.hbs",
     "systems/n5eb/templates/items/details/details-consumable.hbs",
     "systems/n5eb/templates/items/details/details-container.hbs",
+    "systems/n5eb/templates/items/details/details-downtime.hbs",
     "systems/n5eb/templates/items/details/details-equipment.hbs",
     "systems/n5eb/templates/items/details/details-facility.hbs",
     "systems/n5eb/templates/items/details/details-feat.hbs",
@@ -1283,6 +1285,7 @@ export function getHumanReadableAttributeLabel(attr, { actor, item }={}) {
     name = item.name;
     type = "item";
     if ( _attributeLabelCache.item.has(attr) ) label = _attributeLabelCache.item.get(attr);
+    else if ( attr === "cd.spent" ) label = "N5EB.ChakraDice";
     else if ( attr === "hd.spent" ) label = "DND5E.HitDice";
     else if ( attr === "uses.spent" ) label = "DND5E.Uses";
     else label = getSchemaLabel(attr, "Item", item);
@@ -1311,6 +1314,10 @@ export function getHumanReadableAttributeLabel(attr, { actor, item }={}) {
   else if ( attr === "resources.legact.value" ) label = "DND5E.LegendaryAction.Remaining";
   else if ( attr === "resources.legres.spent" ) label = "DND5E.LegendaryResistance.LabelPl";
   else if ( attr === "resources.legres.value" ) label = "DND5E.LegendaryResistance.Remaining";
+  else if ( attr === "attributes.chakra.value" ) label = "N5EB.Chakra";
+  else if ( attr === "attributes.chakra.temp" ) label = "N5EB.ChakraTemp";
+  else if ( attr === "attributes.chakra.tempmax" ) label = "N5EB.ChakraTempMax";
+  else if ( attr === "attributes.cd.spent" ) label = "N5EB.ChakraDice";
   else if ( attr === "attributes.actions.value" ) label = "DND5E.VEHICLE.FIELDS.attributes.actions.label";
 
   // Skills.

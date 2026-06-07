@@ -1,0 +1,204 @@
+folder: 4zPe5u68aamguGQU
+name: 'Maximum Technique: Die!'
+type: feat
+_id: 45EgX6wBchHlaysr
+img: systems/n5eb/assets/content/jutsu-icons/jujutsu-sorcerer.webp
+system:
+  description:
+    value: >-
+      <p>At 20th level, you can cause a creature's body to destroy itself.</p><p> As an action you can expend 12 curse
+      energy and force a target within 30 feet of you to make an Intelligence saving throw vs your genjutsu save
+      DC+3.</p><p> On a failed save they take 12d10+30 necrotic damage.</p><p> You must make a constitution save vs your
+      own genjutsu Save DC.</p><p> If this reduces a creature's HP to 0, they automatically die.</p><p> You may use this
+      feature a number of times equal to your genjutsu modifier per long rest</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: 1
+    max: '@attributes.genjutsumod'
+    per: lr
+    recovery: ''
+    prompt: true
+  consume:
+    type: charges
+    target: Compendium.n5eb.t7-class.Item.ZSpS9XwuYzaD0iZJ
+    amount: 12
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 12d10+30
+        - necrotic
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: int
+    dc: null
+    scaling: genjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  type:
+    value: subclass
+    subtype: ''
+    nestedsubtype: ''
+  prerequisites:
+    level: 20
+  properties: []
+  requirements: ''
+  identifier: maximum-technique-die
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-subclass
+      sourcePath: jujutsu-sorcerer/cursed-speech/subclass-features/maximum-technique-die.json
+      sourceId: 45EgX6wBchHlaysr
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>At 20th level, you can cause a creature's body to destroy itself.</p><p> As an action you can expend 12
+            curse energy and force a target within 30 feet of you to make an Intelligence saving throw vs your genjutsu
+            save DC+3.</p><p> On a failed save they take 12d10+30 necrotic damage.</p><p> You must make a constitution
+            save vs your own genjutsu Save DC.</p><p> If this reduces a creature's HP to 0, they automatically
+            die.</p><p> You may use this feature a number of times equal to your genjutsu modifier per long rest</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: 1
+          max: '@attributes.genjutsumod'
+          per: lr
+          recovery: ''
+          prompt: true
+        consume:
+          type: charges
+          target: Compendium.n5eb.t7-class.Item.ZSpS9XwuYzaD0iZJ
+          amount: 12
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 12d10+30
+              - necrotic
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: int
+          dc: null
+          scaling: genjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        type:
+          value: subclass
+          subtype: ''
+          nestedsubtype: ''
+        prerequisites:
+          level: 20
+        properties: []
+        requirements: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1732750536317
+  modifiedTime: 1732750942829
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-subclass
+    sourcePath: jujutsu-sorcerer/cursed-speech/subclass-features/maximum-technique-die.json
+_key: '!items!45EgX6wBchHlaysr'

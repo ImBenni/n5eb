@@ -1,0 +1,354 @@
+name: Steel Release Steel Telekinesis
+type: spell
+img: systems/n5eb/assets/content/clans/konjiki.webp
+system:
+  description:
+    value: >-
+      <p>You are able to command Steel from long ranges. You can lift objects made of or connected to steel of Medium
+      size or lower. You can even use this to lift and move creatures wearing armor. You select 1 target creature within
+      range wearing armor made of metal, forcing them to make a Strength Saving throw.</p><p>On a Failed Save they are
+      restrained and moved up to 30 feet in any direction of your choice. On future turns if they are still restrained
+      you can use your bonus action to move them up to 30 ft in any direction of your choice. A creature can attempt to
+      remake the Strength Saving throw at the end of each of their turns to end being restrained.</p><p>At Higher Ranks:
+      For each rank for each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the number
+      of creatures you can target by 1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: ninjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: steel-release-steel-telekinesis
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - earth
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Restrained
+    origin: Compendium.n5eb.clan.Item.KXgVySP6aD0ygawa
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/restrained.svg
+    _id: 5OWaijkrBmpP3czf
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.dex
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: restrained
+        priority: 20
+    description: >-
+      <p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their
+      space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its
+      speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have
+      disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!KXgVySP6aD0ygawa.5OWaijkrBmpP3czf'
+folder: N8EDEM8GramNcUQR
+flags:
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: konjiki/clan-hijutsu/d-rank/steel-release-steel-telekinesis.json
+      sourceId: KXgVySP6aD0ygawa
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You are able to command Steel from long ranges. You can lift objects made of or connected to steel of
+            Medium size or lower. You can even use this to lift and move creatures wearing armor. You select 1 target
+            creature within range wearing armor made of metal, forcing them to make a Strength Saving throw.</p><p>On a
+            Failed Save they are restrained and moved up to 30 feet in any direction of your choice. On future turns if
+            they are still restrained you can use your bonus action to move them up to 30 ft in any direction of your
+            choice. A creature can attempt to remake the Strength Saving throw at the end of each of their turns to end
+            being restrained.</p><p>At Higher Ranks: For each rank for each rank you cast this jutsu above D-Rank,
+            increase the cost of this jutsu by 3 and the number of creatures you can target by 1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: ninjutsu
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - earth
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754019699
+  modifiedTime: 1728754068144
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: konjiki/clan-hijutsu/d-rank/steel-release-steel-telekinesis.json
+_id: KXgVySP6aD0ygawa
+sort: 300000
+ownership:
+  default: 0
+_key: '!items!KXgVySP6aD0ygawa'

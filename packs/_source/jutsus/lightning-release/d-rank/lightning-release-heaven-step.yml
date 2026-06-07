@@ -1,0 +1,352 @@
+name: Lightning Release Heaven Step
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/lightning.webp
+system:
+  description:
+    value: >-
+      <p>You conjure your lightning release chakra to generate a mote of electricity. Select a space that another
+      creature is not occupying that you can see within range where you throw your mote. This space can be in the air
+      but cannot be thrown through walls or water instead stopping at the first semi-solid surface it
+      encounters.</p><p>You can choose to target a creature with this mote instead of an empty space. Make a range
+      ninjutsu attack. On a success you deal 1d8 lightning damage and the target must make a Constitution saving throw
+      gaining 1 rank of shocked on a failed save. The mote then occupies the closest open space as the target
+      creature.</p><p>As a reaction, you can trigger the mote to detonate. All creatures within 5 feet of the mote must
+      make a Dexterity saving throw. On a failed save they take 2d6 Lightning damage and gain 1 rank of shocked. If a
+      creature who makes this save is already shocked, they make their saving throw with a -2 penalty. When you do this
+      jutsu immediately ends.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost
+      of this jutsu by 3 and the damage by 1d8 and 1d6 respectively.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 90
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: ninjutsu
+  actionType: rsak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 1d8
+        - lightning
+    versatile: 2d6
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: level
+    formula: 1d6
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: lightning-release-heaven-step
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Shocked
+    origin: Compendium.n5eb.jutsus.Item.Uhj3lm1E84KSHgbg
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    _id: dLJ4iVQ64j9VmVLI
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          rollType=skill,
+          saveAbility=sur,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with
+      electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
+      reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A
+      <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a
+      failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC
+      12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has
+      resistance to this condition. A creature immune to Lightning damage has immunity to this
+      condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground
+      themselves, dispersing the electricity in their body ending this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Uhj3lm1E84KSHgbg.dLJ4iVQ64j9VmVLI'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: lightning-release/d-rank/lightning-release-heaven-step.json
+      sourceId: Uhj3lm1E84KSHgbg
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You conjure your lightning release chakra to generate a mote of electricity. Select a space that another
+            creature is not occupying that you can see within range where you throw your mote. This space can be in the
+            air but cannot be thrown through walls or water instead stopping at the first semi-solid surface it
+            encounters.</p><p>You can choose to target a creature with this mote instead of an empty space. Make a range
+            ninjutsu attack. On a success you deal 1d8 lightning damage and the target must make a Constitution saving
+            throw gaining 1 rank of shocked on a failed save. The mote then occupies the closest open space as the
+            target creature.</p><p>As a reaction, you can trigger the mote to detonate. All creatures within 5 feet of
+            the mote must make a Dexterity saving throw. On a failed save they take 2d6 Lightning damage and gain 1 rank
+            of shocked. If a creature who makes this save is already shocked, they make their saving throw with a -2
+            penalty. When you do this jutsu immediately ends.</p><p>At Higher Ranks: For each rank you cast this jutsu
+            above D-Rank, increase the cost of this jutsu by 3 and the damage by 1d8 and 1d6 respectively.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 90
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: ninjutsu
+        actionType: rnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 1d8
+              - lightning
+          versatile: 2d6
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 1
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - lightning
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: 1d6
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756941476
+  modifiedTime: 1728756941476
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: lightning-release/d-rank/lightning-release-heaven-step.json
+folder: Ydod4bZequHA872U
+sort: 5900000
+ownership:
+  default: 0
+_id: Uhj3lm1E84KSHgbg
+_key: '!items!Uhj3lm1E84KSHgbg'

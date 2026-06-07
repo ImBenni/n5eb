@@ -4,6 +4,9 @@
         <legend>{{ localize (concat section "Details") label=label }}</legend>
         {{ formField fields.value name=(concat prefix "value") value=data.value options=proficiencyOptions
                      localize=true rootId=partId }}
+        {{ formField fields.mastery name=(concat prefix "mastery") value=masteryValue options=masteryOptions
+                     label=masteryLabel
+                     localize=true rootId=partId }}
         {{ formField fields.ability name=(concat prefix "ability") value=data.ability options=abilityOptions
                      localize=true rootId=partId }}
     </fieldset>

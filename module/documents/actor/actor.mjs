@@ -1,6 +1,7 @@
 import BaseRestDialog from "../../applications/actor/rest/base-rest-dialog.mjs";
 import CreateDocumentDialog from "../../applications/create-document-dialog.mjs";
 import SkillToolRollConfigurationDialog from "../../applications/dice/skill-tool-configuration-dialog.mjs";
+import * as Conditions from "../../conditions.mjs";
 import PropertyAttribution from "../../applications/property-attribution.mjs";
 import TravelField from "../../data/actor/fields/travel-field.mjs";
 import ActivationsField from "../../data/chat-message/fields/activations-field.mjs";
@@ -109,6 +110,17 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
+   * A mapping of class mods belonging to this Actor.
+   * @type {Record<string, Item5e>}
+   */
+  get classmods() {
+    if ( this._lazy?.classmods !== undefined ) return this._lazy.classmods;
+    return this._lazy.classmods = Object.fromEntries(this.itemTypes.classmod.map(cm => [cm.identifier, cm]));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Calculate the bonus from any cover the actor is affected by.
    * @type {number}     The cover bonus to AC and dexterity saving throws.
    */
@@ -202,6 +214,22 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       }
     }
     return concentration;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Combined jutsu rank value of all currently maintained concentration effects.
+   * @type {number}
+   */
+  get concentrationRankValue() {
+    return Array.from(this.concentration.effects).reduce((total, effect) => {
+      const concentration = effect.getFlag("n5eb", "concentration") ?? {};
+      if ( Number.isNumeric(concentration.rankValue) ) return total + Number(concentration.rankValue);
+      const rank = concentration.rank ?? effect.getFlag("n5eb", "jutsuRank")
+        ?? CONFIG.DND5E.jutsuRankBySpellLevel[effect.getFlag("n5eb", "spellLevel")];
+      return total + (CONFIG.DND5E.jutsuRankValues[rank] ?? 0);
+    }, 0);
   }
 
   /* -------------------------------------------- */
@@ -464,14 +492,12 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
-   * Calculate the DC of a concentration save required for a given amount of damage.
+   * Calculate the DC of a Chakra Control concentration check required for a given amount of damage.
    * @param {number} damage  Amount of damage taken.
-   * @returns {number}       DC of the required concentration save.
+   * @returns {number}       DC of the required concentration check.
    */
   getConcentrationDC(damage) {
-    return Math.clamp(
-      Math.floor(damage / 2), 10, dnd5e.settings.rulesVersion === "modern" ? 30 : Infinity
-    );
+    return Math.max(12 + this.concentrationRankValue, Math.floor((Number(damage) || 0) / 2));
   }
 
   /* -------------------------------------------- */
@@ -514,11 +540,158 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     data.name = this.name;
     data.statuses = {};
     for ( const status of this.statuses ) {
-      data.statuses[status] = status === "exhaustion"
-        ? this.system.attributes?.exhaustion ?? 1
-        : status === "concentrating" ? this.concentration.effects.size : 1;
+      const id = Conditions.canonicalizeConditionId(status);
+      if ( id === "exhaustion" ) data.statuses[id] = this.system.attributes?.exhaustion ?? 1;
+      else if ( id === "concentrating" ) data.statuses[id] = this.concentration.effects.size;
+      else if ( Conditions.getConditionConfig(id) ) data.statuses[id] = this.getConditionRank(id);
+      else data.statuses[id] = 1;
+      if ( id !== status ) data.statuses[status] = data.statuses[id];
     }
     return data;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Find the ActiveEffect for a condition.
+   * @param {string} id  Condition id or alias.
+   * @returns {ActiveEffect5e|null}
+   */
+  getConditionEffect(id) {
+    id = Conditions.canonicalizeConditionId(id);
+    const staticId = Conditions.conditionEffectId(id);
+    return this.effects.get(staticId) ?? this.effects.find(effect => Conditions.getEffectConditionId(effect) === id)
+      ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Retrieve a ranked condition value.
+   * @param {string} id  Condition id or alias.
+   * @returns {number}
+   */
+  getConditionRank(id) {
+    id = Conditions.canonicalizeConditionId(id);
+    if ( Conditions.hasConditionImmunity(this, id) ) return 0;
+    if ( id === "exhaustion" ) return this.getExhaustionLevel();
+    const effect = this.getConditionEffect(id);
+    if ( !effect || effect.disabled ) return 0;
+    return Conditions.getEffectConditionRank(effect);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply or update a condition.
+   * @param {string} id        Condition id or alias.
+   * @param {object} [options]
+   * @param {number} [options.rank=1]    Rank to apply.
+   * @param {number} [options.delta=0]   Rank delta to add to the current rank.
+   * @param {string} [options.origin]    Effect origin.
+   * @param {object} [options.duration]  Effect duration data.
+   * @returns {Promise<ActiveEffect5e|null>}
+   */
+  async applyCondition(id, { rank=1, delta=0, origin, duration }={}) {
+    id = Conditions.canonicalizeConditionId(id);
+    const incoming = Conditions.adjustConditionApplicationRank(this, id, delta || rank);
+    if ( incoming <= 0 ) return null;
+    if ( (id === "bleeding") && this.getConditionRank("lacerated") ) {
+      return this.updateConditionRank("lacerated", this.getConditionRank("lacerated") + incoming, { origin, duration });
+    }
+    const current = this.getConditionRank(id);
+    const target = delta ? current + incoming : incoming;
+    return this.updateConditionRank(id, target, { origin, duration });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Set a condition to a specific rank, handling ranked overflows.
+   * @param {string} id        Condition id or alias.
+   * @param {number} rank      Target rank.
+   * @param {object} [options]
+   * @param {string} [options.origin]    Effect origin.
+   * @param {object} [options.duration]  Effect duration data.
+   * @returns {Promise<ActiveEffect5e|null>}
+   */
+  async updateConditionRank(id, rank, { origin, duration }={}) {
+    id = Conditions.canonicalizeConditionId(id);
+    const config = Conditions.getConditionConfig(id);
+    if ( !config ) return null;
+
+    if ( id === "exhaustion" ) {
+      rank = Conditions.normalizeConditionRank(id, rank);
+      const effect = this.effects.get(ActiveEffect5e.ID.EXHAUSTION) ?? this.getConditionEffect(id);
+      if ( rank < 1 ) {
+        await effect?.delete();
+        if ( this.system.attributes?.exhaustion ) await this.update({ "system.attributes.exhaustion": 0 });
+        return null;
+      }
+
+      const effectData = Conditions.createConditionEffectData(id, { rank, origin, duration });
+      if ( effect ) {
+        const update = {
+          name: effectData.name,
+          img: effectData.img,
+          statuses: effectData.statuses,
+          "flags.n5eb.condition": effectData.flags.n5eb.condition,
+          "flags.n5eb.exhaustionLevel": rank
+        };
+        if ( duration ) update.duration = effectData.duration;
+        await effect.update(update);
+      } else {
+        await ActiveEffect.implementation.create(effectData, { parent: this, keepId: true });
+      }
+      if ( this.system.attributes?.exhaustion !== rank ) {
+        await this.update({ "system.attributes.exhaustion": rank });
+      }
+      return this.getConditionEffect(id);
+    }
+
+    if ( (id === "bleeding") && (rank > 0) && this.getConditionRank("lacerated") ) {
+      await this.updateConditionRank("bleeding", 0);
+      return this.updateConditionRank("lacerated", this.getConditionRank("lacerated") + rank, { origin, duration });
+    }
+
+    if ( config.overflow && (rank > config.maxRank) ) {
+      await this.updateConditionRank(id, 0);
+      return this.updateConditionRank(config.overflow.condition, config.overflow.rank, { origin, duration });
+    }
+
+    rank = Conditions.normalizeConditionRank(id, rank);
+    const effect = this.getConditionEffect(id);
+    if ( rank < 1 ) {
+      await effect?.delete();
+      return null;
+    }
+
+    if ( effect ) {
+      const conditionFlags = {
+        ...(effect.getFlag("n5eb", "condition") ?? {}),
+        id,
+        rank,
+        maxRank: config.maxRank ?? 1,
+        category: config.category,
+        source: "main-book"
+      };
+      if ( (id === "dazed") && !conditionFlags.automation?.appliedTurnKey ) {
+        const automation = Conditions.getConditionAutomationData(id);
+        if ( !foundry.utils.isEmpty(automation) ) conditionFlags.automation = automation;
+      }
+      const update = {
+        name: Conditions.conditionName(id, rank),
+        img: config.img,
+        statuses: [id, ...(config.statuses ?? [])],
+        "flags.n5eb.condition": conditionFlags
+      };
+      if ( duration ) update.duration = foundry.utils.deepClone(duration);
+      await effect.update(update);
+      return effect;
+    }
+
+    const effectData = Conditions.createConditionEffectData(id, { rank, origin, duration });
+    return ActiveEffect.implementation.create(effectData, { parent: this, keepId: true });
   }
 
   /* -------------------------------------------- */
@@ -539,6 +712,41 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       const l = Number(k.split("-").pop());
       return (statuses.has(k) && !imms.has(k)) || (applyExhaustion && Number.isInteger(l) && (level >= l));
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Number of exhaustion ranks currently applying penalties.
+   * @returns {number}
+   */
+  getExhaustionLevel() {
+    if ( this.system.traits?.ci?.value?.has("exhaustion") ) return 0;
+    const level = this.system.attributes?.exhaustion ?? 0;
+    return Number.isFinite(level) ? Math.max(0, level) : 0;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Numeric penalty applied by exhaustion to d20 tests, AC, damage, and save DCs.
+   * @returns {number}
+   */
+  getExhaustionPenalty() {
+    const reduction = CONFIG.DND5E.conditionTypes.exhaustion?.reduction?.rolls ?? 0;
+    return this.getExhaustionLevel() * reduction;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Movement speed reduction from exhaustion.
+   * @returns {number}
+   */
+  getExhaustionSpeedReduction() {
+    const config = CONFIG.DND5E.conditionTypes.exhaustion?.reduction ?? {};
+    const interval = Math.max(1, config.speedInterval ?? 1);
+    return Math.floor(this.getExhaustionLevel() / interval) * (config.speed ?? 0);
   }
 
   /* -------------------------------------------- */
@@ -730,7 +938,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     damages = this.calculateDamage(damages, options);
     if ( !damages ) return this;
 
-    const { amount, temp, tempMax } = damages;
+    const { amount, temp, tempMax, chakraAmount=0, chakraTemp=0, chakraTempMax=0 } = damages;
     const deltaTemp = amount > 0 ? Math.min(hp.temp, amount) : 0;
     const deltaHP = Math.clamp(amount - deltaTemp, -hp.damage + tempMax, hp.value - tempMax);
     const updates = {
@@ -740,6 +948,27 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     };
 
     if ( temp > updates["system.attributes.hp.temp"] ) updates["system.attributes.hp.temp"] = temp;
+
+    const chakra = this.system.attributes.chakra;
+    if ( chakra && (chakraAmount || chakraTemp || chakraTempMax) ) {
+      const chakraSource = this.system._source.attributes.chakra;
+      const chakraValue = chakra.value ?? 0;
+      const chakraTempValue = chakra.temp ?? 0;
+      const chakraDamage = chakra.damage ?? Math.max((chakra.effectiveMax ?? chakra.max ?? 0) - chakraValue, 0);
+      const deltaChakraTemp = chakraAmount > 0 ? Math.min(chakraTempValue, chakraAmount) : 0;
+      const deltaChakra = Math.clamp(
+        chakraAmount - deltaChakraTemp,
+        -chakraDamage + chakraTempMax,
+        chakraValue - chakraTempMax
+      );
+
+      updates["system.attributes.chakra.temp"] = chakraTempValue - deltaChakraTemp;
+      updates["system.attributes.chakra.tempmax"] = (chakraSource.tempmax ?? 0) - chakraTempMax;
+      updates["system.attributes.chakra.value"] = chakraValue - deltaChakra;
+      if ( chakraTemp > updates["system.attributes.chakra.temp"] ) {
+        updates["system.attributes.chakra.temp"] = chakraTemp;
+      }
+    }
 
     /**
      * A hook event that fires before damage is applied to an actor.
@@ -791,6 +1020,9 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     damages.amount = 0;
     damages.temp = 0;
     damages.tempMax = 0;
+    damages.chakraAmount = 0;
+    damages.chakraTemp = 0;
+    damages.chakraTempMax = 0;
 
     /**
      * A hook event that fires before damage amount is calculated for an actor.
@@ -809,7 +1041,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       : options.only ?? "damage";
 
     const skipped = type => {
-      if ( type === "maximum" ) return options.only ? options.only !== treatAs : false;
+      if ( ["maximum", "maxcp"].includes(type) ) return options.only ? options.only !== treatAs : false;
       if ( options.only === "damage" ) return type in CONFIG.DND5E.healingTypes;
       if ( options.only === "healing" ) return type in CONFIG.DND5E.damageTypes;
       return false;
@@ -863,8 +1095,10 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       }
 
       // Negate healing types
-      if ( (options.invertHealing !== false) && ((d.type === "healing")
-        || ((d.type === "maximum") && (treatAs === "healing"))) ) {
+      const shouldInvertHealing = (options.invertHealing !== false)
+        && (["healing", "chakrahealing"].includes(d.type)
+          || (["maximum", "maxcp"].includes(d.type) && (treatAs === "healing")));
+      if ( shouldInvertHealing ) {
         damageMultiplier *= -1;
         appliedDamage *= -1;
       }
@@ -873,17 +1107,23 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       d.active.multiplier = (d.active.multiplier ?? 1) * damageMultiplier;
       if ( d.type === "temphp" ) damages.temp += d.value;
       else if ( d.type === "maximum" ) damages.tempMax += d.value;
+      else if ( ["chakra", "chakrahealing"].includes(d.type) ) damages.chakraAmount += d.value;
+      else if ( d.type === "tempcp" ) damages.chakraTemp += d.value;
+      else if ( d.type === "maxcp" ) damages.chakraTempMax += d.value;
       else damages.amount += d.value;
     });
 
     if ( damages.tempMax < 0 ) damages.amount += damages.tempMax;
+    if ( damages.chakraTempMax < 0 ) damages.chakraAmount += damages.chakraTempMax;
     damages.amount = Math.trunc(damages.amount);
+    damages.chakraAmount = Math.trunc(damages.chakraAmount);
 
     // Apply damage threshold
     if ( ((damages.amount > 0) && (damages.amount < (this.system.attributes?.hp?.dt ?? -Infinity)))
       && !((options.ignore === true) || options.ignore?.threshold) ) {
       damages.amount = 0;
       damages.forEach(d => {
+        if ( (d.type === "chakra") || (d.type in CONFIG.DND5E.healingTypes) ) return;
         d.value = 0;
         d.active.multiplier = 0;
         d.active.threshold = true;
@@ -1110,15 +1350,147 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
+   * Retrieve the concentration maintain costs due at the start of this actor's combat turn.
+   * @param {object} [options={}]
+   * @param {Combat5e} [options.combat]        Combat where the maintain cost is due.
+   * @param {Combatant5e} [options.combatant]  Combatant whose turn started.
+   * @returns {object[]}
+   */
+  getConcentrationMaintainData({ combat=null, combatant=null }={}) {
+    const turn = this.#getConcentrationTurnKey(combat, combatant);
+    const chakra = this.getChakraAvailable();
+    return Array.from(this.concentration.effects).map(effect => {
+      const concentration = effect.getFlag("n5eb", "concentration") ?? {};
+      const item = effect.getFlag("n5eb", "item") ?? {};
+      const rank = concentration.rank ?? effect.getFlag("n5eb", "jutsuRank")
+        ?? CONFIG.DND5E.jutsuRankBySpellLevel[effect.getFlag("n5eb", "spellLevel")] ?? "e";
+      const cost = Math.max(0, Number(concentration.maintainCost ?? 0) || 0);
+      const paid = concentration.paidTurn === turn;
+      return {
+        effect: effect.id,
+        img: effect.img,
+        insufficient: !paid && (cost > chakra),
+        name: item.data?.name ?? this.items.get(item.id)?.name ?? effect.name,
+        paid,
+        rank,
+        rankLabel: CONFIG.DND5E.jutsuRanks[rank]?.label ?? rank,
+        cost
+      };
+    }).filter(entry => entry.cost > 0);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the amount of Chakra currently available, including temporary Chakra.
+   * @param {object} [updates={}]  Pending actor updates to consider.
+   * @returns {number}
+   */
+  getChakraAvailable(updates={}) {
+    const chakra = this.system.attributes.chakra;
+    const current = key => Math.max(0, Number(
+      foundry.utils.getProperty(updates, `system.attributes.chakra.${key}`) ?? chakra?.[key] ?? 0
+    ) || 0);
+    return current("temp") + current("value");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create actor updates that spend temporary Chakra before current Chakra.
+   * @param {number} cost          Chakra cost to spend.
+   * @param {object} [updates={}]  Pending actor updates to consider.
+   * @returns {object}
+   */
+  getChakraSpendUpdates(cost, updates={}) {
+    cost = Math.max(0, Math.floor(Number(cost) || 0));
+    if ( !cost ) return {};
+
+    const chakra = this.system.attributes.chakra;
+    const current = key => Math.max(0, Number(
+      foundry.utils.getProperty(updates, `system.attributes.chakra.${key}`) ?? chakra?.[key] ?? 0
+    ) || 0);
+    const temp = current("temp");
+    const value = current("value");
+    const spentTemp = Math.min(temp, cost);
+    const spentValue = Math.min(value, cost - spentTemp);
+    const result = {};
+    if ( spentTemp ) result["system.attributes.chakra.temp"] = temp - spentTemp;
+    if ( spentValue ) result["system.attributes.chakra.value"] = value - spentValue;
+    return result;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pay a concentration maintain cost for one active jutsu.
+   * @param {string} effectId                  Concentration effect ID.
+   * @param {object} [options={}]
+   * @param {Combat5e} [options.combat]        Combat where the maintain cost is due.
+   * @param {Combatant5e} [options.combatant]  Combatant whose turn started.
+   * @returns {Promise<object|null>}
+   */
+  async payConcentrationMaintainCost(effectId, { combat=null, combatant=null }={}) {
+    if ( !this.isOwner ) return null;
+    const effect = this.concentration.effects.find(e => e.id === effectId);
+    if ( !effect ) return { ended: true };
+    const turn = this.#getConcentrationTurnKey(combat, combatant);
+    const concentration = effect.getFlag("n5eb", "concentration") ?? {};
+    if ( concentration.paidTurn === turn ) return { paid: true };
+
+    const cost = Math.max(0, Number(concentration.maintainCost ?? 0) || 0);
+    if ( this.getChakraAvailable() < cost ) {
+      await this.endConcentration(effect);
+      return { ended: true, insufficient: true };
+    }
+
+    await this.update(this.getChakraSpendUpdates(cost));
+    await effect.setFlag("n5eb", "concentration.paidTurn", turn);
+    return { paid: true };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create a stable key for a combat turn's concentration payment state.
+   * @param {Combat5e} [combat]        Combat where the maintain cost is due.
+   * @param {Combatant5e} [combatant]  Combatant whose turn started.
+   * @returns {string}
+   */
+  static getConcentrationTurnKey(combat, combatant) {
+    return [
+      combat?.id ?? game.combat?.id ?? "",
+      combat?.round ?? game.combat?.round ?? 0,
+      combat?.turn ?? game.combat?.turn ?? 0,
+      combatant?.id ?? game.combat?.combatant?.id ?? ""
+    ].join(".");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create a stable key for a combat turn's concentration payment state.
+   * @param {Combat5e} [combat]        Combat where the maintain cost is due.
+   * @param {Combatant5e} [combatant]  Combatant whose turn started.
+   * @returns {string}
+   */
+  #getConcentrationTurnKey(combat, combatant) {
+    return this.constructor.getConcentrationTurnKey(combat, combatant);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Create a chat message for this actor with a prompt to challenge concentration.
    * @param {object} [options]
-   * @param {number} [options.dc]         The target value of the saving throw.
+   * @param {number} [options.dc]         The target value of the Chakra Control check.
    * @param {string} [options.ability]    An ability to use instead of the default.
    * @returns {Promise<ChatMessage5e>}    A promise that resolves to the created chat message.
    */
-  async challengeConcentration({ dc=10, ability=null }={}) {
+  async challengeConcentration({ dc=null, ability=null }={}) {
     const isConcentrating = this.concentration.effects.size > 0;
     if ( !isConcentrating ) return null;
+    dc ??= this.getConcentrationDC(0);
 
     const dataset = {
       action: "concentration",
@@ -1171,13 +1543,65 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
    * @param {object} data     Roll data.
    */
   addRollExhaustion(parts, data) {
-    if ( (dnd5e.settings.rulesVersion !== "modern") || !this.system.attributes?.exhaustion
-      || this.system.traits?.ci?.value?.has("exhaustion") ) return;
-    const amount = this.system.attributes.exhaustion * (CONFIG.DND5E.conditionTypes.exhaustion?.reduction?.rolls ?? 0);
+    const amount = this.getExhaustionPenalty();
     if ( amount ) {
       parts.push("@exhaustion");
       data.exhaustion = -amount;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add N5eB condition penalties to a roll.
+   * @param {string[]} parts  Roll parts.
+   * @param {object} data     Roll data.
+   * @param {object} context  Roll context.
+   */
+  addConditionRollPenalties(parts, data, context={}) {
+    Conditions.addConditionRollPenalties(this, parts, data, context);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Penalty applied to damage rolls by conditions.
+   * @param {object} context  Damage context.
+   * @returns {number}
+   */
+  getConditionDamagePenalty(context={}) {
+    return Conditions.getConditionDamagePenalty(this, context);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Penalty applied to save DCs by conditions.
+   * @param {object} context  DC context.
+   * @returns {number}
+   */
+  getConditionDCPenalty(context={}) {
+    return Conditions.getConditionDCPenalty(this, context);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Penalty applied to Armor Class by conditions.
+   * @returns {number}
+   */
+  getConditionACPenalty() {
+    return Conditions.getConditionACPenalty(this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Movement reduction applied by conditions, in feet.
+   * @returns {number}
+   */
+  getConditionSpeedReduction() {
+    return Conditions.getConditionSpeedReduction(this);
   }
 
   /* -------------------------------------------- */
@@ -1370,11 +1794,11 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const { calculateSkillToolProficiency } = dnd5e.dataModels.actor.CommonTemplate;
     let prof = calculateSkillToolProficiency(this, abilityId, process);
     const originalProf = calculateSkillToolProficiency(hostActor, abilityId, process);
-    if ( originalProf?.multiplier > prof.multiplier ) prof = originalProf;
+    if ( originalProf?.flat > prof.flat ) prof = originalProf;
 
     let { parts, data } = CONFIG.Dice.D20Roll.constructParts({
       mod: ability?.mod,
-      prof: prof?.hasProficiency ? prof.term : null,
+      prof: prof?.hasBonus ? prof.term : null,
       [`${config[type]}Bonus`]: relevant?.bonuses?.check,
       extraBonus: process.bonus,
       [`${abilityId}CheckBonus`]: ability?.bonuses?.check,
@@ -1384,6 +1808,9 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
 
     // Add exhaustion reduction
     this.addRollExhaustion(parts, data);
+    this.addConditionRollPenalties(parts, data, {
+      type: "check", ability: abilityId, skill: process.skill, isConcentration: config.isConcentration
+    });
 
     config.parts = [...(config.parts ?? []), ...parts];
     config.data = { ...data, ...(config.data ?? {}) };
@@ -1485,7 +1912,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const rollData = this.getRollData();
     let { parts, data } = CONFIG.Dice.D20Roll.constructParts({
       mod: ability?.mod,
-      prof: ability?.[`${type}Prof`].hasProficiency ? ability[`${type}Prof`].term : null,
+      prof: ability?.[`${type}Prof`]?.hasBonus ? ability[`${type}Prof`].term : null,
       [`${config.ability}${type.capitalize()}Bonus`]: ability?.bonuses[type],
       [`${type}Bonus`]: this.system.bonuses?.abilities?.[type],
       cover: (config.ability === "dex") && (type === "save") ? this.system.attributes?.ac?.cover : null
@@ -1504,7 +1931,10 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     rollConfig.rolls = [
       CONFIG.Dice.D20Roll.mergeConfigs({ parts, data, options }, config.rolls?.shift())
     ].concat(config.rolls ?? []);
-    rollConfig.rolls.forEach(({ parts, data }) => this.addRollExhaustion(parts, data));
+    rollConfig.rolls.forEach(({ parts, data }) => {
+      this.addRollExhaustion(parts, data);
+      this.addConditionRollPenalties(parts, data, { type, ability: config.ability });
+    });
     rollConfig.subject = this;
 
     const dialogConfig = foundry.utils.deepClone(dialog);
@@ -1700,17 +2130,17 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
-   * Perform a saving throw to maintain concentration.
-   * @param {Partial<AbilityRollProcessConfiguration>} config  Configuration information for the roll.
-   * @param {Partial<BasicRollDialogConfiguration>} dialog     Configuration for the roll dialog.
-   * @param {Partial<BasicRollMessageConfiguration>} message   Configuration for the roll message.
-   * @returns {Promise<D20Roll[]|null>}                        A Promise which resolves to the created Roll instance.
+   * Perform a Constitution (Chakra Control) check to maintain concentration.
+   * @param {Partial<SkillToolRollProcessConfiguration>} config  Configuration information for the roll.
+   * @param {Partial<SkillToolRollDialogConfiguration>} dialog    Configuration for the roll dialog.
+   * @param {Partial<BasicRollMessageConfiguration>} message      Configuration for the roll message.
+   * @returns {Promise<D20Roll[]|null>}                           A Promise which resolves to the created Roll instance.
    */
   async rollConcentration(config={}, dialog={}, message={}) {
     let oldFormat = false;
     if ( !this.isOwner ) return null;
     const conc = this.system.attributes?.concentration;
-    if ( !conc ) throw new Error("You may not make a Concentration Saving Throw with this Actor.");
+    if ( !conc ) throw new Error("You may not make a Concentration check with this Actor.");
 
     let data = {};
     const parts = [];
@@ -1725,8 +2155,9 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     if ( conc.bonuses.save ) parts.push(conc.bonuses.save);
 
     const rollConfig = foundry.utils.mergeObject({
-      ability: (conc.ability in CONFIG.DND5E.abilities) ? conc.ability : CONFIG.DND5E.defaultAbilities.concentration,
+      ability: (conc.ability in CONFIG.DND5E.abilities) ? conc.ability : "con",
       isConcentration: true,
+      skill: "ccl",
       target: 10
     }, config);
     rollConfig.hookNames = [...(config.hookNames ?? []), "concentration"];
@@ -1737,18 +2168,30 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const dialogConfig = foundry.utils.mergeObject({
       options: {
         window: {
-          title: game.i18n.format("DND5E.SavePromptTitle", { ability: game.i18n.localize("DND5E.Concentration") })
+          title: game.i18n.localize("N5EB.JUTSU.ConcentrationCheck")
         }
       }
     }, dialog);
 
-    const messageConfig = foundry.utils.deepClone(message);
+    const messageConfig = foundry.utils.mergeObject({
+      data: {
+        flags: {
+          n5eb: {
+            roll: {
+              skillId: "ccl",
+              type: "concentration"
+            }
+          }
+        },
+        flavor: game.i18n.localize("N5EB.JUTSU.ConcentrationCheck")
+      }
+    }, message);
 
-    const rolls = await this.rollSavingThrow(rollConfig, dialogConfig, messageConfig);
+    const rolls = await this.rollSkill(rollConfig, dialogConfig, messageConfig);
     if ( !rolls?.length ) return null;
 
     /**
-     * A hook event that fires after a saving throw to maintain concentration is rolled for an Actor.
+     * A hook event that fires after a Chakra Control check to maintain concentration is rolled for an Actor.
      * @function dnd5e.rollConcentration
      * @memberof hookEvents
      * @param {D20Roll[]} rolls     The resulting rolls.
@@ -1800,7 +2243,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const rollData = this.getRollData();
     let { parts, data } = CONFIG.Dice.D20Roll.constructParts({
       mod: init?.mod,
-      prof: init.prof.hasProficiency ? init.prof.term : null,
+      prof: init.prof.hasBonus ? init.prof.term : null,
       initiativeBonus: init.bonus,
       [`${abilityId}AbilityCheckBonus`]: ability?.bonuses?.check,
       abilityCheckBonus: this.system.bonuses?.abilities?.check,
@@ -2040,6 +2483,96 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
+   * Roll a chakra die, gaining chakra points equal to the die roll plus your CON modifier.
+   * @param {HitDieRollProcessConfiguration} config  Configuration information for the roll.
+   * @param {BasicRollDialogConfiguration} dialog    Configuration for the roll dialog.
+   * @param {BasicRollMessageConfiguration} message  Configuration for the roll message.
+   * @returns {Promise<BasicRoll[]|null>}            The created Roll instances, or `null` if no chakra die was rolled.
+   */
+  async rollChakraDie(config={}, dialog={}, message={}) {
+    let cls = null;
+    const cd = this.system.attributes?.cd;
+    const chakra = this.system.attributes?.chakra;
+    if ( !cd || !chakra ) return null;
+
+    // NPCs only have one denomination.
+    if ( this.system.isNPC ) {
+      config.denomination = cd.denomination;
+      if ( !cd.value ) {
+        ui.notifications.error(game.i18n.format("N5EB.ChakraDiceNPCWarn", { name: this.name }));
+        return null;
+      }
+    }
+
+    // Otherwise check classes.
+    else {
+      const classes = Array.from(cd.classes);
+      if ( !config.denomination ) {
+        cls = classes.find(c => c.system.cd.value);
+        if ( !cls ) return null;
+        config.denomination = cls.system.cd.denomination;
+      } else {
+        cls = classes.find(i => {
+          return (i.system.cd.denomination === config.denomination) && i.system.cd.value;
+        });
+      }
+
+      if ( !cls ) {
+        ui.notifications.error(game.i18n.format("N5EB.ChakraDiceWarn", {
+          name: this.name, formula: config.denomination
+        }));
+        return null;
+      }
+    }
+
+    const formula = `max(0, 1${config.denomination} + @abilities.con.mod)`;
+    const rollConfig = foundry.utils.deepClone(config);
+    rollConfig.hookNames = [...(config.hookNames ?? []), "chakraDie"];
+    rollConfig.rolls = [{ parts: [formula], data: this.getRollData() }].concat(config.rolls ?? []);
+    rollConfig.subject = this;
+
+    const dialogConfig = foundry.utils.mergeObject({
+      configure: false
+    }, dialog);
+
+    const flavor = game.i18n.localize("N5EB.ChakraDiceRoll");
+    const messageConfig = foundry.utils.mergeObject({
+      rollMode: CONFIG.Dice.BasicRoll.getMessageMode(),
+      data: {
+        speaker: ChatMessage.implementation.getSpeaker({ actor: this }),
+        flavor,
+        title: `${flavor}: ${this.name}`,
+        "flags.n5eb.roll": { type: "chakraDie" }
+      }
+    }, message);
+
+    const rolls = await CONFIG.Dice.BasicRoll.build(rollConfig, dialogConfig, messageConfig);
+    if ( !rolls.length ) return null;
+
+    const updates = { actor: {}, class: {} };
+    if ( rollConfig.modifyChakraDice !== false ) {
+      if ( cls ) updates.class["system.cd.spent"] = cls.system.cd.spent + 1;
+      else updates.actor["system.attributes.cd.spent"] = cd.spent + 1;
+    }
+    if ( rollConfig.modifyChakra !== false ) {
+      const total = rolls.reduce((t, r) => t + r.total, 0);
+      const dcp = Math.min(Math.max(0, chakra.effectiveMax) - chakra.value, total);
+      updates.actor["system.attributes.chakra.value"] = chakra.value + dcp;
+    }
+
+    if ( Hooks.call("n5eb.rollChakraDie", rolls, { subject: this, updates }) === false ) return rolls;
+
+    // Perform updates.
+    if ( !foundry.utils.isEmpty(updates.actor) ) await this.update(updates.actor);
+    if ( !foundry.utils.isEmpty(updates.class) ) await cls.update(updates.class);
+
+    Hooks.callAll("n5eb.postRollChakraDie", rolls, { subject: this });
+    return rolls;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Roll hit points for a specific class as part of a level-up workflow.
    * @param {Item5e} item                         The class item whose hit dice to roll.
    * @param {object} options
@@ -2086,6 +2619,60 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
      * @param {Roll} roll      The resulting roll.
      */
     Hooks.callAll("dnd5e.rollClassHitPoints", this, roll);
+
+    if ( config.chatMessage ) await roll.toMessage(messageData);
+    return roll;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Roll chakra for a specific class as part of a level-up workflow.
+   * @param {Item5e} item                         The class item whose chakra dice to roll.
+   * @param {object} options
+   * @param {boolean} [options.chatMessage=true]  Display the chat message for this roll.
+   * @returns {Promise<Roll>}                     The completed roll.
+   * @see {@link n5eb.preRollClassChakra}
+   */
+  async rollClassChakra(item, { chatMessage=true }={}) {
+    if ( item.type !== "class" ) throw new Error("Chakra can only be rolled for a class item.");
+    const config = {
+      formula: `1${item.system.cd.denomination}`,
+      data: item.getRollData(),
+      chatMessage
+    };
+    const flavor = game.i18n.format("N5EB.ADVANCEMENT.Chakra.Action.RollClass", { class: item.name });
+    const messageData = {
+      title: `${flavor}: ${this.name}`,
+      flavor,
+      speaker: ChatMessage.implementation.getSpeaker({ actor: this }),
+      "flags.n5eb.roll": { type: "chakraPoints" }
+    };
+
+    /**
+     * A hook event that fires before chakra is rolled for a character's class.
+     * @function n5eb.preRollClassChakra
+     * @memberof hookEvents
+     * @param {Actor5e} actor            Actor for which the chakra is being rolled.
+     * @param {Item5e} item              The class item whose chakra dice will be rolled.
+     * @param {object} config
+     * @param {string} config.formula    The string formula to parse.
+     * @param {object} config.data       The data object against which to parse attributes within the formula.
+     * @param {object} messageData       The data object to use when creating the message.
+     */
+    Hooks.callAll("n5eb.preRollClassChakra", this, item, config, messageData);
+
+    const roll = new Roll(config.formula, config.data);
+    await roll.evaluate();
+
+    /**
+     * A hook event that fires after chakra has been rolled for a character's class.
+     * @function n5eb.rollClassChakra
+     * @memberof hookEvents
+     * @param {Actor5e} actor  Actor for which the chakra has been rolled.
+     * @param {Roll} roll      The resulting roll.
+     */
+    Hooks.callAll("n5eb.rollClassChakra", this, roll);
 
     if ( config.chatMessage ) await roll.toMessage(messageData);
     return roll;
@@ -2144,6 +2731,57 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Roll chakra points based on the chakra formula.
+   * @param {object} options
+   * @param {boolean} [options.chatMessage=true]  Display the chat message for this roll.
+   * @returns {Promise<Roll>}                     The completed roll.
+   * @see {@link n5eb.preRollChakraFormula}
+   */
+  async rollChakraFormula({ chatMessage=true }={}) {
+    const config = {
+      formula: this.system.attributes.chakra.formula,
+      data: this.getRollData(),
+      chatMessage
+    };
+    const flavor = game.i18n.format("N5EB.ChakraFormulaRollMessage");
+    const messageData = {
+      title: `${flavor}: ${this.name}`,
+      flavor,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      "flags.n5eb.roll": { type: "chakra" }
+    };
+
+    /**
+     * A hook event that fires before chakra points are rolled.
+     * @function n5eb.preRollChakraFormula
+     * @memberof hookEvents
+     * @param {Actor5e} actor            Actor for which the chakra points are being rolled.
+     * @param {object} config
+     * @param {string} config.formula    The string formula to parse.
+     * @param {object} config.data       The data object against which to parse attributes within the formula.
+     * @param {object} messageData       The data object to use when creating the message.
+     */
+    Hooks.callAll("n5eb.preRollChakraFormula", this, config, messageData);
+
+    const roll = new Roll(config.formula, config.data);
+    await roll.evaluate();
+
+    /**
+     * A hook event that fires after chakra points are rolled.
+     * @function n5eb.rollChakraFormula
+     * @memberof hookEvents
+     * @param {Actor5e} actor  Actor for which the chakra points have been rolled.
+     * @param {Roll} roll      The resulting roll.
+     */
+    Hooks.callAll("n5eb.rollChakraFormula", this, roll);
+
+    if ( config.chatMessage ) await roll.toMessage(messageData);
+    return roll;
+  }
+
+  /* -------------------------------------------- */
   /*  Resting                                     */
   /* -------------------------------------------- */
 
@@ -2183,9 +2821,11 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
      */
     if ( Hooks.call(`dnd5e.pre${config.type.capitalize()}Rest`, this, config) === false ) return;
 
-    // Take note of the initial hit points and number of hit dice the Actor has
+    // Take note of the initial points and number of dice the Actor has.
     const hd0 = foundry.utils.getProperty(this, "system.attributes.hd.value");
     const hp0 = foundry.utils.getProperty(this, "system.attributes.hp.value");
+    const cd0 = foundry.utils.getProperty(this, "system.attributes.cd.value");
+    const chakra0 = foundry.utils.getProperty(this, "system.attributes.chakra.value");
 
     // Display a Dialog for rolling hit dice
     if ( config.dialog ) {
@@ -2204,13 +2844,24 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
      */
     if ( Hooks.call(`dnd5e.${config.type}Rest`, this, config) === false ) return;
 
-    // Automatically spend hit dice
-    if ( config.autoHD ) await this.autoSpendHitDice({ threshold: config.autoHDThreshold });
+    // Automatically spend hit dice.
+    if ( config.autoHD ) {
+      const hd = foundry.utils.getProperty(this, "system.attributes.hd");
+      const spent = Number.isNumeric(hd0) ? Math.max(0, hd0 - (hd?.value ?? 0)) : 0;
+      const maxDice = config.type === "short"
+        ? this._getRestDiceSpendCap(hd, { fraction: restConfig.maxHitDiceSpendFraction, spent })
+        : Infinity;
+      await this.autoSpendHitDice({ threshold: config.autoHDThreshold, maxDice });
+    }
 
     // Return the rest result
-    const dhd = foundry.utils.getProperty(this, "system.attributes.hd.value") - hd0;
-    const dhp = foundry.utils.getProperty(this, "system.attributes.hp.value") - hp0;
-    return this._rest(config, { clone, dhd, dhp });
+    const delta = (path, initial) => Number.isNumeric(initial)
+      ? (foundry.utils.getProperty(this, path) ?? 0) - initial : 0;
+    const dhd = delta("system.attributes.hd.value", hd0);
+    const dhp = delta("system.attributes.hp.value", hp0);
+    const dcd = delta("system.attributes.cd.value", cd0);
+    const dchakra = delta("system.attributes.chakra.value", chakra0);
+    return this._rest(config, { clone, dhd, dhp, dcd, dchakra });
   }
 
   /* -------------------------------------------- */
@@ -2233,6 +2884,17 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
    */
   async longRest(config={}) {
     return this.initiateRest({ ...config, type: "long" });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a full rest, recovering hit points, chakra, dice, resources, item uses, and spell slots.
+   * @param {Partial<RestConfiguration>} [config]  Configuration options for a full rest.
+   * @returns {Promise<RestResult>}                A Promise which resolves once the full rest workflow has completed.
+   */
+  async fullRest(config={}) {
+    return this.initiateRest({ ...config, type: "full" });
   }
 
   /* -------------------------------------------- */
@@ -2269,6 +2931,8 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       type: config.type,
       deleteItems: [],
       deltas: {
+        chakra: 0,
+        chakraDice: 0,
         hitPoints: 0,
         hitDice: 0
       },
@@ -2281,15 +2945,21 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     result.clone ??= this.clone();
     if ( "dhp" in result ) result.deltas.hitPoints = result.dhp;
     if ( "dhd" in result ) result.deltas.hitDice = result.dhd;
+    if ( "dchakra" in result ) result.deltas.chakra = result.dchakra;
+    if ( "dcd" in result ) result.deltas.chakraDice = result.dcd;
 
     this._getRestHitDiceRecovery(config, result);
+    this._getRestChakraDiceRecovery(config, result);
     this._getRestHitPointRecovery(config, result);
+    this._getRestChakraRecovery(config, result);
     this._getRestResourceRecovery(config, result);
     this._getRestSpellRecovery(config, result);
     await this._getRestItemUsesRecovery(config, result);
 
     result.dhp = result.deltas.hitPoints;
     result.dhd = result.deltas.hitDice;
+    result.dchakra = result.deltas.chakra;
+    result.dcd = result.deltas.chakraDice;
     result.longRest = result.type === "long";
 
     if ( config.exhaustionDelta && !result.clone.hasConditionEffect("malnourished")
@@ -2349,32 +3019,45 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
    * @protected
    */
   async _displayRestResultMessage(config, result) {
-    let { dhd, dhp } = result;
-    if ( config.type === "short" ) dhd *= -1;
-    const diceRestored = dhd !== 0;
-    const healthRestored = dhp !== 0;
-    const longRest = config.type === "long";
-    const length = longRest ? "Long" : "Short";
+    let { dcd=0, dchakra=0, dhd=0, dhp=0 } = result;
+    if ( config.type === "short" ) {
+      dcd *= -1;
+      dhd *= -1;
+    }
     const typeConfig = CONFIG.DND5E.restTypes[config.type] ?? {};
 
-    // Determine the chat message to display
-    let message;
-    if ( typeof typeConfig.chat === "string" ) message = typeConfig.chat;
-    if ( !message ) {
-      if ( diceRestored && healthRestored ) message = `DND5E.REST.${length}.Result.Full`;
-      else if ( longRest && !diceRestored && healthRestored ) message = "DND5E.REST.Long.Result.HitPoints";
-      else if ( longRest && diceRestored && !healthRestored ) message = "DND5E.REST.Long.Result.HitDice";
-      else message = `DND5E.REST.${length}.Result.Short`;
+    // Determine the chat message to display.
+    const pr = new Intl.PluralRules(game.i18n.lang);
+    const count = (key, value) => game.i18n.format(`${key}.${pr.select(value)}`, { number: formatNumber(value) });
+    const recovered = [];
+    const spent = [];
+    if ( dhp > 0 ) recovered.push(count("DND5E.HITPOINTS.Counted", dhp));
+    if ( dchakra > 0 ) recovered.push(count("N5EB.CHAKRA.Counted", dchakra));
+    if ( dhd > 0 ) (config.type === "short" ? spent : recovered).push(count("DND5E.HITDICE.Counted", dhd));
+    if ( dcd > 0 ) (config.type === "short" ? spent : recovered).push(count("N5EB.CHAKRADICE.Counted", dcd));
+    const lf = game.i18n.getListFormatter({ type: "conjunction" });
+    const rest = game.i18n.localize(typeConfig.label).toLowerCase();
+
+    let content;
+    if ( spent.length && recovered.length ) {
+      content = game.i18n.format("N5EB.REST.Result.SpentRecovered", {
+        name: this.name, rest, spent: lf.format(spent), recovered: lf.format(recovered)
+      });
+    } else if ( recovered.length ) {
+      content = game.i18n.format("N5EB.REST.Result.Recovered", {
+        name: this.name, rest, recovered: lf.format(recovered)
+      });
+    } else if ( spent.length ) {
+      content = game.i18n.format("N5EB.REST.Result.Spent", {
+        name: this.name, rest, spent: lf.format(spent)
+      });
+    } else {
+      content = game.i18n.format("N5EB.REST.Result.Short", { name: this.name, rest });
     }
 
     // Create a chat message
-    const pr = new Intl.PluralRules(game.i18n.lang);
     let chatData = {
-      content: game.i18n.format(message, {
-        name: this.name,
-        dice: game.i18n.format(`DND5E.HITDICE.Counted.${pr.select(dhd)}`, { number: formatNumber(dhd) }),
-        health: game.i18n.format(`DND5E.HITPOINTS.Counted.${pr.select(dhp)}`, { number: formatNumber(dhp) })
-      }),
+      content,
       flavor: this.createRestFlavor(config, result),
       type: "rest",
       rolls: result.rolls,
@@ -2414,17 +3097,34 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
+   * Calculate how many dice can still be spent during a short rest.
+   * @param {object} dice
+   * @param {object} [options]
+   * @param {number} [options.fraction=0.5]  Fraction of the maximum dice that can be spent.
+   * @param {number} [options.spent=0]       Dice already spent during this rest.
+   * @returns {number}
+   * @protected
+   */
+  _getRestDiceSpendCap(dice, { fraction=0.5, spent=0 }={}) {
+    if ( !dice?.max ) return 0;
+    return Math.max(Math.max(1, Math.floor(dice.max * fraction)) - spent, 0);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Automatically spend hit dice to recover hit points up to a certain threshold.
    * @param {object} [options]
    * @param {number} [options.threshold=3]  A number of missing hit points which would trigger an automatic HD roll.
+   * @param {number} [options.maxDice=Infinity]  Maximum number of hit dice to spend.
    * @returns {Promise<number>}             Number of hit dice spent.
    */
-  async autoSpendHitDice({ threshold=3 }={}) {
+  async autoSpendHitDice({ threshold=3, maxDice=Infinity }={}) {
     if ( !this.system.attributes.hp ) return;
     const hp = this.system.attributes.hp;
     const max = Math.max(0, hp.effectiveMax);
     let diceRolled = 0;
-    while ( (this.system.attributes.hp.value + threshold) <= max ) {
+    while ( (diceRolled < maxDice) && ((this.system.attributes.hp.value + threshold) <= max) ) {
       const r = await this.rollHitDie();
       if ( r === null ) break;
       diceRolled += 1;
@@ -2447,7 +3147,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   _getRestHitDiceRecovery({ maxHitDice, fraction, ...config }={}, result={}) {
     const restConfig = CONFIG.DND5E.restTypes[config.type];
     if ( !this.system.attributes.hd || !restConfig?.recoverHitDice ) return;
-    fraction ??= dnd5e.settings.rulesVersion === "modern" ? 1 : 0.5;
+    fraction ??= restConfig.recoverHitDiceFraction ?? 0.5;
 
     // Handle simpler HD recovery for NPCs
     if ( this.system.isNPC ) {
@@ -2472,6 +3172,42 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
+   * Recovers chakra dice during a long or full rest.
+   *
+   * @param {RestConfiguration} [config]
+   * @param {number} [config.maxChakraDice]  Maximum number of chakra dice to recover.
+   * @param {number} [config.fraction]       Fraction of max chakra dice to recover.
+   * @param {RestResult} [result={}]         Rest result being constructed.
+   * @protected
+   */
+  _getRestChakraDiceRecovery({ maxChakraDice, fraction, ...config }={}, result={}) {
+    const restConfig = CONFIG.DND5E.restTypes[config.type];
+    const cd = this.system.attributes.cd;
+    if ( !cd || !restConfig?.recoverChakraDice ) return;
+    fraction ??= restConfig.recoverChakraDiceFraction ?? 0.5;
+
+    // Handle simpler CD recovery for NPCs.
+    if ( this.system.isNPC ) {
+      const recovered = Math.min(
+        Math.max(1, Math.floor(cd.max * fraction)), cd.spent, maxChakraDice ?? Infinity
+      );
+      foundry.utils.mergeObject(result, {
+        deltas: {
+          chakraDice: (result.deltas?.chakraDice ?? 0) + recovered
+        },
+        updateData: {
+          "system.attributes.cd.spent": cd.spent - recovered
+        }
+      });
+      return;
+    }
+
+    cd.createChakraDiceUpdates({ maxChakraDice, fraction, ...config }, result);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Recovers actor hit points and eliminates any temp HP.
    * @param {RestConfiguration} [config={}]
    * @param {boolean} [config.recoverTemp=true]     Reset temp HP to zero.
@@ -2488,10 +3224,39 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     result.updateData ??= {};
     if ( recoverTempMax ) result.updateData["system.attributes.hp.tempmax"] = 0;
     else max = Math.max(0, hp.effectiveMax);
-    result.updateData["system.attributes.hp.value"] = max;
+    const fraction = restConfig.recoverHitPointsFraction ?? 1;
+    result.updateData["system.attributes.hp.value"] = fraction >= 1
+      ? max : Math.min(max, hp.value + Math.floor(max * fraction));
     if ( recoverTemp ) result.updateData["system.attributes.hp.temp"] = 0;
     foundry.utils.setProperty(
-      result, "deltas.hitPoints", (result.deltas?.hitPoints ?? 0) + Math.max(0, max - hp.value)
+      result, "deltas.hitPoints",
+      (result.deltas?.hitPoints ?? 0) + Math.max(0, result.updateData["system.attributes.hp.value"] - hp.value)
+    );
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Recovers actor chakra points.
+   * @param {RestConfiguration} [config={}]
+   * @param {RestResult} [result={}]  Rest result being constructed.
+   * @protected
+   */
+  _getRestChakraRecovery({ recoverTemp, recoverTempMax, ...config }={}, result={}) {
+    const restConfig = CONFIG.DND5E.restTypes[config.type ?? "long"];
+    const chakra = this.system.attributes?.chakra;
+    if ( !chakra || !restConfig.recoverChakra ) return;
+
+    let max = chakra.max;
+    result.updateData ??= {};
+    if ( recoverTempMax ) result.updateData["system.attributes.chakra.tempmax"] = 0;
+    else max = Math.max(0, chakra.effectiveMax ?? chakra.max);
+    const fraction = restConfig.recoverChakraFraction ?? 1;
+    const value = fraction >= 1 ? max : Math.min(max, chakra.value + Math.floor(max * fraction));
+    result.updateData["system.attributes.chakra.value"] = value;
+    if ( recoverTemp ) result.updateData["system.attributes.chakra.temp"] = 0;
+    foundry.utils.setProperty(
+      result, "deltas.chakra", (result.deltas?.chakra ?? 0) + Math.max(0, value - chakra.value)
     );
   }
 
@@ -2506,8 +3271,8 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
    * @protected
    */
   _getRestResourceRecovery({ recoverShortRestResources, recoverLongRestResources, ...config }={}, result={}) {
-    recoverShortRestResources ??= config.type === "short";
-    recoverLongRestResources ??= config.type === "long";
+    recoverShortRestResources ??= ["short", "long", "full"].includes(config.type);
+    recoverLongRestResources ??= ["long", "full"].includes(config.type);
     for ( let [k, r] of Object.entries(this.system.resources ?? {}) ) {
       if ( Number.isNumeric(r.max) && ((recoverShortRestResources && r.sr) || (recoverLongRestResources && r.lr)) ) {
         result.updateData[`system.resources.${k}.value`] = Number(r.max);
@@ -2867,6 +3632,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       else if ( settings.merge.has("skills") ) {
         for ( let [k, s] of Object.entries(d.system.skills) ) {
           s.value = Math.max(s.value, o.system.skills[k]?.value ?? 0);
+          s.mastery = Math.max(s.mastery ?? 0, o.system.skills[k]?.mastery ?? 0);
         }
       }
 
@@ -3490,6 +4256,12 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
 
   /** @inheritDoc */
   async toggleStatusEffect(statusId, options) {
+    statusId = Conditions.canonicalizeConditionId(statusId);
+    if ( Conditions.getConditionConfig(statusId)?.ranked ) {
+      const current = this.getConditionRank(statusId);
+      return this.updateConditionRank(statusId, current ? 0 : 1);
+    }
+
     const created = await super.toggleStatusEffect(statusId, options);
     const status = CONFIG.statusEffects.find(e => e.id === statusId);
     if ( !(created instanceof ActiveEffect) || !status.exclusiveGroup ) return created;
@@ -3563,9 +4335,13 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     if ( !encumbrance || (game.settings.get("n5eb", "encumbrance") === "none") ) return;
     const statuses = [];
     const variant = game.settings.get("n5eb", "encumbrance") === "variant";
-    if ( encumbrance.value > encumbrance.thresholds.maximum ) statuses.push("exceedingCarryingCapacity");
-    if ( (encumbrance.value > encumbrance.thresholds.heavilyEncumbered) && variant ) statuses.push("heavilyEncumbered");
-    if ( (encumbrance.value > encumbrance.thresholds.encumbered) && variant ) statuses.push("encumbered");
+    if ( encumbrance.bulk ) {
+      if ( (encumbrance.value > encumbrance.thresholds.maximum) && variant ) statuses.push("encumbered");
+    } else {
+      if ( encumbrance.value > encumbrance.thresholds.maximum ) statuses.push("exceedingCarryingCapacity");
+      if ( (encumbrance.value > encumbrance.thresholds.heavilyEncumbered) && variant ) statuses.push("heavilyEncumbered");
+      if ( (encumbrance.value > encumbrance.thresholds.encumbered) && variant ) statuses.push("encumbered");
+    }
 
     const effect = this.effects.get(ActiveEffect5e.ID.ENCUMBERED);
     if ( !statuses.length ) return effect?.delete();

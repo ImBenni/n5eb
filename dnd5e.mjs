@@ -18,6 +18,7 @@ import {
 // Import Submodules
 import * as applications from "./module/applications/_module.mjs";
 import * as canvas from "./module/canvas/_module.mjs";
+import * as conditions from "./module/conditions.mjs";
 import * as dataModels from "./module/data/_module.mjs";
 import * as dice from "./module/dice/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
@@ -38,6 +39,7 @@ import DragDrop5e from "./module/drag-drop.mjs";
 globalThis.dnd5e = {
   applications,
   canvas,
+  conditions,
   config: DND5E,
   dataModels,
   dice,
@@ -124,6 +126,9 @@ Hooks.once("init", function() {
 
   // Legacy rules.
   if ( dnd5e.settings.rulesVersion === "legacy" ) applyLegacyRules();
+
+  // N5eB condition registry.
+  conditions.configureConditionTypes(DND5E);
 
   // Register system
   DND5E.SPELL_LISTS.forEach(uuid => dnd5e.registry.spellLists.register(uuid));
@@ -247,6 +252,7 @@ Hooks.once("init", function() {
 
   // Exhaustion handling
   documents.ActiveEffect5e.registerHUDListeners();
+  conditions.registerConditionHooks();
 
   // Set up token movement actions
   documents.TokenDocument5e.registerMovementActions();
@@ -306,13 +312,15 @@ function _configureTrackableAttributes() {
     bar: [
       ...common.bar,
       "attributes.hp",
+      "attributes.chakra",
       ..._trackedSpellAttributes()
     ],
     value: [
       ...common.value,
       ...Object.keys(DND5E.skills).map(skill => `skills.${skill}.passive`),
       ...Object.keys(DND5E.senses).map(sense => `attributes.senses.ranges.${sense}`),
-      "attributes.hp.temp", "attributes.spell.attack", "attributes.spell.dc"
+      "attributes.hp.temp", "attributes.chakra.value", "attributes.chakra.temp", "attributes.spell.attack",
+      "attributes.spell.dc"
     ]
   };
 
@@ -364,6 +372,7 @@ function _configureConsumableAttributes() {
     ...Object.keys(DND5E.abilities).map(ability => `abilities.${ability}.value`),
     "attributes.ac.flat",
     "attributes.hp.value",
+    "attributes.chakra.value",
     "attributes.exhaustion",
     ...Object.keys(DND5E.senses).map(sense => `attributes.senses.ranges.${sense}`),
     ...Object.keys(DND5E.movementTypes).map(type => `attributes.movement.${type}`),
@@ -501,6 +510,18 @@ Hooks.once("i18nInit", () => {
   // Set up status effects. Explicitly performed after init and before prelocalization.
   _configureStatusEffects();
 
+  if ( dnd5e.settings.useExpertise ) {
+    CONFIG.DND5E.masteryLevels[1] = "DND5E.Expertise";
+    CONFIG.DND5E.masteryLevels[2] = "DND5E.Expertise";
+    CONFIG.DND5E.masteryLevels[3] = "DND5E.Expertise";
+  } else {
+    CONFIG.DND5E.traitModes.expertise.label = "DND5E.ADVANCEMENT.Trait.Mode.SkillMastery.Label";
+    CONFIG.DND5E.traitModes.expertise.hint = "DND5E.ADVANCEMENT.Trait.Mode.SkillMastery.Hint";
+    CONFIG.DND5E.traitModes.forcedExpertise.label = "DND5E.ADVANCEMENT.Trait.Mode.ForceMastery.Label";
+    CONFIG.DND5E.traitModes.forcedExpertise.hint = "DND5E.ADVANCEMENT.Trait.Mode.ForceMastery.Hint";
+    CONFIG.DND5E.traitModes.upgrade.hint = "DND5E.ADVANCEMENT.Trait.Mode.UpgradeMastery.Hint";
+  }
+
   if ( dnd5e.settings.rulesVersion === "legacy" ) {
     const { translations, _fallback } = game.i18n;
     foundry.utils.mergeObject(translations, {
@@ -582,6 +603,7 @@ Hooks.once("ready", function() {
 
   // Determine whether a system migration is required and feasible
   if ( !game.user.isGM ) return;
+  migrations.ensureN5eBCompendiumFolders();
   const cv = game.settings.get("n5eb", "systemMigrationVersion") || game.world.flags.n5eb?.version;
   const totalDocuments = game.actors.size + game.scenes.size + game.items.size;
   if ( !cv && totalDocuments === 0 ) return game.settings.set("n5eb", "systemMigrationVersion", game.system.version);
@@ -611,7 +633,7 @@ Hooks.on("renderGamePause", (app, html) => {
   container.append(...html.children);
   html.append(container);
   const img = html.querySelector("img");
-  img.src = "systems/n5eb/ui/official/ampersand.svg";
+  img.src = "systems/n5eb/ui/official/n5eb-pause.svg";
   img.className = "";
 });
 

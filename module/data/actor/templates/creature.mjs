@@ -43,7 +43,10 @@ export default class CreatureTemplate extends CommonTemplate {
       }),
       skills: new MappingField(new RollConfigField({
         value: new NumberField({
-          required: true, nullable: false, min: 0, max: 2, step: 0.5, initial: 0, label: "DND5E.ProficiencyLevel"
+          required: true, nullable: false, min: 0, max: 1, step: 0.5, initial: 0, label: "DND5E.ProficiencyLevel"
+        }),
+        mastery: new NumberField({
+          required: true, nullable: false, integer: true, min: 0, max: 3, initial: 0, label: "DND5E.MASTERY.Label"
         }),
         ability: "dex",
         bonuses: new SchemaField({
@@ -56,7 +59,10 @@ export default class CreatureTemplate extends CommonTemplate {
       }),
       tools: new MappingField(new RollConfigField({
         value: new NumberField({
-          required: true, nullable: false, min: 0, max: 2, step: 0.5, initial: 0, label: "DND5E.ProficiencyLevel"
+          required: true, nullable: false, min: 0, max: 1, step: 0.5, initial: 0, label: "DND5E.ProficiencyLevel"
+        }),
+        mastery: new NumberField({
+          required: true, nullable: false, integer: true, min: 0, max: 3, initial: 0, label: "DND5E.MASTERY.Label"
         }),
         ability: "int",
         bonuses: new SchemaField({
@@ -121,6 +127,7 @@ export default class CreatureTemplate extends CommonTemplate {
     super._migrateData(source);
     CreatureTemplate.#migrateSensesData(source);
     CreatureTemplate.#migrateToolData(source);
+    CreatureTemplate.#migrateSkillToolMastery(source);
   }
 
   /* -------------------------------------------- */
@@ -175,9 +182,27 @@ export default class CreatureTemplate extends CommonTemplate {
       if ( !validProf || (prof in source.tools) ) continue;
       source.tools[prof] = {
         value: 1,
+        mastery: 0,
         ability: "int",
         bonuses: {check: ""}
       };
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate legacy combined skill/tool proficiency values to separate Mastery ranks.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateSkillToolMastery(source) {
+    for ( const type of ["skills", "tools"] ) {
+      if ( !source[type] ) continue;
+      for ( const data of Object.values(source[type]) ) {
+        const { value, mastery } = this.normalizeSkillToolProficiency(data.value, data.mastery);
+        data.value = value;
+        data.mastery = mastery;
+      }
     }
   }
 
@@ -240,22 +265,34 @@ export default class CreatureTemplate extends CommonTemplate {
     skillData.ability = ability;
     const baseBonus = simplifyBonus(skillData.bonuses?.check, rollData);
     const originalSkill = originalSkills?.[skillId];
-    if ( originalSkill?.value >= 1 ) {
+    let { value, mastery } = this.constructor.normalizeSkillToolProficiency(skillData.value, skillData.mastery);
+    skillData.value = value;
+    skillData.mastery = mastery;
+    const originalValue = originalSkill?.effectValue ?? originalSkill?.value;
+    const originalMastery = originalSkill?.effectMastery ?? originalSkill?.mastery;
+    const normalizedOriginal = this.constructor.normalizeSkillToolProficiency(originalValue, originalMastery);
+    if ( normalizedOriginal.value > skillData.value ) {
       skillData.merged = true;
-      skillData.value = originalSkill?.value;
+      skillData.value = normalizedOriginal.value;
+    }
+    if ( normalizedOriginal.mastery > skillData.mastery ) {
+      skillData.merged = true;
+      skillData.mastery = normalizedOriginal.mastery;
     }
 
     // Compute modifier
     const checkBonusAbl = simplifyBonus(abilityData?.bonuses?.check, rollData);
     skillData.effectValue = skillData.value;
+    skillData.effectMastery = skillData.mastery;
     skillData.bonus = baseBonus + globalCheckBonus + checkBonusAbl + globalSkillBonus;
     skillData.mod = abilityData?.mod ?? 0;
     const calculatedProf = this.calculateAbilityCheckProficiency(
-      skillData.value, skillData.ability, { skill: skillId }
+      skillData.value, skillData.ability, { skill: skillId, mastery: skillData.mastery }
     );
-    skillData.prof = originalSkill?.prof?.multiplier > calculatedProf.multiplier
+    skillData.prof = originalSkill?.prof?.flat > calculatedProf.flat
       ? originalSkill.prof.clone() : calculatedProf;
     skillData.value = skillData.proficient = skillData.prof.multiplier;
+    skillData.mastery = this.calculateSkillToolMasteryRank(skillData.effectMastery, { skill: skillId });
     skillData.total = skillData.mod + skillData.bonus;
     if ( Number.isNumeric(skillData.prof.term) ) skillData.total += skillData.prof.flat;
 
@@ -288,17 +325,22 @@ export default class CreatureTemplate extends CommonTemplate {
    */
   prepareTools({ rollData={} }={}) {
     const globalCheckBonus = simplifyBonus(this.bonuses.abilities.check, rollData);
-    for ( const tool of Object.values(this.tools) ) {
+    for ( const [toolId, tool] of Object.entries(this.tools) ) {
       const ability = this.abilities[tool.ability];
       const baseBonus = simplifyBonus(tool.bonuses.check, rollData);
       const checkBonusAbl = simplifyBonus(ability?.bonuses?.check, rollData);
+      const { value, mastery } = this.constructor.normalizeSkillToolProficiency(tool.value, tool.mastery);
+      tool.value = value;
+      tool.mastery = mastery;
       tool.effectValue = tool.value;
+      tool.effectMastery = tool.mastery;
       tool.bonus = baseBonus + globalCheckBonus + checkBonusAbl;
       tool.mod = ability?.mod ?? 0;
-      tool.prof = this.calculateToolProficiency(tool.value, tool.ability);
+      tool.prof = this.calculateToolProficiency(tool.value, tool.ability, { tool: toolId, mastery: tool.mastery });
       tool.total = tool.mod + tool.bonus;
       if ( Number.isNumeric(tool.prof.term) ) tool.total += tool.prof.flat;
       tool.value = tool.prof.multiplier;
+      tool.mastery = this.calculateSkillToolMasteryRank(tool.effectMastery, { tool: toolId });
     }
   }
 
@@ -310,6 +352,7 @@ export default class CreatureTemplate extends CommonTemplate {
   getRollData({ deterministic=false }={}) {
     const data = super.getRollData({ deterministic });
     data.classes = {};
+    data.classmods = {};
     data.subclasses = {};
     for ( const [identifier, cls] of Object.entries(this.parent.classes) ) {
       data.classes[identifier] = {...cls.system};
@@ -318,6 +361,9 @@ export default class CreatureTemplate extends CommonTemplate {
         data.classes[identifier].subclass = cls.subclass.system;
         data.subclasses[cls.subclass.identifier] = { levels: cls.system.levels };
       }
+    }
+    for ( const [identifier, classmod] of Object.entries(this.parent.classmods) ) {
+      data.classmods[identifier] = {...classmod.system};
     }
     return data;
   }

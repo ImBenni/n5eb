@@ -15,6 +15,16 @@ import * as LEGACY from "./config-legacy.mjs";
 const { StringField } = foundry.data.fields;
 
 /**
+ * Rerender all currently open actor sheets.
+ */
+function rerenderOpenActorSheets() {
+  for ( const actor of game.actors ?? [] ) {
+    const sheet = actor.sheet;
+    if ( sheet?.rendered ) sheet.render(true);
+  }
+}
+
+/**
  * Register all of the system's keybindings.
  */
 export function registerSystemKeybindings() {
@@ -446,7 +456,7 @@ export function registerSystemSettings() {
     hint: "SETTINGS.DND5E.VARIANT.CurrencyWeight.Hint",
     scope: "world",
     config: false,
-    default: true,
+    default: false,
     type: Boolean
   });
 
@@ -455,7 +465,7 @@ export function registerSystemSettings() {
     hint: "SETTINGS.DND5E.VARIANT.Encumbrance.Hint",
     scope: "world",
     config: false,
-    default: "none",
+    default: "variant",
     type: String,
     choices: {
       none: "SETTINGS.DND5E.VARIANT.Encumbrance.None",
@@ -499,6 +509,16 @@ export function registerSystemSettings() {
       bonus: "SETTINGS.DND5E.VARIANT.ProficiencyModifier.Bonus",
       dice: "SETTINGS.DND5E.VARIANT.ProficiencyModifier.Dice"
     }
+  });
+
+  game.settings.register("n5eb", "useExpertise", {
+    name: "SETTINGS.DND5E.VARIANT.UseExpertise.Name",
+    hint: "SETTINGS.DND5E.VARIANT.UseExpertise.Hint",
+    scope: "world",
+    config: false,
+    default: false,
+    type: Boolean,
+    requiresReload: true
   });
 
   game.settings.register("n5eb", "restVariant", {
@@ -606,6 +626,27 @@ export function registerSystemSettings() {
     default: true
   });
 
+  // Character sheet skill presentation
+  game.settings.register("n5eb", "colorAbilityAbbreviations", {
+    name: "SETTINGS.DND5E.SHEET.AbilityColors.Name",
+    hint: "SETTINGS.DND5E.SHEET.AbilityColors.Hint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+    onChange: rerenderOpenActorSheets
+  });
+
+  game.settings.register("n5eb", "sortSkillsByAbility", {
+    name: "SETTINGS.DND5E.SHEET.SortSkillsByAbility.Name",
+    hint: "SETTINGS.DND5E.SHEET.SortSkillsByAbility.Hint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+    onChange: rerenderOpenActorSheets
+  });
+
   // NPC sheet default skills
   game.settings.register("n5eb", "defaultSkills", {
     name: "SETTINGS.DND5E.DEFAULTSKILLS.Name",
@@ -631,7 +672,7 @@ function cacheSettings() {
   dnd5e.settings = {};
   for ( const setting of game.settings.settings.values() ) {
     const { key, namespace, onChange, requiresReload, scope } = setting;
-    if ( (scope !== "world") || (namespace !== "dnd5e") ) continue;
+    if ( (scope !== "world") || (namespace !== "n5eb") ) continue;
     dnd5e.settings[key] = game.settings.get(namespace, key);
     if ( !requiresReload ) setting.onChange = (value, ...args) => {
       dnd5e.settings[key] = value;
@@ -696,15 +737,6 @@ export function applyLegacyRules() {
     DND5E.transformation.presets[preset].settings.keep.delete("type");
     delete DND5E.transformation.presets[preset].settings.tempFormula;
   }
-
-  // Adjust language categories.
-  delete DND5E.languages.standard.children.sign;
-  DND5E.languages.exotic.children.draconic = DND5E.languages.standard.children.draconic;
-  delete DND5E.languages.standard.children.draconic;
-  DND5E.languages.cant = DND5E.languages.exotic.children.cant;
-  delete DND5E.languages.exotic.children.cant;
-  DND5E.languages.druidic = DND5E.languages.exotic.children.druidic;
-  delete DND5E.languages.exotic.children.druidic;
 
   // Stunned stops movement in legacy & surprised doesn't provide initiative disadvantage.
   DND5E.conditionEffects.noMovement.add("stunned");

@@ -311,6 +311,13 @@
     height: 15px;
   }
 
+  .proficiency-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    flex: 0 0 auto;
+  }
+
   .pills-group {
     h3 {
       border: none;
@@ -1594,7 +1601,7 @@ dialog.dnd5e2.application {
 /*  Hit Dice Config Sheet             */
 /* ---------------------------------- */
 
-.dnd5e2.hit-dice.config-sheet {
+.dnd5e2:is(.hit-dice, .chakra-dice).config-sheet {
   fieldset { padding-block: 8px; }
   .form-group {
     .separator { flex: 0; }
@@ -1614,7 +1621,7 @@ dialog.dnd5e2.application {
 /*  Hit Points Config Sheet           */
 /* ---------------------------------- */
 
-.dnd5e2.hit-points.config-sheet {
+.dnd5e2:is(.hit-points, .chakra).config-sheet {
   .multiplier {
     flex: 0 0 4em;
     text-align: center;
@@ -1623,6 +1630,43 @@ dialog.dnd5e2.application {
   .form-group > label .content-link {
     padding: 0;
     > i { display: none; }
+  }
+}
+
+/* ---------------------------------- */
+/*  Downtime Dialogs                  */
+/* ---------------------------------- */
+
+.dnd5e2:is(.downtime-dialog, .downtime-payment-dialog) {
+  fieldset {
+    margin-block: 8px;
+    padding: 8px;
+  }
+
+  .rank-table {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+
+    label {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 4px;
+      font-size: var(--font-size-12);
+    }
+  }
+
+  .downtime-payment-summary {
+    display: grid;
+    gap: 3px;
+    margin-block-end: 8px;
+    padding: 8px;
+    border: var(--dnd5e-border-dotted);
+    border-radius: 4px;
+    font-size: var(--font-size-12);
+
+    span { color: var(--color-text-secondary); }
   }
 }
 
@@ -1832,7 +1876,40 @@ dialog.dnd5e2.application {
 
 .dnd5e2.tools.trait-selector {
   .traits {
-    grid-template-columns: [proficiency] 15px [name] 1fr [bonus] 20px [config] 20px;
+    grid-template-columns: [proficiency] 34px [mastery] 48px [name] 1fr [bonus] 20px [config] 20px;
+
+    .control-header {
+      align-items: end;
+      border-bottom: var(--dnd5e-border-dotted);
+      color: var(--color-text-tertiary);
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-10);
+      font-weight: bold;
+      line-height: 1;
+      margin-block-end: 4px;
+      padding: 0 0 3px;
+      text-transform: uppercase;
+
+      .proficiency, .mastery {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    .mastery {
+      grid-column: mastery;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    proficiency-cycle {
+      justify-self: center;
+    }
+
+    proficiency-cycle[type="tool"] { grid-column: proficiency; }
+    proficiency-cycle[type="mastery"] { grid-column: mastery; }
+
     li {
       padding-block-start: 1px;
       &:not(:last-of-type) { padding-block-end: 4px; }
@@ -1982,14 +2059,14 @@ dialog.dnd5e2.application {
 
   .conditions-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     clip-path: polygon(0 0, calc(100% - 1px) 0, calc(100% - 1px) calc(100% - 1px), 0 calc(100% - 1px));
     --icon-size: 18px;
 
     .condition {
       display: flex;
-      gap: .5rem;
-      padding: .5625rem .75rem;
+      gap: .375rem;
+      padding: .5rem .625rem;
       align-items: center;
       cursor: var(--cursor-pointer);
       border: none;
@@ -2019,6 +2096,34 @@ dialog.dnd5e2.application {
         flex: 1;
         .title { font-size: var(--font-size-13); }
       }
+
+      .rank-controls {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        min-width: 43px;
+        justify-content: flex-end;
+
+        button {
+          width: 16px;
+          height: 16px;
+          display: grid;
+          place-content: center;
+          padding: 0;
+          border: 1px solid var(--color-border-light-2);
+          border-radius: 4px;
+          background: var(--color-bg-option);
+          color: currentcolor;
+          cursor: var(--cursor-pointer);
+        }
+
+        span {
+          min-width: 1em;
+          text-align: center;
+          font-size: var(--font-size-11);
+          font-weight: bold;
+        }
+      }
     }
   }
 }
@@ -2027,6 +2132,87 @@ dialog.dnd5e2.application {
 .active-effect-config section.changes header div.key i {
   margin-left: 0.25rem;
   cursor: help;
+}
+
+.dnd5e-tooltip.n5eb-condition-tooltip .n5eb-condition-tooltip-content {
+  header {
+    align-items: start;
+    display: flex;
+    gap: .75rem;
+    justify-content: space-between;
+
+    h4 {
+      border: none;
+      font-family: var(--dnd5e-font-roboto-slab);
+      font-size: var(--font-size-18);
+      margin: 0;
+    }
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: flex-end;
+  }
+
+  .tag {
+    border: 1px solid var(--color-border-light-2);
+    border-radius: 3px;
+    font-family: var(--dnd5e-font-roboto-condensed);
+    font-size: var(--font-size-11);
+    font-weight: bold;
+    padding: 3px 6px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .description {
+    margin-block-start: .5rem;
+  }
+
+  .rules {
+    margin-block-start: .5rem;
+    padding: .45rem .55rem;
+    border: 1px solid var(--color-border-light-2);
+    border-radius: 4px;
+    background: rgb(0 0 0 / 6%);
+
+    h5 {
+      margin: 0 0 .25rem;
+      border: none;
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-12);
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    ul {
+      margin: 0;
+      padding-inline-start: 1rem;
+    }
+
+    li {
+      margin: 0 0 .2rem;
+      line-height: 1.25;
+    }
+  }
+}
+
+#token-hud .effect-control.ranked-condition::after {
+  content: var(--n5eb-condition-rank);
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 2px;
+  border-radius: 7px;
+  background: #111;
+  color: white;
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
 }
 
 /* ---------------------------------- */

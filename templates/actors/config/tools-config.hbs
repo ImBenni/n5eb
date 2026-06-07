@@ -2,6 +2,10 @@
     {{#each choices}}
     <fieldset class="traits card">
         <legend>{{ label }}</legend>
+        <div class="header control-header">
+            <span class="proficiency" data-tooltip="{{ localize "DND5E.Proficiency" }}">Prof.</span>
+            <span class="mastery" data-tooltip="{{ localize @root.masteryLabel }}">{{ localize @root.masteryLabel }}</span>
+        </div>
         {{> ".tool-list" choices=children topLevel=true }}
     </fieldset>
     {{/each}}
@@ -18,8 +22,10 @@
 
 {{#*inline ".tool-entry"}}
 <li {{~#if category}} class="category"{{/if}} data-key="{{ @key }}">
-    <proficiency-cycle type="skill" name="system.tools.{{ @key }}.value" value="{{ value }}"
+    <proficiency-cycle type="tool" name="system.tools.{{ @key }}.value" value="{{ value }}"
                        data-tooltip aria-label="{{ localize tooltip }}"></proficiency-cycle>
+    <proficiency-cycle type="mastery" name="system.tools.{{ @key }}.mastery" value="{{ mastery }}"
+                       data-tooltip aria-label="{{ localize masteryTooltip }}"></proficiency-cycle>
     <label class="name">{{ label }}</label>
     {{#if children}}
     {{> ".tool-list" choices=children topLevel=false }}

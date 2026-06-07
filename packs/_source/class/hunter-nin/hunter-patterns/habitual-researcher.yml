@@ -1,0 +1,260 @@
+folder: tKWXYORClYFhpcip
+name: Habitual Researcher
+type: feat
+_id: gyhfHvTrf1ZL1Ux2
+img: icons/sundries/survival/bedroll-brown.webp
+system:
+  description:
+    value: >-
+      <p>You research the most remedial things. The number of useless facts and tidbits of knowledge has become
+      unbearable. But you never stop learning, no matter how much time it takes out of your personal life. Select two
+      skills. You gain proficiency in the given skills.</p><p>You can select this Pattern multiple times, selecting
+      different skills.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: ''
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  type:
+    value: class
+    subtype: hunterPattern
+  prerequisites:
+    level: 2
+  properties: []
+  requirements: Hunter-Nin
+  recharge:
+    value: null
+    charged: false
+  identifier: habitual-researcher
+effects:
+  - name: Habitual Researcher
+    origin: Compendium.n5eb.class.Item.gyhfHvTrf1ZL1Ux2
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      effectmacro:
+        onCreate:
+          script: |-
+            // Extract skills from the actor
+            const skills = actor.system.skills;
+
+            // Generate skill selection options dynamically
+            let skillChoices = Object.entries(skills).map(([key, value]) => {
+              return `<option value="${key}">${CONFIG.N5EB.skills[key].label}</option>`;
+            }).join("");
+
+            // Create the dialog for skill selection
+            let dialogContent = `
+              <p>Select two skills to gain proficiency:</p>
+              <form>
+                <div class="form-group">
+                  <label for="skill1">Skill 1:</label>
+                  <select id="skill1" name="skill1">${skillChoices}</select>
+                </div>
+                <div class="form-group">
+                  <label for="skill2">Skill 2:</label>
+                  <select id="skill2" name="skill2">${skillChoices}</select>
+                </div>
+              </form>
+            `;
+
+            new Dialog({
+              title: "Habitual Researcher",
+              content: dialogContent,
+              buttons: {
+                select: {
+                  icon: "<i class='fas fa-check'></i>",
+                  label: "Select",
+                  callback: (html) => {
+                    let skill1 = html.find("[name='skill1']").val();
+                    let skill2 = html.find("[name='skill2']").val();
+
+                    // Ensure the player has selected two different skills
+                    if (skill1 === skill2) {
+                      ui.notifications.error("You must select two different skills.");
+                      return;
+                    }
+
+                    // Add proficiency to the selected skills
+                    let updates = {};
+                    updates[`system.skills.${skill1}.value`] = 1;
+                    updates[`system.skills.${skill2}.value`] = 1;
+
+                    actor.update(updates);
+
+                    ui.notifications.info(`You have gained proficiency in ${CONFIG.N5EB.skills[skill1].label} and ${CONFIG.N5EB.skills[skill2].label}.`);
+                  }
+                }
+              },
+              default: "select"
+            }).render(true);
+    img: icons/sundries/survival/bedroll-brown.webp
+    _id: xSoLyBQWqrxSU6nn
+    type: base
+    system: {}
+    changes: []
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1724420609746
+      modifiedTime: 1724420645459
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!gyhfHvTrf1ZL1Ux2.xSoLyBQWqrxSU6nn'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: class
+      sourcePath: hunter-nin/hunter-patterns/habitual-researcher.json
+      sourceId: gyhfHvTrf1ZL1Ux2
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>You research the most remedial things. The number of useless facts and tidbits of knowledge has become
+            unbearable. But you never stop learning, no matter how much time it takes out of your personal life. Select
+            two skills. You gain proficiency in the given skills.</p><p>You can select this Pattern multiple times,
+            selecting different skills.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: ''
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        type:
+          value: class
+          subtype: hunterPattern
+        prerequisites:
+          level: 2
+        properties: []
+        requirements: Hunter-Nin
+        recharge:
+          value: null
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1724420422820
+  modifiedTime: 1724421201364
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: class
+    sourcePath: hunter-nin/hunter-patterns/habitual-researcher.json
+_key: '!items!gyhfHvTrf1ZL1Ux2'

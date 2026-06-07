@@ -161,6 +161,7 @@
  * @property {string} bonus                        Bonus formula added to tool rolls.
  * @property {string} chatFlavor                   Additional text added to chat when this tool is used.
  * @property {number} proficient                   Level of proficiency as defined in `DND5E.proficiencyLevels`.
+ * @property {number} mastery                      Tool Mastery rank.
  * @property {Set<string>} properties              Tool properties.
  * @property {Omit<ItemTypeData, "subtype">} type  Tool type and base item.
  */

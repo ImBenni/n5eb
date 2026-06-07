@@ -1,0 +1,259 @@
+name: Fire Release Absorb Heat
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/fire.webp
+system:
+  description:
+    value: >-
+      <p>You generate a vacuum of chakra absorbing the heat from the surrounding area and create a thin layer of fire
+      chakra to protect yourself. You gain resistance to the triggering instance of damage.</p><p>If the triggering
+      damage or any further attacks that target you are melee attacks and the triggering creature was no more than 10
+      feet away when this jutsu was cast, the triggering creature takes 6 fire Damage until the beginning of your next
+      turn.</p><p>If the triggering damage was fire, you also gain +5 DR vs fire damage until the start of your next
+      turn. If the triggering damage was cold, this jutsu fails to activate.</p><p>At Higher Ranks: For each rank you
+      cast this jutsu above D-Rank, increase the cost of this jutsu by 3, damage dealt as a result of a melee attack by
+      +4 and the range a creature can be to take the damage by 5 feet..</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: reaction
+    cost: 1
+    condition: which you take when you would take damage.
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '5'
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: ''
+  actionType: other
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - '6'
+        - fire
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: '4'
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: fire-release-absorb-heat
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - fire
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: fire-release/d-rank/fire-release-absorb-heat.json
+      sourceId: d6jJQutopaGRxuKa
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You generate a vacuum of chakra absorbing the heat from the surrounding area and create a thin layer of
+            fire chakra to protect yourself. You gain resistance to the triggering instance of damage.</p><p>If the
+            triggering damage or any further attacks that target you are melee attacks and the triggering creature was
+            no more than 10 feet away when this jutsu was cast, the triggering creature takes 6 fire Damage until the
+            beginning of your next turn.</p><p>If the triggering damage was fire, you also gain +5 DR vs fire damage
+            until the start of your next turn. If the triggering damage was cold, this jutsu fails to activate.</p><p>At
+            Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3, damage
+            dealt as a result of a melee attack by +4 and the range a creature can be to take the damage by 5 feet..</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take when you would take damage.
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '5'
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: ''
+        actionType: other
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - '6'
+              - fire
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 1
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: '4'
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - molding
+        keywords:
+          - ninjutsu
+          - fire
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    reactionCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728751719116
+  modifiedTime: 1728751719116
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: fire-release/d-rank/fire-release-absorb-heat.json
+folder: Wd8NjDd6cDSsPReO
+sort: 6200000
+ownership:
+  default: 0
+_id: d6jJQutopaGRxuKa
+_key: '!items!d6jJQutopaGRxuKa'

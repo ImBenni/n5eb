@@ -1,0 +1,250 @@
+name: Dark Isolation
+type: spell
+img: systems/n5eb/assets/content/clans/kuru.webp
+system:
+  description:
+    value: "<p>As part of the activation of this jutsu, you must have the Kurugan class feature active.\_<br />Using the abilities granted by your Kurugan, you begin to summon a tangible manifestation of loneliness to cloak the target, dragging it into a void of pure isolation.\_<br />Select one creature you can see within range.\_<br />All creatures allied to the target within 60 of it, must make a Wisdom saving throw.\_</p><p><br />Success:</p><p>Affected creatures resist this jutsu's effects, being able to see their ally</p><p></p><p>Failure:</p><p>Creatures allied to the target can no longer see them.\_<br />They are still aware they are present, but are unable to interact with them.\_</p><p><br />Critical Failure:</p><p>Same as failure, but they forget the target exists for the duration.\_</p><p><br />At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the number of creatures you can target by +1</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: genjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: genjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: dark-isolation
+  jutsu:
+    components:
+      - hs
+      - cm
+      - cs
+    keywords:
+      - genjutsu
+      - hijutsu
+      - fuinjutsu
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - chakraseals
+      - handseals
+      - molding
+      - fuinjutsu
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: kuru/clan-hijutsu/d-rank/dark-isolation.json
+      sourceId: wDHlITKY8pZTFFJr
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>As part of the activation of this jutsu, you must have the Kurugan class feature active.\_<br />Using the abilities granted by your Kurugan, you begin to summon a tangible manifestation of loneliness to cloak the target, dragging it into a void of pure isolation.\_<br />Select one creature you can see within range.\_<br />All creatures allied to the target within 60 of it, must make a Wisdom saving throw.\_</p><p><br />Success:</p><p>Affected creatures resist this jutsu's effects, being able to see their ally</p><p>\_</p><p>Failure:</p><p>Creatures allied to the target can no longer see them.\_<br />They are still aware they are present, but are unable to interact with them.\_</p><p><br />Critical Failure:</p><p>Same as failure, but they forget the target exists for the duration.\_</p><p><br />At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the number of creatures you can target by +1</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: genjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: genjutsu
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - chakraseals
+          - concentration
+          - molding
+          - fuinjutsu
+        keywords:
+          - genjutsu
+          - hijutsu
+          - fuinjutsu
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754082526
+  modifiedTime: 1728754126245
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: kuru/clan-hijutsu/d-rank/dark-isolation.json
+folder: 1yVXD0Q7TtelVxg1
+sort: 150000
+ownership:
+  default: 0
+_id: wDHlITKY8pZTFFJr
+_key: '!items!wDHlITKY8pZTFFJr'

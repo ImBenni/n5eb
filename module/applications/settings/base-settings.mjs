@@ -48,12 +48,12 @@ export default class BaseSettingsConfig extends Application5e {
 
   /**
    * Create the field data for a specific setting.
-   * @param {string} name  Setting key within the dnd5e namespace.
+   * @param {string} name  Setting key within the n5eb namespace.
    * @returns {object}
    */
   createSettingField(name) {
-    const setting = game.settings.settings.get(`dnd5e.${name}`);
-    if ( !setting ) throw new Error(`Setting \`dnd5e.${name}\` not registered.`);
+    const setting = game.settings.settings.get(`n5eb.${name}`);
+    if ( !setting ) throw new Error(`Setting \`n5eb.${name}\` not registered.`);
     const isDataField = setting.type instanceof DataField;
     const Field = { [Boolean]: BooleanField, [Number]: NumberField, [String]: StringField }[setting.type];
     if ( !isDataField && !Field ) {
@@ -89,7 +89,7 @@ export default class BaseSettingsConfig extends Application5e {
     let requiresClientReload = false;
     let requiresWorldReload = false;
     for ( const [key, value] of Object.entries(foundry.utils.expandObject(formData.object)) ) {
-      const setting = game.settings.settings.get(`dnd5e.${key}`);
+      const setting = game.settings.settings.get(`n5eb.${key}`);
       const current = game.settings.get("n5eb", key, { document: true });
       const prior = current?._source?.value ?? current;
       const updated = await game.settings.set("n5eb", key, value, { document: true });

@@ -241,7 +241,20 @@ export default function ActivityMixin(Base) {
 
       // Create concentration effect & end previous effects
       if ( usageConfig.concentration?.begin ) {
-        const effect = await item.actor.beginConcentrating(activity, { "flags.n5eb.scaling": usageConfig.scaling });
+        const rank = usageConfig.jutsu?.rank ?? item.system.effectiveRank;
+        const chakraCost = usageConfig.chakra?.cost ?? item.system.getChakraCost({ rank });
+        const maintainCost = usageConfig.chakra?.maintain ?? item.system.getMaintainCost({ rank, cost: chakraCost });
+        const effect = await item.actor.beginConcentrating(activity, {
+          "flags.n5eb.scaling": usageConfig.scaling,
+          "flags.n5eb.concentration": {
+            chakraCost,
+            maintainCost,
+            rank,
+            rankValue: CONFIG.DND5E.jutsuRankValues[rank] ?? 0
+          },
+          "flags.n5eb.jutsuRank": rank,
+          "flags.n5eb.spellLevel": CONFIG.DND5E.jutsuSpellLevelByRank[rank] ?? item.system.level
+        });
         if ( effect ) {
           results.effects ??= [];
           results.effects.push(effect);
@@ -422,30 +435,20 @@ export default function ActivityMixin(Base) {
         // TODO: Handle permissions checks in `ActivityUsageDialog`
       }
 
-      const ignoreLinkedConsumption = this.isSpell && !this.consumption.spellSlot;
-      if ( config.consume !== false ) {
-        const activationConfig = CONFIG.DND5E.activityActivationTypes[this.activation.type] ?? {};
-        const hasActionConsumption = activationConfig.consume
-          && (activationConfig.consume.canConsume?.(this) !== false);
-        const hasResourceConsumption = this.consumption.targets.length > 0;
-        const hasLinkedConsumption = (linked?.consumption.targets.length > 0) && !ignoreLinkedConsumption;
-        const hasSpellSlotConsumption = this.requiresSpellSlot && this.consumption.spellSlot;
-        config.consume ??= {};
-        config.consume.action ??= hasActionConsumption;
-        config.consume.resources ??= Array.from(this.consumption.targets.entries())
-          .filter(([, target]) => !target.combatOnly || this.actor.inCombat)
-          .map(([index]) => index);
-        config.consume.spellSlot ??= !linked && hasSpellSlotConsumption;
-        config.hasConsumption = hasActionConsumption || hasResourceConsumption || hasLinkedConsumption
-          || (!linked && hasSpellSlotConsumption);
-      }
-
       const levelingFlag = this.item.getFlag("n5eb", "spellLevel");
       if ( levelingFlag ) {
         // Handle fixed scaling from spell scrolls
         config.scaling = false;
         config.spell ??= {};
         config.spell.slot = levelingFlag.value;
+      }
+
+      else if ( this.isSpell ) {
+        config.jutsu ??= {};
+        config.jutsu.rank ??= CONFIG.DND5E.jutsuRankBySpellLevel[Math.clamp(this.item.system.level
+          + (config.scaling ?? 0), 0, 9)] ?? this.item.system.effectiveRank;
+        config.scaling ??= Math.max(0, (CONFIG.DND5E.jutsuSpellLevelByRank[config.jutsu.rank]
+          ?? this.item.system.level) - this.item.system.level);
       }
 
       else {
@@ -465,6 +468,27 @@ export default function ActivityMixin(Base) {
           if ( scaling > 0 ) config.scaling ??= scaling;
         }
         config.scaling ??= 0;
+      }
+
+      const ignoreLinkedConsumption = this.isSpell && !this.consumption.spellSlot;
+      if ( config.consume !== false ) {
+        const activationConfig = CONFIG.DND5E.activityActivationTypes[this.activation.type] ?? {};
+        const hasActionConsumption = activationConfig.consume
+          && (activationConfig.consume.canConsume?.(this) !== false);
+        const hasResourceConsumption = this.consumption.targets.length > 0;
+        const hasLinkedConsumption = (linked?.consumption.targets.length > 0) && !ignoreLinkedConsumption;
+        const hasSpellSlotConsumption = this.requiresSpellSlot && this.consumption.spellSlot;
+        const hasChakraConsumption = this.isSpell
+          && (this.item.system.getChakraCost({ rank: config.jutsu?.rank ?? this.item.system.effectiveRank }) > 0);
+        config.consume ??= {};
+        config.consume.action ??= hasActionConsumption;
+        config.consume.resources ??= Array.from(this.consumption.targets.entries())
+          .filter(([, target]) => !target.combatOnly || this.actor.inCombat)
+          .map(([index]) => index);
+        config.consume.spellSlot ??= !linked && hasSpellSlotConsumption;
+        config.consume.chakra ??= !linked && hasChakraConsumption;
+        config.hasConsumption = hasActionConsumption || hasResourceConsumption || hasLinkedConsumption
+          || (!linked && (hasSpellSlotConsumption || hasChakraConsumption));
       }
 
       if ( this.requiresConcentration && !game.settings.get("n5eb", "disableConcentration") ) {
@@ -501,10 +525,19 @@ export default function ActivityMixin(Base) {
       if ( levelingFlag ) {
         usageConfig.scaling = Math.max(0, levelingFlag.value - levelingFlag.base);
       } else if ( this.isSpell ) {
-        const level = this.actor.system.spells?.[usageConfig.spell?.slot]?.level;
-        if ( level ) {
-          usageConfig.scaling = level - item.system.level;
+        const rank = usageConfig.jutsu?.rank ?? this.item.system.effectiveRank;
+        const level = CONFIG.DND5E.jutsuSpellLevelByRank[rank]
+          ?? this.actor.system.spells?.[usageConfig.spell?.slot]?.level;
+        if ( Number.isNumeric(level) ) {
+          usageConfig.scaling = Math.max(0, level - item.system.level);
+          usageConfig.chakra ??= {};
+          usageConfig.chakra.cost = item.system.getChakraCost({ rank });
+          usageConfig.chakra.maintain = item.system.getMaintainCost({ rank, cost: usageConfig.chakra.cost });
+          usageConfig.jutsu.rankValue = CONFIG.DND5E.jutsuRankValues[rank] ?? 0;
           foundry.utils.setProperty(messageConfig, "data.system.spellLevel", level);
+          foundry.utils.setProperty(messageConfig, "data.system.jutsuRank", rank);
+          foundry.utils.setProperty(messageConfig, "data.system.chakraCost", usageConfig.chakra.cost);
+          foundry.utils.setProperty(messageConfig, "data.system.maintainCost", usageConfig.chakra.maintain);
         }
       }
 
@@ -607,6 +640,30 @@ export default function ActivityMixin(Base) {
         }
       }
 
+      // Handle chakra consumption
+      else if ( ((config.consume === true) || config.consume.chakra) && this.isSpell ) {
+        const rank = config.jutsu?.rank ?? this.item.system.effectiveRank;
+        const cost = this.item.system.getChakraCost({ rank });
+        config.chakra ??= {};
+        config.chakra.cost = cost;
+        config.chakra.maintain = this.item.system.getMaintainCost({ rank, cost });
+        const chakra = this.actor.system.attributes.chakra;
+        const available = this.actor.getChakraAvailable?.() ?? ((chakra?.temp ?? 0) + (chakra?.value ?? 0));
+        if ( cost > 0 ) {
+          if ( available < cost ) {
+            errors.push(new ConsumptionError(game.i18n.format("N5EB.JUTSU.WarnInsufficientChakra", {
+              name: this.item.name,
+              cost: formatNumber(cost),
+              available: formatNumber(available)
+            })));
+          } else {
+            foundry.utils.mergeObject(updates.actor, this.actor.getChakraSpendUpdates?.(cost, updates.actor) ?? {
+              "system.attributes.chakra.value": Math.max((chakra?.value ?? 0) - cost, 0)
+            });
+          }
+        }
+      }
+
       // Handle spell slot consumption
       else if ( ((config.consume === true) || config.consume.spellSlot)
         && this.requiresSpellSlot && this.consumption.spellSlot ) {
@@ -689,8 +746,19 @@ export default function ActivityMixin(Base) {
       // Include spell level in the subtitle.
       if ( this.item.type === "spell" ) {
         const spellLevel = foundry.utils.getProperty(message, "data.system.spellLevel");
-        const { spellLevels, spellSchools } = CONFIG.DND5E;
-        data.subtitle = [spellLevels[spellLevel], spellSchools[this.item.system.school]?.label].filterJoin(" &bull; ");
+        const rank = foundry.utils.getProperty(message, "data.system.jutsuRank")
+          ?? CONFIG.DND5E.jutsuRankBySpellLevel[spellLevel]
+          ?? this.item.system.effectiveRank;
+        const chakraCost = foundry.utils.getProperty(message, "data.system.chakraCost")
+          ?? this.item.system.getChakraCost({ rank });
+        const chakra = chakraCost ? game.i18n.format("N5EB.JUTSU.ChakraCostLabel", {
+          cost: formatNumber(chakraCost)
+        }) : "";
+        data.subtitle = [
+          CONFIG.DND5E.jutsuRanks[rank]?.label,
+          this.item.labels.jutsuType,
+          chakra
+        ].filterJoin(" &bull; ");
       }
 
       return {

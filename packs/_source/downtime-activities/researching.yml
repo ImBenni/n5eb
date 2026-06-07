@@ -1,0 +1,45 @@
+folder: downtimeCore0001
+name: Researching
+type: downtime
+_id: research00000001
+img: icons/sundries/books/book-open-brown.webp
+system:
+  description:
+    value: >-
+      <p>Use downtime to research mysteries, lore, locations, rumors, or campaign questions. The GM determines whether
+      the information is available, required weeks, restrictions, and any checks such as Intelligence (Investigation) or
+      Charisma (Persuasion).</p>
+    chat: ''
+  identifier: researching
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  category: researching
+  weeks:
+    value: 1
+    max: 1
+    mode: variable
+    note: GM sets required weeks and restrictions.
+  cost:
+    value: 0
+    denomination: ryo
+    per: activity
+    note: Bribes, libraries, travel, or contacts are GM adjudicated.
+  roll:
+    enabled: true
+    ability: int
+    skill: inv
+    tool: ''
+    dc: 0
+    label: Research check.
+  target:
+    type: research-question
+    uuid: ''
+  completion: Record the information learned or why it remains unavailable.
+effects: []
+flags: {}
+sort: 700000
+ownership:
+  default: 0
+_key: '!items!research00000001'

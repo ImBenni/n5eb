@@ -1,0 +1,262 @@
+folder: 4IqPitSC2zpcy05X
+name: Cobra Hood
+type: feat
+img: icons/skills/social/intimidation-impressing.webp
+system:
+  description:
+    value: >-
+      <p>This summon has a Cobra hood, allowing it to release an intimidating aura. All hostile creatures who begin
+      their turns within 10 feet of this summon must make a Wisdom saving throw being slowed on a failed save until the
+      beginning of their next turn.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: special
+    cost: null
+    condition: All hostile creatures who begin their turns within 10 feet of this summon
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 10
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  type:
+    value: summon
+    subtype: tribe
+    nestedsubtype: drank
+  prerequisites:
+    level: null
+  properties: []
+  requirements: ''
+  recharge:
+    value: null
+    charged: false
+    formula: 1d8
+  identifier: cobra-hood
+effects:
+  - name: Slowed
+    origin: Compendium.n5eb.summons.Item.m7600csgW8jNEMTe
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    _id: KFdEQ1WkbtvzCkFI
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-(10 * @stackCount)'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: slowed
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,4,0
+      createdTime: 1733785422599
+      modifiedTime: 1733785422599
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!m7600csgW8jNEMTe.KFdEQ1WkbtvzCkFI'
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: summons
+      sourcePath: snake-tribe/snake-features/d-rank/cobra-hood.json
+      sourceId: m7600csgW8jNEMTe
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>This summon has a Cobra hood, allowing it to release an intimidating aura. All hostile creatures who
+            begin their turns within 10 feet of this summon must make a Wisdom saving throw being slowed on a failed
+            save until the beginning of their next turn.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: special
+          cost: null
+          condition: All hostile creatures who begin their turns within 10 feet of this summon
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 10
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        type:
+          value: summon
+          subtype: tribe
+          nestedsubtype: drank
+        prerequisites:
+          level: null
+        properties: []
+        requirements: ''
+        recharge:
+          value: null
+          charged: false
+          formula: 1d8
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733785194829
+  modifiedTime: 1733785394528
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: summons
+    sourcePath: snake-tribe/snake-features/d-rank/cobra-hood.json
+_id: m7600csgW8jNEMTe
+sort: 0
+_key: '!items!m7600csgW8jNEMTe'

@@ -1,0 +1,263 @@
+folder: 0hLH4yTXNnanEe81
+name: Tears of the Moon
+type: spell
+_id: 8hFJHPssjA49LtdV
+img: systems/n5eb/assets/content/clans/dasomia-coven.webp
+system:
+  description:
+    value: >-
+      <p>Blue Moon</p><p>You harvest a special blend of herbs at midnight, touched by the Moonmaiden's kiss, and brew
+      them into a potent healing potion, ready to be activated at a moment's notice via prayer and an infusion of
+      Magick.</p><p>When cast, a willing creature within range can drink the potion as part of casting this jutsu. The
+      target gains Hit Points and temporary Chakra Points equal to 4d8 + your Ninjutsu ability modifier. Additionally,
+      select one type of condition between <strong>Elemental</strong>, <strong>Physical</strong>,
+      <strong>Mental</strong>, or <strong>Sensory</strong>. The target gains resistance to conditions of the chosen
+      category for the next minute and removes all ranks of up to 2 conditions of your choice that they may
+      possess.</p><p>At night, under the light of the stars and any phase of the moon except the new moon, increase all
+      dice rolled as part of this jutsu by one step.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this
+      jutsu above C-Rank, increase the cost of this jutsu by 3, and increase the healing and temporary Chakra Points by
+      2d8.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 5
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: chakraDice
+    target: largest
+    amount: 2
+    scale: false
+  ability: ninjutsu
+  actionType: util
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 4d8+@mod
+        - healing
+    versatile: 4d10+@mod
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 3
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 2d8
+  versatileScaling:
+    mode: level
+    formula: 2d10
+  identifier: tears-of-the-moon
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - medical
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: dosamia-coven/clan-hijutsu/c-rank/tears-of-the-moon.json
+      sourceId: 8hFJHPssjA49LtdV
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Blue Moon</p><p>You harvest a special blend of herbs at midnight, touched by the Moonmaiden's kiss, and
+            brew them into a potent healing potion, ready to be activated at a moment's notice via prayer and an
+            infusion of Magick.</p><p>When cast, a willing creature within range can drink the potion as part of casting
+            this jutsu. The target gains Hit Points and temporary Chakra Points equal to 4d8 + your Ninjutsu ability
+            modifier. Additionally, select one type of condition between <strong>Elemental</strong>,
+            <strong>Physical</strong>, <strong>Mental</strong>, or <strong>Sensory</strong>. The target gains resistance
+            to conditions of the chosen category for the next minute and removes all ranks of up to 2 conditions of your
+            choice that they may possess.</p><p>At night, under the light of the stars and any phase of the moon except
+            the new moon, increase all dice rolled as part of this jutsu by one step.</p><p><strong>At Higher
+            Ranks:</strong> For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3, and
+            increase the healing and temporary Chakra Points by 2d8.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 5
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: chakraDice
+          target: largest
+          amount: 2
+          scale: false
+        ability: ninjutsu
+        actionType: util
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 4d8+@mod
+              - healing
+          versatile: 4d10+@mod
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 2
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - medical
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 2d8
+        versatileScaling:
+          mode: level
+          formula: 2d10
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1732641986254
+  modifiedTime: 1734017239949
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: dosamia-coven/clan-hijutsu/c-rank/tears-of-the-moon.json
+_key: '!items!8hFJHPssjA49LtdV'

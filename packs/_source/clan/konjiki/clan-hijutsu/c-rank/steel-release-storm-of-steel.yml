@@ -1,0 +1,270 @@
+name: Steel Release Storm of Steel
+type: spell
+img: systems/n5eb/assets/content/clans/konjiki.webp
+system:
+  description:
+    value: >-
+      <p>You create a massive quantity of steel weapons above you in a 30-foot radius. All hostile creatures that start
+      their turn or enter this area for the first time on their turn must make one of the following saving throws based
+      on your selected damage type between Bludgeoning, Piercing, or Slashing damage with your Weapon Formation feature.
+      On a successful saving throw, creatures take half damage and no effects.</p><p>• Bludgeoning (Constitution): On a
+      failure, creatures take 4d10 bludgeoning damage and are Dazed</p><p>• Piercing (Strength): On a failure, creatures
+      take 6d6 piercing damage and are grappled for the duration</p><p>• Slashing (Dexterity): On a failure, creatures
+      take 5d8 slashing damage and are Lacerated.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank,
+      increase the cost of this jutsu by 3 and the damage by 1d10/1d6/1d8 respectively</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 8
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 4d10
+        - bludgeoning
+    versatile: 6d6
+  formula: 5d8
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d10
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: level
+    formula: 1d6
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: steel-release-storm-of-steel
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - earth
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+folder: GSCYLibjQUBXiENH
+flags:
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: konjiki/clan-hijutsu/c-rank/steel-release-storm-of-steel.json
+      sourceId: UsYIdOAOvAd5vmns
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You create a massive quantity of steel weapons above you in a 30-foot radius. All hostile creatures that
+            start their turn or enter this area for the first time on their turn must make one of the following saving
+            throws based on your selected damage type between Bludgeoning, Piercing, or Slashing damage with your Weapon
+            Formation feature. On a successful saving throw, creatures take half damage and no effects.</p><p>•
+            Bludgeoning (Constitution): On a failure, creatures take 4d10 bludgeoning damage and are Dazed</p><p>•
+            Piercing (Strength): On a failure, creatures take 6d6 piercing damage and are grappled for the
+            duration</p><p>• Slashing (Dexterity): On a failure, creatures take 5d8 slashing damage and are
+            Lacerated.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this
+            jutsu by 3 and the damage by 1d10/1d6/1d8 respectively</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 8
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 4d10
+              - bludgeoning
+          versatile: 6d6
+        formula: 5d8
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d10
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - earth
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: 1d6
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754019699
+  modifiedTime: 1728754054297
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: konjiki/clan-hijutsu/c-rank/steel-release-storm-of-steel.json
+_id: UsYIdOAOvAd5vmns
+sort: 100000
+ownership:
+  default: 0
+_key: '!items!UsYIdOAOvAd5vmns'

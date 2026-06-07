@@ -5,7 +5,8 @@ import YAML from "js-yaml";
 import path from "path";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { compilePack, extractPack } from "@foundryvtt/foundryvtt-cli";
+import { ClassicLevel } from "classic-level";
+import { extractPack } from "@foundryvtt/foundryvtt-cli";
 
 
 /**
@@ -22,11 +23,57 @@ const PACK_DEST = "packs";
 const PACK_SRC = "packs/_source";
 
 
-// eslint-disable-next-line
-const argv = yargs(hideBin(process.argv))
+/**
+ * A flattened view of the Foundry document hierarchy used by compendium packs.
+ * @type {Record<string, Record<string, object|Array>>}
+ */
+const HIERARCHY = {
+  actors: {
+    items: [],
+    effects: []
+  },
+  cards: {
+    cards: []
+  },
+  combats: {
+    combatants: []
+  },
+  delta: {
+    items: [],
+    effects: []
+  },
+  items: {
+    effects: []
+  },
+  journal: {
+    pages: []
+  },
+  playlists: {
+    sounds: []
+  },
+  tables: {
+    results: []
+  },
+  tokens: {
+    delta: {}
+  },
+  scenes: {
+    drawings: [],
+    tokens: [],
+    lights: [],
+    notes: [],
+    sounds: [],
+    templates: [],
+    tiles: [],
+    walls: []
+  }
+};
+
+
+await yargs(hideBin(process.argv))
   .command(packageCommand())
   .help().alias("help", "h")
-  .argv;
+  .parseAsync();
 
 
 // eslint-disable-next-line
@@ -88,6 +135,10 @@ function cleanPackEntry(data, { clearSourceId=true, ownership=0 }={}) {
   // Remove empty entries in flags
   if ( !data.flags ) data.flags = {};
   Object.entries(data.flags).forEach(([key, contents]) => {
+    if ( !contents || (typeof contents !== "object") ) {
+      if ( contents === null ) delete data.flags[key];
+      return;
+    }
     if ( Object.keys(contents).length === 0 ) delete data.flags[key];
   });
 
@@ -186,16 +237,166 @@ async function cleanPacks(packName, entryName) {
  * - `npm run build:db -- classes` - Only compile the specified pack.
  */
 async function compilePacks(packName) {
+  const manifestPacks = packName ? null : getManifestPackNames();
+
   // Determine which source folders to process
   const folders = fs.readdirSync(PACK_SRC, { withFileTypes: true }).filter(file =>
-    file.isDirectory() && ( !packName || (packName === file.name) )
+    file.isDirectory() && ( packName ? (packName === file.name) : manifestPacks.has(file.name) )
   );
 
   for ( const folder of folders ) {
     const src = path.join(PACK_SRC, folder.name);
     const dest = path.join(PACK_DEST, folder.name);
     logger.info(`Compiling pack ${folder.name}`);
-    await compilePack(src, dest, { recursive: true, log: true, transformEntry: cleanPackEntry, yaml: true });
+    await compileLevelPack(src, dest, { log: true, transformEntry: cleanPackEntry });
+  }
+}
+
+
+/**
+ * Get the packs currently registered in the runtime manifest.
+ * @returns {Set<string>}
+ */
+function getManifestPackNames() {
+  const system = JSON.parse(fs.readFileSync("./system.json", { encoding: "utf8" }));
+  return new Set((system.packs ?? []).map(pack => pack.name));
+}
+
+
+/**
+ * Compile YAML source files into a LevelDB compendium pack.
+ * This mirrors the Foundry CLI compiler but explicitly opens the DB before
+ * iterating so stale documents can be pruned reliably with current LevelDB.
+ * @param {string} src
+ * @param {string} dest
+ * @param {object} [options]
+ * @param {boolean} [options.log=false]
+ * @param {Function} [options.transformEntry]
+ */
+async function compileLevelPack(src, dest, { log=false, transformEntry }={}) {
+  const files = findPackSourceFiles(src);
+  fs.mkdirSync(dest, { recursive: true });
+
+  const db = new ClassicLevel(dest, { keyEncoding: "utf8", valueEncoding: "json" });
+  await db.open();
+
+  try {
+    const batch = db.batch();
+    const seenKeys = new Set();
+    const packDoc = applyHierarchy(async (doc, collection) => {
+      const key = doc._key;
+      delete doc._key;
+      seenKeys.add(key);
+
+      const value = structuredClone(doc);
+      await mapHierarchy(value, collection, d => d._id);
+      batch.put(key, value);
+    });
+
+    for ( const file of files ) {
+      try {
+        const contents = fs.readFileSync(file, "utf8");
+        const doc = YAML.load(contents);
+        const [, collection] = doc._key.split("!");
+        if ( await transformEntry?.(doc) === false ) continue;
+        await packDoc(doc, collection);
+        if ( log ) console.log(`Packed ${doc._id}${doc.name ? ` (${doc.name})` : ""}`);
+      } catch( err ) {
+        if ( log ) console.error(`Failed to parse ${file}. See error below.`);
+        throw err;
+      }
+    }
+
+    for await ( const key of db.keys() ) {
+      if ( seenKeys.has(key) ) continue;
+      batch.del(key);
+      if ( log ) console.log(`Removed ${key}`);
+    }
+
+    await batch.write();
+    await compactLevelPack(db);
+  } finally {
+    await db.close();
+  }
+}
+
+
+/**
+ * Find all YAML source files in a pack source folder.
+ * @param {string} directoryPath
+ * @returns {string[]}
+ */
+function findPackSourceFiles(directoryPath) {
+  const files = [];
+  for ( const entry of fs.readdirSync(directoryPath, { withFileTypes: true }) ) {
+    const entryPath = path.join(directoryPath, entry.name);
+    if ( entry.isDirectory() ) files.push(...findPackSourceFiles(entryPath));
+    else if ( [".yml", ".yaml"].includes(path.extname(entry.name)) ) files.push(entryPath);
+  }
+  return files;
+}
+
+
+/**
+ * Compact a LevelDB pack after writing.
+ * @param {ClassicLevel} db
+ */
+async function compactLevelPack(db) {
+  const firstKeyIterator = db.keys({ limit: 1, fillCache: false });
+  const firstKey = await firstKeyIterator.next();
+  await firstKeyIterator.close();
+
+  const lastKeyIterator = db.keys({ limit: 1, reverse: true, fillCache: false });
+  const lastKey = await lastKeyIterator.next();
+  await lastKeyIterator.close();
+
+  if ( (firstKey !== undefined) && (lastKey !== undefined) ) {
+    await db.compactRange(firstKey, lastKey, { keyEncoding: "utf8" });
+  }
+}
+
+
+/**
+ * Apply a function recursively across a Foundry document's embedded hierarchy.
+ * @param {Function} fn
+ * @returns {Function}
+ */
+function applyHierarchy(fn) {
+  const apply = async (doc, collection, options={}) => {
+    const newOptions = await fn(doc, collection, options);
+    for ( const [embeddedCollectionName, type] of Object.entries(HIERARCHY[collection] ?? {}) ) {
+      const embeddedValue = doc[embeddedCollectionName];
+      if ( Array.isArray(type) && Array.isArray(embeddedValue) ) {
+        for ( const embeddedDoc of embeddedValue ) await apply(embeddedDoc, embeddedCollectionName, newOptions);
+      } else if ( embeddedValue ) {
+        await apply(embeddedValue, embeddedCollectionName, newOptions);
+      }
+    }
+  };
+  return apply;
+}
+
+
+/**
+ * Replace embedded document data with the values returned by a callback.
+ * @param {object} doc
+ * @param {string} collection
+ * @param {Function} fn
+ */
+async function mapHierarchy(doc, collection, fn) {
+  for ( const [embeddedCollectionName, type] of Object.entries(HIERARCHY[collection] ?? {}) ) {
+    const embeddedValue = doc[embeddedCollectionName];
+    if ( Array.isArray(type) ) {
+      if ( Array.isArray(embeddedValue) ) {
+        doc[embeddedCollectionName] = await Promise.all(embeddedValue.map(entry => {
+          return fn(entry, embeddedCollectionName);
+        }));
+      } else {
+        doc[embeddedCollectionName] = [];
+      }
+    } else if ( embeddedValue ) {
+      doc[embeddedCollectionName] = await fn(embeddedValue, embeddedCollectionName);
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 import CreateDocumentDialog from "../applications/create-document-dialog.mjs";
+import * as Conditions from "../conditions.mjs";
 import FormulaField from "../data/fields/formula-field.mjs";
 import MappingField from "../data/fields/mapping-field.mjs";
 import { parseOrString, staticID } from "../utils.mjs";
@@ -66,6 +67,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   static SHIM_FIELDS = {
     "system.attributes.movement.speed": { key: "system.attributes.movement.walk" },
     "system.attributes.senses.darkvision": { key: "system.attributes.senses.ranges.darkvision" },
+    "system.attributes.senses.chakrasight": { key: "system.attributes.senses.ranges.chakrasight" },
     "system.attributes.senses.blindsight": { key: "system.attributes.senses.ranges.blindsight" },
     "system.attributes.senses.tremorsense": { key: "system.attributes.senses.ranges.tremorsense" },
     "system.attributes.senses.truesight": { key: "system.attributes.senses.ranges.truesight" }
@@ -414,6 +416,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   /** @inheritDoc */
   prepareDerivedData() {
     super.prepareDerivedData();
+    Conditions.prepareConditionEffect(this);
     if ( this.id === this.constructor.ID.EXHAUSTION ) this._prepareExhaustionLevel();
     if ( this.isAppliedEnchantment && this.uuid ) dnd5e.registry.enchantments.track(this.origin, this.uuid);
   }
@@ -430,7 +433,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     if ( !Number.isFinite(level) ) level = 1;
     this.img = this.constructor._getExhaustionImage(level);
     this.name = `${game.i18n.localize("DND5E.Exhaustion")} ${level}`;
-    if ( level >= config.levels ) {
+    if ( level >= (config.deathAt ?? config.levels) ) {
       this.statuses.add("dead");
       CONFIG.DND5E.statusEffects.dead.statuses?.forEach(s => this.statuses.add(s));
     }
@@ -585,6 +588,24 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     if ( await super._preCreate(data, options, user) === false ) return false;
     if ( options.keepOrigin === false ) this.updateSource({ origin: this.parent.uuid });
 
+    const id = Conditions.getEffectConditionId(this);
+    const config = Conditions.getConditionConfig(id);
+    if ( id && config ) {
+      const rank = Conditions.getEffectConditionRank(this);
+      this.updateSource({
+        name: Conditions.conditionName(id, rank),
+        img: id === "exhaustion" ? this.img : config.img,
+        statuses: [id, ...(config.statuses ?? [])],
+        "flags.n5eb.condition": {
+          id,
+          rank,
+          maxRank: config.maxRank ?? 1,
+          category: config.category,
+          source: "main-book"
+        }
+      });
+    }
+
     // Enchantments cannot be added directly to actors
     if ( (this.type === "enchantment") && (this.parent instanceof Actor) ) {
       ui.notifications.error("DND5E.ENCHANTMENT.Warning.NotOnActor", { localize: true });
@@ -718,7 +739,18 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
       statuses: [statusEffect.id].concat(statusEffect.statuses ?? [])
     }, data, {inplace: false});
     delete effectData.id;
-    if ( item.type === "spell" ) effectData["flags.n5eb.spellLevel"] = item.system.level;
+    if ( item.type === "spell" ) {
+      const rank = effectData["flags.n5eb.jutsuRank"] ?? item.system.effectiveRank;
+      effectData["flags.n5eb.spellLevel"] ??= CONFIG.DND5E.jutsuSpellLevelByRank[rank] ?? item.system.level;
+      effectData["flags.n5eb.jutsuRank"] ??= rank;
+      effectData["flags.n5eb.concentration"] ??= {};
+      effectData["flags.n5eb.concentration"].rank ??= rank;
+      effectData["flags.n5eb.concentration"].rankValue ??= CONFIG.DND5E.jutsuRankValues[rank] ?? 0;
+      effectData["flags.n5eb.concentration"].chakraCost ??= item.system.getChakraCost({ rank });
+      effectData["flags.n5eb.concentration"].maintainCost ??= item.system.getMaintainCost({
+        rank, cost: effectData["flags.n5eb.concentration"].chakraCost
+      });
+    }
 
     return effectData;
   }
@@ -785,6 +817,16 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
         elem.style.background = `url('${img}') no-repeat center / contain`;
       }
     }
+    for ( const elem of html.querySelectorAll("[data-status-id]") ) {
+      const id = Conditions.canonicalizeConditionId(elem.dataset.statusId);
+      const config = Conditions.getConditionConfig(id);
+      if ( !config?.ranked || (id === "exhaustion") ) continue;
+      const rank = actor.getConditionRank?.(id) ?? 0;
+      if ( rank <= 1 ) continue;
+      elem.dataset.tooltip = `${game.i18n.localize(config.name)} ${rank}`;
+      elem.classList.add("ranked-condition");
+      elem.style.setProperty("--n5eb-condition-rank", `"${rank}"`);
+    }
   }
 
   /* -------------------------------------------- */
@@ -795,7 +837,8 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    * @returns {string}
    */
   static _getExhaustionImage(level) {
-    const { img } = CONFIG.DND5E.conditionTypes.exhaustion;
+    const { iconLevels, img } = CONFIG.DND5E.conditionTypes.exhaustion;
+    if ( iconLevels && (level > iconLevels) ) return img;
     const split = img.split(".");
     const ext = split.pop();
     const path = split.join(".");
@@ -818,6 +861,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     const id = target.dataset?.statusId;
     if ( id === "exhaustion" ) ActiveEffect5e._manageExhaustion(event, actor);
     else if ( id === "concentrating" ) ActiveEffect5e._manageConcentration(event, actor);
+    else if ( Conditions.getConditionConfig(id)?.ranked ) ActiveEffect5e._manageRankedCondition(event, actor, id);
   }
 
   /* -------------------------------------------- */
@@ -834,8 +878,28 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     event.stopPropagation();
     if ( event.button === 0 ) level++;
     else level--;
-    const max = CONFIG.DND5E.conditionTypes.exhaustion.levels;
+    const config = CONFIG.DND5E.conditionTypes.exhaustion;
+    const max = config.levels;
     actor.update({ "system.attributes.exhaustion": Math.clamp(level, 0, max) });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Manage custom ranked condition cycling when interacting with the token HUD.
+   * @param {PointerEvent} event        The triggering event.
+   * @param {Actor5e} actor             The actor belonging to the token.
+   * @param {string} id                 Condition id.
+   */
+  static _manageRankedCondition(event, actor, id) {
+    id = Conditions.canonicalizeConditionId(id);
+    const config = Conditions.getConditionConfig(id);
+    if ( !config?.ranked ) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const current = actor.getConditionRank(id);
+    const rank = event.button === 0 ? current + 1 : current - 1;
+    actor.updateConditionRank(id, rank);
   }
 
   /* -------------------------------------------- */
@@ -982,6 +1046,19 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    * @returns {Promise<{content: string, classes: string[]}>}
    */
   async richTooltip(enrichmentOptions={}) {
+    const conditionId = Conditions.getEffectConditionId(this);
+    if ( conditionId ) {
+      const content = await Conditions.getConditionTooltip(conditionId, {
+        rank: Conditions.getEffectConditionRank(this)
+      });
+      if ( content ) {
+        return {
+          content,
+          classes: ["dnd5e2", "dnd5e-tooltip", "item-tooltip", "themed", "theme-light", "n5eb-condition-tooltip"]
+        };
+      }
+    }
+
     let properties = [];
     if ( this.isSuppressed ) properties.push("DND5E.EffectType.Unavailable");
     else if ( this.disabled ) properties.push("DND5E.EffectType.Inactive");

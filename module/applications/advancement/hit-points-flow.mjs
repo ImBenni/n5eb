@@ -30,6 +30,7 @@ export default class HitPointsFlow extends AdvancementFlow {
 
   /** @inheritDoc */
   async _prepareContext(options) {
+    const context = await super._prepareContext(options);
     const source = this.advancement.value;
     const value = source[this.level];
     const hp = this.advancement.actor.system.attributes.hp;

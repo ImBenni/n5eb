@@ -54,7 +54,10 @@ export default class ToolData extends ItemDataModel.mixin(
       bonus: new FormulaField({ required: true, label: "DND5E.ItemToolBonus" }),
       chatFlavor: new StringField({ required: true, label: "DND5E.ChatFlavor" }),
       proficient: new NumberField({
-        required: true, initial: null, min: 0, max: 2, step: 0.5, label: "DND5E.ItemToolProficiency"
+        required: true, initial: null, min: 0, max: 1, step: 0.5, label: "DND5E.ItemToolProficiency"
+      }),
+      mastery: new NumberField({
+        required: true, nullable: false, integer: true, min: 0, max: 3, initial: 0, label: "DND5E.MASTERY.Label"
       }),
       properties: new SetField(new StringField(), { label: "DND5E.ItemToolProperties" }),
       type: new ItemTypeField({ subtype: false }, { label: "DND5E.ItemToolType" })
@@ -160,6 +163,21 @@ export default class ToolData extends ItemDataModel.mixin(
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * The Mastery rank for this item.
+   * @returns {number}
+   */
+  get masteryRank() {
+    if ( Number.isFinite(this.proficient) ) return this.mastery ?? 0;
+    const actor = this.parent.actor;
+    if ( !actor || actor.system.isNPC ) return 0;
+    const baseItemProf = actor.system.tools?.[this.type.baseItem];
+    const categoryProf = actor.system.tools?.[this.type.value];
+    return Math.max(baseItemProf?.mastery ?? 0, categoryProf?.mastery ?? 0);
+  }
+
+  /* -------------------------------------------- */
   /*  Data Migration                              */
   /* -------------------------------------------- */
 
@@ -168,6 +186,7 @@ export default class ToolData extends ItemDataModel.mixin(
     super._migrateData(source);
     ActivitiesTemplate.migrateActivities(source);
     ToolData.#migrateAbility(source);
+    ToolData.#migrateMastery(source);
   }
 
   /* -------------------------------------------- */
@@ -178,6 +197,22 @@ export default class ToolData extends ItemDataModel.mixin(
    */
   static #migrateAbility(source) {
     if ( Array.isArray(source.ability) ) source.ability = source.ability[0];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate legacy combined tool proficiency values to separate Mastery ranks.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateMastery(source) {
+    if ( Number(source.proficient ?? 0) < 2 ) {
+      source.mastery ??= 0;
+      return;
+    }
+    source.mastery = Math.max(Number(source.mastery ?? 0), Math.floor(Number(source.proficient) - 1));
+    source.mastery = Math.min(Math.max(source.mastery, 0), 3);
+    source.proficient = 1;
   }
 
   /* -------------------------------------------- */
@@ -216,6 +251,12 @@ export default class ToolData extends ItemDataModel.mixin(
 
   /** @inheritDoc */
   async getSheetData(context) {
+    context.masteryChoices = dnd5e.settings.useExpertise
+      ? Object.fromEntries(Object.entries(CONFIG.DND5E.masteryLevels).filter(([key]) => Number(key) <= 1))
+      : CONFIG.DND5E.masteryLevels;
+    context.masteryLabel = dnd5e.settings.useExpertise ? "DND5E.Expertise" : "DND5E.MASTERY.Label";
+    context.masteryValue = dnd5e.settings.useExpertise && (Number(context.source?.mastery ?? 0) > 0)
+      ? 1 : context.source?.mastery ?? 0;
     context.subtitles = [
       { label: this.type.label },
       ...this.physicalItemSheetFields

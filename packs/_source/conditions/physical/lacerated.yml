@@ -1,0 +1,321 @@
+folder: pmdytWW18ekEsgW1
+name: Lacerated
+type: feat
+_id: 0imnrcSgN8C9eC29
+img: systems/n5eb/icons/svg/statuses/lacerated.svg
+system:
+  description:
+    value: >-
+      <p><strong>Max Ranks</strong>: 100</p><hr /><p>A <strong>Lacerated</strong> creature has suffered a major wound on
+      their body and begins to bleed profusely, the rushing blood causing the wound to grow in intensity with each
+      passing second.</p><ul><li><p>A <strong>Lacerated</strong> creature is counted as <strong>Bleeding</strong> for
+      the purposes of interacting with Features, Traits and Jutsu</p></li><li><p>At the beginning of a
+      <strong>Lacerated</strong> creatures turn, they take 1d6 necrotic damage per rank of Lacerated they
+      have.</p></li><li><p>A <strong>Lacerated</strong> creature that gains ranks of Bleeding, gains ranks of Lacerated
+      instead.</p></li><li><p>A <strong>Lacerated</strong> creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, A <strong>Lacerated</strong> creature may attempt to stop the Laceration by
+      succeeding on a DC 20 Medicine check with a Medicine Kit.</p></li><li><p>A creature with ranks of lacerated gains
+      one rank of laceration at the end of its turns.</p></li><li><p>A creature immune to the bleeding condition is
+      immune to the lacerated condition.</p></li><li><p>Outside of combat, every 10-minutes a creature suffers the
+      effects of this condition as if a turn has passed in combat.</p></li></ul>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: ''
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  type:
+    value: ''
+    subtype: ''
+  prerequisites:
+    level: null
+  properties: []
+  requirements: ''
+  recharge:
+    value: null
+    charged: false
+  identifier: lacerated
+effects:
+  - name: Lacerated
+    origin: Compendium.n5eb.conditions.Item.0imnrcSgN8C9eC29
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      core:
+        overlay: false
+      n5eb:
+        legacyImport:
+          originalConditionEffect:
+            name: Lacerated
+            img: systems/n5eb/icons/svg/statuses/lacerated.svg
+            statuses: []
+            changes:
+              - key: StatusEffect
+                mode: 0
+                value: lacerated
+                priority: 0
+              - key: flags.midi-qol.OverTime
+                mode: 2
+                value: |-
+                  turn=start,
+                  damageRoll=1d6,
+                  damageType=necrotic,
+                  label=Lacerated,
+                  chatFlavor=THIS A BIG CUT CUH,
+                  saveDC=20,
+                  actionSave=dialog,
+                  rollType=skill,
+                  actionSave=true,
+                  saveAbility=med,
+                  fastForwardDamage=true,
+                priority: 20
+            flags:
+              dae:
+                enableCondition: ''
+                disableCondition: ''
+                disableIncapacitated: false
+                selfTarget: false
+                selfTargetAlways: false
+                dontApply: false
+                stackable: count
+                showIcon: false
+                durationExpression: ''
+                macroRepeat: none
+                specialDuration: []
+              ActiveAuras:
+                isAura: false
+                aura: None
+                nameOverride: ''
+                radius: ''
+                alignment: ''
+                type: ''
+                customCheck: ''
+                ignoreSelf: false
+                height: false
+                hidden: false
+                displayTemp: false
+                hostile: false
+                onlyOnce: false
+                wallsBlock: system
+        condition:
+          id: lacerated
+          rank: 1
+          maxRank: 100
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/lacerated.svg
+    _id: Uydv91vQ1g52vDiO
+    type: base
+    system: {}
+    changes: []
+    description: >-
+      <p><strong>Max Ranks</strong>: 100</p><hr /><p>A <strong>Lacerated</strong> creature has suffered a major wound on
+      their body and begins to bleed profusely, the rushing blood causing the wound to grow in intensity with each
+      passing second.</p><ul><li><p>A <strong>Lacerated</strong> creature is counted as <strong>Bleeding</strong> for
+      the purposes of interacting with Features, Traits and Jutsu</p></li><li><p>At the beginning of a
+      <strong>Lacerated</strong> creatures turn, they take 1d6 necrotic damage per rank of Lacerated they
+      have.</p></li><li><p>A <strong>Lacerated</strong> creature that gains ranks of Bleeding, gains ranks of Lacerated
+      instead.</p></li><li><p>A <strong>Lacerated</strong> creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, A <strong>Lacerated</strong> creature may attempt to stop the Laceration by
+      succeeding on a DC 20 Medicine check with a Medicine Kit.</p></li><li><p>A creature with ranks of lacerated gains
+      one rank of laceration at the end of its turns.</p></li><li><p>A creature immune to the bleeding condition is
+      immune to the lacerated condition.</p></li><li><p>Outside of combat, every 10-minutes a creature suffers the
+      effects of this condition as if a turn has passed in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - lacerated
+      - bleeding
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1724898114360
+      modifiedTime: 1727307262558
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!0imnrcSgN8C9eC29.Uydv91vQ1g52vDiO'
+sort: 500000
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: conditions
+      sourcePath: physical/lacerated.json
+      sourceId: 0imnrcSgN8C9eC29
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p><strong>Max Ranks</strong>: 100</p><hr /><p>A <strong>Lacerated</strong> creature has suffered a major
+            wound on their body and begins to bleed profusely, the rushing blood causing the wound to grow in intensity
+            with each passing second.</p><ul><li><p>A <strong>Lacerated</strong> creature is counted as
+            <strong>Bleeding</strong> for the purposes of interacting with Features, Traits and Jutsu</p></li><li><p>At
+            the beginning of a <strong>Lacerated</strong> creatures turn, they take 1d6 necrotic damage per rank of
+            Lacerated they have.</p></li><li><p>A <strong>Lacerated</strong> creature that gains ranks of Bleeding,
+            gains ranks of Lacerated instead.</p></li><li><p>A <strong>Lacerated</strong> creature cannot gain the
+            benefits of a rest.</p></li><li><p>As an Action, A <strong>Lacerated</strong> creature may attempt to stop
+            the Laceration by succeeding on a DC 20 Medicine check with a Medicine Kit.</p></li><li><p>A creature with
+            ranks of lacerated gains one rank of laceration at the end of its turns.</p></li><li><p>A creature immune to
+            the bleeding condition is immune to the lacerated condition.</p></li><li><p>Outside of combat, every
+            10-minutes a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: ''
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        type:
+          value: ''
+          subtype: ''
+        prerequisites:
+          level: null
+        properties: []
+        requirements: ''
+        recharge:
+          value: null
+          charged: false
+      originalConditionItemFlags:
+        midiProperties:
+          confirmTargets: default
+          autoFailFriendly: false
+          autoSaveFriendly: false
+          critOther: false
+          offHandWeapon: false
+          magicdam: false
+          magiceffect: false
+          noConcentrationCheck: false
+          toggleEffect: false
+          ignoreTotalCover: false
+          idr: false
+          idi: false
+          idv: false
+          ida: false
+        midi-qol:
+          rollAttackPerTarget: default
+          itemCondition: ''
+          effectCondition: ''
+    condition:
+      id: lacerated
+      maxRank: 100
+      category: physical
+      source: main-book
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1724898022011
+  modifiedTime: 1727307017033
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: conditions
+    sourcePath: physical/lacerated.json
+_key: '!items!0imnrcSgN8C9eC29'

@@ -1,0 +1,502 @@
+folder: TDJ8kdZlLUUBzPJ1
+name: Thunderstorm
+type: spell
+_id: kBi3TXM8vqhHK39m
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You line up three quick shots, raining them down on your foe like a thunderstorm. This jutsu cannot critically
+      hit. Make 6 ranged Taijutsu attacks with your weapon, dealing your [weapons damage die] + 2d8 damage. On each hit,
+      the target must also make a Constitution saving throw. On a failed save, they gain one rank of weakened until the
+      end of their next turn. If they fail at least 3, they are also restrained for the same duration. If they fail at
+      least 6 they are instead stunned for the same duration.</p><p>At Higher Ranks: For each rank you cast this jutsu
+      above A-Rank, increase the cost of this jutsu by 3, the damage die by +1, and the number of attacks by +1</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: taijutsu
+  actionType: rsak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d8
+        - ''
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: taijutsu
+  summons: null
+  level: 7
+  school: trs
+  properties: []
+  materials:
+    value: Any Ammo
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d8
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: thunderstorm
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: a
+  chakra:
+    cost: '16'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Stunned
+    origin: Compendium.n5eb.jutsus.Item.kBi3TXM8vqhHK39m
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    _id: Z0mRvbbiZUJzM4VY
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.fail.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.fail.ability.save.str
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: stunned
+        priority: 20
+    description: >-
+      <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
+      falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
+      throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!kBi3TXM8vqhHK39m.Z0mRvbbiZUJzM4VY'
+  - name: Weakened
+    origin: Compendium.n5eb.jutsus.Item.kBi3TXM8vqhHK39m
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: Ug2FeZxe082rGFYi
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!kBi3TXM8vqhHK39m.Ug2FeZxe082rGFYi'
+  - name: Restrained
+    origin: Compendium.n5eb.jutsus.Item.kBi3TXM8vqhHK39m
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/restrained.svg
+    _id: LPXNSYv1oqHqcqPY
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.dex
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: restrained
+        priority: 20
+    description: >-
+      <p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their
+      space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its
+      speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have
+      disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!kBi3TXM8vqhHK39m.LPXNSYv1oqHqcqPY'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/a-rank/thunderstorm.json
+      sourceId: kBi3TXM8vqhHK39m
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You line up three quick shots, raining them down on your foe like a thunderstorm. This jutsu cannot
+            critically hit. Make 6 ranged Taijutsu attacks with your weapon, dealing your [weapons damage die] + 2d8
+            damage. On each hit, the target must also make a Constitution saving throw. On a failed save, they gain one
+            rank of weakened until the end of their next turn. If they fail at least 3, they are also restrained for the
+            same duration. If they fail at least 6 they are instead stunned for the same duration.</p><p>At Higher
+            Ranks: For each rank you cast this jutsu above A-Rank, increase the cost of this jutsu by 3, the damage die
+            by +1, and the number of attacks by +1</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: taijutsu
+        actionType: rtak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d8
+              - ''
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: taijutsu
+        summons: null
+        level: 4
+        school: buki
+        properties:
+          - mobility
+          - weapons
+        keywords:
+          - bukijutsu
+        materials:
+          value: Any Ammo
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d8
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 16
+        chakraScaling:
+          mode: level
+          value: 3
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755893853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/a-rank/thunderstorm.json
+_key: '!items!kBi3TXM8vqhHK39m'

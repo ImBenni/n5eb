@@ -1,0 +1,262 @@
+folder: M37VLKPKwWaMsaJE
+name: Beguiling Force
+type: feat
+_id: 2YkhHNPLKETuBgU5
+img: icons/magic/control/debuff-energy-snare-purple-pink.webp
+system:
+  description:
+    value: >-
+      <p>Starting at 10th level, when you would cast a Genjutsu that would impose a penalty on a hostile creature, you
+      can spend 1 <strong>Actualization Die</strong>. When you do, for the duration for the jutsu cast, the target
+      suffers a penalty to skill checks and attack rolls equal to your actualization die.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: none
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: charges
+    target: Compendium.n5eb.class.Item.WOhaRe7Pr9nrecxL
+    amount: 1
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  type:
+    value: subclass
+    subtype: ''
+    nestedsubtype: ''
+  prerequisites:
+    level: 10
+  properties: []
+  requirements: 10th Level
+  recharge:
+    value: null
+    charged: false
+    formula: 1d8
+  identifier: beguiling-force
+effects:
+  - name: Beguiling Force
+    origin: Compendium.n5eb.subclass.Item.2YkhHNPLKETuBgU5
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/magic/control/debuff-energy-snare-purple-pink.webp
+    _id: Gc045x6LE8727aj1
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.abilities.skill
+        mode: 2
+        value: '- 1@scale.gen-spec.actualization-dice'
+        priority: 20
+      - key: system.bonuses.All-Attacks
+        mode: 2
+        value: '- 1@scale.gen-spec.actualization-dice'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!2YkhHNPLKETuBgU5.Gc045x6LE8727aj1'
+sort: 100000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: subclass
+      sourcePath: genjutsu-specialist/beguiler/subclass-features/beguiling-force.json
+      sourceId: 2YkhHNPLKETuBgU5
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>Starting at 10th level, when you would cast a Genjutsu that would impose a penalty on a hostile creature,
+            you can spend 1 <strong>Actualization Die</strong>. When you do, for the duration for the jutsu cast, the
+            target suffers a penalty to skill checks and attack rolls equal to your actualization die.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: none
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: charges
+          target: Compendium.n5eb.class-and-subclass.Item.WOhaRe7Pr9nrecxL
+          amount: 1
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        type:
+          value: subclass
+          subtype: ''
+          nestedsubtype: ''
+        prerequisites:
+          level: 10
+        properties: []
+        requirements: 10th Level
+        recharge:
+          value: null
+          charged: false
+          formula: 1d8
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728702074901
+  modifiedTime: 1728702145532
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: subclass
+    sourcePath: genjutsu-specialist/beguiler/subclass-features/beguiling-force.json
+_key: '!items!2YkhHNPLKETuBgU5'

@@ -1,0 +1,331 @@
+folder: dBrYO41bkN846Axv
+name: Curved Slash
+type: spell
+_id: 87NKsrJ8WETRO6Nc
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You perform a single throw that curves and slashes with frightening accuracy. Make a ranged Taijutsu Attack
+      against a creature you can see within range dealing your [weapons damage] + 2d8. On a hit the creature must make a
+      Constitution saving throw or be blinded until the end of their next turn on a failed save. If they fail by 5 or
+      more, they are instead blinded until the end of your turn.</p><p>At Higher Ranks: For each rank you cast this
+      jutsu above D-Rank, increase the cost of this jutsu by 3 and the damage by 1d8.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: taijutsu
+  actionType: rsak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d8
+        - ''
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: Any Ranged Slashing
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d8
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: curved-slash
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Blinded
+    origin: Compendium.n5eb.jutsus.Item.87NKsrJ8WETRO6Nc
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/blinded.svg
+    _id: V5dr9sFiVKfZRfrG
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: blinded
+        priority: 20
+    description: >-
+      <p>• A <strong>Blinded</strong> creature cannot target another creature with effects that require them to “target
+      a creature they can see” unless they have a special sense that does not require sight, such as <strong>Tremor
+      Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A blinded creature can’t see and automatically fails
+      any check that requires sight.</p><p>• A <strong>Blinded</strong> creature has disadvantage on Dexterity saving
+      throws.</p><p>• Attack rolls against a <strong>Blinded</strong> creature have advantage, and a
+      <strong>Blinded</strong> creature’s attack rolls have disadvantage without the aid of a special sense that does
+      not require sight, such as <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A creature
+      can willingly close their eyes as a free action for an extended period of time. Doing so imposes this Condition on
+      them until the beginning of their next turn, they cannot reopen their eyes until then, unless they are forced to
+      do so by some other means.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!87NKsrJ8WETRO6Nc.V5dr9sFiVKfZRfrG'
+sort: 1200000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/d-rank/curved-slash.json
+      sourceId: 87NKsrJ8WETRO6Nc
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You perform a single throw that curves and slashes with frightening accuracy. Make a ranged Taijutsu
+            Attack against a creature you can see within range dealing your [weapons damage] + 2d8. On a hit the
+            creature must make a Constitution saving throw or be blinded until the end of their next turn on a failed
+            save. If they fail by 5 or more, they are instead blinded until the end of your turn.</p><p>At Higher Ranks:
+            For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the damage by
+            1d8.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: taijutsu
+        actionType: rtak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d8
+              - ''
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        level: 1
+        school: buki
+        properties:
+          - mobility
+          - weapons
+        keywords:
+          - bukijutsu
+        materials:
+          value: Any Ranged Slashing
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d8
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755942285
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/d-rank/curved-slash.json
+_key: '!items!87NKsrJ8WETRO6Nc'

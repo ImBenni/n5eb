@@ -1,0 +1,160 @@
+folder: o6e43cWQtnULbAGC
+name: Parasitic Touch
+type: spell
+_id: n5ebParasiteTch1
+img: systems/n5eb/assets/content/jutsu-icons/non-elemental.webp
+system:
+  description:
+    value: >-
+      <p>You coat your hands with toxic chakra siphoned from the insects hosted in your body. Make two melee Ninjutsu
+      attacks, dealing 2d8 poison damage on a hit.</p><p>A creature hit by both attacks must succeed on a Dexterity
+      saving throw or gain one rank of Envenomed. It also has disadvantage on its next attack roll targeting you, or you
+      gain advantage on the next saving throw it imposes, whichever happens first before the end of its next
+      turn.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost by 3 and the damage
+      by 1d8.</p>
+    chat: ''
+  source:
+    custom: ''
+    book: Naruto 5e
+    page: '7'
+    license: ''
+    rules: n5eb
+  activation:
+    type: action
+    condition: ''
+    value: 1
+  duration:
+    value: ''
+    units: inst
+  target:
+    affects:
+      type: creature
+      count: '1'
+      choice: false
+      special: ''
+    template:
+      units: ft
+      contiguous: false
+      type: ''
+  range:
+    value: null
+    units: touch
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 1
+  rank: d
+  school: trs
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - hs
+    keywords:
+      - hijutsu
+      - ninjutsu
+    countsKnown: true
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  properties: []
+  activities:
+    n5ebParasiteAtk1:
+      _id: n5ebParasiteAtk1
+      type: attack
+      activation:
+        type: action
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: true
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      name: Cast
+      img: ''
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ''
+        bonus: ''
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ''
+        includeBase: true
+        parts:
+          - number: 2
+            denomination: 8
+            bonus: ''
+            types:
+              - poison
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: whole
+              number: 1
+              formula: ''
+  identifier: parasitic-touch
+effects: []
+sort: 999000
+ownership:
+  default: 0
+flags:
+  n5eb:
+    bookParityFix:
+      added: true
+      source: Book Parity Fix Pass 5.3.10
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.3.10
+  createdTime: 1779926400000
+  modifiedTime: 1779926400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!n5ebParasiteTch1'

@@ -45,6 +45,15 @@
  */
 
 /**
+ * @typedef ChakraPointsData
+ * @property {string} formula  Formula used to determine chakra points.
+ * @property {number} max      Maximum allowed Chakra value.
+ * @property {number} temp     Temporary Chakra applied on top of value.
+ * @property {number} tempmax  Temporary change to the maximum Chakra.
+ * @property {number} value    Current chakra points.
+ */
+
+/**
  * @typedef CommonTemplateData
  * @property {Object<string, AbilityData>} abilities  Actor's abilities.
  */
@@ -87,7 +96,8 @@
 
 /**
  * @typedef {RollConfigData} SkillData
- * @property {number} value            Proficiency level creature has in this skill.
+ * @property {number} value            Base proficiency level creature has in this skill.
+ * @property {number} mastery          Mastery rank creature has in this skill.
  * @property {object} bonuses          Bonuses for this skill.
  * @property {string} bonuses.check    Numeric or dice bonus to skill's check.
  * @property {string} bonuses.passive  Numeric bonus to skill's passive check.
@@ -95,7 +105,8 @@
 
 /**
  * @typedef {RollConfigData} ToolData
- * @property {number} value            Proficiency level creature has in this tool.
+ * @property {number} value            Base proficiency level creature has in this tool.
+ * @property {number} mastery          Mastery rank creature has in this tool.
  * @property {object} bonuses          Bonuses for this tool.
  * @property {string} bonuses.check    Numeric or dice bonus to tool's check.
  */

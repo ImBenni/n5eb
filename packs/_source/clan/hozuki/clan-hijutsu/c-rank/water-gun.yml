@@ -1,0 +1,248 @@
+name: Water Gun
+type: spell
+img: systems/n5eb/assets/content/clans/hozuki.webp
+system:
+  description:
+    value: "<p>You form a bullet on the edge of your finger and shoot it at a target within range.\_<br />Make two ranged Ninjutsu attacks against two separate creatures within range.\_<br />On a hit, you deal 5d8 + Ninjutsu ability Modifier cold damage.\_<br />If you are currently using Hydrofication jutsu, increase the damage die by one step (d8 &gt; d10).\_</p><p><br />At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the damage by 2d8.</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 7
+    scale: false
+  ability: ninjutsu
+  actionType: rsak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d8+@Mod
+        - cold
+    versatile: 5d10+@mod
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 2d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: level
+    formula: 2d8
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: water-gun
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - water
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '7'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: hozuki/clan-hijutsu/c-rank/water-gun.json
+      sourceId: uCnLGRFcuVThTZ1B
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You form a bullet on the edge of your finger and shoot it at a target within range.\_<br />Make two ranged Ninjutsu attacks against two separate creatures within range.\_<br />On a hit, you deal 5d8 + Ninjutsu ability Modifier cold damage.\_<br />If you are currently using Hydrofication jutsu, increase the damage die by one step (d8 &gt; d10).\_</p><p><br />At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the damage by 2d8.</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 7
+          scale: false
+        ability: ninjutsu
+        actionType: rnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d8+@Mod
+              - cold
+          versatile: 5d10+@mod
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 2d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - water
+        chakraCost: 7
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: 2d8
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728753280864
+  modifiedTime: 1728753324246
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: hozuki/clan-hijutsu/c-rank/water-gun.json
+folder: ak4ZM7CgFoji2l1H
+sort: 125000
+ownership:
+  default: 0
+_id: uCnLGRFcuVThTZ1B
+_key: '!items!uCnLGRFcuVThTZ1B'

@@ -53,6 +53,22 @@ export default class InventoryElement extends (foundry.applications.elements.Ado
       label: "DND5E.SpellHeader.Formula",
       template: "systems/n5eb/templates/inventory/columns/formula.hbs"
     },
+    chakra: {
+      id: "chakra",
+      width: 90,
+      order: 150,
+      priority: 900,
+      label: "N5EB.JUTSU.Chakra",
+      template: "systems/n5eb/templates/inventory/columns/chakra.hbs"
+    },
+    jutsuType: {
+      id: "jutsuType",
+      width: 80,
+      order: 100,
+      priority: 700,
+      label: "N5EB.JUTSU.Type.Label",
+      template: "systems/n5eb/templates/inventory/columns/jutsu-type.hbs"
+    },
     price: {
       id: "price",
       width: 80,

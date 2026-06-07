@@ -12,6 +12,23 @@
         </h3>
     </div>
     {{/with}}
+
+    {{#with system.attributes.cd}}
+    <div class="pills-group empty">
+        <h3 class="icon">
+            <i class="fa-solid fa-dice-d20"></i>
+            <span class="roboto-upper">{{ localize "N5EB.ChakraDice" }}</span>
+            <span class="counter">{{ value }} &sol; {{ max }}</span>
+            {{#if @root.editable}}
+            <button type="button" class="config-button unbutton" data-action="showConfiguration"
+                    data-config="chakraDice" data-tooltip="N5EB.ChakraDiceConfig"
+                    aria-label="{{ localize 'N5EB.ChakraDiceConfig' }}">
+                <i class="fas fa-cog" inert></i>
+            </button>
+            {{/if}}
+        </h3>
+    </div>
+    {{/with}}
     {{/if}}
 
     {{!-- Speed --}}

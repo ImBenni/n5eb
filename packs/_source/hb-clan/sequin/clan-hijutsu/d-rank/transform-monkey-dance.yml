@@ -1,0 +1,265 @@
+folder: AHPlDKQr7zVUz0Yw
+name: Transform Monkey Dance!
+type: spell
+_id: 1bFhtik5iKFqVy5U
+img: systems/n5eb/assets/content/clans/sequin.webp
+system:
+  description:
+    value: >-
+      <p>You shake your body to a phantom beat as chakra shrouds you, transforming you into a lively monkey with
+      surprising agility. While concentrating on this jutsu, you are unable to cast jutsu or make weapon attacks.
+      Additionally, you gain the following benefits;</p><ul><li>You count as one size smaller and gain a +2 bonus to
+      your AC.</li><li>Your movement speed increased by 10 feet. Additionally, you gain a climbing equal to your
+      movement speed.</li><li><p>As an action you may perform a straight-line dash through your enemies, having them
+      make a dexterity saving throw as you shoot straight towards them dealing 2d8 bludgeoning damage on a
+      failure.</p></li></ul><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank,
+      increase the chakra cost by 3, increase the damage by 1d8, and the range by 10 feet. If cast at B-rank or higher,
+      creatures make the save at disadvantage.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: 5
+    units: ft
+    type: line
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d8
+        - bludgeoning
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties:
+    - concentration
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d8
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: transform-monkey-dance
+  jutsu:
+    components:
+      - hs
+      - cm
+      - m
+    keywords:
+      - ninjutsu
+      - hijutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: sequin/clan-hijutsu/d-rank/transform-monkey-dance.json
+      sourceId: 1bFhtik5iKFqVy5U
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You shake your body to a phantom beat as chakra shrouds you, transforming you into a lively monkey with
+            surprising agility. While concentrating on this jutsu, you are unable to cast jutsu or make weapon attacks.
+            Additionally, you gain the following benefits;</p><ul><li>You count as one size smaller and gain a +2 bonus
+            to your AC.</li><li>Your movement speed increased by 10 feet. Additionally, you gain a climbing equal to
+            your movement speed.</li><li><p>As an action you may perform a straight-line dash through your enemies,
+            having them make a dexterity saving throw as you shoot straight towards them dealing 2d8 bludgeoning damage
+            on a failure.</p></li></ul><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above
+            D-Rank, increase the chakra cost by 3, increase the damage by 1d8, and the range by 10 feet. If cast at
+            B-rank or higher, creatures make the save at disadvantage.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: 5
+          units: ft
+          type: line
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d8
+              - bludgeoning
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+          - mobility
+          - concentration
+        keywords:
+          - ninjutsu
+          - hijutsu
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d8
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1740495203582
+  modifiedTime: 1741605312589
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: sequin/clan-hijutsu/d-rank/transform-monkey-dance.json
+_key: '!items!1bFhtik5iKFqVy5U'

@@ -1,0 +1,263 @@
+folder: C2xGut937KlEL9Nx
+name: Destruction Release Destructive Aura
+type: spell
+_id: 6zoxgB4oG8nvSwzn
+img: systems/n5eb/assets/content/clans/hakaiton.webp
+system:
+  description:
+    value: >-
+      <p>You shape your destructive chakra into an aura of devastation. Each creature other than you that starts its
+      turn within the aura or enters it for the first time on their turn must succeed on a Constitution saving throw or
+      take 1d12 + your Ninjutsu modifier in fire or lightning damage. Additionally, on a failed saving throw, the next
+      time a creature must make a saving throw against a Fire or Lightning Release jutsu you cast, they reduce their
+      saving throw by half your Ninjutsu modifier (minimum of 1).</p><p><strong>At Higher Ranks:</strong> For each rank
+      you cast this jutsu above D-Rank, increase the cost of this jutsu by 3, the damage by 1d12, and the saving throw
+      reduction by 1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 1d12+@mod
+        - fire
+    versatile: floor(@mod/2)
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties:
+    - concentration
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d12
+  versatileScaling:
+    mode: level
+    formula: '+1'
+  identifier: destruction-release-destructive-aura
+  jutsu:
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - fire
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: hakaiton/clan-hijutsu/d-rank/destruction-release-destructive-aura.json
+      sourceId: 6zoxgB4oG8nvSwzn
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You shape your destructive chakra into an aura of devastation. Each creature other than you that starts
+            its turn within the aura or enters it for the first time on their turn must succeed on a Constitution saving
+            throw or take 1d12 + your Ninjutsu modifier in fire or lightning damage. Additionally, on a failed saving
+            throw, the next time a creature must make a saving throw against a Fire or Lightning Release jutsu you cast,
+            they reduce their saving throw by half your Ninjutsu modifier (minimum of 1).</p><p><strong>At Higher
+            Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3, the
+            damage by 1d12, and the saving throw reduction by 1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 1d12+@mod
+              - fire
+          versatile: floor(@mod/2)
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - chakramolding
+          - concentration
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - fire
+          - lightning
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d12
+        versatileScaling:
+          mode: level
+          formula: '+1'
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1732802137547
+  modifiedTime: 1734017445492
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: hakaiton/clan-hijutsu/d-rank/destruction-release-destructive-aura.json
+_key: '!items!6zoxgB4oG8nvSwzn'

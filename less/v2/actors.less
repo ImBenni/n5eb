@@ -258,6 +258,8 @@
 
       &.hit-points::before { background: linear-gradient(to right, var(--dnd5e-color-hp-1) 0%, var(--dnd5e-color-hp-2) 100%); }
       &.hit-dice::before { background: linear-gradient(to right, var(--dnd5e-color-hd-1) 0%, var(--dnd5e-color-hd-2) 100%); }
+      &.chakra::before { background: linear-gradient(to right, var(--n5eb-color-chakra-1) 0%, var(--n5eb-color-chakra-2) 100%); }
+      &.chakra-dice::before { background: linear-gradient(to right, var(--n5eb-color-cd-1) 0%, var(--n5eb-color-cd-2) 100%); }
       &.uses::before { background: linear-gradient(to right, #023491 0%, var(--dnd5e-color-blue) 100%,); }
     }
 
@@ -292,7 +294,29 @@
       }
     }
 
-    &.hit-points, &.hit-dice, &.uses {
+    &.chakra {
+      height: 28px;
+      font-size: var(--font-size-14);
+
+      .progress::before {
+        background: linear-gradient(to right, var(--n5eb-color-chakra-1) 0%, var(--n5eb-color-chakra-2) 100%);
+        border-inline-end: none;
+      }
+      .temp-positive .label :is(.max, .bonus) { color: color-mix(in oklab, currentcolor, blue 25%); }
+      .temp-negative .label :is(.max, .bonus) { color: color-mix(in oklab, currentcolor, red 25%); }
+    }
+
+    &.chakra-dice {
+      height: 25px;
+      font-size: var(--font-size-14);
+
+      &.progress::before {
+        background: linear-gradient(to right, var(--n5eb-color-cd-1) 0%, var(--n5eb-color-cd-2) 100%);
+        border-inline-end: none;
+      }
+    }
+
+    &.hit-points, &.hit-dice, &.chakra, &.chakra-dice, &.uses {
       &.progress::before, .progress::before {
         block-size: unset;
         clip-path: unset;
@@ -318,7 +342,7 @@
 
       > div { height: 100%; }
 
-      > .hit-points {
+      > .hit-points, > .chakra {
         flex: 1;
         position: relative;
         display: flex;
@@ -487,11 +511,136 @@
   /* ---------------------------------- */
 
   .card.spellcasting .header {
-    background: linear-gradient(to right, var(--dnd5e-color-sc-1), var(--dnd5e-color-sc-2));
+    background: linear-gradient(to right, var(--jutsu-header-1, var(--dnd5e-color-sc-1)),
+      var(--jutsu-header-2, var(--dnd5e-color-sc-2)));
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-right: .5rem;
+  }
+
+  .tab[data-tab="spells"] .top.jutsu-casting-overview {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: .75rem;
+
+    .jutsu-known-row,
+    .jutsu-casting-row { display: grid; }
+
+    .jutsu-known-row {
+      grid-template-columns: minmax(0, 1fr);
+      justify-content: stretch;
+    }
+
+    .jutsu-casting-row {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+      gap: .75rem;
+    }
+
+    .card.spellcasting {
+      width: auto;
+      min-width: 0;
+      overflow: hidden;
+
+      .header {
+        min-height: 32px;
+
+        h3 {
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        select {
+          flex: 0 1 44%;
+          min-width: 0;
+          height: 24px;
+        }
+
+        .subtitle {
+          flex: 0 1 auto;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(62px, 1fr));
+        gap: .5rem 0;
+        padding: .5rem;
+
+        > div {
+          min-width: 0;
+          border-right: none;
+          padding: 0 .375rem;
+        }
+
+        input {
+          width: 100%;
+          min-width: 0;
+        }
+
+        .label {
+          max-width: 100%;
+          text-align: center;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .value { font-size: var(--font-size-15); }
+      }
+    }
+
+    .card.spellcasting[data-jutsu-type="ninjutsu"] {
+      --jutsu-header-1: color-mix(in oklab, #8fd3ff 52%, #1f3140);
+      --jutsu-header-2: color-mix(in oklab, #8fd3ff 28%, #111827);
+    }
+
+    .card.spellcasting[data-jutsu-type="taijutsu"] {
+      --jutsu-header-1: color-mix(in oklab, #8fd18f 52%, #203723);
+      --jutsu-header-2: color-mix(in oklab, #8fd18f 28%, #111827);
+    }
+
+    .card.spellcasting[data-jutsu-type="genjutsu"] {
+      --jutsu-header-1: color-mix(in oklab, #c49cff 52%, #332448);
+      --jutsu-header-2: color-mix(in oklab, #c49cff 28%, #111827);
+    }
+
+    .card.spellcasting.classmod-arts {
+      --jutsu-header-1: color-mix(in oklab, #3b145f 62%, #17051f);
+      --jutsu-header-2: color-mix(in oklab, #3b145f 34%, #09030d);
+    }
+
+    .jutsu-known {
+      --jutsu-header-1: var(--dnd5e-card-header-1);
+      --jutsu-header-2: var(--dnd5e-card-header-2);
+
+      .header {
+        min-height: 30px;
+        padding-inline-end: .75rem;
+
+        .jutsu-known-summary {
+          display: flex;
+          align-items: baseline;
+          gap: .3rem;
+          white-space: nowrap;
+          color: var(--color-text-light-0);
+          font-size: var(--font-size-15);
+        }
+
+        .separator,
+        .max,
+        .dot {
+          color: color-mix(in oklab, currentcolor 55%, transparent);
+        }
+      }
+    }
   }
 
   /* ---------------------------------- */
@@ -724,7 +873,7 @@
   /* ---------------------------------- */
 
   &.locked {
-    .meter.sectioned > .hit-points { cursor: var(--cursor-default); }
+    .meter.sectioned > :is(.hit-points, .chakra) { cursor: var(--cursor-default); }
   }
 }
 

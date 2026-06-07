@@ -4,6 +4,8 @@
         <li class="skill-row" data-key="{{ @key }}">
             <proficiency-cycle type="skill" name="system.skills.{{ @key }}.value" value="{{ value }}"
                                data-tooltip aria-label="{{ localize tooltip }}"></proficiency-cycle>
+            <proficiency-cycle type="mastery" name="system.skills.{{ @key }}.mastery" value="{{ mastery }}"
+                               data-tooltip aria-label="{{ localize masteryTooltip }}"></proficiency-cycle>
             <span class="name">{{ label }}</span>
             <div class="bonus">{{ dnd5e-formatModifier total }}</div>
             <a class="config-button" data-action="configure" data-tooltip

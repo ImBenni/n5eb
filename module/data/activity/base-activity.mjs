@@ -229,8 +229,7 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
    * @type {boolean}
    */
   get requiresSpellSlot() {
-    if ( !this.isSpell || !this.actor?.system.spells ) return false;
-    return this.canScale;
+    return false;
   }
 
   /* -------------------------------------------- */
@@ -775,6 +774,18 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
       const bonus = foundry.utils.getProperty(this.actor ?? {}, `system.bonuses.${actionType}.damage`);
       if ( bonus && !/^0+$/.test(bonus) ) parts.push(bonus);
       if ( this.item.system.damageBonus ) parts.push(String(this.item.system.damageBonus));
+      const exhaustionPenalty = rollConfig.applyExhaustionReduction === false
+        ? 0 : (this.actor?.getExhaustionPenalty?.() ?? 0);
+      if ( exhaustionPenalty ) {
+        parts.push("@exhaustion");
+        data.exhaustion = -exhaustionPenalty;
+      }
+      const conditionPenalty = rollConfig.applyConditionReduction === false
+        ? 0 : (this.actor?.getConditionDamagePenalty?.({ activity: this, item: this.item }) ?? 0);
+      if ( conditionPenalty ) {
+        parts.push("@conditionDamagePenalty");
+        data.conditionDamagePenalty = -conditionPenalty;
+      }
     }
 
     const lastType = this.item.getFlag("n5eb", `last.${this.id}.damageType.${index}`);

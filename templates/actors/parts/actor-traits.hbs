@@ -138,6 +138,7 @@
         {{#each tools}}
             <li class="tag tool proficiency-row" data-property="tools" data-key="{{@key}}">
                 <input type="hidden" name="system.tools.{{@key}}.value" value="{{baseValue}}" data-dtype="Number">
+                <input type="hidden" name="system.tools.{{@key}}.mastery" value="{{baseMastery}}" data-dtype="Number">
                 <input type="hidden" name="system.tools.{{@key}}.ability" value="{{ability}}">
                 <a class="proficiency-toggle tool-proficiency" data-tooltip="{{hover}}">{{{icon}}}</a>
                 <h4 class="tool-name rollable">{{label}}</h4>

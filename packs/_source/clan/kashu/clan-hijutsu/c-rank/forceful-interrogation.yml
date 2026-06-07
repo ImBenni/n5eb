@@ -1,0 +1,269 @@
+name: Forceful Interrogation
+type: spell
+img: systems/n5eb/assets/content/clans/kashu.webp
+system:
+  description:
+    value: >-
+      <p>You reach into the mind of your target, latching onto the most delicate parts of their brain speaking an
+      incomprehensible language, compelling them to spill their cuts.</p><p>Select a creature in range, the target must
+      make a Charisma saving throw, on a failed save, whenever they are asked a question, they must answer completely
+      and truthfully, otherwise they take 7d4 psychic damage and gain 1 rank of disorientation</p><p>A creature under
+      the effects of this Genjutsu remakes their saving throw each time they respond to a question. If the creature
+      answers truthfully, they make the save at advantage. If they lie or refuse to answer, they instead make the save
+      at disadvantage.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this
+      jutsu by 3 and the damage by 2d4.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '10'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 7
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 7d4
+        - psychic
+    versatile: ''
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: genjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 2d4
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: forceful-interrogation
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - hijutsu
+      - auditory
+      - tactile
+      - unaware
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '7'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+folder: lq6jM64IuHCgi3di
+flags:
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: kashu/clan-hijutsu/c-rank/forceful-interrogation.json
+      sourceId: fHQwbSxOlXHHiDGY
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You reach into the mind of your target, latching onto the most delicate parts of their brain speaking an
+            incomprehensible language, compelling them to spill their cuts.</p><p>Select a creature in range, the target
+            must make a Charisma saving throw, on a failed save, whenever they are asked a question, they must answer
+            completely and truthfully, otherwise they take 7d4 psychic damage and gain 1 rank of disorientation</p><p>A
+            creature under the effects of this Genjutsu remakes their saving throw each time they respond to a question.
+            If the creature answers truthfully, they make the save at advantage. If they lie or refuse to answer, they
+            instead make the save at disadvantage.</p><p>At Higher Ranks: For each rank you cast this jutsu above
+            C-Rank, increase the cost of this jutsu by 3 and the damage by 2d4.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '10'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 7
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 7d4
+              - psychic
+          versatile: ''
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: genjutsu
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 2d4
+        keywords:
+          - genjutsu
+          - hijutsu
+          - auditory
+          - tactile
+          - unaware
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+        chakraCost: 7
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728753809232
+  modifiedTime: 1728753847759
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: kashu/clan-hijutsu/c-rank/forceful-interrogation.json
+_id: fHQwbSxOlXHHiDGY
+sort: 300000
+ownership:
+  default: 0
+_key: '!items!fHQwbSxOlXHHiDGY'

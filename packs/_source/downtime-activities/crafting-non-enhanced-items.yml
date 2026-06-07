@@ -1,0 +1,47 @@
+folder: downtimeCore0001
+name: Crafting Non-Enhanced Items
+type: downtime
+_id: craftNonEnh00001
+img: icons/tools/smithing/anvil.webp
+system:
+  description:
+    value: >-
+      <p>Craft unenhanced equipment, art, armor, weapons, or similar mundane objects. The character must have the
+      appropriate toolkit proficiency and any required materials, facilities, or location.</p><p>Each week contributes
+      100 Ryo of market value and costs half the crafted value in materials. A relevant toolkit with Mastery can
+      increase weekly contribution as described by the book. Swift Crafting and toolkit variants remain GM-adjudicated
+      in this v1 tracker.</p>
+    chat: ''
+  identifier: crafting-non-enhanced-items
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  category: crafting
+  weeks:
+    value: 1
+    max: 1
+    mode: variable
+    note: Track one week per 100 Ryo of market value, modified by Mastery or toolkit quality.
+  cost:
+    value: 50
+    denomination: ryo
+    per: week
+    note: Materials generally cost half the crafted market value.
+  roll:
+    enabled: true
+    ability: int
+    skill: cra
+    tool: ''
+    dc: 0
+    label: Crafting or relevant toolkit check when required.
+  target:
+    type: item
+    uuid: ''
+  completion: Record the finished item and any material cost paid.
+effects: []
+flags: {}
+sort: 200000
+ownership:
+  default: 0
+_key: '!items!craftNonEnh00001'

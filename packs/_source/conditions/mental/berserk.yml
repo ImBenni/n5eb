@@ -1,0 +1,311 @@
+folder: 5TxsXMrZiAniLCZX
+name: Berserk
+type: feat
+_id: qAXtyj0uf1xsaU9G
+img: systems/n5eb/icons/svg/statuses/berserk.svg
+system:
+  description:
+    value: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Berserk creature has experienced a temporary loss in sanity,
+      causing them to act rabid to a varying degree. This condition is typically the result of a Genjutsu or
+      mind-altering poison.</p><ul><li><p>A Berserk creature must use all action(s) and movement to attack/harm the
+      creature nearest to it that it can perceive as if that creature was a mortal enemy. If multiple creatures are
+      potential targets, it picks one at random.</p></li><li><p>When a creature moves out of a berserk creature's reach,
+      it provokes an opportunity attack.</p></li><li><p>A Berserk creature has a -1 penalty to all Charisma based
+      attacks, checks and saving throws for each rank it has.</p></li><li><p>Creatures that are immune to the charmed
+      condition are also immune to the berserk condition. A Jutsu which cures the charmed condition also cures this
+      Condition.</p></li><li><p>A Berserk creature loses 1 rank of Berserk at the end of each of its turns as its mind
+      slowly clears.</p></li></ul>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: ''
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  type:
+    value: ''
+    subtype: ''
+    nestedsubtype: ''
+  prerequisites:
+    level: null
+  properties: []
+  requirements: ''
+  identifier: berserk
+effects:
+  - name: Berserk
+    origin: Compendium.n5eb.conditions.Item.qAXtyj0uf1xsaU9G
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      core:
+        overlay: false
+      n5eb:
+        legacyImport:
+          originalConditionEffect:
+            name: Berserk
+            img: systems/n5eb/icons/svg/statuses/berserk.svg
+            statuses: []
+            changes:
+              - key: system.abilities.cha.bonuses.save
+                mode: 2
+                value: '-1 * @stackCount'
+                priority: 20
+              - key: system.abilities.cha.bonuses.check
+                mode: 2
+                value: '-1 * @stackCount'
+                priority: 20
+              - key: StatusEffect
+                mode: 0
+                value: berserk
+                priority: 20
+            flags:
+              dae:
+                enableCondition: ''
+                disableCondition: ''
+                disableIncapacitated: false
+                selfTarget: false
+                selfTargetAlways: false
+                dontApply: false
+                stackable: count
+                showIcon: false
+                durationExpression: ''
+                macroRepeat: none
+                specialDuration: []
+              ActiveAuras:
+                isAura: false
+                aura: None
+                nameOverride: ''
+                radius: ''
+                alignment: ''
+                type: ''
+                customCheck: ''
+                ignoreSelf: false
+                height: false
+                hidden: false
+                displayTemp: false
+                hostile: false
+                onlyOnce: false
+                wallsBlock: system
+        condition:
+          id: berserk
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/berserk.svg
+    _id: LK4NzyOAL92TbrYA
+    type: base
+    system: {}
+    changes: []
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Berserk creature has experienced a temporary loss in sanity,
+      causing them to act rabid to a varying degree. This condition is typically the result of a Genjutsu or
+      mind-altering poison.</p><ul><li><p>A Berserk creature must use all action(s) and movement to attack/harm the
+      creature nearest to it that it can perceive as if that creature was a mortal enemy. If multiple creatures are
+      potential targets, it picks one at random.</p></li><li><p>When a creature moves out of a berserk creature's reach,
+      it provokes an opportunity attack.</p></li><li><p>A Berserk creature has a -1 penalty to all Charisma based
+      attacks, checks and saving throws for each rank it has.</p></li><li><p>Creatures that are immune to the charmed
+      condition are also immune to the berserk condition. A Jutsu which cures the charmed condition also cures this
+      Condition.</p></li><li><p>A Berserk creature loses 1 rank of Berserk at the end of each of its turns as its mind
+      slowly clears.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - berserk
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,0
+      createdTime: 1728597332789
+      modifiedTime: 1728597505323
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!qAXtyj0uf1xsaU9G.LK4NzyOAL92TbrYA'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: conditions
+      sourcePath: mental/berserk.json
+      sourceId: qAXtyj0uf1xsaU9G
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Berserk creature has experienced a temporary loss in sanity,
+            causing them to act rabid to a varying degree. This condition is typically the result of a Genjutsu or
+            mind-altering poison.</p><ul><li><p>A Berserk creature must use all action(s) and movement to attack/harm
+            the creature nearest to it that it can perceive as if that creature was a mortal enemy. If multiple
+            creatures are potential targets, it picks one at random.</p></li><li><p>When a creature moves out of a
+            berserk creature's reach, it provokes an opportunity attack.</p></li><li><p>A Berserk creature has a -1
+            penalty to all Charisma based attacks, checks and saving throws for each rank it
+            has.</p></li><li><p>Creatures that are immune to the charmed condition are also immune to the berserk
+            condition. A Jutsu which cures the charmed condition also cures this Condition.</p></li><li><p>A Berserk
+            creature loses 1 rank of Berserk at the end of each of its turns as its mind slowly clears.</p></li></ul>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: ''
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        type:
+          value: ''
+          subtype: ''
+          nestedsubtype: ''
+        prerequisites:
+          level: null
+        properties: []
+        requirements: ''
+      originalConditionItemFlags:
+        midiProperties:
+          confirmTargets: default
+          autoFailFriendly: false
+          autoSaveFriendly: false
+          critOther: false
+          offHandWeapon: false
+          magicdam: false
+          magiceffect: false
+          noConcentrationCheck: false
+          toggleEffect: false
+          ignoreTotalCover: false
+          idr: false
+          idi: false
+          idv: false
+          ida: false
+        midi-qol:
+          rollAttackPerTarget: default
+          itemCondition: ''
+          effectCondition: ''
+    condition:
+      id: berserk
+      maxRank: 5
+      category: mental
+      source: main-book
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728597278440
+  modifiedTime: 1728597321930
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: conditions
+    sourcePath: mental/berserk.json
+_key: '!items!qAXtyj0uf1xsaU9G'

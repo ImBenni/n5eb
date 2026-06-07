@@ -385,7 +385,9 @@ export default class Item5e extends SystemDocumentMixin(Item) {
    */
   get scaleValues() {
     if ( !this.advancement.byType.ScaleValue ) return {};
-    const item = ["class", "subclass"].includes(this.advancementRootItem?.type) ? this.advancementRootItem : this;
+    const item = ["class", "subclass", "classmod"].includes(this.advancementRootItem?.type)
+      ? this.advancementRootItem
+      : this;
     const level = item.type === "class" ? item.system.levels : item.type === "subclass" ? item.class?.system.levels
       : item.system.advancementLevel ?? this.parent?.system.details.level ?? 0;
     return this.advancement.byType.ScaleValue.reduce((obj, advancement) => {
@@ -513,7 +515,11 @@ export default class Item5e extends SystemDocumentMixin(Item) {
   static migrateData(source) {
     source = super.migrateData(source);
     ActivitiesTemplate.initializeActivities(source);
-    if ( source.type === "class" ) ClassData._migrateTraitAdvancement(source);
+    if ( source.type === "class" ) {
+      ClassData._migrateTraitAdvancement(source);
+      ClassData._migrateChakraAdvancement(source);
+      ClassData._migrateJutsuProgression(source);
+    }
     else if ( source.type === "container" ) ContainerData._migrateWeightlessData(source);
     else if ( source.type === "equipment" ) EquipmentData._migrateStealth(source);
     else if ( source.type === "spell" ) SpellData._migrateComponentData(source);
@@ -628,7 +634,16 @@ export default class Item5e extends SystemDocumentMixin(Item) {
       return;
     }
 
-    this.system.prof = new Proficiency(this.actor.system.attributes.prof, this.system.proficiencyMultiplier ?? 0);
+    const multiplier = this.system.proficiencyMultiplier ?? 0;
+    if ( this.type === "tool" ) {
+      const toolId = this.system.type?.baseItem;
+      const ability = this.system.ability || CONFIG.DND5E.tools[toolId]?.ability || "int";
+      this.system.prof = this.actor.system.calculateToolProficiency(
+        multiplier, ability, { tool: toolId ?? true, mastery: this.system.masteryRank }
+      );
+    } else {
+      this.system.prof = new Proficiency(this.actor.system.attributes.prof, multiplier);
+    }
   }
 
   /* -------------------------------------------- */

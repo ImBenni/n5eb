@@ -1,0 +1,1699 @@
+name: Puppet Master
+type: class
+img: icons/magic/control/control-influence-puppet.webp
+system:
+  description:
+    value: >-
+      <p>As a Puppet Master, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit Dice:</strong>
+      1d8 per Puppet Master level<br /><strong>Hit Points at 1st Level and beyond:</strong> 8 + your constitution
+      modifier</p><hr /><h3>Chakra Points</h3><p><strong>Chakra Dice:</strong> 1d10 per Puppet Master level<br
+      /><strong>Chakra Points at 1st Level:</strong> 10 + your constitution modifier<br /><strong>Chakra Points at
+      Higher Levels:</strong> 1d10 (or 6) + your Constitution modifier per Puppet Master level after 1st.</p><hr
+      /><h3>Proficiencies</h3><p><strong>Armor:</strong> Light armor, Medium armor<br /><strong>Weapons:</strong> All
+      Simple Weapons, Battle Wires, Hand Crossbows, Heavy Crossbows, Fuma-Shuriken<br /><strong>Ninja Tools:</strong>
+      Armorsmith Kit, Weaponsmith Kit<br /><strong>Saving Throws:</strong> Strength, Constitution, Intelligence<br
+      /><strong>Skills:</strong> Crafting, Choose three from Chakra Control, Deception, History, Insight, Intimidation,
+      Investigation, Ninshou, Perception, Nature, Sleight of Hand, Stealth</p><h1>Puppet Master
+      Advancement</h1><table><thead><tr><th>Level</th><th>Proficiency Bonus</th><th>Features</th><th>Wood
+      Tier</th><th>Bronze Tier</th><th>Silver Tier</th><th>Gold Tier</th><th>Platinum Tier</th><th>Jutsu
+      Known</th><th>Highest Rank Jutsu
+      Known</th></tr></thead><tbody><tr><td>1st</td><td>+3</td><td>@UUID[Compendium.n5eb.class.Item.4FkGiO3rju1Okfb7]{Chakra
+      Threads}, @UUID[Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx]{Puppet
+      Tool}</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>6</td><td>D-Rank</td></tr><tr><td>2nd</td><td>+3</td><td>@UUID[Compendium.n5eb.class.Item.rCt5Okp8aYqZwL21]{Tactics
+      of the Craft}, @UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet Technique},
+      @UUID[Compendium.n5eb.class.Item.hvAE0RoiLQf8oc8k]{Puppet
+      Upgrades}</td><td>2</td><td>—</td><td>—</td><td>—</td><td>—</td><td>6</td><td>D-Rank</td></tr><tr><td>3rd</td><td>+3</td><td>@UUID[Compendium.n5eb.class.Item.7VxDLHKJcz9Iezo3]{Chakra
+      Enhanced
+      Retrofit}</td><td>2</td><td>—</td><td>—</td><td>—</td><td>—</td><td>7</td><td>D-Rank</td></tr><tr><td>4th</td><td>+4</td><td>Ability
+      Score
+      Improvement/Feat</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>7</td><td>D-Rank</td></tr><tr><td>5th</td><td>+4</td><td>@UUID[Compendium.n5eb.class.Item.R4zU1zpTBJtx2qkI]{Extra
+      Attack}, @UUID[Compendium.n5eb.class.Item.lyvwiOJs5D3MQ912]{Generalized
+      Skill}</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>8</td><td>C-Rank</td></tr><tr><td>6th</td><td>+4</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+      Technique} (2), @UUID[Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx]{Puppet Tool}
+      (2)</td><td>4</td><td>2</td><td>—</td><td>—</td><td>—</td><td>8</td><td>C-Rank</td></tr><tr><td>7th</td><td>+5</td><td>@UUID[Compendium.n5eb.class.Item.PSgHlFhq0uZKvifr]{Tool
+      Expertise}</td><td>4</td><td>2</td><td>—</td><td>—</td><td>—</td><td>9</td><td>C-Rank</td></tr><tr><td>8th</td><td>+5</td><td>Ability
+      Score
+      Improvement/Feat</td><td>4</td><td>3</td><td>—</td><td>—</td><td>—</td><td>9</td><td>C-Rank</td></tr><tr><td>9th</td><td>+5</td><td>@UUID[Compendium.n5eb.class.Item.4FkGiO3rju1Okfb7]{Chakra
+      Threads} (2), @UUID[Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx]{Puppet Tool}
+      (3)</td><td>4</td><td>3</td><td>—</td><td>—</td><td>—</td><td>10</td><td>B-Rank</td></tr><tr><td>10th</td><td>+6</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+      Technique}
+      (3)</td><td>4</td><td>3</td><td>2</td><td>—</td><td>—</td><td>10</td><td>B-Rank</td></tr><tr><td>11th</td><td>+6</td><td>@UUID[Compendium.n5eb.class.Item.rCt5Okp8aYqZwL21]{Tactics
+      of the Craft}
+      (2)</td><td>4</td><td>3</td><td>2</td><td>—</td><td>—</td><td>11</td><td>B-Rank</td></tr><tr><td>12th</td><td>+6</td><td>Ability
+      Score
+      Improvement/Feat</td><td>4</td><td>3</td><td>3</td><td>—</td><td>—</td><td>11</td><td>B-Rank</td></tr><tr><td>13th</td><td>+7</td><td>@UUID[Compendium.n5eb.class.Item.7VxDLHKJcz9Iezo3]{Chakra
+      Enhanced Retrofit}
+      (2)</td><td>4</td><td>3</td><td>3</td><td>3</td><td>—</td><td>12</td><td>A-Rank</td></tr><tr><td>14th</td><td>+7</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+      Technique}
+      (4)</td><td>4</td><td>3</td><td>3</td><td>1</td><td>—</td><td>12</td><td>A-Rank</td></tr><tr><td>15th</td><td>+7</td><td>@UUID[Compendium.n5eb.class.Item.9yyQEJ72cPCvn302]{Always
+      Prepared}, @UUID[Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx]{Puppet Tool}
+      (4)</td><td>4</td><td>3</td><td>3</td><td>1</td><td>—</td><td>13</td><td>A-Rank</td></tr><tr><td>16th</td><td>+8</td><td>Ability
+      Score
+      Improvement/Feat</td><td>4</td><td>3</td><td>3</td><td>2</td><td>—</td><td>13</td><td>A-Rank</td></tr><tr><td>17th</td><td>+8</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+      Technique}
+      (5)</td><td>4</td><td>3</td><td>3</td><td>2</td><td>—</td><td>14</td><td>S-Rank</td></tr><tr><td>18th</td><td>+8</td><td>@UUID[Compendium.n5eb.class.Item.9yyQEJ72cPCvn302]{Always
+      Prepared}
+      (2)</td><td>4</td><td>3</td><td>3</td><td>3</td><td>1</td><td>14</td><td>S-Rank</td></tr><tr><td>19th</td><td>+9</td><td>Ability
+      Score
+      Improvement/Feat</td><td>4</td><td>3</td><td>3</td><td>3</td><td>1</td><td>15</td><td>S-Rank</td></tr><tr><td>20th</td><td>+9</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+      Technique}
+      (6)</td><td>4</td><td>3</td><td>3</td><td>3</td><td>2</td><td>15</td><td>S-Rank</td></tr></tbody></table>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  identifier: puppet-master
+  levels: 1
+  hitDice: d8
+  hitDiceUsed: 0
+  advancement:
+    - type: Trait
+      level: 1
+      configuration:
+        grants:
+          - saves:str
+          - saves:con
+          - saves:int
+        mode: default
+        allowReplacements: false
+        choices: []
+      value:
+        chosen:
+          - saves:str
+          - saves:con
+          - saves:int
+      _id: qWhFidDXz7H819BC
+    - type: Trait
+      level: 1
+      configuration:
+        choices:
+          - count: 3
+            pool:
+              - skills:ccl
+              - skills:dec
+              - skills:his
+              - skills:ins
+              - skills:itm
+              - skills:inv
+              - skills:nat
+              - skills:nsh
+              - skills:prc
+              - skills:slt
+              - skills:ste
+        mode: default
+        allowReplacements: false
+        grants:
+          - skills:cra
+      value:
+        chosen:
+          - skills:cra
+      _id: IsNsaPoeaC6GpRkF
+      title: ''
+      hint: ''
+    - _id: ubw0ArSnWWzswawJ
+      type: Trait
+      configuration:
+        mode: default
+        allowReplacements: false
+        grants:
+          - tool:kit:armorsmithKit
+          - tool:kit:weaponsmithKit
+        choices: []
+      value:
+        chosen: []
+      level: 1
+      title: ''
+      hint: ''
+    - _id: 9fp6pLpaZQBo0Sjg
+      type: Trait
+      configuration:
+        mode: default
+        allowReplacements: false
+        grants:
+          - weapon:sim
+          - weapon:mar:battlewire
+          - weapon:mar:fumashuriken
+          - weapon:mar:handcrossbow
+          - weapon:mar:heavycrossbow
+        choices: []
+      value:
+        chosen: []
+      level: 1
+      title: ''
+      hint: ''
+    - _id: jU3KJ3x2DuFBpfrf
+      type: Trait
+      configuration:
+        mode: default
+        allowReplacements: false
+        grants:
+          - armor:lgt
+          - armor:med
+        choices: []
+      value:
+        chosen: []
+      level: 1
+      title: ''
+      hint: ''
+    - _id: V0iWQbnvNqCfXhS7
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.class.Item.4FkGiO3rju1Okfb7
+            optional: false
+          - uuid: Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx
+            optional: false
+          - uuid: Compendium.n5eb.jutsus.Item.pueyZp4Oe3AkItpW
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 1
+    - _id: AjJ2uyIYIsSy4g4j
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.class.Item.rCt5Okp8aYqZwL21
+            optional: false
+          - uuid: Compendium.n5eb.class.Item.hvAE0RoiLQf8oc8k
+            optional: false
+          - uuid: Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 2
+      title: ''
+      hint: ''
+    - _id: ihrJG3pk1Cf5nUpZ
+      type: ItemChoice
+      configuration:
+        choices:
+          '2':
+            count: 2
+            replacement: false
+          '4':
+            count: 1
+            replacement: false
+        allowDrops: true
+        type: null
+        pool:
+          - uuid: Compendium.n5eb.class.Item.uPWoQdXHXBD6fYyy
+          - uuid: Compendium.n5eb.class.Item.ad3JiP0NaJ3Ii3rz
+          - uuid: Compendium.n5eb.class.Item.Z36K4Mx8yQXt9tWg
+          - uuid: Compendium.n5eb.class.Item.IwqodaA7KtmfLlH5
+          - uuid: Compendium.n5eb.class.Item.ekHmuEi4EAe0Dl3X
+          - uuid: Compendium.n5eb.class.Item.fCiGTPpoMeOOVxhy
+          - uuid: Compendium.n5eb.class.Item.dQ4mpJf3tLCxTATU
+          - uuid: Compendium.n5eb.class.Item.2pLTAsI4jQ91rLaP
+          - uuid: Compendium.n5eb.class.Item.RKjb28kefvok4RJ7
+          - uuid: Compendium.n5eb.class.Item.KZaVdF0pNO0sFi3B
+          - uuid: Compendium.n5eb.class.Item.wik11LEU40mvVCWy
+          - uuid: Compendium.n5eb.class.Item.ZUVMj93ajAkcjH7M
+          - uuid: Compendium.n5eb.class.Item.dytGZQhJjQV80HIJ
+          - uuid: Compendium.n5eb.class.Item.8zi1BB3kkm4LftTY
+          - uuid: Compendium.n5eb.class.Item.xKiFg8wSIK3b3fPz
+          - uuid: Compendium.n5eb.class.Item.91pPUQ64vzxILYzH
+          - uuid: Compendium.n5eb.class.Item.l2h5XHVakKeYCXlM
+          - uuid: Compendium.n5eb.class.Item.wBgi6vGmXX8O38rq
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      title: Wood Upgrades
+      hint: ''
+      icon: icons/commodities/wood/bark-brown-red.webp
+    - type: ItemChoice
+      configuration:
+        choices:
+          '2':
+            count: 1
+            replacement: false
+          '3':
+            count: null
+            replacement: true
+          '4':
+            count: null
+            replacement: true
+          '5':
+            count: null
+            replacement: true
+          '6':
+            count: null
+            replacement: true
+          '7':
+            count: null
+            replacement: true
+          '8':
+            count: null
+            replacement: true
+          '9':
+            count: null
+            replacement: true
+          '10':
+            count: null
+            replacement: true
+          '11':
+            count: 1
+            replacement: true
+          '12':
+            count: null
+            replacement: true
+          '13':
+            count: null
+            replacement: true
+          '14':
+            count: null
+            replacement: true
+          '15':
+            count: null
+            replacement: true
+          '16':
+            count: null
+            replacement: true
+          '17':
+            count: null
+            replacement: true
+          '18':
+            count: null
+            replacement: true
+          '19':
+            count: null
+            replacement: true
+          '20':
+            count: null
+            replacement: true
+        allowDrops: false
+        type: feat
+        pool:
+          - uuid: Compendium.n5eb.class.Item.Jl8QCU7MN8wACpi6
+          - uuid: Compendium.n5eb.class.Item.582p1E94wIBALVNI
+          - uuid: Compendium.n5eb.class.Item.ehrUORk1Mil2NNxA
+          - uuid: Compendium.n5eb.class.Item.9knGLpUkvALrJqhP
+          - uuid: Compendium.n5eb.class.Item.AECHphva8TFM3W35
+        spell: null
+        restriction:
+          type: class
+          subtype: ''
+      value:
+        added: {}
+        replaced: {}
+      title: Choose Tactic
+      hint: >-
+        Beginning at 2nd level, you gain one tactic. At 11th level, you gain a second tactic. You can change your chosen
+        tactics when you gain a level in this class.
+      _id: ACdeIRELQZDbSPh9
+      icon: icons/commodities/tech/blueprint.webp
+    - type: ItemChoice
+      configuration:
+        choices:
+          '6':
+            count: 3
+            replacement: false
+          '8':
+            count: 1
+            replacement: false
+        allowDrops: true
+        type: feat
+        pool:
+          - uuid: Compendium.n5eb.class.Item.uPWoQdXHXBD6fYyy
+          - uuid: Compendium.n5eb.class.Item.ad3JiP0NaJ3Ii3rz
+          - uuid: Compendium.n5eb.class.Item.Z36K4Mx8yQXt9tWg
+          - uuid: Compendium.n5eb.class.Item.IwqodaA7KtmfLlH5
+          - uuid: Compendium.n5eb.class.Item.ekHmuEi4EAe0Dl3X
+          - uuid: Compendium.n5eb.class.Item.fCiGTPpoMeOOVxhy
+          - uuid: Compendium.n5eb.class.Item.dQ4mpJf3tLCxTATU
+          - uuid: Compendium.n5eb.class.Item.2pLTAsI4jQ91rLaP
+          - uuid: Compendium.n5eb.class.Item.RKjb28kefvok4RJ7
+          - uuid: Compendium.n5eb.class.Item.KZaVdF0pNO0sFi3B
+          - uuid: Compendium.n5eb.class.Item.wik11LEU40mvVCWy
+          - uuid: Compendium.n5eb.class.Item.ZUVMj93ajAkcjH7M
+          - uuid: Compendium.n5eb.class.Item.dytGZQhJjQV80HIJ
+          - uuid: Compendium.n5eb.class.Item.8zi1BB3kkm4LftTY
+          - uuid: Compendium.n5eb.class.Item.xKiFg8wSIK3b3fPz
+          - uuid: Compendium.n5eb.class.Item.91pPUQ64vzxILYzH
+          - uuid: Compendium.n5eb.class.Item.l2h5XHVakKeYCXlM
+          - uuid: Compendium.n5eb.class.Item.wBgi6vGmXX8O38rq
+          - uuid: Compendium.n5eb.class.Item.aSjuCzLp80ObTrRy
+          - uuid: Compendium.n5eb.class.Item.HiS6wDxpvzh3jpFF
+          - uuid: Compendium.n5eb.class.Item.bT3d6EC8wsYVgdBk
+          - uuid: Compendium.n5eb.class.Item.DBdqpeoJAtHvdM7G
+          - uuid: Compendium.n5eb.class.Item.tY13uHkMyBrHnd1V
+          - uuid: Compendium.n5eb.class.Item.ajrUBIBMy1fuRXWJ
+          - uuid: Compendium.n5eb.class.Item.C5FYBxDN4GSz98HR
+          - uuid: Compendium.n5eb.class.Item.ruSUZK7uTpjCGCFd
+          - uuid: Compendium.n5eb.class.Item.lkypaDMflNECjfKs
+          - uuid: Compendium.n5eb.class.Item.0YbjBfvtrE2pT0ll
+          - uuid: Compendium.n5eb.class.Item.KK2A5whiqAlPA0NB
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      title: Bronze Upgrades
+      hint: ''
+      _id: YuOxnaof8w42nHqb
+      icon: icons/commodities/metal/ingot-hammered-copper.webp
+    - type: ItemChoice
+      configuration:
+        choices:
+          '10':
+            count: 2
+            replacement: false
+          '12':
+            count: 1
+            replacement: false
+        allowDrops: true
+        type: feat
+        pool:
+          - uuid: Compendium.n5eb.class.Item.uPWoQdXHXBD6fYyy
+          - uuid: Compendium.n5eb.class.Item.ad3JiP0NaJ3Ii3rz
+          - uuid: Compendium.n5eb.class.Item.Z36K4Mx8yQXt9tWg
+          - uuid: Compendium.n5eb.class.Item.IwqodaA7KtmfLlH5
+          - uuid: Compendium.n5eb.class.Item.ekHmuEi4EAe0Dl3X
+          - uuid: Compendium.n5eb.class.Item.fCiGTPpoMeOOVxhy
+          - uuid: Compendium.n5eb.class.Item.dQ4mpJf3tLCxTATU
+          - uuid: Compendium.n5eb.class.Item.2pLTAsI4jQ91rLaP
+          - uuid: Compendium.n5eb.class.Item.RKjb28kefvok4RJ7
+          - uuid: Compendium.n5eb.class.Item.KZaVdF0pNO0sFi3B
+          - uuid: Compendium.n5eb.class.Item.wik11LEU40mvVCWy
+          - uuid: Compendium.n5eb.class.Item.ZUVMj93ajAkcjH7M
+          - uuid: Compendium.n5eb.class.Item.dytGZQhJjQV80HIJ
+          - uuid: Compendium.n5eb.class.Item.8zi1BB3kkm4LftTY
+          - uuid: Compendium.n5eb.class.Item.xKiFg8wSIK3b3fPz
+          - uuid: Compendium.n5eb.class.Item.91pPUQ64vzxILYzH
+          - uuid: Compendium.n5eb.class.Item.l2h5XHVakKeYCXlM
+          - uuid: Compendium.n5eb.class.Item.wBgi6vGmXX8O38rq
+          - uuid: Compendium.n5eb.class.Item.aSjuCzLp80ObTrRy
+          - uuid: Compendium.n5eb.class.Item.HiS6wDxpvzh3jpFF
+          - uuid: Compendium.n5eb.class.Item.bT3d6EC8wsYVgdBk
+          - uuid: Compendium.n5eb.class.Item.DBdqpeoJAtHvdM7G
+          - uuid: Compendium.n5eb.class.Item.tY13uHkMyBrHnd1V
+          - uuid: Compendium.n5eb.class.Item.ajrUBIBMy1fuRXWJ
+          - uuid: Compendium.n5eb.class.Item.C5FYBxDN4GSz98HR
+          - uuid: Compendium.n5eb.class.Item.ruSUZK7uTpjCGCFd
+          - uuid: Compendium.n5eb.class.Item.lkypaDMflNECjfKs
+          - uuid: Compendium.n5eb.class.Item.0YbjBfvtrE2pT0ll
+          - uuid: Compendium.n5eb.class.Item.KK2A5whiqAlPA0NB
+          - uuid: Compendium.n5eb.class.Item.bfyDSvRi7WTjihhF
+          - uuid: Compendium.n5eb.class.Item.ryEVyZSckigAdU5w
+          - uuid: Compendium.n5eb.class.Item.CCn3RfyAuvRfKB25
+          - uuid: Compendium.n5eb.class.Item.EX2unKECbx1CCkip
+          - uuid: Compendium.n5eb.class.Item.zVhIV5TOhZQ8MNEW
+          - uuid: Compendium.n5eb.class.Item.IdxfNiYPc0H5XeOA
+          - uuid: Compendium.n5eb.class.Item.adTaEp3K6poda1HC
+          - uuid: Compendium.n5eb.class.Item.Hv56cIoWnLCRSwtT
+        spell: null
+        restriction:
+          type: ''
+          subtype: ''
+      value:
+        added: {}
+        replaced: {}
+      title: Silver Upgrades
+      hint: ''
+      _id: 1DaebqYBzjfOWv61
+      icon: icons/commodities/metal/ingot-hammered-silver.webp
+    - type: ItemChoice
+      configuration:
+        choices:
+          '14':
+            count: 1
+            replacement: false
+          '16':
+            count: 1
+            replacement: false
+          '18':
+            count: 2
+            replacement: false
+          '20':
+            count: 1
+            replacement: false
+        allowDrops: true
+        type: feat
+        pool:
+          - uuid: Compendium.n5eb.class.Item.uPWoQdXHXBD6fYyy
+          - uuid: Compendium.n5eb.class.Item.ad3JiP0NaJ3Ii3rz
+          - uuid: Compendium.n5eb.class.Item.Z36K4Mx8yQXt9tWg
+          - uuid: Compendium.n5eb.class.Item.IwqodaA7KtmfLlH5
+          - uuid: Compendium.n5eb.class.Item.ekHmuEi4EAe0Dl3X
+          - uuid: Compendium.n5eb.class.Item.fCiGTPpoMeOOVxhy
+          - uuid: Compendium.n5eb.class.Item.dQ4mpJf3tLCxTATU
+          - uuid: Compendium.n5eb.class.Item.2pLTAsI4jQ91rLaP
+          - uuid: Compendium.n5eb.class.Item.RKjb28kefvok4RJ7
+          - uuid: Compendium.n5eb.class.Item.KZaVdF0pNO0sFi3B
+          - uuid: Compendium.n5eb.class.Item.wik11LEU40mvVCWy
+          - uuid: Compendium.n5eb.class.Item.ZUVMj93ajAkcjH7M
+          - uuid: Compendium.n5eb.class.Item.dytGZQhJjQV80HIJ
+          - uuid: Compendium.n5eb.class.Item.8zi1BB3kkm4LftTY
+          - uuid: Compendium.n5eb.class.Item.xKiFg8wSIK3b3fPz
+          - uuid: Compendium.n5eb.class.Item.91pPUQ64vzxILYzH
+          - uuid: Compendium.n5eb.class.Item.l2h5XHVakKeYCXlM
+          - uuid: Compendium.n5eb.class.Item.wBgi6vGmXX8O38rq
+          - uuid: Compendium.n5eb.class.Item.aSjuCzLp80ObTrRy
+          - uuid: Compendium.n5eb.class.Item.HiS6wDxpvzh3jpFF
+          - uuid: Compendium.n5eb.class.Item.bT3d6EC8wsYVgdBk
+          - uuid: Compendium.n5eb.class.Item.DBdqpeoJAtHvdM7G
+          - uuid: Compendium.n5eb.class.Item.tY13uHkMyBrHnd1V
+          - uuid: Compendium.n5eb.class.Item.ajrUBIBMy1fuRXWJ
+          - uuid: Compendium.n5eb.class.Item.C5FYBxDN4GSz98HR
+          - uuid: Compendium.n5eb.class.Item.ruSUZK7uTpjCGCFd
+          - uuid: Compendium.n5eb.class.Item.lkypaDMflNECjfKs
+          - uuid: Compendium.n5eb.class.Item.0YbjBfvtrE2pT0ll
+          - uuid: Compendium.n5eb.class.Item.KK2A5whiqAlPA0NB
+          - uuid: Compendium.n5eb.class.Item.bfyDSvRi7WTjihhF
+          - uuid: Compendium.n5eb.class.Item.ryEVyZSckigAdU5w
+          - uuid: Compendium.n5eb.class.Item.CCn3RfyAuvRfKB25
+          - uuid: Compendium.n5eb.class.Item.EX2unKECbx1CCkip
+          - uuid: Compendium.n5eb.class.Item.zVhIV5TOhZQ8MNEW
+          - uuid: Compendium.n5eb.class.Item.IdxfNiYPc0H5XeOA
+          - uuid: Compendium.n5eb.class.Item.adTaEp3K6poda1HC
+          - uuid: Compendium.n5eb.class.Item.Hv56cIoWnLCRSwtT
+          - uuid: Compendium.n5eb.class.Item.G07OKLJXlsklyrTb
+          - uuid: Compendium.n5eb.class.Item.wIRs1xKqrHw5u8Yn
+          - uuid: Compendium.n5eb.class.Item.CAaJwOrS2fYbPaV8
+          - uuid: Compendium.n5eb.class.Item.xLvqBALwsjeMsgmX
+          - uuid: Compendium.n5eb.class.Item.uHKQMk6lE4w9zNzK
+          - uuid: Compendium.n5eb.class.Item.7jJ4lahjCIfnMYO4
+          - uuid: Compendium.n5eb.class.Item.jvXJ1kSg3HsG2H3Q
+          - uuid: Compendium.n5eb.class.Item.DaFGRvxmHdA0vDtE
+        spell: null
+        restriction:
+          type: class
+          subtype: ''
+          nestedsubtype: ''
+      value:
+        added: {}
+        replaced: {}
+      title: Gold Upgrades
+      hint: ''
+      _id: FVN7cuB98sSEl2o8
+      icon: icons/commodities/metal/ingot-hammered-gold.webp
+    - _id: rqTg238hzSkqwwwd
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.class.Item.7VxDLHKJcz9Iezo3
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 3
+      title: ''
+      hint: ''
+    - _id: 2u9oYAXPTH4PSWvi
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.class.Item.3R6ULWi6YDL3qyIf
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 4
+      title: ''
+      hint: ''
+    - _id: 0iDSCSQ5ePMjzt8j
+      type: AbilityScoreImprovement
+      configuration:
+        points: 1
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        cap: 2
+      value:
+        type: asi
+      level: 4
+      title: ''
+      hint: ''
+    - type: AbilityScoreImprovement
+      configuration:
+        points: 1
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        cap: 1
+      value:
+        type: asi
+      level: 8
+      title: ''
+      hint: |-
+        When you reach 4th and again at 8th, 12th, 16th, and 19th, level, you can increase one ability score by +1, gain
+
+            1 rank of Mastery in a skill you are proficient in, & a Feat of your choice that they qualify for.
+
+            As normal you can’t increase an ability score above 20 using this feature.
+      _id: fTbiuoyJ1Tq262kh
+    - type: AbilityScoreImprovement
+      configuration:
+        points: 1
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        cap: 2
+      value:
+        type: asi
+      level: 12
+      title: ''
+      hint: ''
+      _id: elFwpLehL1SpWwOd
+    - type: AbilityScoreImprovement
+      configuration:
+        points: 1
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        cap: 2
+      value:
+        type: asi
+      level: 16
+      title: ''
+      hint: ''
+      _id: QxFteHW0CCQrq1FT
+    - type: AbilityScoreImprovement
+      configuration:
+        points: 1
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        cap: 2
+      value:
+        type: asi
+      level: 19
+      title: ''
+      hint: ''
+      _id: 0rKA0f0lqhYUXaqz
+    - _id: LWMsy3qQWUDBtrFq
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.class.Item.R4zU1zpTBJtx2qkI
+            optional: false
+          - uuid: Compendium.n5eb.class.Item.lyvwiOJs5D3MQ912
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 5
+      title: ''
+      hint: ''
+    - _id: g2GizEhaehAu8nWR
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.class.Item.PSgHlFhq0uZKvifr
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 7
+      title: ''
+      hint: ''
+    - _id: SjMek46G3OahqjrG
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.class.Item.9yyQEJ72cPCvn302
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 15
+      title: ''
+      hint: ''
+    - _id: Nn0aipB1KPgW8yO9
+      type: Subclass
+      configuration: {}
+      value: {}
+      level: 2
+      title: ''
+      hint: ''
+    - _id: xkTZC5Dqtf6aqoTD
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.items.Item.wA0Vk7uvLCSVt3VT
+            optional: false
+          - uuid: Compendium.n5eb.items.Item.0eMzz4NG8lzaDRJl
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 1
+    - _id: IqR4iBndy0xLpvJ4
+      type: ItemChoice
+      configuration:
+        choices:
+          '1':
+            count: 2
+            replacement: false
+        allowDrops: false
+        type: weapon
+        pool:
+          - uuid: Compendium.n5eb.items.Item.54PHccgUwAWzUJHv
+          - uuid: Compendium.n5eb.items.Item.GUsi2ly8gxYK0TH2
+          - uuid: Compendium.n5eb.items.Item.leaxVAjbtN86I6qA
+          - uuid: Compendium.n5eb.items.Item.RbcM59vdQ9ZgYBKV
+          - uuid: Compendium.n5eb.items.Item.UGGW1wNtVXUSj9vL
+          - uuid: Compendium.n5eb.items.Item.XAVJqdQWLqV8jffm
+          - uuid: Compendium.n5eb.items.Item.ALF1a6YXSriswAHo
+          - uuid: Compendium.n5eb.items.Item.Qrxp2ypJNrdBfnxF
+          - uuid: Compendium.n5eb.items.Item.HbrlOL6HWNiuNaiU
+          - uuid: Compendium.n5eb.items.Item.Tby5PMQIKpb9rYGx
+          - uuid: Compendium.n5eb.items.Item.MVeoq1E1DCwCZTwc
+          - uuid: Compendium.n5eb.items.Item.IL8LZUVODw2I7Sgq
+          - uuid: Compendium.n5eb.items.Item.FWGcoc7BjZs8AFRQ
+          - uuid: Compendium.n5eb.items.Item.AqeyHEGdWCFAqWP0
+          - uuid: Compendium.n5eb.items.Item.1vdllonFUUQnkUvJ
+          - uuid: Compendium.n5eb.items.Item.YReiEBmBtKhLaoxF
+          - uuid: Compendium.n5eb.items.Item.yNkLtAbQTIZY7ZCC
+          - uuid: Compendium.n5eb.items.Item.7efcoLqgvay98RUV
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      title: Hand Crossbow or 2 Simple Weapons
+      hint: ''
+    - _id: njk7vLKH7x9wVmEc
+      type: ItemChoice
+      configuration:
+        choices:
+          '1':
+            count: 1
+            replacement: false
+        allowDrops: false
+        type: weapon
+        pool:
+          - uuid: Compendium.n5eb.items.Item.RbcM59vdQ9ZgYBKV
+          - uuid: Compendium.n5eb.items.Item.YReiEBmBtKhLaoxF
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      title: A Stack of Kunais or a Stack of Shurikens
+      hint: ''
+    - _id: U8r0hZjInsj6yF1W
+      type: ItemChoice
+      configuration:
+        choices:
+          '1':
+            count: 1
+            replacement: false
+        allowDrops: false
+        type: equipment
+        pool:
+          - uuid: Compendium.n5eb.items.Item.PXA5xkWhB5D1y2ZL
+          - uuid: Compendium.n5eb.items.Item.DSk0IwDZwsVVOMW0
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      title: Padded Cloth or Combat Armor
+      hint: ''
+    - _id: yNKYYLcLyYA0OofV
+      type: ChakraPoints
+      configuration: {}
+      value: {}
+    - _id: foWO2vsWlk2ibFL2
+      type: HitPoints
+      configuration: {}
+      value: {}
+  spellcasting:
+    progression: none
+    ability:
+      ability: int
+      progression: none
+    preparation:
+      formula: ''
+  chakraDice: d10
+  chakraDiceUsed: 0
+  startingEquipment:
+    - type: OR
+      requiresProficiency: false
+      _id: Lw5CLCsNwrY4MDUy
+      group: ''
+      sort: 100000
+    - type: linked
+      count: null
+      key: Compendium.n5eb.items.Item.7efcoLqgvay98RUV
+      requiresProficiency: false
+      _id: LGmFpJWSaZg5JmT2
+      group: Lw5CLCsNwrY4MDUy
+      sort: 200000
+    - type: weapon
+      count: 2
+      key: sim
+      requiresProficiency: false
+      _id: LIIt2VEMl6hC3oz3
+      group: Lw5CLCsNwrY4MDUy
+      sort: 300000
+    - type: OR
+      requiresProficiency: false
+      _id: 4kgIf1EM98lqjGd3
+      group: ''
+      sort: 400000
+    - type: linked
+      count: null
+      key: Compendium.n5eb.items.Item.RbcM59vdQ9ZgYBKV
+      requiresProficiency: false
+      _id: u4OfEbwxgpNAAAVN
+      group: 4kgIf1EM98lqjGd3
+      sort: 500000
+    - type: linked
+      count: null
+      key: Compendium.n5eb.items.Item.YReiEBmBtKhLaoxF
+      requiresProficiency: false
+      _id: 7NlVplNxVkBijW5g
+      group: 4kgIf1EM98lqjGd3
+      sort: 600000
+    - type: OR
+      requiresProficiency: false
+      _id: zdDjV0I2zKHVFBoC
+      group: ''
+      sort: 700000
+    - type: linked
+      count: null
+      key: Compendium.n5eb.items.Item.PXA5xkWhB5D1y2ZL
+      requiresProficiency: false
+      _id: 7vsXFQoGMWNzuBOW
+      group: zdDjV0I2zKHVFBoC
+      sort: 800000
+    - type: linked
+      count: null
+      key: Compendium.n5eb.items.Item.DSk0IwDZwsVVOMW0
+      requiresProficiency: false
+      _id: ERhEZRhL2DqevOuo
+      group: zdDjV0I2zKHVFBoC
+      sort: 900000
+    - type: linked
+      count: null
+      key: Compendium.n5eb.items.Item.0eMzz4NG8lzaDRJl
+      requiresProficiency: false
+      _id: oZjsT5QQiylHfZL8
+      group: ''
+      sort: 1000000
+    - type: linked
+      count: null
+      key: Compendium.n5eb.items.Item.wA0Vk7uvLCSVt3VT
+      requiresProficiency: false
+      _id: GHkvhINbGqjNCG3L
+      group: ''
+      sort: 1100000
+  toughness: 6
+  wealth: (5d6)*25
+  jutsu:
+    abilities:
+      ninjutsu:
+        ability: int
+        progression: none
+      genjutsu:
+        ability: wis
+        progression: none
+      taijutsu:
+        ability: str
+        progression: none
+  hd:
+    denomination: d8
+  cd:
+    denomination: d10
+effects: []
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: class
+      sourcePath: puppet-master/puppet-master.json
+      sourceId: HvnVOntYRTWkWa6Y
+      sourceType: class
+      originalSystem:
+        description:
+          value: >-
+            <p>As a Puppet Master, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit
+            Dice:</strong> 1d8 per Puppet Master level<br /><strong>Hit Points at 1st Level and beyond:</strong> 8 +
+            your constitution modifier</p><hr /><h3>Chakra Points</h3><p><strong>Chakra Dice:</strong> 1d10 per Puppet
+            Master level<br /><strong>Chakra Points at 1st Level:</strong> 10 + your constitution modifier<br
+            /><strong>Chakra Points at Higher Levels:</strong> 1d10 (or 6) + your Constitution modifier per Puppet
+            Master level after 1st.</p><hr /><h3>Proficiencies</h3><p><strong>Armor:</strong> Light armor, Medium
+            armor<br /><strong>Weapons:</strong> All Simple Weapons, Battle Wires, Hand Crossbows, Heavy Crossbows,
+            Fuma-Shuriken<br /><strong>Ninja Tools:</strong> Armorsmith Kit, Weaponsmith Kit<br /><strong>Saving
+            Throws:</strong> Strength, Constitution, Intelligence<br /><strong>Skills:</strong> Crafting, Choose three
+            from Chakra Control, Deception, History, Insight, Intimidation, Investigation, Ninshou, Perception, Nature,
+            Sleight of Hand, Stealth</p><h1>Puppet Master
+            Advancement</h1><table><thead><tr><th>Level</th><th>Proficiency Bonus</th><th>Features</th><th>Wood
+            Tier</th><th>Bronze Tier</th><th>Silver Tier</th><th>Gold Tier</th><th>Platinum Tier</th><th>Jutsu
+            Known</th><th>Highest Rank Jutsu
+            Known</th></tr></thead><tbody><tr><td>1st</td><td>+3</td><td>@UUID[Compendium.n5eb.class.Item.4FkGiO3rju1Okfb7]{Chakra
+            Threads}, @UUID[Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx]{Puppet
+            Tool}</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>6</td><td>D-Rank</td></tr><tr><td>2nd</td><td>+3</td><td>@UUID[Compendium.n5eb.class.Item.rCt5Okp8aYqZwL21]{Tactics
+            of the Craft}, @UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet Technique},
+            @UUID[Compendium.n5eb.class.Item.hvAE0RoiLQf8oc8k]{Puppet
+            Upgrades}</td><td>2</td><td>—</td><td>—</td><td>—</td><td>—</td><td>6</td><td>D-Rank</td></tr><tr><td>3rd</td><td>+3</td><td>@UUID[Compendium.n5eb.class.Item.7VxDLHKJcz9Iezo3]{Chakra
+            Enhanced
+            Retrofit}</td><td>2</td><td>—</td><td>—</td><td>—</td><td>—</td><td>7</td><td>D-Rank</td></tr><tr><td>4th</td><td>+4</td><td>Ability
+            Score
+            Improvement/Feat</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>7</td><td>D-Rank</td></tr><tr><td>5th</td><td>+4</td><td>@UUID[Compendium.n5eb.class.Item.R4zU1zpTBJtx2qkI]{Extra
+            Attack}, @UUID[Compendium.n5eb.class.Item.lyvwiOJs5D3MQ912]{Generalized
+            Skill}</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>8</td><td>C-Rank</td></tr><tr><td>6th</td><td>+4</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+            Technique} (2), @UUID[Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx]{Puppet Tool}
+            (2)</td><td>4</td><td>2</td><td>—</td><td>—</td><td>—</td><td>8</td><td>C-Rank</td></tr><tr><td>7th</td><td>+5</td><td>@UUID[Compendium.n5eb.class.Item.PSgHlFhq0uZKvifr]{Tool
+            Expertise}</td><td>4</td><td>2</td><td>—</td><td>—</td><td>—</td><td>9</td><td>C-Rank</td></tr><tr><td>8th</td><td>+5</td><td>Ability
+            Score
+            Improvement/Feat</td><td>4</td><td>3</td><td>—</td><td>—</td><td>—</td><td>9</td><td>C-Rank</td></tr><tr><td>9th</td><td>+5</td><td>@UUID[Compendium.n5eb.class.Item.4FkGiO3rju1Okfb7]{Chakra
+            Threads} (2), @UUID[Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx]{Puppet Tool}
+            (3)</td><td>4</td><td>3</td><td>—</td><td>—</td><td>—</td><td>10</td><td>B-Rank</td></tr><tr><td>10th</td><td>+6</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+            Technique}
+            (3)</td><td>4</td><td>3</td><td>2</td><td>—</td><td>—</td><td>10</td><td>B-Rank</td></tr><tr><td>11th</td><td>+6</td><td>@UUID[Compendium.n5eb.class.Item.rCt5Okp8aYqZwL21]{Tactics
+            of the Craft}
+            (2)</td><td>4</td><td>3</td><td>2</td><td>—</td><td>—</td><td>11</td><td>B-Rank</td></tr><tr><td>12th</td><td>+6</td><td>Ability
+            Score
+            Improvement/Feat</td><td>4</td><td>3</td><td>3</td><td>—</td><td>—</td><td>11</td><td>B-Rank</td></tr><tr><td>13th</td><td>+7</td><td>@UUID[Compendium.n5eb.class.Item.7VxDLHKJcz9Iezo3]{Chakra
+            Enhanced Retrofit}
+            (2)</td><td>4</td><td>3</td><td>3</td><td>3</td><td>—</td><td>12</td><td>A-Rank</td></tr><tr><td>14th</td><td>+7</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+            Technique}
+            (4)</td><td>4</td><td>3</td><td>3</td><td>1</td><td>—</td><td>12</td><td>A-Rank</td></tr><tr><td>15th</td><td>+7</td><td>@UUID[Compendium.n5eb.class.Item.9yyQEJ72cPCvn302]{Always
+            Prepared}, @UUID[Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx]{Puppet Tool}
+            (4)</td><td>4</td><td>3</td><td>3</td><td>1</td><td>—</td><td>13</td><td>A-Rank</td></tr><tr><td>16th</td><td>+8</td><td>Ability
+            Score
+            Improvement/Feat</td><td>4</td><td>3</td><td>3</td><td>2</td><td>—</td><td>13</td><td>A-Rank</td></tr><tr><td>17th</td><td>+8</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+            Technique}
+            (5)</td><td>4</td><td>3</td><td>3</td><td>2</td><td>—</td><td>14</td><td>S-Rank</td></tr><tr><td>18th</td><td>+8</td><td>@UUID[Compendium.n5eb.class.Item.9yyQEJ72cPCvn302]{Always
+            Prepared}
+            (2)</td><td>4</td><td>3</td><td>3</td><td>3</td><td>1</td><td>14</td><td>S-Rank</td></tr><tr><td>19th</td><td>+9</td><td>Ability
+            Score
+            Improvement/Feat</td><td>4</td><td>3</td><td>3</td><td>3</td><td>1</td><td>15</td><td>S-Rank</td></tr><tr><td>20th</td><td>+9</td><td>@UUID[Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA]{Puppet
+            Technique}
+            (6)</td><td>4</td><td>3</td><td>3</td><td>3</td><td>2</td><td>15</td><td>S-Rank</td></tr></tbody></table>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        identifier: puppet-master
+        levels: 1
+        hitDice: d8
+        hitDiceUsed: 0
+        advancement:
+          - type: Trait
+            level: 1
+            configuration:
+              grants:
+                - saves:str
+                - saves:con
+                - saves:int
+              mode: default
+              allowReplacements: false
+              choices: []
+            value:
+              chosen:
+                - saves:str
+                - saves:con
+                - saves:int
+            _id: qWhFidDXz7H819BC
+          - type: Trait
+            level: 1
+            configuration:
+              choices:
+                - count: 3
+                  pool:
+                    - skills:ccl
+                    - skills:dec
+                    - skills:his
+                    - skills:ins
+                    - skills:itm
+                    - skills:inv
+                    - skills:nat
+                    - skills:nsh
+                    - skills:prc
+                    - skills:slt
+                    - skills:ste
+              mode: default
+              allowReplacements: false
+              grants:
+                - skills:cra
+            value:
+              chosen:
+                - skills:cra
+            _id: IsNsaPoeaC6GpRkF
+            title: ''
+            hint: ''
+          - _id: ubw0ArSnWWzswawJ
+            type: Trait
+            configuration:
+              mode: default
+              allowReplacements: false
+              grants:
+                - tool:kit:armorsmithKit
+                - tool:kit:weaponsmithKit
+              choices: []
+            value:
+              chosen: []
+            level: 1
+            title: ''
+            hint: ''
+          - _id: 9fp6pLpaZQBo0Sjg
+            type: Trait
+            configuration:
+              mode: default
+              allowReplacements: false
+              grants:
+                - weapon:sim
+                - weapon:mar:battlewire
+                - weapon:mar:fumashuriken
+                - weapon:mar:handcrossbow
+                - weapon:mar:heavycrossbow
+              choices: []
+            value:
+              chosen: []
+            level: 1
+            title: ''
+            hint: ''
+          - _id: jU3KJ3x2DuFBpfrf
+            type: Trait
+            configuration:
+              mode: default
+              allowReplacements: false
+              grants:
+                - armor:lgt
+                - armor:med
+              choices: []
+            value:
+              chosen: []
+            level: 1
+            title: ''
+            hint: ''
+          - _id: V0iWQbnvNqCfXhS7
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.class.Item.4FkGiO3rju1Okfb7
+                  optional: false
+                - uuid: Compendium.n5eb.class.Item.I0EQX6b1JHvqSEOx
+                  optional: false
+                - uuid: Compendium.n5eb.jutsus.Item.pueyZp4Oe3AkItpW
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 1
+          - _id: AjJ2uyIYIsSy4g4j
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.class.Item.rCt5Okp8aYqZwL21
+                  optional: false
+                - uuid: Compendium.n5eb.class.Item.hvAE0RoiLQf8oc8k
+                  optional: false
+                - uuid: Compendium.n5eb.class.Item.GhZeW2Lpef9N6jZA
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 2
+            title: ''
+            hint: ''
+          - _id: ihrJG3pk1Cf5nUpZ
+            type: ItemChoice
+            configuration:
+              choices:
+                '2':
+                  count: 2
+                  replacement: false
+                '4':
+                  count: 1
+                  replacement: false
+              allowDrops: true
+              type: null
+              pool:
+                - uuid: Compendium.n5eb.class.Item.uPWoQdXHXBD6fYyy
+                - uuid: Compendium.n5eb.class.Item.ad3JiP0NaJ3Ii3rz
+                - uuid: Compendium.n5eb.class.Item.Z36K4Mx8yQXt9tWg
+                - uuid: Compendium.n5eb.class.Item.IwqodaA7KtmfLlH5
+                - uuid: Compendium.n5eb.class.Item.ekHmuEi4EAe0Dl3X
+                - uuid: Compendium.n5eb.class.Item.fCiGTPpoMeOOVxhy
+                - uuid: Compendium.n5eb.class.Item.dQ4mpJf3tLCxTATU
+                - uuid: Compendium.n5eb.class.Item.2pLTAsI4jQ91rLaP
+                - uuid: Compendium.n5eb.class.Item.RKjb28kefvok4RJ7
+                - uuid: Compendium.n5eb.class.Item.KZaVdF0pNO0sFi3B
+                - uuid: Compendium.n5eb.class.Item.wik11LEU40mvVCWy
+                - uuid: Compendium.n5eb.class.Item.ZUVMj93ajAkcjH7M
+                - uuid: Compendium.n5eb.class.Item.dytGZQhJjQV80HIJ
+                - uuid: Compendium.n5eb.class.Item.8zi1BB3kkm4LftTY
+                - uuid: Compendium.n5eb.class.Item.xKiFg8wSIK3b3fPz
+                - uuid: Compendium.n5eb.class.Item.91pPUQ64vzxILYzH
+                - uuid: Compendium.n5eb.class.Item.l2h5XHVakKeYCXlM
+                - uuid: Compendium.n5eb.class.Item.wBgi6vGmXX8O38rq
+              spell: null
+              restriction: {}
+            value:
+              added: {}
+              replaced: {}
+            title: Wood Upgrades
+            hint: ''
+            icon: icons/commodities/wood/bark-brown-red.webp
+          - type: ItemChoice
+            configuration:
+              choices:
+                '2':
+                  count: 1
+                  replacement: false
+                '3':
+                  count: null
+                  replacement: true
+                '4':
+                  count: null
+                  replacement: true
+                '5':
+                  count: null
+                  replacement: true
+                '6':
+                  count: null
+                  replacement: true
+                '7':
+                  count: null
+                  replacement: true
+                '8':
+                  count: null
+                  replacement: true
+                '9':
+                  count: null
+                  replacement: true
+                '10':
+                  count: null
+                  replacement: true
+                '11':
+                  count: 1
+                  replacement: true
+                '12':
+                  count: null
+                  replacement: true
+                '13':
+                  count: null
+                  replacement: true
+                '14':
+                  count: null
+                  replacement: true
+                '15':
+                  count: null
+                  replacement: true
+                '16':
+                  count: null
+                  replacement: true
+                '17':
+                  count: null
+                  replacement: true
+                '18':
+                  count: null
+                  replacement: true
+                '19':
+                  count: null
+                  replacement: true
+                '20':
+                  count: null
+                  replacement: true
+              allowDrops: false
+              type: feat
+              pool:
+                - uuid: Compendium.n5eb.class.Item.Jl8QCU7MN8wACpi6
+                - uuid: Compendium.n5eb.class.Item.582p1E94wIBALVNI
+                - uuid: Compendium.n5eb.class.Item.ehrUORk1Mil2NNxA
+                - uuid: Compendium.n5eb.class.Item.9knGLpUkvALrJqhP
+                - uuid: Compendium.n5eb.class.Item.AECHphva8TFM3W35
+              spell: null
+              restriction:
+                type: class
+                subtype: ''
+            value:
+              added: {}
+              replaced: {}
+            title: Choose Tactic
+            hint: >-
+              Beginning at 2nd level, you gain one tactic. At 11th level, you gain a second tactic. You can change your
+              chosen tactics when you gain a level in this class.
+            _id: ACdeIRELQZDbSPh9
+            icon: icons/commodities/tech/blueprint.webp
+          - type: ItemChoice
+            configuration:
+              choices:
+                '6':
+                  count: 3
+                  replacement: false
+                '8':
+                  count: 1
+                  replacement: false
+              allowDrops: true
+              type: feat
+              pool:
+                - uuid: Compendium.n5eb.class.Item.uPWoQdXHXBD6fYyy
+                - uuid: Compendium.n5eb.class.Item.ad3JiP0NaJ3Ii3rz
+                - uuid: Compendium.n5eb.class.Item.Z36K4Mx8yQXt9tWg
+                - uuid: Compendium.n5eb.class.Item.IwqodaA7KtmfLlH5
+                - uuid: Compendium.n5eb.class.Item.ekHmuEi4EAe0Dl3X
+                - uuid: Compendium.n5eb.class.Item.fCiGTPpoMeOOVxhy
+                - uuid: Compendium.n5eb.class.Item.dQ4mpJf3tLCxTATU
+                - uuid: Compendium.n5eb.class.Item.2pLTAsI4jQ91rLaP
+                - uuid: Compendium.n5eb.class.Item.RKjb28kefvok4RJ7
+                - uuid: Compendium.n5eb.class.Item.KZaVdF0pNO0sFi3B
+                - uuid: Compendium.n5eb.class.Item.wik11LEU40mvVCWy
+                - uuid: Compendium.n5eb.class.Item.ZUVMj93ajAkcjH7M
+                - uuid: Compendium.n5eb.class.Item.dytGZQhJjQV80HIJ
+                - uuid: Compendium.n5eb.class.Item.8zi1BB3kkm4LftTY
+                - uuid: Compendium.n5eb.class.Item.xKiFg8wSIK3b3fPz
+                - uuid: Compendium.n5eb.class.Item.91pPUQ64vzxILYzH
+                - uuid: Compendium.n5eb.class.Item.l2h5XHVakKeYCXlM
+                - uuid: Compendium.n5eb.class.Item.wBgi6vGmXX8O38rq
+                - uuid: Compendium.n5eb.class.Item.aSjuCzLp80ObTrRy
+                - uuid: Compendium.n5eb.class.Item.HiS6wDxpvzh3jpFF
+                - uuid: Compendium.n5eb.class.Item.bT3d6EC8wsYVgdBk
+                - uuid: Compendium.n5eb.class.Item.DBdqpeoJAtHvdM7G
+                - uuid: Compendium.n5eb.class.Item.tY13uHkMyBrHnd1V
+                - uuid: Compendium.n5eb.class.Item.ajrUBIBMy1fuRXWJ
+                - uuid: Compendium.n5eb.class.Item.C5FYBxDN4GSz98HR
+                - uuid: Compendium.n5eb.class.Item.ruSUZK7uTpjCGCFd
+                - uuid: Compendium.n5eb.class.Item.lkypaDMflNECjfKs
+                - uuid: Compendium.n5eb.class.Item.0YbjBfvtrE2pT0ll
+                - uuid: Compendium.n5eb.class.Item.KK2A5whiqAlPA0NB
+              spell: null
+              restriction: {}
+            value:
+              added: {}
+              replaced: {}
+            title: Bronze Upgrades
+            hint: ''
+            _id: YuOxnaof8w42nHqb
+            icon: icons/commodities/metal/ingot-hammered-copper.webp
+          - type: ItemChoice
+            configuration:
+              choices:
+                '10':
+                  count: 2
+                  replacement: false
+                '12':
+                  count: 1
+                  replacement: false
+              allowDrops: true
+              type: feat
+              pool:
+                - uuid: Compendium.n5eb.class.Item.uPWoQdXHXBD6fYyy
+                - uuid: Compendium.n5eb.class.Item.ad3JiP0NaJ3Ii3rz
+                - uuid: Compendium.n5eb.class.Item.Z36K4Mx8yQXt9tWg
+                - uuid: Compendium.n5eb.class.Item.IwqodaA7KtmfLlH5
+                - uuid: Compendium.n5eb.class.Item.ekHmuEi4EAe0Dl3X
+                - uuid: Compendium.n5eb.class.Item.fCiGTPpoMeOOVxhy
+                - uuid: Compendium.n5eb.class.Item.dQ4mpJf3tLCxTATU
+                - uuid: Compendium.n5eb.class.Item.2pLTAsI4jQ91rLaP
+                - uuid: Compendium.n5eb.class.Item.RKjb28kefvok4RJ7
+                - uuid: Compendium.n5eb.class.Item.KZaVdF0pNO0sFi3B
+                - uuid: Compendium.n5eb.class.Item.wik11LEU40mvVCWy
+                - uuid: Compendium.n5eb.class.Item.ZUVMj93ajAkcjH7M
+                - uuid: Compendium.n5eb.class.Item.dytGZQhJjQV80HIJ
+                - uuid: Compendium.n5eb.class.Item.8zi1BB3kkm4LftTY
+                - uuid: Compendium.n5eb.class.Item.xKiFg8wSIK3b3fPz
+                - uuid: Compendium.n5eb.class.Item.91pPUQ64vzxILYzH
+                - uuid: Compendium.n5eb.class.Item.l2h5XHVakKeYCXlM
+                - uuid: Compendium.n5eb.class.Item.wBgi6vGmXX8O38rq
+                - uuid: Compendium.n5eb.class.Item.aSjuCzLp80ObTrRy
+                - uuid: Compendium.n5eb.class.Item.HiS6wDxpvzh3jpFF
+                - uuid: Compendium.n5eb.class.Item.bT3d6EC8wsYVgdBk
+                - uuid: Compendium.n5eb.class.Item.DBdqpeoJAtHvdM7G
+                - uuid: Compendium.n5eb.class.Item.tY13uHkMyBrHnd1V
+                - uuid: Compendium.n5eb.class.Item.ajrUBIBMy1fuRXWJ
+                - uuid: Compendium.n5eb.class.Item.C5FYBxDN4GSz98HR
+                - uuid: Compendium.n5eb.class.Item.ruSUZK7uTpjCGCFd
+                - uuid: Compendium.n5eb.class.Item.lkypaDMflNECjfKs
+                - uuid: Compendium.n5eb.class.Item.0YbjBfvtrE2pT0ll
+                - uuid: Compendium.n5eb.class.Item.KK2A5whiqAlPA0NB
+                - uuid: Compendium.n5eb.class.Item.bfyDSvRi7WTjihhF
+                - uuid: Compendium.n5eb.class.Item.ryEVyZSckigAdU5w
+                - uuid: Compendium.n5eb.class.Item.CCn3RfyAuvRfKB25
+                - uuid: Compendium.n5eb.class.Item.EX2unKECbx1CCkip
+                - uuid: Compendium.n5eb.class.Item.zVhIV5TOhZQ8MNEW
+                - uuid: Compendium.n5eb.class.Item.IdxfNiYPc0H5XeOA
+                - uuid: Compendium.n5eb.class.Item.adTaEp3K6poda1HC
+                - uuid: Compendium.n5eb.class.Item.Hv56cIoWnLCRSwtT
+              spell: null
+              restriction:
+                type: ''
+                subtype: ''
+            value:
+              added: {}
+              replaced: {}
+            title: Silver Upgrades
+            hint: ''
+            _id: 1DaebqYBzjfOWv61
+            icon: icons/commodities/metal/ingot-hammered-silver.webp
+          - type: ItemChoice
+            configuration:
+              choices:
+                '14':
+                  count: 1
+                  replacement: false
+                '16':
+                  count: 1
+                  replacement: false
+                '18':
+                  count: 2
+                  replacement: false
+                '20':
+                  count: 1
+                  replacement: false
+              allowDrops: true
+              type: feat
+              pool:
+                - uuid: Compendium.n5eb.class.Item.uPWoQdXHXBD6fYyy
+                - uuid: Compendium.n5eb.class.Item.ad3JiP0NaJ3Ii3rz
+                - uuid: Compendium.n5eb.class.Item.Z36K4Mx8yQXt9tWg
+                - uuid: Compendium.n5eb.class.Item.IwqodaA7KtmfLlH5
+                - uuid: Compendium.n5eb.class.Item.ekHmuEi4EAe0Dl3X
+                - uuid: Compendium.n5eb.class.Item.fCiGTPpoMeOOVxhy
+                - uuid: Compendium.n5eb.class.Item.dQ4mpJf3tLCxTATU
+                - uuid: Compendium.n5eb.class.Item.2pLTAsI4jQ91rLaP
+                - uuid: Compendium.n5eb.class.Item.RKjb28kefvok4RJ7
+                - uuid: Compendium.n5eb.class.Item.KZaVdF0pNO0sFi3B
+                - uuid: Compendium.n5eb.class.Item.wik11LEU40mvVCWy
+                - uuid: Compendium.n5eb.class.Item.ZUVMj93ajAkcjH7M
+                - uuid: Compendium.n5eb.class.Item.dytGZQhJjQV80HIJ
+                - uuid: Compendium.n5eb.class.Item.8zi1BB3kkm4LftTY
+                - uuid: Compendium.n5eb.class.Item.xKiFg8wSIK3b3fPz
+                - uuid: Compendium.n5eb.class.Item.91pPUQ64vzxILYzH
+                - uuid: Compendium.n5eb.class.Item.l2h5XHVakKeYCXlM
+                - uuid: Compendium.n5eb.class.Item.wBgi6vGmXX8O38rq
+                - uuid: Compendium.n5eb.class.Item.aSjuCzLp80ObTrRy
+                - uuid: Compendium.n5eb.class.Item.HiS6wDxpvzh3jpFF
+                - uuid: Compendium.n5eb.class.Item.bT3d6EC8wsYVgdBk
+                - uuid: Compendium.n5eb.class.Item.DBdqpeoJAtHvdM7G
+                - uuid: Compendium.n5eb.class.Item.tY13uHkMyBrHnd1V
+                - uuid: Compendium.n5eb.class.Item.ajrUBIBMy1fuRXWJ
+                - uuid: Compendium.n5eb.class.Item.C5FYBxDN4GSz98HR
+                - uuid: Compendium.n5eb.class.Item.ruSUZK7uTpjCGCFd
+                - uuid: Compendium.n5eb.class.Item.lkypaDMflNECjfKs
+                - uuid: Compendium.n5eb.class.Item.0YbjBfvtrE2pT0ll
+                - uuid: Compendium.n5eb.class.Item.KK2A5whiqAlPA0NB
+                - uuid: Compendium.n5eb.class.Item.bfyDSvRi7WTjihhF
+                - uuid: Compendium.n5eb.class.Item.ryEVyZSckigAdU5w
+                - uuid: Compendium.n5eb.class.Item.CCn3RfyAuvRfKB25
+                - uuid: Compendium.n5eb.class.Item.EX2unKECbx1CCkip
+                - uuid: Compendium.n5eb.class.Item.zVhIV5TOhZQ8MNEW
+                - uuid: Compendium.n5eb.class.Item.IdxfNiYPc0H5XeOA
+                - uuid: Compendium.n5eb.class.Item.adTaEp3K6poda1HC
+                - uuid: Compendium.n5eb.class.Item.Hv56cIoWnLCRSwtT
+                - uuid: Compendium.n5eb.class.Item.G07OKLJXlsklyrTb
+                - uuid: Compendium.n5eb.class.Item.wIRs1xKqrHw5u8Yn
+                - uuid: Compendium.n5eb.class.Item.CAaJwOrS2fYbPaV8
+                - uuid: Compendium.n5eb.class.Item.xLvqBALwsjeMsgmX
+                - uuid: Compendium.n5eb.class.Item.uHKQMk6lE4w9zNzK
+                - uuid: Compendium.n5eb.class.Item.7jJ4lahjCIfnMYO4
+                - uuid: Compendium.n5eb.class.Item.jvXJ1kSg3HsG2H3Q
+                - uuid: Compendium.n5eb.class.Item.DaFGRvxmHdA0vDtE
+              spell: null
+              restriction:
+                type: class
+                subtype: ''
+                nestedsubtype: ''
+            value:
+              added: {}
+              replaced: {}
+            title: Gold Upgrades
+            hint: ''
+            _id: FVN7cuB98sSEl2o8
+            icon: icons/commodities/metal/ingot-hammered-gold.webp
+          - _id: rqTg238hzSkqwwwd
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.class.Item.7VxDLHKJcz9Iezo3
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 3
+            title: ''
+            hint: ''
+          - _id: 2u9oYAXPTH4PSWvi
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.class.Item.3R6ULWi6YDL3qyIf
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 4
+            title: ''
+            hint: ''
+          - _id: 0iDSCSQ5ePMjzt8j
+            type: AbilityScoreImprovement
+            configuration:
+              points: 1
+              fixed:
+                str: 0
+                dex: 0
+                con: 0
+                int: 0
+                wis: 0
+                cha: 0
+              cap: 2
+            value:
+              type: asi
+            level: 4
+            title: ''
+            hint: ''
+          - type: AbilityScoreImprovement
+            configuration:
+              points: 1
+              fixed:
+                str: 0
+                dex: 0
+                con: 0
+                int: 0
+                wis: 0
+                cha: 0
+              cap: 1
+            value:
+              type: asi
+            level: 8
+            title: ''
+            hint: >-
+              When you reach 4th and again at 8th, 12th, 16th, and 19th, level, you can increase one ability score by
+              +1, gain
+
+                  1 rank of Mastery in a skill you are proficient in, & a Feat of your choice that they qualify for.
+
+                  As normal you can’t increase an ability score above 20 using this feature.
+            _id: fTbiuoyJ1Tq262kh
+          - type: AbilityScoreImprovement
+            configuration:
+              points: 1
+              fixed:
+                str: 0
+                dex: 0
+                con: 0
+                int: 0
+                wis: 0
+                cha: 0
+              cap: 2
+            value:
+              type: asi
+            level: 12
+            title: ''
+            hint: ''
+            _id: elFwpLehL1SpWwOd
+          - type: AbilityScoreImprovement
+            configuration:
+              points: 1
+              fixed:
+                str: 0
+                dex: 0
+                con: 0
+                int: 0
+                wis: 0
+                cha: 0
+              cap: 2
+            value:
+              type: asi
+            level: 16
+            title: ''
+            hint: ''
+            _id: QxFteHW0CCQrq1FT
+          - type: AbilityScoreImprovement
+            configuration:
+              points: 1
+              fixed:
+                str: 0
+                dex: 0
+                con: 0
+                int: 0
+                wis: 0
+                cha: 0
+              cap: 2
+            value:
+              type: asi
+            level: 19
+            title: ''
+            hint: ''
+            _id: 0rKA0f0lqhYUXaqz
+          - _id: LWMsy3qQWUDBtrFq
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.class.Item.R4zU1zpTBJtx2qkI
+                  optional: false
+                - uuid: Compendium.n5eb.class.Item.lyvwiOJs5D3MQ912
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 5
+            title: ''
+            hint: ''
+          - _id: g2GizEhaehAu8nWR
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.class.Item.PSgHlFhq0uZKvifr
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 7
+            title: ''
+            hint: ''
+          - _id: SjMek46G3OahqjrG
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.class.Item.9yyQEJ72cPCvn302
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 15
+            title: ''
+            hint: ''
+          - _id: Nn0aipB1KPgW8yO9
+            type: Subclass
+            configuration: {}
+            value: {}
+            level: 2
+            title: ''
+            hint: ''
+          - _id: xkTZC5Dqtf6aqoTD
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.items.Item.wA0Vk7uvLCSVt3VT
+                  optional: false
+                - uuid: Compendium.n5eb.items.Item.0eMzz4NG8lzaDRJl
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 1
+          - _id: IqR4iBndy0xLpvJ4
+            type: ItemChoice
+            configuration:
+              choices:
+                '1':
+                  count: 2
+                  replacement: false
+              allowDrops: false
+              type: weapon
+              pool:
+                - uuid: Compendium.n5eb.items.Item.54PHccgUwAWzUJHv
+                - uuid: Compendium.n5eb.items.Item.GUsi2ly8gxYK0TH2
+                - uuid: Compendium.n5eb.items.Item.leaxVAjbtN86I6qA
+                - uuid: Compendium.n5eb.items.Item.RbcM59vdQ9ZgYBKV
+                - uuid: Compendium.n5eb.items.Item.UGGW1wNtVXUSj9vL
+                - uuid: Compendium.n5eb.items.Item.XAVJqdQWLqV8jffm
+                - uuid: Compendium.n5eb.items.Item.ALF1a6YXSriswAHo
+                - uuid: Compendium.n5eb.items.Item.Qrxp2ypJNrdBfnxF
+                - uuid: Compendium.n5eb.items.Item.HbrlOL6HWNiuNaiU
+                - uuid: Compendium.n5eb.items.Item.Tby5PMQIKpb9rYGx
+                - uuid: Compendium.n5eb.items.Item.MVeoq1E1DCwCZTwc
+                - uuid: Compendium.n5eb.items.Item.IL8LZUVODw2I7Sgq
+                - uuid: Compendium.n5eb.items.Item.FWGcoc7BjZs8AFRQ
+                - uuid: Compendium.n5eb.items.Item.AqeyHEGdWCFAqWP0
+                - uuid: Compendium.n5eb.items.Item.1vdllonFUUQnkUvJ
+                - uuid: Compendium.n5eb.items.Item.YReiEBmBtKhLaoxF
+                - uuid: Compendium.n5eb.items.Item.yNkLtAbQTIZY7ZCC
+                - uuid: Compendium.n5eb.items.Item.7efcoLqgvay98RUV
+              spell: null
+              restriction: {}
+            value:
+              added: {}
+              replaced: {}
+            title: Hand Crossbow or 2 Simple Weapons
+            hint: ''
+          - _id: njk7vLKH7x9wVmEc
+            type: ItemChoice
+            configuration:
+              choices:
+                '1':
+                  count: 1
+                  replacement: false
+              allowDrops: false
+              type: weapon
+              pool:
+                - uuid: Compendium.n5eb.items.Item.RbcM59vdQ9ZgYBKV
+                - uuid: Compendium.n5eb.items.Item.YReiEBmBtKhLaoxF
+              spell: null
+              restriction: {}
+            value:
+              added: {}
+              replaced: {}
+            title: A Stack of Kunais or a Stack of Shurikens
+            hint: ''
+          - _id: U8r0hZjInsj6yF1W
+            type: ItemChoice
+            configuration:
+              choices:
+                '1':
+                  count: 1
+                  replacement: false
+              allowDrops: false
+              type: equipment
+              pool:
+                - uuid: Compendium.n5eb.items.Item.PXA5xkWhB5D1y2ZL
+                - uuid: Compendium.n5eb.items.Item.DSk0IwDZwsVVOMW0
+              spell: null
+              restriction: {}
+            value:
+              added: {}
+              replaced: {}
+            title: Padded Cloth or Combat Armor
+            hint: ''
+          - _id: yNKYYLcLyYA0OofV
+            type: ChakraPoints
+            configuration: {}
+            value: {}
+          - _id: foWO2vsWlk2ibFL2
+            type: HitPoints
+            configuration: {}
+            value: {}
+        spellcasting:
+          ninjutsu:
+            ability: int
+            progression: none
+          genjutsu:
+            ability: wis
+            progression: none
+          taijutsu:
+            ability: str
+            progression: none
+        chakraDice: d10
+        chakraDiceUsed: 0
+        startingEquipment:
+          - type: OR
+            requiresProficiency: false
+            _id: Lw5CLCsNwrY4MDUy
+            group: ''
+            sort: 100000
+          - type: linked
+            count: null
+            key: Compendium.world.items.Item.7efcoLqgvay98RUV
+            requiresProficiency: false
+            _id: LGmFpJWSaZg5JmT2
+            group: Lw5CLCsNwrY4MDUy
+            sort: 200000
+          - type: weapon
+            count: 2
+            key: sim
+            requiresProficiency: false
+            _id: LIIt2VEMl6hC3oz3
+            group: Lw5CLCsNwrY4MDUy
+            sort: 300000
+          - type: OR
+            requiresProficiency: false
+            _id: 4kgIf1EM98lqjGd3
+            group: ''
+            sort: 400000
+          - type: linked
+            count: null
+            key: Compendium.world.items.Item.RbcM59vdQ9ZgYBKV
+            requiresProficiency: false
+            _id: u4OfEbwxgpNAAAVN
+            group: 4kgIf1EM98lqjGd3
+            sort: 500000
+          - type: linked
+            count: null
+            key: Compendium.world.items.Item.YReiEBmBtKhLaoxF
+            requiresProficiency: false
+            _id: 7NlVplNxVkBijW5g
+            group: 4kgIf1EM98lqjGd3
+            sort: 600000
+          - type: OR
+            requiresProficiency: false
+            _id: zdDjV0I2zKHVFBoC
+            group: ''
+            sort: 700000
+          - type: linked
+            count: null
+            key: Compendium.world.items.Item.PXA5xkWhB5D1y2ZL
+            requiresProficiency: false
+            _id: 7vsXFQoGMWNzuBOW
+            group: zdDjV0I2zKHVFBoC
+            sort: 800000
+          - type: linked
+            count: null
+            key: Compendium.world.items.Item.DSk0IwDZwsVVOMW0
+            requiresProficiency: false
+            _id: ERhEZRhL2DqevOuo
+            group: zdDjV0I2zKHVFBoC
+            sort: 900000
+          - type: linked
+            count: null
+            key: Compendium.world.items.Item.0eMzz4NG8lzaDRJl
+            requiresProficiency: false
+            _id: oZjsT5QQiylHfZL8
+            group: ''
+            sort: 1000000
+          - type: linked
+            count: null
+            key: Compendium.world.items.Item.wA0Vk7uvLCSVt3VT
+            requiresProficiency: false
+            _id: GHkvhINbGqjNCG3L
+            group: ''
+            sort: 1100000
+        toughness: 6
+        wealth: (5d6)*25
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728705121058
+  modifiedTime: 1728833412421
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: class
+    sourcePath: puppet-master/puppet-master.json
+folder: aPJKVjQdTx3Pmqja
+ownership:
+  default: 0
+_id: HvnVOntYRTWkWa6Y
+sort: 0
+_key: '!items!HvnVOntYRTWkWa6Y'
