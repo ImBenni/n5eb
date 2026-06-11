@@ -57,12 +57,6 @@ system:
       temp: 0
       tempmax: 0
       formula: 10d12+45
-    cp:
-      value: 0
-      max: 0
-      temp: 0
-      tempmax: 0
-      formula: ''
     init:
       ability: ''
       bonus: ''
@@ -115,6 +109,12 @@ system:
         mode: 0
       success: 0
       failure: 0
+    chakra:
+      value: 0
+      max: 0
+      temp: 0
+      tempmax: 0
+      formula: ''
   details:
     biography:
       value: <img src="systems/n5eb/assets/content/cheat-sheets/data-angel-demon.webp" />
@@ -131,15 +131,23 @@ system:
     spellLevel: 0
     source:
       book: Naruto 5e
-    npcType: npc
     ideal: ''
     bond: ''
     flaw: ''
-    rank: erank
-    classNPC: standard
-    affiliation: leaf
-    role: strikernin
-    highRole: []
+    summon:
+      enabled: true
+      level: 9
+      rank: d
+      category: jutsu
+      tribe: ''
+      variant: ''
+      role: striker
+      summonType: ''
+      toughness: 0
+      defenseAbility: ''
+      jutsuAbility: ''
+      migrated: true
+      sourceUuid: Compendium.n5eb.npc.Actor.N7VxP7A96ZQgrKwC
   traits:
     size: lg
     di:
@@ -638,9 +646,9 @@ items:
         dc: null
         scaling: spell
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -740,9 +748,9 @@ items:
         dc: null
         scaling: spell
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -833,9 +841,9 @@ items:
         dc: null
         scaling: spell
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -926,9 +934,9 @@ items:
         dc: null
         scaling: spell
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -1019,9 +1027,9 @@ items:
         dc: null
         scaling: spell
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -1118,9 +1126,9 @@ items:
         dc: null
         scaling: flat
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -1216,9 +1224,9 @@ items:
         dc: null
         scaling: flat
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -1314,9 +1322,9 @@ items:
         dc: null
         scaling: flat
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null

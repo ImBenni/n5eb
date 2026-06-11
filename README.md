@@ -1,42 +1,55 @@
-![](https://github.com/foundryvtt/dnd5e/blob/master/ui/official/dnd5e-repo.jpg?raw=true)
+# N5eB - Naruto 5e Benni
 
-# Foundry Virtual Tabletop - Dungeons & Dragons Fifth Edition Game System
+N5eB is a Naruto 5e system fork for Foundry Virtual Tabletop, built from the D&D 5e system baseline and adapted for the N5eB rules, terminology, actors, jutsu, chakra, adversaries, and summons.
 
-This game system for [Foundry Virtual Tabletop](http://foundryvtt.com) provides character sheet and game system
-support for the Fifth Edition of the world's most popular roleplaying game.
+This `3.0.0` release is an early testing build. It is intended for closed table testing, content review, and bug reports before a wider beta.
 
-This system provides character sheet support for Actors and Items, mechanical support for dice and rules necessary to
-play games of Fifth Edition, and compendium content for Monsters, Heroes, Items, Spells, Class Features, Monster
-Features, and more!
+## Install
 
-## Licenses
+Use this manifest URL in Foundry's **Install System** dialog:
 
-This work includes material taken from the System Reference Document 5.1 ("SRD 5.1") by Wizards of the Coast LLC and
-available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative
-Commons Attribution 4.0 International License available at https://creativecommons.org/licenses/by/4.0/legalcode.
+https://github.com/ImBenni/n5eb/releases/latest/download/system.json
 
-This work includes material from the System Reference Document 5.2 (“SRD 5.2”) by Wizards of the Coast
-LLC, available at https://www.dndbeyond.com/srd. The SRD 5.2 is licensed under the Creative Commons
-Attribution 4.0 International License, available at https://creativecommons.org/licenses/by/4.0/legalcode.
+For manual installation, extract `n5eb.zip` into:
 
-Images and other assets are distributed under various terms, please see their `LICENSE` files for full details.
+`Data/systems/n5eb`
 
-The software component of this system is distributed under the MIT license.
+Then start Foundry, create or open an N5eB world, and verify that the active system id is `n5eb`.
 
-## Installation Instructions
+## Playable Test Scope
 
-To install and use the Dungeons & Dragons Fifth Edition system for Foundry Virtual Tabletop, simply paste the following
-URL into the **Install System** dialog on the Setup menu of the application.
+The current early-test slice includes:
 
-https://raw.githubusercontent.com/foundryvtt/dnd5e/master/system.json
+- Naruto terminology and core sheet relabeling for clans, jutsu, chakra, and Ryo.
+- Starter character content including Ninjutsu Specialist, Uzumaki Clan, starter ambitions/backgrounds, starter gear, and a representative jutsu set.
+- Chakra spending, chakra dice recovery, short/long/full rest smoke coverage, Mastery rolls, and insufficient-chakra warnings.
+- Book-backed sample actors including `N5eB Ninjutsu Starter` and `Naruto Uzumaki`.
+- NPC adversary support with rank, class, role, Tenacity, Elite Actions, fixed adversary jutsu costs, builder UI, and migrated adversary packs.
+- NPC summon support with rank, category, tribe, role, summon defaults, builder UI, and migrated summon packs.
 
-If you wish to manually install the system, you must clone or extract it into the `Data/systems/n5eb` folder. You
-may do this by cloning the repository or downloading a zip archive from the
-[Releases Page](https://github.com/foundryvtt/dnd5e/releases).
+## Known Manual Or Incomplete Areas
 
-## Frequently Asked Questions
-Check the [Wiki](../../wiki) for answers to our most [frequently asked questions](../../wiki/faq)
+These areas are still being developed and should be treated as manual GM adjudication during testing:
 
-## Community Contribution
+- Full character advancement validation, jutsu-known limits, and highest-rank-known limits.
+- Concentration, maintenance, Clash, scaling, and upcasting automation for jutsu.
+- Full Naruto damage/healing types, condition taxonomy, and rules journals.
+- Crafting, enhancement seals, fighting stances, complete feats, tools, and roll tables.
+- Legacy world actor migration outside the included normalized compendium content.
+- Remaining inherited D&D labels, icons, or artwork that do not affect the active smoke path.
 
-See the [CONTRIBUTING](/CONTRIBUTING.md) file for information about how you can help this project.
+## Tester Notes
+
+Please test with imported actors, not direct edits to compendium documents. Good first checks are:
+
+- Create or import a starter character and use an E-rank, D-rank, and C-rank jutsu.
+- Spend and recover chakra and chakra dice through rests.
+- Roll skills/tools with Mastery.
+- Import one adversary and one summon, open their builders, add content, and run a small combat.
+- Report any active `Data/systems/n5eb` startup, sheet render, or roll errors from Foundry logs or the browser console.
+
+Known stale scan errors from old sibling system folders are environment cleanup issues and are not release blockers.
+
+## Credits And License
+
+N5eB is maintained by Benni. The software is based on the Foundry Virtual Tabletop D&D 5e system and retains its MIT-licensed software foundation. Some inherited license notices and assets remain from the upstream project while the Naruto-specific beta is prepared.

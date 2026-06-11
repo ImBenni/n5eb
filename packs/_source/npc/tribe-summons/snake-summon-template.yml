@@ -374,13 +374,6 @@ system:
       formula: ''
     cd:
       spent: 0
-    cp:
-      value: 4
-      max: null
-      temp: 0
-      tempmax: 0
-      bonuses: {}
-      formula: ''
     death:
       ability: ''
       roll:
@@ -389,6 +382,13 @@ system:
         mode: 0
       success: 0
       failure: 0
+    chakra:
+      value: 4
+      max: null
+      temp: 0
+      tempmax: 0
+      bonuses: {}
+      formula: ''
   details:
     biography:
       value: ''
@@ -406,14 +406,22 @@ system:
     environment: ''
     cr: 1
     spellLevel: 0
-    npcType: summon
-    rank: drank
-    classNPC: standard
-    affiliation: leaf
-    role: lurker
-    highRole: []
     source:
       book: Naruto 5e
+    summon:
+      enabled: true
+      level: 4
+      rank: d
+      category: tribe
+      tribe: snake
+      variant: ''
+      role: lurker
+      summonType: dragon
+      toughness: 10
+      defenseAbility: dex
+      jutsuAbility: cha
+      migrated: true
+      sourceUuid: Compendium.n5eb.npc.Actor.iJwlBOhanvzwEgwd
   resources:
     legact:
       value: 0
@@ -1134,7 +1142,7 @@ items:
       type:
         value: summon
         subtype: tribe
-        nestedsubtype: ''
+        nestedsubtype: d
       prerequisites:
         level: null
       properties: []
@@ -1316,9 +1324,9 @@ items:
         formula: 1d8
         charged: false
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       prerequisites:
         level: null
       properties: []
@@ -1495,7 +1503,7 @@ items:
       type:
         value: summon
         subtype: tribe
-        nestedsubtype: drank
+        nestedsubtype: d
       prerequisites:
         level: null
       properties: []

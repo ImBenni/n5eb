@@ -1176,6 +1176,16 @@ DND5E.activityActivationTypes = {
     group: "DND5E.ACTIVATION.Category.Monster",
     scalar: true
   },
+  elite: {
+    counted: "N5EB.Adversary.EliteAction.Counted",
+    consume: {
+      property: "resources.eliteact"
+    },
+    label: "N5EB.Adversary.EliteAction.Label",
+    header: "N5EB.Adversary.EliteAction.Header",
+    group: "N5EB.Adversary.Label",
+    scalar: true
+  },
   lair: {
     label: "DND5E.ACTIVATION.Type.Lair.Label",
     header: "DND5E.ACTIVATION.Type.Lair.Header",
@@ -1941,6 +1951,48 @@ DND5E.featureTypes = {
   latentAbility: {
     label: "DND5E.Feature.LatentAbility"
   },
+  adversaryTrait: {
+    label: "N5EB.Feature.AdversaryTrait.Label",
+    subtypes: {
+      general: {
+        label: "N5EB.Feature.AdversaryTrait.General",
+        nestedsubtypes: DND5E.adversaryRanks
+      },
+      role: {
+        label: "N5EB.Feature.AdversaryTrait.Role",
+        nestedsubtypes: DND5E.adversaryRanks
+      },
+      clan: {
+        label: "N5EB.Feature.AdversaryTrait.Clan",
+        nestedsubtypes: DND5E.adversaryRanks
+      },
+      affiliation: {
+        label: "N5EB.Feature.AdversaryTrait.Affiliation",
+        nestedsubtypes: DND5E.adversaryRanks
+      },
+      classMod: {
+        label: "N5EB.Feature.AdversaryTrait.ClassMod",
+        nestedsubtypes: DND5E.adversaryRanks
+      }
+    }
+  },
+  adversaryPassive: {
+    label: "N5EB.Feature.AdversaryPassive.Label",
+    subtypes: {
+      role: {
+        label: "N5EB.Feature.AdversaryPassive.Role",
+        nestedsubtypes: DND5E.adversaryRanks
+      },
+      clan: {
+        label: "N5EB.Feature.AdversaryPassive.Clan",
+        nestedsubtypes: DND5E.adversaryRanks
+      },
+      affiliation: {
+        label: "N5EB.Feature.AdversaryPassive.Affiliation",
+        nestedsubtypes: DND5E.adversaryRanks
+      }
+    }
+  },
   enchantment: {
     label: "DND5E.ENCHANTMENT.Label",
     subtypes: {
@@ -1971,6 +2023,16 @@ DND5E.featureTypes = {
 };
 preLocalize("featureTypes", { key: "label" });
 preLocalize("featureTypes.class.subtypes", { sort: true });
+preLocalize("featureTypes.adversaryTrait.subtypes", { key: "label", sort: true });
+preLocalize("featureTypes.adversaryTrait.subtypes.general.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.adversaryTrait.subtypes.role.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.adversaryTrait.subtypes.clan.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.adversaryTrait.subtypes.affiliation.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.adversaryTrait.subtypes.classMod.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.adversaryPassive.subtypes", { key: "label", sort: true });
+preLocalize("featureTypes.adversaryPassive.subtypes.role.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.adversaryPassive.subtypes.clan.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.adversaryPassive.subtypes.affiliation.nestedsubtypes", { keys: ["label", "abbreviation"] });
 preLocalize("featureTypes.enchantment.subtypes", { sort: true });
 preLocalize("featureTypes.feat.subtypes", { sort: true });
 preLocalize("featureTypes.supernaturalGift.subtypes", { sort: true });
@@ -3393,6 +3455,273 @@ DND5E.jutsuSpellLevelByRank = Object.fromEntries(
   Object.entries(DND5E.jutsuRanks).map(([rank, config]) => [rank, config.level])
 );
 
+/* -------------------------------------------- */
+/*  Adversaries                                 */
+/* -------------------------------------------- */
+
+/**
+ * N5eB adversary ranks.
+ * @enum {{ label: string, abbreviation: string }}
+ */
+DND5E.adversaryRanks = {
+  e: { label: "N5EB.Adversary.Rank.E", abbreviation: "N5EB.Adversary.Rank.EAbbr" },
+  d: { label: "N5EB.Adversary.Rank.D", abbreviation: "N5EB.Adversary.Rank.DAbbr" },
+  c: { label: "N5EB.Adversary.Rank.C", abbreviation: "N5EB.Adversary.Rank.CAbbr" },
+  b: { label: "N5EB.Adversary.Rank.B", abbreviation: "N5EB.Adversary.Rank.BAbbr" },
+  a: { label: "N5EB.Adversary.Rank.A", abbreviation: "N5EB.Adversary.Rank.AAbbr" },
+  s: { label: "N5EB.Adversary.Rank.S", abbreviation: "N5EB.Adversary.Rank.SAbbr" }
+};
+preLocalize("adversaryRanks", { keys: ["label", "abbreviation"] });
+
+/**
+ * N5eB adversary classes.
+ * @enum {{ label: string, missionXp: number }}
+ */
+DND5E.adversaryClasses = {
+  minion: { label: "N5EB.Adversary.Class.Minion", missionXp: 1 },
+  standard: { label: "N5EB.Adversary.Class.Standard", missionXp: 10 },
+  elite: { label: "N5EB.Adversary.Class.Elite", missionXp: 25 },
+  solo: { label: "N5EB.Adversary.Class.Solo", missionXp: 100 }
+};
+preLocalize("adversaryClasses", { key: "label" });
+
+/**
+ * N5eB adversary Tenacity defaults.
+ * @enum {{ label: string, levelMultiplier: number }}
+ */
+DND5E.adversaryTenacityDefaults = {
+  minion: { label: "N5EB.Adversary.Tenacity.None", levelMultiplier: 0 },
+  standard: { label: "N5EB.Adversary.Tenacity.None", levelMultiplier: 0 },
+  elite: { label: "N5EB.Adversary.Tenacity.HalfLevel", levelMultiplier: 0.5 },
+  solo: { label: "N5EB.Adversary.Tenacity.Level", levelMultiplier: 1 }
+};
+preLocalize("adversaryTenacityDefaults", { key: "label" });
+
+/**
+ * N5eB adversary Elite Action defaults.
+ * @enum {{ label: string, value: number }}
+ */
+DND5E.adversaryEliteActionDefaults = {
+  minion: { label: "N5EB.Adversary.EliteAction.None", value: 0 },
+  standard: { label: "N5EB.Adversary.EliteAction.None", value: 0 },
+  elite: { label: "N5EB.Adversary.EliteAction.One", value: 1 },
+  solo: { label: "N5EB.Adversary.EliteAction.PartyMinusOne", value: 1 }
+};
+preLocalize("adversaryEliteActionDefaults", { key: "label" });
+
+/**
+ * N5eB adversary battlefield roles.
+ * @enum {{ label: string }}
+ */
+DND5E.adversaryRoles = {
+  caster: { label: "N5EB.Adversary.Role.Caster" },
+  controller: { label: "N5EB.Adversary.Role.Controller" },
+  defender: { label: "N5EB.Adversary.Role.Defender" },
+  generalist: { label: "N5EB.Adversary.Role.Generalist" },
+  lurker: { label: "N5EB.Adversary.Role.Lurker" },
+  striker: { label: "N5EB.Adversary.Role.Striker" },
+  supporter: { label: "N5EB.Adversary.Role.Supporter" }
+};
+preLocalize("adversaryRoles", { key: "label" });
+
+/**
+ * Optional role disciplines used to preserve split legacy roles.
+ * @enum {{ label: string }}
+ */
+DND5E.adversaryDisciplines = {
+  "": { label: "N5EB.None" },
+  ninjutsu: { label: "N5EB.JUTSU.Type.Ninjutsu" },
+  genjutsu: { label: "N5EB.JUTSU.Type.Genjutsu" },
+  taijutsu: { label: "N5EB.JUTSU.Type.Taijutsu" }
+};
+preLocalize("adversaryDisciplines", { key: "label" });
+
+/**
+ * N5eB adversary special roles.
+ * @enum {{ label: string }}
+ */
+DND5E.adversarySpecialRoles = {
+  iconic: { label: "N5EB.Adversary.SpecialRole.Iconic" },
+  epic: { label: "N5EB.Adversary.SpecialRole.Epic" }
+};
+preLocalize("adversarySpecialRoles", { key: "label" });
+
+/**
+ * Fixed chakra costs used by adversary jutsu.
+ * @enum {number}
+ */
+DND5E.adversaryJutsuCosts = {
+  e: 0,
+  d: 5,
+  c: 9,
+  b: 14,
+  a: 20,
+  s: 25
+};
+
+/**
+ * Solo phase thresholds from the Bingo Book.
+ * @type {{ threshold: number, label: string }[]}
+ */
+DND5E.adversarySoloPhases = [
+  { threshold: 0.6, label: "N5EB.Adversary.Phase.TransitionOne" },
+  { threshold: 0.3, label: "N5EB.Adversary.Phase.TransitionTwo" }
+];
+preLocalize("adversarySoloPhases", { key: "label" });
+
+/* -------------------------------------------- */
+/*  Summons                                     */
+/* -------------------------------------------- */
+
+/**
+ * N5eB summon ranks.
+ * @enum {{ label: string, abbreviation: string }}
+ */
+DND5E.summonRanks = {
+  d: { label: "N5EB.Summon.Rank.D", abbreviation: "N5EB.Summon.Rank.DAbbr" },
+  c: { label: "N5EB.Summon.Rank.C", abbreviation: "N5EB.Summon.Rank.CAbbr" },
+  b: { label: "N5EB.Summon.Rank.B", abbreviation: "N5EB.Summon.Rank.BAbbr" },
+  a: { label: "N5EB.Summon.Rank.A", abbreviation: "N5EB.Summon.Rank.AAbbr" },
+  s: { label: "N5EB.Summon.Rank.S", abbreviation: "N5EB.Summon.Rank.SAbbr" }
+};
+preLocalize("summonRanks", { keys: ["label", "abbreviation"] });
+
+/**
+ * N5eB summon builder categories.
+ * @enum {{ label: string }}
+ */
+DND5E.summonCategories = {
+  tribe: { label: "N5EB.Summon.Category.Tribe" },
+  inuzuka: { label: "N5EB.Summon.Category.Inuzuka" },
+  jutsu: { label: "N5EB.Summon.Category.Jutsu" },
+  custom: { label: "N5EB.Summon.Category.Custom" }
+};
+preLocalize("summonCategories", { key: "label" });
+
+/**
+ * N5eB summon battlefield roles.
+ * @enum {{ label: string }}
+ */
+DND5E.summonRoles = {
+  caster: { label: "N5EB.Summon.Role.Caster" },
+  controller: { label: "N5EB.Summon.Role.Controller" },
+  defender: { label: "N5EB.Summon.Role.Defender" },
+  lurker: { label: "N5EB.Summon.Role.Lurker" },
+  striker: { label: "N5EB.Summon.Role.Striker" },
+  supporter: { label: "N5EB.Summon.Role.Supporter" }
+};
+preLocalize("summonRoles", { key: "label" });
+
+/**
+ * N5eB summon creature types from summon tribe rules.
+ * @enum {{ label: string }}
+ */
+DND5E.summonTypes = {
+  "": { label: "N5EB.None" },
+  amphibian: { label: "N5EB.Summon.Type.Amphibian" },
+  avian: { label: "N5EB.Summon.Type.Avian" },
+  carnivoran: { label: "N5EB.Summon.Type.Carnivoran" },
+  dragon: { label: "N5EB.Summon.Type.Dragon" },
+  herbivore: { label: "N5EB.Summon.Type.Herbivore" },
+  insectoid: { label: "N5EB.Summon.Type.Insectoid" },
+  puppet: { label: "N5EB.Summon.Type.Puppet" },
+  reptilian: { label: "N5EB.Summon.Type.Reptilian" },
+  rodent: { label: "N5EB.Summon.Type.Rodent" },
+  spirit: { label: "N5EB.Summon.Type.Spirit" },
+  other: { label: "N5EB.Summon.Type.Other" }
+};
+preLocalize("summonTypes", { key: "label" });
+
+/**
+ * Common summon tribes currently represented in N5eB compendiums.
+ * @enum {{ label: string }}
+ */
+DND5E.summonTribes = {
+  custom: { label: "N5EB.Summon.Tribe.Custom" },
+  corvid: { label: "N5EB.Summon.Tribe.Corvid" },
+  dogWolf: { label: "N5EB.Summon.Tribe.DogWolf" },
+  hareRabbit: { label: "N5EB.Summon.Tribe.HareRabbit" },
+  insect: { label: "N5EB.Summon.Tribe.Insect" },
+  lizard: { label: "N5EB.Summon.Tribe.Lizard" },
+  rat: { label: "N5EB.Summon.Tribe.Rat" },
+  shark: { label: "N5EB.Summon.Tribe.Shark" },
+  snake: { label: "N5EB.Summon.Tribe.Snake" },
+  spider: { label: "N5EB.Summon.Tribe.Spider" },
+  toad: { label: "N5EB.Summon.Tribe.Toad" },
+  turtle: { label: "N5EB.Summon.Tribe.Turtle" },
+  weasel: { label: "N5EB.Summon.Tribe.Weasel" }
+};
+preLocalize("summonTribes", { key: "label" });
+
+/**
+ * Defaults extracted from the summon tribe class templates. These fill authoring fields only.
+ * @enum {{ summonType: string, toughness: number, defenseAbility: string, jutsuAbility: string }}
+ */
+DND5E.summonTribeDefaults = {
+  corvid: { summonType: "avian", toughness: 6, defenseAbility: "dex", jutsuAbility: "int" },
+  dogWolf: { summonType: "carnivoran", toughness: 8, defenseAbility: "dex", jutsuAbility: "str" },
+  hareRabbit: { summonType: "rodent", toughness: 6, defenseAbility: "dex", jutsuAbility: "int" },
+  lizard: { summonType: "dragon", toughness: 8, defenseAbility: "dex", jutsuAbility: "wis" },
+  snake: { summonType: "dragon", toughness: 10, defenseAbility: "cha", jutsuAbility: "cha" }
+};
+
+/**
+ * Default summon jutsu slots by level threshold.
+ * @type {{ level: number, slots: number }[]}
+ */
+DND5E.summonJutsuSlots = [
+  { level: 20, slots: 16 },
+  { level: 16, slots: 13 },
+  { level: 12, slots: 10 },
+  { level: 8, slots: 7 },
+  { level: 1, slots: 5 }
+];
+
+DND5E.featureTypes.summon = {
+  label: "N5EB.Feature.Summon.Label",
+  subtypes: {
+    role: {
+      label: "N5EB.Feature.Summon.Role",
+      nestedsubtypes: DND5E.summonRanks
+    },
+    tribe: {
+      label: "N5EB.Feature.Summon.Tribe",
+      nestedsubtypes: DND5E.summonRanks
+    },
+    rank: {
+      label: "N5EB.Feature.Summon.Rank",
+      nestedsubtypes: DND5E.summonRanks
+    },
+    naturalWeapon: {
+      label: "N5EB.Feature.Summon.NaturalWeapon",
+      nestedsubtypes: DND5E.summonRanks
+    },
+    senses: {
+      label: "N5EB.Feature.Summon.Senses",
+      nestedsubtypes: DND5E.summonRanks
+    },
+    variant: {
+      label: "N5EB.Feature.Summon.Variant"
+    },
+    jutsu: {
+      label: "N5EB.Feature.Summon.Jutsu",
+      nestedsubtypes: DND5E.summonRanks
+    },
+    special: {
+      label: "N5EB.Feature.Summon.Special",
+      nestedsubtypes: DND5E.summonRanks
+    }
+  }
+};
+preLocalize("featureTypes.summon.subtypes", { key: "label", sort: true });
+preLocalize("featureTypes.summon.subtypes.role.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.summon.subtypes.tribe.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.summon.subtypes.rank.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.summon.subtypes.naturalWeapon.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.summon.subtypes.senses.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.summon.subtypes.jutsu.nestedsubtypes", { keys: ["label", "abbreviation"] });
+preLocalize("featureTypes.summon.subtypes.special.nestedsubtypes", { keys: ["label", "abbreviation"] });
+
 /**
  * Jutsu chakra scaling modes.
  * @enum {string}
@@ -4060,7 +4389,7 @@ preLocalize("cover");
 DND5E.trackableAttributes = [
   "attributes.ac.value", "attributes.init.bonus", "attributes.movement", "attributes.senses",
   "attributes.chakra", "attributes.spell.attack", "attributes.spell.dc", "attributes.spell.level", "details.cr",
-  "details.xp.value", "skills.*.passive", "abilities.*.value"
+  "details.xp.value", "resources.tenacity", "resources.eliteact", "skills.*.passive", "abilities.*.value"
 ];
 
 /* -------------------------------------------- */
@@ -4070,7 +4399,12 @@ DND5E.trackableAttributes = [
  * @type {string[]}
  */
 DND5E.consumableResources = [
-  // Configured during init.
+  "attributes.chakra.value",
+  "attributes.chakra.temp",
+  "resources.legact.value",
+  "resources.legres.value",
+  "resources.tenacity.value",
+  "resources.eliteact.value"
 ];
 
 /* -------------------------------------------- */

@@ -2,7 +2,9 @@ import { getClassmodArtsSpellcastingCards } from "../../classmod-arts.mjs";
 import { formatNumber, getPluralRules, splitSemicolons } from "../../utils.mjs";
 import { createCheckboxInput } from "../fields.mjs";
 import BaseActorSheet from "./api/base-actor-sheet.mjs";
+import AdversaryBuilderConfig from "./config/adversary-builder-config.mjs";
 import HabitatConfig from "./config/habitat-config.mjs";
+import SummonBuilderConfig from "./config/summon-builder-config.mjs";
 import TreasureConfig from "./config/treasure-config.mjs";
 
 const TextEditor = foundry.applications.ux.TextEditor.implementation;
@@ -14,7 +16,9 @@ export default class NPCActorSheet extends BaseActorSheet {
   /** @override */
   static DEFAULT_OPTIONS = {
     actions: {
-      editDescription: NPCActorSheet.#editDescription
+      editDescription: NPCActorSheet.#editDescription,
+      showAdversaryBuilder: NPCActorSheet.#showAdversaryBuilder,
+      showSummonBuilder: NPCActorSheet.#showSummonBuilder
     },
     classes: ["npc", "vertical-tabs"],
     position: {
@@ -223,6 +227,14 @@ export default class NPCActorSheet extends BaseActorSheet {
       id: "passive", label: "DND5E.Features", order: 0, items: [], minWidth: 210,
       columns: ["recovery", "uses", "roll", "formula", "controls"]
     };
+    sections.adversaryTraits = {
+      id: "adversaryTraits", label: "N5EB.AdversaryTraits", order: -20, items: [], minWidth: 210,
+      columns: ["recovery", "uses", "roll", "formula", "controls"]
+    };
+    sections.adversaryPassives = {
+      id: "adversaryPassives", label: "N5EB.AdversaryPassives", order: -10, items: [], minWidth: 210,
+      columns: ["recovery", "uses", "roll", "formula", "controls"]
+    };
     context.itemCategories.features?.forEach(i => {
       const ctx = context.itemContext[i.id];
       sections[ctx.group]?.items.push(i);
@@ -236,6 +248,7 @@ export default class NPCActorSheet extends BaseActorSheet {
         { key: "bonus", label: "DND5E.ACTIVATION.Type.BonusAction.Label" },
         { key: "reaction", label: "DND5E.ACTIVATION.Type.Reaction.Label" },
         { key: "legendary", label: "DND5E.ACTIVATION.Type.Legendary.Label" },
+        { key: "elite", label: "N5EB.Adversary.EliteAction.Label" },
         { key: "lair", label: "DND5E.ACTIVATION.Type.Lair.Label" }
       ],
       sorting: [
@@ -289,6 +302,62 @@ export default class NPCActorSheet extends BaseActorSheet {
     }
     context.hasLegendaries = resources.legact.max || resources.legres.max
       || (context.modernRules && resources.lair.value) || (!context.modernRules && resources.lair.initiative);
+    const adversary = context.system.details.adversary;
+    const specialRoles = Array.from(adversary.specialRoles ?? []).map(key => ({
+      key,
+      label: CONFIG.DND5E.adversarySpecialRoles[key]?.label ?? key
+    })).filter(role => role.key in CONFIG.DND5E.adversarySpecialRoles);
+    context.adversary = {
+      enabled: adversary.enabled,
+      class: {
+        key: adversary.class,
+        label: CONFIG.DND5E.adversaryClasses[adversary.class]?.label ?? adversary.class
+      },
+      rank: {
+        key: adversary.rank,
+        label: CONFIG.DND5E.adversaryRanks[adversary.rank]?.label ?? adversary.rank.toUpperCase(),
+        abbreviation: CONFIG.DND5E.adversaryRanks[adversary.rank]?.abbreviation ?? adversary.rank.toUpperCase()
+      },
+      role: {
+        key: adversary.role,
+        label: CONFIG.DND5E.adversaryRoles[adversary.role]?.label ?? adversary.role
+      },
+      discipline: adversary.discipline ? {
+        key: adversary.discipline,
+        label: CONFIG.DND5E.adversaryDisciplines[adversary.discipline]?.label ?? adversary.discipline
+      } : null,
+      level: adversary.level,
+      specialRoles
+    };
+    context.hasAdversaryResources = resources.tenacity.max || resources.eliteact.max || adversary.enabled;
+
+    const summon = context.system.details.summon;
+    context.summon = {
+      enabled: summon.enabled,
+      category: {
+        key: summon.category,
+        label: CONFIG.DND5E.summonCategories[summon.category]?.label ?? summon.category
+      },
+      rank: {
+        key: summon.rank,
+        label: CONFIG.DND5E.summonRanks[summon.rank]?.label ?? summon.rank.toUpperCase(),
+        abbreviation: CONFIG.DND5E.summonRanks[summon.rank]?.abbreviation ?? summon.rank.toUpperCase()
+      },
+      role: {
+        key: summon.role,
+        label: CONFIG.DND5E.summonRoles[summon.role]?.label ?? summon.role
+      },
+      tribe: summon.tribe ? {
+        key: summon.tribe,
+        label: CONFIG.DND5E.summonTribes[summon.tribe]?.label ?? summon.tribe
+      } : null,
+      summonType: summon.summonType ? {
+        key: summon.summonType,
+        label: CONFIG.DND5E.summonTypes[summon.summonType]?.label ?? summon.summonType
+      } : null,
+      variant: summon.variant,
+      level: summon.level
+    };
 
     // Visibility
     if ( this._mode === this.constructor.MODES.PLAY ) {
@@ -494,6 +563,14 @@ export default class NPCActorSheet extends BaseActorSheet {
   /** @inheritDoc */
   async _prepareItem(item, ctx) {
     await super._prepareItem(item, ctx);
+    if ( item.system.type?.value === "adversaryTrait" ) {
+      ctx.group = "adversaryTraits";
+      return;
+    }
+    if ( item.system.type?.value === "adversaryPassive" ) {
+      ctx.group = "adversaryPassives";
+      return;
+    }
     const isPassive = item.system.properties?.has("trait")
       || CONFIG.DND5E.activityActivationTypes[item.system.activities?.contents[0]?.activation.type]?.passive;
     ctx.group = isPassive ? "passive" : item.system.activities?.contents[0]?.activation.type || "passive";
@@ -551,6 +628,30 @@ export default class NPCActorSheet extends BaseActorSheet {
     if ( target.ariaDisabled ) return;
     this.editingDescriptionTarget = target.dataset.target;
     this.render();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Open the adversary builder.
+   * @this {NPCActorSheet}
+   * @param {Event} event         Triggering event.
+   * @param {HTMLElement} target  Action target.
+   */
+  static #showAdversaryBuilder(event, target) {
+    this._renderChild(new AdversaryBuilderConfig({ document: this.actor }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Open the summon builder.
+   * @this {NPCActorSheet}
+   * @param {Event} event         Triggering event.
+   * @param {HTMLElement} target  Action target.
+   */
+  static #showSummonBuilder(event, target) {
+    this._renderChild(new SummonBuilderConfig({ document: this.actor }));
   }
 
   /* -------------------------------------------- */

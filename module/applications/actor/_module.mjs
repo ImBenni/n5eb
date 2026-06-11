@@ -10,6 +10,8 @@ export {default as BaseActorSheet} from "./api/base-actor-sheet.mjs";
 export {default as BaseConfigSheetV2} from "./api/base-config-sheet.mjs";
 export {default as MultiActorSheet} from "./api/multi-actor-sheet.mjs";
 
+export {default as AdversaryBuilderConfig} from "./config/adversary-builder-config.mjs";
+export {default as SummonBuilderConfig} from "./config/summon-builder-config.mjs";
 export {default as AbilityConfig} from "./config/ability-config.mjs";
 export {default as ArmorClassConfig} from "./config/armor-class-config.mjs";
 export {default as BaseProficiencyConfig} from "./config/base-proficiency-config.mjs";

@@ -224,11 +224,81 @@
     /* Size, Type, & Alignment */
     .labels {
       display: flex;
+      align-items: center;
+      flex-wrap: wrap;
       gap: 4px;
       font-family: var(--dnd5e-font-roboto-condensed);
 
       li + li::before { content: "•"; }
       li:has(> span:empty) { display: none; }
+
+      .adversary-summary,
+      .summon-summary {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 3px;
+        max-width: 100%;
+
+        &::before { display: none; }
+      }
+
+      .adversary-rank,
+      .adversary-chip,
+      .summon-rank,
+      .summon-chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 18px;
+        max-width: 120px;
+        padding: 2px 7px;
+        overflow: hidden;
+        border: 1px solid rgba(176, 155, 105, .35);
+        border-radius: 999px;
+        background: rgba(176, 155, 105, .12);
+        color: var(--color-text-light-highlight);
+        font-size: var(--font-size-11);
+        line-height: 1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .adversary-rank,
+      .summon-rank {
+        justify-content: center;
+        min-width: 25px;
+        background: var(--dnd5e-color-gold);
+        color: var(--dnd5e-color-black);
+        font-weight: bold;
+      }
+
+      .adversary-rank.rank-d,
+      .summon-rank.rank-d { background: #aeb6c2; }
+      .adversary-rank.rank-c,
+      .summon-rank.rank-c { background: #81b48a; }
+      .adversary-rank.rank-b,
+      .summon-rank.rank-b { background: #6fa7d8; }
+      .adversary-rank.rank-a,
+      .summon-rank.rank-a { background: #bc8fe3; }
+      .adversary-rank.rank-s,
+      .summon-rank.rank-s { background: #dca85f; }
+
+      .adversary-discipline {
+        border-color: rgba(154, 194, 255, .32);
+        background: rgba(154, 194, 255, .12);
+      }
+
+      .adversary-special {
+        border-color: rgba(220, 168, 95, .45);
+        background: rgba(220, 168, 95, .14);
+        color: var(--dnd5e-color-gold);
+      }
+
+      .summon-tribe,
+      .summon-type {
+        border-color: rgba(129, 180, 138, .4);
+        background: rgba(129, 180, 138, .12);
+      }
     }
 
     /* Proficiency */
@@ -243,6 +313,14 @@
       width: 26px;
       height: 26px;
       font-size: var(--font-size-12);
+
+      &.adversary-active,
+      &.summon-active {
+        border-color: var(--dnd5e-color-gold);
+        background: linear-gradient(180deg, rgba(176, 155, 105, .28), rgba(35, 31, 24, .95));
+        color: var(--dnd5e-color-gold);
+        box-shadow: 0 0 0 1px rgba(176, 155, 105, .28), 0 0 8px rgba(176, 155, 105, .22);
+      }
     }
 
     /* Ability Scores */
@@ -386,6 +464,10 @@
           &.checkbox { height: 26px; }
           &.toggle { height: 28px; }
         }
+      }
+
+      &.adversary-resources {
+        margin-top: 6px;
       }
     }
 

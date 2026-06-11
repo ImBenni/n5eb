@@ -373,12 +373,6 @@ system:
       formula: ''
     cd:
       spent: 0
-    cp:
-      value: 5
-      max: 0
-      temp: 0
-      tempmax: 0
-      formula: ''
     death:
       ability: ''
       roll:
@@ -387,6 +381,12 @@ system:
         mode: 0
       success: 0
       failure: 0
+    chakra:
+      value: 5
+      max: 0
+      temp: 0
+      tempmax: 0
+      formula: ''
   details:
     biography:
       value: ''
@@ -400,14 +400,22 @@ system:
     environment: ''
     cr: 0
     spellLevel: 0
-    npcType: summon
-    rank: drank
-    classNPC: standard
-    affiliation: leaf
-    role: controller
-    highRole: []
     source:
       book: Naruto 5e
+    summon:
+      enabled: true
+      level: 1
+      rank: d
+      category: inuzuka
+      tribe: custom
+      variant: young-kugsha
+      role: controller
+      summonType: carnivoran
+      toughness: 10
+      defenseAbility: dex
+      jutsuAbility: str
+      migrated: true
+      sourceUuid: Compendium.n5eb.npc.Actor.o2qbFlCt0mDU0Zpp
   resources:
     legact:
       value: 0
@@ -1181,8 +1189,8 @@ items:
         charged: false
       type:
         value: summon
-        subtype: ''
-        nestedsubtype: ''
+        subtype: special
+        nestedsubtype: d
       prerequisites:
         level: null
       properties: []
@@ -1382,9 +1390,9 @@ items:
         scaling: spell
       summons: null
       type:
-        value: race
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       prerequisites:
         level: null
       properties: []
@@ -1573,7 +1581,7 @@ items:
       type:
         value: summon
         subtype: tribe
-        nestedsubtype: drank
+        nestedsubtype: d
       prerequisites:
         level: 1
       properties: []
@@ -1757,7 +1765,7 @@ items:
       type:
         value: summon
         subtype: tribe
-        nestedsubtype: drank
+        nestedsubtype: d
       prerequisites:
         level: 1
       properties: []

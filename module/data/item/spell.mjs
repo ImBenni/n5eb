@@ -392,6 +392,12 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    * @returns {number}
    */
   getChakraCost({ rank=this.effectiveRank }={}) {
+    const adversary = this.parent.actor?.system.details.adversary;
+    if ( adversary?.enabled && (adversary.class === "minion") ) return 0;
+    if ( adversary?.enabled && adversary.fixedJutsuCost ) {
+      return CONFIG.DND5E.adversaryJutsuCosts[rank] ?? 0;
+    }
+
     const rollData = this.parent.actor?.getRollData({ deterministic: true }) ?? {};
     rollData.item ??= {};
     rollData.item.level = SpellData.levelForRank(rank);

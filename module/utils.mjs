@@ -1314,6 +1314,10 @@ export function getHumanReadableAttributeLabel(attr, { actor, item }={}) {
   else if ( attr === "resources.legact.value" ) label = "DND5E.LegendaryAction.Remaining";
   else if ( attr === "resources.legres.spent" ) label = "DND5E.LegendaryResistance.LabelPl";
   else if ( attr === "resources.legres.value" ) label = "DND5E.LegendaryResistance.Remaining";
+  else if ( attr === "resources.tenacity.spent" ) label = "N5EB.Adversary.Tenacity.Spent";
+  else if ( attr === "resources.tenacity.value" ) label = "N5EB.Adversary.Tenacity.Remaining";
+  else if ( attr === "resources.eliteact.spent" ) label = "N5EB.Adversary.EliteAction.Spent";
+  else if ( attr === "resources.eliteact.value" ) label = "N5EB.Adversary.EliteAction.Remaining";
   else if ( attr === "attributes.chakra.value" ) label = "N5EB.Chakra";
   else if ( attr === "attributes.chakra.temp" ) label = "N5EB.ChakraTemp";
   else if ( attr === "attributes.chakra.tempmax" ) label = "N5EB.ChakraTempMax";

@@ -112,7 +112,7 @@
 - [ ] Build feat and fighting stance compendium.
 - [x] Build jutsu compendium, starting with a small representative set.
 - [ ] Build conditions and rules journal pages.
-- [ ] Build adversaries/NPC compendium.
+- [x] Build adversaries/NPC compendium.
 - [ ] Add roll tables for missions, loot, crafting, and enhancement seals.
 - [ ] Remove or archive D&D SRD content that should not ship in N5eB.
 
@@ -136,9 +136,9 @@
 - [x] Run full `npm run build:db` with Foundry stopped to avoid LevelDB lock conflicts.
 - [x] Rebuild the actor pack after fixing Naruto's HP/chakra advancement average values.
 - [x] Start Foundry and verify the `n5eb-v14` world loads.
-- [ ] Test character creation, class advancement, chakra rolls, jutsu usage, rests, and Mastery rolls end to end with the book-backed Naruto actor.
-- [ ] Update README and install instructions.
-- [ ] Package `n5eb.zip`.
+- [x] Test character creation, class advancement, chakra rolls, jutsu usage, rests, and Mastery rolls end to end with the book-backed Naruto actor.
+- [x] Update README and install instructions.
+- [x] Package `n5eb.zip`.
 - [ ] Publish a GitHub release with `system.json` and the zip.
 
 ## Later Polish

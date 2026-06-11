@@ -1511,6 +1511,558 @@ dialog.dnd5e2.application {
   }
 }
 
+.dnd5e2:is(.adversary-builder, .summon-builder) {
+  .window-content {
+    overflow: hidden;
+    padding: 0;
+  }
+
+  form {
+    min-height: 0;
+  }
+
+  .adversary-builder {
+    height: 100%;
+    min-height: 0;
+    gap: 0;
+  }
+
+  .adversary-builder-layout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: minmax(280px, 330px) minmax(0, 1fr);
+    gap: 12px;
+    min-height: 0;
+    overflow: hidden;
+    padding: 12px;
+  }
+
+  .adversary-blueprint,
+  .adversary-content-card {
+    min-height: 0;
+  }
+
+  .adversary-blueprint {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
+    padding-inline-end: 2px;
+  }
+
+  .adversary-identity-card {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid color-mix(in srgb, var(--dnd5e-color-gold) 42%, transparent);
+    border-radius: 5px;
+    background: linear-gradient(135deg, rgba(176, 155, 105, .16), rgba(20, 22, 28, .92));
+    box-shadow: 0 0 10px var(--dnd5e-shadow-15);
+
+    img {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border: 1px solid var(--dnd5e-color-gold);
+      border-radius: 4px;
+      background: var(--dnd5e-color-black);
+    }
+
+    .identity-copy {
+      min-width: 0;
+      display: grid;
+      gap: 5px;
+    }
+
+    strong {
+      overflow: hidden;
+      color: var(--dnd5e-color-gold);
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-18);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .eyebrow {
+    color: var(--color-text-secondary);
+    font-family: var(--dnd5e-font-roboto-condensed);
+    font-size: var(--font-size-10);
+    font-weight: bold;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .identity-strip,
+  .identity-specials,
+  .preview-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .rank-badge,
+  .identity-chip,
+  .preview-tags span,
+  .adversary-suggestion .status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 20px;
+    max-width: 100%;
+    padding: 2px 7px;
+    border: 1px solid color-mix(in srgb, var(--dnd5e-color-gold) 35%, transparent);
+    border-radius: 999px;
+    background: rgba(176, 155, 105, .1);
+    color: var(--color-text-light-highlight);
+    font-family: var(--dnd5e-font-roboto-condensed);
+    font-size: var(--font-size-11);
+    line-height: 1;
+  }
+
+  .rank-badge {
+    justify-content: center;
+    min-width: 28px;
+    background: var(--dnd5e-color-gold);
+    color: var(--dnd5e-color-black);
+    font-weight: bold;
+  }
+
+  .identity-chip.special {
+    background: rgba(154, 194, 255, .12);
+    border-color: rgba(154, 194, 255, .32);
+  }
+
+  .adversary-card {
+    margin: 0;
+    padding: 9px;
+    border-color: rgba(176, 155, 105, .24);
+    border-radius: 5px;
+    background: rgba(30, 33, 41, .9);
+
+    legend {
+      color: var(--dnd5e-color-gold);
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-12);
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .form-group {
+      margin-block: 5px;
+
+      > label {
+        color: var(--color-text-light-highlight);
+        font-size: var(--font-size-12);
+      }
+    }
+
+    select,
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      height: 28px;
+    }
+  }
+
+  .special-roles .form-fields {
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .fixed-cost-toggle {
+    align-items: center;
+  }
+
+  .adversary-summary-grid {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    dt {
+      color: var(--color-text-secondary);
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-12);
+    }
+
+    dd {
+      margin: 0;
+      color: var(--color-text-light-highlight);
+      font-weight: bold;
+      text-align: right;
+    }
+  }
+
+  .phase-thresholds {
+    display: grid;
+    gap: 4px;
+    margin-block-start: 8px;
+    padding-block-start: 8px;
+    border-block-start: var(--dnd5e-border-dotted);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-12);
+  }
+
+  .adversary-resource-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+
+    label {
+      display: grid;
+      gap: 3px;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-11);
+    }
+  }
+
+  .apply-defaults {
+    width: 100%;
+    margin-block-start: 8px;
+  }
+
+  .warnings-card p {
+    margin: 4px 0;
+    color: var(--dnd5e-color-warning);
+    font-size: var(--font-size-12);
+  }
+
+  .adversary-content-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    padding: 10px;
+    border: 1px solid rgba(176, 155, 105, .22);
+    border-radius: 5px;
+    background: rgba(24, 26, 33, .92);
+  }
+
+  .adversary-content-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+
+    &.summon-content-tabs {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      min-width: 0;
+      height: 30px;
+      padding: 0 8px;
+      border: 1px solid rgba(176, 155, 105, .2);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, .04);
+      color: var(--color-text-light-highlight);
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      strong {
+        flex: 0 0 auto;
+        min-width: 24px;
+        padding: 1px 6px;
+        border-radius: 999px;
+        background: rgba(176, 155, 105, .18);
+        color: var(--dnd5e-color-gold);
+        font-size: var(--font-size-11);
+        text-align: center;
+      }
+
+      &.active {
+        border-color: var(--dnd5e-color-gold);
+        background: rgba(176, 155, 105, .2);
+        box-shadow: inset 0 -2px 0 var(--dnd5e-color-gold);
+      }
+    }
+  }
+
+  .adversary-preview {
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) 24px;
+    gap: 10px;
+    min-height: 118px;
+    padding: 9px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 4px;
+    background: rgba(12, 14, 18, .62);
+
+    > img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border: 1px solid rgba(176, 155, 105, .42);
+      border-radius: 4px;
+    }
+
+    .preview-copy {
+      min-width: 0;
+      display: grid;
+      gap: 4px;
+    }
+
+    strong {
+      overflow: hidden;
+      color: var(--color-text-light-highlight);
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-16);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .preview-description {
+      max-height: 48px;
+      overflow: auto;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-12);
+
+      p { margin: 0 0 4px; }
+    }
+
+    .preview-open {
+      align-self: start;
+      color: var(--dnd5e-color-gold);
+    }
+  }
+
+  .adversary-content-panel {
+    min-height: 0;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .adversary-filter-bar {
+    display: grid;
+    grid-template-columns: minmax(130px, 1.4fr) repeat(auto-fit, minmax(92px, .8fr));
+    gap: 6px;
+
+    .search {
+      display: grid;
+      grid-template-columns: 18px minmax(0, 1fr);
+      align-items: center;
+      height: 28px;
+      padding-inline: 7px;
+      border: 1px solid rgba(176, 155, 105, .2);
+      border-radius: 4px;
+      background: rgba(0, 0, 0, .18);
+
+      i {
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-11);
+      }
+
+      input {
+        height: 24px;
+        border: 0;
+        background: transparent;
+      }
+    }
+
+    select {
+      height: 28px;
+      min-width: 0;
+    }
+  }
+
+  .adversary-suggestions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .adversary-suggestion {
+    display: grid;
+    grid-template-columns: 18px 30px minmax(0, 1fr) minmax(120px, .65fr) auto;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 5px 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    &:nth-child(even) { background: var(--dnd5e-color-table-row-even); }
+    &:nth-child(odd) { background: var(--dnd5e-color-table-row-odd); }
+
+    &:hover,
+    &.previewed {
+      border-color: rgba(176, 155, 105, .4);
+      background: rgba(176, 155, 105, .1);
+    }
+
+    &.selected {
+      border-color: var(--dnd5e-color-gold);
+      box-shadow: inset 3px 0 0 var(--dnd5e-color-gold);
+    }
+
+    &.is-added {
+      opacity: .62;
+
+      .name {
+        color: var(--color-text-secondary);
+      }
+    }
+
+    > img {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      border: 1px solid rgba(176, 155, 105, .35);
+      border-radius: 3px;
+    }
+
+    .name {
+      overflow: hidden;
+      color: var(--color-text-light-highlight);
+      font-weight: bold;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+      min-width: 0;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-11);
+      white-space: nowrap;
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .status {
+      min-height: 18px;
+      padding-inline: 6px;
+      color: var(--dnd5e-color-gold);
+    }
+  }
+
+  .empty-filter {
+    margin: auto;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-13);
+    text-align: center;
+  }
+
+  .selected-panel {
+    overflow: hidden;
+
+    .selected-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-12);
+
+      strong {
+        color: var(--color-text-light-highlight);
+        font-family: var(--dnd5e-font-roboto-condensed);
+        font-size: var(--font-size-15);
+      }
+    }
+  }
+
+  .adversary-selected-list {
+    display: grid;
+    gap: 5px;
+    overflow: auto;
+  }
+
+  .adversary-selected-item {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr) minmax(120px, .7fr) 24px;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, .04);
+
+    img {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      border-radius: 3px;
+    }
+
+    .name,
+    .meta {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .name {
+      color: var(--color-text-light-highlight);
+      font-weight: bold;
+    }
+
+    .meta {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-11);
+      text-align: right;
+    }
+
+    button {
+      color: var(--color-text-secondary);
+
+      &:hover {
+        color: var(--dnd5e-color-failure);
+      }
+    }
+  }
+
+  .form-footer {
+    position: sticky;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px 12px;
+    border-block-start: 1px solid rgba(176, 155, 105, .22);
+    background: rgba(21, 23, 29, .98);
+
+    button {
+      min-width: 0;
+      min-height: 34px;
+
+      strong {
+        min-width: 22px;
+        padding-inline: 6px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, .24);
+      }
+    }
+  }
+}
+
 /* ---------------------------------- */
 /*  Armor Class Config Sheet          */
 /* ---------------------------------- */

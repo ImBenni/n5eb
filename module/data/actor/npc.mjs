@@ -16,6 +16,29 @@ import TraitsFields from "./templates/traits.mjs";
 const TextEditor = foundry.applications.ux.TextEditor.implementation;
 const { ArrayField, BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
+const LEGACY_RANKS = {
+  erank: "e",
+  drank: "d",
+  crank: "c",
+  brank: "b",
+  arank: "a",
+  srank: "s"
+};
+
+const LEGACY_ROLES = {
+  casternin: { role: "caster", discipline: "ninjutsu" },
+  castergen: { role: "caster", discipline: "genjutsu" },
+  castertai: { role: "caster", discipline: "taijutsu" },
+  strikernin: { role: "striker", discipline: "ninjutsu" },
+  strikergen: { role: "striker", discipline: "genjutsu" },
+  strikertai: { role: "striker", discipline: "taijutsu" },
+  controller: { role: "controller", discipline: "" },
+  defender: { role: "defender", discipline: "" },
+  generalist: { role: "generalist", discipline: "" },
+  lurker: { role: "lurker", discipline: "" },
+  supporter: { role: "supporter", discipline: "" }
+};
+
 /**
  * @import { NPCActorSystemData } from "./_types.mjs";
  */
@@ -110,6 +133,60 @@ export default class NPCData extends CreatureTemplate {
         cr: new NumberField({
           required: true, nullable: true, min: 0, initial: 1, label: "DND5E.ChallengeRating"
         }),
+        adversary: new SchemaField({
+          enabled: new BooleanField({ required: true, initial: false, label: "N5EB.Adversary.Enabled" }),
+          level: new NumberField({
+            required: true, nullable: false, integer: true, min: 1, max: 30, initial: 1,
+            label: "N5EB.Adversary.Level"
+          }),
+          rank: new StringField({ required: true, blank: false, initial: "e", label: "N5EB.Adversary.Rank.Label" }),
+          class: new StringField({
+            required: true, blank: false, initial: "standard", label: "N5EB.Adversary.Class.Label"
+          }),
+          role: new StringField({
+            required: true, blank: false, initial: "striker", label: "N5EB.Adversary.Role.Label"
+          }),
+          discipline: new StringField({
+            required: true, blank: true, initial: "", label: "N5EB.Adversary.Discipline.Label"
+          }),
+          clan: new StringField({ required: true, blank: true, initial: "", label: "N5EB.Adversary.Clan" }),
+          affiliation: new StringField({
+            required: true, blank: true, initial: "", label: "N5EB.Adversary.Affiliation"
+          }),
+          specialRoles: new SetField(new StringField(), { label: "N5EB.Adversary.SpecialRole.Label" }),
+          fixedJutsuCost: new BooleanField({
+            required: true, initial: true, label: "N5EB.Adversary.FixedJutsuCost"
+          }),
+          migrated: new BooleanField({ required: true, initial: false, label: "N5EB.Adversary.Migrated" })
+        }, { label: "N5EB.Adversary.Label" }),
+        summon: new SchemaField({
+          enabled: new BooleanField({ required: true, initial: false, label: "N5EB.Summon.Enabled" }),
+          level: new NumberField({
+            required: true, nullable: false, integer: true, min: 1, max: 30, initial: 1,
+            label: "N5EB.Summon.Level"
+          }),
+          rank: new StringField({ required: true, blank: false, initial: "d", label: "N5EB.Summon.Rank.Label" }),
+          category: new StringField({
+            required: true, blank: false, initial: "tribe", label: "N5EB.Summon.Category.Label"
+          }),
+          tribe: new StringField({ required: true, blank: true, initial: "", label: "N5EB.Summon.Tribe.Label" }),
+          variant: new StringField({ required: true, blank: true, initial: "", label: "N5EB.Summon.Variant" }),
+          role: new StringField({
+            required: true, blank: false, initial: "striker", label: "N5EB.Summon.Role.Label"
+          }),
+          summonType: new StringField({ required: true, blank: true, initial: "", label: "N5EB.Summon.Type.Label" }),
+          toughness: new NumberField({
+            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.Summon.Toughness"
+          }),
+          defenseAbility: new StringField({
+            required: true, blank: true, initial: "", label: "N5EB.Summon.DefenseAbility"
+          }),
+          jutsuAbility: new StringField({
+            required: true, blank: true, initial: "", label: "N5EB.Summon.JutsuAbility"
+          }),
+          migrated: new BooleanField({ required: true, initial: false, label: "N5EB.Summon.Migrated" }),
+          sourceUuid: new StringField({ required: true, blank: true, initial: "", label: "N5EB.Summon.SourceUuid" })
+        }, { label: "N5EB.Summon.Label" }),
         treasure: new SchemaField({
           value: new SetField(new StringField())
         })
@@ -137,7 +214,26 @@ export default class NPCData extends CreatureTemplate {
             required: true, integer: true, label: "DND5E.LAIR.Action.Initiative"
           }),
           inside: new BooleanField({ label: "DND5E.LAIR.Inside" })
-        }, { label: "DND5E.LAIR.Action.Label" })
+        }, { label: "DND5E.LAIR.Action.Label" }),
+        tenacity: new SchemaField({
+          max: new NumberField({
+            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.Adversary.Tenacity.Max"
+          }),
+          spent: new NumberField({
+            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.Adversary.Tenacity.Spent"
+          }),
+          softMax: new NumberField({
+            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.Adversary.Tenacity.SoftMax"
+          })
+        }, { label: "N5EB.Adversary.Tenacity.Label" }),
+        eliteact: new SchemaField({
+          max: new NumberField({
+            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.Adversary.EliteAction.Max"
+          }),
+          spent: new NumberField({
+            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "N5EB.Adversary.EliteAction.Spent"
+          })
+        }, { label: "N5EB.Adversary.EliteAction.Label" })
       }, { label: "DND5E.Resources" }),
       source: new SourceField(),
       traits: new SchemaField({
@@ -198,6 +294,82 @@ export default class NPCData extends CreatureTemplate {
           max: 30
         }
       }],
+      ["adversary", {
+        label: "N5EB.Adversary.Label",
+        type: "set",
+        config: {
+          choices: {
+            true: "N5EB.Adversary.Enabled"
+          },
+          keyPath: "system.details.adversary.enabled"
+        }
+      }],
+      ["adversaryRank", {
+        label: "N5EB.Adversary.Rank.Label",
+        type: "set",
+        config: {
+          choices: CONFIG.DND5E.adversaryRanks,
+          keyPath: "system.details.adversary.rank"
+        }
+      }],
+      ["adversaryClass", {
+        label: "N5EB.Adversary.Class.Label",
+        type: "set",
+        config: {
+          choices: CONFIG.DND5E.adversaryClasses,
+          keyPath: "system.details.adversary.class"
+        }
+      }],
+      ["adversaryRole", {
+        label: "N5EB.Adversary.Role.Label",
+        type: "set",
+        config: {
+          choices: CONFIG.DND5E.adversaryRoles,
+          keyPath: "system.details.adversary.role"
+        }
+      }],
+      ["summon", {
+        label: "N5EB.Summon.Label",
+        type: "set",
+        config: {
+          choices: {
+            true: "N5EB.Summon.Enabled"
+          },
+          keyPath: "system.details.summon.enabled"
+        }
+      }],
+      ["summonRank", {
+        label: "N5EB.Summon.Rank.Label",
+        type: "set",
+        config: {
+          choices: CONFIG.DND5E.summonRanks,
+          keyPath: "system.details.summon.rank"
+        }
+      }],
+      ["summonCategory", {
+        label: "N5EB.Summon.Category.Label",
+        type: "set",
+        config: {
+          choices: CONFIG.DND5E.summonCategories,
+          keyPath: "system.details.summon.category"
+        }
+      }],
+      ["summonRole", {
+        label: "N5EB.Summon.Role.Label",
+        type: "set",
+        config: {
+          choices: CONFIG.DND5E.summonRoles,
+          keyPath: "system.details.summon.role"
+        }
+      }],
+      ["summonTribe", {
+        label: "N5EB.Summon.Tribe.Label",
+        type: "set",
+        config: {
+          choices: CONFIG.DND5E.summonTribes,
+          keyPath: "system.details.summon.tribe"
+        }
+      }],
       ["movement", {
         label: "DND5E.Movement",
         type: "set",
@@ -227,15 +399,38 @@ export default class NPCData extends CreatureTemplate {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Whether this NPC is using N5eB adversary rules.
+   * @returns {boolean}
+   */
+  get isAdversary() {
+    return this.details.adversary?.enabled ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Whether this NPC is using N5eB summon rules.
+   * @returns {boolean}
+   */
+  get isSummon() {
+    return this.details.summon?.enabled ?? false;
+  }
+
+  /* -------------------------------------------- */
   /*  Data Migration                              */
   /* -------------------------------------------- */
 
   /** @inheritDoc */
   static _migrateData(source) {
     super._migrateData(source);
+    NPCData.#migrateLegacyChakra(source);
     NPCData.#migrateEnvironment(source);
     NPCData.#migrateLegendaries(source, "legact");
     NPCData.#migrateLegendaries(source, "legres");
+    NPCData.#migrateSummon(source);
+    NPCData.#migrateAdversary(source);
     NPCData.#migrateSource(source);
     NPCData.#migrateSpellLevel(source);
     NPCData.#migrateTypeData(source);
@@ -266,6 +461,97 @@ export default class NPCData extends CreatureTemplate {
     if ( !resource || !("max" in resource) || !("value" in resource) || ("spent" in resource) ) return;
     source.resources[prop].spent = resource.max - resource.value;
     delete resource.value;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Convert legacy NPC chakra data from `cp` to the current `chakra` block.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateLegacyChakra(source) {
+    if ( source.attributes?.cp && !source.attributes.chakra ) {
+      source.attributes.chakra = source.attributes.cp;
+      delete source.attributes.cp;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Convert legacy N5eB adversary fields to the current nested adversary block.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateAdversary(source) {
+    const details = source.details;
+    if ( !details ) return;
+    if ( (details.npcType === "summon") || details.summon?.enabled ) return;
+
+    const legacyTagged = details.npcType === "adversary";
+    const hasLegacyFields = ["rank", "classNPC", "role", "affiliation", "highRole"].some(k => k in details);
+    const hasAdversaryLegacyFields = ["rank", "classNPC", "role", "highRole"].some(k => k in details);
+    if ( details.adversary && !hasLegacyFields ) return;
+    if ( !details.adversary && !(legacyTagged || hasAdversaryLegacyFields) ) return;
+
+    const adversary = details.adversary ?? {};
+    const role = NPCData.#normalizeLegacyRole(details.role);
+    details.adversary = {
+      enabled: true,
+      level: Number.isFinite(Number(adversary.level)) ? Number(adversary.level)
+        : Number.isFinite(Number(details.level)) && Number(details.level) ? Number(details.level)
+          : Number.isFinite(Number(details.cr)) && Number(details.cr) ? Number(details.cr) : 1,
+      rank: NPCData.#normalizeLegacyRank(adversary.rank ?? details.rank),
+      class: NPCData.#normalizeLegacyClass(adversary.class ?? details.classNPC),
+      role: adversary.role ?? role.role,
+      discipline: adversary.discipline ?? role.discipline,
+      clan: adversary.clan ?? details.clan ?? "",
+      affiliation: adversary.affiliation ?? details.affiliation ?? "",
+      specialRoles: adversary.specialRoles ?? details.highRole ?? [],
+      fixedJutsuCost: adversary.fixedJutsuCost ?? true,
+      migrated: adversary.migrated ?? Boolean(hasLegacyFields)
+    };
+
+    for ( const key of ["npcType", "rank", "classNPC", "affiliation", "role", "highRole", "clan"] ) {
+      delete details[key];
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Convert legacy summon NPC fields to the current nested summon block.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateSummon(source) {
+    const details = source.details;
+    if ( !details ) return;
+
+    const legacyTagged = details.npcType === "summon";
+    const summon = details.summon ?? {};
+    const hasLegacyFields = ["rank", "classNPC", "role", "affiliation", "highRole"].some(k => k in details);
+    if ( details.summon && !legacyTagged && !hasLegacyFields ) return;
+    if ( !details.summon && !legacyTagged ) return;
+
+    details.summon = {
+      enabled: true,
+      level: NPCData.#normalizeLegacySummonLevel(source, summon.level ?? details.level ?? details.cr),
+      rank: NPCData.#normalizeLegacySummonRank(summon.rank ?? details.rank),
+      category: NPCData.#normalizeSummonCategory(summon.category),
+      tribe: summon.tribe ?? NPCData.#normalizeSummonTribe(details.affiliation ?? details.clan ?? ""),
+      variant: summon.variant ?? "",
+      role: NPCData.#normalizeSummonRole(summon.role ?? details.role),
+      summonType: NPCData.#normalizeSummonType(summon.summonType),
+      toughness: Math.max(0, Number(summon.toughness) || 0),
+      defenseAbility: NPCData.#normalizeAbilityKey(summon.defenseAbility),
+      jutsuAbility: NPCData.#normalizeAbilityKey(summon.jutsuAbility),
+      migrated: summon.migrated ?? Boolean(legacyTagged || hasLegacyFields),
+      sourceUuid: summon.sourceUuid ?? ""
+    };
+    if ( details.adversary ) details.adversary.enabled = false;
+
+    for ( const key of ["npcType", "rank", "classNPC", "affiliation", "role", "highRole", "clan"] ) {
+      delete details[key];
+    }
   }
 
   /* -------------------------------------------- */
@@ -355,6 +641,144 @@ export default class NPCData extends CreatureTemplate {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Normalize a legacy rank key.
+   * @param {string} rank  Legacy rank key.
+   * @returns {string}
+   */
+  static #normalizeLegacyRank(rank) {
+    if ( typeof rank !== "string" ) return "e";
+    rank = rank.toLowerCase();
+    if ( rank in CONFIG.DND5E.adversaryRanks ) return rank;
+    return LEGACY_RANKS[rank] ?? "e";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a summon rank key.
+   * @param {string} rank  Legacy rank key.
+   * @returns {string}
+   */
+  static #normalizeLegacySummonRank(rank) {
+    if ( typeof rank !== "string" ) return "d";
+    rank = rank.toLowerCase();
+    if ( rank === "erank" ) return "d";
+    if ( rank in CONFIG.DND5E.summonRanks ) return rank;
+    return LEGACY_RANKS[rank] === "e" ? "d" : LEGACY_RANKS[rank] ?? "d";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a legacy summon level.
+   * @param {object} source  Source data.
+   * @param {number|string} level  Preferred level.
+   * @returns {number}
+   */
+  static #normalizeLegacySummonLevel(source, level) {
+    const classLevels = (source.items ?? []).reduce((total, item) => {
+      if ( item.type !== "class" ) return total;
+      const levels = Number(item.system?.levels);
+      return total + (Number.isFinite(levels) ? Math.max(0, Math.trunc(levels)) : 0);
+    }, 0);
+    if ( classLevels ) return Math.clamp(classLevels, 1, 30);
+    level = Number(level);
+    if ( Number.isFinite(level) && level ) return Math.clamp(Math.trunc(level), 1, 30);
+    return 1;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a summon category.
+   * @param {string} category  Category key.
+   * @returns {string}
+   */
+  static #normalizeSummonCategory(category) {
+    category = typeof category === "string" ? category : "tribe";
+    return (category in CONFIG.DND5E.summonCategories) ? category : "tribe";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a summon tribe key.
+   * @param {string} tribe  Tribe key.
+   * @returns {string}
+   */
+  static #normalizeSummonTribe(tribe) {
+    tribe = typeof tribe === "string" ? tribe.slugify({ strict: true }) : "";
+    if ( tribe === "dog-wolf" ) return "dogWolf";
+    if ( tribe === "hare-rabbit" ) return "hareRabbit";
+    return (tribe in CONFIG.DND5E.summonTribes) ? tribe : "";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a summon role key.
+   * @param {string} role  Role key.
+   * @returns {string}
+   */
+  static #normalizeSummonRole(role) {
+    role = typeof role === "string" ? role.toLowerCase() : "";
+    if ( role in CONFIG.DND5E.summonRoles ) return role;
+    return LEGACY_ROLES[role]?.role ?? "striker";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a summon creature type key.
+   * @param {string} type  Type key.
+   * @returns {string}
+   */
+  static #normalizeSummonType(type) {
+    type = typeof type === "string" ? type.slugify({ strict: true }) : "";
+    if ( type === "rodents" ) return "rodent";
+    return (type in CONFIG.DND5E.summonTypes) ? type : "";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize an ability key.
+   * @param {string} ability  Ability key.
+   * @returns {string}
+   */
+  static #normalizeAbilityKey(ability) {
+    ability = typeof ability === "string" ? ability.toLowerCase().slice(0, 3) : "";
+    return (ability in CONFIG.DND5E.abilities) ? ability : "";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a legacy adversary class key.
+   * @param {string} cls  Legacy class key.
+   * @returns {string}
+   */
+  static #normalizeLegacyClass(cls) {
+    cls = typeof cls === "string" ? cls.toLowerCase() : "";
+    return (cls in CONFIG.DND5E.adversaryClasses) ? cls : "standard";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a legacy role key.
+   * @param {string} role  Legacy role key.
+   * @returns {{ role: string, discipline: string }}
+   */
+  static #normalizeLegacyRole(role) {
+    role = typeof role === "string" ? role.toLowerCase() : "";
+    if ( role in CONFIG.DND5E.adversaryRoles ) return { role, discipline: "" };
+    return LEGACY_ROLES[role] ?? { role: "striker", discipline: "" };
+  }
+
+  /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
@@ -362,6 +786,10 @@ export default class NPCData extends CreatureTemplate {
   prepareBaseData() {
     this.details.level = 0;
     this.attributes.attunement.value = 0;
+    const adversary = this.details.adversary;
+    const isAdversary = adversary?.enabled;
+    const summon = this.details.summon;
+    const isSummon = summon?.enabled;
 
     // Determine hit dice denomination & max from hit points formula
     const [, max, denomination] = this.attributes.hp.formula?.match(/(\d*)d(\d+)/i) ?? [];
@@ -374,18 +802,24 @@ export default class NPCData extends CreatureTemplate {
 
     for ( const item of this.parent.items ) {
       // Class levels & hit dice
-      if ( item.type === "class" ) {
+      if ( (item.type === "class") && !isAdversary && !isSummon ) {
         const classLevels = parseInt(item.system.levels) ?? 1;
         this.details.level += classLevels;
         this.attributes.hd.max += classLevels;
       }
     }
+    if ( isAdversary ) this.details.level = Math.clamp(adversary.level || 1, 1, 30);
+    else if ( isSummon ) this.details.level = Math.clamp(summon.level || 1, 1, 30);
 
     const lairAdjustment = Number(this.resources.lair.value && this.resources.lair.inside);
 
     // Kill Experience
     this.details.xp ??= {};
-    this.details.xp.value = this.parent.getCRExp(this.details.cr === null ? null : this.details.cr + lairAdjustment);
+    if ( isAdversary ) {
+      this.details.xp.value = CONFIG.DND5E.adversaryClasses[adversary.class]?.missionXp ?? 0;
+    } else {
+      this.details.xp.value = this.parent.getCRExp(this.details.cr === null ? null : this.details.cr + lairAdjustment);
+    }
 
     // Legendary Resistances/Actions
     this.resources.legact.lr = true;
@@ -393,8 +827,20 @@ export default class NPCData extends CreatureTemplate {
     if ( this.resources.legact.max ) this.resources.legact.max += lairAdjustment;
     if ( this.resources.legres.max ) this.resources.legres.max += lairAdjustment;
 
+    // Adversary resources
+    const { tenacity, eliteact } = this.resources;
+    tenacity.softMax = isAdversary ? getAdversaryTenacitySoftMax(adversary.class, this.details.level) : 0;
+    if ( isAdversary && !this._source.resources?.tenacity?.max && tenacity.softMax ) tenacity.max = tenacity.softMax;
+    if ( isAdversary && !this._source.resources?.eliteact?.max ) {
+      eliteact.max = getAdversaryEliteActionDefault(adversary.class);
+    }
+    if ( !isAdversary ) {
+      tenacity.max = tenacity.softMax = tenacity.spent = 0;
+      eliteact.max = eliteact.spent = 0;
+    }
+
     // Proficiency
-    if ( this.details.cr === null ) this.attributes.prof = null;
+    if ( this.details.cr === null && !isAdversary && !isSummon ) this.attributes.prof = null;
     else this.attributes.prof = Proficiency.calculateMod(Math.max(this.details.cr, this.details.level, 1));
 
     // Spellcaster Level
@@ -462,6 +908,12 @@ export default class NPCData extends CreatureTemplate {
       mod: this.abilities[CONFIG.DND5E.defaultAbilities.chakraPoints ?? "con"]?.mod ?? 0
     };
     AttributesFields.prepareChakraPoints.call(this, this.attributes.chakra, chakraOptions);
+    if ( this.isAdversary && (this.details.adversary.class === "minion") ) {
+      this.attributes.chakra.max = this.attributes.chakra.effectiveMax = 0;
+      this.attributes.chakra.value = this.attributes.chakra.temp = this.attributes.chakra.tempmax = 0;
+      this.attributes.chakra.damage = 0;
+      this.attributes.chakra.pct = 0;
+    }
 
     // Legendary Actions & Resistances
     const { legact, legres } = this.resources;
@@ -477,6 +929,14 @@ export default class NPCData extends CreatureTemplate {
         "DND5E.LegendaryResistance.LairUses", { normal: formatNumber(max), lair: formatNumber(max + 1) }
       ) : `${formatNumber(max)}/${CONFIG.DND5E.limitedUsePeriods.day?.label ?? ""}`;
     }
+
+    const { tenacity, eliteact } = this.resources;
+    tenacity.spent = Math.clamp(tenacity.spent, 0, tenacity.max);
+    tenacity.value = Math.clamp(tenacity.max - tenacity.spent, 0, tenacity.max);
+    tenacity.pct = Math.clamp(tenacity.max ? (tenacity.value / tenacity.max) * 100 : 0, 0, 100);
+    eliteact.spent = Math.clamp(eliteact.spent, 0, eliteact.max);
+    eliteact.value = Math.clamp(eliteact.max - eliteact.spent, 0, eliteact.max);
+    eliteact.pct = Math.clamp(eliteact.max ? (eliteact.value / eliteact.max) * 100 : 0, 0, 100);
   }
 
   /* -------------------------------------------- */
@@ -497,7 +957,7 @@ export default class NPCData extends CreatureTemplate {
     await AttributesFields.preUpdateHP.call(this, changes, options, user);
     await TraitsFields.preUpdateSize.call(this, changes, options, user);
 
-    for ( const k of ["legact", "legres"] ) {
+    for ( const k of ["legact", "legres", "tenacity", "eliteact"] ) {
       if ( !foundry.utils.hasProperty(changes, `system.resources.${k}.value`) ) continue;
       const spent = this.resources[k].max - changes.system.resources[k].value;
       foundry.utils.setProperty(changes, `system.resources.${k}.spent`, spent);
@@ -568,6 +1028,9 @@ export default class NPCData extends CreatureTemplate {
     // Reset legendary actions at the start of a combat encounter or at the end of the creature's turn
     if ( this.resources.legact.max && (periods.includes("encounter") || periods.includes("turnEnd")) ) {
       results.actor["system.resources.legact.spent"] = 0;
+    }
+    if ( this.resources.eliteact.max && (periods.includes("encounter") || periods.includes("turnEnd")) ) {
+      results.actor["system.resources.eliteact.spent"] = 0;
     }
   }
 
@@ -897,4 +1360,29 @@ export default class NPCData extends CreatureTemplate {
 
     return context;
   }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Calculate the default Tenacity maximum for an adversary.
+ * @param {string} cls    Adversary class.
+ * @param {number} level  Adversary level.
+ * @returns {number}
+ */
+function getAdversaryTenacitySoftMax(cls, level) {
+  level = Math.max(1, Number(level) || 1);
+  const levelMultiplier = CONFIG.DND5E.adversaryTenacityDefaults?.[cls]?.levelMultiplier ?? 0;
+  return Math.floor(level * levelMultiplier);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Calculate the default Elite Action maximum for an adversary.
+ * @param {string} cls  Adversary class.
+ * @returns {number}
+ */
+function getAdversaryEliteActionDefault(cls) {
+  return CONFIG.DND5E.adversaryEliteActionDefaults?.[cls]?.value ?? 0;
 }

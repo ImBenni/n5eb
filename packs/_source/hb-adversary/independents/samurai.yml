@@ -60,13 +60,6 @@ system:
       tempmax: 0
       formula: ''
       bonuses: {}
-    cp:
-      value: 73
-      max: 75
-      temp: 0
-      tempmax: 0
-      formula: ''
-      bonuses: {}
     init:
       ability: ''
       bonus: ''
@@ -119,6 +112,13 @@ system:
         mode: 0
       success: 0
       failure: 0
+    chakra:
+      value: 73
+      max: 75
+      temp: 0
+      tempmax: 0
+      formula: ''
+      bonuses: {}
   details:
     biography:
       value: >-
@@ -146,12 +146,18 @@ system:
     ideal: ''
     bond: ''
     flaw: ''
-    npcType: npc
-    rank: erank
-    classNPC: standard
-    affiliation: leaf
-    role: strikernin
-    highRole: []
+    adversary:
+      enabled: true
+      level: 9
+      rank: e
+      class: standard
+      role: striker
+      discipline: ninjutsu
+      clan: ''
+      affiliation: leaf
+      specialRoles: []
+      fixedJutsuCost: true
+      migrated: true
   traits:
     size: med
     di:
@@ -496,6 +502,9 @@ system:
       value: 0
       max: 0
       softMax: 0
+    eliteact:
+      max: 0
+      spent: 0
   source:
     book: Homebrew
 prototypeToken:

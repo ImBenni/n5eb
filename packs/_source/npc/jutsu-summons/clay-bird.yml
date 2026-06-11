@@ -57,12 +57,6 @@ system:
       temp: 0
       tempmax: 0
       formula: 7d10+21
-    cp:
-      value: 0
-      max: 0
-      temp: 0
-      tempmax: 0
-      formula: ''
     init:
       ability: ''
       bonus: ''
@@ -115,6 +109,12 @@ system:
         mode: 0
       success: 0
       failure: 0
+    chakra:
+      value: 0
+      max: 0
+      temp: 0
+      tempmax: 0
+      formula: ''
   details:
     biography:
       value: <img src="systems/n5eb/assets/content/cheat-sheets/clay-bird.webp" />
@@ -131,15 +131,23 @@ system:
     spellLevel: 0
     source:
       book: Naruto 5e
-    npcType: npc
     ideal: ''
     bond: ''
     flaw: ''
-    rank: erank
-    classNPC: standard
-    affiliation: leaf
-    role: strikernin
-    highRole: []
+    summon:
+      enabled: true
+      level: 5
+      rank: d
+      category: jutsu
+      tribe: ''
+      variant: ''
+      role: striker
+      summonType: ''
+      toughness: 0
+      defenseAbility: ''
+      jutsuAbility: ''
+      migrated: true
+      sourceUuid: Compendium.n5eb.npc.Actor.iCqPFUNVhIA5rsxm
   traits:
     size: lg
     di:
@@ -630,9 +638,9 @@ items:
         dc: null
         scaling: spell
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -723,9 +731,9 @@ items:
         dc: null
         scaling: spell
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -816,9 +824,9 @@ items:
         dc: null
         scaling: spell
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null
@@ -1155,9 +1163,9 @@ items:
         dc: null
         scaling: flat
       type:
-        value: monster
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       requirements: ''
       recharge:
         value: null

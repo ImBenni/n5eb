@@ -375,13 +375,6 @@ system:
       formula: ''
     cd:
       spent: 0
-    cp:
-      value: 10
-      max: 10
-      temp: 0
-      tempmax: 0
-      bonuses: {}
-      formula: ''
     death:
       ability: ''
       roll:
@@ -390,6 +383,13 @@ system:
         mode: 0
       success: 0
       failure: 0
+    chakra:
+      value: 10
+      max: 10
+      temp: 0
+      tempmax: 0
+      bonuses: {}
+      formula: ''
   details:
     biography:
       value: >-
@@ -408,14 +408,20 @@ system:
     environment: ''
     cr: 2
     spellLevel: 0
-    npcType: npc
-    rank: erank
-    classNPC: standard
-    affiliation: leaf
-    role: strikernin
-    highRole: []
     source:
       book: Homebrew
+    adversary:
+      enabled: true
+      level: 2
+      rank: e
+      class: standard
+      role: striker
+      discipline: ninjutsu
+      clan: ''
+      affiliation: leaf
+      specialRoles: []
+      fixedJutsuCost: true
+      migrated: true
   resources:
     legact:
       value: 0
@@ -430,6 +436,9 @@ system:
       value: 0
       max: 0
       softMax: 0
+    eliteact:
+      max: 0
+      spent: 0
   traits:
     size: sm
     di:

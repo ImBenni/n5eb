@@ -371,12 +371,6 @@ system:
       formula: 4d8+1
     cd:
       spent: 0
-    cp:
-      value: 0
-      max: 0
-      temp: 0
-      tempmax: 0
-      formula: ''
     death:
       ability: ''
       roll:
@@ -385,6 +379,12 @@ system:
         mode: 0
       success: 0
       failure: 0
+    chakra:
+      value: 0
+      max: 0
+      temp: 0
+      tempmax: 0
+      formula: ''
   details:
     biography:
       value: <img src="systems/n5eb/assets/content/cheat-sheets/crimson-spider.webp" />
@@ -402,14 +402,22 @@ system:
     environment: ''
     cr: 1
     spellLevel: 0
-    npcType: npc
-    rank: erank
-    classNPC: standard
-    affiliation: leaf
-    role: strikernin
-    highRole: []
     source:
       book: Naruto 5e
+    summon:
+      enabled: true
+      level: 1
+      rank: d
+      category: jutsu
+      tribe: spider
+      variant: ''
+      role: striker
+      summonType: ''
+      toughness: 0
+      defenseAbility: ''
+      jutsuAbility: ''
+      migrated: true
+      sourceUuid: Compendium.n5eb.npc.Actor.U5k8IpK9GQmc5YJK
   resources:
     legact:
       value: 0
@@ -620,9 +628,9 @@ items:
         scaling: spell
       summons: null
       type:
-        value: ''
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       prerequisites:
         level: null
       properties: []
@@ -732,9 +740,9 @@ items:
         scaling: spell
       summons: null
       type:
-        value: ''
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       prerequisites:
         level: null
       properties: []
@@ -846,9 +854,9 @@ items:
         scaling: ninjutsu
       summons: null
       type:
-        value: ''
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       prerequisites:
         level: null
       properties: []
@@ -966,9 +974,9 @@ items:
         scaling: ninjutsu
       summons: null
       type:
-        value: ''
-        subtype: ''
-        nestedsubtype: ''
+        value: summon
+        subtype: special
+        nestedsubtype: d
       prerequisites:
         level: null
       properties: []
