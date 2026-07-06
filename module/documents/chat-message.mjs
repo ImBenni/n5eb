@@ -37,7 +37,7 @@ export default class ChatMessage5e extends ChatMessage {
    */
   get canApplyDamage() {
     const type = this.flags.n5eb?.roll?.type;
-    if ( type && (type !== "damage") ) return false;
+    if ( type && !["damage", "healing"].includes(type) ) return false;
     return this.isRoll && this.isContentVisible && !!canvas.tokens?.controlled.length;
   }
 
@@ -721,6 +721,27 @@ export default class ChatMessage5e extends ChatMessage {
         group: "damage"
       },
       {
+        name: game.i18n.localize("DND5E.ChatContextChakraDamage"),
+        icon: '<i class="fas fa-bolt"></i>',
+        condition: canApply,
+        callback: li => game.messages.get(li.dataset.messageId)?.applyChatCardDamage(li, 1, "chakra"),
+        group: "damage"
+      },
+      {
+        name: game.i18n.localize("DND5E.ChatContextChakraHealing"),
+        icon: '<i class="fas fa-bolt"></i>',
+        condition: canApply,
+        callback: li => game.messages.get(li.dataset.messageId)?.applyChatCardDamage(li, -1, "chakrahealing"),
+        group: "damage"
+      },
+      {
+        name: game.i18n.localize("DND5E.ChatContextTempCP"),
+        icon: '<i class="fas fa-bolt"></i>',
+        condition: canApply,
+        callback: li => game.messages.get(li.dataset.messageId)?.applyChatCardTemp(li, "tempcp"),
+        group: "damage"
+      },
+      {
         name: game.i18n.localize("DND5E.ChatContextDoubleDamage"),
         icon: '<i class="fas fa-user-injured"></i>',
         condition: canApply,
@@ -811,14 +832,18 @@ export default class ChatMessage5e extends ChatMessage {
    *
    * @param {HTMLElement} li      The chat entry which contains the roll data
    * @param {number} multiplier   A damage multiplier to apply to the rolled damage.
+   * @param {string} [type]        Override the roll's damage or healing type.
    * @returns {Promise}
    */
-  applyChatCardDamage(li, multiplier) {
-    const damages = aggregateDamageRolls(this.rolls, { respectProperties: true }).map(roll => ({
-      value: Math.max(0, roll.total) * (roll.options.type in CONFIG.DND5E.healingTypes ? -1 : 1),
-      type: roll.options.type,
-      properties: new Set(roll.options.properties ?? [])
-    }));
+  applyChatCardDamage(li, multiplier, type) {
+    const damages = aggregateDamageRolls(this.rolls, { respectProperties: true }).map(roll => {
+      const rollType = type ?? roll.options.type;
+      return {
+        value: Math.max(0, roll.total) * (rollType in CONFIG.DND5E.healingTypes ? -1 : 1),
+        type: rollType,
+        properties: new Set(roll.options.properties ?? [])
+      };
+    });
     return Promise.all(canvas.tokens.controlled.map(t => {
       return t.actor?.applyDamage(damages, { multiplier, isDelta: true, originatingMessage: this });
     }));
@@ -852,11 +877,18 @@ export default class ChatMessage5e extends ChatMessage {
 
   /**
    * Apply rolled dice as temporary hit points to the controlled token(s).
-   * @param {HTMLElement} li  The chat entry which contains the roll data
+   * @param {HTMLElement} li    The chat entry which contains the roll data.
+   * @param {string} [type]     The temporary pool to apply to.
    * @returns {Promise}
    */
-  applyChatCardTemp(li) {
+  applyChatCardTemp(li, type="temphp") {
     const total = this.rolls.reduce((acc, roll) => acc + roll.total, 0);
+    if ( type === "tempcp" ) {
+      const damages = [{ value: total, type, properties: new Set() }];
+      return Promise.all(canvas.tokens.controlled.map(t => {
+        return t.actor?.applyDamage(damages, { isDelta: true, originatingMessage: this });
+      }));
+    }
     return Promise.all(canvas.tokens.controlled.map(t => {
       return t.actor?.applyTempHP(total);
     }));
