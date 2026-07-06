@@ -31,6 +31,8 @@ const N5EB_AFFINITY_KEYS = new Set(["fire", "water", "wind", "earth", "lightning
 
 const LEGACY_DELETION_KEY_CLEANUP_SETTING = "legacyDeletionKeyCleanupVersion";
 const LEGACY_REPORT_LIMIT = 500;
+const LEGACY_UNMAPPED_PATH_SCAN_LIMIT = 2000;
+const MIGRATION_PROGRESS_YIELD_INTERVAL = 25;
 const LEGACY_MIGRATION_I18N = {
   BackupAck: "I have made or confirmed a backup of this world before migrating.",
   Cancelled: "N5eB legacy migration paused. A GM must confirm the backup acknowledgement before migration continues.",
@@ -394,7 +396,11 @@ function _recordLegacyReportDocument(report, documentData, documentName, updateD
   }
 
   const reportDocumentName = documentName === "ActorDelta" ? "Actor" : documentName;
-  for ( const path of collectUnmappedLegacyPaths(documentData, updateData, reportDocumentName) ) {
+  if ( report.counts.unmappedPaths >= LEGACY_REPORT_LIMIT ) return;
+  const unmappedPaths = collectUnmappedLegacyPaths(documentData, updateData, reportDocumentName, {
+    scanLimit: LEGACY_UNMAPPED_PATH_SCAN_LIMIT
+  });
+  for ( const path of unmappedPaths ) {
     report._seenUnmapped ??= new Set();
     const pathKey = `${documentKey}.${path}`;
     if ( report._seenUnmapped.has(pathKey) ) continue;
@@ -779,10 +785,19 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
     }
     return obj;
   }, { packs: [], packDocuments: 0 });
-  const totalDocuments = game.actors.size + game.items.size + game.macros.size + game.tables.size
-    + game.scenes.reduce((total, s) => total + s.tokens.size, 0) + packDocuments;
+  const totalDocuments = Math.max(1, game.actors.size + game.items.size + game.macros.size + game.messages.size
+    + game.tables.size + game.scenes.size
+    + game.scenes.reduce((total, s) => total + s.tokens.size, 0) + packDocuments);
   let migrated = 0;
-  const incrementProgress = () => progress.update({ pct: ++migrated / totalDocuments });
+  let progressUpdatesSinceYield = 0;
+  const incrementProgress = async () => {
+    migrated++;
+    progressUpdatesSinceYield++;
+    progress.update({ pct: Math.min(migrated / totalDocuments, 0.99) });
+    if ( progressUpdatesSinceYield < MIGRATION_PROGRESS_YIELD_INTERVAL ) return;
+    progressUpdatesSinceYield = 0;
+    await foundry.utils.sleep(0);
+  };
 
   const migrationData = await getMigrationData();
   await migrateSettings();
@@ -825,7 +840,7 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
     } catch(err) {
       logError(err, "Actor", actor.name);
     }
-    incrementProgress();
+    await incrementProgress();
   }
 
   // Migrate World Items
@@ -858,7 +873,7 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
     } catch(err) {
       logError(err, "Item", item.name);
     }
-    incrementProgress();
+    await incrementProgress();
   }
 
   // Migrate World Macros
@@ -873,7 +888,7 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
     } catch(err) {
       logError(err, "Macro", m.name);
     }
-    incrementProgress();
+    await incrementProgress();
   }
 
   // Migrate World Messages
@@ -890,6 +905,7 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
       console.error(err);
       _recordLegacyReportError(legacyReport, err, "Message", m.id);
     }
+    await incrementProgress();
   }
 
   // Migrate World Roll Tables
@@ -904,7 +920,7 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
     } catch(err) {
       logError(err, "RollTable", table.name);
     }
-    incrementProgress();
+    await incrementProgress();
   }
 
   // Migrate Actor Override Tokens
@@ -919,11 +935,12 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
     } catch(err) {
       logError(err, "Scene", s.name);
     }
+    await incrementProgress();
 
     // Migrate ActorDeltas individually in order to avoid issues with ActorDelta bulk updates.
     for ( const token of s.tokens ) {
       if ( token.actorLink || !token.actor ) {
-        incrementProgress();
+        await incrementProgress();
         continue;
       }
       let source;
@@ -954,7 +971,7 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
       } catch(err) {
         logError(err, "ActorDelta", `[${token.id}]`);
       }
-      incrementProgress();
+      await incrementProgress();
     }
   }
 
@@ -1139,7 +1156,7 @@ export async function migrateCompendium(
       }
 
       finally {
-        incrementProgress?.();
+        await incrementProgress?.();
       }
     }
 

@@ -800,6 +800,14 @@ Hooks.once("ready", function() {
       console.error(err);
     });
   };
+  const handleMigrationError = err => {
+    err.message = `Failed dnd5e system migration: ${err.message}`;
+    console.error(err);
+    ui.notifications.error("Naruto 5e system migration failed. Check the console (F12) for details.", {
+      permanent: true
+    });
+  };
+  const runMigration = migration => migration.then(cleanLegacyDeletionKeys).catch(handleMigrationError);
   if ( !cv && (legacyPreview.counts.totalDocuments === 0) ) {
     return game.settings.set("n5eb", "systemMigrationVersion", targetMigrationVersion).then(cleanLegacyDeletionKeys);
   }
@@ -810,9 +818,9 @@ Hooks.once("ready", function() {
 
   if ( needsMigration && legacyPreview.required ) {
     if ( game.settings.get("n5eb", "legacyMigrationConfirmed") ) {
-      migrations.runLegacyMigration({ confirmed: true, preview: legacyPreview });
+      runMigration(migrations.runLegacyMigration({ confirmed: true, preview: legacyPreview }));
     } else {
-      migrations.promptLegacyMigration(legacyPreview);
+      runMigration(migrations.promptLegacyMigration(legacyPreview));
     }
     return;
   }
@@ -826,10 +834,7 @@ Hooks.once("ready", function() {
   if ( cv && foundry.utils.isNewerVersion(game.system.flags.compatibleMigrationVersion, cv) ) {
     ui.notifications.error("MIGRATION.5eVersionTooOldWarning", {localize: true, permanent: true});
   }
-  migrations.migrateWorld().then(cleanLegacyDeletionKeys).catch(err => {
-    err.message = `Failed dnd5e system migration: ${err.message}`;
-    console.error(err);
-  });
+  runMigration(migrations.migrateWorld());
 });
 
 /* -------------------------------------------- */

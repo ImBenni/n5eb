@@ -132,15 +132,18 @@ export function preserveLegacyN5eBSource(source, { documentName="", parent }={})
  * @param {object} documentData  Migrated document source data.
  * @param {object} updateData    Pending update data.
  * @param {string} documentName  Document class name.
+ * @param {object} [options={}]
+ * @param {number} [options.scanLimit=Infinity]  Maximum original paths to inspect.
  * @returns {string[]}
  */
-export function collectUnmappedLegacyPaths(documentData, updateData={}, documentName="") {
+export function collectUnmappedLegacyPaths(documentData, updateData={}, documentName="", { scanLimit=Infinity }={}) {
   const original = foundry.utils.getProperty(documentData, "flags.n5eb.legacyMigration.originalSystem");
   if ( foundry.utils.getType(original) !== "Object" ) return [];
   const current = documentData.system ?? {};
-  return collectLeafPaths(original)
+  const expandedUpdateData = foundry.utils.expandObject(updateData);
+  return collectLeafPaths(original, "", scanLimit)
     .filter(path => !foundry.utils.hasProperty(current, path))
-    .filter(path => !hasUpdateForPath(updateData, `system.${path}`))
+    .filter(path => !hasUpdateForPath(updateData, `system.${path}`, expandedUpdateData))
     .filter(path => !isKnownMappedLegacyPath(documentName, path))
     .sort();
 }
@@ -173,17 +176,37 @@ export function summarizeLegacyDocument(documentData, documentName) {
  * Collect leaf paths in a nested object.
  * @param {*} value          Value to inspect.
  * @param {string} [prefix]  Current path.
+ * @param {number} [limit]   Maximum number of paths to collect.
+ * @param {string[]} [paths]  Mutable collection of paths.
  * @returns {string[]}
  */
-function collectLeafPaths(value, prefix="") {
+function collectLeafPaths(value, prefix="", limit=Infinity, paths=[]) {
+  if ( paths.length >= limit ) return paths;
   if ( Array.isArray(value) ) {
-    if ( !value.length ) return prefix ? [prefix] : [];
-    return value.flatMap((entry, i) => collectLeafPaths(entry, prefix ? `${prefix}.${i}` : `${i}`));
+    if ( !value.length ) {
+      if ( prefix ) paths.push(prefix);
+      return paths;
+    }
+    for ( const [i, entry] of value.entries() ) {
+      collectLeafPaths(entry, prefix ? `${prefix}.${i}` : `${i}`, limit, paths);
+      if ( paths.length >= limit ) break;
+    }
+    return paths;
   }
-  if ( !value || (typeof value !== "object") ) return prefix ? [prefix] : [];
+  if ( !value || (typeof value !== "object") ) {
+    if ( prefix ) paths.push(prefix);
+    return paths;
+  }
   const entries = Object.entries(value);
-  if ( !entries.length ) return prefix ? [prefix] : [];
-  return entries.flatMap(([key, entry]) => collectLeafPaths(entry, prefix ? `${prefix}.${key}` : key));
+  if ( !entries.length ) {
+    if ( prefix ) paths.push(prefix);
+    return paths;
+  }
+  for ( const [key, entry] of entries ) {
+    collectLeafPaths(entry, prefix ? `${prefix}.${key}` : key, limit, paths);
+    if ( paths.length >= limit ) break;
+  }
+  return paths;
 }
 
 /* -------------------------------------------- */
@@ -192,16 +215,17 @@ function collectLeafPaths(value, prefix="") {
  * Check whether an update object already targets a path.
  * @param {object} updateData  Pending update data.
  * @param {string} path        Dot path.
+ * @param {object} expandedUpdateData  Expanded update data.
  * @returns {boolean}
  */
-function hasUpdateForPath(updateData, path) {
+function hasUpdateForPath(updateData, path, expandedUpdateData) {
   if ( Object.hasOwn(updateData, path) ) return true;
   const parts = path.split(".");
   for ( let i = parts.length; i > 1; i-- ) {
     const equalityPath = `${parts[0]}.==${parts.slice(1, i).join(".")}`;
     if ( Object.hasOwn(updateData, equalityPath) ) return true;
   }
-  return foundry.utils.hasProperty(foundry.utils.expandObject(updateData), path);
+  return foundry.utils.hasProperty(expandedUpdateData, path);
 }
 
 /* -------------------------------------------- */
