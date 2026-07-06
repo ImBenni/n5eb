@@ -1,0 +1,327 @@
+folder: DaqFOOZLbpPI2fZd
+name: Abberation Passive
+type: feat
+_id: mpXpyD4PxPs7yZC4
+img: icons/creatures/magical/humanoid-silhouette-glowing-pink.webp
+system:
+  description:
+    value: >-
+      <p>This Adversary is completely foreign to the Shinobi World. Their Attacks, power source, resources and mode of
+      attack are all completely foreign to Ninja and thus cannot be understood. Attacks, Jutsu and abilities this
+      creature uses cannot be understood and requires no handseals or chakra molding. They also do not have Chakra,
+      instead spending Tenacity die as their only resource for chakra. Due to this, Aberrations gain three times the
+      number of tenacity die they would normally gain. This Adversary regains an additional +3 Tenacity at the beginning
+      of each of its turns.</p><p>D-Rank: 1 Die, C-Rank: 2 Die, B-Rank: 3 Dice, A-Rank: 4 Dice, S-Rank: 5 Dice.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: ''
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  type:
+    value: adversaryPassive
+    subtype: clan
+  prerequisites:
+    level: 1
+  properties: []
+  requirements: Level 1
+  recharge:
+    value: null
+    charged: false
+  identifier: abberation-passive
+effects:
+  - name: Abberation Passive
+    origin: Compendium.n5eb.adversary-passives.Item.mpXpyD4PxPs7yZC4
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/creatures/tentacles/tentacle-eyes-yellow-pink.webp
+    _id: Kkn5gkcHvizXk70m
+    type: base
+    system: {}
+    changes:
+      - key: system.resources.tenacity.max
+        mode: 4
+        value: '@flags.n5eb.aberrationTenacityDice'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727647822845
+      modifiedTime: 1727648080884
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!mpXpyD4PxPs7yZC4.Kkn5gkcHvizXk70m'
+sort: 100000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  dae:
+    macro:
+      name: Abberation Passive
+      img: icons/creatures/tentacles/tentacle-eyes-yellow-pink.webp
+      type: script
+      scope: global
+      command: |-
+        const version = "1.0.0";
+        try {
+          const lastArg = args[args.length - 1];
+
+          // Ensure the options exist and prevent the macro from re-triggering during update loops
+          lastArg.options = lastArg.options || {};
+          if (lastArg.options.onUpdateCalled) return;
+
+          // Get the actor from the arguments
+          const actor = game.actors.get(lastArg.actorId);
+          if (!actor) {
+            ui.notifications.error("Actor not found for the macro.");
+            return;
+          }
+
+          // Ensure the actor is an adversary
+          if (actor.system.details?.npcType !== "adversary") {
+            ui.notifications.error("This macro only applies to adversary creatures.");
+            return;
+          }
+
+          // Retrieve the rank of the adversary
+          const rank = actor.system.details.rank?.toLowerCase();
+          if (!rank) {
+            ui.notifications.error("Rank not found for this adversary.");
+            return;
+          }
+
+          // Define Tenacity Dice by rank
+          const tenacityByRank = {
+            drank: 1,
+            crank: 2,
+            brank: 3,
+            arank: 4,
+            srank: 5,
+          };
+
+          const baseTenacityDice = tenacityByRank[rank] || 0;
+          const tenacityDice = baseTenacityDice * 3;
+
+          // Set the base tenacity and additional tenacity gain flag
+          await actor.setFlag("n5eb", "aberrationTenacityDice", tenacityDice);
+
+          ui.notifications.info(`Aberration passive applied: ${tenacityDice} Tenacity Dice, with +3 gain each turn.`);
+        } catch (err) {
+          console.error(`Aberration Passive Macro ${version}`, err);
+        }
+      author: R0hw7EUsG7OzIhgn
+      ownership:
+        default: 3
+      _id: null
+      folder: null
+      sort: 0
+      flags: {}
+      _stats:
+        coreVersion: '12.331'
+        systemId: n5eb
+        systemVersion: 1,1,1
+        createdTime: null
+        modifiedTime: null
+        lastModifiedBy: null
+        compendiumSource: null
+        duplicateSource: null
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: adversary-passives
+      sourcePath: clan/n5e/abberation-passive.json
+      sourceId: mpXpyD4PxPs7yZC4
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>This Adversary is completely foreign to the Shinobi World. Their Attacks, power source, resources and
+            mode of attack are all completely foreign to Ninja and thus cannot be understood. Attacks, Jutsu and
+            abilities this creature uses cannot be understood and requires no handseals or chakra molding. They also do
+            not have Chakra, instead spending Tenacity die as their only resource for chakra. Due to this, Aberrations
+            gain three times the number of tenacity die they would normally gain. This Adversary regains an additional
+            +3 Tenacity at the beginning of each of its turns.</p><p>D-Rank: 1 Die, C-Rank: 2 Die, B-Rank: 3 Dice,
+            A-Rank: 4 Dice, S-Rank: 5 Dice.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: ''
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        type:
+          value: adversaryPassive
+          subtype: clan
+        prerequisites:
+          level: 1
+        properties: []
+        requirements: Level 1
+        recharge:
+          value: null
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1727635080147
+  modifiedTime: 1727654926088
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: adversary-passives
+    sourcePath: clan/n5e/abberation-passive.json
+_key: '!items!mpXpyD4PxPs7yZC4'

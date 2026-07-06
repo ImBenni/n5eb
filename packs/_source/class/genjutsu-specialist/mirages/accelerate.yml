@@ -1,0 +1,259 @@
+folder: lf6TzjVE3XVYuWmu
+name: Accelerate
+type: feat
+_id: xaWfMQhDV1dYhJlY
+img: icons/magic/control/debuff-energy-hold-pink.webp
+system:
+  description:
+    value: >-
+      <p><strong>Prerequisite</strong>: Temporal Stopwatch </p><hr /><p>As an action, you can choose up to 3 willing
+      creatures within 15 feet. For the next minute, each of the select creatures can use a bonus action to take the
+      Dash Action. </p><p>Additionally, they gain advantage on the next Dexterity saving throw they make, immediately
+      ending this features effect. You can use this Malleable Mirage once per short rest.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '3'
+    width: null
+    units: ''
+    type: willing
+    prompt: true
+  range:
+    value: 15
+    long: null
+    units: ft
+  uses:
+    value: 1
+    max: '1'
+    per: sr
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment:
+    items:
+      max: ''
+      period: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  type:
+    value: class
+    subtype: mirage
+  prerequisites:
+    level: null
+  properties: []
+  requirements: Temporal Stopwatch
+  recharge:
+    value: null
+    charged: false
+  identifier: accelerate
+effects:
+  - name: Accelerate
+    origin: Compendium.n5eb.class.Item.xaWfMQhDV1dYhJlY
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - isSave.dex
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/magic/control/debuff-energy-hold-pink.webp
+    _id: lJ78WP7n8jGZRu4Y
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.advantage.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727605636477
+      modifiedTime: 1727605714160
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!xaWfMQhDV1dYhJlY.lJ78WP7n8jGZRu4Y'
+sort: 1800000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: class
+      sourcePath: genjutsu-specialist/mirages/accelerate.json
+      sourceId: xaWfMQhDV1dYhJlY
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p><strong>Prerequisite</strong>: Temporal Stopwatch </p><hr /><p>As an action, you can choose up to 3
+            willing creatures within 15 feet. For the next minute, each of the select creatures can use a bonus action
+            to take the Dash Action. </p><p>Additionally, they gain advantage on the next Dexterity saving throw they
+            make, immediately ending this features effect. You can use this Malleable Mirage once per short rest.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '3'
+          width: null
+          units: ''
+          type: willing
+          prompt: true
+        range:
+          value: 15
+          long: null
+          units: ft
+        uses:
+          value: 1
+          max: '1'
+          per: sr
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment:
+          items:
+            max: ''
+            period: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        type:
+          value: class
+          subtype: mirage
+        prerequisites:
+          level: null
+        properties: []
+        requirements: Temporal Stopwatch
+        recharge:
+          value: null
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1723345250984
+  modifiedTime: 1727605599167
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: class
+    sourcePath: genjutsu-specialist/mirages/accelerate.json
+_key: '!items!xaWfMQhDV1dYhJlY'

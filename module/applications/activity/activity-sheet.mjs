@@ -1,0 +1,651 @@
+import { ConsumptionTargetData } from "../../data/activity/fields/consumption-targets-field.mjs";
+import UsesField from "../../data/shared/uses-field.mjs";
+import PseudoDocumentSheet from "../api/pseudo-document-sheet.mjs";
+
+/**
+ * Default sheet for activities.
+ */
+export default class ActivitySheet extends PseudoDocumentSheet {
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    classes: ["activity"],
+    window: {
+      icon: "fa-solid fa-gauge"
+    },
+    actions: {
+      addConsumption: ActivitySheet.#addConsumption,
+      addDamagePart: ActivitySheet.#addDamagePart,
+      addEffect: ActivitySheet.#addEffect,
+      addRecovery: ActivitySheet.#addRecovery,
+      deleteConsumption: ActivitySheet.#deleteConsumption,
+      deleteDamagePart: ActivitySheet.#deleteDamagePart,
+      deleteEffect: ActivitySheet.#deleteEffect,
+      deleteRecovery: ActivitySheet.#deleteRecovery,
+      dissociateEffect: ActivitySheet.#dissociateEffect
+    },
+    position: {
+      width: 500,
+      height: "auto"
+    }
+  };
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  static PARTS = {
+    tabs: {
+      template: "templates/generic/tab-navigation.hbs"
+    },
+    identity: {
+      template: "systems/n5eb/templates/activity/identity.hbs",
+      templates: [
+        "systems/n5eb/templates/activity/parts/activity-identity.hbs",
+        "systems/n5eb/templates/activity/parts/activity-visibility.hbs"
+      ]
+    },
+    activation: {
+      template: "systems/n5eb/templates/activity/activation.hbs",
+      templates: [
+        "systems/n5eb/templates/activity/parts/activity-time.hbs",
+        "systems/n5eb/templates/activity/parts/activity-targeting.hbs",
+        "systems/n5eb/templates/activity/parts/activity-consumption.hbs"
+      ]
+    },
+    effect: {
+      template: "systems/n5eb/templates/activity/effect.hbs",
+      templates: [
+        "systems/n5eb/templates/activity/parts/activity-effects.hbs",
+        "systems/n5eb/templates/activity/parts/activity-effect-level-limit.hbs",
+        "systems/n5eb/templates/activity/parts/activity-effect-settings.hbs"
+      ]
+    }
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Key paths to the parts of the submit data stored in arrays that will need special handling on submission.
+   * @type {string[]}
+   */
+  static CLEAN_ARRAYS = ["consumption.targets", "damage.parts", "effects", "uses.recovery"];
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  tabGroups = {
+    sheet: "identity",
+    activation: "time"
+  };
+
+  /* -------------------------------------------- */
+  /*  Properties                                  */
+  /* -------------------------------------------- */
+
+  /**
+   * The Activity associated with this application.
+   * @type {Activity}
+   */
+  get activity() {
+    return this.document;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  get title() {
+    return this.activity.name;
+  }
+
+  /* -------------------------------------------- */
+  /*  Rendering                                   */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _prepareContext(options) {
+    return {
+      ...await super._prepareContext(options),
+      activity: this.activity,
+      fields: this.activity.schema.fields,
+      inferred: this.activity._inferredSource,
+      source: this.activity.toObject(),
+      tabs: this._getTabs()
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _preparePartContext(partId, context, options) {
+    context = await super._preparePartContext(partId, context, options);
+    switch ( partId ) {
+      case "activation": return this._prepareActivationContext(context, options);
+      case "effect": return this._prepareEffectContext(context, options);
+      case "identity": return this._prepareIdentityContext(context, options);
+    }
+    return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare rendering context for the activation tab.
+   * @param {ApplicationRenderContext} context  Context being prepared.
+   * @param {HandlebarsRenderOptions} options   Options which configure application rendering behavior.
+   * @returns {ApplicationRenderContext}
+   * @protected
+   */
+  async _prepareActivationContext(context, options) {
+    context.tab = context.tabs.activation;
+
+    context.data = {};
+    context.disabled = {};
+    for ( const field of ["activation", "duration", "range", "target", "uses"] ) {
+      if ( !this.activity[field] ) continue;
+      context.data[field] = this.activity._source[field].override ? context.source[field] : context.inferred[field];
+      context.disabled[field] = this.activity[field].canOverride && !this.activity._source[field].override
+        && !this.activity.isRider;
+    }
+
+    context.activationTypes = [
+      ...Object.entries(CONFIG.DND5E.activityActivationTypes).map(([value, config]) => ({
+        value,
+        label: game.i18n.localize(config.label),
+        group: game.i18n.localize(config.group)
+      })),
+      { value: "", label: game.i18n.localize("DND5E.NoneActionLabel") }
+    ];
+    context.affectsPlaceholder = game.i18n.localize(
+      `DND5E.TARGET.Count.${context.data.target?.template?.type ? "Every" : "Any"}`
+    );
+    context.durationUnits = [
+      { value: "inst", label: game.i18n.localize("DND5E.TimeInst") },
+      ...Object.entries(CONFIG.DND5E.scalarTimePeriods).map(([value, label]) => ({
+        value, label, group: game.i18n.localize("DND5E.DurationTime")
+      })),
+      ...Object.entries(CONFIG.DND5E.permanentTimePeriods).map(([value, label]) => ({
+        value, label, group: game.i18n.localize("DND5E.DurationPermanent")
+      })),
+      { value: "spec", label: game.i18n.localize("DND5E.Special") }
+    ];
+    context.rangeUnits = [
+      ...Object.entries(CONFIG.DND5E.rangeTypes).map(([value, label]) => ({ value, label })),
+      ...Object.entries(CONFIG.DND5E.movementUnits).map(([value, { label }]) => ({
+        value, label, group: game.i18n.localize("DND5E.RangeDistance")
+      }))
+    ];
+
+    // Consumption targets
+    const canScale = this.activity.canConfigureScaling;
+    const consumptionTypeOptions = Array.from(this.activity.validConsumptionTypes).map(value => ({
+      value,
+      label: CONFIG.DND5E.activityConsumptionTypes[value].label
+    }));
+    context.consumptionTargets = context.source.consumption.targets.map((data, index) => {
+      const typeConfig = CONFIG.DND5E.activityConsumptionTypes[data.type] ?? {};
+      const showTextTarget = typeConfig.targetRequiresEmbedded && !this.item.isEmbedded;
+      const target = new ConsumptionTargetData(data, { parent: this.activity });
+      return {
+        data,
+        fields: this.activity.schema.fields.consumption.fields.targets.element.fields,
+        prefix: `consumption.targets.${index}.`,
+        source: context.source.consumption.targets[index] ?? data,
+        targetHint: this.item.isEmbedded ? undefined : typeConfig.nonEmbeddedHint,
+        typeOptions: consumptionTypeOptions,
+        scalingModes: canScale ? [
+          { value: "", label: game.i18n.localize("DND5E.CONSUMPTION.Scaling.None") },
+          { value: "amount", label: game.i18n.localize("DND5E.CONSUMPTION.Scaling.Amount") },
+          ...(typeConfig.scalingModes ?? []).map(({ value, label }) => ({ value, label: game.i18n.localize(label) }))
+        ] : null,
+        showTargets: "validTargets" in typeConfig,
+        selectedTarget: ("validTargets" in typeConfig) && ["itemUses", "material"].includes(data.type)
+          ? this.activity._remapConsumptionTarget(data.target)
+          : data.target,
+        targetPlaceholder: data.type === "itemUses" ? game.i18n.localize("DND5E.CONSUMPTION.Target.ThisItem") : "",
+        validTargets: showTextTarget ? null : target.validTargets
+      };
+    });
+    context.showConsumeSpellSlot = (this.activity.isSpell || this.activity.isRider) && (this.item.system.level !== 0);
+    context.showScaling = !this.activity.isSpell || this.activity.isRider;
+
+    // Uses recovery
+    context.recoveryPeriods = CONFIG.DND5E.limitedUsePeriods.recoveryOptions;
+    context.recoveryTypes = [
+      { value: "recoverAll", label: game.i18n.localize("DND5E.USES.Recovery.Type.RecoverAll") },
+      { value: "loseAll", label: game.i18n.localize("DND5E.USES.Recovery.Type.LoseAll") },
+      { value: "formula", label: game.i18n.localize("DND5E.USES.Recovery.Type.Formula") }
+    ];
+    context.usesRecovery = context.source.uses.recovery.map((data, index) => ({
+      data,
+      fields: this.activity.schema.fields.uses.fields.recovery.element.fields,
+      prefix: `uses.recovery.${index}.`,
+      source: context.source.uses.recovery[index] ?? data,
+      formulaOptions: data.period === "recharge" ? UsesField.rechargeOptions : null
+    }));
+
+    // Template dimensions
+    context.dimensions = context.activity.target?.template?.dimensions;
+
+    return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare a specific applied effect if present in the activity data.
+   * @param {ApplicationRenderContext} context  Context being prepared.
+   * @param {object} effect                     Applied effect context being prepared.
+   * @returns {object}
+   * @protected
+   */
+  _prepareAppliedEffectContext(context, effect) {
+    return effect;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare a specific damage part if present in the activity data.
+   * @param {ApplicationRenderContext} context  Context being prepared.
+   * @param {object} part                       Damage part context being prepared.
+   * @returns {object}
+   * @protected
+   */
+  _prepareDamagePartContext(context, part) {
+    return part;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare rendering context for the effect tab.
+   * @param {ApplicationRenderContext} context  Context being prepared.
+   * @param {HandlebarsRenderOptions} options   Options which configure application rendering behavior.
+   * @returns {ApplicationRenderContext}
+   * @protected
+   */
+  async _prepareEffectContext(context, options) {
+    context.tab = context.tabs.effect;
+
+    if ( context.activity.effects ) {
+      const appliedEffects = new Set(context.activity.effects?.map(e => e._id) ?? []);
+      context.allEffects = this.item.effects
+        .filter(e => e.type !== "enchantment")
+        .map(effect => ({
+          value: effect.id, label: effect.name, selected: appliedEffects.has(effect.id)
+        }));
+      context.appliedEffects = context.activity.effects.reduce((arr, data) => {
+        if ( !data.effect ) return arr;
+        const effect = {
+          data,
+          collapsed: this.expandedSections.get(`effects.${data._id}`) ? "" : "collapsed",
+          effect: data.effect,
+          fields: this.activity.schema.fields.effects.element.fields,
+          prefix: `effects.${data._index}.`,
+          source: context.source.effects[data._index] ?? data,
+          contentLink: data.effect.toAnchor().outerHTML,
+          additionalSettings: "systems/n5eb/templates/activity/parts/activity-effect-settings.hbs"
+        };
+        arr.push(this._prepareAppliedEffectContext(context, effect));
+        return arr;
+      }, []);
+    }
+
+    context.denominationOptions = [
+      { value: "", label: "" },
+      ...CONFIG.DND5E.dieSteps.map(value => ({ value, label: `d${value}` }))
+    ];
+    if ( context.activity.damage?.parts ) {
+      const scaleKey = (this.item.type === "spell") && (this.item.system.level === 0) ? "labelCantrip" : "label";
+      const scalingOptions = [
+        { value: "", label: game.i18n.localize("DND5E.DAMAGE.Scaling.None") },
+        ...Object.entries(CONFIG.DND5E.damageScalingModes).map(([value, { [scaleKey]: label }]) => ({ value, label }))
+      ];
+      let typeOptions = Object.entries(CONFIG.DND5E.damageTypes).map(([value, config]) => ({ ...config, value }));
+      const [other, physical] = typeOptions.partition(config => !!config.isPhysical);
+      typeOptions = [
+        ...physical, { rule: true }, ...other, { rule: true },
+        { value: "maximum", label: "DND5E.HEAL.Type.Maximum" },
+        { value: "maxcp", label: "DND5E.HEAL.Type.MaximumChakra" }
+      ];
+      const makePart = (data, index) => this._prepareDamagePartContext(context, {
+        data, index, scalingOptions, typeOptions,
+        locked: data.locked || (index === undefined),
+        canScale: this.activity.canScaleDamage,
+        fields: this.activity.schema.fields.damage.fields.parts.element.fields,
+        prefix: index !== undefined ? `damage.parts.${index}.` : "_.",
+        source: data
+      });
+      context.damageParts = [
+        ...context.activity.damage.parts
+          .filter(p => p._index === undefined)
+          .map((data, index) => makePart(data)),
+        ...context.source.damage.parts.map((data, index) => makePart(data, index))
+      ];
+    }
+
+    return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare rendering context for the identity tab.
+   * @param {ApplicationRenderContext} context  Context being prepared.
+   * @param {HandlebarsRenderOptions} options   Options which configure application rendering behavior.
+   * @returns {ApplicationRenderContext}
+   * @protected
+   */
+  async _prepareIdentityContext(context, options) {
+    context.tab = context.tabs.identity;
+    context.behaviorFields = [];
+    if ( context.fields.target?.fields?.prompt ) context.behaviorFields.push({
+      field: context.fields.target.fields.prompt,
+      value: context.source.target.prompt,
+      input: context.inputs.createCheckboxInput
+    });
+    context.placeholder = {
+      name: game.i18n.localize(this.activity.metadata.title),
+      img: this.activity.metadata.img
+    };
+
+    const addField = (name, lockedValue) => name in context.fields.visibility.fields ? {
+      disabled: lockedValue !== undefined,
+      field: context.fields.visibility.fields[name],
+      input: context.inputs.createCheckboxInput,
+      value: lockedValue ?? context.source.visibility[name]
+    } : null;
+    const itemSystem = this.activity.item.system;
+    const isRider = this.activity.isRider;
+    context.visibilityFields = [
+      // Only show "Require Attunement" if item has an attunement option
+      ["required", "optional"].includes(itemSystem.attunement) || isRider ? addField("requireAttunement",
+        // If item requires attunement, then the "Require Attunement" option is locked to the "Require Magic" option
+        !isRider && (itemSystem.attunement === "required")
+          ? context.source.visibility.requireMagic : undefined
+      ) : null,
+      // Only show "Require Magic" if item is magical or doesn't support the magical property
+      (!this.activity.isSpell && (itemSystem.properties?.has("mgc") || !itemSystem.validProperties.has("mgc")))
+        || isRider ? addField("requireMagic") : null,
+      // Only show "Require Identification" if item can be identified
+      "identified" in this.activity.item.system || isRider ? addField("requireIdentification") : null
+    ].filter(_ => _);
+
+    return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the tab information for the sheet.
+   * @returns {Record<string, Partial<ApplicationTab>>}
+   * @protected
+   */
+  _getTabs() {
+    return this._markTabs({
+      identity: {
+        id: "identity", group: "sheet", icon: "fa-solid fa-tag",
+        label: "DND5E.ACTIVITY.SECTIONS.Identity"
+      },
+      activation: {
+        id: "activation", group: "sheet", icon: "fa-solid fa-clapperboard",
+        label: "DND5E.ACTIVITY.SECTIONS.Activation",
+        tabs: {
+          time: {
+            id: "time", group: "activation", icon: "fa-solid fa-clock",
+            label: "DND5E.ACTIVITY.SECTIONS.Time"
+          },
+          consumption: {
+            id: "consumption", group: "activation", icon: "fa-solid fa-boxes-stacked",
+            label: "DND5E.CONSUMPTION.FIELDS.consumption.label"
+          },
+          targeting: {
+            id: "activation-targeting", group: "activation", icon: "fa-solid fa-bullseye",
+            label: "DND5E.TARGET.FIELDS.target.label"
+          }
+        }
+      },
+      effect: {
+        id: "effect", group: "sheet", icon: "fa-solid fa-sun",
+        label: "DND5E.ACTIVITY.SECTIONS.Effect"
+      }
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Helper to mark the tabs data structure with the appropriate CSS class if it is active.
+   * @param {Record<string, Partial<ApplicationTab>>} tabs  Tabs definition to modify.
+   * @returns {Record<string, Partial<ApplicationTab>>}
+   * @internal
+   */
+  _markTabs(tabs) {
+    for ( const v of Object.values(tabs) ) {
+      v.active = this.tabGroups[v.group] === v.id;
+      v.cssClass = v.active ? "active" : "";
+      if ( "tabs" in v ) this._markTabs(v.tabs);
+    }
+    return tabs;
+  }
+
+  /* -------------------------------------------- */
+  /*  Life-Cycle Handlers                         */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    this.#toggleNestedTabs();
+  }
+
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  changeTab(tab, group, options={}) {
+    super.changeTab(tab, group, options);
+    if ( group !== "sheet" ) return;
+    this.#toggleNestedTabs();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply nested tab classes.
+   */
+  #toggleNestedTabs() {
+    const primary = this.element.querySelector('.window-content > [data-application-part="tabs"]');
+    const active = this.element.querySelector('.tab.active[data-group="sheet"]');
+    if ( !primary || !active ) return;
+    primary.classList.toggle("nested-tabs", active.querySelector(":scope > .sheet-tabs"));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle adding a new entry to the consumption list.
+   * @this {ActivitySheet}
+   * @param {Event} event         Triggering click event.
+   * @param {HTMLElement} target  Button that was clicked.
+   */
+  static #addConsumption(event, target) {
+    const types = this.activity.validConsumptionTypes;
+    const existingTypes = new Set(this.activity.consumption.targets.map(t => t.type));
+    const filteredTypes = types.difference(existingTypes);
+    let type = filteredTypes.first() ?? types.first();
+    if ( (type === "activityUses") && !this.activity._source.uses.max && this.activity.item.system._source.uses.max
+      && filteredTypes.has("itemUses") ) type="itemUses";
+    this.activity.update({
+      "consumption.targets": [
+        ...this.activity.toObject().consumption.targets,
+        { type }
+      ]
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle adding a new entry to the damage parts list.
+   * @this {ActivitySheet}
+   * @param {Event} event         Triggering click event.
+   * @param {HTMLElement} target  Button that was clicked.
+   */
+  static #addDamagePart(event, target) {
+    if ( !this.activity.damage?.parts ) return;
+    this.activity.update({ "damage.parts": [...this.activity.toObject().damage.parts, {}] });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle creating a new active effect and adding it to the applied effects list.
+   * @this {ActivitySheet}
+   * @param {Event} event         Triggering click event.
+   * @param {HTMLElement} target  Button that was clicked.
+   */
+  static async #addEffect(event, target) {
+    if ( !this.activity.effects ) return;
+    const effectData = this._addEffectData();
+    const [created] = await this.item.createEmbeddedDocuments("ActiveEffect", [effectData], { render: false });
+    this.activity.update({ effects: [...this.activity.toObject().effects, { _id: created.id }] });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The data for a newly created applied effect.
+   * @returns {object}
+   * @protected
+   */
+  _addEffectData() {
+    return {
+      name: this.item.name,
+      img: this.item.img,
+      origin: this.item.uuid,
+      transfer: false
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle adding a new entry to the uses recovery list.
+   * @this {ActivitySheet}
+   * @param {Event} event         Triggering click event.
+   * @param {HTMLElement} target  Button that was clicked.
+   */
+  static #addRecovery(event, target) {
+    const periods = new Set(
+      Object.entries(CONFIG.DND5E.limitedUsePeriods).filter(([, config]) => !config.deprecated).map(([k]) => k)
+    );
+    const existingPeriods = new Set(this.activity.uses.recovery.map(t => t.period));
+    const filteredPeriods = periods.difference(existingPeriods);
+    this.activity.update({
+      "uses.recovery": [
+        ...this.activity.toObject().uses.recovery,
+        { period: filteredPeriods.first() ?? periods.first() }
+      ]
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle removing an entry from the consumption targets list.
+   * @this {ActivitySheet}
+   * @param {Event} event         Triggering click event.
+   * @param {HTMLElement} target  Button that was clicked.
+   */
+  static #deleteConsumption(event, target) {
+    const consumption = this.activity.toObject().consumption.targets;
+    consumption.splice(target.closest("[data-index]").dataset.index, 1);
+    this.activity.update({ "consumption.targets": consumption });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle removing an entry from the damage parts list.
+   * @this {ActivitySheet}
+   * @param {Event} event         Triggering click event.
+   * @param {HTMLElement} target  Button that was clicked.
+   */
+  static #deleteDamagePart(event, target) {
+    if ( !this.activity.damage?.parts ) return;
+    const parts = this.activity.toObject().damage.parts;
+    parts.splice(target.closest("[data-index]").dataset.index, 1);
+    this.activity.update({ "damage.parts": parts });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle deleting an active effect and removing it from the applied effects list.
+   * @this {ActivitySheet}
+   * @param {Event} event         Triggering click event.
+   * @param {HTMLElement} target  Button that was clicked.
+   */
+  static async #deleteEffect(event, target) {
+    if ( !this.activity.effects ) return;
+    const effectId = target.closest("[data-effect-id]")?.dataset.effectId;
+    const result = await this.item.effects.get(effectId)?.deleteDialog({}, { render: false });
+    if ( result instanceof ActiveEffect ) {
+      const effects = this.activity.toObject().effects.filter(e => e._id !== effectId);
+      this.activity.update({ effects });
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle removing an entry from the uses recovery list.
+   * @this {ActivitySheet}
+   * @param {Event} event         Triggering click event.
+   * @param {HTMLElement} target  Button that was clicked.
+   */
+  static #deleteRecovery(event, target) {
+    const recovery = this.activity.toObject().uses.recovery;
+    recovery.splice(target.closest("[data-index]").dataset.index, 1);
+    this.activity.update({ "uses.recovery": recovery });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle dissociating an Active Effect from this Activity.
+   * @this {ActivitySheet}
+   * @param {PointerEvent} event  The triggering click event.
+   * @param {HTMLElement} target  The button that was clicked.
+   */
+  static #dissociateEffect(event, target) {
+    const { effectId } = target.closest("[data-effect-id]")?.dataset ?? {};
+    if ( !this.activity.effects || !effectId ) return;
+    const effects = this.activity.toObject().effects.filter(e => e._id !== effectId);
+    this.activity.update({ effects });
+  }
+
+  /* -------------------------------------------- */
+  /*  Form Handling                               */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareSubmitData(event, formData) {
+    const submitData = super._prepareSubmitData(event, formData);
+    for ( const keyPath of this.constructor.CLEAN_ARRAYS ) {
+      const data = foundry.utils.getProperty(submitData, keyPath);
+      if ( data ) foundry.utils.setProperty(submitData, keyPath, Object.values(data));
+    }
+    if ( foundry.utils.hasProperty(submitData, "appliedEffects") ) {
+      const effects = submitData.effects ?? this.activity.toObject().effects;
+      submitData.effects = effects.filter(e => submitData.appliedEffects.includes(e._id));
+      for ( const _id of submitData.appliedEffects ) {
+        if ( submitData.effects.find(e => e._id === _id) ) continue;
+        submitData.effects.push({ _id });
+      }
+      delete submitData.appliedEffects;
+    }
+    return submitData;
+  }
+}

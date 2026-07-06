@@ -1,0 +1,331 @@
+name: Wind Release Spiraling Tempest
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/wind.webp
+system:
+  description:
+    value: >-
+      <p>You release a surge of Wind Release Chakra that protects and enhances all of your allies for the duration. All
+      creatures of your choice within range gain the following;</p><p>• If a creature starts their turns in this jutsu's
+      radius, they gain a Bonus +30 Movement speed until the end of their next turns.</p><p>• They gain a +3 bonus to
+      Ninjutsu and Taijutsu Attack Rolls.</p><p>• They gain a number of Temporary Hit points equal to your Ninjutsu Save
+      DC at the beginning of each of their turns. These Temporary hit points do not stack.</p><p>• Taijutsu they cast
+      that has a range of touch, or 5 feet, increases their range by 15 feet, and deals an additional 3d8 Wind
+      Damage.</p><p>• Affected Creatures cannot be Dazed or Weakened.</p><p>• Affected creatures gain Resistance to
+      Lightning Damage.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '45'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 20
+    scale: false
+  ability: null
+  actionType: ''
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 9
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: wind-release-spiraling-tempest
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - wind
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: s
+  chakra:
+    cost: '20'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Dazed
+    origin: Compendium.n5eb.jutsus.Item.TbRR68fgkc061Q1S
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: 8lrcV1ufDDVYy2we
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow and cannot take as many actions as
+      usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition lasts until the End of the affected
+      creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!TbRR68fgkc061Q1S.8lrcV1ufDDVYy2we'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: wind-release/s-rank/wind-release-spiraling-tempest.json
+      sourceId: TbRR68fgkc061Q1S
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You release a surge of Wind Release Chakra that protects and enhances all of your allies for the
+            duration. All creatures of your choice within range gain the following;</p><p>• If a creature starts their
+            turns in this jutsu's radius, they gain a Bonus +30 Movement speed until the end of their next
+            turns.</p><p>• They gain a +3 bonus to Ninjutsu and Taijutsu Attack Rolls.</p><p>• They gain a number of
+            Temporary Hit points equal to your Ninjutsu Save DC at the beginning of each of their turns. These Temporary
+            hit points do not stack.</p><p>• Taijutsu they cast that has a range of touch, or 5 feet, increases their
+            range by 15 feet, and deals an additional 3d8 Wind Damage.</p><p>• Affected Creatures cannot be Dazed or
+            Weakened.</p><p>• Affected creatures gain Resistance to Lightning Damage.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '45'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 20
+          scale: false
+        ability: null
+        actionType: ''
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 5
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - wind
+        chakraCost: 20
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757601216
+  modifiedTime: 1728757601216
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: wind-release/s-rank/wind-release-spiraling-tempest.json
+folder: NcIyG8syHRkRgZSw
+sort: 0
+ownership:
+  default: 0
+_id: TbRR68fgkc061Q1S
+_key: '!items!TbRR68fgkc061Q1S'

@@ -1,0 +1,269 @@
+folder: 3rhNp8m3s1RzeBb0
+name: Cerealian Passive
+type: feat
+_id: YhRI8y1UuF3UNnH2
+img: systems/n5eb/assets/content/clans/cerealian.webp
+system:
+  description:
+    value: >-
+      <p>This adversary possesses the Evolved Eye of the Cerealian Clan, granting them the following benefits while
+      active; </p><ul><li><p>120ft of Chakra Sight and a +5 to Passive Perception and Passive Insight
+      </p></li><li><p>This adversary can see the vitals and exact hit points of creatures. </p></li><li><p>This
+      adversary gains a +1 to critical threat range and increases the range of all its jutsu by 20ft. </p></li><li><p>On
+      this adversaries turn, it can designate one creature as their <strong>Target</strong> until the end of the turn.
+      Gain a +2 to ranged attack and damage rolls against your target.</p></li></ul>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: none
+    cost: 1
+    condition: Whilst Eye is Active
+  duration:
+    value: ''
+    units: disp
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  type:
+    value: adversaryPassive
+    subtype: clan
+  prerequisites:
+    level: 1
+  properties: []
+  requirements: Level 1
+  recharge:
+    value: null
+    charged: false
+  identifier: cerealian-passive
+effects:
+  - name: Cerealian Passive
+    origin: Compendium.n5eb.adversary-passives.Item.YhRI8y1UuF3UNnH2
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: CerealianClan.png
+    _id: k3V7N6FWVEwXTjRl
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.senses.chakrasight
+        mode: 4
+        value: '120'
+        priority: 20
+      - key: system.skills.prc.bonuses.passive
+        mode: 2
+        value: '5'
+        priority: 20
+      - key: system.skills.ins.bonuses.passive
+        mode: 2
+        value: '5'
+        priority: 20
+      - key: flags.n5eb.spellCriticalThreshold
+        mode: 2
+        value: '1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727651007994
+      modifiedTime: 1727651096127
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!YhRI8y1UuF3UNnH2.k3V7N6FWVEwXTjRl'
+sort: 100000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    reactionCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: adversary-passives
+      sourcePath: clan/t7/cerealian-passive.json
+      sourceId: YhRI8y1UuF3UNnH2
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>This adversary possesses the Evolved Eye of the Cerealian Clan, granting them the following benefits
+            while active; </p><ul><li><p>120ft of Chakra Sight and a +5 to Passive Perception and Passive Insight
+            </p></li><li><p>This adversary can see the vitals and exact hit points of creatures. </p></li><li><p>This
+            adversary gains a +1 to critical threat range and increases the range of all its jutsu by 20ft.
+            </p></li><li><p>On this adversaries turn, it can designate one creature as their <strong>Target</strong>
+            until the end of the turn. Gain a +2 to ranged attack and damage rolls against your target.</p></li></ul>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: none
+          cost: 1
+          condition: Whilst Eye is Active
+        duration:
+          value: ''
+          units: disp
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        type:
+          value: adversaryPassive
+          subtype: clan
+        prerequisites:
+          level: 1
+        properties: []
+        requirements: Level 1
+        recharge:
+          value: null
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1727649710071
+  modifiedTime: 1727804605287
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: adversary-passives
+    sourcePath: clan/t7/cerealian-passive.json
+_key: '!items!YhRI8y1UuF3UNnH2'

@@ -1,0 +1,334 @@
+name: Whirlwind Death Drop
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/taijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You perform a spinning backwards kick followed by a devastating downward axe kick.</p><p>Make two Taijutsu
+      attack On a hit, each attack deals your [Unarmed Damage] + 2d8.</p><p>If this jutsu is used as a Finisher, you
+      make three spinning kicks. Make three melee taijutsu attacks, dealing your [Unarmed Damage] + 2d8. If a creature
+      is hit with at least two of your attacks, they must make a Constitution saving throw, being stunned until the
+      beginning of their next turn on a failed save.</p><p>At Higher Ranks: For each rank you cast this jutsu above
+      C-Rank, increase the cost of this jutsu by 3 and damage by 1d8.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 5
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d8
+        - ''
+    versatile: ''
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: taijutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: whirlwind-death-drop
+  jutsu:
+    components:
+      - m
+    keywords:
+      - taijutsu
+      - finisher
+    countsKnown: true
+    ability: ''
+    type: taijutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Stunned
+    origin: Compendium.n5eb.jutsus.Item.AExJGYaUlNB6Hb2N
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    _id: vkihC9VrdpghreqY
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.fail.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.fail.ability.save.str
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: stunned
+        priority: 20
+    description: >-
+      <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
+      falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
+      throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!AExJGYaUlNB6Hb2N.vkihC9VrdpghreqY'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: taijutsu/c-rank/whirlwind-death-drop.json
+      sourceId: AExJGYaUlNB6Hb2N
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You perform a spinning backwards kick followed by a devastating downward axe kick.</p><p>Make two
+            Taijutsu attack On a hit, each attack deals your [Unarmed Damage] + 2d8.</p><p>If this jutsu is used as a
+            Finisher, you make three spinning kicks. Make three melee taijutsu attacks, dealing your [Unarmed Damage] +
+            2d8. If a creature is hit with at least two of your attacks, they must make a Constitution saving throw,
+            being stunned until the beginning of their next turn on a failed save.</p><p>At Higher Ranks: For each rank
+            you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and damage by 1d8.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 5
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d8
+              - ''
+          versatile: ''
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: taijutsu
+        level: 2
+        school: tai
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - mobility
+        keywords:
+          - taijutsu
+          - finisher
+        chakraCost: 9
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757579263
+  modifiedTime: 1728757579263
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: taijutsu/c-rank/whirlwind-death-drop.json
+folder: O15cLlkMNP72MaKd
+sort: 4400000
+ownership:
+  default: 0
+_id: AExJGYaUlNB6Hb2N
+_key: '!items!AExJGYaUlNB6Hb2N'

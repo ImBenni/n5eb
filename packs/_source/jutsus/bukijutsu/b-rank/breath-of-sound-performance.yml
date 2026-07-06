@@ -1,0 +1,515 @@
+name: Breath of Sound Performance
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You begin to collect and manifest chakra until it manifest into the shape of a sound note of your choice,
+      hovering over your eyes as you begin to listen to all of the sounds created as a result of battle. You then throw
+      a large number of explosive tools into the air at different, intentional points. You then sprint through them
+      attack each one as you pass by creating an unstopping wave of explosions that follow you as you attack anyone in
+      your way.</p><p>Select a space you can see within range, that passes through one or more creatures in a 5-foot
+      wide, 60- foot-long line, originating from you. You move into a space adjacent to the end of that line, that can
+      hold you, leaving behind a festival of explosions and light. All creatures who your line would pass through must
+      make a Dexterity saving throw, taking your [weapons damage] + 3d10 force damage, being knocked prone, blinded and
+      deafened for 1 minute on a failed save, or half as much damage and no further effects on a success. A blinded and
+      deafened creature can make a Constitution saving throw at the end of each of their turns to end these effects on
+      them on a success.</p><p>At Higher Ranks: For each rank you cast this jutsu above B-Rank increase the cost of this
+      jutsu by 3 and the damage by 1d10.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: (Any Melee)(Any explosive tool)
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 13
+    scale: false
+  ability: taijutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 3d10
+        - force
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  level: 5
+  school: trs
+  materials:
+    value: (Any Melee),(Any explosive tool),
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d10
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: breath-of-sound-performance
+  jutsu:
+    components:
+      - cm
+      - m
+      - w
+      - nt
+    keywords:
+      - bukijutsu
+      - sensory
+      - clash
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: b
+  chakra:
+    cost: '13'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Blinded
+    origin: Compendium.n5eb.jutsus.Item.oTBR68qOaOACHin1
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/blinded.svg
+    _id: FBcnpvGSWceLgHR2
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: blinded
+        priority: 20
+    description: >-
+      <p>• A <strong>Blinded</strong> creature cannot target another creature with effects that require them to “target
+      a creature they can see” unless they have a special sense that does not require sight, such as <strong>Tremor
+      Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A blinded creature can’t see and automatically fails
+      any check that requires sight.</p><p>• A <strong>Blinded</strong> creature has disadvantage on Dexterity saving
+      throws.</p><p>• Attack rolls against a <strong>Blinded</strong> creature have advantage, and a
+      <strong>Blinded</strong> creature’s attack rolls have disadvantage without the aid of a special sense that does
+      not require sight, such as <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A creature
+      can willingly close their eyes as a free action for an extended period of time. Doing so imposes this Condition on
+      them until the beginning of their next turn, they cannot reopen their eyes until then, unless they are forced to
+      do so by some other means.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!oTBR68qOaOACHin1.FBcnpvGSWceLgHR2'
+  - name: Deafened
+    origin: Compendium.n5eb.jutsus.Item.oTBR68qOaOACHin1
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: true
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/deafened.svg
+    _id: UYz2lbpiSIq2bZ2P
+    type: base
+    system: {}
+    changes:
+      - key: system.skills.prc.bonuses.check
+        mode: 2
+        value: '-10'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.wis
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.attack.wis
+        mode: 5
+        value: '1'
+        priority: 20
+    description: >-
+      <p>• A <strong>Deafened</strong> creature can’t hear and automatically fails any check that requires
+      hearing.</p><p>• A <strong>Deafened</strong> creatures has a -10 penalty to their Perception.</p><p>• Creatures
+      currently Hidden from a <strong>Deafened</strong> creature do not need to reroll Dexterity (Stealth) Checks to
+      maintain Stealth against them.</p><p>• Wisdom based Checks, attacks and saving throws are made at
+      disadvantage.</p><p>• A creature can willingly cover their ears for an extended period of time as a bonus action.
+      Doing so imposes this Condition on them and occupies both hands until the beginning of their next turn.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.LtF9jNCx9U6p4U6w.ActiveEffect.JD6YqfV0jNWOgoBJ
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!oTBR68qOaOACHin1.UYz2lbpiSIq2bZ2P'
+  - name: Prone
+    origin: Compendium.n5eb.jutsus.Item.oTBR68qOaOACHin1
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: n6gRvfyBuCTbnOy9
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!oTBR68qOaOACHin1.n6gRvfyBuCTbnOy9'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - molding
+      - weapon
+      - ninjatool
+      - sensory
+      - clash
+      - chakramolding
+      - weapons
+      - ninjatools
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/b-rank/breath-of-sound-performance.json
+      sourceId: oTBR68qOaOACHin1
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You begin to collect and manifest chakra until it manifest into the shape of a sound note of your choice,
+            hovering over your eyes as you begin to listen to all of the sounds created as a result of battle. You then
+            throw a large number of explosive tools into the air at different, intentional points. You then sprint
+            through them attack each one as you pass by creating an unstopping wave of explosions that follow you as you
+            attack anyone in your way.</p><p>Select a space you can see within range, that passes through one or more
+            creatures in a 5-foot wide, 60- foot-long line, originating from you. You move into a space adjacent to the
+            end of that line, that can hold you, leaving behind a festival of explosions and light. All creatures who
+            your line would pass through must make a Dexterity saving throw, taking your [weapons damage] + 3d10 force
+            damage, being knocked prone, blinded and deafened for 1 minute on a failed save, or half as much damage and
+            no further effects on a success. A blinded and deafened creature can make a Constitution saving throw at the
+            end of each of their turns to end these effects on them on a success.</p><p>At Higher Ranks: For each rank
+            you cast this jutsu above B-Rank increase the cost of this jutsu by 3 and the damage by 1d10.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: (Any Melee)(Any explosive tool)
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 13
+          scale: false
+        ability: taijutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 3d10
+              - force
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        level: 3
+        school: buki
+        materials:
+          value: (Any Melee),(Any explosive tool),
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d10
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+          - weapons
+          - ninjatools
+          - molding
+          - weapon
+          - ninjatool
+          - sensory
+          - clash
+        keywords:
+          - bukijutsu
+          - sensory
+          - clash
+        chakraCost: 13
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755893853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/b-rank/breath-of-sound-performance.json
+folder: Jl06pbyhjmFzL4c2
+sort: 4100000
+ownership:
+  default: 0
+_id: oTBR68qOaOACHin1
+_key: '!items!oTBR68qOaOACHin1'

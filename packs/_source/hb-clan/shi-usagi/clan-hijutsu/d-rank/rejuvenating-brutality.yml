@@ -1,0 +1,465 @@
+folder: IG7lYp0d2zRG94LS
+name: Rejuvenating Brutality
+type: spell
+_id: 3kbBda7iRRbcIqhJ
+img: systems/n5eb/assets/content/clans/shi-usagi.webp
+system:
+  description:
+    value: "<p>You take pleasure in brutalizing your downed enemies, savoring their agony and the sight of their blood. You can use your action to attack a creature that is downed, regardless of whether you kill it or not (unless you are in a berserk state).<br />You heal for 2d8 HP if you do not kill the target, or 3d10 HP if you do. If you kill the target, every creature within 25 feet that can see you must make a Wisdom saving throw or gain 1 rank of fear.<br />You can only use this once per downed creature.<br />\_ \_ <strong>At Higher Ranks:</strong> For each rank above D-Rank that you cast this jutsu, increase the chakra cost by 3 and the healing by 1d8/1d10 respectively.</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 5
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d8
+        - healing
+    versatile: 3d10
+  enchantment: null
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: taijutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d8
+  versatileScaling:
+    mode: level
+    formula: 1d10
+  identifier: rejuvenating-brutality
+  jutsu:
+    components:
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - medical
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Berserk
+    origin: Compendium.n5eb.hb-clan.Item.3kbBda7iRRbcIqhJ
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: berserk
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/berserk.svg
+    _id: t4EgwstWH5zNWKhQ
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: berserk
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Berserk creature has
+      experienced a temporary loss in sanity, causing them to act rabid to a
+      varying degree. This condition is typically the result of a Genjutsu or
+      mind-altering poison.</p><ul><li><p>A Berserk creature must use all
+      action(s) and movement to attack/harm the creature nearest to it that it
+      can perceive as if that creature was a mortal enemy. If multiple creatures
+      are potential targets, it picks one at random.</p></li><li><p>When a
+      creature moves out of a berserk creature's reach, it provokes an
+      opportunity attack.</p></li><li><p>A Berserk creature has a -1 penalty to
+      all Charisma based attacks, checks and saving throws for each rank it
+      has.</p></li><li><p>Creatures that are immune to the charmed condition are
+      also immune to the berserk condition. A Jutsu which cures the charmed
+      condition also cures this Condition.</p></li><li><p>A Berserk creature
+      loses 1 rank of Berserk at the end of each of its turns as its mind slowly
+      clears.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - berserk
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.qAXtyj0uf1xsaU9G.ActiveEffect.LK4NzyOAL92TbrYA
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,0
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!3kbBda7iRRbcIqhJ.t4EgwstWH5zNWKhQ'
+  - name: Demoralized
+    origin: Compendium.n5eb.hb-clan.Item.3kbBda7iRRbcIqhJ
+    duration:
+      rounds: 100
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: demoralized
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/frightened.svg
+    _id: 9XIGn7aOLKuDgnZ0
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: frightened
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=end,
+          saveDC=13,
+          saveAbility=cha,
+          allowIncapacitated=true,
+          label=Save to overcome Demoralized
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain
+      ranks of <strong>Fear</strong> (<strong>or Frightened</strong>), gain
+      ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong>
+      creature is disturbed by a particular target in some fashion, making them
+      seek to avoid interaction with them if possible. This heightened stress
+      causes the defenses of the Demoralized target to wane.</p><ul><li><p>A
+      <strong>Demoralized</strong> creature suffers a -1 penalty to its saving
+      throws, for each rank they have.</p></li><li><p>A
+      <strong>Demoralized</strong> creature must make concentration checks at
+      the beginning of each of their turns to maintain concentration on their
+      jutsu.</p></li><li><p>At the end of a <strong>Demoralized</strong>
+      creatures turn they make a DC 13 Charisma ability check. On a success,
+      they remove 1 rank of <strong>Demoralized</strong>. After 10 minutes, a
+      creature who still has ranks of <strong>Demoralized</strong>, loses all
+      ranks of <strong>Demoralized</strong> it has remaining</p></li><li><p>As
+      an action, a <strong>Demoralized</strong> creature can make a DC 20
+      Charisma ability check to remove all ranks of <strong>Demoralized</strong>
+      it has.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - demoralized
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!3kbBda7iRRbcIqhJ.9XIGn7aOLKuDgnZ0'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: shi-usagi/clan-hijutsu/d-rank/rejuvenating-brutality.json
+      sourceId: 3kbBda7iRRbcIqhJ
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You take pleasure in brutalizing your downed enemies, savoring their agony and the sight of their blood. You can use your action to attack a creature that is downed, regardless of whether you kill it or not (unless you are in a berserk state).<br />You heal for 2d8 HP if you do not kill the target, or 3d10 HP if you do. If you kill the target, every creature within 25 feet that can see you must make a Wisdom saving throw or gain 1 rank of fear.<br />You can only use this once per downed creature.<br />\_ \_ <strong>At Higher Ranks:</strong> For each rank above D-Rank that you cast this jutsu, increase the chakra cost by 3 and the healing by 1d8/1d10 respectively.</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 5
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d8
+              - healing
+          versatile: 3d10
+        enchantment: null
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: taijutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - mobility
+        keywords:
+          - taijutsu
+          - hijutsu
+          - medical
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d8
+        versatileScaling:
+          mode: level
+          formula: 1d10
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1741175858529
+  modifiedTime: 1741605212435
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: shi-usagi/clan-hijutsu/d-rank/rejuvenating-brutality.json
+_key: '!items!3kbBda7iRRbcIqhJ'

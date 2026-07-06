@@ -1,0 +1,358 @@
+folder: 83nx1uhO26LdiWED
+name: Light Release Star Burst
+type: spell
+_id: epvDD24NFWsFQK7u
+img: systems/n5eb/assets/content/clans/toton.webp
+system:
+  description:
+    value: >-
+      <p>You emit a radiant light that illuminates everything nearby. This light
+      extends 15 feet around you as bright light and an additional 15 feet as
+      dim light. Choose between instant and lasting
+      effects:</p><p><strong>Instant:</strong> This jutsu lasts until the end of
+      the current turn. All creatures within the bright light must make a Wisdom
+      saving throw. Those that fail end concentration on one jutsu they are
+      concentrating on and become blinded until the end of their next
+      turn.</p><p><strong>Lasting:</strong> This jutsu lasts for 10 minutes.
+      Jutsu that create darkness of the same rank or lower cannot produce
+      darkness within this light.</p><p><strong>At Higher Ranks:</strong> For
+      each rank you cast this jutsu above D-Rank, increase the cost by 3, the
+      dim light by 5 feet and the bright light by 5 feet.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: spec
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: null
+    units: ft
+    type: sphere
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: light-release-star-burst
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Blinded
+    origin: Compendium.n5eb.t7-clan.Item.epvDD24NFWsFQK7u
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: blinded
+          rank: 1
+          maxRank: 1
+          category: sensory
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/blinded.svg
+    _id: ooeoL7VMP9vf7gs0
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: blinded
+        priority: 20
+    description: >-
+      <p>• A <strong>Blinded</strong> creature cannot target another creature
+      with effects that require them to “target a creature they can see” unless
+      they have a special sense that does not require sight, such as
+      <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>•
+      A blinded creature can’t see and automatically fails any check that
+      requires sight.</p><p>• A <strong>Blinded</strong> creature has
+      disadvantage on Dexterity saving throws.</p><p>• Attack rolls against a
+      <strong>Blinded</strong> creature have advantage, and a
+      <strong>Blinded</strong> creature’s attack rolls have disadvantage without
+      the aid of a special sense that does not require sight, such as
+      <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>•
+      A creature can willingly close their eyes as a free action for an extended
+      period of time. Doing so imposes this Condition on them until the
+      beginning of their next turn, they cannot reopen their eyes until then,
+      unless they are forced to do so by some other means.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - blinded
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!epvDD24NFWsFQK7u.ooeoL7VMP9vf7gs0'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: toton/clan-hijutsu/d-rank/light-release-star-burst.json
+      sourceId: epvDD24NFWsFQK7u
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You emit a radiant light that illuminates everything nearby. This
+            light extends 15 feet around you as bright light and an additional
+            15 feet as dim light. Choose between instant and lasting
+            effects:</p><p><strong>Instant:</strong> This jutsu lasts until the
+            end of the current turn. All creatures within the bright light must
+            make a Wisdom saving throw. Those that fail end concentration on one
+            jutsu they are concentrating on and become blinded until the end of
+            their next turn.</p><p><strong>Lasting:</strong> This jutsu lasts
+            for 10 minutes. Jutsu that create darkness of the same rank or lower
+            cannot produce darkness within this light.</p><p><strong>At Higher
+            Ranks:</strong> For each rank you cast this jutsu above D-Rank,
+            increase the cost by 3, the dim light by 5 feet and the bright light
+            by 5 feet.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: spec
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: null
+          units: ft
+          type: sphere
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+        keywords:
+          - ninjutsu
+          - hijutsu
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733926315741
+  modifiedTime: 1734020302660
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: toton/clan-hijutsu/d-rank/light-release-star-burst.json
+_key: '!items!epvDD24NFWsFQK7u'

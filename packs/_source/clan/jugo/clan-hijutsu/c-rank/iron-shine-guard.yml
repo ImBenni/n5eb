@@ -1,0 +1,260 @@
+name: Iron-Shine Guard
+type: spell
+img: systems/n5eb/assets/content/clans/jugo.webp
+system:
+  description:
+    value: >-
+      <p>You form a shield out of your body using one of your arms to block an attack. Your AC is increased by +4 for
+      the duration, and the Shield has 25 HP an enemy must first break to deal damage to you. The shield cannot block
+      Genjutsu attacks.</p><p>If you would have to make a Dexterity Saving Throw that deals a reduced effect on a
+      successful saving throw (such as dealing half damage), instead roll a Strength Saving Throw. On a success, your
+      shield reduces the damage of the ability by 5.</p><p>Raw Chakra Form: If you cast this justu when within your Raw
+      Chakra Form, add your Strength Modifier to the Shields HP.</p><p>At Higher Ranks: For each rank above C-Rank you
+      cast this jutsu, increase the HP of the shield by 10</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: reaction
+    cost: 1
+    condition: when targeted by an attack roll or a Dexterity Saving Throw that would deal a reduced effect on a success.
+  duration:
+    value: '1'
+    units: round
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 8
+    scale: false
+  ability: ''
+  actionType: other
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - '25'
+        - ''
+    versatile: 25+@abilities.str.mod
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: '10'
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: level
+    formula: '10'
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: iron-shine-guard
+  jutsu:
+    components:
+      - cm
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - construct
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+folder: ehNWKAxmtLC6A2Zz
+flags:
+  n5eb:
+    migratedProperties:
+      - chakramolding
+      - mobility
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: jugo/clan-hijutsu/c-rank/iron-shine-guard.json
+      sourceId: 60Is28IpUhjVSgRJ
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You form a shield out of your body using one of your arms to block an attack. Your AC is increased by +4
+            for the duration, and the Shield has 25 HP an enemy must first break to deal damage to you. The shield
+            cannot block Genjutsu attacks.</p><p>If you would have to make a Dexterity Saving Throw that deals a reduced
+            effect on a successful saving throw (such as dealing half damage), instead roll a Strength Saving Throw. On
+            a success, your shield reduces the damage of the ability by 5.</p><p>Raw Chakra Form: If you cast this justu
+            when within your Raw Chakra Form, add your Strength Modifier to the Shields HP.</p><p>At Higher Ranks: For
+            each rank above C-Rank you cast this jutsu, increase the HP of the shield by 10</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: reaction
+          cost: 1
+          condition: when targeted by an attack roll or a Dexterity Saving Throw that would deal a reduced effect on a success.
+        duration:
+          value: '1'
+          units: round
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 8
+          scale: false
+        ability: ''
+        actionType: other
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - '25'
+              - ''
+          versatile: 25+@abilities.str.mod
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: '10'
+        keywords:
+          - taijutsu
+          - hijutsu
+          - construct
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: '10'
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    reactionCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728753655657
+  modifiedTime: 1728753720745
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: jugo/clan-hijutsu/c-rank/iron-shine-guard.json
+_id: 60Is28IpUhjVSgRJ
+sort: 100000
+ownership:
+  default: 0
+_key: '!items!60Is28IpUhjVSgRJ'

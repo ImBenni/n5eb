@@ -1,0 +1,336 @@
+name: Final Fury
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/taijutsu.webp
+system:
+  description:
+    value: >-
+      <p>This jutsu can only be cast if you have one other caster who is within 15 feet of you. The second caster as a
+      part of their reaction moves to a space within 5 feet of you that they can occupy.</p><p>You and the second caster
+      perform a joint combined series of strikes attacking vital points across a targets body.</p><p>Each caster make
+      three melee taijutsu attacks, dealing their unarmed damage + 5d8 on a hit. If both casters successfully hit their
+      target with all of their attacks the target must succeed a constitution saving throw vs the Taijutsu save DC of
+      the caster with the highest DC. On a failed save the target gains 5 stacks of the Weakened condition for the next
+      24 hours.</p><p>Combination: When this jutsu is cast, it gains additional effects based on who has the highest
+      Charisma modifier between both casters.</p><p>• +0-1: No Change.</p><p>• +2-3: Both casters gain a +2 bonus to
+      their taijutsu attack rolls.</p><p>• +4-5: Both casters gain a +2 bonus to their taijutsu attack rolls, +1d4 bonus
+      to damage rolls and a +1 bonus to their taijutsu save DC.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 5
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 88
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d8
+        - ''
+    versatile: ''
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: taijutsu
+  level: 9
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: final-fury
+  jutsu:
+    components:
+      - m
+      - cm
+    keywords:
+      - taijutsu
+      - combination
+    countsKnown: true
+    ability: ''
+    type: taijutsu
+  rank: s
+  chakra:
+    cost: '88'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Weakened
+    origin: Compendium.n5eb.jutsus.Item.GuQvzFMygkDHv7rm
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: QqdAZhaXHX1b6qHy
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!GuQvzFMygkDHv7rm.QqdAZhaXHX1b6qHy'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - molding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: taijutsu/s-rank/final-fury.json
+      sourceId: GuQvzFMygkDHv7rm
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>This jutsu can only be cast if you have one other caster who is within 15 feet of you. The second caster
+            as a part of their reaction moves to a space within 5 feet of you that they can occupy.</p><p>You and the
+            second caster perform a joint combined series of strikes attacking vital points across a targets
+            body.</p><p>Each caster make three melee taijutsu attacks, dealing their unarmed damage + 5d8 on a hit. If
+            both casters successfully hit their target with all of their attacks the target must succeed a constitution
+            saving throw vs the Taijutsu save DC of the caster with the highest DC. On a failed save the target gains 5
+            stacks of the Weakened condition for the next 24 hours.</p><p>Combination: When this jutsu is cast, it gains
+            additional effects based on who has the highest Charisma modifier between both casters.</p><p>• +0-1: No
+            Change.</p><p>• +2-3: Both casters gain a +2 bonus to their taijutsu attack rolls.</p><p>• +4-5: Both
+            casters gain a +2 bonus to their taijutsu attack rolls, +1d4 bonus to damage rolls and a +1 bonus to their
+            taijutsu save DC.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 5
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 88
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d8
+              - ''
+          versatile: ''
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: taijutsu
+        level: 5
+        school: tai
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - mobility
+          - molding
+        keywords:
+          - taijutsu
+          - combination
+        chakraCost: 88
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757579263
+  modifiedTime: 1728757579263
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: taijutsu/s-rank/final-fury.json
+folder: iBxKk1Gz3ajwjxoV
+sort: 0
+ownership:
+  default: 0
+_id: GuQvzFMygkDHv7rm
+_key: '!items!GuQvzFMygkDHv7rm'

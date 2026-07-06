@@ -1,0 +1,341 @@
+import Proficiency from "../../../documents/actor/proficiency.mjs";
+import { simplifyBonus } from "../../../utils.mjs";
+import ActorDataModel from "../../abstract/actor-data-model.mjs";
+import AdvantageModeField from "../../fields/advantage-mode-field.mjs";
+import FormulaField from "../../fields/formula-field.mjs";
+import MappingField from "../../fields/mapping-field.mjs";
+import CurrencyTemplate from "../../shared/currency.mjs";
+import RollConfigField from "../../shared/roll-config-field.mjs";
+
+const { NumberField, SchemaField } = foundry.data.fields;
+
+/**
+ * @import { ActorRollData } from "../../../documents/_types.mjs";
+ * @import { CurrencyTemplateData } from "../../shared/_types.mjs";
+ * @import { CommonTemplateData } from "./_types.mjs";
+ */
+
+/**
+ * A template for all actors that share the common template.
+ * @extends {ActorDataModel<CurrencyTemplate & CommonTemplateData>}
+ * @mixes CurrencyTemplate
+ * @mixes CommonTemplateData
+ */
+export default class CommonTemplate extends ActorDataModel.mixin(CurrencyTemplate) {
+
+  /* -------------------------------------------- */
+  /*  Model Configuration                         */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static defineSchema() {
+    return this.mergeSchema(super.defineSchema(), {
+      abilities: new MappingField(new SchemaField({
+        value: new NumberField({
+          required: true, nullable: false, integer: true, min: 0, initial: 10, label: "DND5E.AbilityScore"
+        }),
+        proficient: new NumberField({
+          required: true, min: 0, max: 1, initial: 0.5, label: "DND5E.ProficiencyLevel"
+        }),
+        max: new NumberField({
+          required: true, integer: true, nullable: true, min: 0, initial: null, label: "DND5E.AbilityScoreMax"
+        }),
+        bonuses: new SchemaField({
+          check: new FormulaField({ required: true, label: "DND5E.AbilityCheckBonus" }),
+          save: new FormulaField({ required: true, label: "DND5E.SaveBonus" })
+        }, { label: "DND5E.AbilityBonuses" }),
+        check: new RollConfigField({ ability: false }),
+        save: new RollConfigField({ ability: false })
+      }), {
+        initialKeys: CONFIG.DND5E.abilities, initialValue: this._initialAbilityValue.bind(this),
+        initialKeysOnly: true, label: "DND5E.Abilities"
+      })
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Populate the proper initial value for abilities.
+   * @param {string} key       Key for which the initial data will be created.
+   * @param {object} initial   The initial skill object created by SkillData.
+   * @param {object} existing  Any existing mapping data.
+   * @returns {object}         Initial ability object.
+   * @private
+   */
+  static _initialAbilityValue(key, initial, existing) {
+    const config = CONFIG.DND5E.abilities[key];
+    if ( config ) {
+      let defaultValue = config.defaults?.[this._systemType] ?? initial.value;
+      if ( typeof defaultValue === "string" ) defaultValue = existing?.[defaultValue]?.value ?? initial.value;
+      initial.value = defaultValue;
+    }
+    return initial;
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Migration                              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static _migrateData(source) {
+    super._migrateData(source);
+    CommonTemplate.#migrateACData(source);
+    CommonTemplate.#migrateMovementData(source);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate the actor ac.value to new ac.flat override field.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateACData(source) {
+    if ( !source.attributes?.ac ) return;
+    const ac = source.attributes.ac;
+
+    // If the actor has a numeric ac.value, then their AC has not been migrated to the auto-calculation schema yet.
+    if ( Number.isNumeric(ac.value) ) {
+      ac.flat = parseInt(ac.value);
+      ac.calc = this._systemType === "npc" ? "natural" : "flat";
+      return;
+    }
+
+    // Migrate ac.base in custom formulas to ac.armor
+    if ( (typeof ac.formula === "string") && ac.formula.includes("@attributes.ac.base") ) {
+      ac.formula = ac.formula.replaceAll("@attributes.ac.base", "@attributes.ac.armor");
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate the actor speed string to movement object.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateMovementData(source) {
+    const original = source.attributes?.speed?.value ?? source.attributes?.speed;
+    if ( (typeof original !== "string") || (source.attributes.movement?.walk !== undefined) ) return;
+    source.attributes.movement ??= {};
+    const s = original.split(" ");
+    if ( s.length > 0 ) source.attributes.movement.walk = Number.isNumeric(s[0]) ? parseInt(s[0]) : 0;
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare modifiers and other values for abilities.
+   * @param {object} [options={}]
+   * @param {ActorRollData} [options.rollData={}]  Roll data used to calculate bonuses.
+   * @param {object} [options.originalSaves]       Original ability data for transformed actors.
+   */
+  prepareAbilities({ rollData={}, originalSaves }={}) {
+    const flags = this.parent.flags.n5eb ?? {};
+    const { prof = 0, ac } = this.attributes ?? {};
+    Object.values(this.abilities).forEach(a => a.mod = Math.floor((a.value - 10) / 2));
+    const checkBonus = simplifyBonus(this.bonuses?.abilities?.check, rollData);
+    const saveBonus = simplifyBonus(this.bonuses?.abilities?.save, rollData);
+    const dcBonus = simplifyBonus(this.bonuses?.spell?.dc, rollData);
+    for ( const [id, abl] of Object.entries(this.abilities) ) {
+      if ( flags.diamondSoul ) abl.proficient = 1;  // Diamond Soul is proficient in all saves
+      const originalAbility = originalSaves?.[id];
+      if ( originalAbility?.proficient ) {
+        abl.merged = true;
+        abl.proficient = originalAbility?.proficient;
+      }
+
+      const calculatedProf = this.calculateAbilityCheckProficiency(0, id);
+      abl.checkProf = originalAbility?.checkProf?.multiplier > calculatedProf.multiplier
+        ? originalAbility.checkProf.clone() : calculatedProf;
+      const saveBonusAbl = simplifyBonus(abl.bonuses?.save, rollData);
+
+      const cover = id === "dex" ? Math.max(ac?.cover ?? 0, this.parent.coverBonus) : 0;
+      abl.saveBonus = saveBonusAbl + saveBonus + cover;
+
+      abl.saveProf = abl.merged ? originalAbility.saveProf.clone() : new Proficiency(prof, abl.proficient);
+      const checkBonusAbl = simplifyBonus(abl.bonuses?.check, rollData);
+      abl.checkBonus = checkBonusAbl + checkBonus;
+
+      abl.save.value = abl.mod + abl.saveBonus;
+      if ( abl.saveProf.hasBonus ) abl.save.value += abl.saveProf.flat;
+      abl.attack = abl.mod + prof;
+      abl.dc = Math.max(0, 8 + abl.mod + prof + dcBonus - (this.parent.getExhaustionPenalty?.() ?? 0));
+
+      if ( !Number.isFinite(abl.max) ) abl.max = CONFIG.DND5E.maxAbilityScore;
+
+      // Adjust rolling mode
+      if ( this.parent.hasConditionEffect("abilityCheckDisadvantage") ) {
+        AdvantageModeField.setMode(this, `abilities.${id}.check.roll.mode`, -1);
+      }
+      if ( (id === "wis") && this.parent.getConditionRank?.("deafened") ) {
+        AdvantageModeField.setMode(this, `abilities.${id}.check.roll.mode`, -1);
+        AdvantageModeField.setMode(this, `abilities.${id}.save.roll.mode`, -1);
+      }
+      if ( this.parent.hasConditionEffect("abilitySaveDisadvantage")
+        || ((id === "dex") && this.parent.hasConditionEffect("dexteritySaveDisadvantage")) ) {
+        AdvantageModeField.setMode(this, `abilities.${id}.save.roll.mode`, -1);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Helpers                                     */
+  /* -------------------------------------------- */
+
+  /**
+   * Split legacy skill/tool values into base proficiency and Mastery rank.
+   * @param {number} value    Stored base proficiency value, or a legacy combined value.
+   * @param {number} mastery  Stored Mastery rank.
+   * @returns {{ value: number, mastery: number }}
+   */
+  static normalizeSkillToolProficiency(value, mastery=0) {
+    value = Number(value ?? 0);
+    mastery = Number(mastery ?? 0);
+    if ( value >= 2 ) {
+      mastery = Math.max(mastery, Math.floor(value - 1));
+      value = 1;
+    }
+    else if ( value >= 1 ) value = 1;
+    else if ( value >= .5 ) value = .5;
+    else value = 0;
+
+    mastery = Math.floor(mastery);
+    mastery = Math.min(Math.max(mastery, 0), 3);
+    return { value, mastery };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create the proficiency object for an ability, skill, or tool, taking remarkable athlete and Jack of All Trades
+   * into account.
+   * @param {number} multiplier       Multiplier stored on the actor.
+   * @param {string} ability          Ability associated with this proficiency.
+   * @param {object} [options={}]
+   * @param {string} [options.skill]  Skill associated with this proficiency.
+   * @param {string} [options.tool]   Tool associated with this proficiency.
+   * @returns {Proficiency}
+   */
+  calculateAbilityCheckProficiency(multiplier, ability, options={}) {
+    if ( options.skill || options.tool ) {
+      return this.calculateSkillToolCheckProficiency(multiplier, options.mastery, ability, options);
+    }
+
+    return this.#calculateBaseAbilityCheckProficiency(multiplier, ability, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create a base proficiency object for an ability check without applying skill/tool Mastery.
+   * @param {number} multiplier  Multiplier stored on the actor.
+   * @param {string} ability     Ability associated with this proficiency.
+   * @param {object} [options={}]
+   * @returns {Proficiency}
+   */
+  #calculateBaseAbilityCheckProficiency(multiplier, ability, options={}) {
+    let roundDown = true;
+    if ( (multiplier < 1) && ((game.settings.get("n5eb", "rulesVersion") === "legacy") || options.skill) ) {
+      if ( this.parent._isRemarkableAthlete(ability) ) {
+        multiplier = .5;
+        roundDown = false;
+      }
+      else if ( this.parent.flags.n5eb?.jackOfAllTrades ) multiplier = .5;
+    }
+    return new Proficiency(this.attributes.prof, multiplier, roundDown);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Calculate the effective skill or tool Mastery rank after applying level caps.
+   * @param {number} mastery       Stored Mastery rank.
+   * @param {object} [options={}]  Proficiency calculation options.
+   * @returns {number}
+   */
+  calculateSkillToolMasteryRank(mastery, options={}) {
+    mastery = Math.min(Math.max(Math.floor(Number(mastery ?? 0)), 0), 3);
+    if ( dnd5e.settings.useExpertise ) return mastery > 0 ? 1 : 0;
+    if ( mastery === 0 ) return 0;
+
+    const level = Math.max(Number(this.details?.level) || 0, Number(this.details?.cr) || 0, 1);
+    const type = options.skill ? "skills" : options.tool ? "tools" : null;
+    const key = typeof options[type === "skills" ? "skill" : "tool"] === "string"
+      ? options[type === "skills" ? "skill" : "tool"] : null;
+    const bypassCap = type && key && this.parent.getFlag("n5eb", `masteryOverride.${type}.${key}`);
+    const maxRank = bypassCap ? 3 : level >= 12 ? 3 : level >= 7 ? 2 : 1;
+    return Math.min(mastery, maxRank);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Calculate the proficiency object for a skill or tool with either N5e Mastery or classic Expertise.
+   * @param {number} multiplier    Stored base proficiency value.
+   * @param {number} mastery       Stored Mastery rank.
+   * @param {string} ability       Ability associated with this proficiency.
+   * @param {object} [options={}]  Proficiency calculation options.
+   * @returns {Proficiency}
+   */
+  calculateSkillToolCheckProficiency(multiplier, mastery, ability, options={}) {
+    const normalized = this.constructor.normalizeSkillToolProficiency(multiplier, mastery);
+    multiplier = normalized.value;
+    mastery = normalized.mastery;
+    const base = this.#calculateBaseAbilityCheckProficiency(multiplier, ability, options);
+    const rank = this.calculateSkillToolMasteryRank(mastery, options);
+
+    if ( dnd5e.settings.useExpertise ) {
+      if ( rank && (multiplier >= 1) ) return base.clone({ effectiveMultiplier: 2 });
+      return base;
+    }
+
+    if ( rank ) return base.clone({ flatBonus: rank * 2 });
+    return base;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Calculate proficiency, applying specific logic for tools.
+   * @param {number} multiplier       Multiplier stored on the actor.
+   * @param {string} ability          Ability associated with this proficiency.
+   * @param {object} [options={}]
+   * @param {string} [options.skill]  Skill associated with this proficiency.
+   * @param {string} [options.tool]   Tool associated with this proficiency.
+   * @returns {Proficiency}
+   */
+  calculateToolProficiency(multiplier, ability, options={}) {
+    const normalized = this.constructor.normalizeSkillToolProficiency(multiplier, options.mastery);
+    multiplier = normalized.value;
+    let mastery = normalized.mastery;
+    if ( (multiplier === 1) && this.parent.flags.n5eb?.toolExpertise ) {
+      mastery = Math.max(mastery, 1);
+    }
+    return this.calculateAbilityCheckProficiency(
+      multiplier, ability, { ...options, tool: options.tool ?? true, mastery }
+    );
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Calculate proficiency for a given actor using either a skill, a tool, or both.
+   * @param {Actor5e} actor           The actor.
+   * @param {string} abilityId        The ability used with the check.
+   * @param {object} [options]
+   * @param {string} [options.skill]  The skill.
+   * @param {string} [options.tool]   The tool.
+   * @returns {Proficiency|null}
+   */
+  static calculateSkillToolProficiency(actor, abilityId, options={}) {
+    if ( !actor ) return null;
+    const skill = actor.system.skills?.[options.skill];
+    const tool = actor.system.tools?.[options.tool];
+    const multiplier = Math.max(skill?.effectValue ?? 0, tool?.effectValue ?? 0);
+    const mastery = Math.max(skill?.effectMastery ?? 0, tool?.effectMastery ?? 0);
+    const calc = options.tool ? actor.system.calculateToolProficiency : actor.system.calculateAbilityCheckProficiency;
+    return calc.call(actor.system, multiplier, abilityId, { ...options, mastery });
+  }
+}

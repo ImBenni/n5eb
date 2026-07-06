@@ -1,0 +1,411 @@
+folder: h0Dp41GMlIYijNQh
+name: Superior Potential
+type: feat
+_id: B9COleG5oVxmS8Xu
+img: icons/creatures/claws/claw-curved-jagged-gray.webp
+system:
+  description:
+    value: >-
+      <p>Once per combat, when you would cast a Jutsu, maximize the damage, double the range, and  gain advantage on the
+      attack roll or impose disadvantage on the save. Once you do this, until the end of your next turn, you are
+      Paralyzed.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: none
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: 1
+    max: '1'
+    per: charges
+    recovery: Per Combat
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  type:
+    value: adversaryTrait
+    subtype: role
+    nestedsubtype: a
+  prerequisites:
+    level: null
+  properties: []
+  requirements: A-Rank
+  recharge:
+    value: null
+    charged: false
+  identifier: superior-potential
+effects:
+  - name: Superior Potential
+    origin: Compendium.n5eb.adversary-traits.Item.B9COleG5oVxmS8Xu
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - 1Spell
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: true
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/magic/control/encase-creature-humanoid-hold.webp
+    _id: MdVRH8qe9d6iapuI
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.max.damage.all
+        mode: 0
+        value: 'true'
+        priority: 20
+      - key: flags.midi-qol.range.all
+        mode: 2
+        value: item.range.value * 2
+        priority: 20
+      - key: flags.n5eb.advantage.attack.all
+        mode: 0
+        value: '1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727178916975
+      modifiedTime: 1727441297126
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!B9COleG5oVxmS8Xu.MdVRH8qe9d6iapuI'
+  - name: Stunned
+    origin: Compendium.n5eb.adversary-traits.Item.B9COleG5oVxmS8Xu
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: 1
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: true
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    _id: mxKoQMbNJsRPk5jH
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.fail.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.fail.ability.save.str
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: stunned
+        priority: 20
+    description: >-
+      <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
+      falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
+      throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727179175519
+      modifiedTime: 1727441329688
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!B9COleG5oVxmS8Xu.mxKoQMbNJsRPk5jH'
+  - name: 'Superior Potential: Save'
+    origin: Compendium.n5eb.adversary-traits.Item.B9COleG5oVxmS8Xu
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - isSave
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/magic/control/encase-creature-humanoid-hold.webp
+    _id: m9u9W0cJBfLAjtLo
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.grants.disadvantage.save.all
+        mode: 2
+        value: '1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727179725705
+      modifiedTime: 1727441303486
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!B9COleG5oVxmS8Xu.m9u9W0cJBfLAjtLo'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: adversary-traits
+      sourcePath: role/generalist/a-rank/superior-potential.json
+      sourceId: B9COleG5oVxmS8Xu
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>Once per combat, when you would cast a Jutsu, maximize the damage, double the range, and  gain advantage
+            on the attack roll or impose disadvantage on the save. Once you do this, until the end of your next turn,
+            you are Paralyzed.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: none
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: 1
+          max: '1'
+          per: charges
+          recovery: Per Combat
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        type:
+          value: adversaryTrait
+          subtype: role
+        prerequisites:
+          level: null
+        properties: []
+        requirements: A-Rank
+        recharge:
+          value: null
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1727178737687
+  modifiedTime: 1727181128099
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: adversary-traits
+    sourcePath: role/generalist/a-rank/superior-potential.json
+_key: '!items!B9COleG5oVxmS8Xu'

@@ -1,36 +1,303 @@
 {
   "id": "n5eb",
-  "title": "N5eB",
-  "description": "The N5e System forked from the DnD5e Foundry System. Made and altered by Benni.",
-  "version": "2.1.0",
+  "title": "N5eB - Naruto 5e Benni",
+  "description": "Naruto 5e Benni, a Naruto 5e system based on the D&D Fifth Edition system for Foundry Virtual Tabletop.",
+  "version": "3.0.0",
   "compatibility": {
-    "minimum": "11.315",
-    "verified": "12"
+    "minimum": "13.347",
+    "verified": "14"
   },
-  "url": "https://github.com/ImBenni/n5eb/",
-  "manifest": "https://raw.githubusercontent.com/ImBenni/n5eb/main/system.json",
-  "download": "https://github.com/ImBenni/n5eb/releases/download/release-2.1.0/n5eb-2.1.0.zip",
+  "url": "https://github.com/ImBenni/n5eb",
+  "manifest": "https://github.com/ImBenni/n5eb/releases/latest/download/system.json",
+  "download": "https://github.com/ImBenni/n5eb/releases/latest/download/n5eb.zip",
   "authors": [
     {
       "name": "Benni",
-      "url": "https://github.com/ImBenni",
-      "discord": "imbenni",
+      "url": "https://github.com/ImBenni"
+    },
+    {
+      "name": "Atropos",
+      "url": "https://foundryvtt.com",
       "flags": {}
     }
   ],
-  "esmodules": ["n5eb.mjs"],
-  "styles": ["n5eb.css"],
+  "esmodules": [
+    "dnd5e.mjs"
+  ],
+  "styles": [
+    "dnd5e.css"
+  ],
+  "documentTypes": {
+    "ActiveEffect": {
+      "enchantment": {}
+    },
+    "Actor": {
+      "character": {
+        "htmlFields": [
+          "details.biography.value",
+          "details.biography.public",
+          "bastion.description",
+          "downtime.weeks.notes",
+          "downtime.activities.*.description",
+          "downtime.activities.*.completion",
+          "downtime.activities.*.notes"
+        ]
+      },
+      "encounter": {
+        "htmlFields": [
+          "description.full",
+          "description.summary"
+        ]
+      },
+      "group": {
+        "htmlFields": [
+          "description.full",
+          "description.summary"
+        ]
+      },
+      "npc": {
+        "htmlFields": [
+          "details.biography.value",
+          "details.biography.public"
+        ]
+      },
+      "vehicle": {
+        "htmlFields": [
+          "details.biography.value",
+          "details.biography.public"
+        ]
+      }
+    },
+    "ChatMessage": {
+      "bastionAttack": {},
+      "bastionTurn": {},
+      "request": {},
+      "rest": {},
+      "turn": {},
+      "usage": {}
+    },
+    "Item": {
+      "weapon": {
+        "filePathFields": {
+          "activities.*.img": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "description.value",
+          "description.chat",
+          "unidentified.description"
+        ]
+      },
+      "equipment": {
+        "filePathFields": {
+          "activities.*.img": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "description.value",
+          "description.chat",
+          "unidentified.description"
+        ]
+      },
+      "consumable": {
+        "filePathFields": {
+          "activities.*.img": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "description.value",
+          "description.chat",
+          "unidentified.description"
+        ]
+      },
+      "tool": {
+        "filePathFields": {
+          "activities.*.img": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "description.value",
+          "description.chat",
+          "unidentified.description"
+        ]
+      },
+      "loot": {
+        "htmlFields": [
+          "description.value",
+          "description.chat",
+          "unidentified.description"
+        ]
+      },
+      "race": {
+        "filePathFields": {
+          "advancement.*.icon": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "advancement.*.hint",
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "background": {
+        "filePathFields": {
+          "advancement.*.icon": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "advancement.*.hint",
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "class": {
+        "filePathFields": {
+          "advancement.*.icon": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "advancement.*.hint",
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "classmod": {
+        "filePathFields": {
+          "advancement.*.icon": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "advancement.*.hint",
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "subclass": {
+        "filePathFields": {
+          "advancement.*.icon": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "advancement.*.hint",
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "spell": {
+        "filePathFields": {
+          "activities.*.img": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "feat": {
+        "filePathFields": {
+          "activities.*.img": [
+            "IMAGE"
+          ],
+          "advancement.*.icon": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "advancement.*.hint",
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "container": {
+        "htmlFields": [
+          "description.value",
+          "description.chat",
+          "unidentified.description"
+        ]
+      },
+      "backpack": {
+        "htmlFields": [
+          "description.value",
+          "description.chat",
+          "unidentified.description"
+        ]
+      },
+      "facility": {
+        "filePathFields": {
+          "activities.*.img": [
+            "IMAGE"
+          ]
+        },
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "downtime": {
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      }
+    },
+    "JournalEntryPage": {
+      "class": {
+        "htmlFields": [
+          "details.value",
+          "details.additionalHitPoints",
+          "description.additionalTraits",
+          "description.additionalEquipment",
+          "description.subclass"
+        ]
+      },
+      "map": {},
+      "rule": {
+        "htmlFields": [
+          "tooltip"
+        ]
+      },
+      "spells": {},
+      "subclass": {
+        "htmlFields": [
+          "details.value"
+        ]
+      }
+    },
+    "RegionBehavior": {
+      "n5eb.difficultTerrain": {},
+      "n5eb.rotateArea": {}
+    }
+  },
   "packs": [
     {
       "name": "items",
-      "label": "Items",
+      "label": "Equipment & Items",
       "system": "n5eb",
       "path": "packs/items",
       "type": "Item",
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["weapon", "equipment", "consumable", "tool", "loot", "feat", "container"]
+          "types": [
+            "weapon",
+            "equipment",
+            "consumable",
+            "tool",
+            "loot",
+            "feat",
+            "container"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -43,7 +310,10 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["spell"]
+          "types": [
+            "spell"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -56,7 +326,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["background", "feat"]
+          "types": [
+            "background",
+            "feat"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -69,7 +343,10 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["feat"]
+          "types": [
+            "feat"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -82,7 +359,13 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
+          "types": [
+            "class",
+            "subclass",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -95,7 +378,13 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
+          "types": [
+            "class",
+            "subclass",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -108,17 +397,28 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["race", "feat"]
+          "types": [
+            "race",
+            "feat"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
     {
       "name": "rules",
-      "label": "Rules",
+      "label": "Rules Compatibility (Internal)",
       "system": "n5eb",
       "path": "packs/rules",
       "type": "JournalEntry",
-      "private": false
+      "private": true,
+      "flags": {
+        "n5eb": {
+          "display": "compatibility",
+          "sourceBook": "Naruto 5e",
+          "internal": true
+        }
+      }
     },
     {
       "name": "conditions",
@@ -129,7 +429,26 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["feat"]
+          "types": [
+            "feat"
+          ],
+          "sourceBook": "Naruto 5e"
+        }
+      }
+    },
+    {
+      "name": "downtime-activities",
+      "label": "Downtime Activities",
+      "system": "n5eb",
+      "path": "packs/downtime-activities",
+      "type": "Item",
+      "private": false,
+      "flags": {
+        "n5eb": {
+          "types": [
+            "downtime"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -142,7 +461,10 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["feat"]
+          "types": [
+            "feat"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -155,7 +477,12 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["class", "subclass", "feat"]
+          "types": [
+            "class",
+            "subclass",
+            "feat"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -168,7 +495,12 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["npc", "feat", "weapon"]
+          "types": [
+            "npc",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -181,7 +513,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["npc", "feat"]
+          "types": [
+            "npc",
+            "feat"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -194,7 +530,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["npc", "feat"]
+          "types": [
+            "npc",
+            "feat"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -207,7 +547,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["feat", "class"]
+          "types": [
+            "feat",
+            "class"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -220,7 +564,12 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["npc", "feat", "weapon"]
+          "types": [
+            "npc",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Naruto 5e"
         }
       }
     },
@@ -230,7 +579,26 @@
       "system": "n5eb",
       "path": "packs/cheat-sheets",
       "type": "JournalEntry",
-      "private": false
+      "private": false,
+      "flags": {
+        "n5eb": {
+          "sourceBook": "Naruto 5e"
+        }
+      }
+    },
+    {
+      "name": "handbooks",
+      "label": "Naruto 5e Library",
+      "system": "n5eb",
+      "path": "packs/handbooks",
+      "type": "JournalEntry",
+      "private": false,
+      "flags": {
+        "n5eb": {
+          "sourceBook": "Naruto 5e",
+          "sorting": "a"
+        }
+      }
     },
     {
       "name": "t7-class",
@@ -241,7 +609,13 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
+          "types": [
+            "class",
+            "subclass",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -254,7 +628,13 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
+          "types": [
+            "class",
+            "subclass",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -267,7 +647,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["race", "feat"]
+          "types": [
+            "race",
+            "feat"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -280,7 +664,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["background", "feat"]
+          "types": [
+            "background",
+            "feat"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -293,7 +681,10 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["feat"]
+          "types": [
+            "feat"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -306,7 +697,12 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["class", "subclass", "feat"]
+          "types": [
+            "class",
+            "subclass",
+            "feat"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -319,7 +715,16 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["weapon", "equipment", "consumable", "tool", "loot", "feat", "container"]
+          "types": [
+            "weapon",
+            "equipment",
+            "consumable",
+            "tool",
+            "loot",
+            "feat",
+            "container"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -332,7 +737,10 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["spell"]
+          "types": [
+            "spell"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -345,7 +753,12 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["npc", "feat", "weapon"]
+          "types": [
+            "npc",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -358,7 +771,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["feat", "class"]
+          "types": [
+            "feat",
+            "class"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -371,7 +788,12 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["npc", "feat", "weapon"]
+          "types": [
+            "npc",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Team 7"
         }
       }
     },
@@ -381,7 +803,12 @@
       "system": "n5eb",
       "path": "packs/t7-cheat-sheets",
       "type": "JournalEntry",
-      "private": false
+      "private": false,
+      "flags": {
+        "n5eb": {
+          "sourceBook": "Team 7"
+        }
+      }
     },
     {
       "name": "hb-class",
@@ -392,7 +819,13 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
+          "types": [
+            "class",
+            "subclass",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -405,7 +838,13 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["class", "subclass", "feat", "weapon"]
+          "types": [
+            "class",
+            "subclass",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -418,7 +857,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["race", "feat"]
+          "types": [
+            "race",
+            "feat"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -431,7 +874,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["background", "feat"]
+          "types": [
+            "background",
+            "feat"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -444,7 +891,10 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["feat"]
+          "types": [
+            "feat"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -457,7 +907,12 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["class", "subclass", "feat"]
+          "types": [
+            "class",
+            "subclass",
+            "feat"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -470,7 +925,16 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["weapon", "equipment", "consumable", "tool", "loot", "feat", "container"]
+          "types": [
+            "weapon",
+            "equipment",
+            "consumable",
+            "tool",
+            "loot",
+            "feat",
+            "container"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -483,7 +947,10 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["spell"]
+          "types": [
+            "spell"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -496,7 +963,12 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["npc", "feat", "weapon"]
+          "types": [
+            "npc",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -509,7 +981,11 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["feat", "class"]
+          "types": [
+            "feat",
+            "class"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -522,7 +998,12 @@
       "private": false,
       "flags": {
         "n5eb": {
-          "types": ["npc", "feat", "weapon"]
+          "types": [
+            "npc",
+            "feat",
+            "weapon"
+          ],
+          "sourceBook": "Homebrew"
         }
       }
     },
@@ -532,7 +1013,12 @@
       "system": "n5eb",
       "path": "packs/hb-cheat-sheets",
       "type": "JournalEntry",
-      "private": false
+      "private": false,
+      "flags": {
+        "n5eb": {
+          "sourceBook": "Homebrew"
+        }
+      }
     }
   ],
   "packFolders": [
@@ -546,25 +1032,47 @@
           "name": "Character Features",
           "sorting": "m",
           "color": "#338ec7",
-          "packs": ["class", "subclass", "backgrounds", "traits-quirks", "clan", "feats", "classmod"]
+          "packs": [
+            "class",
+            "subclass",
+            "backgrounds",
+            "traits-quirks",
+            "clan",
+            "feats",
+            "classmod"
+          ]
         },
         {
           "name": "Items & Jutsus",
           "sorting": "m",
           "color": "#af35b1",
-          "packs": ["items", "jutsus"]
+          "packs": [
+            "items",
+            "jutsus"
+          ]
         },
         {
           "name": "Adversary & Summons",
           "sorting": "m",
           "color": "#5db027",
-          "packs": ["adversary", "npc", "adversary-traits", "adversary-passives", "summons"]
+          "packs": [
+            "adversary",
+            "npc",
+            "adversary-traits",
+            "adversary-passives",
+            "summons"
+          ]
         },
         {
           "name": "Other",
           "sorting": "a",
           "color": "#698a2c",
-          "packs": ["rules", "cheat-sheets", "conditions"]
+          "packs": [
+            "cheat-sheets",
+            "handbooks",
+            "conditions",
+            "downtime-activities"
+          ]
         }
       ]
     },
@@ -578,25 +1086,41 @@
           "name": "T7 Character Features",
           "sorting": "a",
           "color": "#242670",
-          "packs": ["t7-class", "t7-subclass", "t7-backgrounds", "t7-clan", "t7-feats", "t7-classmod"]
+          "packs": [
+            "t7-class",
+            "t7-subclass",
+            "t7-backgrounds",
+            "t7-clan",
+            "t7-feats",
+            "t7-classmod"
+          ]
         },
         {
           "name": "T7 Items & Jutsus",
           "sorting": "a",
           "color": "#602478",
-          "packs": ["t7-items", "t7-jutsus"]
+          "packs": [
+            "t7-items",
+            "t7-jutsus"
+          ]
         },
         {
           "name": "T7 Adversary & Summons",
           "sorting": "a",
           "color": "#4e781c",
-          "packs": ["t7-adversary", "t7-npc", "t7-summons"]
+          "packs": [
+            "t7-adversary",
+            "t7-npc",
+            "t7-summons"
+          ]
         },
         {
           "name": "T7 Other",
           "sorting": "a",
           "color": "#4c6125",
-          "packs": ["t7-cheat-sheets"]
+          "packs": [
+            "t7-cheat-sheets"
+          ]
         }
       ]
     },
@@ -610,25 +1134,41 @@
           "name": "HB Character Features",
           "sorting": "a",
           "color": "#4e6ce4",
-          "packs": ["hb-class", "hb-subclass", "hb-backgrounds", "hb-clan", "hb-feats", "hb-classmod"]
+          "packs": [
+            "hb-class",
+            "hb-subclass",
+            "hb-backgrounds",
+            "hb-clan",
+            "hb-feats",
+            "hb-classmod"
+          ]
         },
         {
           "name": "HB Items & Jutsus",
           "sorting": "a",
           "color": "#cf548f",
-          "packs": ["hb-items", "hb-jutsus"]
+          "packs": [
+            "hb-items",
+            "hb-jutsus"
+          ]
         },
         {
           "name": "HB Adversary & Summons",
           "sorting": "a",
           "color": "#6ad29c",
-          "packs": ["hb-adversary", "hb-npc", "hb-summons"]
+          "packs": [
+            "hb-adversary",
+            "hb-npc",
+            "hb-summons"
+          ]
         },
         {
           "name": "HB Other",
           "sorting": "a",
           "color": "#57a441",
-          "packs": ["hb-cheat-sheets"]
+          "packs": [
+            "hb-cheat-sheets"
+          ]
         }
       ]
     }
@@ -654,8 +1194,6 @@
     }
   ],
   "socket": true,
-  "gridDistance": 5,
-  "gridUnits": "ft",
   "grid": {
     "distance": 5,
     "units": "ft"
@@ -663,8 +1201,36 @@
   "primaryTokenAttribute": "attributes.hp",
   "background": "systems/n5eb/ui/official/n5eb-background.webp",
   "flags": {
-    "needsMigrationVersion": "3.1.0",
+    "daeCompatible": true,
+    "compendiumArtMappings": {
+      "n5eb": {
+        "mapping": "systems/n5eb/json/fa-token-mapping.json",
+        "credit": "<em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em>"
+      }
+    },
+    "needsMigrationVersion": "5.3.29",
     "compatibleMigrationVersion": "0.8",
-    "hotReload": false
-  }
+    "hotReload": {
+      "extensions": [
+        "css",
+        "hbs",
+        "json"
+      ],
+      "paths": [
+        "dnd5e.css",
+        "templates",
+        "lang"
+      ]
+    },
+    "n5eb": {
+      "sourceBooks": {
+        "Naruto 5e": "Naruto 5e",
+        "Team 7": "Team 7",
+        "Homebrew": "Homebrew"
+      }
+    }
+  },
+  "readme": "https://github.com/ImBenni/n5eb/blob/v14/README.md",
+  "bugs": "https://github.com/ImBenni/n5eb/issues",
+  "changelog": "https://github.com/ImBenni/n5eb/releases"
 }

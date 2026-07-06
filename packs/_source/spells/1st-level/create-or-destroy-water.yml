@@ -1,0 +1,226 @@
+_id: a3XtAO5n2GrqiAh5
+name: Create or Destroy Water
+ownership:
+  default: 0
+type: spell
+system:
+  description:
+    value: >-
+      <p>You either create or destroy water.</p><p><strong>Create
+      Water.</strong> You create up to 10 gallons of clean water within range in
+      an open container. Alternatively, the water falls as rain in a 30-foot
+      cube within range.</p><p><strong>Destroy Water.</strong> You destroy up to
+      10 gallons of water in an open container within range. Alternatively, you
+      destroy fog in a 30-foot cube within range.</p><p><strong>Higher
+      Levels.</strong> When you cast this spell using a spell slot of 2nd level
+      or higher, you create or destroy 10 additional gallons of water, or the
+      size of the cube increases by 5 feet, for each slot level above 1st.</p>
+    chat: ''
+  source:
+    custom: ''
+    book: ''
+    page: ''
+    license: CC-BY-4.0
+    rules: '2014'
+  activation:
+    type: action
+    condition: ''
+    value: 1
+  duration:
+    value: ''
+    units: inst
+  target:
+    affects:
+      choice: false
+      type: ''
+    template:
+      units: ft
+      type: cube
+      size: 30 + (@scaling.increase * 5)
+      contiguous: false
+      count: ''
+  range:
+    value: '30'
+    units: ft
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 1
+  school: trs
+  materials:
+    value: >-
+      A drop of water if creating water or a few grains of sand if destroying
+      it.
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  properties:
+    - vocal
+    - somatic
+    - material
+  activities:
+    YLVe1YsiyNBUxjXx:
+      type: utility
+      name: Create Water
+      _id: YLVe1YsiyNBUxjXx
+      img: ''
+      sort: 0
+      activation:
+        type: action
+        override: false
+      consumption:
+        scaling:
+          allowed: false
+        spellSlot: true
+        targets: []
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      flags: {}
+      range:
+        units: self
+        override: false
+      target:
+        template:
+          contiguous: false
+          stationary: false
+          units: ft
+        affects:
+          choice: false
+        override: true
+        prompt: true
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      visibility:
+        level:
+          min: null
+          max: null
+        requireAttunement: false
+        requireIdentification: false
+        requireMagic: false
+      roll:
+        prompt: false
+        visible: false
+        name: Gallons of Water Conjured
+        formula: '@item.level * 10'
+    irIydyXyiUPVWhfg:
+      type: utility
+      name: Destroy Water
+      _id: irIydyXyiUPVWhfg
+      img: ''
+      sort: 0
+      activation:
+        type: action
+        override: false
+      consumption:
+        scaling:
+          allowed: false
+        spellSlot: true
+        targets: []
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      flags: {}
+      range:
+        units: self
+        override: false
+      target:
+        template:
+          contiguous: false
+          stationary: false
+          units: ft
+        affects:
+          choice: false
+        override: true
+        prompt: true
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      visibility:
+        level:
+          min: null
+          max: null
+        requireAttunement: false
+        requireIdentification: false
+        requireMagic: false
+      roll:
+        prompt: false
+        visible: false
+        name: Gallons of Water Destroyed
+        formula: '@item.level * 10'
+    HOXAFi1SQnPzdJ6E:
+      type: utility
+      name: Destroy Fog
+      _id: HOXAFi1SQnPzdJ6E
+      img: null
+      sort: 0
+      activation:
+        type: action
+        override: false
+      consumption:
+        scaling:
+          allowed: false
+        spellSlot: true
+        targets: []
+      description: {}
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      flags: {}
+      range:
+        units: self
+        override: false
+      target:
+        template:
+          contiguous: false
+          stationary: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+        prompt: true
+      uses:
+        spent: 0
+        recovery: []
+      visibility:
+        level: {}
+        requireAttunement: false
+        requireIdentification: false
+        requireMagic: false
+      roll:
+        prompt: false
+        visible: false
+  identifier: create-or-destroy-water
+sort: 0
+flags: {}
+img: icons/magic/water/water-drop-swirl-blue.webp
+effects: []
+folder: ERuXllkhTQF51rDJ
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.3.0
+  createdTime: 1725037359605
+  modifiedTime: 1772827717716
+  lastModifiedBy: dnd5ebuilder0000
+  exportSource: null
+_key: '!items!a3XtAO5n2GrqiAh5'

@@ -1,0 +1,462 @@
+name: Magnet Release Sealing Dust Sphere
+type: spell
+img: systems/n5eb/assets/content/clans/jiton.webp
+system:
+  description:
+    value: >-
+      <p>Using your magnetic chakra and a special seal, you create a sphere of dust particles of your description (Gold,
+      Iron, Sand, Salt, Gravel) with a 10-foot radius on a point you can see within range. The sphere can hover in the
+      air, but no more than 10 feet off the ground. The sphere remains for the jutsu's duration.</p><p>Any creature in
+      the sphere's space must make a Strength saving throw. On a successful save, a creature is ejected from that space
+      to the nearest unoccupied space outside it. A Huge or larger creature succeeds on the saving throw automatically.
+      On a failed save, a creature is restrained by the sphere and is engulphed by the dust particles. At the end of
+      each of its turns, a restrained target can repeat the saving throw. The sphere can restrain a maximum of four
+      Medium or smaller creatures or one Large creature. If the sphere restrains a creature in excess of these numbers,
+      a random creature that was already restrained by the sphere falls out of it and lands prone in a space within 5
+      feet of it.</p><p>As an action, you can move the sphere up to 30 feet in a straight line. If it moves over a pit,
+      cliff, or other drop, itsafely descends until it is hovering 10 feet over ground. Any creature restrained by the
+      sphere moves with it. You can ram the sphere into creatures, forcing them to make the saving throw, but no more
+      than once per turn. When the spell ends, the sphere falls to the ground and extinguishes all normal flames within
+      30 feet of it. Any creature restrained by the sphere is knocked prone in the space where it falls</p><p>At Higher
+      Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3, and the size of the
+      gold sphere increases. At B-Rank, the sphere has a 15- foot radius, and can restrain a maximum of five Medium or
+      smaller creatures, one Large creature, or one Huge creature.</p><p>At A-Rank, the sphere has a 20-foot radius, and
+      can restrain a maximum of six Medium or smaller creatures, two Large creatures, one Huge creature, or one
+      Gargantuan creature.</p><p>At S-Rank, the sphere has a 30-foot radius, and can restrain a maximum of eight Medium
+      or smaller creatures, three Large creatures, two Huge creatures, or one Gargantuan creature</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '10'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: 90
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: magnet-release-sealing-dust-sphere
+  jutsu:
+    components:
+      - hs
+      - cm
+      - cs
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - fuinjutsu
+      - earth
+      - wind
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Prone
+    origin: Compendium.n5eb.clan.Item.MgloRnZpmycVzfKP
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: ZckIqHyDrTMKHSwk
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!MgloRnZpmycVzfKP.ZckIqHyDrTMKHSwk'
+  - name: Restrained
+    origin: Compendium.n5eb.clan.Item.MgloRnZpmycVzfKP
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/restrained.svg
+    _id: Rxb61IVNQ2JKS9Zo
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.dex
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: restrained
+        priority: 20
+    description: >-
+      <p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their
+      space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its
+      speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have
+      disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!MgloRnZpmycVzfKP.Rxb61IVNQ2JKS9Zo'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - chakraseals
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: jiton/clan-hijutsu/c-rank/magnet-release-sealing-dust-sphere.json
+      sourceId: MgloRnZpmycVzfKP
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Using your magnetic chakra and a special seal, you create a sphere of dust particles of your description
+            (Gold, Iron, Sand, Salt, Gravel) with a 10-foot radius on a point you can see within range. The sphere can
+            hover in the air, but no more than 10 feet off the ground. The sphere remains for the jutsu's
+            duration.</p><p>Any creature in the sphere's space must make a Strength saving throw. On a successful save,
+            a creature is ejected from that space to the nearest unoccupied space outside it. A Huge or larger creature
+            succeeds on the saving throw automatically. On a failed save, a creature is restrained by the sphere and is
+            engulphed by the dust particles. At the end of each of its turns, a restrained target can repeat the saving
+            throw. The sphere can restrain a maximum of four Medium or smaller creatures or one Large creature. If the
+            sphere restrains a creature in excess of these numbers, a random creature that was already restrained by the
+            sphere falls out of it and lands prone in a space within 5 feet of it.</p><p>As an action, you can move the
+            sphere up to 30 feet in a straight line. If it moves over a pit, cliff, or other drop, itsafely descends
+            until it is hovering 10 feet over ground. Any creature restrained by the sphere moves with it. You can ram
+            the sphere into creatures, forcing them to make the saving throw, but no more than once per turn. When the
+            spell ends, the sphere falls to the ground and extinguishes all normal flames within 30 feet of it. Any
+            creature restrained by the sphere is knocked prone in the space where it falls</p><p>At Higher Ranks: For
+            each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3, and the size of the gold
+            sphere increases. At B-Rank, the sphere has a 15- foot radius, and can restrain a maximum of five Medium or
+            smaller creatures, one Large creature, or one Huge creature.</p><p>At A-Rank, the sphere has a 20-foot
+            radius, and can restrain a maximum of six Medium or smaller creatures, two Large creatures, one Huge
+            creature, or one Gargantuan creature.</p><p>At S-Rank, the sphere has a 30-foot radius, and can restrain a
+            maximum of eight Medium or smaller creatures, three Large creatures, two Huge creatures, or one Gargantuan
+            creature</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '10'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: 90
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - chakraseals
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - fuinjutsu
+          - earth
+          - wind
+        chakraCost: 9
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728753587055
+  modifiedTime: 1728753629330
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: jiton/clan-hijutsu/c-rank/magnet-release-sealing-dust-sphere.json
+folder: h6dL9IOBtHh6x8JA
+sort: 100000
+ownership:
+  default: 0
+_id: MgloRnZpmycVzfKP
+_key: '!items!MgloRnZpmycVzfKP'

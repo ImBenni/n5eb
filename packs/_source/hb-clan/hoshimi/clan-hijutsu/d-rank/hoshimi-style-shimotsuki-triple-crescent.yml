@@ -1,0 +1,378 @@
+folder: GxMa6nSkW34pxLIA
+name: Hoshimi Style Shimotsuki Triple Crescent
+type: spell
+_id: onI4uyjBnosPovyK
+img: systems/n5eb/assets/content/clans/hoshimi.webp
+system:
+  description:
+    value: >-
+      <p>You sheath your weapon and begin to charge up frost release chakra
+      around the blade before drawing your blade, unleashing 3 large frost
+      slashes in an arc in front of you. Each creature of your choice within
+      range must make a Dexterity Saving Throw, taking your [Weapon's Damage] +
+      2d6 Cold Damage and gaining 1 rank of Chilled on a failed save, or half as
+      much and no ranks of cold on a successful one.</p><p>When you cast this
+      jutsu, you can spend 5 Chakra to hold the sheathed stance, instead of
+      unleashing it instantly. When held like this, increase your AC by +3 until
+      the start of your next turn. At the start of your next turn, you unsheath
+      the sword, dealing this jutsu's damage, with +2 damage dice, and inflicts
+      1 additional rank of Chilled.</p><p>If this jutsu is cast against an
+      <strong>Abberation</strong> or <strong>Monstrosity</strong>, they take a
+      -1d4 penalty to the Saving Throw.</p><hr /><p><strong>At Higher
+      Ranks</strong>: For each rank you cast this justu above D-Rank, increase
+      the cost by 3, the damage by 2d6, and the range of the cone by 15
+      feet.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: null
+    units: ft
+    type: cone
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d6
+        - cold
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: Any Melee
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 2d6
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: hoshimi-style-shimotsuki-triple-crescent
+  jutsu:
+    components:
+      - cm
+      - m
+      - w
+    keywords:
+      - bukijutsu
+      - hijutsu
+      - wind
+      - water
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Chilled
+    origin: Compendium.n5eb.hb-clan.Item.onI4uyjBnosPovyK
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: chilled
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/chilled.svg
+    _id: PDPBbXmFRT2YPzth
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.abilities.dex.bonuses.check
+        mode: 2
+        value: '-1'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - chilled
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!onI4uyjBnosPovyK.PDPBbXmFRT2YPzth'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: >-
+        hoshimi/clan-hijutsu/d-rank/hoshimi-style-shimotsuki-triple-crescent.json
+      sourceId: onI4uyjBnosPovyK
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You sheath your weapon and begin to charge up frost release
+            chakra around the blade before drawing your blade, unleashing 3
+            large frost slashes in an arc in front of you. Each creature of your
+            choice within range must make a Dexterity Saving Throw, taking your
+            [Weapon's Damage] + 2d6 Cold Damage and gaining 1 rank of Chilled on
+            a failed save, or half as much and no ranks of cold on a successful
+            one.</p><p>When you cast this jutsu, you can spend 5 Chakra to hold
+            the sheathed stance, instead of unleashing it instantly. When held
+            like this, increase your AC by +3 until the start of your next turn.
+            At the start of your next turn, you unsheath the sword, dealing this
+            jutsu's damage, with +2 damage dice, and inflicts 1 additional rank
+            of Chilled.</p><p>If this jutsu is cast against an
+            <strong>Abberation</strong> or <strong>Monstrosity</strong>, they
+            take a -1d4 penalty to the Saving Throw.</p><hr /><p><strong>At
+            Higher Ranks</strong>: For each rank you cast this justu above
+            D-Rank, increase the cost by 3, the damage by 2d6, and the range of
+            the cone by 15 feet.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: null
+          units: ft
+          type: cone
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d6
+              - cold
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - chakramolding
+          - mobility
+          - weapons
+        keywords:
+          - bukijutsu
+          - hijutsu
+          - wind
+          - water
+        materials:
+          value: Any Melee
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 2d6
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1743077116373
+  modifiedTime: 1743077995537
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: hoshimi/clan-hijutsu/d-rank/hoshimi-style-shimotsuki-triple-crescent.json
+_key: '!items!onI4uyjBnosPovyK'

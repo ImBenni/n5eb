@@ -1,0 +1,15 @@
+import SimpleTraitField from "./simple-trait-field.mjs";
+const { SetField, StringField } = foundry.data.fields;
+
+/**
+ * Field for storing damage resistances, immunities, and vulnerabilities data.
+ */
+export default class DamageTraitField extends SimpleTraitField {
+  constructor(fields={}, { initialBypasses=[], ...options }={}) {
+    super({
+      bypasses: new SetField(new StringField(), {
+        label: "DND5E.DAMAGE.PhysicalBypass.Label", hint: "DND5E.DAMAGE.PhysicalBypass.Hint", initial: initialBypasses
+      })
+    }, options);
+  }
+}

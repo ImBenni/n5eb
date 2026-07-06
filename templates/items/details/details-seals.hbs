@@ -1,0 +1,82 @@
+{{#if n5ebSeals.isTarget}}
+<fieldset>
+    <legend>{{ localize "N5EB.SEAL.Slots.Label" }}</legend>
+
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.SEAL.Quality.Label" }}</label>
+        <div class="form-fields">
+            {{ formField fields.seals.fields.quality value=source.seals.quality choices=CONFIG.sealQualities
+                         labelAttr="label" label="N5EB.SEAL.Quality.Label" localize=true classes="label-top"
+                         rootId=partId }}
+            {{ formField fields.seals.fields.capacity value=source.seals.capacity placeholder=n5ebSeals.slots.base
+                         label="N5EB.SEAL.Slots.Override" localize=true classes="label-top" rootId=partId }}
+            {{ formField fields.seals.fields.bonus value=source.seals.bonus label="N5EB.SEAL.Slots.Bonus"
+                         localize=true classes="label-top" rootId=partId }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.SEAL.Slots.Used" }}</label>
+        <div class="form-fields">
+            <span class="hint">{{ n5ebSeals.slots.used }} / {{ n5ebSeals.slots.capacity }}</span>
+            <button type="button" class="unbutton control-button" data-action="installSeal"
+                    data-tooltip="N5EB.SEAL.Install">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        {{#if n5ebSeals.slots.highQuality}}
+        <p class="hint">{{ localize "N5EB.SEAL.Slots.HighQualityBonus" }}</p>
+        {{/if}}
+    </div>
+
+    {{#if n5ebSeals.installed.length}}
+    <ol class="seals-list unlist">
+        {{#each n5ebSeals.installed}}
+        <li class="seal flexrow" data-effect-id="{{ id }}">
+            <img src="{{ img }}" alt="{{ name }}" width="24" height="24">
+            <div class="name-stacked">
+                <span class="title">{{ name }}</span>
+                <span class="subtitle">{{ rank }} &middot; {{ slots }} {{ localize "N5EB.SEAL.Slots.Short" }}</span>
+            </div>
+            <button type="button" class="unbutton control-button" data-action="uninstallSeal"
+                    data-tooltip="N5EB.SEAL.Uninstall">
+                <i class="fas fa-trash"></i>
+            </button>
+        </li>
+        {{/each}}
+    </ol>
+    {{else}}
+    <p class="hint">{{ localize "N5EB.SEAL.Slots.NoneInstalled" }}</p>
+    {{/if}}
+</fieldset>
+{{/if}}
+
+{{#if n5ebSeals.isSeal}}
+<fieldset>
+    <legend>{{ localize "N5EB.SEAL.Label" }}</legend>
+
+    {{ formField fields.seal.fields.target value=source.seal.target choices=n5ebSeals.targets
+                 label="N5EB.SEAL.Target" localize=true rootId=partId }}
+    {{ formField fields.seal.fields.rank value=source.seal.rank choices=CONFIG.sealRanks labelAttr="label"
+                 label="N5EB.SEAL.Rank.Label" localize=true rootId=partId }}
+
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.SEAL.Requirements" }}</label>
+        <div class="form-fields">
+            {{ formField fields.seal.fields.slots value=source.seal.slots label="N5EB.SEAL.Slots.Used"
+                         localize=true classes="label-top" rootId=partId }}
+            {{ formField fields.seal.fields.level value=source.seal.level label="N5EB.SEAL.Level"
+                         localize=true classes="label-top" rootId=partId }}
+            {{ formField fields.seal.fields.craftingDC value=source.seal.craftingDC label="N5EB.SEAL.CraftingDC"
+                         localize=true classes="label-top" rootId=partId }}
+            {{ formField fields.seal.fields.downtime value=source.seal.downtime label="N5EB.SEAL.Downtime"
+                         localize=true classes="label-top" rootId=partId }}
+        </div>
+    </div>
+
+    {{ formField fields.seal.fields.baseName value=source.seal.baseName label="N5EB.SEAL.BaseName"
+                 localize=true rootId=partId }}
+    {{ formField fields.seal.fields.notes value=source.seal.notes label="N5EB.SEAL.Notes"
+                 localize=true rootId=partId }}
+</fieldset>
+{{/if}}

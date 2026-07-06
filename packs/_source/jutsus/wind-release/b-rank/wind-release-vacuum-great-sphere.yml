@@ -1,0 +1,358 @@
+name: Wind Release Vacuum Great Sphere
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/wind.webp
+system:
+  description:
+    value: >-
+      <p>You generate 3 large Spheres of wind chakra. Choose 3 spaces in range. You send the large wind spheres to these
+      areas and they expand outwards with the point you've chosen at the center, 30 feet in diameter. Creatures caught
+      in these spheres or who enter them, movement speed is reduced to 0 and they cannot breathe while inside the sphere
+      as the pressure prevents them from inhaling successfully.</p><p>Creatures caught in the radius of any sphere can
+      make a strength saving throw or continue to have their movement speed reduced to 0. On a successful save, they
+      regain half of their movement speed.</p><p>A creature who begins or ends its turn within the radius of a sphere
+      must make a constitution saving throw. On a failure, they begin to suffocate, gaining 2 rank of exhaustion. On a
+      success, they recover 2 rank of exhaustion caused by this jutsu, if any.</p><p>Upon escaping or ending this
+      jutsu's effect on them, they recover from all ranks of exhaustion this jutsu imposed on them.</p><p>At Higher
+      Ranks: For each rank you cast this jutsu above B-Rank, increase the cost of this jutsu by 3 and select one
+      additional space this jutsu affects.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: sphere
+    prompt: true
+  range:
+    value: 120
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 13
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: ninjutsu
+  level: 5
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: wind-release-vacuum-great-sphere
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - wind
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '13'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Exhaustion
+    origin: Compendium.n5eb.jutsus.Item.JHIYgXbaQ88SzQww
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/exhaustion.svg
+    _id: 6vjFyt1NLFAwWd28
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Attacks
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.bonuses.abilities.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.bonuses.abilities.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p>Some special abilities and environmental hazards, such as and the long-term effects of freezing or scorching
+      temperatures, can lead to a special condition called exhaustion.</p><p>If an already exhausted creature suffers
+      another effect that causes exhaustion, its current level of exhaustion increases by 1 rank.</p><p>An effect that
+      removes exhaustion reduces its rank by 1. Finishing a long rest reduces a creature’s exhaustion level by 1,
+      provided that the creature has also ingested some food and drink. When a creature exceeds 10 ranks of exhaustion,
+      they die.</p><p>For every rank of exhaustion, a creature has all of the following statistics are reduced by 1, and
+      for every two ranks of exhaustion a creatures speed is reduced by 5;</p><ul><li><p>Armor
+      Class</p></li><li><p>Ability Checks</p></li><li><p>Skill Checks</p></li><li><p>Saving Throws</p></li><li><p>Attack
+      Rolls</p></li><li><p>Damage Rolls</p></li><li><p>Save DC’s</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - exhaustion
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.uZorNyJB1OLmWYiq.ActiveEffect.JZF20dElgZ79eI8h
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!JHIYgXbaQ88SzQww.6vjFyt1NLFAwWd28'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: wind-release/b-rank/wind-release-vacuum-great-sphere.json
+      sourceId: JHIYgXbaQ88SzQww
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You generate 3 large Spheres of wind chakra. Choose 3 spaces in range. You send the large wind spheres to
+            these areas and they expand outwards with the point you've chosen at the center, 30 feet in diameter.
+            Creatures caught in these spheres or who enter them, movement speed is reduced to 0 and they cannot breathe
+            while inside the sphere as the pressure prevents them from inhaling successfully.</p><p>Creatures caught in
+            the radius of any sphere can make a strength saving throw or continue to have their movement speed reduced
+            to 0. On a successful save, they regain half of their movement speed.</p><p>A creature who begins or ends
+            its turn within the radius of a sphere must make a constitution saving throw. On a failure, they begin to
+            suffocate, gaining 2 rank of exhaustion. On a success, they recover 2 rank of exhaustion caused by this
+            jutsu, if any.</p><p>Upon escaping or ending this jutsu's effect on them, they recover from all ranks of
+            exhaustion this jutsu imposed on them.</p><p>At Higher Ranks: For each rank you cast this jutsu above
+            B-Rank, increase the cost of this jutsu by 3 and select one additional space this jutsu affects.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: sphere
+          prompt: true
+        range:
+          value: 120
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 13
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: ninjutsu
+        level: 3
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - wind
+        chakraCost: 13
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757601216
+  modifiedTime: 1728757601216
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: wind-release/b-rank/wind-release-vacuum-great-sphere.json
+folder: Ogfs4zSzoQwBVnW2
+sort: 0
+ownership:
+  default: 0
+_id: JHIYgXbaQ88SzQww
+_key: '!items!JHIYgXbaQ88SzQww'

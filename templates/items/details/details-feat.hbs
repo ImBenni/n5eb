@@ -1,39 +1,184 @@
 <fieldset>
-    <legend>{{ localize "N5EB.ItemFeatureDetails" }}</legend>
+    <legend>{{ localize "DND5E.ItemFeatureDetails" }}</legend>
 
     {{!-- Feature Type --}}
-    {{ formField fields.type.fields.value value=source.type.value choices=config.featureTypes labelAttr="label" blank=""
-                 localize=true }}
+    {{ formField fields.type.fields.value value=source.type.value choices=CONFIG.featureTypes labelAttr="label" blank=""
+                 localize=true rootId=partId }}
 
     {{!-- Feature Sub-Type --}}
     {{#if itemSubtypes}}
     {{ formField fields.type.fields.subtype value=source.type.subtype choices=itemSubtypes blank="" localize=true
-                 label=(localize "N5EB.ItemFeatureSubtype" category=(lookup (lookup config.featureTypes source.type.value) "label")) }}
+                 label=(localize "DND5E.ItemFeatureSubtype" category=(lookup (lookup CONFIG.featureTypes source.type.value) "label")) rootId=partId }}
+    {{/if}}
+
+    {{!-- Ranked Feature Metadata --}}
+    {{#if featureRankOptions}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.Feature.Rank" }}</label>
+        <div class="form-fields">
+            <select name="system.type.nestedsubtype">
+                {{ selectOptions featureRankOptions selected=source.type.nestedsubtype labelAttr="label"
+                                  blank=(localize "N5EB.Feature.NoRank") localize=true }}
+            </select>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if (eq system.type.value "vehicle")}}
+    {{ formField fields.cover value=source.cover options=coverOptions rootId=partId }}
     {{/if}}
 
     {{!-- Feature Prerequisites --}}
-    {{ formField fields.prerequisites.fields.level value=source.prerequisites.level localize=true step=1
-                 label="N5EB.Prerequisites.FIELDS.prerequisites.level.label"
-                 hint="N5EB.Prerequisites.FIELDS.prerequisites.level.hint" }}
+    {{ formField fields.prerequisites.fields.level value=source.prerequisites.level rootId=partId }}
+    {{ formField fields.prerequisites.fields.items value=source.prerequisites.items rootId=partId }}
+    {{ formField fields.prerequisites.fields.repeatable value=source.prerequisites.repeatable
+                 input=inputs.createCheckboxInput rootId=partId }}
 
     {{!-- Feature Properties --}}
-    {{ formField fields.properties options=properties.options label="N5EB.ItemFeatureProperties" localize=true
+    {{ formField fields.properties options=properties.options label="DND5E.ItemFeatureProperties" localize=true
                  input=inputs.createMultiCheckboxInput stacked=true classes="checkbox-grid checkbox-grid-3" }}
 </fieldset>
 
+{{#if n5ebSummon.isSummonFeature}}
+{{#if n5ebSummon.isDefinition}}
+<fieldset>
+    <legend>{{ localize "N5EB.Summon.Definition.Label" }}</legend>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.Kind" }}</label>
+        <div class="form-fields">
+            <select name="flags.n5eb.summonDefinition.kind">
+                <option value="tribe" {{#if (eq n5ebSummon.definition.kind "tribe")}}selected{{/if}}>
+                    {{ localize "N5EB.Summon.Definition.Tribe" }}
+                </option>
+                <option value="type" {{#if (eq n5ebSummon.definition.kind "type")}}selected{{/if}}>
+                    {{ localize "N5EB.Summon.Definition.Type" }}
+                </option>
+                <option value="inuzukaBreed" {{#if (eq n5ebSummon.definition.kind "inuzukaBreed")}}selected{{/if}}>
+                    {{ localize "N5EB.Summon.Definition.InuzukaBreed" }}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.Key" }}</label>
+        <div class="form-fields">
+            <input type="text" name="flags.n5eb.summonDefinition.key" value="{{ n5ebSummon.definition.key }}">
+        </div>
+        <p class="hint">{{ localize "N5EB.Summon.Definition.KeyHint" }}</p>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.DisplayLabel" }}</label>
+        <div class="form-fields">
+            <input type="text" name="flags.n5eb.summonDefinition.label" value="{{ n5ebSummon.definition.label }}">
+        </div>
+    </div>
+
+    {{#if n5ebSummon.isInuzukaBreedDefinition}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.BaseTribe" }}</label>
+        <div class="form-fields">
+            <input type="text" name="flags.n5eb.summonDefinition.baseTribe"
+                   value="{{ n5ebSummon.definition.baseTribe }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.Variant" }}</label>
+        <div class="form-fields">
+            <input type="text" name="flags.n5eb.summonDefinition.variant"
+                   value="{{ n5ebSummon.definition.variant }}">
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if n5ebSummon.isTribeDefinition}}
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.DefaultType" }}</label>
+        <div class="form-fields">
+            <input type="text" name="flags.n5eb.summonDefinition.summonType"
+                   value="{{ n5ebSummon.definition.summonType }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Toughness" }}</label>
+        <div class="form-fields">
+            <input type="number" name="flags.n5eb.summonDefinition.toughness"
+                   value="{{ n5ebSummon.definition.toughness }}" min="0" step="1">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.DefenseAbility" }}</label>
+        <div class="form-fields">
+            <select name="flags.n5eb.summonDefinition.defenseAbility">
+                {{ selectOptions CONFIG.abilities selected=n5ebSummon.definition.defenseAbility labelAttr="label" blank=(localize "N5EB.None") }}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.JutsuAbility" }}</label>
+        <div class="form-fields">
+            <select name="flags.n5eb.summonDefinition.jutsuAbility">
+                {{ selectOptions CONFIG.abilities selected=n5ebSummon.definition.jutsuAbility labelAttr="label" blank=(localize "N5EB.None") }}
+            </select>
+        </div>
+    </div>
+    {{/if}}
+</fieldset>
+{{else}}
+<fieldset>
+    <legend>{{ localize "N5EB.Summon.Definition.ContentTags" }}</legend>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.Tribes" }}</label>
+        <div class="form-fields">
+            <input type="text" name="flags.n5eb.summonContent.tribes" value="{{ n5ebSummon.content.tribes }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.Types" }}</label>
+        <div class="form-fields">
+            <input type="text" name="flags.n5eb.summonContent.types" value="{{ n5ebSummon.content.types }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.Roles" }}</label>
+        <div class="form-fields">
+            <input type="text" name="flags.n5eb.summonContent.roles" value="{{ n5ebSummon.content.roles }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{ localize "N5EB.Summon.Definition.Ranks" }}</label>
+        <div class="form-fields">
+            <input type="text" name="flags.n5eb.summonContent.ranks" value="{{ n5ebSummon.content.ranks }}">
+        </div>
+    </div>
+    <p class="hint">{{ localize "N5EB.Summon.Definition.ContentTagsHint" }}</p>
+</fieldset>
+{{/if}}
+{{/if}}
+
 {{#if system.isEnchantmentSource}}
 <fieldset>
-    <legend>{{ localize "N5EB.ENCHANTMENT.Label" }}</legend>
+    <legend>{{ localize "DND5E.ENCHANTMENT.Label" }}</legend>
 
     {{!-- Max Enchantments --}}
-    {{ formField fields.enchant.fields.max value=source.enchantment.max localize=true
-                 label="N5EB.ENCHANTMENT.FIELDS.enchantment.items.max.label"
-                 hint="N5EB.ENCHANTMENT.FIELDS.enchantment.items.max.hint" }}
+    {{ formField fields.enchant.fields.max value=source.enchant.max localize=true
+                 label="DND5E.ENCHANTMENT.FIELDS.enchantment.items.max.label"
+                 hint="DND5E.ENCHANTMENT.FIELDS.enchantment.items.max.hint" rootId=partId }}
 
     {{!-- Enchantment Replacement --}}
-    {{ formField fields.enchant.fields.period value=source.enchantment.period localize=true
-                 choices=config.enchantmentPeriods labelAttr="label" blank="N5EB.UsesPeriods.Never"
-                 label="N5EB.ENCHANTMENT.FIELDS.enchantment.items.period.label"
-                 hint="N5EB.ENCHANTMENT.FIELDS.enchantment.items.period.hint" }}
+    {{ formField fields.enchant.fields.period value=source.enchant.period localize=true
+                 choices=CONFIG.enchantmentPeriods labelAttr="label" blank="DND5E.ENCHANTMENT.Period.Never"
+                 label="DND5E.ENCHANTMENT.FIELDS.enchantment.items.period.label"
+                 hint="DND5E.ENCHANTMENT.FIELDS.enchantment.items.period.hint" rootId=partId }}
 </fieldset>
 {{/if}}

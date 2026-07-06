@@ -1,0 +1,267 @@
+name: Summoning Rashomon
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/non-elemental.webp
+system:
+  description:
+    value: >-
+      <p>You bite your finger drawing blood before using it as a catalyst to summon Rashomon, a 60 feet tall, 30 feet
+      wide, and 5 feet thick gate made of iron, brick, chakra and other materials. This wall is erected standing
+      straight upward. If you are in an area that cannot fit Rashomon, this jutsu will fail. Rashomon has 100 Hit
+      Points.</p><p>The Rashomon unsummons itself after 1 minute, or if this Jutsu is cast again, whichever comes first.
+      The Rashomon regains all of its Hit Points over the course of a Long Rest. If the Rashomon is summoned before its
+      caster takes a Long Rest, it remains in the same condition it was in when it was unsummoned.</p><p>At Higher
+      Ranks: For each rank you cast this jutsu above B-Rank, increase the cost of this jutsu by 3 and Rashomon's Hit
+      points by +25.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: reaction
+    cost: 1
+    condition: which you take when you or an allied creature would take damage or make a saving
+  duration:
+    value: '1'
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '5'
+    width: 30
+    units: ft
+    type: wall
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 12
+    scale: false
+  ability: ''
+  actionType: other
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - '100'
+        - ''
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 5
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: '25'
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: summoning-rashomon
+  jutsu:
+    components:
+      - hs
+      - cs
+    keywords:
+      - ninjutsu
+      - fuinjutsu
+      - construct
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '12'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - chakraseals
+      - handseals
+      - fuinjutsu
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: non-elemental/b-rank/summoning-rashomon.json
+      sourceId: 6pvPnYBGX9aSywcU
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You bite your finger drawing blood before using it as a catalyst to summon Rashomon, a 60 feet tall, 30
+            feet wide, and 5 feet thick gate made of iron, brick, chakra and other materials. This wall is erected
+            standing straight upward. If you are in an area that cannot fit Rashomon, this jutsu will fail. Rashomon has
+            100 Hit Points.</p><p>The Rashomon unsummons itself after 1 minute, or if this Jutsu is cast again,
+            whichever comes first. The Rashomon regains all of its Hit Points over the course of a Long Rest. If the
+            Rashomon is summoned before its caster takes a Long Rest, it remains in the same condition it was in when it
+            was unsummoned.</p><p>At Higher Ranks: For each rank you cast this jutsu above B-Rank, increase the cost of
+            this jutsu by 3 and Rashomon's Hit points by +25.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take when you or an allied creature would take damage or make a saving
+        duration:
+          value: '1'
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '5'
+          width: 30
+          units: ft
+          type: wall
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 12
+          scale: false
+        ability: ''
+        actionType: other
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - '100'
+              - ''
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 3
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: '25'
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakraseals
+          - fuinjutsu
+        keywords:
+          - ninjutsu
+          - fuinjutsu
+          - construct
+        chakraCost: 12
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    itemCondition: ''
+    reactionCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757276506
+  modifiedTime: 1728757276506
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: non-elemental/b-rank/summoning-rashomon.json
+folder: 0npCsr4fjKoZ5Ngu
+sort: 200000
+ownership:
+  default: 0
+_id: 6pvPnYBGX9aSywcU
+_key: '!items!6pvPnYBGX9aSywcU'

@@ -1,0 +1,369 @@
+import { filteredKeys } from "../../utils.mjs";
+import ItemDataModel from "../abstract/item-data-model.mjs";
+import BaseActivityData from "../activity/base-activity.mjs";
+import FormulaField from "../fields/formula-field.mjs";
+import DamageField from "../shared/damage-field.mjs";
+import UsesField from "../shared/uses-field.mjs";
+import ItemTypeField from "./fields/item-type-field.mjs";
+import ActivitiesTemplate from "./templates/activities.mjs";
+import EquippableItemTemplate from "./templates/equippable-item.mjs";
+import IdentifiableTemplate from "./templates/identifiable.mjs";
+import ItemDescriptionTemplate from "./templates/item-description.mjs";
+import ItemTypeTemplate from "./templates/item-type.mjs";
+import PhysicalItemTemplate from "./templates/physical-item.mjs";
+import * as Seals from "../../seals.mjs";
+
+const { BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+
+/**
+ * @import { InventorySectionDescriptor } from "../../applications/components/_types.mjs";
+ * @import { ConsumableItemSystemData } from "./_types.mjs";
+ * @import {
+ *   ActivitiesTemplateData, EquippableItemTemplateData, IdentifiableTemplateData,
+ *   ItemDescriptionTemplateData, ItemTypeTemplateData, PhysicalItemTemplateData
+ * } from "./templates/_types.mjs";
+ */
+
+/**
+ * Data definition for Consumable items.
+ * @extends {ItemDataModel<
+ *   ActivitiesTemplate & ItemDescriptionTemplate & IdentifiableTemplate &
+ *   ItemTypeTemplate & PhysicalItemTemplate & EquippableItemTemplate & ConsumableItemSystemData
+ * >}
+ * @mixes ActivitiesTemplateData
+ * @mixes ItemDescriptionTemplateData
+ * @mixes ItemTypeTemplateData
+ * @mixes IdentifiableTemplateData
+ * @mixes PhysicalItemTemplateData
+ * @mixes EquippableItemTemplateData
+ * @mixes ConsumableItemSystemData
+ */
+export default class ConsumableData extends ItemDataModel.mixin(
+  ActivitiesTemplate, ItemDescriptionTemplate, IdentifiableTemplate, ItemTypeTemplate,
+  PhysicalItemTemplate, EquippableItemTemplate
+) {
+
+  /* -------------------------------------------- */
+  /*  Model Configuration                         */
+  /* -------------------------------------------- */
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["DND5E.CONSUMABLE", "DND5E.SOURCE"];
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static defineSchema() {
+    return this.mergeSchema(super.defineSchema(), {
+      damage: new SchemaField({
+        base: new DamageField(),
+        replace: new BooleanField()
+      }),
+      ammunitionDie: new StringField({
+        required: true,
+        initial: "d8",
+        blank: false,
+        label: "N5EB.AmmoDie",
+        validate: die => die in CONFIG.DND5E.ammoDieTypes,
+        validationError: "must be a configured ammunition die"
+      }),
+      magicalBonus: new FormulaField({ deterministic: true }),
+      properties: new SetField(new StringField()),
+      seal: new SchemaField({
+        target: new StringField({ required: true, blank: true, initial: "", label: "N5EB.SEAL.Target" }),
+        rank: new StringField({ required: true, blank: true, initial: "", label: "N5EB.SEAL.Rank.Label" }),
+        slots: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.SEAL.Slots.Used" }),
+        baseName: new StringField({ required: true, blank: true, initial: "", label: "N5EB.SEAL.BaseName" }),
+        level: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.SEAL.Level" }),
+        craftingDC: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.SEAL.CraftingDC" }),
+        downtime: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.SEAL.Downtime" }),
+        notes: new StringField({ required: true, blank: true, initial: "", label: "N5EB.SEAL.Notes" })
+      }, { label: "N5EB.SEAL.Label" }),
+      type: new ItemTypeField({ baseItem: false }, { label: "DND5E.ItemConsumableType" }),
+      uses: new UsesField({
+        autoDestroy: new BooleanField({ required: true })
+      })
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(super.metadata, {
+    hasEffects: true,
+    enchantable: true
+  }, {inplace: false}));
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  static get compendiumBrowserFilters() {
+    return new Map([
+      ["type", {
+        label: "DND5E.ItemConsumableType",
+        type: "set",
+        config: {
+          choices: CONFIG.DND5E.consumableTypes,
+          keyPath: "system.type.value"
+        }
+      }],
+      ["attunement", this.compendiumBrowserAttunementFilter],
+      ...this.compendiumBrowserPhysicalItemFilters,
+      ["properties", this.compendiumBrowserPropertiesFilter("consumable")]
+    ]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Default configuration for this item type's inventory section.
+   * @returns {InventorySectionDescriptor}
+   */
+  static get inventorySection() {
+    return {
+      id: "consumables",
+      order: 300,
+      label: "TYPES.Item.consumablePl",
+      groups: { type: "consumable" },
+      columns: ["price", "weight", "quantity", "ammoDie", "charges", "controls"]
+    };
+  }
+
+  /* -------------------------------------------- */
+  /*  Properties                                  */
+  /* -------------------------------------------- */
+
+  /**
+   * Properties displayed in chat.
+   * @type {string[]}
+   */
+  get chatProperties() {
+    return [
+      this.type.label,
+      this.type.value === "ammo" ? game.i18n.format("N5EB.AmmoDieValue", { die: this.ammunitionDie }) : null,
+      this.hasLimitedUses ? `${this.uses.value}/${this.uses.max} ${game.i18n.localize("DND5E.Charges")}` : null,
+      this.priceLabel
+    ];
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  get _typeAbilityMod() {
+    if ( this.type.value !== "scroll" ) return null;
+    return this.parent?.actor?.system.attributes.spellcasting || "int";
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  static get itemCategories() {
+    return CONFIG.DND5E.consumableTypes;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does this item have base damage defined in `damage.base` to offer to an activity?
+   * @type {boolean}
+   */
+  get offersBaseDamage() {
+    return this.type.value === "ammo";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The proficiency multiplier for this item.
+   * @returns {number}
+   */
+  get proficiencyMultiplier() {
+    const isProficient = this.parent?.actor?.getFlag("n5eb", "tavernBrawlerFeat");
+    return isProficient ? 1 : 0;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  get validProperties() {
+    const valid = super.validProperties;
+    if ( this.type.value === "ammo" ) Object.entries(CONFIG.DND5E.itemProperties).forEach(([k, v]) => {
+      if ( v.isPhysical ) valid.add(k);
+      valid.add("ret");
+    });
+    else if ( this.type.value === "scroll" ) CONFIG.DND5E.validProperties.spell
+      .filter(p => p !== "material").forEach(p => valid.add(p));
+    return valid;
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Migration                              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static _migrateData(source) {
+    super._migrateData(source);
+    ActivitiesTemplate.migrateActivities(source);
+    ConsumableData.#migrateDamage(source);
+    ConsumableData.#migratePropertiesData(source);
+    ConsumableData.#migrateSealData(source);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate weapon damage from old parts.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateDamage(source) {
+    if ( "base" in (source.damage ?? {}) ) return;
+    const systemData = { system: { scaling: { mode: "none" } } };
+    if ( source.damage?.parts?.[0] ) {
+      source.damage.base = BaseActivityData.transformDamagePartData(systemData, source.damage.parts.shift());
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate the properties object into a set.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migratePropertiesData(source) {
+    if ( foundry.utils.getType(source.properties) !== "Object" ) return;
+    source.properties = filteredKeys(source.properties);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate N5eB enhancement seal metadata from old consumable categories.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateSealData(source) {
+    if ( !["aseal", "wseal"].includes(source.type?.value) && !source.seal ) return;
+    source.seal ??= {};
+    const derived = Seals.deriveSealData({ name: source.parent?.name ?? source.name ?? "", system: source });
+    const rank = source.seal.rank || derived.rank;
+    const rankConfig = Seals.SEAL_RANKS[rank] ?? {};
+    source.seal.target ||= derived.target;
+    source.seal.rank ||= rank;
+    source.seal.slots ||= rankConfig.slots ?? 0;
+    source.seal.baseName ||= derived.baseName;
+    source.seal.level ||= rankConfig.level ?? 0;
+    source.seal.craftingDC ||= rankConfig.craftingDC ?? 0;
+    source.seal.downtime ||= rankConfig.downtime ?? 0;
+    source.seal.notes ??= "";
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    this.prepareDescriptionData();
+    this.prepareIdentifiable();
+    this.preparePhysicalData();
+    if ( !this.type.value ) return;
+    const config = CONFIG.DND5E.consumableTypes[this.type.value];
+    if ( config ) {
+      this.type.label = config.subtypes?.[this.type.subtype] ?? config.label;
+    } else {
+      this.type.label = game.i18n.localize(CONFIG.Item.typeLabels.consumable);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareFinalData() {
+    this.prepareFinalActivityData(this.parent.getRollData({ deterministic: true }));
+    this.prepareFinalEquippableData();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async getFavoriteData() {
+    return foundry.utils.mergeObject(await super.getFavoriteData(), {
+      subtitle: [this.type.label, this.parent.labels.activation],
+      uses: this.hasLimitedUses ? this.getUsesData() : null,
+      quantity: this.quantity
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async getSheetData(context) {
+    context.subtitles = [
+      { label: this.type.label },
+      ...this.physicalItemSheetFields
+    ];
+
+    context.parts = ["dnd5e.details-consumable", "dnd5e.field-uses"];
+    context.damageTypes = Object.entries(CONFIG.DND5E.damageTypes).map(([value, { label }]) => {
+      return {
+        value, label,
+        selected: context.source.damage.base.types.includes?.(value) ?? context.source.damage.base.types.has(value)
+      };
+    });
+    context.denominationOptions = [
+      { value: "", label: "" },
+      { rule: true },
+      ...CONFIG.DND5E.dieSteps.map(value => ({ value, label: `d${value}` }))
+    ];
+    const itemTypes = CONFIG.DND5E.consumableTypes[this._source.type.value];
+    if ( itemTypes ) {
+      context.itemType = itemTypes.label;
+      context.itemSubtypes = itemTypes.subtypes;
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Socket Event Handlers                       */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    if ( (await super._preCreate(data, options, user)) === false ) return false;
+    this.preCreateGear(data, options, user);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preUpdate(changed, options, user) {
+    if ( (await super._preUpdate(changed, options, user)) === false ) return false;
+    await this.preUpdateIdentifiable(changed, options, user);
+  }
+
+  /* -------------------------------------------- */
+  /*  Helpers                                     */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async getCraftCost(options={}) {
+    const { days, gold } = await super.getCraftCost(options);
+    const { consumable, magic } = CONFIG.DND5E.crafting;
+    const { rarity } = this;
+    if ( !this.properties.has("mgc") || !(rarity in magic) ) return { days, gold };
+    const costs = magic[rarity];
+    return {
+      days: Math.floor(costs.days * consumable.days),
+      gold: Math.floor(costs.gold * consumable.gold)
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getRollData(...options) {
+    const data = super.getRollData(...options);
+    const spellLevel = this.parent.getFlag("n5eb", "spellLevel");
+    if ( spellLevel ) data.item.level = spellLevel.value ?? spellLevel.base;
+    return data;
+  }
+}

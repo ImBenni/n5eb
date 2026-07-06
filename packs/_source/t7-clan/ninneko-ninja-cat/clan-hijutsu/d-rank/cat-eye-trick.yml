@@ -1,0 +1,362 @@
+folder: Znn309LjN4Yz8GXT
+name: Cat Eye Trick
+type: spell
+_id: DEbwYKT7sLpjEs0W
+img: systems/n5eb/assets/content/clans/ninneko.webp
+system:
+  description:
+    value: >-
+      <p>One creature in range that can see you is selected as the target of
+      this genjutsu. You appear as an unassuming, harmlessly adorable cat to a
+      creature under this genjutsu. The target must make a Wisdom saving throw,
+      and does so with advantage if you or your allies are fighting it.
+      Creatures that fail against this jutsu can repeat the save at the end of
+      each of its turns, ending the effects on itself on a
+      success.</p><ul><li><strong>Critical Success</strong>: This jutsu ends on
+      the affected creature, removing all ranks of charm inflicted by this jutsu
+      and is immune to the effects of this jutsu for 1
+      hour.</li><li><strong>Success</strong>: Affected creature does not gain a
+      rank of charmed.</li><li><strong>Failure</strong>: Affected creature gains
+      1 rank of charmed against the caster until this jutsu
+      ends.</li><li><strong>Critical Failure</strong>: Affected creature gains 2
+      ranks of charmed against the caster until this jutsu ends and has its
+      movement reduced to 0 as they are overwhelmed with
+      cuteness.</li></ul><p><strong>At Higher Ranks</strong>: For each rank you
+      cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the
+      number of creatures you can target by 1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: genjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties:
+    - concentration
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: cat-eye-trick
+  jutsu:
+    components:
+      - cm
+    keywords:
+      - genjutsu
+      - hijutsu
+      - visual
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Charmed
+    origin: Compendium.n5eb.t7-clan.Item.DEbwYKT7sLpjEs0W
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - isDamaged
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: charmed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/charmed.svg
+    _id: jpNgMzqfApjJV33A
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+      - key: system.abilities.wis.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><ul><li><p>A
+      <strong>Charmed</strong> creature is partially infatuated with a
+      particular target.</p></li><li><p>A <strong>Charmed</strong> creature
+      increases its attitude to you, by 1 rank, for each rank of Charmed it
+      has.</p></li><li><p>A <strong>Charmed</strong> creatures suffers a -2
+      penalty to Intelligence &amp; Wisdom based skill checks made against its
+      infatuation for each rank it has.</p></li><li><p>A
+      <strong>Charmed</strong> creature cannot take hostile actions towards the
+      source of its infatuations. If they would suffer a hostile effect or
+      damage from the source of its infatuations or one of its infatuations
+      allies, they remove all ranks of this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - charmed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.W7xYf9O8awd8TITw.ActiveEffect.q6BnBoFI5WGgWuGi
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!DEbwYKT7sLpjEs0W.jpNgMzqfApjJV33A'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: ninneko-ninja-cat/clan-hijutsu/d-rank/cat-eye-trick.json
+      sourceId: DEbwYKT7sLpjEs0W
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>One creature in range that can see you is selected as the target
+            of this genjutsu. You appear as an unassuming, harmlessly adorable
+            cat to a creature under this genjutsu. The target must make a Wisdom
+            saving throw, and does so with advantage if you or your allies are
+            fighting it. Creatures that fail against this jutsu can repeat the
+            save at the end of each of its turns, ending the effects on itself
+            on a success.</p><ul><li><strong>Critical Success</strong>: This
+            jutsu ends on the affected creature, removing all ranks of charm
+            inflicted by this jutsu and is immune to the effects of this jutsu
+            for 1 hour.</li><li><strong>Success</strong>: Affected creature does
+            not gain a rank of charmed.</li><li><strong>Failure</strong>:
+            Affected creature gains 1 rank of charmed against the caster until
+            this jutsu ends.</li><li><strong>Critical Failure</strong>: Affected
+            creature gains 2 ranks of charmed against the caster until this
+            jutsu ends and has its movement reduced to 0 as they are overwhelmed
+            with cuteness.</li></ul><p><strong>At Higher Ranks</strong>: For
+            each rank you cast this jutsu above D-Rank, increase the cost of
+            this jutsu by 3 and the number of creatures you can target by 1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: genjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - chakramolding
+          - concentration
+        keywords:
+          - genjutsu
+          - hijutsu
+          - visual
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733407568143
+  modifiedTime: 1734018548904
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: ninneko-ninja-cat/clan-hijutsu/d-rank/cat-eye-trick.json
+_key: '!items!DEbwYKT7sLpjEs0W'

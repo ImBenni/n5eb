@@ -1,0 +1,163 @@
+folder: w8bfWqi87gJKGpvX
+name: "Breath of Sparks: Swarm"
+type: spell
+_id: n5ebSparkSwarm01
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You begin to collect and manifest lightning release chakra until it laces the striking portion of your weapon.
+      The lightning release chakra begins to collect and spark off of your weapon with violent jolts. You prepare for a
+      volley of attacks as you attack multiple times, enhanced by lightning. Make two Taijutsu Attacks using, dealing
+      your Weapon's Damage Dice + 3d6 Lightning Damage. Whether these attacks are Ranged or Melee is determined by the
+      weapon being used. If the target any ranks of the Shocked condition, you make your attacks at advantage. If you
+      cast this Jutsu using a ranged weapon, the additional 3d6 damage is reduced to d4's. At Higher Ranks: For each
+      rank you cast this jutsu above C-Rank increase the cost of this jutsu by 3 and the damage dealt by 1d6/1d4.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Naruto 5e
+    page: "288"
+    license: ""
+    rules: n5eb
+  activation:
+    type: action
+    condition: ""
+    value: 1
+  duration:
+    value: ""
+    units: inst
+  target:
+    affects:
+      type: creature
+      count: "1"
+      choice: false
+      special: ""
+    template:
+      units: ft
+      contiguous: false
+      type: ""
+  range:
+    value: null
+    units: spec
+    special: Weapon Range
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  level: 3
+  rank: c
+  school: trs
+  jutsu:
+    type: bukijutsu
+    ability: ""
+    components:
+      - cm
+      - w
+      - m
+    keywords:
+      - bukijutsu
+      - lightning
+    countsKnown: true
+  chakra:
+    cost: "8"
+    scaling:
+      mode: rank
+      value: 3
+    special: ""
+  materials:
+    value: Any weapon
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  properties: []
+  activities:
+    n5ebSparkSwAtk1:
+      _id: n5ebSparkSwAtk1
+      type: attack
+      activation:
+        type: action
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: true
+      description:
+        chatFlavor: ""
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+        max: ""
+      sort: 0
+      name: Cast
+      img: ""
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: true
+        parts:
+          - number: 3
+            denomination: 6
+            bonus: ""
+            types:
+              - lightning
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: whole
+              number: 1
+              formula: ""
+  identifier: breath-of-sparks-swarm
+effects: []
+sort: 999000
+ownership:
+  default: 0
+flags:
+  n5eb:
+    bookParityFix:
+      added: true
+      source: Book Parity Fix Pass 5.3.10
+_stats:
+  duplicateSource: null
+  coreVersion: "13.351"
+  systemId: n5eb
+  systemVersion: 5.3.10
+  createdTime: 1779926400000
+  modifiedTime: 1779926400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!n5ebSparkSwarm01"

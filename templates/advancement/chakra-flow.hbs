@@ -1,0 +1,92 @@
+<div class="standard-form">
+    <div class="breakdown form-group split-group">
+        <div class="form-fields">
+            {{!-- Previous Max Chakra --}}
+            {{#if chakra.previous}}
+            <div class="form-group label-top">
+                <label>{{ localize "N5EB.ADVANCEMENT.Chakra.Breakdown.Previous" }}</label>
+                <span>{{ chakra.previous }}</span>
+            </div>
+            <span class="separator">+</span>
+            {{/if}}
+
+            {{!-- Selected Chakra Increase --}}
+            {{#if isFirstClassLevel}}
+            <div class="form-group label-top">
+                <label>{{ localize "N5EB.ADVANCEMENT.Chakra.Breakdown.Max" }}</label>
+                <span>{{ chakra.max }}</span>
+            </div>
+            {{else if manual}}
+            <div class="form-group label-top">
+                <label>{{ localize "N5EB.ADVANCEMENT.Chakra.Breakdown.Roll" }}</label>
+                <div class="form-fields">
+                    <input class="roll-result" type="number" name="value" value="{{ data.value }}">
+                </div>
+            </div>
+            {{else if selectedMax}}
+            <div class="form-group label-top">
+                <label>{{ localize "N5EB.ADVANCEMENT.Chakra.Breakdown.Max" }}</label>
+                <span>{{ chakra.max }}</span>
+            </div>
+            {{else}}
+            <div class="form-group label-top">
+                <label>{{ localize "N5EB.ADVANCEMENT.Chakra.Breakdown.Average" }}</label>
+                <span>{{ chakra.average }}</span>
+            </div>
+            {{/if}}
+
+            {{!-- Ability Modifier --}}
+            {{#if chakra.modifier.value}}
+            <span class="separator">+</span>
+            <div class="form-group label-top">
+                <label>{{ chakra.modifier.label }}</label>
+                <span>{{ chakra.modifier.value }}</span>
+            </div>
+            {{/if}}
+
+            {{!-- Per-level bonus --}}
+            {{#if chakra.bonus}}
+            <span class="separator">+</span>
+            <div class="form-group label-top">
+                <label>{{ localize "N5EB.ADVANCEMENT.Chakra.Breakdown.Bonus" }}</label>
+                <span>{{ chakra.bonus }}</span>
+            </div>
+            {{/if}}
+
+            <span class="separator">=</span>
+
+            {{!-- Final Max Chakra --}}
+            <div class="form-group label-top">
+                <label>{{ localize "N5EB.ADVANCEMENT.Chakra.Breakdown.Final" }}</label>
+                <span>{{ chakra.total }}</span>
+            </div>
+        </div>
+
+        {{#if manual}}
+        <button class="roll-button dice-button" type="button" data-action="rollChakra" data-tooltip
+                aria-label="{{ localize 'N5EB.ADVANCEMENT.Chakra.Action.RollDie' die=chakraDie }}">
+            <dnd5e-icon src="systems/n5eb/icons/svg/dice/{{ chakraDie }}.svg" inert></dnd5e-icon>
+        </button>
+        {{/if}}
+    </div>
+
+    {{#unless isFirstClassLevel}}
+    <fieldset>
+        <legend>{{ localize "N5EB.ADVANCEMENT.Chakra.Options" }}</legend>
+        <div class="form-group">
+            <label for="{{ partId }}-useAverage">{{ localize "N5EB.ADVANCEMENT.Chakra.TakeAverage" }}</label>
+            <div class="form-fields">
+                <dnd5e-checkbox name="useAverage" id="{{ partId }}-useAverage"
+                                {{ checked data.useAverage }}></dnd5e-checkbox>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ partId }}-useMax">{{ localize "N5EB.ADVANCEMENT.Chakra.TakeMax" }}</label>
+            <div class="form-fields">
+                <dnd5e-checkbox name="useMax" id="{{ partId }}-useMax"
+                                {{ checked data.useMax }}></dnd5e-checkbox>
+            </div>
+        </div>
+    </fieldset>
+    {{/unless}}
+</div>

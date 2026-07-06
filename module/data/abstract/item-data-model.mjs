@@ -1,0 +1,311 @@
+import * as Trait from "../../documents/actor/trait.mjs";
+import SystemDataModel from "./system-data-model.mjs";
+
+const TextEditor = foundry.applications.ux.TextEditor.implementation;
+
+/**
+ * @import { ItemRollData, RollDataOptions } from "../../documents/_types.mjs";
+ * @import { FavoriteData5e, ItemDataModelMetadata } from "./_types.mjs";
+ */
+
+/**
+ * Variant of the SystemDataModel with support for rich item tooltips.
+ */
+export default class ItemDataModel extends SystemDataModel {
+
+  /** @type {ItemDataModelMetadata} */
+  static metadata = Object.freeze(foundry.utils.mergeObject(super.metadata, {
+    compendiumGearSource: false,
+    enchantable: false,
+    hasEffects: false,
+    singleton: false
+  }, { inplace: false }));
+
+  /**
+   * The handlebars template for rendering item tooltips.
+   * @type {string}
+   */
+  static ITEM_TOOLTIP_TEMPLATE = "systems/n5eb/templates/items/parts/item-tooltip.hbs";
+
+  /* -------------------------------------------- */
+  /*  Properties                                  */
+  /* -------------------------------------------- */
+
+  /**
+   * Can this item's advancement level be taken from an associated class?
+   * @type {boolean}
+   */
+  get advancementClassLinked() {
+    return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The level at which this item's advancement is applied.
+   * @type {number}
+   */
+  get advancementLevel() {
+    let item = this.parent;
+    if ( ["class", "subclass", "classmod"].includes(this.advancementRootItem?.type)
+      && this.advancementClassLinked ) item = this.advancementRootItem;
+    return item.system.levels ?? item.class?.system.levels ?? item.actor?.system.details.level ?? 0;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The item that is ultimately responsible for adding this item through the advancement system.
+   * @type {Item5e|void}
+   */
+  get advancementRootItem() {
+    return this.parent?.actor?.items.get(this.parent.getFlag("n5eb", "advancementRoot")?.split(".")?.[0]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Whether this item's activities can have scaling configured for their consumption.
+   * @type {boolean}
+   */
+  get canConfigureScaling() {
+    return false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Whether this item's activities should prompt for scaling when used.
+   * @type {boolean}
+   */
+  get canScale() {
+    return false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Whether this item's activities can have scaling configured for their damage.
+   * @type {boolean}
+   */
+  get canScaleDamage() {
+    return false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Modes that can be used when making an attack with this item.
+   * @type {FormSelectOption[]}
+   */
+  get attackModes() {
+    return [];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Set of abilities that can automatically be associated with this item.
+   * @type {Set<string>|null}
+   */
+  get availableAbilities() {
+    return null;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  get embeddedDescriptionKeyPath() {
+    return game.user.isGM || (this.identified !== false) ? "description.value" : "unidentified.description";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Scaling increase for this item type.
+   * @type {number|null}
+   */
+  get scalingIncrease() {
+    return null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Parts making up the subtitle on the item's tooltip.
+   * @type {string[]}
+   */
+  get tooltipSubtitle() {
+    return [this.type?.label ?? game.i18n.localize(CONFIG.Item.typeLabels[this.parent.type])];
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareBaseData() {
+    if ( this.parent.isEmbedded && this.parent.actor?.items.has(this.parent.id) ) {
+      this.parent.actor.identifiedItems?.set(this.parent.identifier, this.parent);
+      const sourceId = this.parent._stats.compendiumSource ?? this.parent.flags.n5eb?.sourceId;
+      if ( sourceId ) this.parent.actor.sourcedItems?.set(sourceId, this.parent);
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Drag & Drop                                 */
+  /* -------------------------------------------- */
+
+  /**
+   * Handle any specific item changes when an item is dropped onto an actor.
+   * @param {DragEvent} event  The concluding DragEvent which provided the drop data.
+   * @param {Actor5e} actor    Actor onto which the item was dropped.
+   * @param {object} itemData  The item data requested for creation. **Will be mutated.**
+   */
+  static onDropCreate(event, actor, itemData) {}
+
+  /* -------------------------------------------- */
+  /*  Helpers                                     */
+  /* -------------------------------------------- */
+
+  /**
+   * Render a rich tooltip for this item.
+   * @param {EnrichmentOptions} [enrichmentOptions={}]  Options for text enrichment.
+   * @returns {{content: string, classes: string[]}}
+   */
+  async richTooltip(enrichmentOptions={}) {
+    return {
+      content: await foundry.applications.handlebars.renderTemplate(
+        this.constructor.ITEM_TOOLTIP_TEMPLATE, await this.getCardData(enrichmentOptions)
+      ),
+      classes: ["dnd5e2", "dnd5e-tooltip", "item-tooltip", "themed", "theme-light"]
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare item card template data.
+   * @param {EnrichmentOptions} [enrichmentOptions={}]  Options for text enrichment.
+   * @param {Activity} [enrichmentOptions.activity]     Specific activity on item to use for customizing the data.
+   * @returns {Promise<object>}
+   */
+  async getCardData({ activity, ...enrichmentOptions }={}) {
+    const { name, type, img } = this.parent;
+    let {
+      price, weight, uses, identified, unidentified, description, school, materials
+    } = this;
+    const rollData = (activity ?? this.parent).getRollData();
+    const isIdentified = identified !== false;
+    const chat = isIdentified ? description.chat || description.value : unidentified?.description;
+    description = game.user.isGM || isIdentified ? description.value : unidentified?.description;
+    uses = this.hasLimitedUses && (game.user.isGM || identified) ? uses : null;
+    price = game.user.isGM || identified ? price : null;
+
+    const context = {
+      name, type, img, price, weight, uses, school, materials,
+      config: CONFIG.DND5E,
+      controlHints: game.settings.get("n5eb", "controlHints"),
+      labels: foundry.utils.deepClone((activity ?? this.parent).labels),
+      tags: this.parent.labels?.components?.tags,
+      subtitle: this.tooltipSubtitle.filterJoin(" • "),
+      description: {
+        value: await TextEditor.enrichHTML(description ?? "", {
+          rollData, relativeTo: this.parent, ...enrichmentOptions
+        }),
+        chat: await TextEditor.enrichHTML(chat ?? "", {
+          rollData, relativeTo: this.parent, ...enrichmentOptions
+        }),
+        concealed: game.user.isGM && game.settings.get("n5eb", "concealItemDescriptions") && !description.chat
+      }
+    };
+
+    context.properties = [];
+
+    if ( game.user.isGM || isIdentified ) {
+      context.properties.push(
+        ...this.cardProperties ?? [],
+        ...Object.values((activity ? activity?.activationLabels : this.parent.labels.activations?.[0]) ?? {}),
+        ...this.equippableItemCardProperties ?? []
+      );
+    }
+
+    context.properties = context.properties.filter(_ => _);
+    context.hasProperties = context.tags?.length || context.properties.length;
+    return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine the cost to craft this Item.
+   * @param {object} [options]
+   * @param {"buy"|"craft"|"none"} [options.baseItem="craft"]  Ignore base item if "none". Include full base item gold
+   *                                                           price if "buy". Include base item craft costs if "craft".
+   * @returns {Promise<{ days: number, gold: number }>}
+   */
+  async getCraftCost({ baseItem="craft" }={}) {
+    let days = 0;
+    let gold = 0;
+    if ( !("price" in this) ) return { days, gold };
+    const { price, type, rarity } = this;
+
+    // Mundane Items
+    if ( !this.properties.has("mgc") || !rarity ) {
+      const { mundane } = CONFIG.DND5E.crafting;
+      const valueInGP = price.valueInGP ?? 0;
+      return { days: Math.ceil(valueInGP * mundane.days), gold: Math.floor(valueInGP * mundane.gold) };
+    }
+
+    const base = await Trait.getBaseItem(type?.identifier ?? "", { fullItem: true });
+    if ( base && (baseItem !== "none") ) {
+      if ( baseItem === "buy" ) gold += base.system.price.valueInGP ?? 0;
+      else {
+        const costs = await base.system.getCraftCost();
+        days += costs.days;
+        gold += costs.gold;
+      }
+    }
+
+    const { magic } = CONFIG.DND5E.crafting;
+    if ( !(rarity in magic) ) return { days, gold };
+    const costs = magic[rarity];
+    return { days: days + costs.days, gold: gold + costs.gold };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare item favorite data.
+   * @returns {Promise<FavoriteData5e>}
+   */
+  async getFavoriteData() {
+    return {
+      img: this.parent.img,
+      title: this.parent.name,
+      subtitle: game.i18n.localize(CONFIG.Item.typeLabels[this.parent.type])
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare type-specific data for the Item sheet.
+   * @param {ApplicationRenderContext} context  Sheet context data.
+   * @returns {Promise<void>}
+   */
+  async getSheetData(context) {}
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare a data object which defines the data schema used by dice roll commands against this Item.
+   * @param {RollDataOptions} [options]
+   * @returns {ItemRollData}
+   */
+  getRollData({ deterministic=false }={}) {
+    const actorRollData = this.parent.actor?.getRollData({ deterministic }) ?? {};
+    const data = { ...actorRollData, item: { ...this } };
+    return data;
+  }
+}

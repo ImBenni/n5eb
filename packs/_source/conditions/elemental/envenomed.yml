@@ -1,0 +1,307 @@
+folder: nHoKoPvGrfgU81Gg
+name: Envenomed
+type: feat
+_id: AgEbkILgtlF5naAS
+img: systems/n5eb/icons/svg/statuses/poisoned.svg
+system:
+  description:
+    value: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
+      been exposed to some kind of venom or toxin, causing their vitality and immune health to drop
+      rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it
+      has, at the start of each of their turns for the duration of this condition</p></li><li><p>An
+      <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An
+      <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune
+      to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature
+      suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: ''
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  type:
+    value: ''
+    subtype: ''
+  prerequisites:
+    level: null
+  properties: []
+  requirements: ''
+  recharge:
+    value: null
+    charged: false
+  identifier: envenomed
+effects:
+  - name: Envenomed
+    origin: Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      core:
+        overlay: false
+      n5eb:
+        legacyImport:
+          originalConditionEffect:
+            name: Poisoned/Envenomed
+            img: systems/n5eb/icons/svg/statuses/poisoned.svg
+            statuses: []
+            changes:
+              - key: flags.midi-qol.OverTime
+                mode: 5
+                value: |-
+                  turn=start,
+                  damageRoll=1d6,
+                  damageType=poison,
+                  label=Poisoned/Envenomed,
+                  chatFlavor=YUCK I feel SICK,
+                  fastForwardDamage=true,
+                priority: 20
+              - key: StatusEffect
+                mode: 0
+                value: poisoned
+                priority: 20
+              - key: system.attributes.ac.bonus
+                mode: 2
+                value: '-1 * @stackCount'
+                priority: 20
+            flags:
+              dae:
+                enableCondition: ''
+                disableCondition: ''
+                disableIncapacitated: false
+                selfTarget: false
+                selfTargetAlways: false
+                dontApply: false
+                stackable: countDeleteDecrement
+                showIcon: false
+                durationExpression: ''
+                macroRepeat: none
+                specialDuration: []
+              ActiveAuras:
+                isAura: false
+                aura: None
+                nameOverride: ''
+                radius: ''
+                alignment: ''
+                type: ''
+                customCheck: ''
+                ignoreSelf: false
+                height: false
+                hidden: false
+                displayTemp: false
+                hostile: false
+                onlyOnce: false
+                wallsBlock: system
+        condition:
+          id: envenomed
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    _id: 0Nf1yI2bA3D4Ftd8
+    type: base
+    system: {}
+    changes: []
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
+      been exposed to some kind of venom or toxin, causing their vitality and immune health to drop
+      rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it
+      has, at the start of each of their turns for the duration of this condition</p></li><li><p>An
+      <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An
+      <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune
+      to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature
+      suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - envenomed
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1724964441968
+      modifiedTime: 1728951675210
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!AgEbkILgtlF5naAS.0Nf1yI2bA3D4Ftd8'
+sort: 300000
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: conditions
+      sourcePath: elemental/poisoned-envenomed.json
+      sourceId: AgEbkILgtlF5naAS
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called
+            Poisoned) has been exposed to some kind of venom or toxin, causing their vitality and immune health to drop
+            rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each
+            rank it has, at the start of each of their turns for the duration of this condition</p></li><li><p>An
+            <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An
+            <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are
+            immune to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour
+            a creature suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: ''
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        type:
+          value: ''
+          subtype: ''
+        prerequisites:
+          level: null
+        properties: []
+        requirements: ''
+        recharge:
+          value: null
+          charged: false
+      originalConditionItemFlags:
+        midiProperties:
+          confirmTargets: default
+          autoFailFriendly: false
+          autoSaveFriendly: false
+          critOther: false
+          offHandWeapon: false
+          magicdam: false
+          magiceffect: false
+          noConcentrationCheck: false
+          toggleEffect: false
+          ignoreTotalCover: false
+          idr: false
+          idi: false
+          idv: false
+          ida: false
+        midi-qol:
+          rollAttackPerTarget: default
+          itemCondition: ''
+          effectCondition: ''
+    condition:
+      id: envenomed
+      maxRank: 5
+      category: elemental
+      source: main-book
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1724964385797
+  modifiedTime: 1727702024087
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: conditions
+    sourcePath: elemental/poisoned-envenomed.json
+_key: '!items!AgEbkILgtlF5naAS'

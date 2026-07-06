@@ -1,0 +1,357 @@
+name: Storm Release Thunder Cloud Inner Wave
+type: spell
+img: systems/n5eb/assets/content/clans/ranton.webp
+system:
+  description:
+    value: >-
+      <p>Storm Style</p><p>You conjure a thick ring of thunderclouds around yourself. For the duration, once per turn as
+      an action or bonus action, you may Fire a jolt of Lightning from yourself targeting a space you can see within 30
+      feet of you. All creatures within 5 feet of the chosen space must make a dexterity saving throw taking 3d8
+      Lightning damage and gaining 1 rank of the shocked condition.</p><p>Alternatively, once per round, if you haven't
+      used this Jutsu's Action or Bonus Action effect on your previous turn, as a Reaction to a creature moving or
+      casting a Jutsu with the Mobility Keyword, you can Fire off a defensive jolt of Lightning towards a single
+      creature. Make a ranged ninjutsu attack against a creature within 30 feet of you. On a hit, you deal 3d8 Lightning
+      damage and the targets speed is reduced to 0 until the end of the current turn</p><p><br />At Higher Ranks: For
+      each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3, and the damage by 2d8.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: ninjutsu
+  actionType: rsak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 3d8
+        - lightning
+    versatile: 3d8
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 2d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: level
+    formula: 2d8
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: storm-release-thunder-cloud-inner-wave
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - water
+      - lightning
+      - storm-style
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Shocked
+    origin: Compendium.n5eb.clan.Item.IQhiHrpQrkloZNaM
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    _id: ftNyBa9lRQJ8jHhN
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          rollType=skill,
+          saveAbility=sur,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with
+      electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
+      reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A
+      <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a
+      failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC
+      12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has
+      resistance to this condition. A creature immune to Lightning damage has immunity to this
+      condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground
+      themselves, dispersing the electricity in their body ending this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!IQhiHrpQrkloZNaM.ftNyBa9lRQJ8jHhN'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: ranton/clan-hijutsu/d-rank/storm-release-thunder-cloud-inner-wave.json
+      sourceId: IQhiHrpQrkloZNaM
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Storm Style</p><p>You conjure a thick ring of thunderclouds around yourself. For the duration, once per
+            turn as an action or bonus action, you may Fire a jolt of Lightning from yourself targeting a space you can
+            see within 30 feet of you. All creatures within 5 feet of the chosen space must make a dexterity saving
+            throw taking 3d8 Lightning damage and gaining 1 rank of the shocked condition.</p><p>Alternatively, once per
+            round, if you haven't used this Jutsu's Action or Bonus Action effect on your previous turn, as a Reaction
+            to a creature moving or casting a Jutsu with the Mobility Keyword, you can Fire off a defensive jolt of
+            Lightning towards a single creature. Make a ranged ninjutsu attack against a creature within 30 feet of you.
+            On a hit, you deal 3d8 Lightning damage and the targets speed is reduced to 0 until the end of the current
+            turn</p><p><br />At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this
+            jutsu by 3, and the damage by 2d8.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: ninjutsu
+        actionType: rnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 3d8
+              - lightning
+          versatile: 3d8
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 2d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - water
+          - lightning
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: 2d8
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754364448
+  modifiedTime: 1728754404815
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: ranton/clan-hijutsu/d-rank/storm-release-thunder-cloud-inner-wave.json
+folder: M0nmj1sYGQFe278T
+sort: 300000
+ownership:
+  default: 0
+_id: IQhiHrpQrkloZNaM
+_key: '!items!IQhiHrpQrkloZNaM'

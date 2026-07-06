@@ -1,0 +1,342 @@
+name: Geas
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>You place a genjutsu based command on a creature that you can see within range, forcing it to carry out some
+      service or refrain from some action or course of activity as you decide. If the creature can understand you, it
+      must succeed on a Wisdom saving throw or become charmed by you for the duration.</p><p>While the creature is
+      charmed by you, it takes 9d10 psychic damage each time it acts in a manner directly counter to your instructions,
+      but no more than once each day. A creature that can't understand you is unaffected by the genjutsu. You can issue
+      any command you choose, short of an activity that would result in certain death. Should you issue a suicidal
+      command, the genjutsu ends. You can end the spell early by using an action to dismiss it.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '30'
+    units: day
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 17
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 9d10
+        - psychic
+    versatile: ''
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: genjutsu
+  level: 7
+  school: ill
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: geas
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - auditory
+      - tactile
+      - kinjutsu
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: a
+  chakra:
+    cost: '17'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Charmed
+    origin: Compendium.n5eb.jutsus.Item.di3CN29WBTbMF7s0
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - isDamaged
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/charmed.svg
+    _id: MZ8Hs2vk7h0ICXMw
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+      - key: system.abilities.wis.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><ul><li><p>A <strong>Charmed</strong> creature is partially infatuated
+      with a particular target.</p></li><li><p>A <strong>Charmed</strong> creature increases its attitude to you, by 1
+      rank, for each rank of Charmed it has.</p></li><li><p>A <strong>Charmed</strong> creatures suffers a -2 penalty to
+      Intelligence &amp; Wisdom based skill checks made against its infatuation for each rank it has.</p></li><li><p>A
+      <strong>Charmed</strong> creature cannot take hostile actions towards the source of its infatuations. If they
+      would suffer a hostile effect or damage from the source of its infatuations or one of its infatuations allies,
+      they remove all ranks of this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.W7xYf9O8awd8TITw.ActiveEffect.q6BnBoFI5WGgWuGi
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!di3CN29WBTbMF7s0.MZ8Hs2vk7h0ICXMw'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/a-rank/geas.json
+      sourceId: di3CN29WBTbMF7s0
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You place a genjutsu based command on a creature that you can see within range, forcing it to carry out
+            some service or refrain from some action or course of activity as you decide. If the creature can understand
+            you, it must succeed on a Wisdom saving throw or become charmed by you for the duration.</p><p>While the
+            creature is charmed by you, it takes 9d10 psychic damage each time it acts in a manner directly counter to
+            your instructions, but no more than once each day. A creature that can't understand you is unaffected by the
+            genjutsu. You can issue any command you choose, short of an activity that would result in certain death.
+            Should you issue a suicidal command, the genjutsu ends. You can end the spell early by using an action to
+            dismiss it.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '30'
+          units: day
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 17
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 9d10
+              - psychic
+          versatile: ''
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: genjutsu
+        level: 4
+        school: gen
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - genjutsu
+          - auditory
+          - tactile
+          - kinjutsu
+        chakraCost: 17
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/a-rank/geas.json
+folder: PN9DHlX9T8D9dgOA
+sort: 0
+ownership:
+  default: 0
+_id: di3CN29WBTbMF7s0
+_key: '!items!di3CN29WBTbMF7s0'

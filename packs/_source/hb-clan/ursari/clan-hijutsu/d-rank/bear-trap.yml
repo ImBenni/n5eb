@@ -1,0 +1,334 @@
+folder: vnFJJsgMi9Srp0Bg
+name: Bear Trap!
+type: spell
+_id: inKzyxHMjzZUO4Di
+img: systems/n5eb/assets/content/clans/ursari.webp
+system:
+  description:
+    value: >-
+      <p>As you prepare a trap to be sprung, you infuse its mechanism with
+      chakra to increase its effectiveness. This jutsu's casting time equals how
+      long it takes to prepare the trap being used as a component. The chakra
+      poured into the trap lasts for 24 hours. When the trap is activated during
+      the duration of this jutsu, it gains an additional effect: the trap deals
+      damage equal to double your unarmed attack, and its DC gains a bonus equal
+      to your Strength Modifier. If the trap was a restraining trap, the target
+      must make a Constitution save or gain a rank of Slowed. If the trap was a
+      weapon trap, its damage is chakra-enhanced and also deals chakra damage
+      equal to half the trap's total damage</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: special
+    cost: null
+    condition: ''
+  duration:
+    value: '24'
+    units: hour
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: touch
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: Restraining Trap or Weapon Trap
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: bear-trap
+  jutsu:
+    components:
+      - hs
+      - cm
+      - nt
+    keywords:
+      - ninjutsu
+      - hijutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Slowed
+    origin: Compendium.n5eb.hb-clan.Item.inKzyxHMjzZUO4Di
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: slowed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    _id: 1aEyuVIeMrVQPAB5
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-(10 * @stackCount)'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: slowed
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - slowed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,0
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!inKzyxHMjzZUO4Di.1aEyuVIeMrVQPAB5'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: ursari/clan-hijutsu/d-rank/bear-trap.json
+      sourceId: inKzyxHMjzZUO4Di
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>As you prepare a trap to be sprung, you infuse its mechanism with
+            chakra to increase its effectiveness. This jutsu's casting time
+            equals how long it takes to prepare the trap being used as a
+            component. The chakra poured into the trap lasts for 24 hours. When
+            the trap is activated during the duration of this jutsu, it gains an
+            additional effect: the trap deals damage equal to double your
+            unarmed attack, and its DC gains a bonus equal to your Strength
+            Modifier. If the trap was a restraining trap, the target must make a
+            Constitution save or gain a rank of Slowed. If the trap was a weapon
+            trap, its damage is chakra-enhanced and also deals chakra damage
+            equal to half the trap's total damage</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: special
+          cost: null
+          condition: ''
+        duration:
+          value: '24'
+          units: hour
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: touch
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+          - ninjatools
+        keywords:
+          - ninjutsu
+          - hijutsu
+        materials:
+          value: Restraining Trap or Weapon Trap
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 4
+        chakraScaling:
+          mode: none
+          value: 0
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1738344840942
+  modifiedTime: 1738585228511
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: ursari/clan-hijutsu/d-rank/bear-trap.json
+_key: '!items!inKzyxHMjzZUO4Di'

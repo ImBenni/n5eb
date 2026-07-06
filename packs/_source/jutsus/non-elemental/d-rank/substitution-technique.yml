@@ -1,0 +1,449 @@
+folder: LM9CuLBCsw70gQXV
+name: Substitution Technique
+type: spell
+_id: n5ebJutsuSubst01
+img: systems/n5eb/assets/content/other/sub-jutsu.webp
+system:
+  description:
+    value: >-
+      <p>You quickly replace yourself with an object, allowing you a swifter escape with smaller margins for error. When
+      you would take damage you may increase your AC by +3 until the beginning of your next turn. If this bonus would
+      cause the triggering attack to miss, you may move up to half of your movement away. If you activate this jutsu as
+      a result of making a saving throw, you must still make the saving throw even if your movement would move you to
+      the outside of its range.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+    page: '18'
+    license: ''
+  activation:
+    type: reaction
+    condition: You would take damage.
+    value: 1
+  duration:
+    value: ''
+    units: inst
+  target:
+    affects:
+      type: self
+      count: ''
+      choice: false
+      special: ''
+    template:
+      units: ft
+      contiguous: false
+      type: ''
+  range:
+    units: self
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 1
+  rank: d
+  school: abj
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - hs
+      - m
+    keywords:
+      - ninjutsu
+    countsKnown: true
+  chakra:
+    cost: '5'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  activities:
+    n5ebSubstAct0001:
+      _id: n5ebSubstAct0001
+      type: utility
+      activation:
+        type: reaction
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: true
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects:
+        - _id: bTIKcfJPaSTEihgY
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      name: Cast
+      img: ''
+      visibility:
+        level:
+          min: null
+          max: null
+  identifier: substitution-technique
+effects:
+  - name: Substitution Technique
+    origin: Compendium.n5eb.jutsus.Item.n5ebJutsuSubst01
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnStartSource
+        enableCondition: ''
+        selfTarget: true
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: Sub_Jutsu.webp
+    _id: bTIKcfJPaSTEihgY
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '+3'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727501901394
+      modifiedTime: 1727502334777
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!38S1NSEfvMaV1bec.bTIKcfJPaSTEihgY'
+sort: 1450000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    reactionCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: non-elemental/d-rank/substitution-technique.json
+      sourceId: 38S1NSEfvMaV1bec
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You quickly replace yourself with an object, allowing you a swifter escape with smaller margins for
+            error. When you would take damage you may increase your AC by +3 until the beginning of your next turn. If
+            this bonus would cause the triggering attack to miss, you may move up to half of your movement away. If you
+            activate this jutsu as a result of making a saving throw, you must still make the saving throw even if your
+            movement would move you to the outside of its range.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take when you would take damage.
+        duration:
+          value: '1'
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: self
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        level: 1
+        school: nin
+        properties:
+          - handseals
+          - mobility
+        keywords:
+          - ninjutsu
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          formula: ''
+      currentSource:
+        sourcePack: n5eb-jutsu
+        sourcePath: substitution-technique.yml
+        sourceId: n5ebJutsuSubst01
+        documentName: Item
+      replacedCurrent:
+        _id: n5ebJutsuSubst01
+        name: Substitution Technique
+        type: spell
+        img: icons/magic/movement/trail-streak-zigzag-yellow.webp
+        system:
+          description:
+            value: >-
+              <p>When you would take damage, you replace yourself with an object and slip away from the attack.</p>
+              <p>Until the start of your next turn, increase your AC by 3 against the triggering attack. If the attack
+              misses because of this bonus, you can move up to half your movement. If you use this against a saving
+              throw, you still make the save even if the movement carries you outside the effect.</p>
+            chat: ''
+          source:
+            custom: ''
+            book: Naruto 5e
+            page: '18'
+            license: ''
+            rules: n5eb
+          activation:
+            type: reaction
+            condition: You would take damage.
+            value: 1
+          duration:
+            value: ''
+            units: inst
+          target:
+            affects:
+              type: self
+              count: ''
+              choice: false
+              special: ''
+            template:
+              units: ''
+              contiguous: false
+              type: ''
+          range:
+            units: self
+            special: ''
+          uses:
+            max: ''
+            recovery: []
+            spent: 0
+          level: 1
+          rank: d
+          school: abj
+          jutsu:
+            type: ninjutsu
+            ability: ''
+            components:
+              - hs
+              - m
+            keywords:
+              - ninjutsu
+            countsKnown: true
+          chakra:
+            cost: '5'
+            special: ''
+          materials:
+            value: ''
+            consumed: false
+            cost: 0
+            supply: 0
+          method: spell
+          prepared: 1
+          properties: []
+          activities:
+            n5ebSubstAct0001:
+              _id: n5ebSubstAct0001
+              type: utility
+              activation:
+                type: reaction
+                value: null
+                override: false
+              consumption:
+                targets: []
+                scaling:
+                  allowed: false
+                  max: ''
+                spellSlot: true
+              description:
+                chatFlavor: ''
+              duration:
+                units: inst
+                concentration: false
+                override: false
+              effects: []
+              range:
+                override: false
+              target:
+                prompt: true
+                template:
+                  contiguous: false
+                  units: ft
+                affects:
+                  choice: false
+                override: false
+              roll:
+                formula: ''
+                name: ''
+                prompt: false
+                visible: false
+              uses:
+                spent: 0
+                recovery: []
+                max: ''
+              sort: 0
+              name: Cast
+              img: ''
+              visibility:
+                level:
+                  min: null
+                  max: null
+          identifier: substitution-technique
+        sort: 200000
+        effects: []
+        folder: null
+        ownership:
+          default: 0
+        _stats:
+          duplicateSource: null
+          coreVersion: '13.351'
+          systemId: n5eb
+          systemVersion: 5.3.2
+          createdTime: 1772048400000
+          modifiedTime: 1772048400000
+          lastModifiedBy: dnd5ebuilder0000
+          exportSource: null
+        _key: '!items!n5ebJutsuSubst01'
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1727501667403
+  modifiedTime: 1728757444159
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: non-elemental/d-rank/substitution-technique.json
+_key: '!items!n5ebJutsuSubst01'

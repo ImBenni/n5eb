@@ -1,0 +1,45 @@
+folder: downtimeCore0001
+name: Recuperating
+type: downtime
+_id: recuperate000001
+img: icons/magic/life/heart-cross-strong-green.webp
+system:
+  description:
+    value: >-
+      <p>Spend downtime recovering from a debilitating injury, disease, or poison. After 1 week, make a DC 15
+      Constitution saving throw. On success, either end one effect preventing hit point recovery or gain advantage for
+      the next week on saving throws against one current disease or poison.</p>
+    chat: ''
+  identifier: recuperating
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  category: recuperating
+  weeks:
+    value: 1
+    max: 1
+    mode: fixed
+    note: One week before the recovery save.
+  cost:
+    value: 0
+    denomination: ryo
+    per: activity
+    note: ''
+  roll:
+    enabled: true
+    ability: con
+    skill: ''
+    tool: ''
+    dc: 15
+    label: Constitution saving throw.
+  target:
+    type: condition-or-effect
+    uuid: ''
+  completion: Record the effect ended or the disease/poison save advantage gained for the next week.
+effects: []
+flags: {}
+sort: 600000
+ownership:
+  default: 0
+_key: '!items!recuperate000001'

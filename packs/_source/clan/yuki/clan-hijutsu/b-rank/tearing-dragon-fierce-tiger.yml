@@ -1,0 +1,350 @@
+name: Tearing Dragon Fierce Tiger
+type: spell
+img: systems/n5eb/assets/content/clans/yuki.webp
+system:
+  description:
+    value: >-
+      <p>You conjure a large Tiger or dragon made of snow or ice you make. Upon casting this jutsu choose which creature
+      you summon which determines how the Jutsu works and its range and effect radius.</p><p>• Tiger: The Tiger forms
+      and begins to rush at a target creature. If there is any water or Water Release Jutsu in between you and the
+      target creature, it immediately freezes, ending the jutsu. Creatures submerged within water or gaining the
+      benefits of a water release jutsu with a range of Self or Touch must succeed a Dexterity save, gaining 2 ranks of
+      chilled on a failed save. Upon reaching the target, the Ice Tiger then explodes firing ice shards in a 30-foot
+      radius centering on the target. All creatures in the radius must succeed a Dexterity saving throw taking 12d4 Cold
+      damage and gaining 1 rank of Chilled on a failed save or half as much damage and no further effects on a
+      successful save.</p><p>• Dragon: The Dragon forms and begins to rush at a target creature. If there is any water
+      or Water Release Jutsu in between you and the target creature, it immediately freezes, ending the jutsu. Creatures
+      submerged within water or gaining the benefits of a water release jutsu with a range of Self or Touch must succeed
+      a Dexterity save gaining 2 ranks of chilled on a failed save. Upon reaching the target, the dragon slams into the
+      target creature. Creatures in a 90-foot long, 10-foot-wide line, originating from you, must succeed a Strength
+      saving throw taking 8d6 cold damage, gaining 1 rank of chilled and are push back 10 feet on a failed save or half
+      as much damage and no further effects on a successful save.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 90
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 14
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 12d4
+        - cold
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 5
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: tearing-dragon-fierce-tiger
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - wind
+      - water
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '14'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Chilled
+    origin: Compendium.n5eb.clan.Item.l87SGyLfO42yik9k
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/chilled.svg
+    _id: 1D1Mp1lrNDrcLmK0
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.abilities.dex.bonuses.check
+        mode: 2
+        value: '-1'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!l87SGyLfO42yik9k.1D1Mp1lrNDrcLmK0'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: yuki/clan-hijutsu/b-rank/tearing-dragon-fierce-tiger.json
+      sourceId: l87SGyLfO42yik9k
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You conjure a large Tiger or dragon made of snow or ice you make. Upon casting this jutsu choose which creature you summon which determines how the Jutsu works and its range and effect radius.</p><p>• Tiger: The Tiger forms and begins to rush at a target creature. If there is any water or Water Release Jutsu in between you and the target creature, it immediately freezes, ending the jutsu. Creatures submerged within water or gaining the benefits of a water release jutsu with a range of Self or Touch must succeed a Dexterity save, gaining 2 ranks of chilled on a failed save. Upon reaching the target, the Ice Tiger then explodes firing ice shards in a 30-foot radius centering on the target. All creatures in the radius must succeed a Dexterity saving throw taking 12d4 Cold damage and gaining 1 rank of Chilled on a failed save or half as much damage and no further effects on a successful save.</p><p>• Dragon: The Dragon forms and begins to rush at a target creature. If there is any water or Water Release Jutsu in between you and the target creature, it immediately freezes, ending the jutsu. Creatures submerged within water or gaining the benefits of a water release jutsu with a range of Self or Touch must succeed a Dexterity save gaining 2 ranks of chilled on a failed save. Upon reaching the target, the dragon slams into the target creature. Creatures in a 90-foot long, 10-foot-wide line, originating from you, must succeed a Strength saving throw taking 8d6 cold damage, gaining 1 rank of chilled and are push back 10 feet on a failed save or half as much damage and no further effects on a\_ successful save.</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 90
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 14
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 12d4
+              - cold
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 3
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - wind
+          - water
+        chakraCost: 14
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755558347
+  modifiedTime: 1728755601592
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: yuki/clan-hijutsu/b-rank/tearing-dragon-fierce-tiger.json
+folder: LBij8f2MHFj0HVye
+sort: 200000
+ownership:
+  default: 0
+_id: l87SGyLfO42yik9k
+_key: '!items!l87SGyLfO42yik9k'

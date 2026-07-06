@@ -1,0 +1,346 @@
+name: Kujaku Art Feather Slice
+type: spell
+img: systems/n5eb/assets/content/clans/hoshi.webp
+system:
+  description:
+    value: >-
+      <p>As a prerequisite to this jutsu you must have the Kujaku Mode active. The feathers of your Kujaku Mode shape
+      into blade -like density. Make a melee ninjutsu attack against a target in range, dealing 3d8 + your Ninjutsu
+      ability modifier in Force damage and if the target is a creature, it must make a Constitution saving throw or gain
+      one rank of Bleeding. At Higher Ranks: For each rank you cast this jutsu above D-rank, increase the cost of the
+      jutsu by 3 (or 1 star chakra), and it deals an extra 2d8 damage. When you cast this jutsu at B-Rank or above, you
+      inflict one more rank of Bleeding.</p>
+    chat: ""
+  source:
+    custom: ""
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: or 2 star chakra
+  duration:
+    value: ""
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ""
+    width: null
+    units: ""
+    type: ""
+    prompt: true
+  range:
+    value: 20
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ""
+    per: null
+    recovery: ""
+    prompt: true
+  consume:
+    type: ""
+    target: ""
+    amount: 5
+    scale: false
+  ability: ninjutsu
+  actionType: msak
+  chatFlavor: ""
+  critical:
+    threshold: null
+    damage: ""
+  damage:
+    parts:
+      - - 3d8+@mod
+        - ""
+    versatile: ""
+  formula: ""
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 2d8
+  attack:
+    bonus: ""
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ""
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: kujaku-art-feather-slice
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+    countsKnown: true
+    ability: ""
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: "5"
+    scaling:
+      mode: rank
+      value: 3
+    special: ""
+  method: spell
+  prepared: 0
+effects:
+  - name: Bleeding
+    origin: Compendium.n5eb.clan.Item.PvvmNbmM8QQiB1jV
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ""
+        disableCondition: ""
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ""
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    _id: HOCsEfP15pS11Yxi
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d4, damageType=necrotic,
+          label=Bleeding,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=Lil paper cut fr,
+          rollType=skill,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bleeding
+        priority: 0
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has suffered a minor abrasion to their flesh,
+      causing slow blood loss if untreated.</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4
+      necrotic damage for each rank of Bleed they have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop the bleeding by succeeding on a DC 15
+      Medicine check.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bleeding condition
+      immediately gains 5 ranks of the Lacerated condition, ending the Bleeding condition.</p><ul><li><p>The first time
+      per rest a Bleeding creature would gain the Lacerated this way, they must succeed a DC 11 flat check, immediately
+      taking the damage of their Lacerated ranks as they suffer a great wound.</p></li></ul></li><li><p>Outside of
+      combat, every 10-minutes a creature suffers the effects of this condition as if a turn has passed in
+      combat.</p></li></ul>
+    tint: "#ffffff"
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
+      duplicateSource: null
+      coreVersion: "12.331"
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: "!items.effects!PvvmNbmM8QQiB1jV.HOCsEfP15pS11Yxi"
+folder: C3ijhgD5j3aJpUQX
+flags:
+  n5eb:
+    migratedProperties:
+      - handseals
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: hoshi/clan-hijutsu/d-rank/kujaku-art-feather-slice.json
+      sourceId: PvvmNbmM8QQiB1jV
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>As a prerequisite to this jutsu you must have the Kujaku Mode active. The feathers of your Kujaku Mode
+            shape into blade-like density. Make a melee ninjutsu attack against a target in range, dealing 3d8 + your
+            Ninjutsu ability modifier in Force damage and if the target is a creature, it must make a Constitution
+            saving throw or gain one rank of Bleeding.</p><p>At Higher Ranks: For each rank you cast this jutsu above
+            D-rank, increase the cost of the jutsu by 3 (or 1 star chakra), and it deals an extra 2d8 damage. When you
+            cast this jutsu at B-Rank or above, you inflict one more rank of Bleeding.</p>
+          chat: ""
+        source:
+          custom: ""
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: or 2 star chakra
+        duration:
+          value: ""
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ""
+          width: null
+          units: ""
+          type: ""
+          prompt: true
+        range:
+          value: 20
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ""
+          per: null
+          recovery: ""
+          prompt: true
+        consume:
+          type: ""
+          target: ""
+          amount: 5
+          scale: false
+        ability: ninjutsu
+        actionType: mnak
+        chatFlavor: ""
+        critical:
+          threshold: null
+          damage: ""
+        damage:
+          parts:
+            - - 3d8+@mod
+              - ""
+          versatile: ""
+        formula: ""
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        level: 1
+        school: hi
+        materials:
+          value: ""
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 2d8
+        keywords:
+          - ninjutsu
+          - hijutsu
+        attack:
+          bonus: ""
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ""
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ""
+    effectCondition: ""
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: "12.331"
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728753193106
+  modifiedTime: 1728753251713
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: hoshi/clan-hijutsu/d-rank/kujaku-art-feather-slice.json
+_id: PvvmNbmM8QQiB1jV
+sort: 300000
+ownership:
+  default: 0
+_key: "!items!PvvmNbmM8QQiB1jV"

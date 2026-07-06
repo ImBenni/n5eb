@@ -1,0 +1,454 @@
+folder: Znn309LjN4Yz8GXT
+name: Flea Shuriken
+type: spell
+_id: Zwnd044SDM56FsNd
+img: systems/n5eb/assets/content/clans/ninneko.webp
+system:
+  description:
+    value: >-
+      <p>As a ninja cat you can stretch out your body, rolling the joints of
+      your neck to launch chakra-enhanced fleas at a target in range to inflict
+      extreme irritation. Make a ranged taijutsu attack against a single
+      creature in range. On a hit, a target takes 3d6 piercing damage, then must
+      succeed a Constitution saving throw or become Confused on a failed save,
+      falling prone and unable to stand. At the beginning of each of its turns
+      the creature takes 2d4 piercing damage.</p><p>At the start of each of its
+      turns, or if another creature uses the help action on it, the affected
+      target can reattempt the save, ending the effects on itself on a
+      success.</p><p><strong>At Higher Ranks:</strong> For each rank you cast
+      this jutsu above D-Rank, increase the cost of this jutsu by 3, and
+      increase the damage dealt by 1d6 and the number of targets hit by 1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: taijutsu
+  actionType: rsak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 3d6
+        - piercing
+    versatile: 2d4
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: taijutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d6
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: flea-shuriken
+  jutsu:
+    components:
+      - cm
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Prone
+    origin: Compendium.n5eb.t7-clan.Item.Zwnd044SDM56FsNd
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: prone
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: HgobEkj6CDTm1bp9
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - prone
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Zwnd044SDM56FsNd.HgobEkj6CDTm1bp9'
+  - name: Confused
+    origin: Compendium.n5eb.t7-clan.Item.Zwnd044SDM56FsNd
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: confused
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/confused.svg
+    _id: izkzQKHqhZTHWruL
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: confused
+        priority: 20
+      - key: system.abilities.wis.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          saveAbility=int,
+          rollType=check,
+          saveRemove=true,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><p>A Confused creature has difficulty
+      distinguishing friend from foe and experiences lapsing
+      judgement.</p><ul><li><p>A Confused creature suffers a -1 penalty to all
+      Wisdom based checks, attack rolls, and saving throws for each rank it
+      has.</p></li><li><p>A Confused creature who would target hostile or
+      friendly creature with an attack, jutsu, feature or trait (even
+      themselves) must first make a DC 8 Flat check. On a failure, they must
+      target the closest creature to them, ignoring allied or hostile
+      distinctions. For rank of Confused beyond the first, increase this DC by
+      +1 (Max DC 12).</p></li><li><p>A Confused creature cannot choose targets
+      when a jutsu, feature or trait would allow them to pick. All creatures in
+      range become the target, ignoring ally or hostile
+      distinctions.</p></li><li><p>As an Action, a Confused creature can make a
+      DC 15 Intelligence ability check, ending this condition on a
+      success.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - confused
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.T4ZSbPxGKQwZ0WRG.ActiveEffect.TlQn0pODrzXO8IRz
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Zwnd044SDM56FsNd.izkzQKHqhZTHWruL'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: ninneko-ninja-cat/clan-hijutsu/d-rank/flea-shuriken.json
+      sourceId: Zwnd044SDM56FsNd
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>As a ninja cat you can stretch out your body, rolling the joints
+            of your neck to launch chakra-enhanced fleas at a target in range to
+            inflict extreme irritation. Make a ranged taijutsu attack against a
+            single creature in range. On a hit, a target takes 3d6 piercing
+            damage, then must succeed a Constitution saving throw or become
+            Confused on a failed save, falling prone and unable to stand. At the
+            beginning of each of its turns the creature takes 2d4 piercing
+            damage.</p><p>At the start of each of its turns, or if another
+            creature uses the help action on it, the affected target can
+            reattempt the save, ending the effects on itself on a
+            success.</p><p><strong>At Higher Ranks:</strong> For each rank you
+            cast this jutsu above D-Rank, increase the cost of this jutsu by 3,
+            and increase the damage dealt by 1d6 and the number of targets hit
+            by 1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: taijutsu
+        actionType: rtak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 3d6
+              - piercing
+          versatile: 2d4
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: taijutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - chakramolding
+          - mobility
+        keywords:
+          - taijutsu
+          - hijutsu
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d6
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733407680326
+  modifiedTime: 1734018552723
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: ninneko-ninja-cat/clan-hijutsu/d-rank/flea-shuriken.json
+_key: '!items!Zwnd044SDM56FsNd'

@@ -1,0 +1,268 @@
+name: Demon Wave
+type: spell
+img: systems/n5eb/assets/content/clans/hozuki.webp
+system:
+  description:
+    value: >-
+      <p>As a requirement to activate this jutsu, you must have Hydrofication currently active. You end your
+      concentration on that jutsu and this one takes its place. You retain all effects of Hydrofication, including extra
+      effects given to other jutsu and add this jutsu's effects to them. You cannot lose concentration of this jutsu as
+      the result of failing a concentration check.</p><p>You create and merge with a larger body of Water, increasing
+      your size to huge and increasing your Strength score by +4 and Constitution score by +2. When you cast a jutsu
+      with the Water Release keyword, it always gains the benefits of any alternative effects the jutsu could receive as
+      the result of being cast near a source of water (excluding cost reduction) and are upcast by +1 ranks for free. If
+      this would cause the jutsu to be cast beyond S-Rank, apply the effects of the upcast an additional time (if
+      applicable).</p><p>Additionally, as a reaction when you see an allied creature within 10 feet of you, targeted for
+      an attack, you can interpose for that ally changing the target of that attack to you.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '10'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: 10
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 16
+    scale: false
+  ability: null
+  actionType: ''
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 7
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: demon-wave
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - water
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: a
+  chakra:
+    cost: '16'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: hozuki/clan-hijutsu/a-rank/demon-wave.json
+      sourceId: tmi7PWIGVaHvL8pt
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>As a requirement to activate this jutsu, you must have Hydrofication currently active. You end your
+            concentration on that jutsu and this one takes its place. You retain all effects of Hydrofication, including
+            extra effects given to other jutsu and add this jutsu's effects to them. You cannot lose concentration of
+            this jutsu as the result of failing a concentration check.</p><p>You create and merge with a larger body of
+            Water, increasing your size to huge and increasing your Strength score by +4 and Constitution score by +2.
+            When you cast a jutsu with the Water Release keyword, it always gains the benefits of any alternative
+            effects the jutsu could receive as the result of being cast near a source of water (excluding cost
+            reduction) and are upcast by +1 ranks for free. If this would cause the jutsu to be cast beyond S-Rank,
+            apply the effects of the upcast an additional time (if applicable).</p><p>Additionally, as a reaction when
+            you see an allied creature within 10 feet of you, targeted for an attack, you can interpose for that ally
+            changing the target of that attack to you.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '10'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: 10
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 16
+          scale: false
+        ability: null
+        actionType: ''
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 4
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - water
+        chakraCost: 16
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728753280864
+  modifiedTime: 1728753322606
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: hozuki/clan-hijutsu/a-rank/demon-wave.json
+folder: C7m8058rshWFfDn8
+sort: 100000
+ownership:
+  default: 0
+_id: tmi7PWIGVaHvL8pt
+_key: '!items!tmi7PWIGVaHvL8pt'

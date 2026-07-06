@@ -1,0 +1,370 @@
+name: Water Release Water Claws
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/water.webp
+system:
+  description:
+    value: >-
+      <p>You manifest water release chakra in the shape of two claws that
+      surround your hands, of your design and description. Make two melee
+      ninjutsu attacks against a target within range, as you spin, slashing into
+      them. On a successful hit, you deal 2d6 Cold damage. Affected creatures
+      must make a Constitution Saving throw, gaining 1 rank of Bleed, on a
+      failed save.</p><p>If used near a sufficient source of water, reduce the
+      chakra cost of this jutsu by 2 or the number of attacks by +1.</p><p>At
+      Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the
+      cost of this jutsu by 3 and the damage by 1d6.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 5
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: true
+  ability: ninjutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d6
+        - cold
+    versatile: ''
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d6
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: water-release-water-claws
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - water
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Bleeding
+    origin: Compendium.n5eb.jutsus.Item.WzQIliiVaXP7l2wP
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: bleeding
+          rank: 1
+          maxRank: 5
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    _id: f6VpIoTKtlulBla5
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d4, damageType=necrotic,
+          label=Bleeding,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=Lil paper cut fr,
+          rollType=skill,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bleeding
+        priority: 0
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has
+      suffered a minor abrasion to their flesh, causing slow blood loss if
+      untreated.</p><ul><li><p>At the start of their turn, a bleeding creature
+      takes 1d4 necrotic damage for each rank of Bleed they
+      have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop
+      the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>A
+      creature who would gain a sixth (or more) ranks of the Bleeding condition
+      immediately gains 5 ranks of the Lacerated condition, ending the Bleeding
+      condition.</p><ul><li><p>The first time per rest a Bleeding creature would
+      gain the Lacerated this way, they must succeed a DC 11 flat check,
+      immediately taking the damage of their Lacerated ranks as they suffer a
+      great wound.</p></li></ul></li><li><p>Outside of combat, every 10-minutes
+      a creature suffers the effects of this condition as if a turn has passed
+      in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - bleeding
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!WzQIliiVaXP7l2wP.f6VpIoTKtlulBla5'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: water-release/d-rank/water-release-water-claws.json
+      sourceId: WzQIliiVaXP7l2wP
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You manifest water release chakra in the shape of two claws that
+            surround your hands, of your design and description. Make two melee
+            ninjutsu attacks against a target within range, as you spin,
+            slashing into them. On a successful hit, you deal 2d6 Cold damage.
+            Affected creatures must make a Constitution Saving throw, gaining 1
+            rank of Bleed, on a failed save.</p><p>If used near a sufficient
+            source of water, reduce the chakra cost of this jutsu by 2 or the
+            number of attacks by +1.</p><p>At Higher Ranks: For each rank you
+            cast this jutsu above D-Rank, increase the cost of this jutsu by 3
+            and the damage by 1d6.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 5
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: true
+        ability: ninjutsu
+        actionType: mnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d6
+              - cold
+          versatile: ''
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        level: 1
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d6
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - ninjutsu
+          - water
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757587600
+  modifiedTime: 1728757587600
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: water-release/d-rank/water-release-water-claws.json
+folder: wWSV7AnMtvb81R0W
+sort: 6100000
+ownership:
+  default: 0
+_id: WzQIliiVaXP7l2wP
+_key: '!items!WzQIliiVaXP7l2wP'

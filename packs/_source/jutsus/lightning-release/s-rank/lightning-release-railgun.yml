@@ -1,0 +1,503 @@
+name: Lightning Release Railgun
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/lightning.webp
+system:
+  description:
+    value: >-
+      <p>You manifest your Lightning release chakra infusing it into the metallic object so much so that electricity
+      radiates up to 60 feet off of it and glows white. Electronic tools and appliances begin to overload and
+      short-circuit.</p><p>You then create a circular barrel made of Lightning release chakra to stabilize the metallic
+      object as you launch it through the barrel causing unrivaled destruction to anything in its path.</p><p>All
+      Creatures, objects and structures in a 15-foot wide, 500-foot line must succeed a Dexterity saving throw. A
+      shocked creature makes their saving throw at disadvantage.</p><p>On a failed a creature takes lightning damage
+      equal to 12d10, is knocked prone and becomes dazed for the next minute. If a creature is shocked, they instead
+      take 16d10 and become stunned for the next minute. Objects and structures take the maximum possible
+      damage.</p><p>On a successful save, a creature takes half of 12d10. If the creature is shocked, they instead take
+      half of 16d10.</p><p>Overcharge. When you cast this jutsu with its listed casting time, you can choose to spend
+      your Bonus Action or Reaction to overcharge its effects. When you do, this jutsu ignores cover and creatures
+      cannot make their saving throws with advantage</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: A Small Metallic object such as a Coin, Shuriken or something similar which is destroyed when this jutsu is cast
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '500'
+    width: 15
+    units: ft
+    type: line
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 35
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 12d10
+        - lightning
+    versatile: 16d10
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 9
+  school: trs
+  materials:
+    value: A Small Metallic object such as a Coin, Shuriken or something similar which is destroyed when this jutsu is cast
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: lightning-release-railgun
+  jutsu:
+    components:
+      - hs
+      - cm
+      - nt
+    keywords:
+      - ninjutsu
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: s
+  chakra:
+    cost: '35'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Dazed
+    origin: Compendium.n5eb.jutsus.Item.Kme8KL3o0QHMGzru
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: nHcOpskUAUvw7XJq
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow and cannot take as many actions as
+      usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition lasts until the End of the affected
+      creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Kme8KL3o0QHMGzru.nHcOpskUAUvw7XJq'
+  - name: Stunned
+    origin: Compendium.n5eb.jutsus.Item.Kme8KL3o0QHMGzru
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    _id: Owil51P2MdpJPouK
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.fail.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.fail.ability.save.str
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: stunned
+        priority: 20
+    description: >-
+      <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
+      falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
+      throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Kme8KL3o0QHMGzru.Owil51P2MdpJPouK'
+  - name: Prone
+    origin: Compendium.n5eb.jutsus.Item.Kme8KL3o0QHMGzru
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: tH2LsfA6X4OSqdYD
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Kme8KL3o0QHMGzru.tH2LsfA6X4OSqdYD'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - ninjatool
+      - chakramolding
+      - ninjatools
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: lightning-release/s-rank/lightning-release-railgun.json
+      sourceId: Kme8KL3o0QHMGzru
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You manifest your Lightning release chakra infusing it into the metallic object so much so that
+            electricity radiates up to 60 feet off of it and glows white. Electronic tools and appliances begin to
+            overload and short-circuit.</p><p>You then create a circular barrel made of Lightning release chakra to
+            stabilize the metallic object as you launch it through the barrel causing unrivaled destruction to anything
+            in its path.</p><p>All Creatures, objects and structures in a 15-foot wide, 500-foot line must succeed a
+            Dexterity saving throw. A shocked creature makes their saving throw at disadvantage.</p><p>On a failed a
+            creature takes lightning damage equal to 12d10, is knocked prone and becomes dazed for the next minute. If a
+            creature is shocked, they instead take 16d10 and become stunned for the next minute. Objects and structures
+            take the maximum possible damage.</p><p>On a successful save, a creature takes half of 12d10. If the
+            creature is shocked, they instead take half of 16d10.</p><p>Overcharge. When you cast this jutsu with its
+            listed casting time, you can choose to spend your Bonus Action or Reaction to overcharge its effects. When
+            you do, this jutsu ignores cover and creatures cannot make their saving throws with advantage</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: >-
+            A Small Metallic object such as a Coin, Shuriken or something similar which is destroyed when this jutsu is
+            cast
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '500'
+          width: 15
+          units: ft
+          type: line
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 35
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 12d10
+              - lightning
+          versatile: 16d10
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 5
+        school: nin
+        materials:
+          value: >-
+            A Small Metallic object such as a Coin, Shuriken or something similar which is destroyed when this jutsu is
+            cast
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - ninjatools
+          - molding
+          - ninjatool
+        keywords:
+          - ninjutsu
+          - lightning
+        chakraCost: 35
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756941476
+  modifiedTime: 1728756941476
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: lightning-release/s-rank/lightning-release-railgun.json
+folder: x7EL6AKDr1ytCzrI
+sort: 0
+ownership:
+  default: 0
+_id: Kme8KL3o0QHMGzru
+_key: '!items!Kme8KL3o0QHMGzru'

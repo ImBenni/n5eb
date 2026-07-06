@@ -1,0 +1,1670 @@
+import ActivityChoiceDialog from "../applications/activity/activity-choice-dialog.mjs";
+import AdvancementManager from "../applications/advancement/advancement-manager.mjs";
+import AdvancementConfirmationDialog from "../applications/advancement/advancement-confirmation-dialog.mjs";
+import ContextMenu5e from "../applications/context-menu.mjs";
+import CreateDocumentDialog from "../applications/create-document-dialog.mjs";
+import CreateScrollDialog from "../applications/item/create-scroll-dialog.mjs";
+import ClassData from "../data/item/class.mjs";
+import ContainerData from "../data/item/container.mjs";
+import EquipmentData from "../data/item/equipment.mjs";
+import SpellData from "../data/item/spell.mjs";
+import ActivitiesTemplate from "../data/item/templates/activities.mjs";
+import PhysicalItemTemplate from "../data/item/templates/physical-item.mjs";
+import { preserveLegacyN5eBSource } from "../legacy-migration.mjs";
+import * as Seals from "../seals.mjs";
+import { formatIdentifier, staticID } from "../utils.mjs";
+import Scaling from "./scaling.mjs";
+import Proficiency from "./actor/proficiency.mjs";
+import SelectChoices from "./actor/select-choices.mjs";
+import Advancement from "./advancement/advancement.mjs";
+import { assignSystemFlagDataAliases } from "./flag-compatibility.mjs";
+import SystemDocumentMixin from "./mixins/document.mjs";
+
+const TextEditor = foundry.applications.ux.TextEditor.implementation;
+
+/**
+ * @import { D20RollConfiguration } from "../dice/_types.mjs";
+ * @import {
+ *  ItemContentsTransformer, ItemRollData, RollDataOptions, SpellcastingDescription, SpellScrollConfiguration
+ * } from "./_types.mjs";
+ * @import {
+ *   ActivityDialogConfiguration, ActivityMessageConfiguration, ActivityUsageResults, ActivityUseConfiguration
+ * } from "./activity/_types.mjs";
+ */
+
+/**
+ * Override and extend the basic Item implementation.
+ */
+export default class Item5e extends SystemDocumentMixin(Item) {
+
+  /** @override */
+  static DEFAULT_ICON = "systems/n5eb/icons/svg/documents/item.svg";
+
+  /* -------------------------------------------- */
+
+  /**
+   * Caches an item linked to this one, such as a subclass associated with a class.
+   * @type {Item5e}
+   * @private
+   */
+  _classLink;
+
+  /* -------------------------------------------- */
+
+  /**
+   * An object that tracks which tracks the changes to the data model which were applied by active effects
+   * @type {object}
+   */
+  overrides = this.overrides ?? {};
+
+  /* -------------------------------------------- */
+
+  /**
+   * Types that can be selected within the compendium browser.
+   * @param {object} [options={}]
+   * @param {Set<string>} [options.chosen]  Types that have been selected.
+   * @returns {SelectChoices}
+   */
+  static compendiumBrowserTypes({ chosen=new Set() }={}) {
+    const [generalTypes, physicalTypes] = Item.TYPES.reduce(([g, p], t) => {
+      if ( ![CONST.BASE_DOCUMENT_TYPE, "backpack"].includes(t) ) {
+        if ( "inventorySection" in (CONFIG.Item.dataModels[t] ?? {}) ) p.push(t);
+        else g.push(t);
+      }
+      return [g, p];
+    }, [[], []]);
+
+    const makeChoices = (types, categoryChosen) => types.reduce((obj, type) => {
+      obj[type] = {
+        label: CONFIG.Item.typeLabels[type],
+        chosen: chosen.has(type) || categoryChosen
+      };
+      return obj;
+    }, {});
+    const choices = makeChoices(generalTypes);
+    choices.physical = {
+      label: game.i18n.localize("DND5E.ITEM.Category.Physical"),
+      children: makeChoices(physicalTypes, chosen.has("physical"))
+    };
+    return new SelectChoices(choices);
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Migration                              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _initializeSource(data, options={}) {
+    if ( data instanceof foundry.abstract.DataModel ) data = data.toObject();
+    preserveLegacyN5eBSource(data, { documentName: "Item", parent: options.parent });
+
+    // Migrate backpack -> container.
+    if ( data.type === "backpack" ) {
+      data.type = "container";
+      foundry.utils.setProperty(data, "flags.n5eb.persistSourceMigration", true);
+    }
+
+    /**
+     * A hook event that fires before source data is initialized for an Item in a compendium.
+     * @function dnd5e.initializeItemSource
+     * @memberof hookEvents
+     * @param {Item5e} item     Item for which the data is being initialized.
+     * @param {object} source   Source data being initialized.
+     * @param {object} options  Additional data initialization options.
+     */
+    if ( options.pack || options.parent?.pack ) Hooks.callAll("dnd5e.initializeItemSource", this, data, options);
+
+    if ( data.type === "spell" ) {
+      return super._initializeSource(new Proxy(data, {
+        set(target, prop, value, receiver) {
+          if ( prop === "preparation" ) console.trace(value);
+          return Reflect.set(target, prop, value, receiver);
+        },
+
+        defineProperty(target, prop, attributes) {
+          if ( prop === "preparation" ) console.trace(attributes);
+          return Reflect.defineProperty(target, prop, attributes);
+        }
+      }), options);
+    }
+
+    Object.defineProperty(this, "_needsAdvancementMigration", { value: Array.isArray(data.system?.advancement) });
+
+    return super._initializeSource(data, options);
+  }
+
+  /* -------------------------------------------- */
+  /*  Item Properties                             */
+  /* -------------------------------------------- */
+
+  /**
+   * Which ability score modifier is used by this item?
+   * @type {string|null}
+   * @see {@link ActionTemplate#abilityMod}
+   */
+  get abilityMod() {
+    return this.system.abilityMod ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Should deletion of this item be allowed? Doesn't prevent programatic deletion, but affects UI controls.
+   * @type {boolean}
+   */
+  get canDelete() {
+    return !this.flags.n5eb?.cachedFor;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Should duplication of this item be allowed? Doesn't prevent programatic duplication, but affects UI controls.
+   * @type {boolean}
+   */
+  get canDuplicate() {
+    return !this.system.metadata?.singleton && !["class", "subclass"].includes(this.type)
+      && !this.flags.n5eb?.cachedFor;
+  }
+
+  /* --------------------------------------------- */
+
+  /**
+   * The item that contains this item, if it is in a container. Returns a promise if the item is located
+   * in a compendium pack.
+   * @type {Item5e|Promise<Item5e>|void}
+   */
+  get container() {
+    if ( !this.system.container ) return;
+    if ( this.isEmbedded ) return this.actor.items.get(this.system.container);
+    if ( this.pack ) return game.packs.get(this.pack).getDocument(this.system.container);
+    return game.items.get(this.system.container);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * What is the critical hit threshold for this item, if applicable?
+   * @type {number|null}
+   * @see {@link ActionTemplate#criticalThreshold}
+   */
+  get criticalThreshold() {
+    return this.system.criticalThreshold ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Active effect that granted this item as a rider.
+   * @type {ActiveEffect5e|null}
+   */
+  get dependentOrigin() {
+    return fromUuidSync(this.flags.n5eb?.dependentOn, { relative: this, strict: false }) ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does this item support advancement and have advancements defined?
+   * @type {boolean}
+   */
+  get hasAdvancement() {
+    return !!this.system.advancement?.size;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does the Item implement an attack roll as part of its usage?
+   * @type {boolean}
+   * @see {@link ActionTemplate#hasAttack}
+   */
+  get hasAttack() {
+    return this.system.hasAttack ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this Item limited in its ability to be used by charges or by recharge?
+   * @type {boolean}
+   * @see {@link ActivatedEffectTemplate#hasLimitedUses}
+   * @see {@link FeatData#hasLimitedUses}
+   */
+  get hasLimitedUses() {
+    return this.system.hasLimitedUses ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does the Item implement a saving throw as part of its usage?
+   * @type {boolean}
+   * @see {@link ActionTemplate#hasSave}
+   */
+  get hasSave() {
+    return this.system.hasSave ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Return an item's identifier.
+   * @type {string}
+   */
+  get identifier() {
+    if ( this.system.identifier ) return this.system.identifier;
+    return formatIdentifier(this.name);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does this Item represent an N5eB enhancement seal?
+   * @type {boolean}
+   */
+  get isN5eBSeal() {
+    return Seals.isSeal(this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Can this item enchant the provided target item?
+   * @param {Item5e} item  Target item.
+   * @returns {true|Error[]}
+   */
+  canEnchant(item) {
+    if ( this.isN5eBSeal ) return Seals.canInstallSeal(this, item);
+    return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Install a seal on this item.
+   * @param {Item5e} seal  Seal consumable.
+   * @param {object} [options]
+   * @returns {Promise<ActiveEffect5e[]|null>}
+   */
+  async installSeal(seal, options={}) {
+    return Seals.installSeal(seal, this, options);
+  }
+
+  /* --------------------------------------------- */
+
+  /**
+   * Is this Item an activatable item?
+   * @type {boolean}
+   */
+  get isActive() {
+    return this.system.isActive ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this item any of the armor subtypes?
+   * @type {boolean}
+   * @see {@link EquipmentTemplate#isArmor}
+   */
+  get isArmor() {
+    return this.system.isArmor ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does the item provide an amount of healing instead of conventional damage?
+   * @type {boolean}
+   * @see {@link ActionTemplate#isHealing}
+   */
+  get isHealing() {
+    return this.system.isHealing ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this item a separate large object like a siege engine or vehicle component that is
+   * usually mounted on fixtures rather than equipped, and has its own AC and HP?
+   * @type {boolean}
+   * @see {@link EquipmentData#isMountable}
+   * @see {@link WeaponData#isMountable}
+   */
+  get isMountable() {
+    return this.system.isMountable ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this class item the original class for the containing actor? If the item is not a class or it is not
+   * embedded in an actor then this will return `null`.
+   * @type {boolean|null}
+   */
+  get isOriginalClass() {
+    if ( this.type !== "class" || !this.isEmbedded || !this.parent.system.details?.originalClass ) return null;
+    return this.id === this.parent.system.details.originalClass;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does the Item implement a versatile damage roll as part of its usage?
+   * @type {boolean}
+   * @see {@link ActionTemplate#isVersatile}
+   */
+  get isVersatile() {
+    return this.system.isVersatile ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is the item rechargeable?
+   * @type {boolean}
+   */
+  get hasRecharge() {
+    return this.hasLimitedUses && (this.system.uses?.recovery[0]?.period === "recharge");
+  }
+
+  /* --------------------------------------------- */
+
+  /**
+   * Is the item on recharge cooldown?
+   * @type {boolean}
+   */
+  get isOnCooldown() {
+    return this.hasRecharge && (this.system.uses.value < 1);
+  }
+
+  /* --------------------------------------------- */
+
+  /**
+   * Does this item require concentration?
+   * @type {boolean}
+   */
+  get requiresConcentration() {
+    if ( this.system.validProperties.has("concentration") && this.system.properties.has("concentration") ) return true;
+    return this.system.activities?.contents[0]?.duration.concentration ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Class associated with this subclass. Always returns null on non-subclass or non-embedded items.
+   * @type {Item5e|null}
+   */
+  get class() {
+    if ( !this.isEmbedded || (this.type !== "subclass") ) return null;
+    const cid = this.system.classIdentifier;
+    return this._classLink ??= this.parent.items.find(i => (i.type === "class") && (i.identifier === cid));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Subclass associated with this class. Always returns null on non-class or non-embedded items.
+   * @type {Item5e|null}
+   */
+  get subclass() {
+    if ( !this.isEmbedded || (this.type !== "class") ) return null;
+    const items = this.parent.items;
+    const cid = this.identifier;
+    return this._classLink ??= items.find(i => (i.type === "subclass") && (i.system.classIdentifier === cid));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Retrieve scale values for current level from advancement data.
+   * @type {Record<string, ScaleValueType>}
+   */
+  get scaleValues() {
+    if ( !this.advancement.byType.ScaleValue ) return {};
+    const item = ["class", "subclass", "classmod"].includes(this.advancementRootItem?.type)
+      ? this.advancementRootItem
+      : this;
+    const level = item.type === "class" ? item.system.levels : item.type === "subclass" ? item.class?.system.levels
+      : item.system.advancementLevel ?? this.parent?.system.details.level ?? 0;
+    return this.advancement.byType.ScaleValue.reduce((obj, advancement) => {
+      if ( (advancement.classRestriction === "primary") && !this.isOriginalClass ) return obj;
+      if ( (advancement.classRestriction === "secondary") && this.isOriginalClass ) return obj;
+      obj[advancement.identifier] = advancement.valueForLevel(level);
+      return obj;
+    }, {});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Scaling increase for this item based on flag or item-type specific details.
+   * @type {number}
+   */
+  get scalingIncrease() {
+    return this.system?.scalingIncrease ?? this.getFlag("n5eb", "scaling") ?? 0;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Retrieve the spellcasting for a class or subclass. For classes, this will return the spellcasting
+   * of the subclass if it overrides the class. For subclasses, this will return the class's spellcasting
+   * if no spellcasting is defined on the subclass.
+   * @type {SpellcastingDescription|null}  Spellcasting object containing progression & ability.
+   */
+  get spellcasting() {
+    const spellcasting = this.system.spellcasting;
+    if ( !spellcasting ) return null;
+    const isSubclass = this.type === "subclass";
+    const classSC = isSubclass ? this.class?.system.spellcasting : spellcasting;
+    const subclassSC = isSubclass ? spellcasting : this.subclass?.system.spellcasting;
+    const finalSC = foundry.utils.deepClone(
+      ( subclassSC && (subclassSC.progression !== "none") ) ? subclassSC : classSC
+    );
+    return finalSC ?? null;
+  }
+
+  /* -------------------------------------------- */
+  /*  Active Effects                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Get all ActiveEffects that may apply to this Item.
+   * @yields {ActiveEffect5e}
+   * @returns {Generator<ActiveEffect5e, void, void>}
+   */
+  *allApplicableEffects() {
+    for ( const effect of this.effects ) {
+      if ( effect.isAppliedEnchantment ) yield effect;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply any transformation to the Item data which are caused by enchantment Effects.
+   */
+  applyActiveEffects() {
+    // Organize non-disabled effects by their application priority
+    const changes = [];
+    for ( const effect of this.allApplicableEffects() ) {
+      if ( !effect.active ) continue;
+      changes.push(...effect.changes.map(change => {
+        const c = foundry.utils.deepClone(change);
+        c.effect = effect;
+        c.priority ??= c.mode * 10;
+        return c;
+      }));
+    }
+    changes.sort((a, b) => a.priority - b.priority);
+    if ( game.release.generation > 13 ) foundry.documents.ActiveEffect._shimChanges?.(changes);
+
+    // Apply all changes
+    const overrides = {};
+    const replacementData = this.getRollData();
+    for ( const change of changes ) {
+      if ( !change.key ) continue;
+      const changes = (game.release.generation > 13)
+        ? change.effect.constructor.applyChange(this, change, { replacementData })
+        : change.effect.apply(this, change);
+      Object.assign(overrides, changes);
+    }
+
+    // Expand the set of final overrides
+    foundry.utils.mergeObject(this.overrides, foundry.utils.expandObject(overrides));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Should this item's active effects be suppressed.
+   * @type {boolean}
+   */
+  get areEffectsSuppressed() {
+    const requireEquipped = (this.type !== "consumable")
+      || ["rod", "trinket", "wand"].includes(this.system.type.value);
+    if ( requireEquipped && (this.system.equipped === false) ) return true;
+    return !this.system.attuned && (this.system.attunement === "required");
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Initialization                         */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  clone(data={}, options={}) {
+    if ( options.save ) return super.clone(data, options);
+    if ( this.parent ) this.parent._embeddedPreparation = true;
+    const item = super.clone(data, options);
+    if ( item.parent ) {
+      delete item.parent._embeddedPreparation;
+      item.prepareFinalAttributes();
+    }
+    return item;
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Migration                              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    source = super.migrateData(source);
+    ActivitiesTemplate.initializeActivities(source);
+    if ( source.type === "class" ) {
+      ClassData._migrateTraitAdvancement(source);
+      ClassData._migrateChakraAdvancement(source);
+      ClassData._migrateJutsuProgression(source);
+    }
+    else if ( source.type === "container" ) ContainerData._migrateWeightlessData(source);
+    else if ( source.type === "equipment" ) EquipmentData._migrateStealth(source);
+    else if ( source.type === "spell" ) SpellData._migrateComponentData(source);
+    return source;
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareBaseData() {
+    this._clearData();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clear or replace properties not automatically reset by upstream initialization.
+   * @protected
+   */
+  _clearData() {
+    this.labels = {};
+    this.overrides = {};
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareEmbeddedDocuments() {
+    super.prepareEmbeddedDocuments();
+    for ( const activity of this.system.activities ?? [] ) activity.prepareData();
+    for ( const advancement of this.system.advancement ?? [] ) {
+      if ( !(advancement instanceof Advancement) ) continue;
+      advancement.prepareData();
+    }
+    if ( !this.actor || this.actor._embeddedPreparation ) this.applyActiveEffects();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareDerivedData() {
+    this.labels ??= {};
+    super.prepareDerivedData();
+
+    // Clear out linked item cache
+    this._classLink = undefined;
+
+    // Advancement
+    this._prepareAdvancement();
+
+    // Item Properties
+    if ( this.system.properties ) {
+      this.labels.properties = this.system.properties.reduce((acc, prop) => {
+        if ( (prop === "concentration") && !this.requiresConcentration ) return acc;
+        acc.push({
+          abbr: prop,
+          label: CONFIG.DND5E.itemProperties[prop]?.label,
+          icon: CONFIG.DND5E.itemProperties[prop]?.icon
+        });
+        return acc;
+      }, []);
+    }
+
+    // Un-owned items can have their final preparation done here, otherwise this needs to happen in the owning Actor
+    if ( !this.isOwned ) this.prepareFinalAttributes();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare advancement objects from stored advancement data.
+   * @protected
+   */
+  _prepareAdvancement() {
+    const minAdvancementLevel = ["class", "subclass"].includes(this.type) ? 1 : 0;
+    this.advancement = {
+      byId: {},
+      byLevel: Object.fromEntries(
+        Array.fromRange(CONFIG.DND5E.maxLevel + 1).slice(minAdvancementLevel).map(l => [l, []])
+      ),
+      byType: {},
+      needingConfiguration: []
+    };
+    for ( const advancement of this.system.advancement ?? [] ) {
+      if ( !(advancement instanceof Advancement) ) continue;
+      this.advancement.byId[advancement.id] = advancement;
+      this.advancement.byType[advancement.type] ??= [];
+      this.advancement.byType[advancement.type].push(advancement);
+      advancement.levels.forEach(l => this.advancement.byLevel[l]?.push(advancement));
+      if ( !advancement.levels.length
+        || ((advancement.levels.length === 1) && (advancement.levels[0] < minAdvancementLevel)) ) {
+        this.advancement.needingConfiguration.push(advancement);
+      }
+    }
+    Object.entries(this.advancement.byLevel).forEach(([lvl, data]) => data.sort((a, b) => {
+      return a.sortingValueForLevel(lvl).localeCompare(b.sortingValueForLevel(lvl), game.i18n.lang);
+    }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine an item's proficiency level based on its parent actor's proficiencies.
+   * @protected
+   */
+  _prepareProficiency() {
+    if ( !["spell", "weapon", "equipment", "tool", "feat", "consumable"].includes(this.type) ) return;
+    if ( !this.actor?.system.attributes?.prof ) {
+      this.system.prof = new Proficiency(0, 0);
+      return;
+    }
+
+    const multiplier = this.system.proficiencyMultiplier ?? 0;
+    if ( this.type === "tool" ) {
+      const toolId = this.system.type?.baseItem;
+      const ability = this.system.ability || CONFIG.DND5E.tools[toolId]?.ability || "int";
+      this.system.prof = this.actor.system.calculateToolProficiency(
+        multiplier, ability, { tool: toolId ?? true, mastery: this.system.masteryRank }
+      );
+    } else {
+      this.system.prof = new Proficiency(this.actor.system.attributes.prof, multiplier);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute item attributes which might depend on prepared actor data. If this item is embedded this method will
+   * be called after the actor's data is prepared.
+   * Otherwise, it will be called at the end of `Item5e#prepareDerivedData`.
+   */
+  prepareFinalAttributes() {
+    this._prepareProficiency();
+    this.system.prepareFinalData?.();
+    this._prepareLabels();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare top-level summary labels based on configured activities.
+   * @protected
+   */
+  _prepareLabels() {
+    const activations = this.labels.activations = [];
+    const attacks = this.labels.attacks = [];
+    const damages = this.labels.damages = [];
+    if ( !this.system.activities?.size ) return;
+    const existingDamageLabels = new Set();
+    let firstDamage = true;
+    for ( const activity of this.system.activities ) {
+      if ( !("activation" in activity) || !activity.canUse ) continue;
+      const activationLabels = activity.activationLabels;
+      if ( activationLabels ) activations.push({
+        ...activationLabels,
+        concentrationDuration: activity.labels.concentrationDuration,
+        ritualActivation: activity.labels.ritualActivation
+      });
+      if ( activity.type === "attack" ) {
+        const { toHit, modifier } = activity.labels;
+        attacks.push({ toHit, modifier });
+      }
+      for ( const damage of activity.labels?.damage ?? [] ) {
+        if ( existingDamageLabels.has(damage.label) ) continue;
+        existingDamageLabels.add(damage.label);
+        damages.push({ ...damage, firstDamage });
+      }
+      if ( activity.labels?.damage?.length ) firstDamage = false;
+    }
+    if ( activations.length ) {
+      Object.assign(this.labels, activations[0]);
+      delete activations[0].concentrationDuration;
+      delete activations[0].ritualActivation;
+    }
+    if ( attacks.length ) Object.assign(this.labels, attacks[0]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render a rich tooltip for this item.
+   * @param {EnrichmentOptions} [enrichmentOptions={}]  Options for text enrichment.
+   * @returns {Promise<{content: string, classes: string[]}>|null}
+   */
+  richTooltip(enrichmentOptions={}) {
+    return this.system.richTooltip?.() ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Trigger an Item usage, optionally creating a chat message with followup actions.
+   * @param {ActivityUseConfiguration} config       Configuration info for the activation.
+   * @param {boolean} [config.chooseActivity=false] Force the activity selection prompt unless the fast-forward modifier
+   *                                                is held.
+   * @param {ActivityDialogConfiguration} dialog    Configuration info for the usage dialog.
+   * @param {ActivityMessageConfiguration} message  Configuration info for the created chat message.
+   * @returns {Promise<ActivityUsageResults|ChatMessage|object|void>}  Returns the usage results for the triggered
+   *                                                                   activity, or the chat message if the Item had no
+   *                                                                   activities and was posted directly to chat.
+   */
+  async use(config={}, dialog={}, message={}) {
+    if ( this.pack ) return;
+
+    let event = config.event;
+    const activities = this.system.activities?.filter(a => a.canUse);
+    if ( activities?.length ) {
+      const { chooseActivity, ...activityConfig } = config;
+      let usageConfig = activityConfig;
+      let dialogConfig = dialog;
+      let messageConfig = message;
+      let activity = activities[0];
+      if ( ((activities.length > 1) || chooseActivity) && !event?.shiftKey ) {
+        activity = await ActivityChoiceDialog.create(this, { sheet: dialog.options?.sheet });
+      }
+      if ( !activity ) return;
+      return activity.use(usageConfig, dialogConfig, messageConfig);
+    }
+    if ( this.actor ) return this.displayCard(message);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Display the chat card for an Item as a Chat Message
+   * @param {Partial<ActivityMessageConfiguration>} [message]  Configuration info for the created chat message.
+   * @returns {Promise<ChatMessage5e|object|void>}
+   */
+  async displayCard(message={}) {
+    const context = {
+      actor: this.actor,
+      config: CONFIG.DND5E,
+      tokenId: this.actor.token?.uuid || null,
+      item: this,
+      data: await this.system.getCardData(),
+      isSpell: this.type === "spell"
+    };
+
+    const messageConfig = foundry.utils.mergeObject({
+      create: message?.createMessage ?? true,
+      data: {
+        content: await foundry.applications.handlebars.renderTemplate(
+          "systems/n5eb/templates/chat/item-card.hbs", context
+        ),
+        flags: {
+          "dnd5e.item": { id: this.id, uuid: this.uuid, type: this.type }
+        },
+        speaker: ChatMessage.getSpeaker({ actor: this.actor, token: this.actor.token }),
+        title: this.name
+      },
+      rollMode: CONFIG.Dice.BasicRoll.getMessageMode()
+    }, message);
+
+    // Merge in the flags from options
+    if ( foundry.utils.getType(message.flags) === "Object" ) {
+      foundry.utils.mergeObject(messageConfig.data.flags, message.flags);
+      delete messageConfig.flags;
+    }
+    assignSystemFlagDataAliases(messageConfig.data);
+
+    /**
+     * A hook event that fires before an item chat card is created without using an activity.
+     * @function dnd5e.preDisplayCard
+     * @memberof hookEvents
+     * @param {Item5e} item                           Item for which the card will be created.
+     * @param {ActivityMessageConfiguration} message  Configuration for the roll message.
+     * @returns {boolean}                             Return `false` to prevent the card from being displayed.
+     */
+    if ( Hooks.call("dnd5e.preDisplayCard", this, messageConfig) === false ) return;
+    if ( Hooks.call("dnd5e.preDisplayCardV2", this, messageConfig) === false ) return;
+    assignSystemFlagDataAliases(messageConfig.data);
+
+    ChatMessage.applyRollMode(messageConfig.data, messageConfig.rollMode);
+    const card = messageConfig.create === false ? messageConfig.data : await ChatMessage.create(messageConfig.data);
+
+    /**
+     * A hook event that fires after an item chat card is created.
+     * @function dnd5e.displayCard
+     * @memberof hookEvents
+     * @param {Item5e} item                Item for which the chat card is being displayed.
+     * @param {ChatMessage5e|object} card  The created ChatMessage instance or ChatMessageData depending on whether
+     *                                     options.createMessage was set to `true`.
+     */
+    Hooks.callAll("dnd5e.displayCard", this, card);
+
+    return card;
+  }
+
+  /* -------------------------------------------- */
+  /*  Chat Cards                                  */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare an object of chat data used to display a card for the Item in the chat log.
+   * @param {object} htmlOptions    Options used by the TextEditor.enrichHTML function.
+   * @returns {object}              An object of chat data to render.
+   */
+  async getChatData(htmlOptions={}) {
+    const context = {};
+    let { identified, unidentified, description } = this.system;
+
+    // Rich text description
+    const isIdentified = identified !== false;
+    description = game.user.isGM || isIdentified ? description.value : unidentified?.description;
+    context.description = await TextEditor.enrichHTML(description ?? "", {
+      relativeTo: this,
+      rollData: this.getRollData(),
+      ...htmlOptions
+    });
+
+    // Type specific properties
+    context.properties = [
+      ...this.system.chatProperties ?? [],
+      ...this.system.equippableItemCardProperties ?? [],
+      ...Object.values(this.labels.activations?.[0] ?? {})
+    ].filter(p => p);
+
+    return context;
+  }
+
+  /* -------------------------------------------- */
+  /*  Item Rolls - Attack, Damage, Saves, Checks  */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data needed to roll a tool check and then pass it off to `d20Roll`.
+   * @param {D20RollConfiguration} [options]  Roll configuration options provided to the d20Roll function.
+   * @returns {Promise<Roll>}                 A Promise which resolves to the created Roll instance.
+   */
+  async rollToolCheck(options={}) {
+    if ( this.type !== "tool" ) throw new Error("Wrong item type!");
+    return this.actor?.rollToolCheck({
+      ability: this.system.ability,
+      bonus: this.system.bonus,
+      prof: this.system.prof,
+      item: this,
+      tool: this.system.type.baseItem,
+      ...options
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @inheritdoc
+   * @param {RollDataOptions} [options]
+   * @returns {ItemRollData}
+   */
+  getRollData({ deterministic=false }={}) {
+    let data;
+    if ( this.system.getRollData ) data = this.system.getRollData({ deterministic });
+    else data = { ...(this.actor?.getRollData({ deterministic }) ?? {}), item: { ...this.system } };
+    if ( data?.item ) {
+      data.item.flags = { ...this.flags };
+      data.item.name = this.name;
+    }
+    data.labels = this.labels;
+    data.scaling = new Scaling(this.scalingIncrease);
+    return data;
+  }
+
+  /* -------------------------------------------- */
+  /*  Chat Message Helpers                        */
+  /* -------------------------------------------- */
+
+  /**
+   * Apply listeners to chat messages.
+   * @param {HTMLElement} html  Rendered chat message.
+   */
+  static chatListeners(html) {
+    html.addEventListener("click", event => {
+      if ( event.target.closest("[data-context-menu]") ) ContextMenu5e.triggerEvent(event);
+      else if ( event.target.closest(".collapsible") ) this._onChatCardToggleContent(event);
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle toggling the visibility of chat card content when the name is clicked
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  static _onChatCardToggleContent(event) {
+    const header = event.target.closest(".collapsible");
+    if ( !event.target.closest(".collapsible-content.card-content") ) {
+      event.preventDefault();
+      header.classList.toggle("collapsed");
+
+      // Clear the height from the chat popout container so that it appropriately resizes.
+      const popout = header.closest(".chat-popout");
+      if ( popout ) popout.style.height = "";
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Activities & Advancements                   */
+  /* -------------------------------------------- */
+
+  /**
+   * Create a new activity of the specified type.
+   * @param {string} type                          Type of activity to create.
+   * @param {object} [data]                        Data to use when creating the activity.
+   * @param {object} [options={}]
+   * @param {boolean} [options.renderSheet=true]  Should the sheet be rendered after creation?
+   * @returns {Promise<ActivitySheet|null>}
+   */
+  async createActivity(type, data={}, { renderSheet=true }={}) {
+    if ( !this.system.activities ) return;
+
+    const config = CONFIG.DND5E.activityTypes[type];
+    if ( !config ) throw new Error(`${type} not found in CONFIG.DND5E.activityTypes`);
+    const cls = config.documentClass;
+
+    const createData = foundry.utils.deepClone(data);
+    const activity = new cls({ type, ...data }, { parent: this });
+    if ( activity._preCreate(createData) === false ) return;
+
+    const sort = this.system.activities.size
+      ? Math.max(...this.system.activities.map(a => a.sort)) + CONST.SORT_INTEGER_DENSITY
+      : 0;
+    await this.update({ [`system.activities.${activity.id}`]: { ...activity.toObject(), sort } });
+    const created = this.system.activities.get(activity.id);
+    if ( renderSheet ) return created.sheet?.render({ force: true });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update an activity belonging to this item.
+   * @param {string} id          ID of the activity to update.
+   * @param {object} updates     Updates to apply to this activity.
+   * @returns {Promise<Item5e>}  This item with the changes applied.
+   */
+  updateActivity(id, updates) {
+    if ( !this.system.activities ) return this;
+    if ( !this.system.activities.has(id) ) throw new Error(`Activity of ID ${id} could not be found to update`);
+    return this.update({ [`system.activities.${id}`]: updates });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Remove an activity from this item.
+   * @param {string} id          ID of the activity to remove.
+   * @returns {Promise<Item5e>}  This item with the changes applied.
+   */
+  async deleteActivity(id) {
+    const activity = this.system.activities?.get(id);
+    if ( !activity ) return this;
+    await Promise.allSettled(activity.constructor._apps.get(activity.uuid)?.map(a => a.close()) ?? []);
+    if ( game.release.generation < 14 ) return this.update({ [`system.activities.-=${id}`]: null });
+    return this.update({ [`system.activities.${id}`]: _del });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create a new advancement of the specified type.
+   * @param {string} type                          Type of advancement to create.
+   * @param {object} [data]                        Data to use when creating the advancement.
+   * @param {object} [options]
+   * @param {boolean} [options.renderSheet]        Should the sheet be rendered after creation?
+   * @param {boolean} [options.showConfig]         Deprecated, use `renderSheet` instead.
+   * @param {boolean} [options.source=false]       Should a source-only update be performed?
+   * @returns {Promise<AdvancementConfig>|Item5e}  Promise for advancement config for new advancement if source
+   *                                               is `false`, or item with newly added advancement.
+   */
+  createAdvancement(type, data={}, { renderSheet=true, showConfig, source=false }={}) {
+    if ( showConfig !== undefined ) {
+      foundry.utils.logCompatibilityWarning(
+        "The `showConfig` options in `createAdvancement` has been deprecated and replaced with `renderSheet`.",
+        { since: "DnD5e 5.2", until: "DnD5e 6.0" }
+      );
+      renderSheet = showConfig;
+    }
+
+    if ( !this.system.advancement ) return this;
+
+    const config = CONFIG.DND5E.advancementTypes[type];
+    if ( !config ) throw new Error(`${type} not found in CONFIG.DND5E.advancementTypes`);
+    const cls = config.documentClass;
+
+    if ( !config.validItemTypes.has(this.type) || !cls.availableForItem(this) ) {
+      throw new Error(`${type} advancement cannot be added to ${this.name}`);
+    }
+
+    const createData = foundry.utils.deepClone(data);
+    const advancement = new cls(data, { parent: this });
+    if ( advancement._preCreate(createData) === false ) return;
+
+    let update = { [`system.advancement.${advancement.id}`]: advancement.toObject() };
+    if ( !source && this._needsAdvancementMigration ) update = {
+      "system.==advancement": foundry.utils.mergeObject(
+        this.system.toObject().advancement, { [advancement.id]: advancement.toObject() }
+      )
+    };
+    if ( source ) return this.updateSource(update);
+    return this.update(update).then(() => {
+      if ( renderSheet ) return this.system.advancement.get(advancement.id)?.sheet?.render({ force: true });
+      return this;
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update an advancement belonging to this item.
+   * @param {string} id                       ID of the advancement to update.
+   * @param {object} updates                  Updates to apply to this advancement.
+   * @param {object} [options={}]
+   * @param {boolean} [options.source=false]  Should a source-only update be performed?
+   * @returns {Promise<Item5e>|Item5e}        This item with the changes applied, promised if source is `false`.
+   */
+  updateAdvancement(id, updates, { source=false }={}) {
+    if ( !this.system.advancement ) return this;
+    if ( !this.system.advancement.has(id) ) throw new Error(`Advancement of ID ${id} could not be found to update`);
+
+    const advancement = this.system.advancement.get(id);
+    let update = { [`system.advancement.${id}`]: updates };
+    if ( !source && this._needsAdvancementMigration ) update = {
+      "system.==advancement": foundry.utils.mergeObject(
+        this.system.toObject().advancement, { [id]: updates }, { performDeletions: true }
+      )
+    };
+    if ( source ) {
+      advancement.updateSource(updates);
+      advancement.render();
+      return this;
+    }
+
+    return this.update(update).then(() => {
+      advancement.render({ height: "auto" });
+      return this;
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Remove an advancement from this item.
+   * @param {string} id                       ID of the advancement to remove.
+   * @param {object} [options={}]
+   * @param {boolean} [options.source=false]  Should a source-only update be performed?
+   * @returns {Promise<Item5e>|Item5e}        This item with the changes applied.
+   */
+  deleteAdvancement(id, { source=false }={}) {
+    const advancement = this.system.advancement?.get(id);
+    if ( !advancement ) return this;
+
+    let update = game.release.generation < 14
+      ? { [`system.advancement.-=${id}`]: null }
+      : { [`system.advancement.${id}`]: _del };
+    if ( !source && this._needsAdvancementMigration ) {
+      const data = this.system.toObject().advancement;
+      delete data[id];
+      update = { "system.==advancement": data };
+    }
+    if ( source ) return this.updateSource(update);
+
+    return Promise.allSettled(advancement.constructor._apps.get(advancement.uuid)?.map(a => a.close()) ?? [])
+      .then(() => this.update(update));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Duplicate an advancement, resetting its value to default and giving it a new ID.
+   * @param {string} id                             ID of the advancement to duplicate.
+   * @param {object} [options]
+   * @param {boolean} [options.showConfig=true]     Should the new advancement's configuration application be shown?
+   * @param {boolean} [options.source=false]        Should a source-only update be performed?
+   * @returns {Promise<AdvancementConfig>|Item5e}   Promise for advancement config for duplicate advancement if source
+   *                                                is `false`, or item with newly duplicated advancement.
+   */
+  duplicateAdvancement(id, options) {
+    const original = this.system.advancement?.get(id);
+    if ( !original ) return this;
+    const duplicate = original.toObject();
+    delete duplicate._id;
+    if ( original.constructor.metadata.dataModels?.value ) {
+      duplicate.value = (new original.constructor.metadata.dataModels.value()).toObject();
+    } else {
+      duplicate.value = original.constructor.metadata.defaults?.value ?? {};
+    }
+    return this.createAdvancement(original.constructor.typeName, duplicate, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getEmbeddedDocument(embeddedName, id, options) {
+    let doc;
+    switch ( embeddedName ) {
+      case "Activity": doc = this.system.activities?.get(id); break;
+      case "Advancement": doc = this.system.advancement?.get(id); break;
+      default: return super.getEmbeddedDocument(embeddedName, id, options);
+    }
+    if ( options?.strict && (doc === undefined) ) {
+      throw new Error(`The key ${id} does not exist in the ${embeddedName} Collection`);
+    }
+    return doc;
+  }
+
+  /* -------------------------------------------- */
+  /*  Socket Event Handlers                       */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    if ( (await super._preCreate(data, options, user)) === false ) return false;
+
+    const isPhysical = this.system.constructor._schemaTemplates?.includes(PhysicalItemTemplate);
+    if ( this.parent?.system?.isGroup && !isPhysical ) return false;
+
+    // Create identifier based on name
+    if ( this.system.hasOwnProperty("identifier") && !data.system?.identifier ) {
+      this.updateSource({ "system.identifier": this.identifier });
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onCreate(data, options, userId) {
+    super._onCreate(data, options, userId);
+    await this.system.onCreateActivities?.(data, options, userId);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preUpdate(changed, options, user) {
+    if ( (await super._preUpdate(changed, options, user)) === false ) return false;
+    await this.system.preUpdateActivities?.(changed, options, user);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onUpdate(changed, options, userId) {
+    super._onUpdate(changed, options, userId);
+    await this.system.onUpdateActivities?.(changed, options, userId);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    await this.system.onDeleteActivities?.(options, userId);
+    if ( game.user.isActiveGM ) this.effects.forEach(e => e.getDependents().forEach(e => e.delete()));
+    if ( userId !== game.user.id ) return;
+    this.parent?.endConcentration?.(this);
+  }
+
+  /* -------------------------------------------- */
+  /*  Event Handlers                              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async deleteDialog({ sheet, ...dialogOptions }={}, operation={}) {
+    // If item has advancement, handle it separately
+    if ( this.actor?.system.metadata?.supportsAdvancement && !game.settings.get("n5eb", "disableAdvancements") ) {
+      const manager = AdvancementManager.forDeletedItem(this.actor, this.id);
+      if ( manager.steps.length ) {
+        try {
+          const shouldRemoveAdvancements = await AdvancementConfirmationDialog.forDelete(this, { sheet });
+          if ( shouldRemoveAdvancements ) {
+            if ( sheet ) sheet._renderChild(manager);
+            else manager.render({ force: true });
+            return;
+          }
+          return this.delete({ shouldRemoveAdvancements });
+        } catch(err) {
+          return;
+        }
+      }
+    }
+
+    // Display custom delete dialog when deleting a container with contents
+    const count = await this.system.contentsCount;
+    if ( count ) {
+      const type = game.i18n.localize("DND5E.Container");
+      const config = foundry.utils.mergeObject({
+        window: {
+          icon: "fa-solid fa-trash",
+          title: `${game.i18n.format("DOCUMENT.Delete", { type })}: ${this.name}`
+        },
+        position: { width: 400 },
+        content: `
+          <p>
+            <strong>${game.i18n.localize("AreYouSure")}</strong>
+            ${game.i18n.format("DND5E.ContainerDeleteMessage", { count })}
+          </p>
+          <label class="checkbox">
+            <span>${game.i18n.localize("DND5E.ContainerDeleteContents")}</span>
+            <input type="checkbox" name="deleteContents">
+          </label>
+        `,
+        yes: { callback: (event, button) => {
+          const deleteContents = button.form.elements.deleteContents.checked;
+          this.delete({ ...operation, deleteContents });
+        }}
+      }, dialogOptions);
+      if ( sheet ) return sheet._confirmDialog(config);
+      return foundry.applications.api.DialogV2.confirm(config);
+    }
+
+    if ( sheet ) {
+      const type = game.i18n.localize(this.constructor.metadata.label);
+      return sheet._confirmDialog(foundry.utils.mergeObject({
+        window: { title: `${game.i18n.format("DOCUMENT.Delete", { type })}: ${this.name}` },
+        position: { width: 400 },
+        content: `
+          <p>
+            <strong>${game.i18n.localize("AreYouSure")}</strong> ${game.i18n.format("SIDEBAR.DeleteWarning", { type })}
+          </p>
+        `,
+        yes: { callback: () => this.delete(operation) }
+      }, dialogOptions));
+    }
+    return super.deleteDialog(dialogOptions, operation);
+  }
+
+  /* -------------------------------------------- */
+  /*  Factory Methods                             */
+  /* -------------------------------------------- */
+
+  /**
+   * Add additional system-specific sidebar directory context menu options for Item documents.
+   * @param {ItemDirectory} app      The sidebar application.
+   * @param {object[]} entryOptions  The default array of context menu options.
+   */
+  static addDirectoryContextOptions(app, entryOptions) {
+    entryOptions.push({
+      name: "DND5E.Scroll.CreateScroll",
+      icon: '<i class="fa-solid fa-scroll"></i>',
+      callback: async li => {
+        let spell = game.items.get(li.dataset.entryId);
+        if ( app.collection instanceof foundry.documents.collections.CompendiumCollection ) {
+          spell = await app.collection.getDocument(li.dataset.entryId);
+        }
+        const scroll = await Item5e.createScrollFromSpell(spell);
+        if ( scroll ) Item5e.create(scroll);
+      },
+      condition: li => {
+        let item = game.items.get(li.dataset.documentId ?? li.dataset.entryId);
+        if ( app.collection instanceof foundry.documents.collections.CompendiumCollection ) {
+          item = app.collection.index.get(li.dataset.entryId);
+        }
+        return (item.type === "spell") && game.user.hasPermission("ITEM_CREATE");
+      },
+      group: "system"
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare creation data for the provided items and any items contained within them. The data created by this method
+   * can be passed to `createDocuments` with `keepId` always set to true to maintain links to container contents.
+   * @param {Item5e[]} items                     Items to create.
+   * @param {object} [context={}]                Context for the item's creation.
+   * @param {Item5e} [context.container]         Container in which to create the item.
+   * @param {boolean} [context.keepId=false]     Should IDs be maintained?
+   * @param {ItemContentsTransformer} [context.transformAll]    Method called on provided items and their contents.
+   * @param {ItemContentsTransformer} [context.transformFirst]  Method called only on provided items.
+   * @returns {Promise<object[]>}                Data for items to be created.
+   */
+  static async createWithContents(items, { container, keepId=false, transformAll, transformFirst }={}) {
+    let initialDepth = 0;
+    if ( container ) {
+      initialDepth = 1 + (await container.system.allContainers()).length;
+      if ( initialDepth > PhysicalItemTemplate.MAX_DEPTH ) {
+        ui.notifications.warn(game.i18n.format("DND5E.ContainerMaxDepth", { depth: PhysicalItemTemplate.MAX_DEPTH }));
+        return;
+      }
+    }
+
+    const createItemData = async (item, containerId, depth) => {
+      const o = { container: containerId, depth };
+      let newItemData = transformAll ? await transformAll(item, o) : item;
+      if ( transformFirst && (depth === initialDepth) ) newItemData = await transformFirst(newItemData, o);
+      if ( !newItemData ) return;
+      if ( newItemData instanceof Item ) newItemData = game.items.fromCompendium(newItemData, {
+        clearSort: false, keepId: true, clearOwnership: false
+      });
+      foundry.utils.mergeObject(newItemData, {"system.container": containerId} );
+      if ( !keepId ) newItemData._id = foundry.utils.randomID();
+
+      created.push(newItemData);
+
+      const contents = await item.system.contents;
+      if ( contents && (depth < PhysicalItemTemplate.MAX_DEPTH) ) {
+        for ( const doc of contents ) await createItemData(doc, newItemData._id, depth + 1);
+      }
+    };
+
+    const created = [];
+    for ( const item of items ) await createItemData(item, container?.id, initialDepth);
+    return created;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create a consumable spell scroll Item from a spell Item.
+   * @param {Item5e|object} spell                   The spell or item data to be made into a scroll.
+   * @param {object} [options]                      Additional options that modify the created scroll.
+   * @param {SpellScrollConfiguration} [config={}]  Configuration options for scroll creation.
+   * @returns {Promise<Item5e|void>}                The created scroll consumable item.
+   */
+  static async createScrollFromSpell(spell, options={}, config={}) {
+    if ( spell.pack ) return this.createScrollFromCompendiumSpell(spell.uuid, config);
+
+    const values = {};
+    if ( (spell instanceof Item5e) && spell.isOwned && (dnd5e.settings.rulesVersion === "modern") ) {
+      const spellcastingClass = spell.actor.spellcastingClasses?.[spell.system.classIdentifier];
+      if ( spellcastingClass ) {
+        values.bonus = spellcastingClass.spellcasting.attack;
+        values.dc = spellcastingClass.spellcasting.save;
+      } else {
+        values.bonus = spell.actor.system.attributes?.spell?.mod;
+        values.dc = spell.actor.system.attributes?.spell?.dc;
+      }
+    }
+
+    config = foundry.utils.mergeObject({
+      explanation: game.user.getFlag("n5eb", "creation.scrollExplanation") ?? "reference",
+      level: spell.system.level,
+      values
+    }, config);
+
+    if ( config.dialog !== false ) {
+      const result = await CreateScrollDialog.create(spell, config);
+      if ( !result ) return;
+      foundry.utils.mergeObject(config, result);
+      await game.user.setFlag("n5eb", "creation.scrollExplanation", config.explanation);
+    }
+
+    // Get spell data
+    const itemData = (spell instanceof Item5e) ? spell.toObject() : spell;
+    const flags = itemData.flags ?? {};
+    if ( Number.isNumeric(config.level) ) {
+      flags.n5eb ??= {};
+      flags.n5eb.scaling = Math.max(0, config.level - spell.system.level);
+      flags.n5eb.spellLevel = {
+        value: config.level,
+        base: spell.system.level
+      };
+      itemData.system.level = config.level;
+    }
+
+    /**
+     * A hook event that fires before the item data for a scroll is created.
+     * @function dnd5e.preCreateScrollFromSpell
+     * @memberof hookEvents
+     * @param {object} itemData                  The initial item data of the spell to convert to a scroll.
+     * @param {object} options                   Additional options that modify the created scroll.
+     * @param {SpellScrollConfiguration} config  Configuration options for scroll creation.
+     * @returns {boolean}                        Explicitly return false to prevent the scroll to be created.
+     */
+    if ( Hooks.call("dnd5e.preCreateScrollFromSpell", itemData, options, config) === false ) return;
+
+    let { activities, level, properties, source } = itemData.system;
+
+    // Get scroll data
+    let scrollUuid;
+    const id = CONFIG.DND5E.spellScrollIds[level];
+    if ( foundry.data.validators.isValidId(id) ) {
+      scrollUuid = game.packs.get(CONFIG.DND5E.sourcePacks.ITEMS).index.get(id).uuid;
+    } else {
+      scrollUuid = id;
+    }
+    const scrollItem = await fromUuid(scrollUuid);
+    const scrollData = game.items.fromCompendium(scrollItem);
+
+    // Create a composite description from the scroll description and the spell details
+    const desc = this._createScrollDescription(scrollItem, itemData, null, config);
+
+    for ( const level of Array.fromRange(itemData.system.level + 1).reverse() ) {
+      const values = CONFIG.DND5E.spellScrollValues[level];
+      if ( values ) {
+        config.values.bonus ??= values.bonus;
+        config.values.dc ??= values.dc;
+        break;
+      }
+    }
+
+    // Apply inferred spell activation, duration, range, and target data to activities
+    for ( const activity of Object.values(activities) ) {
+      for ( const key of ["activation", "duration", "range", "target"] ) {
+        if ( activity[key]?.override !== false ) continue;
+        activity[key].override = true;
+        foundry.utils.mergeObject(activity[key], itemData.system[key]);
+      }
+      activity.consumption.targets.push({ type: "itemUses", target: "", value: "1" });
+      if ( activity.type === "attack" ) {
+        activity.attack.flat = true;
+        activity.attack.bonus = values.bonus;
+      } else if ( activity.type === "save" ) {
+        activity.save.dc.calculation = "";
+        activity.save.dc.formula = values.dc;
+      }
+    }
+
+    // Create the spell scroll data
+    const spellScrollData = foundry.utils.mergeObject(scrollData, {
+      name: `${game.i18n.localize("DND5E.SpellScroll")}: ${itemData.name}`,
+      effects: itemData.effects ?? [],
+      flags,
+      system: {
+        activities, description: { value: desc.trim() }, properties, source
+      }
+    });
+    foundry.utils.mergeObject(spellScrollData, options);
+    spellScrollData.system.properties = [
+      "mgc",
+      ...scrollData.system.properties,
+      ...properties ?? [],
+      ...options.system?.properties ?? []
+    ];
+
+    /**
+     * A hook event that fires after the item data for a scroll is created but before the item is returned.
+     * @function dnd5e.createScrollFromSpell
+     * @memberof hookEvents
+     * @param {Item5e|object} spell              The spell or item data to be made into a scroll.
+     * @param {object} spellScrollData           The final item data used to make the scroll.
+     * @param {SpellScrollConfiguration} config  Configuration options for scroll creation.
+     */
+    Hooks.callAll("dnd5e.createScrollFromSpell", spell, spellScrollData, config);
+
+    return new this(spellScrollData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create a consumable spell scroll Item from a spell Item.
+   * @param {string} uuid                           UUID of the spell to add to the scroll.
+   * @param {SpellScrollConfiguration} [config={}]  Configuration options for scroll creation.
+   * @returns {Promise<Item5e|void>}                The created scroll consumable item.
+   */
+  static async createScrollFromCompendiumSpell(uuid, config={}) {
+    const spell = await fromUuid(uuid);
+    if ( !spell ) return;
+
+    const values = {};
+
+    config = foundry.utils.mergeObject({
+      explanation: game.user.getFlag("n5eb", "creation.scrollExplanation") ?? "reference",
+      level: spell.system.level,
+      values
+    }, config);
+
+    if ( config.dialog !== false ) {
+      const result = await CreateScrollDialog.create(spell, config);
+      if ( !result ) return;
+      foundry.utils.mergeObject(config, result);
+      await game.user.setFlag("n5eb", "creation.scrollExplanation", config.explanation);
+    }
+
+    /**
+     * A hook event that fires before the item data for a scroll is created for a compendium spell.
+     * @function dnd5e.preCreateScrollFromCompendiumSpell
+     * @memberof hookEvents
+     * @param {Item5e} spell                     Spell to add to the scroll.
+     * @param {SpellScrollConfiguration} config  Configuration options for scroll creation.
+     * @returns {boolean}                        Explicitly return `false` to prevent the scroll to be created.
+     */
+    if ( Hooks.call("dnd5e.preCreateScrollFromCompendiumSpell", spell, config) === false ) return;
+
+    // Get scroll data
+    let scrollUuid;
+    const id = CONFIG.DND5E.spellScrollIds[spell.system.level];
+    if ( foundry.data.validators.isValidId(id) ) {
+      scrollUuid = game.packs.get(CONFIG.DND5E.sourcePacks.ITEMS).index.get(id).uuid;
+    } else {
+      scrollUuid = id;
+    }
+    const scrollItem = await fromUuid(scrollUuid);
+    const scrollData = game.items.fromCompendium(scrollItem);
+
+    for ( const level of Array.fromRange(spell.system.level + 1).reverse() ) {
+      const values = CONFIG.DND5E.spellScrollValues[level];
+      if ( values ) {
+        config.values.bonus ??= values.bonus;
+        config.values.dc ??= values.dc;
+        break;
+      }
+    }
+
+    const activity = {
+      _id: staticID("dnd5escrollspell"),
+      type: "cast",
+      consumption: {
+        targets: [{ type: "itemUses", value: "1" }]
+      },
+      spell: {
+        challenge: {
+          attack: config.values.bonus,
+          save: config.values.dc,
+          override: true
+        },
+        level: config.level,
+        uuid
+      }
+    };
+
+    // Create the spell scroll data
+    const spellScrollData = foundry.utils.mergeObject(scrollData, {
+      name: `${game.i18n.localize("DND5E.SpellScroll")}: ${spell.name}`,
+      system: {
+        activities: { ...(scrollData.system.activities ?? {}), [activity._id]: activity },
+        description: {
+          value: this._createScrollDescription(scrollItem, spell, `<p>@Embed[${uuid} inline]</p>`, config).trim()
+        }
+      }
+    });
+
+    /**
+     * A hook event that fires after the item data for a scroll is created but before the item is returned.
+     * @function dnd5e.createScrollFromSpell
+     * @memberof hookEvents
+     * @param {Item5e} spell                     The spell or item data to be made into a scroll.
+     * @param {object} spellScrollData           The final item data used to make the scroll.
+     * @param {SpellScrollConfiguration} config  Configuration options for scroll creation.
+     */
+    Hooks.callAll("dnd5e.createScrollFromSpell", spell, spellScrollData, config);
+
+    return new this(spellScrollData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create the description for a spell scroll.
+   * @param {Item5e} scroll                         Base spell scroll.
+   * @param {Item5e|object} spell                   Spell being added to the scroll.
+   * @param {string} [spellDescription]             Description from the spell being added.
+   * @param {SpellScrollConfiguration} [config={}]  Configuration options for scroll creation.
+   * @returns {string}
+   * @protected
+   */
+  static _createScrollDescription(scroll, spell, spellDescription, config={}) {
+    spellDescription ??= spell.system.description.value;
+    const isConc = spell.system.properties[spell instanceof Item5e ? "has" : "includes"]("concentration");
+    const level = spell.system.level;
+    switch ( config.explanation ) {
+      case "full":
+        // Split the scroll description into an intro paragraph and the remaining details
+        const scrollDescription = scroll.system.description.value;
+        const pdel = "</p>";
+        const scrollIntroEnd = scrollDescription.indexOf(pdel);
+        const scrollIntro = scrollDescription.slice(0, scrollIntroEnd + pdel.length);
+        const scrollDetails = scrollDescription.slice(scrollIntroEnd + pdel.length);
+        return [
+          scrollDetails ? scrollIntro : null,
+          `<h3>${spell.name} (${game.i18n.format("DND5E.LevelNumber", { level })})</h3>`,
+          isConc ? `<p><em>${game.i18n.localize("DND5E.Scroll.RequiresConcentration")}</em></p>` : null,
+          spellDescription,
+          `<h3>${game.i18n.localize("DND5E.Scroll.Details")}</h3>`,
+          scrollDetails || scrollIntro
+        ].filterJoin("");
+      case "reference":
+        return [
+          "<p><em>",
+          CONFIG.DND5E.spellLevels[level] ?? level,
+          " &Reference[Spell Scroll]",
+          isConc ? `, ${game.i18n.localize("DND5E.Scroll.RequiresConcentration")}` : null,
+          "</em></p>",
+          spellDescription
+        ].filterJoin("");
+    }
+    return spellDescription;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  static async createDialog(data={}, createOptions={}, dialogOptions={}) {
+    CreateDocumentDialog.migrateOptions(createOptions, dialogOptions);
+    return CreateDocumentDialog.prompt(this, data, createOptions, dialogOptions);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare default list of types if none are specified.
+   * @param {Actor5e} parent  Parent document within which this Item will be created.
+   * @returns {string[]}
+   * @protected
+   */
+  static _createDialogTypes(parent) {
+    return this.TYPES.filter(t => t !== "backpack");
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static getDefaultArtwork(itemData={}) {
+    const { type } = itemData;
+    const { img } = super.getDefaultArtwork(itemData);
+    return { img: CONFIG.DND5E.defaultArtwork.Item[type] ?? img };
+  }
+}

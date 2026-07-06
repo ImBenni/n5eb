@@ -1,24 +1,36 @@
-{{#if (or @root.editable values)}}
-<div class="pills-group {{#unless values}}empty{{/unless}}">
+{{#if (or @root.editable values.length)}}
+<div class="pills-group {{ groupClass }} {{#if iconOnly}}icon-only{{/if}} {{#unless values.length}}empty{{/unless}}">
     <h3 class="icon">
         {{#if icon}}<i class="{{ icon }}"></i>
-        {{~else if svg}}<n5eb-icon src="systems/n5eb/icons/svg/{{ svg }}.svg"></n5eb-icon>{{/if}}
+        {{~else if svg}}<dnd5e-icon src="systems/n5eb/icons/svg/{{ svg }}.svg"></dnd5e-icon>{{/if}}
         <span class="roboto-upper">{{ localize label }}</span>
-        {{#if @root.editable}}
-        <a class="trait-selector" data-trait="{{ key }}"
-           data-tooltip="{{ localize "N5EB.TraitConfig" trait=(localize label) }}"
-           aria-label="{{ localize "N5EB.TraitConfig" trait=(localize label) }}">
-            <i class="fas fa-cog"></i>
-        </a>
+        {{#if (and @root.editable (or configAction key))}}
+        <button type="button" class="config-button unbutton"
+                {{~#if configAction}} data-action="showConfiguration" data-config="{{ configAction }}"
+                {{~else}} data-action="showConfiguration" data-trait="{{ key }}"{{/if}}
+                data-tooltip aria-label="{{ localize 'DND5E.TraitConfig' trait=(localize label) }}">
+            <i class="fas fa-cog" inert></i>
+        </button>
         {{/if}}
     </h3>
     <ul class="pills">
         {{#each values}}
-        <li class="pill {{ ../color }} {{ color }}">
+        <li class="pill {{ ../color }} {{ color }} {{#if img}}has-image{{/if}} {{~ifThen draggable ' draggable' ''}}"
+            {{#if img}}data-tooltip="{{ label }}" aria-label="{{ label }}"{{/if}}>
+            {{#if link}}<a class="{{ @root.rollableClass }}" {{ dnd5e-dataset link }}>{{/if}}
+            {{#if img}}<img class="pill-image" src="{{ img }}" alt="" inert>{{/if}}
             {{#each icons}}
             <i class="{{ icon }}" data-tooltip="{{ label }}" aria-label="{{ label }}"></i>
             {{/each}}
+            {{#if (and ../iconOnly img)}}
+            {{else}}
             <span class="label">{{ label }}</span>
+            {{/if}}
+            {{#if value}}
+            <span class="separator">&vert;</span>
+            <span class="value">{{ dnd5e-numberFormat value signDisplay=../signDisplay }}</span>
+            {{/if}}
+            {{#if link}}</a>{{/if}}
         </li>
         {{/each}}
     </ul>

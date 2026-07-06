@@ -1,0 +1,270 @@
+name: Explosion Release Fury
+type: spell
+img: systems/n5eb/assets/content/clans/bakuton.webp
+system:
+  description:
+    value: >-
+      <p>Reckless Style</p><p>You begin to channel explosive chakra throughout your body, making everything you touch
+      explode on contact, giving you an advantage in hand-to- hand combat.</p><p>For the duration your [Unarmed Damage]
+      becomes 2d6 and instead deals force damage. The first time each turn when you would deal [Unarmed Damage] to a
+      creature with DR (damage reduction) as a result of Armor, you reduce their total DR by -2 for the next minute.
+      This effect can stack up to 3 times. A creature whose DR is reduced by this jutsu can spend an Action restore
+      their DR back to its original value.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank,
+      increase the cost of this jutsu by 3. If this jutsu is cast at B-Rank or higher, the DR penalty increases to -3.
+      If this jutsu is cast at S-Rank, the damage die becomes 3d6</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: ''
+  actionType: other
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d6
+        - force
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: explosion-release-fury
+  jutsu:
+    components:
+      - cm
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - earth
+      - lightning
+      - ninjutsu
+      - reckless-style
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: bakuton/clan-hijutsu/d-rank/explosion-release-fury.json
+      sourceId: THYvJKLfvV2OKC1a
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Reckless Style</p><p>You begin to channel explosive chakra throughout your body, making everything you
+            touch explode on contact, giving you an advantage in hand-to- hand combat.</p><p>For the duration your
+            [Unarmed Damage] becomes 2d6 and instead deals force damage. The first time each turn when you would deal
+            [Unarmed Damage] to a creature with DR (damage reduction) as a result of Armor, you reduce their total DR by
+            -2 for the next minute. This effect can stack up to 3 times. A creature whose DR is reduced by this jutsu
+            can spend an Action restore their DR back to its original value.</p><p>At Higher Ranks: For each rank you
+            cast this jutsu above D-Rank, increase the cost of this jutsu by 3. If this jutsu is cast at B-Rank or
+            higher, the DR penalty increases to -3. If this jutsu is cast at S-Rank, the damage die becomes 3d6</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: ''
+        actionType: other
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d6
+              - force
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+          - molding
+        keywords:
+          - taijutsu
+          - hijutsu
+          - earth
+          - lightning
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+    bookParityFix:
+      source: Book Parity Fix Pass 5.3.10
+      compendiumSourceId: THYvJKLfvV2OKC1a
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728752446620
+  modifiedTime: 1728752492466
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: bakuton/clan-hijutsu/d-rank/explosion-release-fury.json
+folder: 01vL3dj17iZ7w0Gl
+sort: 300000
+ownership:
+  default: 0
+_id: THYvJKLfvV2OKC1a
+_key: '!items!THYvJKLfvV2OKC1a'

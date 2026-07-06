@@ -1,0 +1,368 @@
+name: Mortal Fear
+type: spell
+img: systems/n5eb/assets/content/clans/vesper.webp
+system:
+  description:
+    value: >-
+      <p>You stare into the soul of a creature, forcing them to confront their mortal nature. They must succeed a
+      Charisma Saving Throw or gain 2 ranks of Fear against you and take 1d6 Psychic damage, piercing DR and temporary
+      hit points. If you maintain this jutsu, they must make the same saving throw at the start of each turn. If they
+      have 5 ranks of Fear, they are treated as being Vulnerable to the Psychic damage of this jutsu</p><p>At Higher
+      Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3, and the Psychic
+      damage by 1d6</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 90
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 1d6
+        - psychic
+    versatile: ''
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: genjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d6
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: mortal-fear
+  jutsu:
+    components:
+      - cm
+    keywords:
+      - genjutsu
+      - hijutsu
+      - visual
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Fear/Demoralized
+    origin: Compendium.n5eb.clan.Item.SVJSDzZj2qP27beh
+    duration:
+      rounds: 100
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/frightened.svg
+    _id: uDfdWRZcT4eEvTrZ
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: frightened
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=end,
+          saveDC=13,
+          saveAbility=cha,
+          allowIncapacitated=true,
+          label=Save to overcome Demoralized
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain ranks of <strong>Fear</strong> (<strong>or
+      Frightened</strong>), gain ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong> creature is
+      disturbed by a particular target in some fashion, making them seek to avoid interaction with them if possible.
+      This heightened stress causes the defenses of the Demoralized target to wane.</p><ul><li><p>A
+      <strong>Demoralized</strong> creature suffers a -1 penalty to its saving throws, for each rank they
+      have.</p></li><li><p>A <strong>Demoralized</strong> creature must make concentration checks at the beginning of
+      each of their turns to maintain concentration on their jutsu.</p></li><li><p>At the end of a
+      <strong>Demoralized</strong> creatures turn they make a DC 13 Charisma ability check. On a success, they remove 1
+      rank of <strong>Demoralized</strong>. After 10 minutes, a creature who still has ranks of
+      <strong>Demoralized</strong>, loses all ranks of <strong>Demoralized</strong> it has remaining</p></li><li><p>As
+      an action, a <strong>Demoralized</strong> creature can make a DC 20 Charisma ability check to remove all ranks of
+      <strong>Demoralized</strong> it has.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!SVJSDzZj2qP27beh.uDfdWRZcT4eEvTrZ'
+folder: g2Jej3sXDYhfeCS7
+flags:
+  n5eb:
+    migratedProperties:
+      - concentration
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: vesper/clan-hijutsu/c-rank/mortal-fear.json
+      sourceId: SVJSDzZj2qP27beh
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You stare into the soul of a creature, forcing them to confront their mortal nature. They must succeed a
+            Charisma Saving Throw or gain 2 ranks of Fear against you and take 1d6 Psychic damage, piercing DR and
+            temporary hit points. If you maintain this jutsu, they must make the same saving throw at the start of each
+            turn. If they have 5 ranks of Fear, they are treated as being Vulnerable to the Psychic damage of this
+            jutsu</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu
+            by 3, and the Psychic damage by 1d6</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 90
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 1d6
+              - psychic
+          versatile: ''
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: genjutsu
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d6
+        keywords:
+          - genjutsu
+          - hijutsu
+          - visual
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - concentration
+        chakraCost: 9
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755285254
+  modifiedTime: 1728755371761
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: vesper/clan-hijutsu/c-rank/mortal-fear.json
+_id: SVJSDzZj2qP27beh
+sort: 300000
+ownership:
+  default: 0
+_key: '!items!SVJSDzZj2qP27beh'

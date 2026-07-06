@@ -1,0 +1,269 @@
+name: Evening Elephant
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/taijutsu.webp
+system:
+  description:
+    value: >-
+      <p>Keywords: Taijutsu, Finisher, Clash</p><p>This jutsu can only be cast as a Taijutsu Finisher. This is the
+      ultimate culmination of offensive taijutsu. As a part of the activation of this jutsu, you must currently be under
+      the effects of at least either Sixth Heavenly Breath: Gasp Taijutsu or 7th Gate of Wonder or higher.</p><p>Make 5
+      Taijutsu attacks against a target. Each attack you make is treated as a shockwave that affects all creatures in a
+      15-foot-wide, 60 feet line behind your initial target. On a hit, the target creature takes 5d10 bludgeoning
+      damage. All creatures behind the target creature must make a Dexterity saving throw taking 5d8 force damage on a
+      failed save or half as much on a successful one. (This Jutsu cannot score a critical hit)</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '60'
+    width: 15
+    units: ft
+    type: line
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 21
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d10
+        - bludgeoning
+    versatile: 5d8
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  level: 9
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: evening-elephant
+  jutsu:
+    components:
+      - cm
+      - m
+    keywords:
+      - taijutsu
+      - finisher
+      - clash
+    countsKnown: true
+    ability: ''
+    type: taijutsu
+  rank: s
+  chakra:
+    cost: '21'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - clash
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: taijutsu/s-rank/evening-elephant.json
+      sourceId: P5BHA7x62QHCQhWG
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Keywords: Taijutsu, Finisher, Clash</p><p>This jutsu can only be cast as a Taijutsu Finisher. This is the
+            ultimate culmination of offensive taijutsu. As a part of the activation of this jutsu, you must currently be
+            under the effects of at least either Sixth Heavenly Breath: Gasp Taijutsu or 7th Gate of Wonder or
+            higher.</p><p>Make 5 Taijutsu attacks against a target. Each attack you make is treated as a shockwave that
+            affects all creatures in a 15-foot-wide, 60 feet line behind your initial target. On a hit, the target
+            creature takes 5d10 bludgeoning damage. All creatures behind the target creature must make a Dexterity
+            saving throw taking 5d8 force damage on a failed save or half as much on a successful one. (This Jutsu
+            cannot score a critical hit)</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '60'
+          width: 15
+          units: ft
+          type: line
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 21
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d10
+              - bludgeoning
+          versatile: 5d8
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        level: 5
+        school: tai
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+          - clash
+        keywords:
+          - taijutsu
+          - finisher
+          - clash
+        chakraCost: 21
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757579263
+  modifiedTime: 1728757579263
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: taijutsu/s-rank/evening-elephant.json
+folder: iBxKk1Gz3ajwjxoV
+sort: 0
+ownership:
+  default: 0
+_id: P5BHA7x62QHCQhWG
+_key: '!items!P5BHA7x62QHCQhWG'

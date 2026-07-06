@@ -1,0 +1,352 @@
+name: Fire Release Wildfire
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/fire.webp
+system:
+  description:
+    value: >-
+      <p>You manifest a multicolored flame and fire a stream of it towards a creature you can see within range. Target
+      creature must succeed a Dexterity saving throw. On a failed save they gain 1 rank of the burned condition, and
+      take 2d12+2 Fire Damage. On a successful save they take half damage and no further effects.</p><p>If the target
+      already had the burned condition, on a failed save, they instead immediately take damage from the burned condition
+      they have and take 3d12+3 fire damage with no further effects. On a successful save they take half damage and no
+      further effects.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 45
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d12+2
+        - fire
+    versatile: 3d12+3
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: fire-release-wildfire
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - clash
+      - fire
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Burned
+    origin: Compendium.n5eb.jutsus.Item.TtPPpsMhTdz2I7Tz
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/burning.svg
+    _id: QVo3cL4Za9w7oANC
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          rollType=skill,
+          saveAbility=sur,
+          saveDC=15,
+          actionSave=dialog,
+          damageBeforeSave=true,
+          damageRoll=1d8,
+          damageType=fire,
+          saveRemove=true,
+          name=Burned,
+          chatFlavor=It's very hot!,
+          fastForwardDamage=true,
+        priority: 20
+      - key: system.attributes.concentration.bonuses.save
+        mode: 2
+        value: '-2 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it
+      has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration
+      Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this
+      condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has
+      passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put
+      out the flames. On a successful check, the condition ends or submerging themselves fully into a body of
+      water.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!TtPPpsMhTdz2I7Tz.QVo3cL4Za9w7oANC'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - clash
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: fire-release/d-rank/fire-release-wildfire.json
+      sourceId: TtPPpsMhTdz2I7Tz
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You manifest a multicolored flame and fire a stream of it towards a creature you can see within range.
+            Target creature must succeed a Dexterity saving throw. On a failed save they gain 1 rank of the burned
+            condition, and take 2d12+2 Fire Damage. On a successful save they take half damage and no further
+            effects.</p><p>If the target already had the burned condition, on a failed save, they instead immediately
+            take damage from the burned condition they have and take 3d12+3 fire damage with no further effects. On a
+            successful save they take half damage and no further effects.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 45
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d12+2
+              - fire
+          versatile: 3d12+3
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 1
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+          - clash
+        keywords:
+          - ninjutsu
+          - clash
+          - fire
+        chakraCost: 5
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728751719116
+  modifiedTime: 1728751719116
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: fire-release/d-rank/fire-release-wildfire.json
+folder: Wd8NjDd6cDSsPReO
+sort: 4600000
+ownership:
+  default: 0
+_id: TtPPpsMhTdz2I7Tz
+_key: '!items!TtPPpsMhTdz2I7Tz'

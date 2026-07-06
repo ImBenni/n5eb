@@ -1,0 +1,425 @@
+name: Unbound Laughter
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>A creature of your choice that you can see within range, perceives everything as extremely funny and falls into
+      a fit of laughter if this jutsu affects it. The target must make a Wisdom save. If the creature is damaged the
+      jutsu ends immediately. A creature with an intelligence score of 4 or less is unaffected. A creature with a wisdom
+      score of 15 or more makes its save with advantage.</p><p>Critical Success: Affected creature is able to resist
+      this Jutsu's effect.</p><p>Success: Affected creature is able to resist most of this jutsu's effects but becomes
+      unable to take reactions until the beginning of its next turn.</p><p>Failure: Affected creature succumbs to a fit
+      of laughter falling prone and being unable to take reactions. A laughing creature remakes its saving throw at the
+      end of each of its turns to end this jutsu's effects.</p><p>Critical Failure: Affected creature falls into a fit
+      of laughter falling prone and becoming incapacitated. A laughing creature remakes its saving throw at the end of
+      each of its turns to end this jutsu's effects.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Laughing Powder
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: wis
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: genjutsu
+  level: 1
+  school: ill
+  materials:
+    value: Laughing Powder
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: unbound-laughter
+  jutsu:
+    components:
+      - hs
+      - cm
+      - nt
+    keywords:
+      - genjutsu
+      - auditory
+      - inhaled
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Incapacitated
+    origin: Compendium.n5eb.jutsus.Item.joJL9mjchAW6Czmv
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/incapacitated.svg
+    _id: RNE0tnWG3X2QZGL6
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.climb
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: incapacitated
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - incapacitated
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.oPKLZHKQOBZsE7k5.ActiveEffect.4SS62Wm6W6fzv1z7
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!joJL9mjchAW6Czmv.RNE0tnWG3X2QZGL6'
+  - name: Prone
+    origin: Compendium.n5eb.jutsus.Item.joJL9mjchAW6Czmv
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: oj0p45HhkZUZTXsb
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!joJL9mjchAW6Czmv.oj0p45HhkZUZTXsb'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - ninjatool
+      - chakramolding
+      - ninjatools
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/d-rank/unbound-laughter.json
+      sourceId: joJL9mjchAW6Czmv
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>A creature of your choice that you can see within range, perceives everything as extremely funny and
+            falls into a fit of laughter if this jutsu affects it. The target must make a Wisdom save. If the creature
+            is damaged the jutsu ends immediately. A creature with an intelligence score of 4 or less is unaffected. A
+            creature with a wisdom score of 15 or more makes its save with advantage.</p><p>Critical Success: Affected
+            creature is able to resist this Jutsu's effect.</p><p>Success: Affected creature is able to resist most of
+            this jutsu's effects but becomes unable to take reactions until the beginning of its next
+            turn.</p><p>Failure: Affected creature succumbs to a fit of laughter falling prone and being unable to take
+            reactions. A laughing creature remakes its saving throw at the end of each of its turns to end this jutsu's
+            effects.</p><p>Critical Failure: Affected creature falls into a fit of laughter falling prone and becoming
+            incapacitated. A laughing creature remakes its saving throw at the end of each of its turns to end this
+            jutsu's effects.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Laughing Powder
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: wis
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: genjutsu
+        level: 1
+        school: gen
+        materials:
+          value: Laughing Powder
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - ninjatools
+          - concentration
+          - molding
+          - ninjatool
+        keywords:
+          - genjutsu
+          - auditory
+          - inhaled
+        chakraCost: 4
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/d-rank/unbound-laughter.json
+folder: AmeoViai9zpWZpeh
+sort: 30300000
+ownership:
+  default: 0
+_id: joJL9mjchAW6Czmv
+_key: '!items!joJL9mjchAW6Czmv'

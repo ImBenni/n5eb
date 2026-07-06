@@ -1,0 +1,165 @@
+import { defaultUnits, formatLength, formatNumber, getPluralRules, prepareFormulaValue } from "../../utils.mjs";
+import FormulaField from "../fields/formula-field.mjs";
+
+const { BooleanField, SchemaField, StringField } = foundry.data.fields;
+
+/**
+ * @import { ActivityRollData, ItemRollData } from "../../documents/_types.mjs";
+ */
+
+/**
+ * Field for storing target data.
+ */
+export default class TargetField extends SchemaField {
+  constructor(fields={}, options={}) {
+    fields = {
+      template: new SchemaField({
+        count: new FormulaField({ deterministic: true }),
+        contiguous: new BooleanField(),
+        stationary: new BooleanField(),
+        type: new StringField(),
+        size: new FormulaField({ deterministic: true }),
+        width: new FormulaField({ deterministic: true }),
+        height: new FormulaField({ deterministic: true }),
+        units: new StringField({ required: true, blank: false, initial: () => defaultUnits("length") })
+      }),
+      affects: new SchemaField({
+        count: new FormulaField({ deterministic: true }),
+        type: new StringField(),
+        choice: new BooleanField(),
+        special: new StringField()
+      }),
+      ...fields
+    };
+    super(fields, options);
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data for this field. Should be called during the `prepareFinalData` stage.
+   * @this {ItemDataModel|BaseActivityData}
+   * @param {ItemRollData|ActivityRollData} rollData  Roll data used for formula replacements.
+   * @param {object} [labels]                         Object in which to insert generated labels.
+   */
+  static prepareData(rollData, labels) {
+    this.target.affects.scalar = this.target.affects.type
+      && (CONFIG.DND5E.individualTargetTypes[this.target.affects.type]?.scalar !== false);
+    if ( this.target.affects.scalar ) {
+      prepareFormulaValue(this, "target.affects.count", "DND5E.TARGET.FIELDS.target.affects.count.label", rollData);
+    } else this.target.affects.count = null;
+
+    const dimensions = this.target.template.dimensions = TargetField.templateDimensions(this.target.template.type);
+
+    if ( this.target.template.type ) {
+      this.target.template.count ||= "1";
+      if ( dimensions.width ) this.target.template.width ||= "5";
+      if ( dimensions.height ) this.target.template.height ||= "5";
+      prepareFormulaValue(this, "target.template.count", "DND5E.TARGET.FIELDS.target.template.count.label", rollData);
+      prepareFormulaValue(this, "target.template.size", "DND5E.TARGET.FIELDS.target.template.size.label", rollData);
+      prepareFormulaValue(this, "target.template.width", "DND5E.TARGET.FIELDS.target.template.width.label", rollData);
+      prepareFormulaValue(this, "target.template.height", "DND5E.TARGET.FIELDS.target.template.height.label", rollData);
+    } else {
+      this.target.template.count = null;
+      this.target.template.size = null;
+      this.target.template.width = null;
+      this.target.template.height = null;
+    }
+
+    const pr = getPluralRules();
+
+    // Generate the template labels
+    const templateConfig = CONFIG.DND5E.areaTargetTypes[this.target.template.type];
+    this.target.template.labels = {};
+    if ( templateConfig ) {
+      const parts = [];
+      if ( this.target.template.count > 1 ) parts.push(`${this.target.template.count} ×`);
+      if ( this.target.template.units in CONFIG.DND5E.movementUnits ) {
+        parts.push(formatLength(this.target.template.size, this.target.template.units));
+      }
+      this.target.template.labels.statblock = this.target.template.label = game.i18n.format(
+        `${templateConfig.counted}.${pr.select(this.target.template.count || 1)}`, { number: parts.filterJoin(" ") }
+      ).trim().capitalize();
+
+      const sizeUnit = CONFIG.DND5E.movementUnits[this.target.template.units]?.template ?? "";
+      if ( Object.keys(dimensions).length === 1 ) this.target.template.labels.size = game.i18n.format(
+        "DND5E.AreaOfEffect.Description.SizeSimple",
+        { number: formatNumber(this.target.template.size), unit: sizeUnit }
+      );
+      else this.target.template.labels.size = game.i18n.getListFormatter({ type: "unit" })
+        .format(Object.entries(dimensions).map(([k, l]) =>
+          game.i18n.format("DND5E.AreaOfEffect.Description.SizeType", {
+            number: formatNumber(this.target.template[k]), unit: sizeUnit,
+            type: game.i18n.localize(l.replace("DND5E.AreaOfEffect.Size.", "DND5E.AreaOfEffect.Description."))
+          })
+        ));
+
+      this.target.template.labels.description = game.i18n.format(
+        `${templateConfig.counted}.${pr.select(this.target.template.count || 1)}Sized`,
+        {
+          number: formatNumber(this.target.template.count, { words: true }),
+          sizes: this.target.template.labels.size
+        }
+      );
+
+      this.target.template.labels.type = templateConfig.label;
+    } else this.target.template.label = "";
+
+    // Generate the affects labels
+    const affectsConfig = CONFIG.DND5E.individualTargetTypes[this.target.affects.type];
+    this.target.affects.labels = {
+      description: game.i18n.format(
+        `${this.target.affects.special ? "DND5E.TARGET.Type.Special.Counted"
+          : affectsConfig?.counted ?? "DND5E.TARGET.Type.Target.Counted"}.${this.target.affects.count
+          ? pr.select(this.target.affects.count) : this.target.template.type ? "each" : "any"}`,
+        {
+          number: formatNumber(this.target.affects.count, { words: true }),
+          special: this.target.affects.special
+        }
+      ),
+      sheet: affectsConfig?.counted ? game.i18n.format(
+        `${affectsConfig.counted}.${this.target.affects.count ? pr.select(this.target.affects.count) : "other"}`, {
+          number: this.target.affects.count ? formatNumber(this.target.affects.count)
+            : game.i18n.localize(`DND5E.TARGET.Count.${this.target.template.type ? "Every" : "Any"}`)
+        }
+      ).trim().capitalize() : (affectsConfig?.label ?? ""),
+      statblock: game.i18n.format(
+        `${affectsConfig?.counted ?? "DND5E.TARGET.Type.Target.Counted"}.${pr.select(this.target.affects.count || 1)}`,
+        { number: formatNumber(this.target.affects.count || 1, { words: true }) }
+      )
+    };
+
+    if ( labels ) {
+      labels.description ??= {};
+      labels.description.affects ||= this.target.affects.labels.description;
+      labels.description.template ||= this.target.template.labels.description;
+      labels.description.templateSize ||= this.target.template.labels.size;
+      labels.description.templateType ||= this.target.template.labels.type;
+      labels.target = this.target.template.label || this.target.affects.labels.sheet;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create the template dimensions labels for a template type.
+   * @param {string} type  Area of effect type.
+   * @returns {{ size: string, [width]: string, [height]: string }}
+   */
+  static templateDimensions(type) {
+    const sizes = CONFIG.DND5E.areaTargetTypes[type]?.sizes;
+    const dimensions = { size: "DND5E.AreaOfEffect.Size.Label" };
+    if ( sizes ) {
+      if ( sizes.includes("radius") ) dimensions.size = "DND5E.AreaOfEffect.Size.Radius";
+      else if ( sizes.includes("length") ) dimensions.size = "DND5E.AreaOfEffect.Size.Length";
+      else if ( sizes.includes("width") ) dimensions.size = "DND5E.AreaOfEffect.Size.Width";
+      const hasWidth = sizes.includes("width") && (sizes.includes("length") || sizes.includes("radius"));
+      if ( sizes.includes("thickness") ) dimensions.width = "DND5E.AreaOfEffect.Size.Thickness";
+      else if ( hasWidth ) dimensions.width = "DND5E.AreaOfEffect.Size.Width";
+      if ( sizes.includes("height") ) dimensions.height = "DND5E.AreaOfEffect.Size.Height";
+    }
+    return dimensions;
+  }
+}

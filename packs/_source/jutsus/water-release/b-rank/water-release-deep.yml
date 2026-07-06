@@ -1,0 +1,367 @@
+name: Water Release Deep
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/water.webp
+system:
+  description:
+    value: >-
+      <p>You and other casters manipulate Surrounding Water as you artificially manipulated the depth of water
+      surrounding yourselves.</p><p>Each Caster of this jutsu manifests a 30-foot radius sphere of water within which
+      they gain a 60-foot swim speed and the ability to breathe within each sphere of water created during this jutsu's
+      casting.</p><p>Each caster can then select up to 2 creatures other than themselves who will be unable to Drown
+      while within this jutsu's radius and gains a swim speed equal to their walking speed while inside any sphere of
+      water created during this jutsu's casting. Additionally, the selected creatures do not need to make a Saving throw
+      as a result of this jutsu.</p><p>Each creature selected by a caster who casts a Jutsu of any type while within a
+      sphere of water created during this jutsu's casting now deals cold damage instead of their jutsu's listed damage
+      type.</p><p>Creatures who are within this jutsu's radius when casted must succeed a Dexterity and Constitution
+      saving throw. On a failed Dexterity saving throw they are pulled 30 towards the center of the sphere of water. On
+      a successful save they are instead floating within the sphere of water in their current position. On a failed
+      Constitution saving throw the creature was unable to hold its breath and begins drowning. A drowning creature can
+      survive for a number of rounds equal to their constitution Modifier (Min 1) before falling unconscious as a result
+      of drowning. If an unconscious creature remains drowning, at the beginning of the unconscious creatures turn, they
+      take necrotic damage equal to their level. On a successful save they are able to hold their breath for a number of
+      rounds equal to their Constitution Modifier (Min 1.).</p><p>At the beginning of a creatures turn who has exceeded
+      the number of rounds they can hold their breath; they begin drowning as if they failed their saving
+      throw.</p><p>An unconscious creature who is no longer drowning can be awoken by another creature as a bonus
+      action.</p><p>Combination: If this jutsu is cast as a Combination jutsu with 2 or more casters reduce the cost by
+      -2.</p><p>Any creature who assists in casting this jutsu as a combination jutsu increases this Jutsu's radius
+      based on the highest Charisma Modifier within the group of casters. (+0-1: No Change, +2-3: Increase the radius to
+      90-foot radius sphere(s), +4-5: Increase the radius to 120-foot radius sphere(s)).</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: null
+    units: ft
+    type: sphere
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 77
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 5
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: water-release-deep
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - combination
+      - kinjutsu
+      - water
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '77'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Unconscious
+    origin: Compendium.n5eb.jutsus.Item.I6tjZZJJSHSUgu6n
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: true
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/unconscious.svg
+    _id: ssBGfkT9EDQ3IUaa
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.grants.attack.bonus.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: unconscious
+        priority: 20
+    description: >-
+      <p>An <strong>Unconscious</strong> creature has entered a state of total mental remission, or is
+      asleep.</p><ul><li><p>An unconscious creature is incapacitated (see the condition), can’t move or speak, and is
+      unaware of its surroundings</p></li><li><p>The creature drops whatever it holding and falls
+      prone.</p></li><li><p>The creature automatically fails Strength and Dexterity saving throws.</p></li><li><p>Attack
+      rolls against the creature have advantage.</p></li><li><p>Any attack that hits the creature is a critical hit if
+      the attacker is within 5 feet of the creature.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - unconscious
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.2qfV7Gdom5onXhUZ.ActiveEffect.Tp7TFzWYOvtIjeO1
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!I6tjZZJJSHSUgu6n.ssBGfkT9EDQ3IUaa'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: water-release/b-rank/water-release-deep.json
+      sourceId: I6tjZZJJSHSUgu6n
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You and other casters manipulate Surrounding Water as you artificially manipulated the depth of water
+            surrounding yourselves.</p><p>Each Caster of this jutsu manifests a 30-foot radius sphere of water within
+            which they gain a 60-foot swim speed and the ability to breathe within each sphere of water created during
+            this jutsu's casting.</p><p>Each caster can then select up to 2 creatures other than themselves who will be
+            unable to Drown while within this jutsu's radius and gains a swim speed equal to their walking speed while
+            inside any sphere of water created during this jutsu's casting. Additionally, the selected creatures do not
+            need to make a Saving throw as a result of this jutsu.</p><p>Each creature selected by a caster who casts a
+            Jutsu of any type while within a sphere of water created during this jutsu's casting now deals cold damage
+            instead of their jutsu's listed damage type.</p><p>Creatures who are within this jutsu's radius when casted
+            must succeed a Dexterity and Constitution saving throw. On a failed Dexterity saving throw they are pulled
+            30 towards the center of the sphere of water. On a successful save they are instead floating within the
+            sphere of water in their current position. On a failed Constitution saving throw the creature was unable to
+            hold its breath and begins drowning. A drowning creature can survive for a number of rounds equal to their
+            constitution Modifier (Min 1) before falling unconscious as a result of drowning. If an unconscious creature
+            remains drowning, at the beginning of the unconscious creatures turn, they take necrotic damage equal to
+            their level. On a successful save they are able to hold their breath for a number of rounds equal to their
+            Constitution Modifier (Min 1.).</p><p>At the beginning of a creatures turn who has exceeded the number of
+            rounds they can hold their breath; they begin drowning as if they failed their saving throw.</p><p>An
+            unconscious creature who is no longer drowning can be awoken by another creature as a bonus
+            action.</p><p>Combination: If this jutsu is cast as a Combination jutsu with 2 or more casters reduce the
+            cost by -2.</p><p>Any creature who assists in casting this jutsu as a combination jutsu increases this
+            Jutsu's radius based on the highest Charisma Modifier within the group of casters. (+0-1: No Change, +2-3:
+            Increase the radius to 90-foot radius sphere(s), +4-5: Increase the radius to 120-foot radius
+            sphere(s)).</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: null
+          units: ft
+          type: sphere
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 77
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 3
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - combination
+          - kinjutsu
+          - water
+        chakraCost: 77
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757587600
+  modifiedTime: 1728757587600
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: water-release/b-rank/water-release-deep.json
+folder: XphzjtZZTlQD0qKT
+sort: 0
+ownership:
+  default: 0
+_id: I6tjZZJJSHSUgu6n
+_key: '!items!I6tjZZJJSHSUgu6n'

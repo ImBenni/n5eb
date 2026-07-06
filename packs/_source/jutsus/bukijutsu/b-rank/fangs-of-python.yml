@@ -1,0 +1,358 @@
+folder: Jl06pbyhjmFzL4c2
+name: Fangs of Python
+type: spell
+_id: HlOceVXPf8pralOY
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>The chthonic enemy of the sun's hatred swells within you; it's seething rage like poison to your chakra. Make a
+      ranged Taijutsu attack toward a target within range. On a hit, you deal your [weapons damage] + 4d8 necrotic
+      damage. This jutsu gains additional effects if it is used between 12:00pm to 2:00pm; If this is the case, then
+      this jutsu instead deals double your [weapon's damage] + 6d8 on a hit and the target must succeed a Constitution
+      saving throw or gain 2 ranks of Envenomed.</p><p>If this jutsu is cast as a Chain 2, increase the damage die by 1
+      step. If this jutsu is cast as a Chain 3 increase the damage die by an additional 1 step</p><p>At Higher Ranks:
+      For each rank you cast this jutsu above B rank, increase the cost by 3. If this jutsu is cast at A rank, the time
+      you may gain the additional benefits of the day extends to 4:00 pm. If this jutsu is cast at S rank, you may draw
+      on the last sources of daylight of the setting sun. The time you may gain the additional benefits of the day
+      extends to 6:00 pm, and this jutsu deals an additional 2d8 damage.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Double Weapon range
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: taijutsu
+  actionType: rsak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 4d8
+        - necrotic
+    versatile: 6d8
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: taijutsu
+  summons: null
+  level: 5
+  school: trs
+  properties: []
+  materials:
+    value: Any Ranged Slashing, Poison or Poison Kit
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: fangs-of-python
+  jutsu:
+    components:
+      - cm
+      - m
+      - w
+      - nt
+    keywords:
+      - bukijutsu
+      - chainx
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: b
+  chakra:
+    cost: '12'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Poisoned/Envenomed
+    origin: Compendium.n5eb.jutsus.Item.HlOceVXPf8pralOY
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    _id: BlwljO4a6KUiAGA1
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d6,
+          damageType=poison,
+          label=Poisoned/Envenomed,
+          chatFlavor=YUCK I feel SICK,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: poisoned
+        priority: 20
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
+      been exposed to some kind of venom or toxin, causing their vitality and immune health to drop
+      rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it
+      has, at the start of each of their turns for the duration of this condition</p></li><li><p>An
+      <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An
+      <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune
+      to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature
+      suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!HlOceVXPf8pralOY.BlwljO4a6KUiAGA1'
+sort: 7300000
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/b-rank/fangs-of-python.json
+      sourceId: HlOceVXPf8pralOY
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>The chthonic enemy of the sun's hatred swells within you; it's seething rage like poison to your chakra.
+            Make a ranged Taijutsu attack toward a target within range. On a hit, you deal your [weapons damage] + 4d8
+            necrotic damage. This jutsu gains additional effects if it is used between 12:00pm to 2:00pm; If this is the
+            case, then this jutsu instead deals double your [weapon's damage] + 6d8 on a hit and the target must succeed
+            a Constitution saving throw or gain 2 ranks of Envenomed.</p><p>If this jutsu is cast as a Chain 2, increase
+            the damage die by 1 step. If this jutsu is cast as a Chain 3 increase the damage die by an additional 1
+            step</p><p>At Higher Ranks: For each rank you cast this jutsu above B rank, increase the cost by 3. If this
+            jutsu is cast at A rank, the time you may gain the additional benefits of the day extends to 4:00 pm. If
+            this jutsu is cast at S rank, you may draw on the last sources of daylight of the setting sun. The time you
+            may gain the additional benefits of the day extends to 6:00 pm, and this jutsu deals an additional 2d8
+            damage.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Double Weapon range
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: taijutsu
+        actionType: rtak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 4d8
+              - necrotic
+          versatile: 6d8
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: taijutsu
+        summons: null
+        level: 3
+        school: buki
+        properties:
+          - chakraseals
+          - mobility
+          - weapons
+          - ninjatools
+        keywords:
+          - bukijutsu
+          - chainx
+        materials:
+          value: Any Ranged Slashing, Poison or Poison Kit
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 12
+        chakraScaling:
+          mode: level
+          value: 0
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+    bookParityFix:
+      source: Book Parity Fix Pass 5.3.10
+      compendiumSourceId: HlOceVXPf8pralOY
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755893853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/b-rank/fangs-of-python.json
+_key: '!items!HlOceVXPf8pralOY'

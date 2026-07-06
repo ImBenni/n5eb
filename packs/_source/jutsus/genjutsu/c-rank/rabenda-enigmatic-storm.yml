@@ -1,0 +1,447 @@
+name: Rabenda Enigmatic Storm
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>You grasp a hand full of poisonous Rabenda flower buds, enhancing them with your chakra and spreading its
+      spores into a storm filling a 10-foot radius, centered on a space you can see in range. Once this jutsu is cast,
+      you cannot cast it again until the end of your next turn after this jutsu ends.</p><p>All creatures who begin
+      their turns in this jutsu's range must make a Charisma saving throw as their mind is overwhelmed with intruding
+      thoughts from the Genjutsu enhanced flower buds. You can move the torrent of flower buds, as an action on each of
+      your turns, up to 30 feet in any direction.</p><p>Critical Success: Affected creature is able to resist this
+      jutsu's effect, becoming immune to further castings of this jutsu until the end of the casters next
+      turn.</p><p>Success: Affected creature is able to resist most of this jutsu's effects.</p><p>Failure: Affected
+      creature becomes slowed for the duration and at the beginning of each affected creatures turns, they gain 1 rank
+      of Concussed, while inside the affected area.</p><p>Critical Failure: Same as failure, but they instead gain 2
+      ranks of concussed.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Poison Kit, 1 Charges
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '10'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 7
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: genjutsu
+  level: 3
+  school: ill
+  materials:
+    value: (Poison Kit, 1 Charges)
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: rabenda-enigmatic-storm
+  jutsu:
+    components:
+      - hs
+      - cm
+      - nt
+    keywords:
+      - genjutsu
+      - inhaled
+      - tactile
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: c
+  chakra:
+    cost: '7'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Concussed
+    origin: Compendium.n5eb.jutsus.Item.lGfFzaFpSN4se6g5
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/concussed.svg
+    _id: Jl4DqfzFxZaKU9Be
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: concussed
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental
+      acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A
+      Concussed creature suffers a -1 penalty to all of their Save DCs for each rank it has.</p></li><li><p>A Concussed
+      creature suffers a -1 penalty to all Intelligence based checks, attack rolls and saving throws and checks for each
+      rank it has.</p></li><li><p>A concussed creature cannot gain the benefit of a Rest.</p></li><li><p>A creature can
+      spend its Action if it has a Medicine kit to make a DC 20 Medicine check, ending this condition on a
+      success.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!lGfFzaFpSN4se6g5.Jl4DqfzFxZaKU9Be'
+  - name: Slowed
+    origin: Compendium.n5eb.jutsus.Item.lGfFzaFpSN4se6g5
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    _id: 28xiWdajk3iH2QT3
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-(10 * @stackCount)'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: slowed
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!lGfFzaFpSN4se6g5.28xiWdajk3iH2QT3'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - ninjatool
+      - chakramolding
+      - ninjatools
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/c-rank/rabenda-enigmatic-storm.json
+      sourceId: lGfFzaFpSN4se6g5
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You grasp a hand full of poisonous Rabenda flower buds, enhancing them with your chakra and spreading its
+            spores into a storm filling a 10-foot radius, centered on a space you can see in range. Once this jutsu is
+            cast, you cannot cast it again until the end of your next turn after this jutsu ends.</p><p>All creatures
+            who begin their turns in this jutsu's range must make a Charisma saving throw as their mind is overwhelmed
+            with intruding thoughts from the Genjutsu enhanced flower buds. You can move the torrent of flower buds, as
+            an action on each of your turns, up to 30 feet in any direction.</p><p>Critical Success: Affected creature
+            is able to resist this jutsu's effect, becoming immune to further castings of this jutsu until the end of
+            the casters next turn.</p><p>Success: Affected creature is able to resist most of this jutsu's
+            effects.</p><p>Failure: Affected creature becomes slowed for the duration and at the beginning of each
+            affected creatures turns, they gain 1 rank of Concussed, while inside the affected area.</p><p>Critical
+            Failure: Same as failure, but they instead gain 2 ranks of concussed.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Poison Kit, 1 Charges
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '10'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 7
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: genjutsu
+        level: 2
+        school: gen
+        materials:
+          value: (Poison Kit, 1 Charges)
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - ninjatools
+          - concentration
+          - molding
+          - ninjatool
+        keywords:
+          - genjutsu
+          - inhaled
+          - tactile
+        chakraCost: 7
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/c-rank/rabenda-enigmatic-storm.json
+folder: BbIYmdyQ2kjNmaur
+sort: 11500000
+ownership:
+  default: 0
+_id: lGfFzaFpSN4se6g5
+_key: '!items!lGfFzaFpSN4se6g5'

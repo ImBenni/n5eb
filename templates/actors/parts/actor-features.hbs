@@ -2,9 +2,9 @@
   {{#unless isVehicle}}
   <div class="inventory-filters inventory-header flexrow">
     <ul class="filter-list flexrow" data-filter="features">
-        <li class="filter-item" data-filter="action">{{localize "N5EB.Action"}}</li>
-        <li class="filter-item" data-filter="bonus">{{localize "N5EB.BonusAction"}}</li>
-        <li class="filter-item" data-filter="reaction">{{localize "N5EB.Reaction"}}</li>
+        <li class="filter-item" data-filter="action">{{localize "DND5E.Action"}}</li>
+        <li class="filter-item" data-filter="bonus">{{localize "DND5E.BonusAction"}}</li>
+        <li class="filter-item" data-filter="reaction">{{localize "DND5E.Reaction"}}</li>
     </ul>
   </div>
   {{/unless}}
@@ -15,8 +15,8 @@
         <h3 class="item-name flexrow">{{localize section.label}}</h3>
 
         {{#if section.hasActions}}
-        <div class="item-detail item-uses">{{localize "N5EB.Uses"}}</div>
-        <div class="item-detail item-action">{{localize "N5EB.Usage"}}</div>
+        <div class="item-detail item-uses">{{localize "DND5E.Uses"}}</div>
+        <div class="item-detail item-action">{{localize "DND5E.Usage"}}</div>
         {{/if}}
 
         {{#if section.columns}}
@@ -27,9 +27,9 @@
 
         {{#if ../owner}}
         <div class="item-controls flexrow">
-            <a class="item-control item-action" data-action="create" data-tooltip="N5EB.FeatureAdd"
+            <a class="item-control item-action" data-action="create" data-tooltip="DND5E.FeatureAdd"
                 {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
-                <i class="fas fa-plus"></i> {{localize "N5EB.Add"}}
+                <i class="fas fa-plus"></i> {{localize "DND5E.Add"}}
             </a>
         </div>
         {{/if}}
@@ -37,16 +37,16 @@
 
     <ol class="item-list">
     {{#each section.items as |item iid|}}
-    {{#n5eb-itemContext item as |ctx|}}
+    {{#dnd5e-itemContext item as |ctx|}}
         <li class="item flexrow {{#if ctx.isExpanded}}expanded{{/if}}"
             data-item-id="{{item.id}}">
             <div class="item-name flexrow rollable">
                 <div class="item-image item-action" data-action="use" tabindex="0" role="button" aria-label="{{item.name}}" style="background-image: url('{{item.img}}')"></div>
-                <h4 class="item-action" data-action="expand">
+                <h4 class="item-action" data-action="toggleExpand">
                     {{#if (eq item.type "subclass")}}&rdsh;{{/if}}
                     {{item.name}}
                     {{#if item.system.isOriginalClass}}
-                        <i class="original-class fas fa-sun" data-tooltip="N5EB.ClassOriginal"></i>
+                        <i class="original-class fas fa-sun" data-tooltip="DND5E.ClassOriginal"></i>
                     {{/if}}
                     {{~#if ctx.isStack}} ({{item.system.quantity}}){{/if}}
                 </h4>
@@ -56,29 +56,22 @@
             <div class="item-detail item-uses">
                 {{#if item.isOnCooldown}}
                 <a class="item-action" data-action="recharge">{{item.labels.recharge}}</a>
-                {{else if item.system.recharge.value}}
-                {{localize "N5EB.Charged"}}
+                {{else if ctx.hasRecharge}}
+                {{localize "DND5E.Charged"}}
                 {{else if ctx.hasUses}}
                 <input type="text" value="{{item.system.uses.value}}" placeholder="0" data-dtype="Number" data-name="system.uses.value">/ {{item.system.uses.max}}
                 {{/if}}
             </div>
             <div class="item-detail item-action">
-                {{#if item.system.activation.type}}
+                {{#if item.labels.activation}}
                     {{item.labels.activation}}
                 {{/if}}
             </div>
 
-            {{else if (eq item.type "class")}}
+            {{else if (or (eq item.type "class") (eq item.type "classmod"))}}
             <div class="item-detail item-action">
                 <select class="level-selector">
-                    {{#select 0}}
-                    {{#each ctx.availableLevels}}
-                        <option value="{{this.delta}}" {{disabled this.disabled}}>
-                            {{localize "N5EB.LevelNumber" level=this.level}}
-                            {{#if this.delta}}({{numberFormat this.delta sign=true}}){{/if}}
-                        </option>
-                    {{/each}}
-                    {{/select}}
+                    {{ selectOptions ctx.availableLevels selected=0 }}
                 </select>
             </div>
             {{/if}}
@@ -110,20 +103,20 @@
                     <i class="fas fa-sun"></i>
                 </a>
                 {{/if}}
-                <a class="item-control item-action" data-action="edit" data-tooltip="N5EB.ItemEdit">
+                <a class="item-control item-action" data-action="edit" data-tooltip="DND5E.ItemEdit">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a class="item-control item-action" data-action="delete" data-tooltip="N5EB.ItemDelete">
+                <a class="item-control item-action" data-action="delete" data-tooltip="DND5E.ItemDelete">
                     <i class="fas fa-trash"></i>
                 </a>
             </div>
             {{/if}}
 
             {{#if ctx.isExpanded}}
-                {{> "n5eb.item-summary" (lookup @root.expandedData item.id)}}
+                {{> "dnd5e.item-summary" (lookup @root.expandedData item.id)}}
             {{/if}}
         </li>
-    {{/n5eb-itemContext}}
+    {{/dnd5e-itemContext}}
     {{/each}}
     </ol>
   {{/each}}

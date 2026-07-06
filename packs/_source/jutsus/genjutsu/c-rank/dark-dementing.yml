@@ -1,0 +1,381 @@
+name: Dark Dementing
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>You cast a dark shadow over a target creatures thoughts by manipulating the particles of a special drug
+      concoction. Select one creature you can see within range to send this odorless gaseous drug to affect. The
+      creature must make a Wisdom saving throw.</p><p>Critical Success: Affected creature is able to resist this Jutsu's
+      effects, gaining advantage against this jutsu's effects if cast against them a second time within the next
+      hour</p><p>Success: Affected creature is able to resist most of this jutsu's effects.</p><p>Failure: Affected
+      creature begin to see a shadow out of the corner of their eyes for the duration, always there, always just out of
+      sight gaining 1 rank of fear at the end of each turn it begins in a space that is not brightly lit. It will also
+      avoid dim light and darkness, choosing to spend each action it has to find light or escape to light, rationalizing
+      the fear as its own. An affected creature remakes the saving throw at the end of each of its turns to end this
+      effect.</p><p>Critical Failure: Affected creature suffers the same effect as a failure but instead does not remake
+      saving throws at the end of each of its turns, and only when it would take damage.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Poison Kit
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 120
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: wis
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: genjutsu
+  level: 3
+  school: ill
+  materials:
+    value: Poiison Kit
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: dark-dementing
+  jutsu:
+    components:
+      - hs
+      - cm
+      - nt
+    keywords:
+      - genjutsu
+      - visual
+      - inhaled
+      - unaware
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Fear/Demoralized
+    origin: Compendium.n5eb.jutsus.Item.qSomUGm6VgmbPrwa
+    duration:
+      rounds: 100
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/frightened.svg
+    _id: 9QhwvqxIA62lSoQr
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: frightened
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=end,
+          saveDC=13,
+          saveAbility=cha,
+          allowIncapacitated=true,
+          label=Save to overcome Demoralized
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain ranks of <strong>Fear</strong> (<strong>or
+      Frightened</strong>), gain ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong> creature is
+      disturbed by a particular target in some fashion, making them seek to avoid interaction with them if possible.
+      This heightened stress causes the defenses of the Demoralized target to wane.</p><ul><li><p>A
+      <strong>Demoralized</strong> creature suffers a -1 penalty to its saving throws, for each rank they
+      have.</p></li><li><p>A <strong>Demoralized</strong> creature must make concentration checks at the beginning of
+      each of their turns to maintain concentration on their jutsu.</p></li><li><p>At the end of a
+      <strong>Demoralized</strong> creatures turn they make a DC 13 Charisma ability check. On a success, they remove 1
+      rank of <strong>Demoralized</strong>. After 10 minutes, a creature who still has ranks of
+      <strong>Demoralized</strong>, loses all ranks of <strong>Demoralized</strong> it has remaining</p></li><li><p>As
+      an action, a <strong>Demoralized</strong> creature can make a DC 20 Charisma ability check to remove all ranks of
+      <strong>Demoralized</strong> it has.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!qSomUGm6VgmbPrwa.9QhwvqxIA62lSoQr'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - ninjatool
+      - chakramolding
+      - ninjatools
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/c-rank/dark-dementing.json
+      sourceId: qSomUGm6VgmbPrwa
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You cast a dark shadow over a target creatures thoughts by manipulating the particles of a special drug
+            concoction. Select one creature you can see within range to send this odorless gaseous drug to affect. The
+            creature must make a Wisdom saving throw.</p><p>Critical Success: Affected creature is able to resist this
+            Jutsu's effects, gaining advantage against this jutsu's effects if cast against them a second time within
+            the next hour</p><p>Success: Affected creature is able to resist most of this jutsu's
+            effects.</p><p>Failure: Affected creature begin to see a shadow out of the corner of their eyes for the
+            duration, always there, always just out of sight gaining 1 rank of fear at the end of each turn it begins in
+            a space that is not brightly lit. It will also avoid dim light and darkness, choosing to spend each action
+            it has to find light or escape to light, rationalizing the fear as its own. An affected creature remakes the
+            saving throw at the end of each of its turns to end this effect.</p><p>Critical Failure: Affected creature
+            suffers the same effect as a failure but instead does not remake saving throws at the end of each of its
+            turns, and only when it would take damage.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Poison Kit
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 120
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: wis
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: genjutsu
+        level: 2
+        school: gen
+        materials:
+          value: Poiison Kit
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - ninjatools
+          - molding
+          - ninjatool
+        keywords:
+          - genjutsu
+          - visual
+          - inhaled
+          - unaware
+        chakraCost: 9
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/c-rank/dark-dementing.json
+folder: BbIYmdyQ2kjNmaur
+sort: 12600000
+ownership:
+  default: 0
+_id: qSomUGm6VgmbPrwa
+_key: '!items!qSomUGm6VgmbPrwa'

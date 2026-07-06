@@ -1,0 +1,354 @@
+folder: dHGl0LvwdgKkxsHx
+name: Radiant Release Decaying Explosion
+type: spell
+_id: bX3Qi7rmn3AtW5J0
+img: systems/n5eb/assets/content/clans/reiuji.webp
+system:
+  description:
+    value: >-
+      <p>Your Radiant release chakra starts leaking from you, taking its toll on
+      other creature's bodies. When you activate this jutsu Creatures within
+      range must succeed a Constitution saving throw or gain a rank of weakened
+      for the duration, a weakened creature can make another constitution save
+      at the end of each of its turns, losing this rank on a success, a creature
+      that leaves the jutsu area has advantage on these saving throws. A
+      creature makes the saving throw when it enters the aura for the first time
+      on a turn or ends its turn there.<br /><strong>At Higher Ranks</strong>:
+      For each rank you cast this jutsu above D-Rank, increase the cost of this
+      jutsu by 3 and the radius by 5ft.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties:
+    - concentration
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: radiant-release-decaying-explosion
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - wind
+      - fire
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Weakened
+    origin: Compendium.n5eb.hb-clan.Item.bX3Qi7rmn3AtW5J0
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: weakened
+          rank: 1
+          maxRank: 5
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: gEAmOo12z01sGUxj
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Weakened creature is unable
+      to exert their maximum physicality and effort as they have had the wind
+      blown out of them.</p><ul><li><p>A <strong>Weakened</strong> creature
+      reduces damage it deals with attacks and Jutsu by -4 for each rank it
+      has.</p></li><li><p>A <strong>Weakened</strong> creature has a -1 penalty
+      to Strength saving throws.</p></li><li><p>The <strong>Weakened</strong>
+      condition last for the duration of its duration or 1 minute has passed,
+      whichever comes first.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!bX3Qi7rmn3AtW5J0.gEAmOo12z01sGUxj'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: reiuji/clan-hijutsu/d-rank/radiant-release-decaying-explosion.json
+      sourceId: bX3Qi7rmn3AtW5J0
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Your Radiant release chakra starts leaking from you, taking its
+            toll on other creature's bodies. When you activate this jutsu
+            Creatures within range must succeed a Constitution saving throw or
+            gain a rank of weakened for the duration, a weakened creature can
+            make another constitution save at the end of each of its turns,
+            losing this rank on a success, a creature that leaves the jutsu area
+            has advantage on these saving throws. A creature makes the saving
+            throw when it enters the aura for the first time on a turn or ends
+            its turn there.<br /><strong>At Higher Ranks</strong>: For each rank
+            you cast this jutsu above D-Rank, increase the cost of this jutsu by
+            3 and the radius by 5ft.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - wind
+          - fire
+          - lightning
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1740839852723
+  modifiedTime: 1741605428684
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: reiuji/clan-hijutsu/d-rank/radiant-release-decaying-explosion.json
+_key: '!items!bX3Qi7rmn3AtW5J0'

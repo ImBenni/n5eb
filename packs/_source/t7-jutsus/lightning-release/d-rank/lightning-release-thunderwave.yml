@@ -1,0 +1,364 @@
+folder: UVn2c27vB9Z2GRu0
+name: Lightning Release Thunderwave
+type: spell
+_id: IaFwA8neQXTDTbM6
+img: systems/n5eb/assets/content/jutsu-icons/lightning.webp
+system:
+  description:
+    value: >-
+      <p>A wave of thunderous force sweeps out from you. Each creature in a
+      15-foot cube originating from you must make a Constitution saving throw.
+      On a failed save, a creature takes 2d8 Lightning damage and is knocked
+      back 10 feet away from you. On a successful save, the creature takes half
+      as much damage and no additional effects.</p><p>In addition, unsecured
+      objects that are completely within the area of effect are automatically
+      pushed 10 feet away from you by the jutsu's effect, and the jutsu emits a
+      thunderous boom audible out to 300
+      feet.</p><p><em><strong>Overcharge.</strong></em> When you cast this
+      jutsu, as a bonus action or reaction, you can overcharge its effects. When
+      you do, a creature who fails their saving throw is shocked until the end
+      of their next turn.</p><p><strong>At Higher Ranks:</strong> For each rank
+      you cast this jutsu above <br />D-Rank, increase the cost of this jutsu by
+      3 and increase the damage by 1d8.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: cube
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d8
+        - lightning
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d8
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: lightning-release-thunderwave
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Shocked
+    origin: Compendium.n5eb.t7-jutsus.Item.IaFwA8neQXTDTbM6
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: shocked
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    _id: UiLG1HR0ZuPyl2ba
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          rollType=skill,
+          saveAbility=sur,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous
+      system has been flooded with electricity, causing muscle spasms and brain
+      fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
+      reaction, takes 1d6 Lightning damage, for each rank it has, once per
+      turn.</p></li><li><p>A <strong>Shocked</strong> creature who takes a
+      Reaction to cast a jutsu must first make a DC 8 Flat check. On a failure,
+      they double the cost of the jutsu. For rank of shocked beyond the first,
+      increase this DC by +1 (Max DC 12).</p></li><li><p>A creature resistant to
+      Lightning damage makes their flat check at advantage and also has
+      resistance to this condition. A creature immune to Lightning damage has
+      immunity to this condition.</p></li><li><p>A creature can spend an Action
+      to make a DC 15 Constitution (Survival) Check to ground themselves,
+      dispersing the electricity in their body ending this
+      condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - shocked
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!IaFwA8neQXTDTbM6.UiLG1HR0ZuPyl2ba'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-jutsus
+      sourcePath: lightning-release/d-rank/lightning-release-thunderwave.json
+      sourceId: IaFwA8neQXTDTbM6
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>A wave of thunderous force sweeps out from you. Each creature in
+            a 15-foot cube originating from you must make a Constitution saving
+            throw. On a failed save, a creature takes 2d8 Lightning damage and
+            is knocked back 10 feet away from you. On a successful save, the
+            creature takes half as much damage and no additional
+            effects.</p><p>In addition, unsecured objects that are completely
+            within the area of effect are automatically pushed 10 feet away from
+            you by the jutsu's effect, and the jutsu emits a thunderous boom
+            audible out to 300 feet.</p><p><em><strong>Overcharge.</strong></em>
+            When you cast this jutsu, as a bonus action or reaction, you can
+            overcharge its effects. When you do, a creature who fails their
+            saving throw is shocked until the end of their next
+            turn.</p><p><strong>At Higher Ranks:</strong> For each rank you cast
+            this jutsu above <br />D-Rank, increase the cost of this jutsu by 3
+            and increase the damage by 1d8.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: cube
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d8
+              - lightning
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: nin
+        properties:
+          - handseals
+          - chakramolding
+        keywords:
+          - ninjutsu
+          - lightning
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d8
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1731683457494
+  modifiedTime: 1733947005105
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-jutsus
+    sourcePath: lightning-release/d-rank/lightning-release-thunderwave.json
+_key: '!items!IaFwA8neQXTDTbM6'

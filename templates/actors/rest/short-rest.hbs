@@ -1,0 +1,54 @@
+<section class="flexcol">
+    <div class="note info">
+        {{ localize restHint }}
+    </div>
+
+    {{> "dnd5e.formlist" formSections }}
+
+    {{#if hitDice}}
+    {{#if hitDice.canRoll}}
+    <fieldset>
+        <legend>{{ localize "DND5E.HitDice" }}</legend>
+        <div class="form-fields">
+            <select name="denom">
+                {{ selectOptions hitDice.options selected=hitDice.denomination }}
+            </select>
+            <button type="button" class="dice-button" data-action="rollHitDie" data-tooltip
+                    aria-label="{{ localize 'DND5E.Roll' }}">
+                <i class="fa-solid fa-dice-d20" inert></i>
+            </button>
+        </div>
+        {{ formField autoRoll name="autoHD" value=config.autoHD input=inputs.createCheckboxInput rootId=partId }}
+    </fieldset>
+    {{else}}
+    <div class="note warn">
+        {{ localize "DND5E.REST.HitDice.None" }}
+    </div>
+    {{/if}}
+    {{/if}}
+
+    {{#if chakraDice}}
+    {{#if chakraDice.canRoll}}
+    <fieldset>
+        <legend>{{ localize "N5EB.ChakraDice" }}</legend>
+        <div class="form-fields">
+            <select name="chakraDenom">
+                {{ selectOptions chakraDice.options selected=chakraDice.denomination }}
+            </select>
+            <button type="button" class="dice-button" data-action="rollChakraDie" data-tooltip
+                    aria-label="{{ localize 'DND5E.Roll' }}">
+                <i class="fa-solid fa-dice-d20" inert></i>
+            </button>
+        </div>
+    </fieldset>
+    {{else}}
+    <div class="note warn">
+        {{ localize "N5EB.REST.ChakraDice.None" }}
+    </div>
+    {{/if}}
+    {{/if}}
+
+    {{#if request}}
+    {{> "systems/n5eb/templates/actors/rest/parts/rest-request.hbs" }}
+    {{/if}}
+</section>

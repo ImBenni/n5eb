@@ -1,0 +1,186 @@
+_id: etgcR9wqmrhyZ0tx
+name: Grease
+ownership:
+  default: 0
+type: spell
+system:
+  description:
+    value: >-
+      <p>Slick grease covers the ground in a 10-foot square centered on a point
+      within range and turns it into &amp;reference[difficult terrain] for the
+      duration.</p><p>When the grease appears, each creature standing in its
+      area must succeed on a Dexterity saving throw or fall
+      &amp;reference[prone]. A creature that enters the area or ends its turn
+      there must also succeed on a Dexterity saving throw or fall prone.</p>
+    chat: ''
+  source:
+    custom: ''
+    book: ''
+    page: ''
+    license: CC-BY-4.0
+    rules: '2014'
+  activation:
+    type: action
+    condition: ''
+    value: 1
+  duration:
+    value: '1'
+    units: minute
+  target:
+    affects:
+      choice: false
+      type: ''
+    template:
+      units: ft
+      type: square
+      size: '10'
+      contiguous: false
+      count: ''
+  range:
+    value: '60'
+    units: ft
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 1
+  school: con
+  materials:
+    value: A bit of pork rind or butter
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  properties:
+    - vocal
+    - somatic
+    - material
+  activities:
+    dnd5eactivity000:
+      _id: dnd5eactivity000
+      type: save
+      activation:
+        type: action
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: true
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects: []
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      damage:
+        onSave: none
+        parts: []
+      save:
+        ability: dex
+        dc:
+          calculation: spellcasting
+          formula: ''
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      name: Cast
+      img: ''
+      visibility:
+        level:
+          min: null
+          max: null
+    OiCc4lVFXS0vkFhf:
+      type: save
+      name: Enter / End Turn in Grease Save
+      _id: OiCc4lVFXS0vkFhf
+      img: ''
+      sort: 0
+      activation:
+        type: special
+        override: true
+        condition: When a creature enters the area or ends its turn there.
+      consumption:
+        scaling:
+          allowed: false
+        spellSlot: true
+        targets: []
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: true
+      effects: []
+      flags: {}
+      range:
+        units: spec
+        override: true
+        special: ''
+      target:
+        template:
+          contiguous: false
+          stationary: false
+          units: ft
+          type: ''
+        affects:
+          choice: false
+          type: creature
+          count: '1'
+          special: ''
+        override: true
+        prompt: true
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      visibility:
+        level:
+          min: null
+          max: null
+        requireAttunement: false
+        requireIdentification: false
+        requireMagic: false
+      damage:
+        onSave: none
+        parts: []
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ''
+  identifier: grease
+sort: 0
+flags: {}
+img: icons/commodities/materials/slime-white.webp
+effects: []
+folder: ERuXllkhTQF51rDJ
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.3.0
+  createdTime: 1725037362051
+  modifiedTime: 1772823267887
+  lastModifiedBy: dnd5ebuilder0000
+  exportSource: null
+_key: '!items!etgcR9wqmrhyZ0tx'

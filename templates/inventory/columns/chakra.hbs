@@ -1,0 +1,7 @@
+{{#if isItem}}
+<div class="item-detail item-chakra {{#unless entry.labels.chakraCost}}empty{{/unless}}" data-column-id="chakra">
+    {{#if entry.labels.chakraCost}}{{ dnd5e-numberFormat entry.labels.chakraCost }}{{/if}}
+</div>
+{{else}}
+<div class="item-detail item-chakra empty" data-column-id="chakra"></div>
+{{/if}}

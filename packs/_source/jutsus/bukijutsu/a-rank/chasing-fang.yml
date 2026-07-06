@@ -1,0 +1,257 @@
+name: Chasing Fang
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You first launch a fist full of throwing weapons towards a target to break their focus. Make a ranged Taijutsu
+      attack. On a hit, you deal your thrown [weapons damage] + 3d8, which is then follow up with a Powerful
+      Swing.</p><p>Make a melee Taijutsu attack, dealing your [weapons damage] + 6d10. If your first attack hits, this
+      one is made at advantage.</p><p>If this jutsu would score a critical hit, you can choose to either maximize damage
+      or double your damage die as normal.</p><p>At Higher Ranks: For each rank you cast this jutsu above A-Rank,
+      increase the cost of this jutsu by 3 and Damage by 1d8 &amp; 1d10, respectively.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: Up to full movement
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: spec
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 17
+    scale: false
+  ability: taijutsu
+  actionType: rsak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 3d8
+        - ''
+    versatile: 6d10
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 7
+  school: trs
+  materials:
+    value: (Throwing and Any Melee Weapon),
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 1d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: level
+    formula: 1d10
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: chasing-fang
+  jutsu:
+    components:
+      - m
+      - w
+    keywords:
+      - bukijutsu
+    countsKnown: true
+    ability: ''
+    type: bukijutsu
+  rank: a
+  chakra:
+    cost: '17'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - weapon
+      - weapons
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: bukijutsu/a-rank/chasing-fang.json
+      sourceId: P3XbGF2eY0HEc8VC
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You first launch a fist full of throwing weapons towards a target to break their focus. Make a ranged
+            Taijutsu attack. On a hit, you deal your thrown [weapons damage] + 3d8, which is then follow up with a
+            Powerful Swing.</p><p>Make a melee Taijutsu attack, dealing your [weapons damage] + 6d10. If your first
+            attack hits, this one is made at advantage.</p><p>If this jutsu would score a critical hit, you can choose
+            to either maximize damage or double your damage die as normal.</p><p>At Higher Ranks: For each rank you cast
+            this jutsu above A-Rank, increase the cost of this jutsu by 3 and Damage by 1d8 &amp; 1d10,
+            respectively.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: Up to full movement
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: spec
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 17
+          scale: false
+        ability: taijutsu
+        actionType: rtak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 3d8
+              - ''
+          versatile: 6d10
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 4
+        school: buki
+        materials:
+          value: (Throwing and Any Melee Weapon),
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 1d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - mobility
+          - weapons
+          - weapon
+        keywords:
+          - bukijutsu
+        chakraCost: 17
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: level
+          formula: 1d10
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755893853
+  modifiedTime: 1728755893853
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: bukijutsu/a-rank/chasing-fang.json
+folder: TDJ8kdZlLUUBzPJ1
+sort: 0
+ownership:
+  default: 0
+_id: P3XbGF2eY0HEc8VC
+_key: '!items!P3XbGF2eY0HEc8VC'

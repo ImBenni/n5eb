@@ -1,11 +1,11 @@
 <fieldset>
-    <legend>{{ localize "N5EB.ItemSubclassDetails" }}</legend>
+    <legend>{{ localize "DND5E.ItemSubclassDetails" }}</legend>
 
     {{!-- Identifier --}}
-    {{ formField fields.identifier value=source.identifier placeholder=item.identifier hint="N5EB.IdentifierError"
-                 localize=true }}
+    {{ formField fields.identifier value=source.identifier placeholder=item.identifier hint="DND5E.IdentifierError"
+                 localize=true rootId=partId }}
 
     {{!-- Class Identifier --}}
-    {{ formField fields.classIdentifier value=source.classIdentifier hint="N5EB.SubclassIdentifierHint"
-                 localize=true }}
+    {{ formField fields.classIdentifier value=source.classIdentifier hint="DND5E.SubclassIdentifierHint"
+                 localize=true rootId=partId }}
 </fieldset>

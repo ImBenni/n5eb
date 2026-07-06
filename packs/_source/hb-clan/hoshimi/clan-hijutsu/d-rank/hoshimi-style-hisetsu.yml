@@ -1,0 +1,370 @@
+folder: GxMa6nSkW34pxLIA
+name: Hoshimi Style Hisetsu
+type: spell
+_id: s58J98Q4inSybaVM
+img: systems/n5eb/assets/content/clans/hoshimi.webp
+system:
+  description:
+    value: >-
+      <p>You rush forward and unleash a series of slashes along the path. Select
+      an unoccupied space within range. You dash through while slashing at a
+      high speed to that location. This movement does not provoke attacks of
+      opportunity. All creatures you pass through must make a Dexterity Saving
+      Throw, taking [Weapons Damage] + 1d6 Cold on a failed save, or half as
+      much on a successful one.</p><p>When you cast this jutsu, you can pay the
+      cost of this jutsu again to return to the starting position when you cast
+      this jutsu, forcing all creatures to make the saving throw again, taking
+      [Weapons Damage] + 1d6 Cold on a failed save, or half as much on a
+      successful one.</p><p>If this jutsu is cast, and affects a
+      <strong>Abberation</strong>, they gain 1 rank of Chilled.</p><hr
+      /><p><strong>At Higher Ranks</strong>: For each rank you cast this justu
+      above D-Rank, increase the cost by 3, the range by 10 feet, and the damage
+      by 1d6 and 1d6 respectively.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 1d6
+        - cold
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: taijutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: Any Melee
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d6
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: hoshimi-style-hisetsu
+  jutsu:
+    components:
+      - cm
+      - m
+      - w
+    keywords:
+      - bukijutsu
+      - hijutsu
+      - wind
+      - water
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Chilled
+    origin: Compendium.n5eb.hb-clan.Item.s58J98Q4inSybaVM
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: chilled
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/chilled.svg
+    _id: gVe3JeUFzbh2XHyp
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.abilities.dex.bonuses.check
+        mode: 2
+        value: '-1'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - chilled
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!s58J98Q4inSybaVM.gVe3JeUFzbh2XHyp'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: hoshimi/clan-hijutsu/d-rank/hoshimi-style-hisetsu.json
+      sourceId: s58J98Q4inSybaVM
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You rush forward and unleash a series of slashes along the path.
+            Select an unoccupied space within range. You dash through while
+            slashing at a high speed to that location. This movement does not
+            provoke attacks of opportunity. All creatures you pass through must
+            make a Dexterity Saving Throw, taking [Weapons Damage] + 1d6 Cold on
+            a failed save, or half as much on a successful one.</p><p>When you
+            cast this jutsu, you can pay the cost of this jutsu again to return
+            to the starting position when you cast this jutsu, forcing all
+            creatures to make the saving throw again, taking [Weapons Damage] +
+            1d6 Cold on a failed save, or half as much on a successful
+            one.</p><p>If this jutsu is cast, and affects a
+            <strong>Abberation</strong>, they gain 1 rank of Chilled.</p><hr
+            /><p><strong>At Higher Ranks</strong>: For each rank you cast this
+            justu above D-Rank, increase the cost by 3, the range by 10 feet,
+            and the damage by 1d6 and 1d6 respectively.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 1d6
+              - cold
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: taijutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - chakramolding
+          - mobility
+          - weapons
+        keywords:
+          - bukijutsu
+          - hijutsu
+          - wind
+          - water
+        materials:
+          value: Any Melee
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d6
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1743077285866
+  modifiedTime: 1743078003126
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: hoshimi/clan-hijutsu/d-rank/hoshimi-style-hisetsu.json
+_key: '!items!s58J98Q4inSybaVM'

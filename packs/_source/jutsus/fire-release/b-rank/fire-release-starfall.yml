@@ -1,0 +1,384 @@
+name: Fire Release Starfall
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/fire.webp
+system:
+  description:
+    value: >-
+      <p>You focus on a point you can see, 1 mile above you. Collecting Fire Release chakra into a single point as it
+      grows into a mini sun.</p><p>You can as a part of casting this jutsu, delay its effect until your next turn. Doing
+      this requires all casters to also spend their actions to maintain concentration. If they do not this jutsu is
+      casted prematurely as if there was No Delay. Delaying the casting increases the strength of this jutsu by several
+      magnitudes.</p><p>As an action, on your turn, you can cause the mini sun to fall on a creature you can see within
+      range. Depending on the number of rounds you have delayed this jutsu its effects change;</p><p>No Delay: Creatures
+      who are within 60 feet of the target location must succeed a Constitution saving throw. On a Failed save taking
+      12d8+12 Fire Damage gaining 3 ranks of the Burned Condition and half as much on a successful save and no further
+      effects.</p><p>1 Turn Delay: Creatures who are within 90 feet of the target location must succeed a Constitution
+      saving throw. On a Failed save taking 24d8+24 Fire Damage gaining 3 ranks of the Burned Condition and half as much
+      on a successful save and no further effects.</p><p>2 Turn Delay: Creatures who are within 120 feet of the target
+      location must succeed a Constitution saving throw. On a Failed save taking 36d8+36 Fire Damage gaining 3 ranks of
+      the Burned Condition and half as much on a successful save and no further effects.</p><p>3 Turn Delay: Creatures
+      who are within 160 feet of the target location must succeed a Constitution saving throw. On a Failed save taking
+      50d8+50 Fire Damage gaining 3 ranks of the Burned Condition and half as much on a successful save and no further
+      effects.</p><p>Combination: If this jutsu is cast as a Combination jutsu with 2 or more casters increase the
+      targeted damage by 5d8+5.</p><p>Any creature who assists in casting this jutsu as a combination jutsu increases
+      this Jutsu's damage potential based on the highest Charisma Modifier within the group of casters. (+0-2: No
+      Change, +3-4: Increase the damage die to a d10, +5: Increase the damage die to a d12).</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: fullturnaction
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 500
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 77
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 12d8+12
+        - fire
+    versatile: ''
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  level: 5
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: fire-release-starfall
+  jutsu:
+    components:
+      - hs
+      - cm
+      - cs
+    keywords:
+      - ninjutsu
+      - fuinjutsu
+      - combination
+      - fire
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '77'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Burned
+    origin: Compendium.n5eb.jutsus.Item.nVj2cLMVUIlkwBhm
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/burning.svg
+    _id: PYlNQ9IPJzj0D1O4
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          rollType=skill,
+          saveAbility=sur,
+          saveDC=15,
+          actionSave=dialog,
+          damageBeforeSave=true,
+          damageRoll=1d8,
+          damageType=fire,
+          saveRemove=true,
+          name=Burned,
+          chatFlavor=It's very hot!,
+          fastForwardDamage=true,
+        priority: 20
+      - key: system.attributes.concentration.bonuses.save
+        mode: 2
+        value: '-2 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it
+      has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration
+      Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this
+      condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has
+      passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put
+      out the flames. On a successful check, the condition ends or submerging themselves fully into a body of
+      water.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!nVj2cLMVUIlkwBhm.PYlNQ9IPJzj0D1O4'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - chakraseals
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: fire-release/b-rank/fire-release-starfall.json
+      sourceId: nVj2cLMVUIlkwBhm
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You focus on a point you can see, 1 mile above you. Collecting Fire Release chakra into a single point as
+            it grows into a mini sun.</p><p>You can as a part of casting this jutsu, delay its effect until your next
+            turn. Doing this requires all casters to also spend their actions to maintain concentration. If they do not
+            this jutsu is casted prematurely as if there was No Delay. Delaying the casting increases the strength of
+            this jutsu by several magnitudes.</p><p>As an action, on your turn, you can cause the mini sun to fall on a
+            creature you can see within range. Depending on the number of rounds you have delayed this jutsu its effects
+            change;</p><p>No Delay: Creatures who are within 60 feet of the target location must succeed a Constitution
+            saving throw. On a Failed save taking 12d8+12 Fire Damage gaining 3 ranks of the Burned Condition and half
+            as much on a successful save and no further effects.</p><p>1 Turn Delay: Creatures who are within 90 feet of
+            the target location must succeed a Constitution saving throw. On a Failed save taking 24d8+24 Fire Damage
+            gaining 3 ranks of the Burned Condition and half as much on a successful save and no further
+            effects.</p><p>2 Turn Delay: Creatures who are within 120 feet of the target location must succeed a
+            Constitution saving throw. On a Failed save taking 36d8+36 Fire Damage gaining 3 ranks of the Burned
+            Condition and half as much on a successful save and no further effects.</p><p>3 Turn Delay: Creatures who
+            are within 160 feet of the target location must succeed a Constitution saving throw. On a Failed save taking
+            50d8+50 Fire Damage gaining 3 ranks of the Burned Condition and half as much on a successful save and no
+            further effects.</p><p>Combination: If this jutsu is cast as a Combination jutsu with 2 or more casters
+            increase the targeted damage by 5d8+5.</p><p>Any creature who assists in casting this jutsu as a combination
+            jutsu increases this Jutsu's damage potential based on the highest Charisma Modifier within the group of
+            casters. (+0-2: No Change, +3-4: Increase the damage die to a d10, +5: Increase the damage die to a
+            d12).</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: fullturnaction
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 500
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 77
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 12d8+12
+              - fire
+          versatile: ''
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        level: 3
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - chakraseals
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - fuinjutsu
+          - combination
+          - fire
+        chakraCost: 77
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728751719116
+  modifiedTime: 1728751719116
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: fire-release/b-rank/fire-release-starfall.json
+folder: 9OKAkWuwSCsbM3W4
+sort: 0
+ownership:
+  default: 0
+_id: nVj2cLMVUIlkwBhm
+_key: '!items!nVj2cLMVUIlkwBhm'

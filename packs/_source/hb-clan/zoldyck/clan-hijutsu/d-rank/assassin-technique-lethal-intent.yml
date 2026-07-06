@@ -1,0 +1,447 @@
+folder: v9H2aATAtupwlX13
+name: Assassin Technique Lethal Intent
+type: spell
+_id: phJH2HHDrDxE8l3G
+img: systems/n5eb/assets/content/clans/zoldyck.webp
+system:
+  description:
+    value: "<p><span style=\"font-family:Lexend,sans-serif\"><strong>\_</strong>Your killer intent fills the air as your eyes flush with a dark hue and a menacing aura of your description surrounds you. All hostile creatures that can see you within range must make a Charisma save or gain 1 rank of fear and slowed for the duration as they start to lose the will to fight against such an inhuman threat. Affected creatures can remake the saving throw at the end of their turn.</span></p><p><span style=\"font-family:Lexend,sans-serif\"><strong>Upcast: </strong>For each rank you cast this jutsu above D-rank, you increase the cost by 3 and deal 1d8 Psychic damage to the creature on their turn while affected. When cast at B-rank, increase the damage by 1d8 and inflict 1 more rank of fear and slowed. When cast at A-Rank, increase the damage by 1d8 and inflict 2 more ranks of fear and slowed. When cast at S-Rank, creatures have disadvantage on saving throws to end the effect.</span></p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '45'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: 45
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: genjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties:
+    - concentration
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: assassin-technique-lethal-intent
+  jutsu:
+    components:
+      - cm
+    keywords:
+      - genjutsu
+      - hijutsu
+      - visual
+      - auditory
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Demoralized
+    origin: Compendium.n5eb.hb-clan.Item.phJH2HHDrDxE8l3G
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: demoralized
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/frightened.svg
+    _id: lmQqFLJaUeoWYXqC
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: frightened
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=end,
+          saveDC=13,
+          saveAbility=cha,
+          allowIncapacitated=true,
+          label=Save to overcome Demoralized
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain
+      ranks of <strong>Fear</strong> (<strong>or Frightened</strong>), gain
+      ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong>
+      creature is disturbed by a particular target in some fashion, making them
+      seek to avoid interaction with them if possible. This heightened stress
+      causes the defenses of the Demoralized target to wane.</p><ul><li><p>A
+      <strong>Demoralized</strong> creature suffers a -1 penalty to its saving
+      throws, for each rank they have.</p></li><li><p>A
+      <strong>Demoralized</strong> creature must make concentration checks at
+      the beginning of each of their turns to maintain concentration on their
+      jutsu.</p></li><li><p>At the end of a <strong>Demoralized</strong>
+      creatures turn they make a DC 13 Charisma ability check. On a success,
+      they remove 1 rank of <strong>Demoralized</strong>. After 10 minutes, a
+      creature who still has ranks of <strong>Demoralized</strong>, loses all
+      ranks of <strong>Demoralized</strong> it has remaining</p></li><li><p>As
+      an action, a <strong>Demoralized</strong> creature can make a DC 20
+      Charisma ability check to remove all ranks of <strong>Demoralized</strong>
+      it has.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - demoralized
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!phJH2HHDrDxE8l3G.lmQqFLJaUeoWYXqC'
+  - name: Slowed
+    origin: Compendium.n5eb.hb-clan.Item.phJH2HHDrDxE8l3G
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: slowed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    _id: MJXH5IfF4MhrQzAQ
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-(10 * @stackCount)'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: slowed
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - slowed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,0
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!phJH2HHDrDxE8l3G.MJXH5IfF4MhrQzAQ'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: zoldyck/clan-hijutsu/d-rank/assassin-technique-lethal-intent.json
+      sourceId: phJH2HHDrDxE8l3G
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p><span style=\"font-family:Lexend,sans-serif\"><strong>\_</strong>Your killer intent fills the air as your eyes flush with a dark hue and a menacing aura of your description surrounds you. All hostile creatures that can see you within range must make a Charisma save or gain 1 rank of fear and slowed for the duration as they start to lose the will to fight against such an inhuman threat. Affected creatures can remake the saving throw at the end of their turn.</span></p><p><span style=\"font-family:Lexend,sans-serif\"><strong>Upcast: </strong>For each rank you cast this jutsu above D-rank, you increase the cost by 3 and deal 1d8 Psychic damage to the creature on their turn while affected. When cast at B-rank, increase the damage by 1d8 and inflict 1 more rank of fear and slowed. When cast at A-Rank, increase the damage by 1d8 and inflict 2 more ranks of fear and slowed. When cast at S-Rank, creatures have disadvantage on saving throws to end the effect.</span></p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '45'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: 45
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: genjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - chakramolding
+          - concentration
+        keywords:
+          - genjutsu
+          - hijutsu
+          - visual
+          - auditory
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1740318872280
+  modifiedTime: 1741604412531
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: zoldyck/clan-hijutsu/d-rank/assassin-technique-lethal-intent.json
+_key: '!items!phJH2HHDrDxE8l3G'

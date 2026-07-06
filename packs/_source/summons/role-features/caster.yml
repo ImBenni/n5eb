@@ -1,0 +1,313 @@
+folder: lW1FrGOi5wjeOq8v
+name: Caster
+type: feat
+_id: fFWOnriOOVgjO6SP
+img: icons/magic/sonic/explosion-shock-wave-teal.webp
+system:
+  description:
+    value: >-
+      <p>This summon gains additional Jutsu Slots, equal to its rank.</p><p>(D-Rank/C-Rank: +1, B-Rank/A-Rank: +2,
+      S-Rank: +3)</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: ''
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  type:
+    value: summon
+    subtype: role
+    nestedsubtype: d
+  prerequisites:
+    level: null
+  properties: []
+  requirements: ''
+  recharge:
+    value: null
+    charged: false
+  identifier: caster
+effects:
+  - name: Additional Jutsu Slots
+    origin: Compendium.n5eb.summons.Item.fFWOnriOOVgjO6SP
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/magic/sonic/explosion-shock-wave-teal.webp
+    _id: KEoGi6yASwDM0e1H
+    type: base
+    system: {}
+    changes:
+      - key: macro.itemMacro
+        mode: 0
+        value: ''
+        priority: 20
+      - key: system.attributes.cp.max
+        mode: 2
+        value: '@flags.n5eb.summonJutsuSlotBonus'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727476720113
+      modifiedTime: 1727545238607
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!fFWOnriOOVgjO6SP.KEoGi6yASwDM0e1H'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  dae:
+    macro:
+      name: Caster
+      img: icons/magic/sonic/explosion-shock-wave-teal.webp
+      type: script
+      scope: global
+      command: |-
+        const version = "1.0.0";
+        try {
+          const lastArg = args[args.length - 1];
+
+          const actor = game.actors.get(lastArg.actorId);
+          if (!actor) {
+            ui.notifications.error("Actor not found for the macro.");
+            return;
+          }
+
+          if (actor.system.details?.npcType !== "summon") {
+            ui.notifications.error("This macro only applies to summoned creatures.");
+            return;
+          }
+
+          const rank = actor.system.details.rank?.toLowerCase();
+          if (!rank) {
+            ui.notifications.error("Rank not found for this summon.");
+            return;
+          }
+
+          const jutsuSlotsByRank = {
+            drank: 1,
+            crank: 1,
+            brank: 2,
+            arank: 2,
+            srank: 3,
+          };
+
+          const additionalJutsuSlots = jutsuSlotsByRank[rank] || 0;
+          await actor.setFlag("n5eb", "summonJutsuSlotBonus", additionalJutsuSlots);
+
+          ui.notifications.info(`Jutsu Slots bonus set to +${additionalJutsuSlots} for rank ${rank.toUpperCase()}`);
+
+        } catch (err) {
+          console.error(`Caster Macro ${version}`, err);
+        }
+      author: R0hw7EUsG7OzIhgn
+      ownership:
+        default: 3
+      _id: null
+      folder: null
+      sort: 0
+      flags: {}
+      _stats:
+        coreVersion: '12.331'
+        systemId: n5eb
+        systemVersion: 1,1,1
+        createdTime: null
+        modifiedTime: null
+        lastModifiedBy: null
+        compendiumSource: null
+        duplicateSource: null
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: summons
+      sourcePath: role-features/caster.json
+      sourceId: fFWOnriOOVgjO6SP
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>This summon gains additional Jutsu Slots, equal to its rank.</p><p>(D-Rank/C-Rank: +1, B-Rank/A-Rank: +2,
+            S-Rank: +3)</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: ''
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        type:
+          value: summon
+          subtype: role
+        prerequisites:
+          level: null
+        properties: []
+        requirements: ''
+        recharge:
+          value: null
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1727476436629
+  modifiedTime: 1727540307025
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: summons
+    sourcePath: role-features/caster.json
+_key: '!items!fFWOnriOOVgjO6SP'

@@ -1,16 +1,19 @@
 <fieldset>
-    <legend>{{ localize "N5EB.Spellcasting" }}</legend>
+    <legend>{{ localize "N5EB.JUTSU.CastingAbilities" }}</legend>
 
-    {{!-- Spellcasting Progression --}}
-    {{ formField fields.spellcasting.fields.progression value=source.spellcasting.progression localize=true
-                 choices=spellProgression }}
+    {{ formField fields.jutsu.fields.abilities.fields.ninjutsu value=source.jutsu.abilities.ninjutsu
+                 choices=CONFIG.abilities labelAttr="label" localize=true rootId=partId }}
 
-    {{!-- Spellcasting Ability --}}
-    {{ formField fields.spellcasting.fields.ability value=source.spellcasting.ability choices=config.abilities
-                 labelAttr="label" blank="" localize=true }}
+    {{ formField fields.jutsu.fields.abilities.fields.genjutsu value=source.jutsu.abilities.genjutsu
+                 choices=CONFIG.abilities labelAttr="label" localize=true rootId=partId }}
 
-    {{!-- Preparation Formula --}}
-    {{ formField fields.spellcasting.fields.preparation.fields.formula value=source.spellcasting.preparation.formula
-                 localize=true placeholder="—" }}
+    {{ formField fields.jutsu.fields.abilities.fields.taijutsu value=source.jutsu.abilities.taijutsu
+                 choices=CONFIG.abilities labelAttr="label" localize=true rootId=partId }}
+
+    {{!-- Legacy spellcasting compatibility data --}}
+    <input type="hidden" name="system.spellcasting.progression" value="{{ source.spellcasting.progression }}">
+    <input type="hidden" name="system.spellcasting.ability" value="{{ source.spellcasting.ability }}">
+    <input type="hidden" name="system.spellcasting.preparation.formula"
+           value="{{ source.spellcasting.preparation.formula }}">
 
 </fieldset>

@@ -1,0 +1,613 @@
+name: Medical Release Contagion
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/medical.webp
+system:
+  description:
+    value: >-
+      <p>You infuse putrefied Medical Chakra onto your hand as you become able to inflict disease from touch alone. Make
+      a Melee ninjutsu attack against a creature within your reach. On a hit the target is poisoned.</p><p>At the end of
+      each of the poisoned creatures turns, the target must make a Constitution saving throw. If the target succeeds on
+      three of these saves, it is no longer poisoned and the jutsu ends. If the targets fails three of these saves, the
+      target is no longer poisoned, but choose one of the diseases below. The target is subjected to the chosen disease
+      for the Jutsu's duration.</p><p>Since this jutsu induces a natural disease in its target, any effect that removes
+      a disease or otherwise ameliorates a diseases effects apply to it.</p><p>• Blinding Sickness. Pain grips the
+      creature's mind, and its eyes turn milky white. The creature has disadvantage on Wisdom checks and Wisdom saving
+      throws and is blinded.</p><p>• Filth Fever. A raging fever sweeps through the creature's body. The creature has
+      disadvantage on Strength checks, Strength saving throws, and attack rolls that use Strength.</p><p>• Flesh Rot.
+      The creature's flesh decays. The creature has disadvantage on Charisma checks and vulnerability to all
+      damage.</p><p>• Mindfire. The creature's mind becomes feverish. The creature has disadvantage on Intelligence
+      checks and Intelligence saving throws, and the creature becomes Berserked for the duration.</p><p>• Seizure. The
+      creature is overcome with shaking. The creature has disadvantage on Dexterity checks, Dexterity saving throws, and
+      attack rolls that use Dexterity.</p><p>• Slimy Doom. The creature begins to bleed uncontrollably. The creature has
+      disadvantage on Constitution checks and Constitution saving throws. In addition, whenever the creature takes
+      damage, it is stunned until the end of its next turn.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '7'
+    units: day
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: touch
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 12
+    scale: false
+  ability: ninjutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  level: 5
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: medical-release-contagion
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - kinjutsu
+      - medical
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '12'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Poisoned/Envenomed
+    origin: Compendium.n5eb.jutsus.Item.4l3HesaLPkdYqSgP
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    _id: zx5dLELycN1Kkg6z
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d6,
+          damageType=poison,
+          label=Poisoned/Envenomed,
+          chatFlavor=YUCK I feel SICK,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: poisoned
+        priority: 20
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
+      been exposed to some kind of venom or toxin, causing their vitality and immune health to drop
+      rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it
+      has, at the start of each of their turns for the duration of this condition</p></li><li><p>An
+      <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for each rank it has.</p></li><li><p>An
+      <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune
+      to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature
+      suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!4l3HesaLPkdYqSgP.zx5dLELycN1Kkg6z'
+  - name: Berserk
+    origin: Compendium.n5eb.jutsus.Item.4l3HesaLPkdYqSgP
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/berserk.svg
+    _id: 9P8FWuhe4DzIIOjf
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: berserk
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Berserk creature has experienced a temporary loss in sanity,
+      causing them to act rabid to a varying degree. This condition is typically the result of a Genjutsu or
+      mind-altering poison.</p><ul><li><p>A Berserk creature must use all action(s) and movement to attack/harm the
+      creature nearest to it that it can perceive as if that creature was a mortal enemy. If multiple creatures are
+      potential targets, it picks one at random.</p></li><li><p>When a creature moves out of a berserk creature's reach,
+      it provokes an opportunity attack.</p></li><li><p>A Berserk creature has a -1 penalty to all Charisma based
+      attacks, checks and saving throws for each rank it has.</p></li><li><p>Creatures that are immune to the charmed
+      condition are also immune to the berserk condition. A Jutsu which cures the charmed condition also cures this
+      Condition.</p></li><li><p>A Berserk creature loses 1 rank of Berserk at the end of each of its turns as its mind
+      slowly clears.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.qAXtyj0uf1xsaU9G.ActiveEffect.LK4NzyOAL92TbrYA
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!4l3HesaLPkdYqSgP.9P8FWuhe4DzIIOjf'
+  - name: Stunned
+    origin: Compendium.n5eb.jutsus.Item.4l3HesaLPkdYqSgP
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    _id: 3rCMBk3L9ZfSxF3Z
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.fail.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.fail.ability.save.str
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: stunned
+        priority: 20
+    description: >-
+      <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
+      falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
+      throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!4l3HesaLPkdYqSgP.3rCMBk3L9ZfSxF3Z'
+  - name: Blinded
+    origin: Compendium.n5eb.jutsus.Item.4l3HesaLPkdYqSgP
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/blinded.svg
+    _id: GWEhkSOXKBhBxwnA
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: blinded
+        priority: 20
+    description: >-
+      <p>• A <strong>Blinded</strong> creature cannot target another creature with effects that require them to “target
+      a creature they can see” unless they have a special sense that does not require sight, such as <strong>Tremor
+      Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A blinded creature can’t see and automatically fails
+      any check that requires sight.</p><p>• A <strong>Blinded</strong> creature has disadvantage on Dexterity saving
+      throws.</p><p>• Attack rolls against a <strong>Blinded</strong> creature have advantage, and a
+      <strong>Blinded</strong> creature’s attack rolls have disadvantage without the aid of a special sense that does
+      not require sight, such as <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>• A creature
+      can willingly close their eyes as a free action for an extended period of time. Doing so imposes this Condition on
+      them until the beginning of their next turn, they cannot reopen their eyes until then, unless they are forced to
+      do so by some other means.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!4l3HesaLPkdYqSgP.GWEhkSOXKBhBxwnA'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - medical
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: medical-release/b-rank/medical-release-contagion.json
+      sourceId: 4l3HesaLPkdYqSgP
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You infuse putrefied Medical Chakra onto your hand as you become able to inflict disease from touch
+            alone. Make a Melee ninjutsu attack against a creature within your reach. On a hit the target is
+            poisoned.</p><p>At the end of each of the poisoned creatures turns, the target must make a Constitution
+            saving throw. If the target succeeds on three of these saves, it is no longer poisoned and the jutsu ends.
+            If the targets fails three of these saves, the target is no longer poisoned, but choose one of the diseases
+            below. The target is subjected to the chosen disease for the Jutsu's duration.</p><p>Since this jutsu
+            induces a natural disease in its target, any effect that removes a disease or otherwise ameliorates a
+            diseases effects apply to it.</p><p>• Blinding Sickness. Pain grips the creature's mind, and its eyes turn
+            milky white. The creature has disadvantage on Wisdom checks and Wisdom saving throws and is blinded.</p><p>•
+            Filth Fever. A raging fever sweeps through the creature's body. The creature has disadvantage on Strength
+            checks, Strength saving throws, and attack rolls that use Strength.</p><p>• Flesh Rot. The creature's flesh
+            decays. The creature has disadvantage on Charisma checks and vulnerability to all damage.</p><p>• Mindfire.
+            The creature's mind becomes feverish. The creature has disadvantage on Intelligence checks and Intelligence
+            saving throws, and the creature becomes Berserked for the duration.</p><p>• Seizure. The creature is
+            overcome with shaking. The creature has disadvantage on Dexterity checks, Dexterity saving throws, and
+            attack rolls that use Dexterity.</p><p>• Slimy Doom. The creature begins to bleed uncontrollably. The
+            creature has disadvantage on Constitution checks and Constitution saving throws. In addition, whenever the
+            creature takes damage, it is stunned until the end of its next turn.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '7'
+          units: day
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: touch
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 12
+          scale: false
+        ability: ninjutsu
+        actionType: mnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        level: 3
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+          - medical
+        keywords:
+          - ninjutsu
+          - kinjutsu
+          - medical
+        chakraCost: 12
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757151654
+  modifiedTime: 1728757151654
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: medical-release/b-rank/medical-release-contagion.json
+folder: sRbhnQb6VQJC1s2z
+sort: 0
+ownership:
+  default: 0
+_id: 4l3HesaLPkdYqSgP
+_key: '!items!4l3HesaLPkdYqSgP'

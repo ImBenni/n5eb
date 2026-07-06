@@ -1,0 +1,9 @@
+<section class="tab activity-{{ tab.id }} {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+    {{> "systems/n5eb/templates/activity/parts/activity-identity.hbs" }}
+    {{> "systems/n5eb/templates/activity/parts/attack-identity.hbs" }}
+    <fieldset>
+        <legend>{{ localize "DND5E.ACTIVITY.SECTIONS.Behavior" }}</legend>
+        {{> "dnd5e.fieldlist" behaviorFields }}
+    </fieldset>
+    {{> "systems/n5eb/templates/activity/parts/activity-visibility.hbs" }}
+</section>

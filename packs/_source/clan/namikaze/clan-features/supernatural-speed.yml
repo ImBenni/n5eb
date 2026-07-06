@@ -1,0 +1,336 @@
+folder: SCf62FDb9nLBTmsG
+name: Supernatural Speed
+type: feat
+_id: N6vO9fUlhernll8z
+img: icons/magic/lightning/bolt-strike-beam-yellow.webp
+system:
+  description:
+    value: >-
+      <p>The Namikaze are known for their incredible reflexes and agility. Starting at 1st level, your speed increases
+      by 5 feet. You gain an additional 5 feet speed increases at 11th and 18th levels</p><p>Additionally, beginning at
+      3rd level, due to you to your natural gift for speed, you develop a natural talent for extremely expeditious
+      movement. Represented by Speed Die, which are D8's. You have a number of Speed Die equal to your proficiency
+      bonus. You can spend up to three of your Speed Die on the following effects per turn. You regain your Speed Die on
+      a long rest.</p><ul><li><p><strong>Speed Dodge:</strong> You can spend any number of Speed Die as a reaction,
+      gaining +2 bonus to AC until the beginning of your next turn, for each die spent.</p></li><li><p><strong>Speed
+      Amplification</strong>: You can spend any number of Speed Die, gaining movement speed equal to 5 x the result of
+      the roll until the beginning of your next turn.</p></li><li><p><strong>Quickened Assault</strong>: When you take
+      the attack action to make a weapon attack, you may spend Speed Die. You make one additional weapon attack for each
+      speed dice spent. You deal damage with these weapon attack equal 1d8, and do not add your ability
+      modifier</p></li><li><p><strong>Blink of an Eye</strong>: When you would move, you instead choose a location you
+      can see within your movement speed range. Spend one Speed Die, you teleport to the desired location. If you were
+      to make a melee weapon attack against a creature within 5 feet of you, you roll 1d8, adding the result to your
+      attack roll.</p></li></ul><p>Beginning at 11th level you can use the following additional Supernatural Speed
+      Features by spending Speed Die.</p><ul><li><p><strong>Swift Focus</strong>: While you are gaining the benefits of
+      a Namikaze clan Hijutsu or Jutsu with the Wind or Lightning Release keywords that requires concentration, by
+      spending 1 Speed Die, you may reduce the Chakra cost to maintain the jutsu by the result of your roll, once per
+      turn</p></li><li><p><strong>Like the Wind</strong>: When you would deal Wind damage to a creature as a result of
+      casting a Jutsu with the Lightning or Wind Release Keywords, you may spend a Speed Die, increasing the damage
+      dealt by the result, and as a part of the same action used to cast the jutsu, you teleport behind the target and
+      gaining a bonus to your next attack roll against the same target equal to the result of your
+      roll.</p></li><li><p><strong>Flash of Defense</strong>: When you would take damage from a creature as a result of
+      an attack that targeted you, or saving throw you were forced to make, you may spend any number of Speed Die,
+      reducing the damage dealt by twice the result.</p></li></ul>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: special
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: 3
+    max: '@scale.namikaze.speed-die-amount'
+    per: lr
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: Compendium.n5eb.clan.Item.KgL5mSY5nXkSimY7
+    amount: 1
+    scale: false
+  ability: ''
+  actionType: util
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: 1@scale.namikaze.speed-die
+  save:
+    ability: ''
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  type:
+    value: race
+    subtype: ''
+  prerequisites:
+    level: 1
+  properties: []
+  requirements: ''
+  recharge:
+    value: null
+    charged: false
+  identifier: supernatural-speed
+effects:
+  - name: Supernatural Speed
+    origin: Compendium.n5eb.clan.Item.N6vO9fUlhernll8z
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/magic/lightning/bolt-strike-beam-yellow.webp
+    _id: G2hZFAz1hwt8SNXL
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '@scale.namikaze.supernatural-speed'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1724460989242
+      modifiedTime: 1728938645830
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!N6vO9fUlhernll8z.G2hZFAz1hwt8SNXL'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: namikaze/clan-features/supernatural-speed.json
+      sourceId: N6vO9fUlhernll8z
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif">The Namikaze are known for their incredible reflexes and agility.
+            Starting at 1st level, your speed increases by 5 feet. You gain an additional 5 feet speed increases at 11th
+            and 18th levels</span></p><p
+            style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif">Additionally, beginning at 3rd level, due to you to your natural
+            gift for speed, you develop a natural talent for extremely expeditious movement. Represented by Speed Die,
+            which are D8's. You have a number of Speed Die equal to your proficiency bonus. You can spend up to three of
+            your Speed Die on the following effects per turn. You regain your Speed Die on a long
+            rest.</span></p><ul><li><p
+            style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif"><strong>Speed Dodge:</strong> You can spend any number of Speed Die
+            as a reaction, gaining +2 bonus to AC until the beginning of your next turn, for each die
+            spent.</span></p></li><li><p
+            style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif"><strong>Speed Amplification</strong>: You can spend any number of
+            Speed Die, gaining movement speed equal to 5 x the result of the roll until the beginning of your next
+            turn.</span></p></li><li><p
+            style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif"><strong>Quickened Assault</strong>: When you take the attack action
+            to make a weapon attack, you may spend Speed Die. You make one additional weapon attack for each speed dice
+            spent. You deal damage with these weapon attack equal 1d8, and do not add your ability
+            modifier</span></p></li><li><p
+            style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif"><strong>Blink of an Eye</strong>: When you would move, you instead
+            choose a location you can see within your movement speed range. Spend one Speed Die, you teleport to the
+            desired location. If you were to make a melee weapon attack against a creature within 5 feet of you, you
+            roll 1d8, adding the result to your attack roll.</span></p></li></ul><p
+            style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif">Beginning at 11th level you can use the following additional
+            Supernatural Speed Features by spending Speed Die.</span></p><ul><li><p
+            style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif"><strong>Swift Focus</strong>: While you are gaining the benefits of
+            a Namikaze clan Hijutsu or Jutsu with the Wind or Lightning Release keywords that requires concentration, by
+            spending 1 Speed Die, you may reduce the Chakra cost to maintain the jutsu by the result of your roll, once
+            per turn</span></p></li><li><p
+            style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif"><strong>Like the Wind</strong>: When you would deal Wind damage to a
+            creature as a result of casting a Jutsu with the Lightning or Wind Release Keywords, you may spend a Speed
+            Die, increasing the damage dealt by the result, and as a part of the same action used to cast the jutsu, you
+            teleport behind the target and gaining a bonus to your next attack roll against the same target equal to the
+            result of your roll.</span></p></li><li><p
+            style="box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar)
+            var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Signika,
+            sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start"><span
+            style="font-family:Signika, sans-serif"><strong>Flash of Defense</strong>: When you would take damage from a
+            creature as a result of an attack that targeted you, or saving throw you were forced to make, you may spend
+            any number of Speed Die, reducing the damage dealt by twice the result.</span></p></li></ul>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: special
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: 3
+          max: '@scale.namikaze.speed-die-amount'
+          per: lr
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: Compendium.n5eb.clan.Item.KgL5mSY5nXkSimY7
+          amount: 1
+          scale: false
+        ability: ''
+        actionType: util
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: 1@scale.namikaze.speed-die
+        save:
+          ability: ''
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        type:
+          value: race
+          subtype: ''
+        prerequisites:
+          level: 1
+        properties: []
+        requirements: ''
+        recharge:
+          value: null
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1723254678957
+  modifiedTime: 1728938775865
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: namikaze/clan-features/supernatural-speed.json
+_key: '!items!N6vO9fUlhernll8z'

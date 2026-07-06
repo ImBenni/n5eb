@@ -1,0 +1,33 @@
+<section class="tab activity-{{ tab.id }} {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+    <fieldset>
+        <legend>{{ localize "DND5E.SUMMON.CreatureChanges.Label" }}</legend>
+        <div class="form-group">
+            <p class="hint">{{ localize "DND5E.SUMMON.CreatureChanges.Hint" }}</p>
+        </div>
+        {{ formField fields.match.fields.disposition value=source.match.disposition input=inputs.createCheckboxInput
+                     rootId=partId }}
+        {{ formField fields.match.fields.proficiency value=source.match.proficiency input=inputs.createCheckboxInput
+                     rootId=partId }}
+        {{ formField fields.bonuses.fields.ac value=source.bonuses.ac rootId=partId }}
+        {{ formField fields.bonuses.fields.hd value=source.bonuses.hd rootId=partId }}
+        {{ formField fields.bonuses.fields.hp value=source.bonuses.hp rootId=partId }}
+        {{ formField fields.tempHP value=source.tempHP rootId=partId }}
+        {{ formField fields.creatureSizes value=source.creatureSizes options=creatureSizeOptions rootId=partId }}
+        {{ formField fields.creatureTypes value=source.creatureTypes options=creatureTypeOptions rootId=partId }}
+    </fieldset>
+    <fieldset>
+        <legend>{{ localize "DND5E.SUMMON.ItemChanges.Label" }}</legend>
+        <div class="form-group">
+            <p class="hint">{{ localize "DND5E.SUMMON.ItemChanges.Hint" }}</p>
+        </div>
+        {{ formField fields.match.fields.ability value=source.match.ability options=abilityOptions rootId=partId }}
+        {{ formField fields.match.fields.attacks value=source.match.attacks input=inputs.createCheckboxInput
+                     rootId=partId }}
+        {{ formField fields.match.fields.saves value=source.match.saves input=inputs.createCheckboxInput
+                     rootId=partId }}
+        {{ formField fields.bonuses.fields.attackDamage value=source.bonuses.attackDamage rootId=partId }}
+        {{ formField fields.bonuses.fields.saveDamage value=source.bonuses.saveDamage rootId=partId }}
+        {{ formField fields.bonuses.fields.healing value=source.bonuses.healing rootId=partId }}
+    </fieldset>
+    {{> "systems/n5eb/templates/activity/parts/activity-effects.hbs" }}
+</section>

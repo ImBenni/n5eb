@@ -1,0 +1,266 @@
+name: Crystal Release Shuriken Wild Dance
+type: spell
+img: systems/n5eb/assets/content/clans/shoton.webp
+system:
+  description:
+    value: >-
+      <p>You manifest pink, blue, red, or green crystal shuriken that spin around your furiously, protecting you from
+      harm and damaging creatures that get too close.</p><p>Ranged attacks against you deals reduced damage equal to
+      2d6. This damage reduction doesn't count against lightning damage.</p><p>Creatures of your choice, who begins or
+      ends its turn within 5 feet of you, take 3d6 earth damage.</p><p>At Higher Ranks: For each rank you cast this
+      jutsu above D-Rank increase the cost by 3 and the damage by 2d6.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '5'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 7
+    scale: false
+  ability: ninjutsu
+  actionType: util
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 3d6
+        - earth
+    versatile: 2d6
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 2d6
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: crystal-release-shuriken-wild-dance
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - earth
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '7'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: shoton/clan-hijutsu/c-rank/crystal-release-shuriken-wild-dance.json
+      sourceId: 6H4ffoGWekfIl4n5
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You manifest pink, blue, red, or green crystal shuriken that spin around your furiously, protecting you
+            from harm and damaging creatures that get too close.</p><p>Ranged attacks against you deals reduced damage
+            equal to 2d6. This damage reduction doesn't count against lightning damage.</p><p>Creatures of your choice,
+            who begins or ends its turn within 5 feet of you, take 3d6 earth damage.</p><p>At Higher Ranks: For each
+            rank you cast this jutsu above D-Rank increase the cost by 3 and the damage by 2d6.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '5'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 7
+          scale: false
+        ability: ninjutsu
+        actionType: util
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 3d6
+              - earth
+          versatile: 2d6
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 2d6
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - earth
+        chakraCost: 7
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    otherCondition: ''
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    otherSaveDamage: default
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754781318
+  modifiedTime: 1728754815889
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: shoton/clan-hijutsu/c-rank/crystal-release-shuriken-wild-dance.json
+folder: 0srmt1TRYnR2h9sc
+sort: 200000
+ownership:
+  default: 0
+_id: 6H4ffoGWekfIl4n5
+_key: '!items!6H4ffoGWekfIl4n5'

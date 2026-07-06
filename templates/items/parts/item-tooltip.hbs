@@ -3,7 +3,7 @@
         {{#if school}}
         <div class="school">
             {{#with (lookup @root.config.spellSchools school) as |schoolConfig|}}
-            <n5eb-icon src="{{ schoolConfig.icon }}"></n5eb-icon>
+            <dnd5e-icon src="{{ schoolConfig.icon }}"></dnd5e-icon>
             {{/with}}
         </div>
         {{/if}}
@@ -12,14 +12,13 @@
             <div class="name name-stacked">
                 <span class="title">{{ name }}</span>
                 <span class="subtitle">{{{ subtitle }}}</span>
-                <span class="subtitle">{{{ nestedsubtitle }}}</span>
             </div>
         </div>
         <div class="bottom">
             <div class="price">
                 {{#if price}}
                 <i class="currency {{ price.denomination }}"></i>
-                <span>{{ n5eb-numberFormat price.value }}</span>
+                <span>{{ dnd5e-numberFormat price.value }}</span>
                 {{/if}}
             </div>
 
@@ -28,7 +27,7 @@
                 <span class="value">{{ uses.value }}</span>
                 <span class="separator">&sol;</span>
                 <span class="max">{{ uses.max }}</span>
-                <span>{{ localize "N5EB.Charges" }}</span>
+                <span>{{ localize "DND5E.Charges" }}</span>
                 {{/if}}
             </div>
             <div class="weight">
@@ -39,100 +38,21 @@
             </div>
         </div>
     </section>
-    {{#if (eq type "spell")}}
-    <ul class="info unlist">
-        <li>
-            <strong>{{ localize "N5EB.SpellCastTime" }}:</strong>
-            <span class="value">
-                {{ labels.activation }}
-                {{#if activation.condition}}
-                <span class="condition">({{ activation.condition }})</span>
-                {{/if}}
-            </span>
-        </li>
-        <li>
-            <strong>{{ localize "N5EB.Range" }}:</strong>
-            <span class="value">{{ labels.range }}</span>
-        </li>
-        <li>
-            <strong>{{ localize "N5EB.Target" }}:</strong>
-            <span class="value">{{ labels.target }}</span>
-        </li>
-        <li>
-            <strong>{{ localize "N5EB.Duration" }}:</strong>
-            <span class="value">{{ labels.concentrationDuration }}</span>
-        </li>
-        <li>
-            <strong>{{ localize "N5EB.Components" }}:</strong>
-            <span class="value">
-                {{ labels.components.vsm }}
-                {{#if materials.value}}
-                <span class="materials">({{ materials.value }})</span>
-                {{/if}}
-            </span>
-        </li>
-        <li>
-            <strong>{{ localize "N5EB.SpellHeader.Cost" }}:</strong>
-            <span class="value">{{ labels.cost }}</span>
-        </li>
-        <li>
-            <strong>{{ localize "N5EB.Keywords" }}:</strong>
-            <span class="value">
-                {{ labels.keywords.vsm }}
-            </span>
-        </li>
-    </ul>
+    {{#if isSpell}}
+        {{> "dnd5e.spell-block" }}
     {{/if}}
-    {{#if (eq type "weapon")}}
-        <ul class="info unlist">
-            <li>
-                <strong>{{ localize "N5EB.Properties" }}:</strong>
-                <span class="value">
-                    {{#each labels.properties}}
-                        {{#if (eq this.label "Thrown")}}
-                            {{ this.label }} ({{ ../labels.range }})
-                        {{else}}
-                            {{ this.label }}
-                        {{/if}}
-                        {{#unless @last}}, {{/unless}}
-                    {{/each}}
-                </span>
-            </li>
-
-
-        <li>
-            <strong>{{ localize "N5EB.WeaponGroup" }}:</strong>
-            <span class="value">
-                {{#each labels.wgroup}}
-                    {{ this.label }}
-                    {{#unless @last}} / {{/unless}}
-                {{/each}}
-            </span>
-        </li>
-
-        </ul>
-    {{/if}}
-
     <section class="description">{{{ description.value }}}</section>
     <ul class="pills">
-        {{#if isSpell}}
-        {{#each tags}}
-        <li class="pill transparent">
-            <span class="label">{{ this }}</span>
-        </li>
-        {{/each}}
-        {{else}}
         {{#each properties}}
         <li class="pill transparent">
             <span class="label">{{ this }}</span>
         </li>
         {{/each}}
-        {{/if}}
     </ul>
     {{#if controlHints}}
-    <div class="lock-hint">
-        <img src="systems/n5eb/icons/svg/mouse-middle.svg" alt="{{ localize "N5EB.Controls.MiddleClick" }}">
-        <span>{{ localize "N5EB.Controls.LockHint" }}</span>
+    <div class="control-hint lock-hint">
+        <img src="systems/n5eb/icons/svg/mouse-middle.svg" alt="{{ localize "DND5E.Controls.MiddleClick" }}">
+        <span>{{ localize "DND5E.Controls.LockHint" }}</span>
     </div>
     {{/if}}
 </section>

@@ -1,0 +1,263 @@
+name: Lightning Release Circuit Breaker
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/lightning.webp
+system:
+  description:
+    value: >-
+      <p>You conjure your lightning release chakra to generate a jolt of electricity in an attempt to shock a creature
+      within range. Make a Ranged Ninjutsu Attack, on a hit, you deal 1d6 Lightning Damage. If the target creature is
+      currently concentration on a Jutsu they make their check at disadvantage. If the target has a jutsu active that
+      doesn't require concentration and they are not currently concentration on a jutsu, they lose the benefits of that
+      jutsu until the end of their next turn.</p><p>Overcharge. When you cast this jutsu with its listed casting time,
+      you can choose to spend your Bonus Action or Reaction to overcharge its effects. When you do, increase the damage
+      dealt by 2 steps and add your Ninjutsu ability modifier</p><p>At Higher Ranks: For each rank you cast this jutsu
+      above D-Rank, increase the cost of this jutsu by 3 and the amount of attacks you make by +1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 90
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: ninjutsu
+  actionType: rsak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 1d6
+        - lightning
+    versatile: 1d10
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: lightning-release-circuit-breaker
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: lightning-release/d-rank/lightning-release-circuit-breaker.json
+      sourceId: 7OpbNaVhNIf0Mto8
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You conjure your lightning release chakra to generate a jolt of electricity in an attempt to shock a
+            creature within range. Make a Ranged Ninjutsu Attack, on a hit, you deal 1d6 Lightning Damage. If the target
+            creature is currently concentration on a Jutsu they make their check at disadvantage. If the target has a
+            jutsu active that doesn't require concentration and they are not currently concentration on a jutsu, they
+            lose the benefits of that jutsu until the end of their next turn.</p><p>Overcharge. When you cast this jutsu
+            with its listed casting time, you can choose to spend your Bonus Action or Reaction to overcharge its
+            effects. When you do, increase the damage dealt by 2 steps and add your Ninjutsu ability modifier</p><p>At
+            Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the
+            amount of attacks you make by +1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 90
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: ninjutsu
+        actionType: rnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 1d6
+              - lightning
+          versatile: 1d10
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 1
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - ninjutsu
+          - lightning
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    otherCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756941476
+  modifiedTime: 1728756941476
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: lightning-release/d-rank/lightning-release-circuit-breaker.json
+folder: Ydod4bZequHA872U
+sort: 1900000
+ownership:
+  default: 0
+_id: 7OpbNaVhNIf0Mto8
+_key: '!items!7OpbNaVhNIf0Mto8'

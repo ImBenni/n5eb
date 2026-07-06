@@ -1,0 +1,255 @@
+name: Gentle Counter
+type: spell
+img: systems/n5eb/assets/content/clans/hyuga.webp
+system:
+  description:
+    value: >-
+      <p>As a part of casting this jutsu, you must be gaining the benefits of the Gentle Fist Stance. You instantly
+      react to an incoming attack. When you are damaged with a melee attack, you may roll 1d8 + Your Unarmed attack
+      bonus. Reduce the damage you received by the result.</p><p>At Higher Ranks: For each rank you cast this jutsu
+      above D-Rank, increase the cost of this jutsu by 3 and reduce damage by an additional 2d8.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: reaction
+    cost: 1
+    condition: which you take when you take damage from a melee attack
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: taijutsu
+  actionType: util
+  chatFlavor: Add Unarmed attack bonus
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 1d8
+        - ''
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 2d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: gentle-counter
+  jutsu:
+    components:
+      - cm
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - mobility
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: hyuga/clan-hijutsu/d-rank/gentle-counter.json
+      sourceId: uX55SwIOovVwI1PH
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>As a part of casting this jutsu, you must be gaining the benefits of the Gentle Fist Stance. You
+            instantly react to an incoming attack. When you are damaged with a melee attack, you may roll 1d8 + Your
+            Unarmed attack bonus. Reduce the damage you received by the result.</p><p>At Higher Ranks: For each rank you
+            cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and reduce damage by an additional
+            2d8.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take when you take damage from a melee attack
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: taijutsu
+        actionType: util
+        chatFlavor: Add Unarmed attack bonus
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 1d8
+              - ''
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 2d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - mobility
+          - molding
+        keywords:
+          - taijutsu
+          - hijutsu
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    reactionCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728753362480
+  modifiedTime: 1728753428424
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: hyuga/clan-hijutsu/d-rank/gentle-counter.json
+folder: 0AZkAQgw68f3kLNJ
+sort: 500000
+ownership:
+  default: 0
+_id: uX55SwIOovVwI1PH
+_key: '!items!uX55SwIOovVwI1PH'

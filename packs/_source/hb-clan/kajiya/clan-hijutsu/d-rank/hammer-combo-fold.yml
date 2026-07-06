@@ -1,0 +1,360 @@
+folder: yluCuSU1wwOEyo09
+name: Hammer Combo Fold
+type: spell
+_id: ZIr8uksSldTOzf4G
+img: systems/n5eb/assets/content/clans/kajiya.webp
+system:
+  description:
+    value: >-
+      <p>Coating your weapon in flames, you batter an enemy in range with your
+      melee weapon, intending to soften up their defenses. Make 3 melee attacks,
+      dealing your weapon's damage + your Strength Mod, plus 1d6 fire damage for
+      each additional attack that lands. If 2 attacks land, the target gains one
+      rank of Burned for every 2 attacks that hit, and the next attack or jutsu
+      made against that target is made at advantage.</p><p><strong>At Higher
+      Ranks:</strong> For each rank you upcast this jutsu above D-Rank, increase
+      the cost of the jutsu by 3 and the number of attacks made by 2.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: touch
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: mwak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 1d6
+        - fire
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: Bludgeoning
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: hammer-combo-fold
+  jutsu:
+    components:
+      - cm
+      - w
+    keywords:
+      - ninjutsu
+      - bukijutsu
+      - hijutsu
+      - fire
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Burned
+    origin: Compendium.n5eb.hb-clan.Item.ZIr8uksSldTOzf4G
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: burned
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/burning.svg
+    _id: 6C7o9xCbwkHynHQ9
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          rollType=skill,
+          saveAbility=sur,
+          saveDC=15,
+          actionSave=dialog,
+          damageBeforeSave=true,
+          damageRoll=1d8,
+          damageType=fire,
+          saveRemove=true,
+          name=Burned,
+          chatFlavor=It's very hot!,
+          fastForwardDamage=true,
+        priority: 20
+      - key: system.attributes.concentration.bonuses.save
+        mode: 2
+        value: '-2 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object
+      takes 1d8 fire damage for each rank it has, at the start of each of their
+      turns.</p></li><li><p>A Burned creature takes a -2 penalty to
+      Concentration Checks for each rank it has.</p></li><li><p>Creatures that
+      are immune to fire damage is immune to this condition.</p></li><li><p>This
+      condition lasts for the duration of the effect that inflicted it or 1
+      minute has passed, whichever comes first. A Creature can spend an Action
+      to make a DC 15 Dexterity (Survival) Check to put out the flames. On a
+      successful check, the condition ends or submerging themselves fully into a
+      body of water.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - burned
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!ZIr8uksSldTOzf4G.6C7o9xCbwkHynHQ9'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: kajiya/clan-hijutsu/d-rank/hammer-combo-fold.json
+      sourceId: ZIr8uksSldTOzf4G
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Coating your weapon in flames, you batter an enemy in range with
+            your melee weapon, intending to soften up their defenses. Make 3
+            melee attacks, dealing your weapon's damage + your Strength Mod,
+            plus 1d6 fire damage for each additional attack that lands. If 2
+            attacks land, the target gains one rank of Burned for every 2
+            attacks that hit, and the next attack or jutsu made against that
+            target is made at advantage.</p><p><strong>At Higher Ranks:</strong>
+            For each rank you upcast this jutsu above D-Rank, increase the cost
+            of the jutsu by 3 and the number of attacks made by 2.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: touch
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: mwak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 1d6
+              - fire
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - chakramolding
+          - weapons
+        keywords:
+          - ninjutsu
+          - bukijutsu
+          - hijutsu
+          - fire
+        materials:
+          value: Bludgeoning
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1740327695207
+  modifiedTime: 1741606596198
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: kajiya/clan-hijutsu/d-rank/hammer-combo-fold.json
+_key: '!items!ZIr8uksSldTOzf4G'

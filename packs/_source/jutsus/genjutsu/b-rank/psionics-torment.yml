@@ -1,0 +1,441 @@
+name: Psionics Torment!
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>You create a mundane sound that pulses outward and all who perceives it, hears it as a brutally high decibel
+      that causes intense pain and agony.</p><p>All creatures of your choice within 30 feet of you must make a Wisdom
+      saving throw.</p><p>Success: Affected creature is able to resist this jutsu's effects.</p><p>Failure: Affected
+      creatures takes 5d8 psychic damage and gains 3 ranks of Dazzled.</p><p>Critical Failure: Affected creature takes
+      5d8 psychic damage, gains 3 ranks of Concussed and gains a rank of slow. A slowed creature remakes their Wisdom
+      saving throw at the end of each of their turns to end that condition.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 13
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d8
+        - psychic
+    versatile: ''
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: genjutsu
+  level: 5
+  school: ill
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: psionics-torment
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - auditory
+      - tactile
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: b
+  chakra:
+    cost: '13'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Concussed
+    origin: Compendium.n5eb.jutsus.Item.0LwaJfUSs7UnMM2X
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/concussed.svg
+    _id: pN8QxJ0uFlC9nIEr
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: concussed
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental
+      acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A
+      Concussed creature suffers a -1 penalty to all of their Save DCs for each rank it has.</p></li><li><p>A Concussed
+      creature suffers a -1 penalty to all Intelligence based checks, attack rolls and saving throws and checks for each
+      rank it has.</p></li><li><p>A concussed creature cannot gain the benefit of a Rest.</p></li><li><p>A creature can
+      spend its Action if it has a Medicine kit to make a DC 20 Medicine check, ending this condition on a
+      success.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!0LwaJfUSs7UnMM2X.pN8QxJ0uFlC9nIEr'
+  - name: Dazzled
+    origin: Compendium.n5eb.jutsus.Item.0LwaJfUSs7UnMM2X
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/dazzled.svg
+    _id: qYnwUAFkznVpTqkw
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Attacks
+        mode: 2
+        value: '-2 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: dazzled
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks:</strong> 5</p><p>• A <strong>Dazzled</strong> creatures eyes become overloaded with flashes
+      of colors, gaining a -2 penalty to all checks that rely on sight for each rank it has. • A
+      <strong>Dazzled</strong> creature suffers a -2 penalty to attack rolls for each rank it has and cannot gain
+      advantage on Ranged attack rolls.</p><p>• A <strong>Dazzled</strong> creature reduced the range of Jutsu's cast
+      and ranged attacks made by 15 feet for each rank it has down to a minimum of 5 feet.</p><p>• A
+      <strong>Dazzled</strong> creature can make a DC 15 Constitution ability check as an action, to remove all ranks of
+      this condition.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.Aa2bI0MeSmyi3eOJ.ActiveEffect.rNLK6dZIg5pamybW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!0LwaJfUSs7UnMM2X.qYnwUAFkznVpTqkw'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/b-rank/psionics-torment.json
+      sourceId: 0LwaJfUSs7UnMM2X
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You create a mundane sound that pulses outward and all who perceives it, hears it as a brutally high
+            decibel that causes intense pain and agony.</p><p>All creatures of your choice within 30 feet of you must
+            make a Wisdom saving throw.</p><p>Success: Affected creature is able to resist this jutsu's
+            effects.</p><p>Failure: Affected creatures takes 5d8 psychic damage and gains 3 ranks of
+            Dazzled.</p><p>Critical Failure: Affected creature takes 5d8 psychic damage, gains 3 ranks of Concussed and
+            gains a rank of slow. A slowed creature remakes their Wisdom saving throw at the end of each of their turns
+            to end that condition.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 13
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d8
+              - psychic
+          versatile: ''
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: genjutsu
+        level: 3
+        school: gen
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+        keywords:
+          - genjutsu
+          - auditory
+          - tactile
+        chakraCost: 13
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/b-rank/psionics-torment.json
+folder: quuZAgP7LnWrN80O
+sort: 100000
+ownership:
+  default: 0
+_id: 0LwaJfUSs7UnMM2X
+_key: '!items!0LwaJfUSs7UnMM2X'

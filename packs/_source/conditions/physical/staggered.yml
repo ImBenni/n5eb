@@ -1,0 +1,315 @@
+folder: pmdytWW18ekEsgW1
+name: Staggered
+type: feat
+_id: wgbuxnP6HRnrbF8l
+img: systems/n5eb/icons/svg/statuses/staggered.svg
+system:
+  description:
+    value: >-
+      <p><strong>Max Ranks</strong>: 1</p><hr /><p>A <strong>Staggered</strong> creature has been completely overwhelmed
+      by pain or has otherwise had their battle stance shaken.</p><ul><li><p>A <strong>Staggered</strong> creature is
+      counted as Bruised 5 for the purposes of interacting with Features, Traits and Jutsu and cannot gain Ranks of
+      Bruised for the duration.</p></li><li><p>A <strong>Staggered</strong> creature cannot take the Disengage, Dash or
+      Dodge Actions or Reactions.</p></li><li><p>A <strong>Staggered</strong> creature takes a -5 penalty to all
+      Strength, Dexterity and Constitution based Attack rolls and checks.</p></li><li><p>A <strong>Staggered</strong>
+      creature takes +20 bonus damage from all sources of bludgeoning or earth damage, once per turn.</p></li><li><p>A
+      <strong>Staggered</strong> creature, remains staggered until they spend one Full-Turn-Action gathering themselves,
+      losing the Staggered condition at the beginning of their following turn after this Full-Turn Action.</p></li></ul>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: ''
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: null
+  actionType: ''
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  type:
+    value: ''
+    subtype: ''
+    nestedsubtype: ''
+  prerequisites:
+    level: null
+  properties: []
+  requirements: ''
+  identifier: staggered
+effects:
+  - name: Staggered
+    origin: Compendium.n5eb.conditions.Item.wgbuxnP6HRnrbF8l
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      core:
+        overlay: false
+      n5eb:
+        legacyImport:
+          originalConditionEffect:
+            name: Staggered
+            img: systems/n5eb/icons/svg/statuses/staggered.svg
+            statuses: []
+            changes:
+              - key: StatusEffect
+                mode: 0
+                value: staggered
+                priority: 20
+              - key: system.abilities.str.bonuses.check
+                mode: 2
+                value: '-5'
+                priority: 20
+              - key: system.abilities.dex.bonuses.check
+                mode: 2
+                value: '-5'
+                priority: 20
+              - key: system.abilities.con.bonuses.check
+                mode: 2
+                value: '-5'
+                priority: 20
+            flags:
+              dae:
+                enableCondition: ''
+                disableCondition: ''
+                disableIncapacitated: false
+                selfTarget: false
+                selfTargetAlways: false
+                dontApply: false
+                stackable: noneName
+                showIcon: false
+                durationExpression: ''
+                macroRepeat: none
+                specialDuration: []
+              ActiveAuras:
+                isAura: false
+                aura: None
+                nameOverride: ''
+                radius: ''
+                alignment: ''
+                type: ''
+                customCheck: ''
+                ignoreSelf: false
+                height: false
+                hidden: false
+                displayTemp: false
+                hostile: false
+                onlyOnce: false
+                wallsBlock: system
+        condition:
+          id: staggered
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/staggered.svg
+    _id: rgnmPqkNAj46ac09
+    type: base
+    system: {}
+    changes: []
+    description: >-
+      <p><strong>Max Ranks</strong>: 1</p><hr /><p>A <strong>Staggered</strong> creature has been completely overwhelmed
+      by pain or has otherwise had their battle stance shaken.</p><ul><li><p>A <strong>Staggered</strong> creature is
+      counted as Bruised 5 for the purposes of interacting with Features, Traits and Jutsu and cannot gain Ranks of
+      Bruised for the duration.</p></li><li><p>A <strong>Staggered</strong> creature cannot take the Disengage, Dash or
+      Dodge Actions or Reactions.</p></li><li><p>A <strong>Staggered</strong> creature takes a -5 penalty to all
+      Strength, Dexterity and Constitution based Attack rolls and checks.</p></li><li><p>A <strong>Staggered</strong>
+      creature takes +20 bonus damage from all sources of bludgeoning or earth damage, once per turn.</p></li><li><p>A
+      <strong>Staggered</strong> creature, remains staggered until they spend one Full-Turn-Action gathering themselves,
+      losing the Staggered condition at the beginning of their following turn after this Full-Turn Action.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - staggered
+      - bruised
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,0
+      createdTime: 1728596916059
+      modifiedTime: 1728597247934
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!wgbuxnP6HRnrbF8l.rgnmPqkNAj46ac09'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: conditions
+      sourcePath: physical/staggered.json
+      sourceId: wgbuxnP6HRnrbF8l
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p><strong>Max Ranks</strong>: 1</p><hr /><p>A <strong>Staggered</strong> creature has been completely
+            overwhelmed by pain or has otherwise had their battle stance shaken.</p><ul><li><p>A
+            <strong>Staggered</strong> creature is counted as Bruised 5 for the purposes of interacting with Features,
+            Traits and Jutsu and cannot gain Ranks of Bruised for the duration.</p></li><li><p>A
+            <strong>Staggered</strong> creature cannot take the Disengage, Dash or Dodge Actions or
+            Reactions.</p></li><li><p>A <strong>Staggered</strong> creature takes a -5 penalty to all Strength,
+            Dexterity and Constitution based Attack rolls and checks.</p></li><li><p>A <strong>Staggered</strong>
+            creature takes +20 bonus damage from all sources of bludgeoning or earth damage, once per
+            turn.</p></li><li><p>A <strong>Staggered</strong> creature, remains staggered until they spend one
+            Full-Turn-Action gathering themselves, losing the Staggered condition at the beginning of their following
+            turn after this Full-Turn Action.</p></li></ul>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: ''
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: null
+        actionType: ''
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        type:
+          value: ''
+          subtype: ''
+          nestedsubtype: ''
+        prerequisites:
+          level: null
+        properties: []
+        requirements: ''
+      originalConditionItemFlags:
+        midiProperties:
+          confirmTargets: default
+          autoFailFriendly: false
+          autoSaveFriendly: false
+          critOther: false
+          offHandWeapon: false
+          magicdam: false
+          magiceffect: false
+          noConcentrationCheck: false
+          toggleEffect: false
+          ignoreTotalCover: false
+          idr: false
+          idi: false
+          idv: false
+          ida: false
+        midi-qol:
+          rollAttackPerTarget: default
+          itemCondition: ''
+          effectCondition: ''
+    condition:
+      id: staggered
+      maxRank: 1
+      category: physical
+      source: main-book
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728596843075
+  modifiedTime: 1728596900457
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: conditions
+    sourcePath: physical/staggered.json
+_key: '!items!wgbuxnP6HRnrbF8l'

@@ -1,0 +1,306 @@
+name: Monk
+type: background
+_id: fQGwA1YwuOjV3vZI
+img: icons/magic/holy/meditation-chi-focus-blue.webp
+system:
+  description:
+    value: >-
+      <p>At a young age you were brought to the monastery.</p><p>You have little to no memory of your old
+      life.</p><p>You have trained with your brothers and sisters learning the ways of ninshou for as long as you can
+      remember.</p><p>You were taught how chakra was given to mankind as a gift and as a way to make peace, not
+      war.</p><hr /><p>Skill proficiencies: Athletics, Perception</p><p>Tool proficiencies: choose one from Demolition's
+      kit, Forensics' Kit or Trapper's kit</p><p>Equipment: A set of artisan's tools, a monastic symbol(i.e. beads, a
+      ring, a necklace), Clothes, and a Pouch filled with 100 Ryo.</p><p>Equipment pack: Traveler's pack or Martial
+      Artist 's [★] pack</p><hr /><p>Feature: In The Order's Grace</p><p>As a monk, you have the respect your others in
+      your order.</p><p>You and your companions can expect to receive free healing and care at a monastery, shrine, or
+      other established presence of your order.</p><p>Your order will support you (but only you) at a modest
+      lifestyle.</p><hr /><p>A Modest Life</p><p>Select one: Intelligence +1 or Wisdom +1</p><p>Feat from chapter 13:
+      Customization options, with the General, Skill, or Chakra Category.</p><p>Regardless of which feat you pick, you
+      do not gain an ability score improvement from any feat you select.</p><p></p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  startingEquipment: []
+  identifier: monk
+  advancement:
+    - _id: GT8o6PJHNC4ov0yf
+      type: AbilityScoreImprovement
+      configuration:
+        points: 1
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        cap: 1
+      value:
+        type: asi
+      level: 0
+      title: ''
+      hint: |-
+        [If choosing Feat, Ignore this ASI]
+                                                        Increase your Strength +1 or Wisdom +1
+    - _id: OWPDzWfE4RH3Cn43
+      type: Trait
+      configuration:
+        mode: default
+        allowReplacements: false
+        grants:
+          - skills:ath
+          - skills:prc
+        choices: []
+      value:
+        chosen: []
+      level: 0
+      title: ''
+      hint: ''
+    - _id: uTPRkToE5Ys3B2HO
+      type: Trait
+      configuration:
+        mode: default
+        allowReplacements: false
+        grants: []
+        choices:
+          - count: 1
+            pool:
+              - tool:kit:demolitionsKit
+              - tool:kit:forensicsKit
+              - tool:kit:trappersKit
+      value:
+        chosen: []
+      level: 0
+      title: ''
+      hint: ''
+    - _id: DqyanWHGYiBrDbWb
+      type: ItemChoice
+      configuration:
+        choices:
+          '0':
+            count: 1
+            replacement: false
+        allowDrops: true
+        type: null
+        pool:
+          - uuid: Compendium.n5eb.items.Item.qo0Gcg4dEicHHBMm
+          - uuid: Compendium.n5eb.t7-items.Item.KhnEj6pODZS4ahsi
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      title: ''
+      hint: ''
+    - _id: TG95qRIhhHauqEri
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.t7-backgrounds.Item.EMbR3PuPLKea26Jg
+            optional: false
+          - uuid: Compendium.n5eb.items.Item.xHE6XKVR38rZZeLV
+            optional: false
+          - uuid: Compendium.n5eb.t7-backgrounds.Item.K7U8xUjCjOtfepNI
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 0
+    - _id: vz6CcUUCwzOGQLV0
+      type: ItemChoice
+      configuration:
+        choices:
+          '0':
+            count: 1
+            replacement: false
+        allowDrops: true
+        type: null
+        pool:
+          - uuid: Compendium.n5eb.items.Item.D6VMeGBiJcYRWzMv
+          - uuid: Compendium.n5eb.items.Item.L5F0pAOcpGOxzC3O
+          - uuid: Compendium.n5eb.items.Item.P3lH99iyu5c1JItf
+          - uuid: Compendium.n5eb.items.Item.XBTl7rEwdz1si3Pu
+          - uuid: Compendium.n5eb.items.Item.mDTmczocjaXlf6xM
+          - uuid: Compendium.n5eb.items.Item.FMzIcDM4mOLlfD5g
+          - uuid: Compendium.n5eb.items.Item.4tZVWFVUJyOMxQQU
+          - uuid: Compendium.n5eb.items.Item.z0nkjik1OU6gvhTZ
+          - uuid: Compendium.n5eb.items.Item.NijK86qNzaHagxIh
+          - uuid: Compendium.n5eb.items.Item.KCfr0NyRpCPclJeT
+          - uuid: Compendium.n5eb.items.Item.CeMakOTuqo0LjEje
+          - uuid: Compendium.n5eb.items.Item.mbczxXylF0vWUdMZ
+          - uuid: Compendium.n5eb.items.Item.TCOqZLJrIZyp4SIR
+          - uuid: Compendium.n5eb.items.Item.gJfW9qZyqILwCzbN
+          - uuid: Compendium.n5eb.items.Item.Wx6LQQs1MqrIm671
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      title: ''
+      hint: ''
+effects: []
+folder: null
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-backgrounds
+      sourcePath: monk.json
+      sourceId: fQGwA1YwuOjV3vZI
+      sourceType: background
+      originalSystem:
+        description:
+          value: >-
+            <p>At a young age you were brought to the monastery.</p><p>You have little to no memory of your old
+            life.</p><p>You have trained with your brothers and sisters learning the ways of ninshou for as long as you
+            can remember.</p><p>You were taught how chakra was given to mankind as a gift and as a way to make peace,
+            not war.</p><hr /><p>Skill proficiencies: Athletics, Perception</p><p>Tool proficiencies: choose one from
+            Demolition's kit, Forensics' Kit or Trapper's kit</p><p>Equipment: A set of artisan's tools, a monastic
+            symbol(i.e. beads, a ring, a necklace), Clothes, and a Pouch filled with 100 Ryo.</p><p>Equipment pack:
+            Traveler's pack or Martial Artist 's [★] pack</p><hr /><p>Feature: In The Order's Grace</p><p>As a monk, you
+            have the respect your others in your order.</p><p>You and your companions can expect to receive free healing
+            and care at a monastery, shrine, or other established presence of your order.</p><p>Your order will support
+            you (but only you) at a modest lifestyle.</p><hr /><p>A Modest Life</p><p>Select one: Intelligence +1 or
+            Wisdom +1</p><p>Feat from chapter 13: Customization options, with the General, Skill, or Chakra
+            Category.</p><p>Regardless of which feat you pick, you do not gain an ability score improvement from any
+            feat you select.</p><p></p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        startingEquipment: []
+        identifier: ''
+        advancement:
+          - _id: GT8o6PJHNC4ov0yf
+            type: AbilityScoreImprovement
+            configuration:
+              points: 1
+              fixed:
+                str: 0
+                dex: 0
+                con: 0
+                int: 0
+                wis: 0
+                cha: 0
+              cap: 1
+            value:
+              type: asi
+            level: 0
+            title: ''
+            hint: |-
+              [If choosing Feat, Ignore this ASI]
+                                                              Increase your Strength +1 or Wisdom +1
+          - _id: OWPDzWfE4RH3Cn43
+            type: Trait
+            configuration:
+              mode: default
+              allowReplacements: false
+              grants:
+                - skills:ath
+                - skills:prc
+              choices: []
+            value:
+              chosen: []
+            level: 0
+            title: ''
+            hint: ''
+          - _id: uTPRkToE5Ys3B2HO
+            type: Trait
+            configuration:
+              mode: default
+              allowReplacements: false
+              grants: []
+              choices:
+                - count: 1
+                  pool:
+                    - tool:kit:demolitionsKit
+                    - tool:kit:forensicsKit
+                    - tool:kit:trappersKit
+            value:
+              chosen: []
+            level: 0
+            title: ''
+            hint: ''
+          - _id: DqyanWHGYiBrDbWb
+            type: ItemChoice
+            configuration:
+              choices:
+                '0':
+                  count: 1
+                  replacement: false
+              allowDrops: true
+              type: null
+              pool:
+                - uuid: Compendium.n5eb.items.Item.qo0Gcg4dEicHHBMm
+                - uuid: Compendium.n5eb.t7-items.Item.KhnEj6pODZS4ahsi
+              spell: null
+              restriction: {}
+            value:
+              added: {}
+              replaced: {}
+            title: ''
+            hint: ''
+          - _id: TG95qRIhhHauqEri
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.t7-backgrounds.Item.EMbR3PuPLKea26Jg
+                  optional: false
+                - uuid: Compendium.n5eb.items.Item.xHE6XKVR38rZZeLV
+                  optional: false
+                - uuid: Compendium.n5eb.t7-backgrounds.Item.K7U8xUjCjOtfepNI
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 0
+          - _id: vz6CcUUCwzOGQLV0
+            type: ItemChoice
+            configuration:
+              choices:
+                '0':
+                  count: 1
+                  replacement: false
+              allowDrops: true
+              type: null
+              pool:
+                - uuid: Compendium.n5eb.items.Item.D6VMeGBiJcYRWzMv
+                - uuid: Compendium.n5eb.items.Item.L5F0pAOcpGOxzC3O
+                - uuid: Compendium.n5eb.items.Item.P3lH99iyu5c1JItf
+                - uuid: Compendium.n5eb.items.Item.XBTl7rEwdz1si3Pu
+                - uuid: Compendium.n5eb.items.Item.mDTmczocjaXlf6xM
+                - uuid: Compendium.n5eb.items.Item.FMzIcDM4mOLlfD5g
+                - uuid: Compendium.n5eb.items.Item.4tZVWFVUJyOMxQQU
+                - uuid: Compendium.n5eb.items.Item.z0nkjik1OU6gvhTZ
+                - uuid: Compendium.n5eb.items.Item.NijK86qNzaHagxIh
+                - uuid: Compendium.n5eb.items.Item.KCfr0NyRpCPclJeT
+                - uuid: Compendium.n5eb.items.Item.CeMakOTuqo0LjEje
+                - uuid: Compendium.n5eb.items.Item.mbczxXylF0vWUdMZ
+                - uuid: Compendium.n5eb.items.Item.TCOqZLJrIZyp4SIR
+                - uuid: Compendium.n5eb.items.Item.gJfW9qZyqILwCzbN
+                - uuid: Compendium.n5eb.items.Item.Wx6LQQs1MqrIm671
+              spell: null
+              restriction: {}
+            value:
+              added: {}
+              replaced: {}
+            title: ''
+            hint: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733963102247
+  modifiedTime: 1733963364369
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-backgrounds
+    sourcePath: monk.json
+_key: '!items!fQGwA1YwuOjV3vZI'

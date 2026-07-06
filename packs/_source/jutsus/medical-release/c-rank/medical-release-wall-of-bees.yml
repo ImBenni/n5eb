@@ -1,0 +1,363 @@
+name: Medical Release Wall of Bees
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/medical.webp
+system:
+  description:
+    value: >-
+      <p>You weave together a mixture of summoning seals and summon forth a wall of angry, irrational and
+      non-compromising bees.</p><p>The wall is 5 feet thick, 15 feet high and up to 30 feet long. The wall must be
+      continuous and at least 5 feet thick along its entire length. You select where the wall of bees appear and the
+      entire length must be within your line of sight and within this jutsu's range from you.</p><p>A creature that
+      starts within the bee's wall or that gets within 5 feet of the wall of bees agitates the insects and are swarmed
+      by them and must make a constitution saving throw against their assault. On a failed save they take 5d6 poison
+      damage and are incapacitated until the end of the current turn. On a successful save they take half damage and
+      suffer no additional effects.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: 5
+    units: ft
+    type: wall
+    prompt: true
+  range:
+    value: 120
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: null
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d6
+        - poison
+    versatile: ''
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: medical-release-wall-of-bees
+  jutsu:
+    components:
+      - hs
+      - cm
+      - cs
+    keywords:
+      - ninjutsu
+      - fuinjutsu
+      - medical
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Incapacitated
+    origin: Compendium.n5eb.jutsus.Item.gh0Z1xzKzBD2fM96
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/incapacitated.svg
+    _id: bpNU8XMBbZUQpfpC
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.climb
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: incapacitated
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - incapacitated
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.oPKLZHKQOBZsE7k5.ActiveEffect.4SS62Wm6W6fzv1z7
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!gh0Z1xzKzBD2fM96.bpNU8XMBbZUQpfpC'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - chakraseals
+      - handseals
+      - molding
+      - medical
+      - fuinjutsu
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: medical-release/c-rank/medical-release-wall-of-bees.json
+      sourceId: gh0Z1xzKzBD2fM96
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You weave together a mixture of summoning seals and summon forth a wall of angry, irrational and
+            non-compromising bees.</p><p>The wall is 5 feet thick, 15 feet high and up to 30 feet long. The wall must be
+            continuous and at least 5 feet thick along its entire length. You select where the wall of bees appear and
+            the entire length must be within your line of sight and within this jutsu's range from you.</p><p>A creature
+            that starts within the bee's wall or that gets within 5 feet of the wall of bees agitates the insects and
+            are swarmed by them and must make a constitution saving throw against their assault. On a failed save they
+            take 5d6 poison damage and are incapacitated until the end of the current turn. On a successful save they
+            take half damage and suffer no additional effects.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: 5
+          units: ft
+          type: wall
+          prompt: true
+        range:
+          value: 120
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: null
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d6
+              - poison
+          versatile: ''
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - chakraseals
+          - concentration
+          - molding
+          - medical
+          - fuinjutsu
+        keywords:
+          - ninjutsu
+          - fuinjutsu
+          - medical
+        chakraCost: 9
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757151654
+  modifiedTime: 1728757151654
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: medical-release/c-rank/medical-release-wall-of-bees.json
+folder: BNoUdpynKbvzZLa6
+sort: 0
+ownership:
+  default: 0
+_id: gh0Z1xzKzBD2fM96
+_key: '!items!gh0Z1xzKzBD2fM96'

@@ -1,0 +1,160 @@
+<section class="jutsu-lookup-app">
+    <aside class="jutsu-lookup-sidebar">
+        <div class="jutsu-lookup-heading">
+            <strong>{{ localize "N5EB.JutsuLookup.Title" }}</strong>
+            <span data-source-summary>{{ localize "N5EB.JutsuLookup.SourceSummary" count=count }}</span>
+            <button type="button" class="unbutton" data-lookup-refresh
+                    data-tooltip="N5EB.JutsuLookup.Refresh"
+                    aria-label="{{ localize 'N5EB.JutsuLookup.Refresh' }}">
+                <i class="fa-solid fa-rotate-right" inert></i>
+            </button>
+        </div>
+
+        <search class="jutsu-search" aria-label="{{ localize 'N5EB.JutsuLookup.Search' }}">
+            <input type="text" class="jutsu-lookup-filter always-interactive" data-filter="search"
+                   placeholder="{{ localize 'N5EB.JutsuLookup.Search' }}">
+        </search>
+
+        <div class="jutsu-filter-heading">
+            <strong>{{ localize "N5EB.JutsuLookup.Filters.Label" }}</strong>
+            <button type="button" class="unbutton" data-filter-clear>
+                {{ localize "N5EB.JutsuLookup.Filters.Clear" }}
+            </button>
+            <span data-filter-count hidden>0</span>
+        </div>
+
+        <div class="jutsu-filter-list">
+            <label>
+                <span>{{ localize "N5EB.JutsuLookup.Rank" }}</span>
+                <select class="jutsu-lookup-filter" data-filter="rank">
+                    {{#each filterRanks}}
+                    <option value="{{ value }}" {{#if selected}}selected{{/if}}>{{ label }}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label>
+                <span>{{ localize "N5EB.JutsuLookup.Type" }}</span>
+                <select class="jutsu-lookup-filter" data-filter="kind">
+                    {{#each jutsuKinds}}
+                    <option value="{{ value }}">{{ label }}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label>
+                <span>{{ localize "N5EB.JutsuLookup.Source" }}</span>
+                <select class="jutsu-lookup-filter" data-filter="source">
+                    {{#each jutsuSources}}
+                    <option value="{{ value }}">{{ label }}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label>
+                <span>{{ localize "N5EB.JutsuLookup.Action" }}</span>
+                <select class="jutsu-lookup-filter" data-filter="activation">
+                    {{#each jutsuActions}}
+                    <option value="{{ value }}">{{ label }}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label>
+                <span>{{ localize "N5EB.JutsuLookup.RollType" }}</span>
+                <select class="jutsu-lookup-filter" data-filter="actionType">
+                    {{#each jutsuActionTypes}}
+                    <option value="{{ value }}">{{ label }}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label>
+                <span>{{ localize "N5EB.JutsuLookup.ChakraCost" }}</span>
+                <select class="jutsu-lookup-filter" data-filter="cost">
+                    {{#each jutsuCosts}}
+                    <option value="{{ value }}">{{ label }}</option>
+                    {{/each}}
+                </select>
+            </label>
+        </div>
+
+        <fieldset class="jutsu-keyword-filter jutsu-component-filter">
+            <legend>{{ localize "N5EB.JutsuLookup.Components" }}</legend>
+            <div data-component-options>
+                {{#each jutsuComponents}}
+                {{#if value}}
+                <label>
+                    <input type="checkbox" class="jutsu-lookup-filter" data-filter="component" value="{{ value }}">
+                    <span>{{ label }}</span>
+                </label>
+                {{/if}}
+                {{/each}}
+            </div>
+        </fieldset>
+
+        <fieldset class="jutsu-keyword-filter">
+            <legend>{{ localize "N5EB.JutsuLookup.Keywords" }}</legend>
+            <div data-keyword-options>
+                {{#each jutsuKeywords}}
+                {{#if value}}
+                <label>
+                    <input type="checkbox" class="jutsu-lookup-filter" data-filter="keyword" value="{{ value }}">
+                    <span>{{ label }}</span>
+                </label>
+                {{/if}}
+                {{/each}}
+            </div>
+        </fieldset>
+    </aside>
+
+    <section class="jutsu-lookup-results">
+        <div class="items-list browser-results">
+            <div class="items-header header">
+                <h3 class="item-name">{{ localize "DND5E.CompendiumBrowser.Column.Results" }}</h3>
+                <div class="item-header item-rank">{{ localize "N5EB.JutsuLookup.Rank" }}</div>
+                <div class="item-header item-type">{{ localize "N5EB.JutsuLookup.Type" }}</div>
+                <div class="item-header item-cost">{{ localize "N5EB.JutsuLookup.ChakraCost" }}</div>
+                <div class="item-header item-source">{{ localize "N5EB.JutsuLookup.Source" }}</div>
+            </div>
+            <ol class="item-list unlist" data-results-list></ol>
+        </div>
+        <div class="jutsu-lookup-status" data-lookup-status>
+            <i class="fa-solid fa-spinner fa-spin" inert></i>
+            <span data-lookup-status-message>{{ localize "N5EB.JutsuLookup.Loading" }}</span>
+            <button type="button" data-lookup-retry hidden>{{ localize "N5EB.JutsuLookup.Retry" }}</button>
+        </div>
+        <p class="empty-filter" data-filter-empty hidden>{{ localize "N5EB.JutsuLookup.NoResults" }}</p>
+        <footer>
+            <span>{{ localize "N5EB.JutsuLookup.VisibleResults" }}</span>
+            <strong data-rendered-count>0</strong>
+            <span>/ <span data-visible-count>0</span></span>
+            <span class="total-count">(<span data-total-count>{{ count }}</span>)</span>
+            <button type="button" data-show-more hidden>{{ localize "N5EB.JutsuLookup.ShowMore" }}</button>
+        </footer>
+    </section>
+
+    <aside class="jutsu-preview" data-preview>
+        <div class="preview-art">
+            <img src="{{ initialPreview.img }}" alt="{{ initialPreview.name }}" data-preview-image>
+        </div>
+        <div class="preview-header">
+            <span class="eyebrow">{{ localize "N5EB.JutsuLookup.Preview" }}</span>
+            <strong data-preview-name>{{ initialPreview.name }}</strong>
+            <div class="preview-basics">
+                <span data-preview-rank>{{ initialPreview.rankLabel }}</span>
+                <span data-preview-type>{{ initialPreview.kindLabel }}</span>
+            </div>
+        </div>
+        <div class="preview-tags">
+            <span data-preview-tag="source">{{ initialPreview.sourceLabel }}</span>
+            <span data-preview-tag="cost">{{ initialPreview.costLabel }}</span>
+            <span data-preview-tag="activation">{{ initialPreview.activationLabel }}</span>
+            <span data-preview-tag="action-type">{{ initialPreview.actionTypeLabel }}</span>
+            <span data-preview-tag="components">{{ initialPreview.componentsLabel }}</span>
+            <span data-preview-tag="keywords">{{ initialPreview.keywordsLabel }}</span>
+        </div>
+        <div class="preview-description" data-preview-description>
+            {{{ initialPreview.description }}}
+        </div>
+        <button type="button" data-preview-open data-open-uuid="{{ initialPreview.uuid }}">
+            <i class="fa-solid fa-arrow-up-right-from-square" inert></i>
+            <span>{{ localize "N5EB.JutsuLookup.OpenItem" }}</span>
+        </button>
+    </aside>
+</section>

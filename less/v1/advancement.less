@@ -1,0 +1,188 @@
+.dnd5e.advancement {
+  input[type="text"], input[type="number"], select {
+    height: var(--form-field-height);
+    color: var(--color-text-dark-primary);
+    &[readonly] {
+      color: var(--color-text-dark-6);
+      box-shadow: none;
+    }
+  }
+  .form-group .form-fields {
+    :not(file-picker) > button { flex: 0; }
+  }
+  .form-group .form-field-readonly {
+    color: #999;
+  }
+
+  /* ----------------------------------------- */
+  /*  Advancement Selection                    */
+  /* ----------------------------------------- */
+  .items-list {
+    margin-bottom: 1em;
+
+    li.item {
+      padding-top: 0.25em;
+    }
+    .item-hint {
+      flex: 0 1 100%;
+      margin-left: 35px;
+      margin-bottom: 0.5em;
+    }
+
+    /* Solves the borders being cut off */
+    .content-link {
+      display: inline-block;
+    }
+  }
+
+  .centered {
+    text-align: center;
+  }
+  .hint.warning {
+    color: var(--dnd5e-color-maroon);
+    font-weight: bold;
+  }
+
+  /* ----------------------------------------- */
+  /*  Column Configurations                    */
+  /* ----------------------------------------- */
+  &.two-column, &.three-column {
+    form {
+      display: grid;
+      gap: 0.4em;
+
+      > .left-column {
+        grid-area: left;
+        display: flex;
+        flex-direction: column;
+
+        > .form-group { flex: none; }
+        > .drop-target { flex: 1; }
+      }
+      > .right-column {
+        grid-area: right;
+      }
+      > .level-list {
+        label {
+          flex: 0.5;
+          padding-right: 0.5rem;
+          text-align: end;
+        }
+        :is(input[type="text"], input[type="number"])::placeholder {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  &.two-column {
+    --grid-two-column-left-size: 1fr;
+    --grid-two-column-right-size: 1fr;
+
+    form {
+      grid-template-columns: var(--grid-two-column-left-size) var(--grid-two-column-right-size);
+      grid-template-areas: "left right";
+
+      button[type="submit"] {
+        grid-column-end: span 2;
+      }
+    }
+  }
+
+  &.three-column {
+    --grid-three-column-left-size: 1fr;
+    --grid-three-column-center-size: 1fr;
+    --grid-three-column-right-size: 1fr;
+
+    form {
+      grid-template-columns:
+        var(--grid-two-column-left-size) var(--grid-two-column-center-size) var(--grid-two-column-right-size);
+      grid-template-areas: "left center right";
+
+      > .center-column {
+        grid-area: center;
+      }
+      button[type="submit"] {
+        grid-column-end: span 3;
+      }
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Item Grant                               */
+  /* ----------------------------------------- */
+  &.item-grant {
+    .items-list {
+      h3 {
+        margin: 0;
+      }
+      .item-optional {
+        flex: 0 0 65px;
+      }
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Advancement Flow                         */
+/* ----------------------------------------- */
+.dnd5e.advancement.flow {
+  .step {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    h1 { flex-grow: 1; }
+    h2 {
+      text-align: right;
+      line-height: 1.8em;
+      border-bottom: 2px solid var(--color-underline-header);
+    }
+    form { flex-basis: 100%; }
+  }
+
+  h3 {
+    font-size: var(--font-size-20);
+  }
+
+  .item-name {
+    .item-image {
+      flex: 0 0 30px;
+      height: 30px;
+      background-size: cover;
+      background-position: 50% 0;
+      margin-inline-end: 5px;
+      border-radius: 4px;
+      border: var(--dnd5e-border-gold);
+      box-shadow: 0 0 4px var(--dnd5e-shadow-45);
+    }
+    label {
+      align-items: center;
+      h4 {
+        margin: 0;
+        font-size: var(--font-size-14);
+      }
+    }
+
+    + .item-name { margin-top: 6px; }
+  }
+
+  form:not(:last-of-type) {
+    margin-block-end: 0.5em;
+    border-block-end: 2px groove var(--color-border-light-1);
+    padding-block-end: 1em;
+  }
+
+  input.error {
+    outline: 2px solid red;
+  }
+
+  nav {
+    display: flex;
+    justify-content: flex-end;
+    margin-block-start: 1em;
+    button {
+      max-width: 50%;
+    }
+  }
+}

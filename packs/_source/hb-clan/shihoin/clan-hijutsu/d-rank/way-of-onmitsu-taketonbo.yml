@@ -1,0 +1,345 @@
+folder: EwLIxl2CVIsfRYO4
+name: Way of Onmitsu Taketonbo
+type: spell
+_id: oRsUqbxnzy2gybex
+img: systems/n5eb/assets/content/clans/shihoin.webp
+system:
+  description:
+    value: >-
+      <p>You hold your hand out to the side, performing a simple yet effective
+      throw that violently flips a target creature upside down, knocking the
+      wind out of them.</p><p>Once per round, when you would hit a creature with
+      a melee attack, or a creature would attempt to or successfully Grapple or
+      Restrain you, you can cast this jutsu to force them to make a Dexterity
+      Saving Throw vs. your Martial Arts check. If you have expertise, you add
+      +1d4 instead of doubling your Proficiency Bonus.</p><p>On a success, you
+      knock them Prone and they become Weakened, and their attempt to Grapple or
+      Restrain you fails if they had tried to do so.</p><p><strong>At Higher
+      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
+      the cost by 3. If this jutsu is cast at B-Rank, you gain a +2 bonus to the
+      Martial Arts check. If this jutsu is cast at S-Rank, you gain a +3 bonus
+      to the Martial Arts check.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: special
+    cost: null
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 5
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: spell
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: way-of-onmitsu-taketonbo-hb-clan-2
+  jutsu:
+    components:
+      - m
+    keywords:
+      - taijutsu
+      - hijutsu
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Weakened
+    origin: Compendium.n5eb.hb-clan.Item.oRsUqbxnzy2gybex
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: weakened
+          rank: 1
+          maxRank: 5
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: nDzZdrHbNsPwlSLD
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Weakened creature is unable
+      to exert their maximum physicality and effort as they have had the wind
+      blown out of them.</p><ul><li><p>A <strong>Weakened</strong> creature
+      reduces damage it deals with attacks and Jutsu by -4 for each rank it
+      has.</p></li><li><p>A <strong>Weakened</strong> creature has a -1 penalty
+      to Strength saving throws.</p></li><li><p>The <strong>Weakened</strong>
+      condition last for the duration of its duration or 1 minute has passed,
+      whichever comes first.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!oRsUqbxnzy2gybex.nDzZdrHbNsPwlSLD'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: shihoin/clan-hijutsu/d-rank/way-of-onmitsu-taketonbo.json
+      sourceId: oRsUqbxnzy2gybex
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You hold your hand out to the side, performing a simple yet
+            effective throw that violently flips a target creature upside down,
+            knocking the wind out of them.</p><p>Once per round, when you would
+            hit a creature with a melee attack, or a creature would attempt to
+            or successfully Grapple or Restrain you, you can cast this jutsu to
+            force them to make a Dexterity Saving Throw vs. your Martial Arts
+            check. If you have expertise, you add +1d4 instead of doubling your
+            Proficiency Bonus.</p><p>On a success, you knock them Prone and they
+            become Weakened, and their attempt to Grapple or Restrain you fails
+            if they had tried to do so.</p><p><strong>At Higher Ranks:</strong>
+            For each rank you cast this jutsu above D-Rank, increase the cost by
+            3. If this jutsu is cast at B-Rank, you gain a +2 bonus to the
+            Martial Arts check. If this jutsu is cast at S-Rank, you gain a +3
+            bonus to the Martial Arts check.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: special
+          cost: null
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 5
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: spell
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - mobility
+        keywords:
+          - taijutsu
+          - hijutsu
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1740991983289
+  modifiedTime: 1741605060543
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: shihoin/clan-hijutsu/d-rank/way-of-onmitsu-taketonbo.json
+_key: '!items!oRsUqbxnzy2gybex'

@@ -1,6 +1,6 @@
-{{#if data.title.show}}
+{{#if document.title.show}}
 <header>
-    <h{{title.level1}}>{{data.name}}</h{{title.level1}}>
+    <h{{ title.level1 }}>{{ document.name }}</h{{ title.level1 }}>
 </header>
 {{/if}}
 
@@ -9,8 +9,7 @@
 <section class="journal-page-content">
     {{{ enriched.value }}}
 
-    {{> "n5eb.journal-table" table=table level=title.level3
-        caption=(localize "JOURNALENTRYPAGE.N5EB.Class.TableCaption" class=linked.name) }}
+    {{> "dnd5e.journal-table" table=table level=title.level3 caption=linked.name }}
 
     {{#each features}}
     <h{{ @root.title.level4 }}>{{ this.name }}</h{{ @root.title.level4 }}>
@@ -18,11 +17,11 @@
     {{/each}}
 
     {{#if optionalTable}}
-    <h{{ title.level2 }}>{{ localize "JOURNALENTRYPAGE.N5EB.Class.OptionalFeaturesCaption" }}</h{{ title.level2 }}>
-    <p>{{ localize "JOURNALENTRYPAGE.N5EB.Class.OptionalFeaturesDescription" class=linked.lowercaseName }}</p>
+    <h{{ title.level2 }}>{{ localize "JOURNALENTRYPAGE.DND5E.Class.OptionalFeaturesCaption" }}</h{{ title.level2 }}>
+    <p>{{ localize "JOURNALENTRYPAGE.DND5E.Class.OptionalFeaturesDescription" class=linked.lowercaseName }}</p>
 
-    {{> "n5eb.journal-table" table=optionalTable level=title.level3
-        caption=(localize "JOURNALENTRYPAGE.N5EB.Class.TableOptionalCaption" class=linked.name) }}
+    {{> "dnd5e.journal-table" table=optionalTable level=title.level3
+        caption=(localize "JOURNALENTRYPAGE.DND5E.Class.TableOptionalCaption" class=linked.name) }}
 
     {{#each optionalFeatures}}
     <h{{ @root.title.level4 }}>{{ this.name }}</h{{ @root.title.level4 }}>
@@ -33,6 +32,6 @@
 
 {{else}}
 <section>
-    {{ localize "JOURNALENTRYPAGE.N5EB.Subclass.NoValidSubclass" }}
+    {{ localize "JOURNALENTRYPAGE.DND5E.Subclass.NoValidSubclass" }}
 </section>
 {{/if}}

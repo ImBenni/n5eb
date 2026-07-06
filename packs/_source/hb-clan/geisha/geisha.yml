@@ -1,0 +1,351 @@
+folder: 43i44kkBHUy0utja
+name: Geisha
+type: race
+_id: vewdi0EhWNuoT4t1
+img: systems/n5eb/assets/content/clans/geisha.webp
+system:
+  origin:
+    land: ''
+    village: ''
+  description:
+    value: >-
+      <h2 id="the-geisha-clan">The Geisha Clan</h2><p>The Geisha clan emerged after the war era and quickly gained
+      renown in the years that followed.<br />Their exceptional talents earned them a sacred place of their own, much
+      like the revered domains of the sage beasts, a breathtaking sanctuary known as Hanamachi, or the Flower Town.<br
+      />This place serves as the heart of the clan, where aspiring Geisha undergo their final stages of training under
+      the watchful eyes of the Okiya, revered leader of the clan.<br />Over time, this all-female clan expanded its
+      influence far and wide, becoming highly respected by everyone, from commoners to nobles and leaders. (Created By
+      Liviu50)</p><h3 id="geisha-traits">Geisha Traits</h3><p><strong>Recommended Ability Score Increase:</strong> +2
+      Cha, +1 secondary stat.<br /><strong>Speed:</strong> Your base walking speed is 25 ft.<br /><strong>Skill
+      Proficiencies:</strong> Performance and choose 1 between ninshou, martial arts or illusions.<br /><strong>Extra
+      Language:</strong> Standard + two extra dialects of your choice.<br /><strong>Beauty Literacy:</strong> As a
+      Geisha, you specialize in the arts that define your clan. Choose one of the following paths, as this will shape
+      your progression and abilities.<br />Once selected, your chosen path will also allow you to learn jutsu related to
+      it in half the usual time, but will double the learning time for the other two categories (These effects do not
+      stack with similar ones).</p><ul><li><strong>Dancer:</strong> You master the art of moving with grace, precision,
+      and elegance. You can use your Charisma for Taijutsu and Bukijutsu.</li><li><strong>Strategic:</strong> You learn
+      logical games like Shogi and become a captivating intellectual companion for those who seek a challenge. You can
+      use your Charisma for Ninjutsu.</li><li><strong>Eloquence:</strong> You learn the power of words and beauty,
+      setting the perfect atmosphere for engaging discussions and charming company. You can use your Charisma for
+      Genjutsu.</li></ul>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  advancement:
+    - type: AbilityScoreImprovement
+      _id: YexQSjOPaN0N0JiU
+      configuration:
+        points: 3
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        cap: 2
+      value:
+        type: asi
+      level: 0
+      title: ''
+      hint: ''
+    - type: Size
+      _id: X2ZUbpJwX5x01Gka
+      configuration:
+        sizes:
+          - med
+      level: 0
+      value: {}
+    - type: Trait
+      configuration:
+        grants:
+          - languages:standard:common
+        mode: default
+        allowReplacements: false
+        choices: []
+      _id: Pmj1LcyshFsH7D0k
+      value:
+        chosen: []
+      level: 0
+    - _id: ROIzxuNrlWLpnX25
+      type: Trait
+      configuration:
+        mode: default
+        allowReplacements: false
+        grants:
+          - skills:prf
+        choices:
+          - count: 2
+            pool:
+              - languages:standard:*
+          - count: 1
+            pool:
+              - skills:ill
+              - skills:mar
+              - skills:nsh
+      value:
+        chosen: []
+      level: 0
+      title: ''
+      hint: ''
+    - _id: MjXMcKJvNS0CYvDl
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-clan.Item.1WDX75CrCATbwRpq
+            optional: false
+          - uuid: Compendium.n5eb.hb-clan.Item.PLhDOIyiBZFLRtLn
+            optional: false
+          - uuid: Compendium.n5eb.hb-clan.Item.4bIRT2hRjRMHvJvF
+            optional: false
+          - uuid: Compendium.n5eb.hb-clan.Item.KzXbNvEqhauOESnN
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 1
+      title: ''
+      hint: ''
+    - _id: PKTR4QZeNON86EPS
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-clan.Item.Zym4qN2cOgFOTMTK
+            optional: false
+          - uuid: Compendium.n5eb.hb-clan.Item.f9ynyh3gLa1dUbZP
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 3
+      title: ''
+      hint: ''
+    - _id: foMrgVORME6NIMeD
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-clan.Item.vhC35meolH9jJ1wx
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 7
+      title: ''
+      hint: ''
+    - _id: 0CXAmYaN9kr8kJuM
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-clan.Item.FdFUG0egf2lFfs6N
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 15
+      title: ''
+      hint: ''
+  movement:
+    burrow: null
+    climb: null
+    fly: null
+    swim: null
+    walk: 25
+    units: null
+    hover: false
+  senses:
+    darkvision: null
+    chakrasight: null
+    blindsight: null
+    tremorsense: null
+    truesight: null
+    units: null
+    special: ''
+  type:
+    value: humanoid
+  identifier: geisha
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: geisha/geisha.json
+      sourceId: vewdi0EhWNuoT4t1
+      sourceType: race
+      originalSystem:
+        description:
+          value: >-
+            <h2 id="the-geisha-clan">The Geisha Clan</h2><p>The Geisha clan emerged after the war era and quickly gained
+            renown in the years that followed.<br />Their exceptional talents earned them a sacred place of their own,
+            much like the revered domains of the sage beasts, a breathtaking sanctuary known as Hanamachi, or the Flower
+            Town.<br />This place serves as the heart of the clan, where aspiring Geisha undergo their final stages of
+            training under the watchful eyes of the Okiya, revered leader of the clan.<br />Over time, this all-female
+            clan expanded its influence far and wide, becoming highly respected by everyone, from commoners to nobles
+            and leaders. (Created By Liviu50)</p><h3 id="geisha-traits">Geisha Traits</h3><p><strong>Recommended Ability
+            Score Increase:</strong> +2 Cha, +1 secondary stat.<br /><strong>Speed:</strong> Your base walking speed is
+            25 ft.<br /><strong>Skill Proficiencies:</strong> Performance and choose 1 between ninshou, martial arts or
+            illusions.<br /><strong>Extra Language:</strong> Standard + two extra dialects of your choice.<br
+            /><strong>Beauty Literacy:</strong> As a Geisha, you specialize in the arts that define your clan. Choose
+            one of the following paths, as this will shape your progression and abilities.<br />Once selected, your
+            chosen path will also allow you to learn jutsu related to it in half the usual time, but will double the
+            learning time for the other two categories (These effects do not stack with similar
+            ones).</p><ul><li><strong>Dancer:</strong> You master the art of moving with grace, precision, and elegance.
+            You can use your Charisma for Taijutsu and Bukijutsu.</li><li><strong>Strategic:</strong> You learn logical
+            games like Shogi and become a captivating intellectual companion for those who seek a challenge. You can use
+            your Charisma for Ninjutsu.</li><li><strong>Eloquence:</strong> You learn the power of words and beauty,
+            setting the perfect atmosphere for engaging discussions and charming company. You can use your Charisma for
+            Genjutsu.</li></ul>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        advancement:
+          - type: AbilityScoreImprovement
+            _id: YexQSjOPaN0N0JiU
+            configuration:
+              points: 3
+              fixed:
+                str: 0
+                dex: 0
+                con: 0
+                int: 0
+                wis: 0
+                cha: 0
+              cap: 2
+            value:
+              type: asi
+            level: 0
+            title: ''
+            hint: ''
+          - type: Size
+            _id: X2ZUbpJwX5x01Gka
+            configuration:
+              sizes:
+                - med
+            level: 0
+            value: {}
+          - type: Trait
+            configuration:
+              grants:
+                - languages:standard:common
+              mode: default
+              allowReplacements: false
+              choices: []
+            _id: Pmj1LcyshFsH7D0k
+            value:
+              chosen: []
+            level: 0
+          - _id: ROIzxuNrlWLpnX25
+            type: Trait
+            configuration:
+              mode: default
+              allowReplacements: false
+              grants:
+                - skills:prf
+              choices:
+                - count: 2
+                  pool:
+                    - languages:standard:*
+                - count: 1
+                  pool:
+                    - skills:ill
+                    - skills:mar
+                    - skills:nsh
+            value:
+              chosen: []
+            level: 0
+            title: ''
+            hint: ''
+          - _id: MjXMcKJvNS0CYvDl
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.hb-clan.Item.1WDX75CrCATbwRpq
+                  optional: false
+                - uuid: Compendium.n5eb.hb-clan.Item.PLhDOIyiBZFLRtLn
+                  optional: false
+                - uuid: Compendium.n5eb.hb-clan.Item.4bIRT2hRjRMHvJvF
+                  optional: false
+                - uuid: Compendium.n5eb.hb-clan.Item.KzXbNvEqhauOESnN
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 1
+            title: ''
+            hint: ''
+          - _id: PKTR4QZeNON86EPS
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.hb-clan.Item.Zym4qN2cOgFOTMTK
+                  optional: false
+                - uuid: Compendium.n5eb.hb-clan.Item.f9ynyh3gLa1dUbZP
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 3
+            title: ''
+            hint: ''
+          - _id: foMrgVORME6NIMeD
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.hb-clan.Item.vhC35meolH9jJ1wx
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 7
+            title: ''
+            hint: ''
+          - _id: 0CXAmYaN9kr8kJuM
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.hb-clan.Item.FdFUG0egf2lFfs6N
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 15
+            title: ''
+            hint: ''
+        movement:
+          burrow: null
+          climb: null
+          fly: null
+          swim: null
+          walk: 25
+          units: null
+          hover: false
+        senses:
+          darkvision: null
+          chakrasight: null
+          blindsight: null
+          tremorsense: null
+          truesight: null
+          units: null
+          special: ''
+        type:
+          value: humanoid
+        identifier: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 2.0.1
+  createdTime: 1741180223623
+  modifiedTime: 1741607133961
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: geisha/geisha.json
+_key: '!items!vewdi0EhWNuoT4t1'

@@ -1,0 +1,43 @@
+<fieldset>
+    {{#if isNPC}}
+    {{ formField fields.denomination value=source.denomination options=denominationOptions localize=true }}
+    {{ formField fields.max value=source.max localize=true label="N5EB.ChakraDiceMax" }}
+    {{ formField fields.spent value=source.spent localize=true label="N5EB.ChakraDiceSpent" }}
+    <div class="form-group">
+        <label>{{ localize "N5EB.ChakraDiceRemaining" }}</label>
+        <div class="form-fields">
+            <span>{{ data.value }}</span>
+            <span class="separator">/</span>
+            <span class="max">{{ data.max }}</span>
+            <button type="button" class="dice-button" data-action="roll" data-denomination="{{ data.denomination }}"
+                    data-tooltip aria-label="{{ localize 'DND5E.Roll' }}">
+                <i class="fa-solid fa-dice-d20" inert></i>
+            </button>
+        </div>
+    </div>
+    {{else}}
+    {{#each classes}}
+    <div class="form-group" data-class="{{ id }}">
+        <label>{{ label }}</label>
+        <div class="form-fields">
+            <button type="button" class="unbutton control-button middle" data-action="decrease"
+                    aria-label="{{ localize 'DND5E.HITDICE.Action.Decrease' }}">
+                <i class="fa-solid fa-minus" inert></i>
+            </button>
+            <input type="number" name="{{ id }}" value="{{ data.value }}"
+                   min="0" max="{{ data.max }}" step="1">
+            <span class="separator">/</span>
+            <span class="max">{{ data.max }}</span>
+            <button type="button" class="unbutton control-button middle" data-action="increase"
+                    aria-label="{{ localize 'DND5E.HITDICE.Action.Increase' }}">
+                <i class="fa-solid fa-plus" inert></i>
+            </button>
+            <button type="button" class="dice-button" data-action="roll" data-denomination="{{ denomination }}"
+                    data-tooltip aria-label="{{ localize 'DND5E.Roll' }}">
+                <i class="fa-solid fa-dice-d20" inert></i>
+            </button>
+        </div>
+    </div>
+    {{/each}}
+    {{/if}}
+</fieldset>

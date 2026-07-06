@@ -1,0 +1,275 @@
+folder: lf6TzjVE3XVYuWmu
+name: Decelerate
+type: feat
+_id: ctUZt3SDVFG5hp9b
+img: icons/magic/unholy/energy-smoke-pink.webp
+system:
+  description:
+    value: >-
+      <p><strong>Prerequisite</strong>: Temporal Stopwatch</p><hr /><p>As an action, you can choose 1 creature within 60
+      feet of you, forcing them to make a Wisdom saving throw vs your Genjutsu save DC. On a failed save, for the next
+      minute, they reduce their movement speed by half, cannot gain the benefits of any bonuses to speed, and makes
+      Dexterity saving throws at disadvantage. The creature can remake the Wisdom saving throw as an action on their
+      turn to end this effect. You can use this Malleable Mirage once per short rest.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: 1
+    max: '1'
+    per: sr
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: genjutsu
+  summons: null
+  type:
+    value: class
+    subtype: mirage
+  prerequisites:
+    level: null
+  properties: []
+  requirements: Temporal Stopwatch
+  recharge:
+    value: null
+    charged: false
+  identifier: decelerate
+effects:
+  - name: Decelerate
+    origin: Compendium.n5eb.class.Item.ctUZt3SDVFG5hp9b
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: icons/magic/unholy/energy-smoke-pink.webp
+    _id: 6tmV2OmXZ7XyfUe1
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: (@attributes.movement.walk/2)
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          actionSave=dialog,
+          saveRemove=true,
+          saveAbility=wis,
+          saveDC=@attributes.genjutsudc,
+        priority: 20
+    description: >-
+      <p><span style="font-family:Signika, sans-serif">for the next minute, they reduce their movement speed by half,
+      cannot gain the benefits of any bonuses to speed, and makes Dexterity saving throws at disadvantage</span></p>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: 1727610969020
+      modifiedTime: 1727611226760
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!ctUZt3SDVFG5hp9b.6tmV2OmXZ7XyfUe1'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: class
+      sourcePath: genjutsu-specialist/mirages/decelerate.json
+      sourceId: ctUZt3SDVFG5hp9b
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p><strong>Prerequisite</strong>: Temporal Stopwatch</p><hr /><p>As an action, you can choose 1 creature
+            within 60 feet of you, forcing them to make a Wisdom saving throw vs your Genjutsu save DC. On a failed
+            save, for the next minute, they reduce their movement speed by half, cannot gain the benefits of any bonuses
+            to speed, and makes Dexterity saving throws at disadvantage. The creature can remake the Wisdom saving throw
+            as an action on their turn to end this effect. You can use this Malleable Mirage once per short rest.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: 1
+          max: '1'
+          per: sr
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: genjutsu
+        summons: null
+        type:
+          value: class
+          subtype: mirage
+        prerequisites:
+          level: null
+        properties: []
+        requirements: Temporal Stopwatch
+        recharge:
+          value: null
+          charged: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1727610545985
+  modifiedTime: 1727610980812
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: class
+    sourcePath: genjutsu-specialist/mirages/decelerate.json
+_key: '!items!ctUZt3SDVFG5hp9b'

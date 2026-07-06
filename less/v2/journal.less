@@ -1,0 +1,1264 @@
+/* ---------------------------------- */
+/*  Journal v2 Styles                 */
+/* ---------------------------------- */
+
+/* Journal-only */
+.sheet.dnd5e2-journal {
+  .window-resizable-handle {
+    bottom: 0;
+    padding: 0;
+    width: 11px;
+    height: 11px;
+    border: none;
+    border-radius: 0;
+    background: transparent url("ui/resize-handle.webp") no-repeat center / contain;
+
+    > i {
+      transform: unset;
+      &::before { content: unset; }
+    }
+  }
+
+  &.journal-entry .scrollable, &.journal-entry-page.editor-content, .toc {
+    scrollbar-width: thin;
+    scrollbar-color: var(--dnd5e-color-gold) transparent;
+
+    &::-webkit-scrollbar-track {
+      box-shadow: none;
+      border-radius: 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border: none;
+      background: var(--dnd5e-color-gold);
+    }
+  }
+
+  &.journal-entry .scrollable { overflow-anchor: none; } /* https://github.com/foundryvtt/dnd5e/issues/6599 */
+
+  /* Background Texture & Headings */
+  .journal-entry-content,
+  &.journal-entry-page .window-content {
+
+    h1 { font-size: var(--dnd5e-journal-h1-size); }
+    h2 { font-size: var(--dnd5e-journal-h2-size); }
+    h3 { font-size: var(--dnd5e-journal-h3-size); }
+    h4, h5 { font-size: var(--dnd5e-journal-h4-size); }
+
+    /* Page Title */
+    .journal-header .title {
+      border: 1px transparent;
+      transition: border 250ms ease;
+      font-size: var(--dnd5e-journal-title-size);
+      font-family: var(--dnd5e-font-modesto);
+      font-weight: bold;
+      letter-spacing: 1px;
+
+      &:hover, &:focus {
+        border: 1px solid var(--dnd5e-color-gold);
+        box-shadow: 0 0 6px var(--dnd5e-color-gold);
+      }
+
+      &:disabled {
+        background: none;
+        color: var(--color-text-primary);
+      }
+    }
+  }
+
+  /* Edit Button */
+  &.journal-entry .edit-container :is(.editor-edit, button) {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    > i::before, &::before { --fa: "\f52d"; }
+  }
+
+  /* ProseMirror */
+  &.journal-entry-page prose-mirror {
+    margin: 0;
+
+    .editor-content {
+      scrollbar-gutter: stable;
+      margin: 0 4px 0 16px;
+      padding-right: 4px;
+    }
+  }
+
+  /* Navigation */
+  &.journal-entry .book-navigation {
+    flex-grow: 0;
+    padding: 5px 0px;
+    margin: 0 10px 10px;
+    border: none;
+    opacity: 0.2;
+    transition: opacity 0.5s ease-out;
+
+    &:hover { opacity: 1; }
+
+    ul {
+      display: flex;
+      gap: 5px;
+      margin: 0;
+      padding-inline: 1rem;
+      list-style: none;
+    }
+    li { flex: 1 1 33%; }
+    a {
+      display: block;
+      border: none;
+      background: none;
+      text-align: center;
+      text-decoration: none;
+    }
+    a[rel="prev"] {
+      text-align: start;
+      &::before {
+        content: "\f060";
+        font-family: var(--font-awesome);
+        font-weight: bold;
+        padding-inline-end: 2px;
+      }
+    }
+    a[rel="next"] {
+      text-align: end;
+      &::after {
+        content: "\f061";
+        font-family: var(--font-awesome);
+        font-weight: bold;
+        padding-inline-start: 2px;
+      }
+    }
+    a.parent {
+      text-align: center;
+      &::before {
+        content: "\f062";
+        font-family: var(--font-awesome);
+        font-weight: bold;
+        padding-inline-end: 3px;
+      }
+    }
+  }
+
+  &.journal-entry.application {
+    --dnd5e-application-background: var(--dnd5e-background-texture-denim);
+    border: none;
+
+    &.titlebar:not(.minimized) .window-header .window-title { color: var(--color-text-light-1); }
+
+    .window-content {
+      flex-direction: row;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .edit-container button { color: var(--color-text-primary); }
+
+    .journal-sidebar {
+      font-family: var(--font-body);
+
+      input {
+        --input-text-color: var(--dnd5e-color-blue-white);
+        --input-placeholder-color: var(--dnd5e-color-blue-gray-3);
+        --input-background-color: var(--dnd5e-background-10);
+        outline: none;
+        border: 1px solid transparent;
+        transition: all 250ms ease;
+
+        &:hover, &:focus {
+          border-color: var(--dnd5e-color-gold);
+          box-shadow: 0 0 6px var(--dnd5e-color-gold);
+        }
+      }
+
+      .inline-control, .create {
+        --button-background-color: transparent;
+        --button-hover-background-color: var(--color-warm-2);
+        --button-text-color: var(--color-light-1);
+        --button-hover-text-color: var(--color-light-1);
+
+        &:focus, &:focus-visible, &:hover { box-shadow: none; }
+        &:disabled { --button-hover-background-color: transparent; }
+      }
+
+      .inline-control {
+        --button-border-color: transparent;
+        --button-hover-border-color: transparent;
+      }
+    }
+
+    .journal-header input { --input-background-color: var(--dnd5e-journal-header-background); }
+
+    .action-buttons {
+      .previous, .next {
+        --button-background-color: transparent;
+        flex: 0 0 var(--button-size);
+        transition: background-color 250ms ease;
+      }
+
+      .create {
+        --button-size: 28px;
+        --button-border-color: var(--color-light-5);
+        --button-hover-border-color: var(--color-light-3);
+        text-transform: none;
+        font-weight: normal;
+      }
+    }
+
+    &:not(.expanded) {
+      .create, .lock-mode { display: none; }
+    }
+
+    .journal-entry-content {
+      background: var(--dnd5e-journal-content-background, unset);
+      font-size: var(--font-size-14);
+    }
+  }
+
+  .controls-dropdown .header-control button {
+    --button-background-color: transparent;
+    --button-hover-background-color: var(--color-warm-2);
+    text-transform: unset;
+    border: none;
+    font-size: var(--font-size-12);
+    font-family: var(--font-body);
+    font-weight: normal;
+    transition: all 250ms ease;
+    justify-content: start;
+  }
+}
+
+/* ----------------------------------------- */
+/*  Journal Pages                            */
+/* ----------------------------------------- */
+
+.dnd5e2.journal-editor {
+  .window-content {
+    padding: 0;
+    border-radius: 0;
+  }
+
+  [data-application-part], .editor { height: 100%; }
+  .prosemirror {
+    menu { border-radius: 0; }
+
+    .editor-container {
+      overflow-y: auto;
+      margin: 0 4px 0 16px;
+    }
+
+    .editor-content {
+      scrollbar-gutter: stable;
+      padding: 0 4px 0 0;
+    }
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: revert-layer;
+    text-shadow: revert-layer;
+  }
+}
+
+.dnd5e2.journal-entry-page.application {
+  &.titlebar .window-title { visibility: hidden; }
+
+  &.text {
+    .journal-header { gap: 1rem; }
+    .journal-footer { display: none; }
+
+    .window-content {
+      padding: 0;
+      gap: 0;
+    }
+
+    .prosemirror menu { border-radius: 0; }
+  }
+
+  &.video, &.image, &.pdf {
+    .window-content .standard-form { gap: 8px; }
+  }
+}
+
+.journal-entry-page.sheet:is(.class, .spells) {
+  &:not(.minimized, .minimizing, .maximized) {
+    min-block-size: 600px;
+    min-inline-size: 400px;
+  }
+
+  .standard-form { gap: 8px; }
+}
+
+.journal-entry-page.sheet.class {
+  .journal-header { margin: 0; }
+
+  .form-group {
+    align-items: start;
+    &:has(button[data-action="launchTextEditor"]) .form-fields { flex: 0 0 125px; }
+    button[data-action="launchTextEditor"] { flex: 1; }
+  }
+
+  .items-list .item {
+    align-items: center;
+    padding-block: 0.35em;
+    padding-inline: 2px;
+    margin: 0;
+
+    .item-controls {
+      flex: 0;
+      flex-wrap: nowrap;
+      gap: 8px;
+    }
+  }
+}
+
+.journal-entry-page.class {
+  .core-traits {
+    caption, th { text-align: start; }
+    th, td { padding-inline: 8px; }
+  }
+
+  .features-table {
+    th[scope="col"] { padding-inline: 0.25em; }
+    td:is(.level, .prof, .scale, .spell-slots) { text-align: center; }
+  }
+}
+
+.journal-entry-page.rule {
+  .window-content {
+    .editor:first-of-type { flex: 2; }
+    .separator {
+      flex: 0 1;
+      border-block-start: 1px dashed var(--color-border-dark-5);
+
+      > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: .5em 1em;
+      }
+
+      h3 {
+        border: none;
+        margin: 0;
+      }
+
+      select {
+        min-width: 8em;
+        width: auto;
+      }
+    }
+  }
+}
+
+.journal-entry-page.map {
+  .journal-header {
+    flex-direction: column;
+
+    > div {
+      flex: 1;
+      display: flex;
+      gap: 1rem;
+    }
+
+    [name="system.code"] {
+      block-size: 100%;
+      inline-size: 3em;
+      font-size: var(--font-size-24);
+      text-align: center;
+    }
+
+    .page-level {
+      margin-inline-start: 0;
+    }
+  }
+  [data-map-location-code]::before {
+    content: attr(data-map-location-code) ': ';
+  }
+}
+
+.journal-entry-page.sheet.spells {
+
+  &:not(.minimized, .minimizing, .maximized) { min-inline-size: 550px; }
+
+  .journal-header {
+    margin: 0;
+    .heading-level { max-width: unset; }
+  }
+
+  .window-content {
+    padding: 0 4px 0 0;
+    display: grid;
+    grid-template-columns: auto 280px;
+    overflow: hidden;
+    gap: 0;
+
+    > .left {
+      padding: 16px 8px 16px 16px;
+      overflow-x: hidden;
+    }
+
+    > .right {
+      overflow-y: auto;
+      padding: 16px 4px 16px 8px;
+      scrollbar-gutter: stable;
+    }
+
+    h3 { margin-block-start: 1rem; }
+    .control-button { color: white; }
+
+    .editor-content {
+      margin: 0;
+      padding: 0;
+    }
+
+    .cm-scroller {
+      position: absolute;
+      inset: 0;
+    }
+
+    .items .header button {
+      --button-size: 15px;
+      margin-left: auto;
+      grid-column: 1 / -1;
+      color: var(--dnd5e-color-gold);
+    }
+
+    .items-list {
+      .empty {
+        margin: 2px -4px -6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed var(--color-border-light-2);
+        border-radius: 4px;
+        padding: 8px;
+      }
+    }
+
+    [data-application-part=config] { flex: 1; }
+  }
+}
+
+.journal-entry-page.spells, document-embed.spells {
+  .grouping {
+    font-size: var(--font-size-12);
+
+    select {
+      margin-inline-start: 1em;
+      height: 1.75em;
+      width: auto;
+    }
+  }
+
+  ul {
+    column-width: 200px;
+    padding-inline-start: 0;
+
+    li {
+      list-style: none;
+      line-height: 1.8em;
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  SRD Compendium                           */
+/* ----------------------------------------- */
+
+.table-of-contents {
+  --dnd5e-srd-color-background: #efefef99;
+  --dnd5e-srd-color-border: #ba2828;
+  --dnd5e-srd-color-box-header: var(--color-text-light-1);
+  --dnd5e-srd-color-chapter-header: var(--color-text-hyperlink);
+
+  &:not(.minimized, .minimizing, .maximizing) {
+    min-height: 480px;
+    min-width: 640px;
+  }
+}
+
+.table-of-contents:is(.app, .application) {
+  .window-header { background: var(--color-header-background); }
+
+  .window-content {
+    background: var(--dnd5e-sheet-background);
+    color: var(--color-text-dark-primary);
+  }
+}
+
+.table-of-contents.application {
+  .window-content { overflow: auto; }
+
+  h2 {
+    font-family: var(--font-sans);
+    font-size: 1.5em;
+    font-weight: normal;
+  }
+}
+
+.table-of-contents article {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+
+  aside, .contents {
+    border: 4px solid var(--dnd5e-srd-color-border);
+    background: var(--dnd5e-srd-color-background);
+
+    header h2 {
+      border: none;
+      background: var(--dnd5e-srd-color-border);
+      color: var(--dnd5e-srd-color-box-header);
+      padding: 0 .25rem .25rem .25rem;
+      margin: 0;
+    }
+
+    section {
+      padding: .625rem 1rem;
+    }
+  }
+
+  aside blockquote {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .contents {
+    flex-grow: 1;
+
+    .chapter {
+      margin-block-end: .5rem;
+      break-inside: avoid-column;
+    }
+
+    h3 {
+      border: none;
+      font-weight: bold;
+      font-size: var(--font-size-18);
+      color: var(--dnd5e-srd-color-chapter-header);
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0 0 0 .375rem;
+      padding: 0;
+
+      li {
+        font-size: var(--font-size-16);
+        &.special-entry > a {
+          font-weight: bold;
+        }
+      }
+    }
+
+    section {
+      column-count: 3;
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Naruto 5e Library                        */
+/* ----------------------------------------- */
+
+.table-of-contents .n5eb-handbook,
+.journal-entry-content .n5eb-handbook,
+.journal-entry-page .n5eb-handbook {
+  --n5eb-library-bg: #f7f1e5;
+  --n5eb-library-ink: #201b17;
+  --n5eb-library-muted: #655b4d;
+  --n5eb-library-line: #c8b895;
+  --n5eb-library-card: #fffaf0;
+  --n5eb-library-accent: #9f2c2c;
+  --n5eb-library-accent-2: #2f6f57;
+
+  box-sizing: border-box;
+  max-width: min(980px, calc(100% - 24px));
+  margin: 0 auto 24px;
+  color: var(--n5eb-library-ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+  columns: unset;
+  column-count: auto;
+  column-width: auto;
+
+  &.n5eb-handbook-sage {
+    --n5eb-library-accent: #5c3d80;
+    --n5eb-library-accent-2: #52733c;
+  }
+
+  &.n5eb-handbook-jade {
+    --n5eb-library-accent: #24745b;
+    --n5eb-library-accent-2: #a94d35;
+  }
+
+  &.n5eb-handbook-indigo {
+    --n5eb-library-accent: #3d5a9b;
+    --n5eb-library-accent-2: #8a5a2d;
+  }
+
+  &.n5eb-handbook-amber {
+    --n5eb-library-accent: #9a5b19;
+    --n5eb-library-accent-2: #8d3030;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  .n5eb-handbook-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 28%);
+    gap: 18px;
+    align-items: stretch;
+    margin: 0 0 18px;
+    padding: 18px;
+    border: 1px solid var(--n5eb-library-line);
+    border-left: 6px solid var(--n5eb-library-accent);
+    border-radius: 6px;
+    background:
+      linear-gradient(135deg, rgb(255 255 255 / .78), rgb(255 250 240 / .9)),
+      var(--n5eb-library-bg);
+    box-shadow: 0 2px 10px rgb(0 0 0 / .08);
+  }
+
+  .n5eb-handbook-hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .n5eb-handbook-eyebrow {
+    margin: 0 0 8px;
+    color: var(--n5eb-library-accent);
+    font-size: var(--font-size-12);
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  h1, h2, h3 {
+    color: var(--n5eb-library-ink);
+    letter-spacing: 0;
+    text-shadow: none;
+  }
+
+  h1 {
+    margin: 0;
+    border: none;
+    font-family: var(--dnd5e-font-modesto);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+  }
+
+  .n5eb-handbook-subtitle {
+    max-width: 62ch;
+    margin: 10px 0 0;
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-15);
+  }
+
+  .n5eb-handbook-hero-media {
+    min-width: 0;
+    margin: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #1f1a16;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / .18);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 170px;
+      max-height: 310px;
+      object-fit: cover;
+      object-position: top center;
+    }
+  }
+
+  .n5eb-handbook-summary,
+  .n5eb-handbook-source-page,
+  .n5eb-related,
+  .n5eb-change-group,
+  .n5eb-handbook-toc,
+  .n5eb-handbook-callouts > div {
+    margin: 0 0 14px;
+    padding: 14px 16px;
+    border: 1px solid var(--n5eb-library-line);
+    border-radius: 6px;
+    background: var(--n5eb-library-card);
+  }
+
+  .n5eb-handbook-summary p,
+  .n5eb-handbook-source-page p,
+  .n5eb-change-group p,
+  .n5eb-handbook-callouts p {
+    margin: 0 0 .75em;
+    max-width: 78ch;
+  }
+
+  .n5eb-source-note {
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-13);
+  }
+
+  .n5eb-handbook-toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 6px 14px;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .n5eb-handbook-toc li,
+  .n5eb-change-group li,
+  .n5eb-handbook-source-page li {
+    margin-block: 4px;
+    break-inside: avoid;
+  }
+
+  .n5eb-handbook-callouts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+
+    > div {
+      margin: 0;
+      border-top: 4px solid var(--n5eb-library-accent);
+    }
+  }
+
+  .n5eb-related h2,
+  .n5eb-handbook-toc h2,
+  .n5eb-change-group h2,
+  .n5eb-extracted-tables h3 {
+    margin: 0 0 10px;
+    border: none;
+    color: var(--n5eb-library-accent);
+    font-family: var(--dnd5e-font-modesto);
+    font-size: 1.45rem;
+  }
+
+  .n5eb-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 8px;
+  }
+
+  .n5eb-related-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 58px;
+    padding: 10px;
+    border: 1px solid color-mix(in srgb, var(--n5eb-library-accent), white 55%);
+    border-radius: 6px;
+    background: #fff;
+    overflow-wrap: anywhere;
+
+    &:hover {
+      border-color: var(--n5eb-library-accent);
+      box-shadow: 0 0 0 1px var(--n5eb-library-accent);
+    }
+  }
+
+  .n5eb-related-title {
+    color: var(--n5eb-library-ink);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    .content-link {
+      display: inline;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: inherit;
+      font-weight: inherit;
+      line-height: 1.25;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+  }
+
+  .n5eb-related-meta {
+    margin-top: 4px;
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-12);
+  }
+
+  .n5eb-handbook-source-page {
+    overflow: hidden;
+
+    h2, h3 {
+      margin: 1rem 0 .45rem;
+      border: none;
+      color: var(--n5eb-library-accent-2);
+      font-family: var(--dnd5e-font-modesto);
+      line-height: 1.1;
+    }
+
+    h2 { font-size: 1.7rem; }
+    h3 { font-size: 1.3rem; }
+  }
+
+  &.n5eb-handbook-wiki {
+    --n5eb-library-bg: #f8f4eb;
+    --n5eb-library-card: #fffdf8;
+    --n5eb-library-line: #d6c7a6;
+    --n5eb-library-accent: #8c2f2f;
+    --n5eb-library-accent-2: #315f53;
+    max-width: min(900px, calc(100% - 24px));
+
+    .n5eb-handbook-hero {
+      grid-template-columns: minmax(0, 1fr) minmax(150px, 220px);
+      padding: 14px 16px;
+      border-left-width: 4px;
+      box-shadow: 0 1px 4px rgb(0 0 0 / .08);
+    }
+
+    .n5eb-handbook-hero-media img {
+      min-height: 130px;
+      max-height: 210px;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
+    }
+  }
+
+  .n5eb-reader-summary {
+    font-size: var(--font-size-15);
+  }
+
+  .n5eb-library-index {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+    margin-block: 14px;
+  }
+
+  .n5eb-library-group {
+    padding: 12px 14px;
+    border: 1px solid var(--n5eb-library-line);
+    border-radius: 6px;
+    background: var(--n5eb-library-card);
+
+    h2 {
+      margin: 0 0 8px;
+      border: none;
+      color: var(--n5eb-library-accent);
+      font-family: var(--dnd5e-font-modesto);
+      font-size: 1.35rem;
+    }
+
+    ol {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    li {
+      margin-block: 3px;
+    }
+  }
+
+  .n5eb-chapter-contents {
+    > ol {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 8px 18px;
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    ol ol {
+      display: block;
+      margin: 5px 0 0;
+      padding-left: 1rem;
+      color: var(--n5eb-library-muted);
+      font-size: var(--font-size-13);
+    }
+
+    li {
+      margin-block: 4px;
+      break-inside: avoid;
+    }
+  }
+
+  .n5eb-topic-brief,
+  .n5eb-topic-body {
+    margin: 0 0 14px;
+    padding: 14px 16px;
+    border: 1px solid var(--n5eb-library-line);
+    border-radius: 6px;
+    background: var(--n5eb-library-card);
+  }
+
+  .n5eb-topic-brief {
+    border-left: 4px solid var(--n5eb-library-accent-2);
+
+    h2 {
+      margin: 0 0 8px;
+      border: none;
+      color: var(--n5eb-library-ink);
+      font-family: var(--dnd5e-font-modesto);
+      font-size: 1.35rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+  }
+
+  .n5eb-topic-group,
+  .n5eb-source-chip {
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-12);
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .n5eb-source-chip {
+    display: inline-flex;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--n5eb-library-accent), white 86%);
+    color: var(--n5eb-library-accent);
+  }
+
+  .n5eb-topic-body {
+    p {
+      max-width: 76ch;
+      margin: 0 0 .75em;
+    }
+
+    ul, ol {
+      max-width: 76ch;
+      margin-block: .25em .9em;
+      padding-left: 1.25rem;
+    }
+  }
+
+  .n5eb-generated-table {
+    margin: 0 0 16px;
+    padding: 12px 14px;
+    border: 1px solid color-mix(in srgb, var(--n5eb-library-accent), white 58%);
+    border-left: 4px solid var(--n5eb-library-accent);
+    border-radius: 6px;
+    background: #fffdf8;
+
+    h2 {
+      margin: 0 0 6px;
+      border: none;
+      color: var(--n5eb-library-accent);
+      font-family: var(--dnd5e-font-modesto);
+      font-size: 1.35rem;
+      line-height: 1.12;
+    }
+
+    .n5eb-generated-table-note {
+      max-width: 82ch;
+      margin: 0 0 8px;
+      color: var(--n5eb-library-muted);
+      font-size: var(--font-size-13);
+    }
+  }
+
+  .n5eb-minor-heading {
+    margin: 1.05rem 0 .35rem;
+    color: var(--n5eb-library-accent-2);
+    font-family: var(--dnd5e-font-modesto);
+    font-size: 1.25rem;
+    line-height: 1.1;
+  }
+
+  .n5eb-table-drawer {
+    margin-top: 12px;
+    border-top: 1px solid var(--n5eb-library-line);
+    padding-top: 10px;
+
+    summary {
+      cursor: pointer;
+      color: var(--n5eb-library-accent);
+      font-weight: 700;
+    }
+  }
+
+  .n5eb-topic-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-13);
+
+    span {
+      min-width: 0;
+      padding: 8px 10px;
+      border: 1px solid var(--n5eb-library-line);
+      border-radius: 6px;
+      background: rgb(255 255 255 / .65);
+    }
+
+    .n5eb-topic-nav-next {
+      text-align: right;
+    }
+  }
+
+  .n5eb-page-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    margin-bottom: 8px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--n5eb-library-accent), white 83%);
+    color: var(--n5eb-library-accent);
+    font-size: var(--font-size-12);
+    font-weight: 700;
+  }
+
+  .n5eb-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 10px 0;
+    border: 1px solid var(--n5eb-library-line);
+    border-radius: 6px;
+    background: #fffaf0;
+    color: var(--n5eb-library-ink);
+  }
+
+  table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    margin: 0;
+    background: #fffaf0;
+    color: var(--n5eb-library-ink);
+    font-size: var(--font-size-13);
+  }
+
+  .n5eb-generated-table .n5eb-table-wrap table {
+    min-width: 880px;
+  }
+
+  .n5eb-armor-table .n5eb-table-wrap table,
+  .n5eb-weapon-table .n5eb-table-wrap table,
+  .n5eb-gear-table .n5eb-table-wrap table,
+  .n5eb-tool-table .n5eb-table-wrap table,
+  .n5eb-consumable-table .n5eb-table-wrap table,
+  .n5eb-trap-table .n5eb-table-wrap table {
+    min-width: 1040px;
+  }
+
+  thead,
+  tbody,
+  tr,
+  tbody tr:nth-child(n) {
+    background: transparent;
+    background-color: transparent;
+    color: var(--n5eb-library-ink);
+  }
+
+  th, td {
+    padding: 7px 9px;
+    border: 1px solid color-mix(in srgb, var(--n5eb-library-line), white 35%);
+    color: var(--n5eb-library-ink);
+    vertical-align: top;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  th {
+    background: #e8d9c3;
+    background-color: #e8d9c3;
+    color: var(--n5eb-library-ink);
+    font-weight: 700;
+  }
+
+  tbody tr:nth-child(odd) td {
+    background: #fffaf0;
+    background-color: #fffaf0;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: #f3eadb;
+    background-color: #f3eadb;
+  }
+
+  tbody tr:hover td {
+    background: #eadcc8;
+    background-color: #eadcc8;
+  }
+
+  td .content-link,
+  .n5eb-table-wrap .content-link {
+    display: inline;
+    max-width: 100%;
+    color: #5c2f21;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 720px) {
+    max-width: calc(100% - 12px);
+
+    .n5eb-handbook-hero {
+      grid-template-columns: 1fr;
+      padding: 14px;
+    }
+
+    .n5eb-handbook-hero-media img {
+      max-height: 220px;
+    }
+
+    .n5eb-handbook-callouts {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Tracking Sheets                          */
+/* ----------------------------------------- */
+
+/* Tracker CSS */
+.app.sheet .srd-tracker {
+
+  --entry-border-color: rgb(211, 203, 209);
+
+  margin-bottom: 1em;
+
+  h1 {
+    text-align:center;
+  }
+
+  h2 {
+    text-align: center;
+    margin: 0;
+  }
+
+  h3:not(.label) {
+    width: fit-content;
+    padding: 0 15%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  h4, h5 {
+    font-family: var(--font-h5);
+    text-align: center;
+
+    &.highlight { font-size: larger; }
+  }
+
+  td { padding: 0 0 0 1em; }
+
+  .settlement-size {
+    display: grid;
+    grid: auto / auto-flow 1fr;
+  }
+
+  .travel-info {
+
+    display: grid;
+    grid:
+      ". ." 1fr
+      ". ." 1fr
+      ". ." 1fr
+    / 1.5fr 1fr;
+    grid-auto-flow: column;
+    gap:0 2em;
+    padding: 0 5px 5px;
+    margin-bottom: 1em;
+
+    :is(h3, h4) { margin: 0 10px 0 0; }
+
+    .inline { margin: 0; }
+  }
+
+  .inline {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    margin: 10px 0;
+  }
+
+  .highlight {
+    text-align: center;
+    padding: 5px;
+  }
+
+  .label, .label:is(h4, h5) {
+    margin: 0 10px 0 0;
+    text-align: left;
+  }
+
+  .field {
+    border-bottom: 2px solid var(--color-text-dark-primary);
+    flex-grow: 1;
+    padding: 5px;
+
+    p { margin-bottom: 0; }
+  }
+
+  .field.bubble {
+    background-color: #fff;
+    box-shadow: 0px 0px 2px 1px;
+    border-radius: 100%;
+    min-width: 20px;
+    max-width: 20px;
+    min-height: 20px;
+    max-height: 20px;
+    text-align: center;
+    margin: 3px;
+
+    p { margin-top: -3px; }
+  }
+  .travel-info, .field.block {
+    min-height: 4em;
+    background: linear-gradient(to top, var(--dnd5e-block-background) 65%, transparent);
+    border: 1px solid var(--entry-border-color);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .col {
+    flex-grow: 1;
+    margin: 5px;
+  }
+}
+
+/* -------------------------------------------- */
+/*  Legacy                                      */
+/* -------------------------------------------- */
+
+.dnd5e2-journal.app .journal-entry-content { background: var(--dnd5e-background-texture-paper-red); }
+
+.dnd5e2-journal.app .editable {
+  .journal-header {
+    flex: 0;
+    flex-wrap: nowrap;
+    .title {
+      height: 50px;
+      background: rgb(0 0 0 / .1);
+      border-radius: 4px;
+      font-size: var(--font-size-32);
+      line-height: 50px;
+    }
+    .page-level {
+      flex: 0 0 110px;
+      align-items: flex-end;
+    }
+    .heading-level {
+      width: 100%;
+      align-items: center;
+    }
+  }
+}

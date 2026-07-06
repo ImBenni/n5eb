@@ -1,0 +1,340 @@
+folder: dTUAf1UNWLDLq9Be
+name: Ripple of Earth Tectonic Shift
+type: spell
+_id: Ca7XWicxmdvANnNs
+img: systems/n5eb/assets/content/jutsu-icons/taijutsu.webp
+system:
+  description:
+    value: >-
+      <p>You stomp the ground with incredible force causing a boulder to be
+      chinked from the ground in front of you. You then make a frontflip,
+      channeling earth release chakra to increase your strength, grab the
+      boulder and throw it at a creature within range.</p><p>Make a ranged
+      taijutsu attack, dealing your unarmed damage + 3d6 Earth damage and the
+      creature must make a Constitution saving throw, becoming Dazed on a
+      failure.</p><p><strong>At Higher Ranks:</strong> For each rank you cast
+      this jutsu above D-Rank, increase the cost by 3, the damage by 2d6, and
+      the range by 15ft.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: taijutsu
+  actionType: rsak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 3d6
+        - earth
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: taijutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 2d6
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: ripple-of-earth-tectonic-shift
+  jutsu:
+    components:
+      - cm
+      - m
+    keywords:
+      - taijutsu
+      - earth
+    countsKnown: true
+    ability: ''
+    type: taijutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Dazed
+    origin: Compendium.n5eb.t7-jutsus.Item.Ca7XWicxmdvANnNs
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: 1
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: dazed
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: lGyk3foeH2gPo1H8
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow
+      and cannot take as many actions as usual.</p><ul><li><p>A Dazed creature
+      can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition
+      lasts until the End of the affected creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - dazed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Ca7XWicxmdvANnNs.lGyk3foeH2gPo1H8'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-jutsus
+      sourcePath: taijutsu/d-rank/ripple-of-earth-tectonic-shift.json
+      sourceId: Ca7XWicxmdvANnNs
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You stomp the ground with incredible force causing a boulder to
+            be chinked from the ground in front of you. You then make a
+            frontflip, channeling earth release chakra to increase your
+            strength, grab the boulder and throw it at a creature within
+            range.</p><p>Make a ranged taijutsu attack, dealing your unarmed
+            damage + 3d6 Earth damage and the creature must make a Constitution
+            saving throw, becoming Dazed on a failure.</p><p><strong>At Higher
+            Ranks:</strong> For each rank you cast this jutsu above D-Rank,
+            increase the cost by 3, the damage by 2d6, and the range by
+            15ft.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: taijutsu
+        actionType: rtak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 3d6
+              - earth
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: taijutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: tai
+        properties:
+          - chakramolding
+          - mobility
+        keywords:
+          - taijutsu
+          - earth
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 2d6
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1731941820837
+  modifiedTime: 1733946326034
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-jutsus
+    sourcePath: taijutsu/d-rank/ripple-of-earth-tectonic-shift.json
+_key: '!items!Ca7XWicxmdvANnNs'

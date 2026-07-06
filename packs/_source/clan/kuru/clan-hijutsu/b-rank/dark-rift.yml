@@ -1,0 +1,356 @@
+name: Dark Rift
+type: spell
+img: systems/n5eb/assets/content/clans/kuru.webp
+system:
+  description:
+    value: >-
+      <p>You attempt to send one creature that you can see within range into a pocket dimension made entirely of
+      imaginary chakra. The target must make a Charisma saving throw. On a failed save, the targets consciousness is
+      banished into a dimension of fiction seeing only what you want them to see. Their body is left behind as it
+      becomes Stunned for the duration and is treated as a vegetable until their consciousness returns. If a creature
+      affected by this jutsu is classified as an Elite or Solo they make their saving throw at advantage.</p><p>A
+      creature who fails this saving throw, while unaware of what is happening to their body, if they would take damage
+      they remake their saving throw for each instance of damage taken.</p><p>If the targets mind must remain there for
+      the entire duration of the jutsu, when they return, their mind suffers a shocks from the shift of illusion back to
+      reality taking 10d10 psychic damage</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '10'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 14
+    scale: false
+  ability: ninjutsu
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 10d10
+        - psychic
+    versatile: ''
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: ninjutsu
+  level: 5
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: dark-rift
+  jutsu:
+    components:
+      - hs
+      - cm
+      - cs
+    keywords:
+      - ninjutsu
+      - genjutsu
+      - hijutsu
+      - fuinjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: b
+  chakra:
+    cost: '14'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Stunned
+    origin: Compendium.n5eb.clan.Item.NewjIRSIaSUvPYWZ
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    _id: hZeABC0O9M6jUo5R
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.fail.ability.save.dex
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.fail.ability.save.str
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: stunned
+        priority: 20
+    description: >-
+      <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
+      falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
+      throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!NewjIRSIaSUvPYWZ.hZeABC0O9M6jUo5R'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - chakraseals
+      - handseals
+      - molding
+      - fuinjutsu
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: kuru/clan-hijutsu/b-rank/dark-rift.json
+      sourceId: NewjIRSIaSUvPYWZ
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You attempt to send one creature that you can see within range into a pocket dimension made entirely of
+            imaginary chakra. The target must make a Charisma saving throw. On a failed save, the targets consciousness
+            is banished into a dimension of fiction seeing only what you want them to see. Their body is left behind as
+            it becomes Stunned for the duration and is treated as a vegetable until their consciousness returns. If a
+            creature affected by this jutsu is classified as an Elite or Solo they make their saving throw at
+            advantage.</p><p>A creature who fails this saving throw, while unaware of what is happening to their body,
+            if they would take damage they remake their saving throw for each instance of damage taken.</p><p>If the
+            targets mind must remain there for the entire duration of the jutsu, when they return, their mind suffers a
+            shocks from the shift of illusion back to reality taking 10d10 psychic damage</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '10'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 14
+          scale: false
+        ability: ninjutsu
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 10d10
+              - psychic
+          versatile: ''
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: ninjutsu
+        level: 3
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - chakraseals
+          - concentration
+          - molding
+          - fuinjutsu
+        keywords:
+          - ninjutsu
+          - genjutsu
+          - hijutsu
+          - fuinjutsu
+        chakraCost: 14
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754082526
+  modifiedTime: 1728754112511
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: kuru/clan-hijutsu/b-rank/dark-rift.json
+folder: wE0pRQA1Y7XSLP2v
+sort: 200000
+ownership:
+  default: 0
+_id: NewjIRSIaSUvPYWZ
+_key: '!items!NewjIRSIaSUvPYWZ'

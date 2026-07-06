@@ -1,0 +1,11 @@
+<section class="flexcol">
+    <div class="note info">
+        {{ localize restHint }}
+    </div>
+
+    {{> "dnd5e.formlist" formSections }}
+
+    {{#if request}}
+    {{> "systems/n5eb/templates/actors/rest/parts/rest-request.hbs" }}
+    {{/if}}
+</section>

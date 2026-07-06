@@ -1,0 +1,298 @@
+folder: 4IqPitSC2zpcy05X
+name: Constrict
+type: feat
+img: icons/magic/control/debuff-chains-orb-movement-blue.webp
+system:
+  description:
+    value: >-
+      <p>If this summon scores a successful hit with its Bite attack, target must make a strength saving throw being
+      restrained on a failed save. As an action, this summon can constrict a restrained target dealing 5d6 Bludgeoning
+      damage. Restrained creatures can spend an action remake their saving throw.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: special
+    cost: null
+    condition: If this summon scores a successful hit with its Bite attack
+  duration:
+    value: ''
+    units: ''
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d6
+        - bludgeoning
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  type:
+    value: summon
+    subtype: tribe
+    nestedsubtype: d
+  prerequisites:
+    level: null
+  properties: []
+  requirements: ''
+  recharge:
+    value: null
+    charged: false
+    formula: 1d8
+  identifier: constrict
+effects:
+  - name: Restrained
+    origin: Compendium.n5eb.summons.Item.oZUYvpdJ2kGneL7x
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/restrained.svg
+    _id: aubm5DZ9TWt8PR4L
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.dex
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: restrained
+        priority: 20
+    description: >-
+      <p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their
+      space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its
+      speed.</p></li><li><p>Attack rolls against the creature have advantage, and the creature’s attack rolls have
+      disadvantage.</p></li><li><p>The creature has disadvantage on Dexterity saving throws.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - restrained
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,4,0
+      createdTime: 1733785176199
+      modifiedTime: 1733785176199
+      lastModifiedBy: n5ebbuilder00000
+    _key: '!items.effects!oZUYvpdJ2kGneL7x.aubm5DZ9TWt8PR4L'
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: summons
+      sourcePath: snake-tribe/snake-features/d-rank/constrict.json
+      sourceId: oZUYvpdJ2kGneL7x
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>If this summon scores a successful hit with its Bite attack, target must make a strength saving throw
+            being restrained on a failed save. As an action, this summon can constrict a restrained target dealing 5d6
+            Bludgeoning damage. Restrained creatures can spend an action remake their saving throw.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: special
+          cost: null
+          condition: If this summon scores a successful hit with its Bite attack
+        duration:
+          value: ''
+          units: ''
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d6
+              - bludgeoning
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        type:
+          value: summon
+          subtype: tribe
+          nestedsubtype: drank
+        prerequisites:
+          level: null
+        properties: []
+        requirements: ''
+        recharge:
+          value: null
+          charged: false
+          formula: 1d8
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733785000800
+  modifiedTime: 1733785217406
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: summons
+    sourcePath: snake-tribe/snake-features/d-rank/constrict.json
+_id: oZUYvpdJ2kGneL7x
+sort: 0
+_key: '!items!oZUYvpdJ2kGneL7x'

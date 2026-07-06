@@ -1,0 +1,339 @@
+name: Origami Servitor
+type: spell
+img: systems/n5eb/assets/content/clans/shikigami.webp
+system:
+  description:
+    value: >-
+      <p>You use origami to create a paper animal, such as a crane or butterfly, and send it out to gather information.
+      The Origami you create, is a tiny object with a flying speed of 60 feet and a stealth bonus equal to your Ninjutsu
+      Save DC. While this jutsu is active, you may spend an action to see and hear as if you were in the same location
+      as your origami. While doing this your body is incapacitated and unaware of its surrounding. Any damage to your
+      body returns your senses.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost
+      by 3, the range your Origami can travel by 250 feet, and increase their Stealth Bonus by +2. If this jutsu is
+      casted at B-Rank, increase the Duration to 8 hours and 24 hours at A-Rank.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: hour
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 500
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 7
+    scale: false
+  ability: null
+  actionType: ''
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: origami-servitor
+  jutsu:
+    components:
+      - cs
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - sensory
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '7'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Incapacitated
+    origin: Compendium.n5eb.clan.Item.PBtu6Vprpkhiynsl
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/incapacitated.svg
+    _id: 46A4GfFYrpWlOmCd
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.climb
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: incapacitated
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - incapacitated
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.oPKLZHKQOBZsE7k5.ActiveEffect.4SS62Wm6W6fzv1z7
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!PBtu6Vprpkhiynsl.46A4GfFYrpWlOmCd'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - chakraseals
+      - sensory
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: shikigami/clan-hijutsu/c-rank/origami-servitor.json
+      sourceId: PBtu6Vprpkhiynsl
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You use origami to create a paper animal, such as a crane or butterfly, and send it out to gather
+            information. The Origami you create, is a tiny object with a flying speed of 60 feet and a stealth bonus
+            equal to your Ninjutsu Save DC. While this jutsu is active, you may spend an action to see and hear as if
+            you were in the same location as your origami. While doing this your body is incapacitated and unaware of
+            its surrounding. Any damage to your body returns your senses.</p><p>At Higher Ranks: For each rank you cast
+            this jutsu above C-Rank, increase the cost by 3, the range your Origami can travel by 250 feet, and increase
+            their Stealth Bonus by +2. If this jutsu is casted at B-Rank, increase the Duration to 8 hours and 24 hours
+            at A-Rank.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: hour
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 500
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 7
+          scale: false
+        ability: null
+        actionType: ''
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakraseals
+          - sensory
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - sensory
+        chakraCost: 7
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728754669686
+  modifiedTime: 1728754750554
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: shikigami/clan-hijutsu/c-rank/origami-servitor.json
+folder: bv5s1ghdvXhhVppO
+sort: 100000
+ownership:
+  default: 0
+_id: PBtu6Vprpkhiynsl
+_key: '!items!PBtu6Vprpkhiynsl'

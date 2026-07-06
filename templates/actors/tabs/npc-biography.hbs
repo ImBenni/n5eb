@@ -1,23 +1,27 @@
-<div class="tab biography" data-group="primary" data-tab="biography">
+<section class="tab {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
 
-    {{#if editingDescriptionTarget}}
-
-    {{ editor enriched.editing target=editingDescriptionTarget button=false editable=true engine="prosemirror"
-              collaborate=true }}
-
+    {{#if editingDescription}}
+    <prose-mirror name="{{ editingDescription.target }}" value="{{ editingDescription.value }}"
+                  document-uuid="{{ actor.uuid }}" compact></prose-mirror>
     {{else}}
 
     {{!-- Ideals, Bonds, & Flaws --}}
     <div class="top flexrow">
 
-        {{~> "n5eb.biography-textbox" name="system.details.ideal" value=system.details.ideal label="N5EB.Ideals"
+        {{#if (or editable system.details.ideal)}}
+        {{~> "dnd5e.biography-textbox" name="system.details.ideal" value=system.details.ideal label="DND5E.Ideals"
             icon="fas fa-seedling" ~}}
+        {{/if}}
 
-        {{~> "n5eb.biography-textbox" name="system.details.bond" value=system.details.bond label="N5EB.Bonds"
+        {{#if (or editable system.details.bond)}}
+        {{~> "dnd5e.biography-textbox" name="system.details.bond" value=system.details.bond label="DND5E.Bonds"
             icon="fas fa-link" ~}}
+        {{/if}}
 
-        {{~> "n5eb.biography-textbox" name="system.details.flaw" value=system.details.flaw label="N5EB.Flaws"
+        {{#if (or editable system.details.flaw)}}
+        {{~> "dnd5e.biography-textbox" name="system.details.flaw" value=system.details.flaw label="DND5E.Flaws"
             icon="fas fa-heart-crack" ~}}
+        {{/if}}
 
     </div>
 
@@ -25,12 +29,13 @@
     <div class="middle" data-target="system.details.biography.public">
 
         <h3 class="icon">
-            <a class="editor-edit" data-action="editDescription"
-               aria-label="{{ localize "N5EB.BiographyPublicEdit" }}">
-                <i class="fas fa-feather"></i>
-            </a>
-            <n5eb-icon src="systems/n5eb/icons/svg/ink-pot.svg"></n5eb-icon>
-            <span class="roboto-upper">{{ localize "N5EB.Public" }}</span>
+            <button type="button" class="control-button editor-edit unbutton" data-action="editDescription"
+                    data-target="system.details.biography.public"
+                    aria-label="{{ localize 'DND5E.BiographyPublicEdit' }}">
+                <i class="fas fa-feather" inert></i>
+            </button>
+            <dnd5e-icon src="systems/n5eb/icons/svg/ink-pot.svg"></dnd5e-icon>
+            <span class="roboto-upper">{{ localize "DND5E.Public" }}</span>
         </h3>
 
         <div class="editor">
@@ -43,11 +48,12 @@
     <div class="bottom" data-target="system.details.biography.value">
 
         <h3 class="icon">
-            <a class="editor-edit" data-action="editDescription" aria-label="{{ localize "N5EB.DetailsEdit" }}">
-                <i class="fas fa-feather"></i>
-            </a>
-            <n5eb-icon src="systems/n5eb/icons/svg/ink-pot.svg"></n5eb-icon>
-            <span class="roboto-upper">{{ localize "N5EB.Details" }}</span>
+            <button type="button" class="control-button editor-edit unbutton" data-action="editDescription"
+                    data-target="system.details.biography.value" aria-label="{{ localize 'DND5E.DetailsEdit' }}">
+                <i class="fas fa-feather" inert></i>
+            </button>
+            <dnd5e-icon src="systems/n5eb/icons/svg/ink-pot.svg"></dnd5e-icon>
+            <span class="roboto-upper">{{ localize "DND5E.Details" }}</span>
         </h3>
 
         <div class="editor">
@@ -58,4 +64,4 @@
 
     {{/if}}
 
-</div>
+</section>

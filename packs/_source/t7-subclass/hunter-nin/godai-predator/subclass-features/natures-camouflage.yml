@@ -1,0 +1,215 @@
+folder: 6dQwpVZRgwAV2kMW
+name: Nature's Camouflage
+type: feat
+_id: a1ff7nylVz3JzQO9
+img: icons/skills/targeting/crosshair-scope-sniper-green.webp
+system:
+  description:
+    value: >-
+      <p>Starting at 10th level, you can draw on the natural energy to coat yourself in your element in a thin cloak of
+      chakra. The nature release of your cloak is determined by your <em><strong>Natural Proficiency</strong></em>
+      choice but each cloak shares some benefits.</p><p>As a bonus action, you can spend 15 chakra to cover yourself in
+      a cloak of nature energy. You gain 60 feet of chakra sight, you are counted as lightly obscured, and you gain a
+      number of temporary hit points to your hunter-nin level × 5. This cloak lasts for 1 minute, and gains additional
+      benefits ponding with your nature release granted by your <em><strong>Natural
+      Proficiency</strong></em>.</p><ul><li><strong>Earth Release</strong>: You gain resistance to bludgeoning,
+      piercing, and slashing damage.</li><li><strong>Wind Release</strong>: You become heavily obscured in wind, and
+      chakra sight granted by this feature allows you to see unimpaired.</li><li><strong>Fire Release</strong>: You add
+      additional points of damage to your <em><strong>Lethal Attack</strong></em> as if it was benefitting from
+      <em>Blaze</em>.</li><li><strong>Water Release</strong>: Attack rolls against you are made at
+      disadvantage.</li><li><strong>Lightning Release</strong>: Your movement speed is doubled and when you take the
+      dash action you also benefit from the disengage action.</li></ul>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: attribute
+    target: attributes.cp.value
+    amount: 15
+    scale: false
+  ability: ''
+  actionType: util
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: 5*(@details.level)
+  save:
+    ability: ''
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  type:
+    value: subclass
+    subtype: ''
+    nestedsubtype: ''
+  prerequisites:
+    level: 10
+  properties: []
+  requirements: ''
+  identifier: nature-s-camouflage
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-subclass
+      sourcePath: hunter-nin/godai-predator/subclass-features/natures-camouflage.json
+      sourceId: a1ff7nylVz3JzQO9
+      sourceType: feat
+      originalSystem:
+        description:
+          value: >-
+            <p>Starting at 10th level, you can draw on the natural energy to coat yourself in your element in a thin
+            cloak of chakra. The nature release of your cloak is determined by your <em><strong>Natural
+            Proficiency</strong></em> choice but each cloak shares some benefits.</p><p>As a bonus action, you can spend
+            15 chakra to cover yourself in a cloak of nature energy. You gain 60 feet of chakra sight, you are counted
+            as lightly obscured, and you gain a number of temporary hit points to your hunter-nin level × 5. This cloak
+            lasts for 1 minute, and gains additional benefits ponding with your nature release granted by your
+            <em><strong>Natural Proficiency</strong></em>.</p><ul><li><strong>Earth Release</strong>: You gain
+            resistance to bludgeoning, piercing, and slashing damage.</li><li><strong>Wind Release</strong>: You become
+            heavily obscured in wind, and chakra sight granted by this feature allows you to see
+            unimpaired.</li><li><strong>Fire Release</strong>: You add additional points of damage to your
+            <em><strong>Lethal Attack</strong></em> as if it was benefitting from <em>Blaze</em>.</li><li><strong>Water
+            Release</strong>: Attack rolls against you are made at disadvantage.</li><li><strong>Lightning
+            Release</strong>: Your movement speed is doubled and when you take the dash action you also benefit from the
+            disengage action.</li></ul>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: attribute
+          target: attributes.cp.value
+          amount: 15
+          scale: false
+        ability: ''
+        actionType: util
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: 5*(@details.level)
+        save:
+          ability: ''
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        type:
+          value: subclass
+          subtype: ''
+          nestedsubtype: ''
+        prerequisites:
+          level: 10
+        properties: []
+        requirements: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733421612961
+  modifiedTime: 1733422306640
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-subclass
+    sourcePath: hunter-nin/godai-predator/subclass-features/natures-camouflage.json
+_key: '!items!a1ff7nylVz3JzQO9'

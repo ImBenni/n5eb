@@ -1,0 +1,438 @@
+folder: O2s6iXTDe03dX1Sv
+name: Solar Flare
+type: spell
+_id: BK7Kwkpxjg4Ju6GZ
+img: systems/n5eb/assets/content/clans/wukong.webp
+system:
+  description:
+    value: >-
+      <p>You quickly put your hands to your forehead and shut your eyes before
+      generating an incredibly bright light. Each creature within range in all
+      directions that sees the light must succeed on a Wisdom saving throw or
+      become Blinded and Dazzled until the end of their next turn.</p><p>At
+      Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the
+      cost of the jutsu by 3. For each rank upcast, choose between one of the
+      following options: increase the radius by 15 feet, or impose a -1 penalty
+      on creatures who make the Wisdom saving throw.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: '15'
+    width: null
+    units: ft
+    type: radius
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: wis
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: solar-flare
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '3'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Dazzled
+    origin: Compendium.n5eb.t7-clan.Item.BK7Kwkpxjg4Ju6GZ
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: dazzled
+          rank: 1
+          maxRank: 5
+          category: sensory
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/dazzled.svg
+    _id: 1LvHbC5jc9tlL30e
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Attacks
+        mode: 2
+        value: '-2 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: dazzled
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks:</strong> 5</p><p>• A <strong>Dazzled</strong>
+      creatures eyes become overloaded with flashes of colors, gaining a -2
+      penalty to all checks that rely on sight for each rank it has. • A
+      <strong>Dazzled</strong> creature suffers a -2 penalty to attack rolls for
+      each rank it has and cannot gain advantage on Ranged attack rolls.</p><p>•
+      A <strong>Dazzled</strong> creature reduced the range of Jutsu's cast and
+      ranged attacks made by 15 feet for each rank it has down to a minimum of 5
+      feet.</p><p>• A <strong>Dazzled</strong> creature can make a DC 15
+      Constitution ability check as an action, to remove all ranks of this
+      condition.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - dazzled
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.Aa2bI0MeSmyi3eOJ.ActiveEffect.rNLK6dZIg5pamybW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!BK7Kwkpxjg4Ju6GZ.1LvHbC5jc9tlL30e'
+  - name: Blinded
+    origin: Compendium.n5eb.t7-clan.Item.BK7Kwkpxjg4Ju6GZ
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: blinded
+          rank: 1
+          maxRank: 1
+          category: sensory
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/blinded.svg
+    _id: UxjF5z848usGOGpk
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: blinded
+        priority: 20
+    description: >-
+      <p>• A <strong>Blinded</strong> creature cannot target another creature
+      with effects that require them to “target a creature they can see” unless
+      they have a special sense that does not require sight, such as
+      <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>•
+      A blinded creature can’t see and automatically fails any check that
+      requires sight.</p><p>• A <strong>Blinded</strong> creature has
+      disadvantage on Dexterity saving throws.</p><p>• Attack rolls against a
+      <strong>Blinded</strong> creature have advantage, and a
+      <strong>Blinded</strong> creature’s attack rolls have disadvantage without
+      the aid of a special sense that does not require sight, such as
+      <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>•
+      A creature can willingly close their eyes as a free action for an extended
+      period of time. Doing so imposes this Condition on them until the
+      beginning of their next turn, they cannot reopen their eyes until then,
+      unless they are forced to do so by some other means.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - blinded
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!BK7Kwkpxjg4Ju6GZ.UxjF5z848usGOGpk'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: wukong-low-class/clan-hijutsu/d-rank/solar-flare.json
+      sourceId: BK7Kwkpxjg4Ju6GZ
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You quickly put your hands to your forehead and shut your eyes
+            before generating an incredibly bright light. Each creature within
+            range in all directions that sees the light must succeed on a Wisdom
+            saving throw or become Blinded and Dazzled until the end of their
+            next turn.</p><p>At Higher Ranks: For each rank you cast this jutsu
+            above D-Rank, increase the cost of the jutsu by 3. For each rank
+            upcast, choose between one of the following options: increase the
+            radius by 15 feet, or impose a -1 penalty on creatures who make the
+            Wisdom saving throw.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: '15'
+          width: null
+          units: ft
+          type: radius
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: wis
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+        keywords:
+          - ninjutsu
+          - hijutsu
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 3
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733939845071
+  modifiedTime: 1734020457171
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: wukong-low-class/clan-hijutsu/d-rank/solar-flare.json
+_key: '!items!BK7Kwkpxjg4Ju6GZ'

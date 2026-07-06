@@ -1,0 +1,253 @@
+folder: C2xGut937KlEL9Nx
+name: Destruction Release Destructive Reflection
+type: spell
+_id: vA2fsDlheh8OxVFz
+img: systems/n5eb/assets/content/clans/hakaiton.webp
+system:
+  description:
+    value: >-
+      <p>Just before taking damage, you blast the effect with your destructive chakra. Reduce the triggering damage by
+      2d10 + your Ninjutsu modifier. If you reduce the damage to 0, the creature that triggered this jutsu has their AC
+      reduced by 1 until the next attack hits them.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this
+      jutsu above D-Rank, increase the cost of this jutsu by 3, the damage reduction by 2d10. At B-Rank, the AC
+      reduction is increased by 1. At S-Rank, the AC reduction is increased by 1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: reaction
+    cost: 1
+    condition: which you take when you would take damage.
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: other
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d10+@mod
+        - ''
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 2d10
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: destruction-release-destructive-reflection
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - fire
+      - lightning
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    reactionCondition: ''
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: hakaiton/clan-hijutsu/d-rank/destruction-release-destructive-reflection.json
+      sourceId: vA2fsDlheh8OxVFz
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Just before taking damage, you blast the effect with your destructive chakra. Reduce the triggering
+            damage by 2d10 + your Ninjutsu modifier. If you reduce the damage to 0, the creature that triggered this
+            jutsu has their AC reduced by 1 until the next attack hits them.</p><p><strong>At Higher Ranks:</strong> For
+            each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3, the damage reduction by
+            2d10. At B-Rank, the AC reduction is increased by 1. At S-Rank, the AC reduction is increased by 1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take when you would take damage.
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: other
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d10+@mod
+              - ''
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - fire
+          - lightning
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 2d10
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1732806671838
+  modifiedTime: 1734017452085
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: hakaiton/clan-hijutsu/d-rank/destruction-release-destructive-reflection.json
+_key: '!items!vA2fsDlheh8OxVFz'

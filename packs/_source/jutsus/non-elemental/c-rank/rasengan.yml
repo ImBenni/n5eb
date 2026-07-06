@@ -1,0 +1,1051 @@
+name: Rasengan
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/non-elemental.webp
+system:
+  description:
+    value: >-
+      <p>You collect chakra into your hand generating a powerful sphere of spiraling chakra to strike an enemy with. You
+      do not spend chakra to maintain concentration on this jutsu. Beginning at the start of your next turn, you can
+      spend your action to make a melee ninjutsu attack against a creature within range. On a hit, you deal 5d8 force
+      damage and the target makes a Strength saving throw. On a failed save they are knocked Back 30ft becoming Dazed
+      and Concussed. This jutsu only ends on a successful hit. If a creature knocked back by this jutsu collides with a
+      structure or construct, their movement stops, taking damage as if they had fallen an equal distance.</p><p>At
+      Higher Ranks: For each rank above C-Rank, increase the cost by 3 and the damage by 3d8 and the knock back distance
+      by 10 feet. If this Jutsu is cast at B-Rank or higher, you can make the melee ninjutsu attack the turn you cast
+      it. You may also add a nature release keyword, changing this jutsu's damage type to match the nature release you
+      currently can use. You gain the following benefits depending on the Nature Release chosen:</p><p>• Earth: The
+      target takes earth damage is bruised &amp; gains the weakened condition until the end of their next turn.</p><p>•
+      Wind: The Rasengan gains a range of 60 Feet and you can instead make a ranged ninjutsu attack targeting a creature
+      within that range. On a hit, the target takes wind damage and the Rasengan expands. All Creatures, except the
+      original target, in a 15-foot radius sphere centered on the original target must make a Dexterity saving throw,
+      taking the damage of this jutsu as well on a failed save.</p><p>• Fire:The target takes fire damage and 1 rank of
+      burned, and all creatures in a 30-foot cone behind the target creature must make a Constitution saving throw,
+      gaining the burned condition on a failed save.</p><p>• Water: Target creature takes cold damage and makes their
+      saving throw at disadvantage. On a failed save, they are knocked back twice the distance, taking falling damage if
+      they hit a solid surface.</p><p>• Lightning: The attack made has advantage and on a hit, the target creature take
+      lightning damage and gains the Shocked condition.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '30'
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 5
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 8
+    scale: false
+  ability: ninjutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 5d8
+        - force
+    versatile: ''
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: level
+    formula: 3d8
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: rasengan
+  jutsu:
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - clash
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '8'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects:
+  - name: Burned
+    origin: Compendium.n5eb.jutsus.Item.n5ebRasengan0001
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/burning.svg
+    _id: EevmOkFCsv1DYcfd
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          rollType=skill,
+          saveAbility=sur,
+          saveDC=15,
+          actionSave=dialog,
+          damageBeforeSave=true,
+          damageRoll=1d8,
+          damageType=fire,
+          saveRemove=true,
+          name=Burned,
+          chatFlavor=It's very hot!,
+          fastForwardDamage=true,
+        priority: 20
+      - key: system.attributes.concentration.bonuses.save
+        mode: 2
+        value: '-2 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it
+      has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration
+      Checks for each rank it has.</p></li><li><p>Creatures that are immune to fire damage is immune to this
+      condition.</p></li><li><p>This condition lasts for the duration of the effect that inflicted it or 1 minute has
+      passed, whichever comes first. A Creature can spend an Action to make a DC 15 Dexterity (Survival) Check to put
+      out the flames. On a successful check, the condition ends or submerging themselves fully into a body of
+      water.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!OrZC7jMEaId9Kgcf.EevmOkFCsv1DYcfd'
+  - name: Shocked
+    origin: Compendium.n5eb.jutsus.Item.n5ebRasengan0001
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    _id: oZFlfXbAKhzmzqOP
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          rollType=skill,
+          saveAbility=sur,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with
+      electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
+      reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A
+      <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a
+      failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC
+      12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has
+      resistance to this condition. A creature immune to Lightning damage has immunity to this
+      condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground
+      themselves, dispersing the electricity in their body ending this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!OrZC7jMEaId9Kgcf.oZFlfXbAKhzmzqOP'
+  - name: Concussed
+    origin: Compendium.n5eb.jutsus.Item.n5ebRasengan0001
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/concussed.svg
+    _id: btIXDBlpi4RdqGTU
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: concussed
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental
+      acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A
+      Concussed creature suffers a -1 penalty to all of their Save DCs for each rank it has.</p></li><li><p>A Concussed
+      creature suffers a -1 penalty to all Intelligence based checks, attack rolls and saving throws and checks for each
+      rank it has.</p></li><li><p>A concussed creature cannot gain the benefit of a Rest.</p></li><li><p>A creature can
+      spend its Action if it has a Medicine kit to make a DC 20 Medicine check, ending this condition on a
+      success.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!OrZC7jMEaId9Kgcf.btIXDBlpi4RdqGTU'
+  - name: Bruised
+    origin: Compendium.n5eb.jutsus.Item.n5ebRasengan0001
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      babonus:
+        bonuses:
+          - name: +4 dmg
+            img: icons/svg/dice-target.svg
+            id: NkVtCZS38iq1ma82
+            sort: 0
+            type: damage
+            enabled: true
+            exclusive: false
+            optional: true
+            reminder: false
+            description: ''
+            consume:
+              enabled: false
+              type: ''
+              subtype: ''
+              scales: false
+              formula: ''
+              value:
+                min: ''
+                max: ''
+                step: null
+            aura:
+              enabled: false
+              template: false
+              range: ''
+              self: true
+              disposition: 2
+              blockers: []
+              require:
+                light: false
+                sight: false
+                sound: false
+                move: false
+            flags: {}
+            bonuses:
+              bonus: '4'
+              damageType: acid
+              criticalBonusDice: ''
+              criticalBonusDamage: ''
+              modifiers:
+                amount:
+                  enabled: false
+                  mode: 0
+                  value: ''
+                size:
+                  enabled: false
+                  mode: 0
+                  value: ''
+                reroll:
+                  enabled: false
+                  value: ''
+                  invert: false
+                  recursive: false
+                  limit: ''
+                explode:
+                  enabled: false
+                  value: ''
+                  once: false
+                  limit: ''
+                minimum:
+                  enabled: false
+                  value: ''
+                  maximize: false
+                maximum:
+                  enabled: false
+                  value: ''
+                  zero: false
+                config:
+                  first: false
+            filters:
+              actorCreatureSizes: []
+              actorCreatureTypes: []
+              actorLanguages: []
+              arbitraryComparisons: []
+              baseArmors: []
+              customScripts: ''
+              healthPercentages:
+                value: 50
+                type: null
+              remainingSpellSlots:
+                min: null
+                max: null
+                size: false
+              statusEffects: []
+              abilities: []
+              attackTypes: []
+              baseWeapons: []
+              creatureTypes: []
+              damageTypes:
+                - bludgeoning
+                - earth
+              featureTypes:
+                subtype: ''
+              itemTypes: []
+              preparationModes: []
+              spellComponents:
+                types: []
+                match: ANY
+              spellLevels: []
+              spellSchools: []
+              targetArmors: []
+              targetEffects: []
+              tokenSizes:
+                size: null
+                type: 0
+                self: false
+              weaponProperties: []
+    img: systems/n5eb/icons/svg/statuses/bruised.svg
+    _id: QVQCgEFGZmzoeUz9
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.str.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bruised
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Bruised creature suffers a -1 penalty to all Strength, Dexterity
+      &amp; Constitution based attack rolls and checks for each rank they have.</p></li><li><p>A Bruised creature takes
+      +4 bonus damage from all sources of bludgeoning or earth damage for each rank they have, once per
+      turn.</p></li><li><p>Creatures that are immune to bludgeoning or Earth damage are immune to this
+      condition.</p></li><li><p>A creature who would gain a sixth (or more) ranks of the Bruised condition immediately
+      becomes Staggered, ending the Bruised Condition.</p></li><li><p>A Creature can spend an Action to make a DC 15
+      Strength (Medicine) Check to end this condition by applying the appropriate amount of pressure to the
+      wound.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - bruised
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.6jTSe6avKTHv61xR.ActiveEffect.E8EMTtQE84gz6Kjy
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!OrZC7jMEaId9Kgcf.QVQCgEFGZmzoeUz9'
+  - name: Dazed
+    origin: Compendium.n5eb.jutsus.Item.n5ebRasengan0001
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: kSWBMP1tf89s46pE
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow and cannot take as many actions as
+      usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition lasts until the End of the affected
+      creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!OrZC7jMEaId9Kgcf.kSWBMP1tf89s46pE'
+  - name: Weakened
+    origin: Compendium.n5eb.jutsus.Item.n5ebRasengan0001
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      core:
+        overlay: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: CM6TMz5LQovoUi3W
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,2
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!OrZC7jMEaId9Kgcf.CM6TMz5LQovoUi3W'
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - molding
+      - clash
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: non-elemental/c-rank/rasengan.json
+      sourceId: OrZC7jMEaId9Kgcf
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You collect chakra into your hand generating a powerful sphere of spiraling chakra to strike an enemy
+            with. You do not spend chakra to maintain concentration on this jutsu. Beginning at the start of your next
+            turn, you can spend your action to make a melee ninjutsu attack against a creature within range. On a hit,
+            you deal 5d8 force damage and the target makes a Strength saving throw. On a failed save they are knocked
+            Back 30ft becoming Dazed and Concussed. This jutsu only ends on a successful hit. If a creature knocked back
+            by this jutsu collides with a structure or construct, their movement stops, taking damage as if they had
+            fallen an equal distance.</p><p>At Higher Ranks: For each rank above C-Rank, increase the cost by 3 and the
+            damage by 3d8 and the knock back distance by 10 feet. If this Jutsu is cast at B-Rank or higher, you can
+            make the melee ninjutsu attack the turn you cast it. You may also add a nature release keyword, changing
+            this jutsu's damage type to match the nature release you currently can use. You gain the following benefits
+            depending on the Nature Release chosen:</p><p>• Earth: The target takes earth damage is bruised &amp; gains
+            the weakened condition until the end of their next turn.</p><p>• Wind: The Rasengan gains a range of 60 Feet
+            and you can instead make a ranged ninjutsu attack targeting a creature within that range. On a hit, the
+            target takes wind damage and the Rasengan expands. All Creatures, except the original target, in a 15-foot
+            radius sphere centered on the original target must make a Dexterity saving throw, taking the damage of this
+            jutsu as well on a failed save.</p><p>• Fire:The target takes fire damage and 1 rank of burned, and all
+            creatures in a 30-foot cone behind the target creature must make a Constitution saving throw, gaining the
+            burned condition on a failed save.</p><p>• Water: Target creature takes cold damage and makes their saving
+            throw at disadvantage. On a failed save, they are knocked back twice the distance, taking falling damage if
+            they hit a solid surface.</p><p>• Lightning: The attack made has advantage and on a hit, the target creature
+            take lightning damage and gains the Shocked condition.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '30'
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 5
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 8
+          scale: false
+        ability: ninjutsu
+        actionType: mnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 5d8
+              - force
+          versatile: ''
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: nin
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: level
+          formula: 3d8
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - chakramolding
+          - concentration
+          - molding
+          - clash
+        keywords:
+          - ninjutsu
+          - clash
+        chakraCost: 8
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+      currentSource:
+        sourcePack: n5eb-jutsu
+        sourcePath: rasengan.yml
+        sourceId: n5ebRasengan0001
+        documentName: Item
+      replacedCurrent:
+        _id: n5ebRasengan0001
+        name: Rasengan
+        type: spell
+        img: icons/magic/air/wind-vortex-swirl-blue.webp
+        system:
+          description:
+            value: >-
+              <p>You form a sphere of spiraling chakra in your palm. On a later turn while the jutsu lasts, use your
+              action to make a melee Ninjutsu attack. On a hit, the target takes 5d8 force damage and must make a
+              Strength saving throw. On a failed save, it is knocked back 30 feet and suffers the Dazed and Concussed
+              conditions.</p> <p>The jutsu ends only after you hit with the attack or the duration expires.</p>
+            chat: ''
+          source:
+            custom: ''
+            book: Naruto 5e
+            page: '26'
+            license: ''
+            rules: n5eb
+          activation:
+            type: action
+            condition: ''
+            value: 1
+          duration:
+            value: '1'
+            units: minute
+          target:
+            affects:
+              type: creature
+              count: '1'
+              choice: false
+              special: ''
+            template:
+              units: ''
+              contiguous: false
+              type: ''
+          range:
+            value: '5'
+            units: ft
+            special: ''
+          uses:
+            max: ''
+            recovery: []
+            spent: 0
+          level: 2
+          rank: c
+          school: evo
+          jutsu:
+            type: ninjutsu
+            ability: ''
+            components:
+              - cm
+            keywords:
+              - ninjutsu
+              - clash
+            countsKnown: true
+          chakra:
+            cost: '8'
+            special: ''
+          materials:
+            value: ''
+            consumed: false
+            cost: 0
+            supply: 0
+          method: spell
+          prepared: 1
+          properties:
+            - concentration
+          activities:
+            n5ebRasenganAtk1:
+              _id: n5ebRasenganAtk1
+              type: attack
+              activation:
+                type: action
+                value: null
+                override: false
+              consumption:
+                targets: []
+                scaling:
+                  allowed: false
+                  max: ''
+                spellSlot: true
+              description:
+                chatFlavor: ''
+              duration:
+                units: inst
+                concentration: false
+                override: false
+              effects: []
+              range:
+                override: false
+              target:
+                prompt: true
+                template:
+                  contiguous: false
+                  units: ft
+                affects:
+                  choice: false
+                override: false
+              attack:
+                ability: ''
+                bonus: ''
+                critical:
+                  threshold: null
+                flat: false
+                type:
+                  value: melee
+                  classification: spell
+              damage:
+                critical:
+                  bonus: ''
+                includeBase: true
+                parts:
+                  - number: 5
+                    denomination: 8
+                    bonus: ''
+                    types:
+                      - force
+                    custom:
+                      enabled: false
+                      formula: ''
+                    scaling:
+                      mode: whole
+                      number: 3
+                      formula: ''
+              uses:
+                spent: 0
+                recovery: []
+                max: ''
+              sort: 0
+              name: Strike
+              img: ''
+              visibility:
+                level:
+                  min: null
+                  max: null
+          identifier: rasengan
+        sort: 310000
+        effects: []
+        folder: null
+        ownership:
+          default: 0
+        _stats:
+          duplicateSource: null
+          coreVersion: '13.351'
+          systemId: n5eb
+          systemVersion: 5.3.2
+          createdTime: 1772048400000
+          modifiedTime: 1772048400000
+          lastModifiedBy: dnd5ebuilder0000
+          exportSource: null
+        _key: '!items!n5ebRasengan0001'
+  midiProperties:
+    confirmTargets: default
+    saveDamage: default
+    bonusSaveDamage: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728757276506
+  modifiedTime: 1728757276506
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: non-elemental/c-rank/rasengan.json
+folder: XGXzSLF74wHJfzLr
+sort: 3600000
+ownership:
+  default: 0
+_id: n5ebRasengan0001
+_key: '!items!n5ebRasengan0001'

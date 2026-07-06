@@ -1,0 +1,244 @@
+name: Night Terrors
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: "<p>You amplify the fear that lurks in the heart of all creatures. As a part of casting this jutsu, you must target one creature who currently has at least 1 rank of fear. The target creature must succeed a Charisma saving throw. On a failed save, any genjutsu currently affecting them, that would inflict, or has inflicted the fear condition immediately ends.<br />The target creatures current ranks of fear double. If they have 3 or more ranks when they fail this jutsu's saving throw, their ranks of fear instead immediately becomes 5 for the duration.</p><p>A creature who has any number of fear ranks as a result of this jutsu cannot gain additional ranks of fear from other sources.<br />Additionally, affected creature remake their Charisma saving throw at the end of each of their turns. On a successful save they remove all ranks of fear and ends this jutsu's effects on themselves. Alternatively, when you lose concentration on this jutsu, the affected creature immediately loses all ranks of fear.<br />At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the number of creatures you can target by +1.\_</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: '1'
+    width: null
+    units: ''
+    type: creature
+    prompt: true
+  range:
+    value: 90
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: wis
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: cha
+    dc: null
+    scaling: genjutsu
+  level: 3
+  school: ill
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: night-terrors
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - visual
+      - auditory
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/c-rank/night-terrors.json
+      sourceId: iv8kFc0pQeESJHpE
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You amplify the fear that lurks in the heart of all creatures. As a part of casting this jutsu, you must target one creature who currently has at least 1 rank of fear. The target creature must succeed a Charisma saving throw. On a failed save, any genjutsu currently affecting them, that would inflict, or has inflicted the fear condition immediately ends.<br />The target creatures current ranks of fear double. If they have 3 or more ranks when they fail this jutsu's saving throw, their ranks of fear instead immediately becomes 5 for the duration.</p><p>A creature who has any number of fear ranks as a result of this jutsu cannot gain additional ranks of fear from other sources.<br />Additionally, affected creature remake their Charisma saving throw at the end of each of their turns. On a successful save they remove all ranks of fear and ends this jutsu's effects on themselves. Alternatively, when you lose concentration on this jutsu, the affected creature immediately loses all ranks of fear.<br />At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu by 3 and the number of creatures you can target by +1.\_</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: '1'
+          width: null
+          units: ''
+          type: creature
+          prompt: true
+        range:
+          value: 90
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: wis
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: cha
+          dc: null
+          scaling: genjutsu
+        level: 2
+        school: gen
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - genjutsu
+          - visual
+          - auditory
+        chakraCost: 9
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/c-rank/night-terrors.json
+folder: BbIYmdyQ2kjNmaur
+sort: 10900000
+ownership:
+  default: 0
+_id: iv8kFc0pQeESJHpE
+_key: '!items!iv8kFc0pQeESJHpE'

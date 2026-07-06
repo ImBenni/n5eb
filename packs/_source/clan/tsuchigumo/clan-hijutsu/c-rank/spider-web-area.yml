@@ -1,0 +1,246 @@
+name: Spider Web Area
+type: spell
+img: systems/n5eb/assets/content/clans/tsuchigumo.webp
+system:
+  description:
+    value: "<p>(You must know the Web Bind Tsuchigumo Clan Jutsu to cast this jutsu) You take time to spread a network of extremely thin and almost invisible webs.\_<br />For the duration of this jutsu creatures who enter the radius of this jutsu immediately alert you to their presence and location regardless of their stealth check.\_<br />You can also as an action target one creature whom you can see while both you and them are in the radius of your jutsu.\_<br />By ending this jutsu you attempt to ensnare the target by focusing on them and taking direct control of the webbing.\_<br />The target creature must succeed a Dexterity saving throw at disadvantage, coming under the effects of the Web Bind Tsuchigumo Clan Jutsu on a failed save and no further effects on a successful one.</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: minute
+    cost: 1
+    condition: ''
+  duration:
+    value: '12'
+    units: disp
+  cover: null
+  crewed: false
+  target:
+    value: '120'
+    width: null
+    units: ft
+    type: sphere
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: ''
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 9
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: dex
+    dc: null
+    scaling: ninjutsu
+  level: 3
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties: []
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: spider-web-area
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - sensory
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: c
+  chakra:
+    cost: '9'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - handseals
+      - molding
+      - sensory
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: tsuchigumo/clan-hijutsu/c-rank/spider-web-area.json
+      sourceId: tYY7tBaTlxdCMUnO
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>(You must know the Web Bind Tsuchigumo Clan Jutsu to cast this jutsu) You take time to spread a network of extremely thin and almost invisible webs.\_<br />For the duration of this jutsu creatures who enter the radius of this jutsu immediately alert you to their presence and location regardless of their stealth check.\_<br />You can also as an action target one creature whom you can see while both you and them are in the radius of your jutsu.\_<br />By ending this jutsu you attempt to ensnare the target by focusing on them and taking direct control of the webbing.\_<br />The target creature must succeed a Dexterity saving throw at disadvantage, coming under the effects of the Web Bind Tsuchigumo Clan Jutsu on a failed save and no further effects on a successful one.</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: minute
+          cost: 1
+          condition: ''
+        duration:
+          value: '12'
+          units: disp
+        cover: null
+        crewed: false
+        target:
+          value: '120'
+          width: null
+          units: ft
+          type: sphere
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: ''
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 9
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: dex
+          dc: null
+          scaling: ninjutsu
+        level: 2
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - molding
+          - sensory
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - sensory
+        chakraCost: 9
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midi-qol:
+    AoETargetType: any
+    AoETargetTypeIncludeSelf: true
+    autoTarget: default
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755008213
+  modifiedTime: 1728755052859
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: tsuchigumo/clan-hijutsu/c-rank/spider-web-area.json
+folder: 0ojyTzgkvf6Km3cq
+sort: 300000
+ownership:
+  default: 0
+_id: tYY7tBaTlxdCMUnO
+_key: '!items!tYY7tBaTlxdCMUnO'

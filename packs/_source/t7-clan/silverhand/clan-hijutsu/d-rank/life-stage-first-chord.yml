@@ -1,0 +1,480 @@
+folder: ekl3U1gGCYNaKJg2
+name: Life Stage First Chord
+type: spell
+_id: Gk8rtfjXrt76IAKw
+img: systems/n5eb/assets/content/clans/silverhand.webp
+system:
+  description:
+    value: >-
+      <p>You begin a melodious tune, getting your allies prepared for combat as
+      the music begins to thump in the background. When you cast this Jutsu,
+      choose between Ballad or Punk, your choice remains the same through all
+      Jutsu with the "Live Stage:" name.</p><p>Ballad: For the duration of this
+      Jutsu, whenever an allied creature within 30 feet of you that can hear you
+      would make an Attack Roll, Saving Throw, or Skill Check, they add +2 to
+      that roll.</p><p>Punk: For the duration of this Jutsu, on your turn as an
+      action, you can unleash a blast of sound. Each creature within a 30-foot
+      cone that can hear you must make a Constitution saving throw, taking 2d8
+      Force damage and being Concussed and Deafened until the end of their next
+      turn on a failed save. Creatures deafened this way are still able to hear
+      Jutsu you cast with the Auditory keyword as your chords directly strike
+      their soul.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: reaction
+    cost: 1
+    condition: which you take as part of rolling for initative, or 1 bonus action
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: self
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d8
+        - force
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties:
+    - concentration
+  materials:
+    value: Instrument
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: life-stage-first-chord
+  jutsu:
+    components:
+      - hs
+      - cm
+      - nt
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - auditory
+      - sensory
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Deafened
+    origin: Compendium.n5eb.t7-clan.Item.Gk8rtfjXrt76IAKw
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: deafened
+          rank: 1
+          maxRank: 1
+          category: sensory
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/deafened.svg
+    _id: 69N1ZC4tMAqKbUyh
+    type: base
+    system: {}
+    changes:
+      - key: system.skills.prc.bonuses.check
+        mode: 2
+        value: '-10'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.ability.save.wis
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.disadvantage.attack.wis
+        mode: 5
+        value: '1'
+        priority: 20
+    description: >-
+      <p>• A <strong>Deafened</strong> creature can’t hear and automatically
+      fails any check that requires hearing.</p><p>• A <strong>Deafened</strong>
+      creatures has a -10 penalty to their Perception.</p><p>• Creatures
+      currently Hidden from a <strong>Deafened</strong> creature do not need to
+      reroll Dexterity (Stealth) Checks to maintain Stealth against
+      them.</p><p>• Wisdom based Checks, attacks and saving throws are made at
+      disadvantage.</p><p>• A creature can willingly cover their ears for an
+      extended period of time as a bonus action. Doing so imposes this Condition
+      on them and occupies both hands until the beginning of their next
+      turn.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - deafened
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.LtF9jNCx9U6p4U6w.ActiveEffect.JD6YqfV0jNWOgoBJ
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Gk8rtfjXrt76IAKw.69N1ZC4tMAqKbUyh'
+  - name: Concussed
+    origin: Compendium.n5eb.t7-clan.Item.Gk8rtfjXrt76IAKw
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: concussed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/concussed.svg
+    _id: tU7AanZKOt3XkeKN
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: concussed
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has
+      experienced a traumatic blow causing their mental acuity to momentarily
+      decrease as they find themselves struggling to use complex
+      technique.</p><ul><li><p>A Concussed creature suffers a -1 penalty to all
+      of their Save DCs for each rank it has.</p></li><li><p>A Concussed
+      creature suffers a -1 penalty to all Intelligence based checks, attack
+      rolls and saving throws and checks for each rank it has.</p></li><li><p>A
+      concussed creature cannot gain the benefit of a Rest.</p></li><li><p>A
+      creature can spend its Action if it has a Medicine kit to make a DC 20
+      Medicine check, ending this condition on a success.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - concussed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Gk8rtfjXrt76IAKw.tU7AanZKOt3XkeKN'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    reactionCondition: ''
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: silverhand/clan-hijutsu/d-rank/life-stage-first-chord.json
+      sourceId: Gk8rtfjXrt76IAKw
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>You begin a melodious tune, getting your allies prepared for
+            combat as the music begins to thump in the background. When you cast
+            this Jutsu, choose between Ballad or Punk, your choice remains the
+            same through all Jutsu with the "Live Stage:" name.</p><p>Ballad:
+            For the duration of this Jutsu, whenever an allied creature within
+            30 feet of you that can hear you would make an Attack Roll, Saving
+            Throw, or Skill Check, they add +2 to that roll.</p><p>Punk: For the
+            duration of this Jutsu, on your turn as an action, you can unleash a
+            blast of sound. Each creature within a 30-foot cone that can hear
+            you must make a Constitution saving throw, taking 2d8 Force damage
+            and being Concussed and Deafened until the end of their next turn on
+            a failed save. Creatures deafened this way are still able to hear
+            Jutsu you cast with the Auditory keyword as your chords directly
+            strike their soul.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take as part of rolling for initative, or 1 bonus action
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: self
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d8
+              - force
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+          - ninjatools
+          - concentration
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - auditory
+          - sensory
+        materials:
+          value: Instrument
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 4
+        chakraScaling:
+          mode: none
+          value: 0
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733847743033
+  modifiedTime: 1734019760177
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: silverhand/clan-hijutsu/d-rank/life-stage-first-chord.json
+_key: '!items!Gk8rtfjXrt76IAKw'

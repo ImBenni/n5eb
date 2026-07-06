@@ -1,0 +1,244 @@
+name: Psionics Shared Thoughts
+type: spell
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: "<p>You attempt to see into and share the<br />thoughts of a creature you can see, seeing what they are<br />thinking or planning.</p><p>Select one creature you can see within range, forcing them to make an Intelligence saving throw.</p><p>Critical Success: Affected creature is able to resist this jutsu's effect, becoming immune to further castings of this jutsu for the next 10 minutes. Additionally, they become aware someone tried to peer into their mind.</p><p>Success: Affected creature is able to resist this jutsu's effects.</p><p>Failure: The hostile creature begins to unknowingly share their thoughts with you. At the beginning of each of its turns, the DM informs you of the jutsu they are casting, actions they are taking or the thoughts it has during its turn only. If the target would cast a jutsu or make an attack, you gain the benefit of a successful Read the Enemy reaction. At the end of each of the targets turns, it remakes it saving throw, while still unaware it is sharing thoughts with you.\_</p><p>Critical Failure: Same as Failure, but the target does not get to remake its saves until it becomes aware it is under the effects of this Genjutsu.</p>"
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 60
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 5
+    scale: false
+  ability: ''
+  actionType: save
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  formula: ''
+  save:
+    ability: int
+    dc: null
+    scaling: genjutsu
+  level: 1
+  school: ill
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: psionics-shared-thoughts
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - auditory
+      - unaware
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: none
+      value: 0
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: jutsus
+      sourcePath: genjutsu/d-rank/psionics-shared-thoughts.json
+      sourceId: wqRcPkVY2TvD6TYY
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You attempt to see into and share the<br />thoughts of a creature you can see, seeing what they are<br />thinking or planning.</p><p>Select one creature you can see within range, forcing them to make an Intelligence saving throw.</p><p>Critical Success: Affected creature is able to resist this jutsu's effect, becoming immune to further castings of this jutsu for the next 10 minutes. Additionally, they become aware someone tried to peer into their mind.</p><p>Success: Affected creature is able to resist this jutsu's effects.</p><p>Failure: The hostile creature begins to unknowingly share their thoughts with you. At the beginning of each of its turns, the DM informs you of the jutsu they are casting, actions they are taking or the thoughts it has during its turn only. If the target would cast a jutsu or make an attack, you gain the benefit of a successful Read the Enemy reaction. At the end of each of the targets turns, it remakes it saving throw, while still unaware it is sharing thoughts with you.\_</p><p>Critical Failure: Same as Failure, but the target does not get to remake its saves until it becomes aware it is under the effects of this Genjutsu.</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 60
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 5
+          scale: false
+        ability: ''
+        actionType: save
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        formula: ''
+        save:
+          ability: int
+          dc: null
+          scaling: genjutsu
+        level: 1
+        school: gen
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - genjutsu
+          - auditory
+          - unaware
+        chakraCost: 5
+        chakraScaling:
+          mode: none
+          value: 0
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728756349180
+  modifiedTime: 1728756349180
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: jutsus
+    sourcePath: genjutsu/d-rank/psionics-shared-thoughts.json
+folder: AmeoViai9zpWZpeh
+sort: 38800000
+ownership:
+  default: 0
+_id: wqRcPkVY2TvD6TYY
+_key: '!items!wqRcPkVY2TvD6TYY'

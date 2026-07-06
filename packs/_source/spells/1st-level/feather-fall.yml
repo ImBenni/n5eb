@@ -1,0 +1,160 @@
+_id: pub0OWVEB71XQx1n
+name: Feather Fall
+ownership:
+  default: 0
+type: spell
+system:
+  description:
+    value: >-
+      <p>Choose up to five falling creatures within range. A falling creature's
+      rate of descent slows to 60 feet per round until the spell ends. If the
+      creature lands before the spell ends, it takes no falling damage and can
+      land on its feet, and the spell ends for that creature.</p>
+    chat: ''
+  source:
+    custom: ''
+    book: ''
+    page: ''
+    license: CC-BY-4.0
+    rules: '2014'
+  activation:
+    type: reaction
+    condition: which you take when you or a creature within 60 feet of you falls
+    value: 1
+  duration:
+    value: '1'
+    units: minute
+  target:
+    affects:
+      type: creature
+      count: '5'
+      choice: false
+      special: ''
+    template:
+      units: ''
+      contiguous: false
+      type: ''
+  range:
+    value: '60'
+    units: ft
+    special: ''
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  level: 1
+  school: trs
+  materials:
+    value: A small feather or piece of down
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  properties:
+    - vocal
+    - material
+  activities:
+    dnd5eactivity000:
+      _id: dnd5eactivity000
+      type: utility
+      activation:
+        type: action
+        value: null
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: true
+      description:
+        chatFlavor: ''
+      duration:
+        units: inst
+        concentration: false
+        override: false
+      effects:
+        - _id: gMdi8F2ylxkgG58U
+      range:
+        override: false
+      target:
+        prompt: true
+        template:
+          contiguous: false
+          units: ft
+        affects:
+          choice: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+        max: ''
+      sort: 0
+      name: Cast
+      img: ''
+      visibility:
+        level:
+          min: null
+          max: null
+  identifier: feather-fall
+sort: 0
+flags: {}
+img: icons/commodities/materials/feather-blue-glowing.webp
+effects:
+  - name: Feather Fall
+    img: icons/commodities/materials/feather-blue-glowing.webp
+    origin: Compendium.n5eb.spells.Item.pub0OWVEB71XQx1n
+    transfer: false
+    _id: gMdi8F2ylxkgG58U
+    type: base
+    system: {}
+    changes: []
+    disabled: false
+    duration:
+      startTime: null
+      combat: null
+      seconds: 60
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    description: >-
+      <p>Your rate of descent slows to 60 feet per round until the spell ends.
+      If you land before the spell ends, you take no falling damage and can land
+      on your feet, and the spell ends for you.</p>
+    tint: '#ffffff'
+    statuses: []
+    sort: 0
+    flags:
+      n5eb:
+        riders:
+          statuses: []
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: n5eb
+      systemVersion: 5.3.0
+      createdTime: 1772822823602
+      modifiedTime: 1772823074092
+      lastModifiedBy: dnd5ebuilder0000
+    _key: '!items.effects!pub0OWVEB71XQx1n.gMdi8F2ylxkgG58U'
+folder: ERuXllkhTQF51rDJ
+_stats:
+  duplicateSource: null
+  coreVersion: '13.351'
+  systemId: n5eb
+  systemVersion: 5.3.0
+  createdTime: 1725037365567
+  modifiedTime: 1772823067450
+  lastModifiedBy: dnd5ebuilder0000
+  exportSource: null
+_key: '!items!pub0OWVEB71XQx1n'

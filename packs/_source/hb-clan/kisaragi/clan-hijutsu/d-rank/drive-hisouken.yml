@@ -1,0 +1,374 @@
+folder: P0jxeoCAOzLGa5OR
+name: Drive Hisouken
+type: spell
+_id: XyQqyd5CAmwcZyGZ
+img: systems/n5eb/assets/content/clans/kisaragi.webp
+system:
+  description:
+    value: >-
+      <p><em>You fire an ornate blade of ice straight towards your
+      target.</em><br />  For every 10 feet this blade travels, it deals 1d6
+      less Cold Damage. Make a Ranged Jutsu Attack, on a hit, you deal 4d6 Cold
+      Damage (min. 1d6). <br />  <em><strong>EX Skill.</strong></em> When you
+      would cast this jutsu, you may also spend <strong>1
+      </strong><em><strong>Heat Point</strong></em> to lower it's casting time
+      to 1 Bonus Action and replacing the <em><strong>Chain 1</strong></em>
+      keyword with <em><strong>Chain X</strong></em>. When this jutsu is granted
+      the <em><strong>Chain X</strong></em> keyword it gains the following
+      effects:<br />  If this jutsu is cast as a <em><strong>Chain
+      1</strong></em>, you gain advantage on your next attack roll.<br />  If
+      this jutsu is cast as a <em><strong>Chain 2</strong></em>, the target
+      creature takes half damage from this jutsu, but gains 1 rank of
+      <em><strong>Chilled</strong></em> when hit.</p><p><strong>At Higher
+      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
+      the cost of this jutsu by 3 and increase the damage by 1d6 and range by
+      10ft.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 30
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ninjutsu
+  actionType: rsak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 4d6
+        - cold
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: 1d6
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: drive-hisouken
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+      - chain1
+      - wind
+      - water
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Chilled
+    origin: Compendium.n5eb.hb-clan.Item.XyQqyd5CAmwcZyGZ
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: chilled
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/chilled.svg
+    _id: o349sl7efn5DpTnL
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 2
+        value: '-5'
+        priority: 20
+      - key: system.abilities.dex.bonuses.check
+        mode: 2
+        value: '-1'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1'
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - chilled
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!XyQqyd5CAmwcZyGZ.o349sl7efn5DpTnL'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: kisaragi/clan-hijutsu/d-rank/drive-hisouken.json
+      sourceId: XyQqyd5CAmwcZyGZ
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p><em>You fire an ornate blade of ice straight towards your
+            target.</em><br />  For every 10 feet this blade travels, it deals
+            1d6 less Cold Damage. Make a Ranged Jutsu Attack, on a hit, you deal
+            4d6 Cold Damage (min. 1d6). <br />  <em><strong>EX
+            Skill.</strong></em> When you would cast this jutsu, you may also
+            spend <strong>1 </strong><em><strong>Heat Point</strong></em> to
+            lower it's casting time to 1 Bonus Action and replacing the
+            <em><strong>Chain 1</strong></em> keyword with <em><strong>Chain
+            X</strong></em>. When this jutsu is granted the <em><strong>Chain
+            X</strong></em> keyword it gains the following effects:<br />  If
+            this jutsu is cast as a <em><strong>Chain 1</strong></em>, you gain
+            advantage on your next attack roll.<br />  If this jutsu is cast as
+            a <em><strong>Chain 2</strong></em>, the target creature takes half
+            damage from this jutsu, but gains 1 rank of
+            <em><strong>Chilled</strong></em> when hit.</p><p><strong>At Higher
+            Ranks:</strong> For each rank you cast this jutsu above D-Rank,
+            increase the cost of this jutsu by 3 and increase the damage by 1d6
+            and range by 10ft.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 30
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ninjutsu
+        actionType: rnak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 4d6
+              - cold
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+        keywords:
+          - ninjutsu
+          - hijutsu
+          - chain1
+          - wind
+          - water
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: 1d6
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1739433718536
+  modifiedTime: 1741606330119
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: kisaragi/clan-hijutsu/d-rank/drive-hisouken.json
+_key: '!items!XyQqyd5CAmwcZyGZ'

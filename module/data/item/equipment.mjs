@@ -1,0 +1,387 @@
+import { simplifyBonus } from "../../utils.mjs";
+import ItemDataModel from "../abstract/item-data-model.mjs";
+import FormulaField from "../fields/formula-field.mjs";
+import ActivitiesTemplate from "./templates/activities.mjs";
+import EquippableItemTemplate from "./templates/equippable-item.mjs";
+import IdentifiableTemplate from "./templates/identifiable.mjs";
+import ItemDescriptionTemplate from "./templates/item-description.mjs";
+import ItemTypeTemplate from "./templates/item-type.mjs";
+import PhysicalItemTemplate from "./templates/physical-item.mjs";
+import MountableTemplate from "./templates/mountable.mjs";
+import ItemTypeField from "./fields/item-type-field.mjs";
+import * as Seals from "../../seals.mjs";
+
+const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+
+/**
+ * @import { InventorySectionDescriptor } from "../../applications/components/_types.mjs";
+ * @import { EquipmentItemSystemData } from "./_types.mjs";
+ * @import {
+ *   ActivitiesTemplateData, EquippableItemTemplateData, IdentifiableTemplateData,
+ *   ItemDescriptionTemplateData, ItemTypeTemplateData, MountableTemplateData, PhysicalItemTemplateData
+ * } from "./templates/_types.mjs";
+ */
+
+/**
+ * Data definition for Equipment items.
+ * @extends {ItemDataModel<
+ *   ActivitiesTemplate & ItemDescriptionTemplate & IdentifiableTemplate & ItemTypeTemplate &
+ *   PhysicalItemTemplate & EquippableItemTemplate & MountableTemplate & EquipmentItemSystemData
+ * >}
+ * @mixes ActivitiesTemplateData
+ * @mixes ItemDescriptionTemplateData
+ * @mixes ItemTypeTemplateData
+ * @mixes IdentifiableTemplateData
+ * @mixes PhysicalItemTemplateData
+ * @mixes EquippableItemTemplateData
+ * @mixes MountableTemplateData
+ * @mixes EquipmentItemSystemData
+ */
+export default class EquipmentData extends ItemDataModel.mixin(
+  ActivitiesTemplate, ItemDescriptionTemplate, IdentifiableTemplate, ItemTypeTemplate,
+  PhysicalItemTemplate, EquippableItemTemplate, MountableTemplate
+) {
+
+  /* -------------------------------------------- */
+  /*  Model Configuration                         */
+  /* -------------------------------------------- */
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["DND5E.VEHICLE.MOUNTABLE", "DND5E.SOURCE"];
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static defineSchema() {
+    return this.mergeSchema(super.defineSchema(), {
+      armor: new SchemaField({
+        value: new NumberField({ required: true, integer: true, min: 0, label: "DND5E.ArmorClass" }),
+        magicalBonus: new FormulaField({ deterministic: true, label: "DND5E.MagicalBonus" }),
+        dex: new NumberField({ required: true, integer: true, label: "DND5E.ItemEquipmentDexMod" }),
+        bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.ARMOR.Bonus" }),
+        dexCap: new NumberField({ nullable: true, integer: true, initial: null, label: "N5EB.ARMOR.DexCap" }),
+        dr: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.ARMOR.DR" }),
+        don: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.ARMOR.Don" }),
+        doff: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.ARMOR.Doff" })
+      }),
+      proficient: new NumberField({
+        required: true, min: 0, max: 1, integer: true, initial: null, label: "DND5E.ProficiencyLevel"
+      }),
+      properties: new SetField(new StringField(), { label: "DND5E.ItemEquipmentProperties" }),
+      strength: new NumberField({ required: true, integer: true, min: 0, label: "DND5E.ItemRequiredStr" }),
+      type: new ItemTypeField({ subtype: false }, { label: "DND5E.ItemEquipmentType" })
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(super.metadata, {
+    compendiumGearSource: true,
+    hasEffects: true,
+    enchantable: true
+  }, {inplace: false}));
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  static get compendiumBrowserFilters() {
+    return new Map([
+      ["type", {
+        label: "DND5E.ItemEquipmentType",
+        type: "set",
+        config: {
+          choices: CONFIG.DND5E.equipmentTypes,
+          keyPath: "system.type.value"
+        }
+      }],
+      ["attunement", this.compendiumBrowserAttunementFilter],
+      ...this.compendiumBrowserPhysicalItemFilters,
+      ["properties", this.compendiumBrowserPropertiesFilter("equipment")]
+    ]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Default configuration for this item type's inventory section.
+   * @returns {InventorySectionDescriptor}
+   */
+  static get inventorySection() {
+    return {
+      id: "equipment",
+      order: 200,
+      label: "TYPES.Item.equipmentPl",
+      groups: { type: "equipment" },
+      columns: ["price", "weight", "quantity", "charges", "controls"]
+    };
+  }
+
+  /* -------------------------------------------- */
+  /*  Properties                                  */
+  /* -------------------------------------------- */
+
+  /**
+   * Properties displayed in chat.
+   * @type {string[]}
+   */
+  get chatProperties() {
+    return [
+      this.type.label,
+      (this.isArmor || this.isMountable) ? (this.parent.labels?.armor ?? null) : null,
+      this.properties.has("bulky") ? game.i18n.localize("N5EB.ARMOR.Property.Bulky") : null
+    ];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Properties displayed on the item card.
+   * @type {string[]}
+   */
+  get cardProperties() {
+    return [
+      (this.isArmor || this.isMountable) ? (this.parent.labels?.armor ?? null) : null,
+      this.properties.has("bulky") ? game.i18n.localize("N5EB.ARMOR.Property.Bulky") : null
+    ];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this Item any of the armor subtypes?
+   * @type {boolean}
+   */
+  get isArmor() {
+    return this.type.value in CONFIG.DND5E.armorTypes;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this item a separate large object like a siege engine or vehicle component that is
+   * usually mounted on fixtures rather than equipped, and has its own AC and HP?
+   * @type {boolean}
+   */
+  get isMountable() {
+    return this.type.value === "vehicle";
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  static get itemCategories() {
+    return CONFIG.DND5E.equipmentTypes;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The proficiency multiplier for this item.
+   * @returns {number}
+   */
+  get proficiencyMultiplier() {
+    if ( Number.isFinite(this.proficient) ) return this.proficient;
+    const actor = this.parent.actor;
+    if ( !actor ) return 0;
+    if ( actor.system.isNPC ) return 1; // NPCs are always considered proficient with any armor in their stat block.
+    const config = CONFIG.DND5E.armorProficienciesMap;
+    const itemProf = config[this.type.value];
+    const actorProfs = actor.system.traits?.armorProf?.value ?? new Set();
+    const isProficient = (itemProf === true) || actorProfs.has(itemProf) || actorProfs.has(this.type.baseItem);
+    return Number(isProficient);
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Migration                              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static _migrateData(source) {
+    super._migrateData(source);
+    ActivitiesTemplate.migrateActivities(source);
+    EquipmentData.#migrateArmor(source);
+    EquipmentData.#migrateType(source);
+    EquipmentData.#migrateStrength(source);
+    EquipmentData.#migrateProficient(source);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply migrations to the armor field.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateArmor(source) {
+    if ( !("armor" in source) ) return;
+    source.armor ??= {};
+    if ( (typeof source.armor.dex === "string") ) {
+      const dex = source.armor.dex;
+      if ( dex === "" ) source.armor.dex = null;
+      else if ( Number.isNumeric(dex) ) source.armor.dex = Number(dex);
+    }
+    const type = source.type?.value;
+    if ( source.armor.bonus === undefined ) source.armor.bonus = Seals.legacyArmorValueToBonus(source.armor.value);
+    if ( source.armor.dexCap === undefined ) source.armor.dexCap = Seals.defaultArmorDexCap(type, source.armor.dex);
+    if ( source.armor.dr === undefined ) {
+      source.armor.dr = Number(foundry.utils.getProperty(source, "flags.n5eb.legacyImport.originalSystem.armor.dr")
+        ?? source.armor.dr ?? 0) || 0;
+    }
+    if ( source.armor.don === undefined ) source.armor.don = type === "light" ? 1 : type === "medium" ? 5 : 10;
+    if ( source.armor.doff === undefined ) source.armor.doff = type === "light" ? 1 : type === "medium" ? 1 : 5;
+    if ( source.properties ) source.properties = Seals.normalizeArmorProperties(source.properties);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply migrations to the type field.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateType(source) {
+    if ( !("type" in source) ) return;
+    if ( source.type.value === "bonus" ) source.type.value = "trinket";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Ensure blank strength values are migrated to null, and string values are converted to numbers.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateStrength(source) {
+    if ( typeof source.strength !== "string" ) return;
+    if ( source.strength === "" ) source.strength = null;
+    if ( Number.isNumeric(source.strength) ) source.strength = Number(source.strength);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrates stealth disadvantage boolean to properties.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static _migrateStealth(source) {
+    if ( foundry.utils.getProperty(source, "system.stealth") === true ) {
+      foundry.utils.setProperty(source, "flags.n5eb.migratedProperties", ["stealthDisadvantage"]);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate the proficient field to convert boolean values.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateProficient(source) {
+    if ( typeof source.proficient === "boolean" ) source.proficient = Number(source.proficient);
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareBaseData() {
+    super.prepareBaseData();
+    this.armor.base = this.armor.value = (this._source.armor.value ?? 0);
+    const sourceBonus = Number(this._source.armor.bonus);
+    this.armor.bonus = Number.isFinite(sourceBonus)
+      ? sourceBonus
+      : Seals.legacyArmorValueToBonus(this.armor.value);
+    this.armor.dr = Number(this._source.armor.dr) || 0;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    this.prepareDescriptionData();
+    this.prepareIdentifiable();
+    this.preparePhysicalData();
+    this.prepareMountableData();
+    const magicalBonus = simplifyBonus(this.armor.magicalBonus, this.parent.getRollData());
+    if ( this.magicAvailable && magicalBonus ) {
+      this.armor.value += magicalBonus;
+      this.armor.bonus += magicalBonus;
+    }
+    this.type.label = CONFIG.DND5E.equipmentTypes[this.type.value]
+      ?? game.i18n.localize(CONFIG.Item.typeLabels.equipment);
+    this.type.identifier = this.type.value === "shield"
+      ? CONFIG.DND5E.shieldIds[this.type.baseItem]
+      : CONFIG.DND5E.armorIds[this.type.baseItem];
+
+    const labels = this.parent.labels ??= {};
+    if ( this.isArmor && (this.type.value !== "shield") ) {
+      const parts = [];
+      if ( this.armor.bonus ) parts.push(game.i18n.format("N5EB.ARMOR.Label.Bonus", { bonus: this.armor.bonus }));
+      if ( this.armor.dr ) parts.push(game.i18n.format("N5EB.ARMOR.Label.DR", { dr: this.armor.dr }));
+      labels.armor = parts.join(" / ");
+    } else {
+      labels.armor = this.armor.value ? `${this.armor.value} ${game.i18n.localize("DND5E.AC")}` : "";
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareFinalData() {
+    this.prepareFinalActivityData(this.parent.getRollData({ deterministic: true }));
+    this.prepareFinalEquippableData();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async getFavoriteData() {
+    return foundry.utils.mergeObject(await super.getFavoriteData(), {
+      subtitle: [this.type.label, this.parent.labels.activation],
+      uses: this.hasLimitedUses ? this.getUsesData() : null
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async getSheetData(context) {
+    context.subtitles = [
+      { label: this.type.label },
+      ...this.physicalItemSheetFields
+    ];
+
+    context.parts = ["dnd5e.details-equipment", "dnd5e.field-uses"];
+    context.equipmentTypeOptions = [
+      ...Object.entries(CONFIG.DND5E.miscEquipmentTypes).map(([value, label]) => ({ value, label })),
+      ...Object.entries(CONFIG.DND5E.armorTypes).map(([value, label]) => ({ value, label, group: "DND5E.Armor" }))
+    ];
+    context.hasDexModifier = this.isArmor && (this.type.value !== "shield");
+    if ( (this.isArmor || (this.type.value === "shield")) && (this.armor.value || this.armor.bonus) ) {
+      context.properties.active.shift();
+      context.info = [{
+        label: "DND5E.ArmorClass",
+        classes: "info-lg",
+        value: this.type.value === "shield" ? dnd5e.utils.formatModifier(this.armor.value) : this.armor.bonus
+      }];
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Socket Event Handlers                       */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    if ( (await super._preCreate(data, options, user)) === false ) return false;
+    await this.preCreateEquipped(data, options, user);
+    this.preCreateGear(data, options, user);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preUpdate(changed, options, user) {
+    if ( (await super._preUpdate(changed, options, user)) === false ) return false;
+    await this.preUpdateIdentifiable(changed, options, user);
+  }
+}

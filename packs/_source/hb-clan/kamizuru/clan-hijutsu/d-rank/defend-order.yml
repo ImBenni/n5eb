@@ -1,0 +1,254 @@
+folder: TfQTZth81F1oHTaE
+name: Defend Order
+type: spell
+_id: n6jS03thPDqMy2Sh
+img: systems/n5eb/assets/content/clans/kamizuru.webp
+system:
+  description:
+    value: >-
+      <p>Your hive immediately swarms to your protection covering your body in a cloak of defensive bees. You gain 18
+      temporary hit points until the beginning of your turn. If a creature hits you with a melee attack while you have
+      these hit points, once per turn must make a Constitution saving throw, gaining a rank of Envenomed on a failed
+      save.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the cost of
+      this jutsu by 3 and increase temporary hit points gained by +8. If this jutsu is cast at B-Rank, increase the
+      ranks of Envenomed inflicted to +2. At S-Rank, increase the ranks of Envenomed inflicted to +3.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  activation:
+    type: reaction
+    cost: 1
+    condition: when you would take damage
+  duration:
+    value: '1'
+    units: round
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: heal
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - '18'
+        - temphp
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: con
+    dc: null
+    scaling: ninjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: level
+    formula: '8'
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: defend-order
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - hijutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    reactionCondition: ''
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: kamizuru/clan-hijutsu/d-rank/defend-order.json
+      sourceId: n6jS03thPDqMy2Sh
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Your hive immediately swarms to your protection covering your body in a cloak of defensive bees. You gain
+            18 temporary hit points until the beginning of your turn. If a creature hits you with a melee attack while
+            you have these hit points, once per turn must make a Constitution saving throw, gaining a rank of Envenomed
+            on a failed save.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank,
+            increase the cost of this jutsu by 3 and increase temporary hit points gained by +8. If this jutsu is cast
+            at B-Rank, increase the ranks of Envenomed inflicted to +2. At S-Rank, increase the ranks of Envenomed
+            inflicted to +3.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        activation:
+          type: reaction
+          cost: 1
+          condition: when you would take damage
+        duration:
+          value: '1'
+          units: round
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: heal
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - '18'
+              - temphp
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: con
+          dc: null
+          scaling: ninjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+        keywords:
+          - ninjutsu
+          - hijutsu
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: level
+          formula: '8'
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1740985786720
+  modifiedTime: 1741606460369
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: kamizuru/clan-hijutsu/d-rank/defend-order.json
+_key: '!items!n6jS03thPDqMy2Sh'

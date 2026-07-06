@@ -1,0 +1,262 @@
+name: Ice Needle
+type: spell
+img: systems/n5eb/assets/content/clans/yuki.webp
+system:
+  description:
+    value: >-
+      <p>You Conjure water into the shape of a thin sword like construct in your free hand. You do not spend chakra to
+      maintain concentration on this jutsu. The blade is 5 feet long, the handle is 1 foot long. The design of the blade
+      can be whatever you decide. If you let go of the blade it disperses into water again. You can use your action to
+      make a Melee Ninjutsu or Taijutsu attack with the Ice Sword. On a hit, the target takes 2d10+Ninjutsu Ability
+      Modifier cold damage.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of
+      this jutsu by 3. If this jutsu is cast at C-Rank, increase the damage by 1d10. If this jutsu is cast at B-Rank,
+      increase the number of attacks you can make with this weapon to two. If this jutsu is cast at S-Rank, increase the
+      number of attacks you can make with this weapon to three.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  activation:
+    type: bonus
+    cost: 1
+    condition: ''
+  duration:
+    value: '1'
+    units: minute
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: self
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: ''
+    amount: 4
+    scale: false
+  ability: ninjutsu
+  actionType: msak
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts:
+      - - 2d10+@mod
+        - cold
+    versatile: ''
+  formula: ''
+  save:
+    ability: ''
+    dc: null
+    scaling: spell
+  level: 1
+  school: trs
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: true
+  scaling:
+    mode: none
+    formula: ''
+  attack:
+    bonus: ''
+    flat: false
+  enchantment: null
+  summons: null
+  properties:
+    - concentration
+  versatileScaling:
+    mode: none
+    formula: ''
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  identifier: ice-needle
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - bukijutsu
+      - hijutsu
+      - wind
+      - water
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '4'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 1
+effects: []
+flags:
+  cf: null
+  n5eb:
+    migratedProperties:
+      - concentration
+      - handseals
+      - molding
+      - chakramolding
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: clan
+      sourcePath: yuki/clan-hijutsu/d-rank/ice-needle.json
+      sourceId: YUKtlxvfSvw192rD
+      sourceType: spell
+      originalSystem:
+        description:
+          value: "<p>You Conjure water into the shape of a thin sword like construct in your free hand. You do not spend chakra to maintain concentration on this jutsu. The blade is 5 feet long, the handle is 1 foot long. The design of the blade can be whatever you decide. If you let go of the blade it disperses into water again. You can use your action to make a Melee Ninjutsu or Taijutsu attack with the Ice Sword. On a hit, the target takes 2d10+Ninjutsu Ability Modifier cold damage.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3. If this jutsu is cast at C-Rank, increase the damage by 1d10. If this jutsu is cast at B-Rank, increase the number of attacks you can make with this weapon to two. If this jutsu is cast at S-Rank, increase the number of attacks\_ you can make with this weapon to three.</p>"
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        activation:
+          type: bonus
+          cost: 1
+          condition: ''
+        duration:
+          value: '1'
+          units: minute
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: self
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: ''
+          amount: 4
+          scale: false
+        ability: ninjutsu
+        actionType: mnak
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts:
+            - - 2d10+@mod
+              - cold
+          versatile: ''
+        formula: ''
+        save:
+          ability: ''
+          dc: null
+          scaling: spell
+        level: 1
+        school: hi
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: true
+        scaling:
+          mode: none
+          formula: ''
+        attack:
+          bonus: ''
+          flat: false
+        enchantment: null
+        summons: null
+        properties:
+          - handseals
+          - chakramolding
+          - concentration
+          - molding
+        keywords:
+          - ninjutsu
+          - bukijutsu
+          - hijutsu
+          - wind
+          - water
+        chakraCost: 4
+        chakraScaling:
+          mode: level
+          value: 3
+        versatileScaling:
+          mode: none
+          formula: ''
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    removeAttackDamageButtons: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728755558347
+  modifiedTime: 1728755595185
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: clan
+    sourcePath: yuki/clan-hijutsu/d-rank/ice-needle.json
+folder: 9t8CKOVj9oA8XXjc
+sort: 500000
+ownership:
+  default: 0
+_id: YUKtlxvfSvw192rD
+_key: '!items!YUKtlxvfSvw192rD'

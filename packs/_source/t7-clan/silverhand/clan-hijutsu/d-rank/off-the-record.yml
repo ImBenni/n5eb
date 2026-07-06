@@ -1,0 +1,352 @@
+folder: ekl3U1gGCYNaKJg2
+name: Off The Record
+type: spell
+_id: ddgGmi0as1XlJn2X
+img: systems/n5eb/assets/content/clans/silverhand.webp
+system:
+  description:
+    value: >-
+      <p>Though you spend a lot time around a bunch of people, you hate it when
+      your personal space is violated and these haters are pushing you to your
+      limit. Make three melee Taijutsu attacks with your Instrument. On each
+      hit, you deal your [Weapon's Damage Die]. If you hit with at least two of
+      these attacks, the target must make a Strength saving throw or be knocked
+      prone. This jutsu's effects changed based on your chosen
+      branch.</p><ul><li><strong>Melody:</strong> The target makes their saving
+      throw at disadvantage, and on a failed save, they are also knocked back 30
+      feet as you play a smooth tune that produces a strong
+      shockwave.</li><li><strong>Violence:</strong> Your melee attacks gain a +1
+      bonus to critical threat range, and add half your ability modifier to your
+      damage rolls, as opposed to none.</li></ul><p><strong>At Higher
+      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
+      the cost of this jutsu by 3. If cast to B-Rank or higher, increase the
+      damage die by +1. If cast to S-Rank, increase the damage die by +1.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: action
+    cost: 1
+    condition: ''
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: null
+    long: null
+    units: touch
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: taijutsu
+  actionType: msak
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: ''
+  save:
+    ability: str
+    dc: null
+    scaling: taijutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: trs
+  properties: []
+  materials:
+    value: Instrument
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: off-the-record
+  jutsu:
+    components:
+      - hs
+      - cm
+      - nt
+    keywords:
+      - taijutsu
+      - hijutsu
+      - auditory
+      - sensory
+      - ninjutsu
+    countsKnown: true
+    ability: ''
+    type: ninjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Prone
+    origin: Compendium.n5eb.t7-clan.Item.ddgGmi0as1XlJn2X
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: prone
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: N9iomM7jZMNAco7m
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - prone
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!ddgGmi0as1XlJn2X.N9iomM7jZMNAco7m'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    fumbleThreshold: null
+    removeAttackDamageButtons: default
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-clan
+      sourcePath: silverhand/clan-hijutsu/d-rank/off-the-record.json
+      sourceId: ddgGmi0as1XlJn2X
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>Though you spend a lot time around a bunch of people, you hate it
+            when your personal space is violated and these haters are pushing
+            you to your limit. Make three melee Taijutsu attacks with your
+            Instrument. On each hit, you deal your [Weapon's Damage Die]. If you
+            hit with at least two of these attacks, the target must make a
+            Strength saving throw or be knocked prone. This jutsu's effects
+            changed based on your chosen
+            branch.</p><ul><li><strong>Melody:</strong> The target makes their
+            saving throw at disadvantage, and on a failed save, they are also
+            knocked back 30 feet as you play a smooth tune that produces a
+            strong shockwave.</li><li><strong>Violence:</strong> Your melee
+            attacks gain a +1 bonus to critical threat range, and add half your
+            ability modifier to your damage rolls, as opposed to
+            none.</li></ul><p><strong>At Higher Ranks:</strong> For each rank
+            you cast this jutsu above D-Rank, increase the cost of this jutsu by
+            3. If cast to B-Rank or higher, increase the damage die by +1. If
+            cast to S-Rank, increase the damage die by +1.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: action
+          cost: 1
+          condition: ''
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: null
+          long: null
+          units: touch
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: taijutsu
+        actionType: mtak
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: ''
+        save:
+          ability: str
+          dc: null
+          scaling: taijutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: hi
+        properties:
+          - handseals
+          - chakramolding
+          - ninjatools
+        keywords:
+          - taijutsu
+          - hijutsu
+          - auditory
+          - sensory
+        materials:
+          value: Instrument
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1733848590986
+  modifiedTime: 1734019766748
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-clan
+    sourcePath: silverhand/clan-hijutsu/d-rank/off-the-record.json
+_key: '!items!ddgGmi0as1XlJn2X'

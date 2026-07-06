@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label>{{ localize "N5EB.AbilityModifier" }}</label>
+    <label>{{ localize "DND5E.AbilityModifier" }}</label>
     <div class="form-fields">
         <multi-select name="configuration.spell.ability">
             {{#each abilities}}
@@ -10,7 +10,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{ localize "N5EB.SpellPreparationMode" }}</label>
+    <label>{{ localize "DND5E.SpellPreparation.Mode" }}</label>
     <div class="form-fields">
         <select name="configuration.spell.preparation">
             {{ selectOptions CONFIG.spellPreparationModes selected=configuration.spell.preparation
@@ -20,7 +20,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{ localize "N5EB.LimitedUses" }}</label>
+    <label>{{ localize "DND5E.LimitedUses" }}</label>
     <div class="form-fields">
         <input type="text" name="configuration.spell.uses.max" value="{{ configuration.spell.uses.max }}"
                data-formula-editor>
@@ -30,3 +30,14 @@
         </select>
     </div>
 </div>
+
+{{#if showRequireSpellSlot}}
+<div class="form-group">
+    <label>{{ localize "DND5E.ADVANCEMENT.SPELLCONFIG.FIELDS.spell.uses.requireSlot.label" }}</label>
+    <div class="form-fields">
+        <input type="checkbox" name="configuration.spell.uses.requireSlot"
+               {{ checked configuration.spell.uses.requireSlot }}>
+    </div>
+    <p class="hint">{{ localize "DND5E.ADVANCEMENT.SPELLCONFIG.FIELDS.spell.uses.requireSlot.hint" }}</p>
+</div>
+{{/if}}

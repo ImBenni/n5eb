@@ -1,0 +1,378 @@
+folder: null
+name: Student
+type: background
+img: icons/skills/social/diplomacy-writing-letter.webp
+system:
+  description:
+    value: >-
+      <p>You were identified as someone with untapped potential at a very young age and were taken in as an
+      apprentice.</p><p>You were taken from your home to be trained either by the Master who found you.</p><p>You seldom
+      ever see your biological family, and were raised and educated surrounded by the trappings of the shinobi code
+      taught to you by your master.</p><p>Now, you have set out into the greater world, seeking to use what you have
+      learned.</p><hr /><p><strong>Skill Proficiencies:</strong> Acrobatics, Choose one Ninshou, Martial Arts,
+      Illusions.</p><p><strong>Tool Proficiencies:</strong> Forensics Kit</p><p><strong>Equipment:</strong> A set of
+      Common clothes, a Book full of teachings from your master, 1 Blank Jutsu Scroll, the last Letter you received from
+      your master and a wallet containing 100 Ryo</p><p><strong>Equipment Pack:</strong> Explorer's or Infiltrator's
+      Pack (Choose one).</p><hr /><p><strong>FEATURE: THE MASTER'S NAME</strong></p><p>You were formally trained in the
+      art of shinobi, and the name of those that trained you can open doors.</p><p>You can usually gain an audience with
+      another Shinobi Leader, simply by dropping the name of your Master or Masters School.</p><p>Furthermore, you can
+      usually find a place to stay among Monks or Shinobi Temples, unless you show yourself to be a danger to
+      them.</p><p>You may also have access to resources from those who taught you, whether that is access to your
+      school's libraries and facilities, or simply the ability to correspond with your Master and ask him or her for
+      advice.</p><hr /><p><strong>WELL LEARNED</strong></p><p>Select one:</p><p>• Increase any ability score by +1.
+      (<strong>Recommended:</strong> Dexterity, Intelligence)</p><p>• Gain a feat from Chapter 13: Customization
+      options.</p><p>Regardless of the feat chosen, you do not gain an ability score improvement from the feat you
+      select. (<strong>Recommended:</strong> General, Skill, Ninjutsu)</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Naruto 5e
+  advancement:
+    - _id: GT8o6PJHNC4ov0yf
+      type: AbilityScoreImprovement
+      configuration:
+        points: 1
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        cap: 1
+      value:
+        type: asi
+      level: 0
+      title: ''
+      hint: '[If choosing Feat, Ignore this ASI]Charisma +1 Or Wisdom +1'
+    - _id: WSpH3xmPJ6c0Bb9M
+      type: Trait
+      configuration:
+        mode: default
+        allowReplacements: true
+        grants:
+          - skills:acr
+        choices:
+          - count: 1
+            pool:
+              - skills:acr
+              - skills:ill
+              - skills:mar
+              - skills:nsh
+      value:
+        chosen: []
+      level: 0
+      title: ''
+      hint: ''
+    - _id: e8oT4olNQfheLJGf
+      type: Trait
+      configuration:
+        mode: default
+        allowReplacements: true
+        grants:
+          - tool:kit:forensicsKit
+        choices: []
+      value:
+        chosen: []
+      level: 0
+      title: ''
+      hint: ''
+    - _id: af2GUyy8VaPYTsug
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.items.Item.n5ebWalletBasic0
+            optional: false
+          - uuid: Compendium.n5eb.items.Item.xHE6XKVR38rZZeLV
+            optional: false
+          - uuid: Compendium.n5eb.backgrounds.Item.uRGWwZOZgtHeKBbF
+            optional: false
+          - uuid: Compendium.n5eb.backgrounds.Item.hT4Gdr2lbrkoQpq9
+            optional: false
+          - uuid: Compendium.n5eb.items.Item.bikW2HKpo0Bv77fZ
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 0
+      title: Grant Equipment
+      hint: ''
+    - _id: uNpax4ZV54KlO4Ai
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.backgrounds.Item.Rl80ezLojwOsoWCj
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 0
+      title: Grant Feature
+      hint: ''
+    - _id: cRyp0K9ti2zQWvrq
+      type: ItemChoice
+      configuration:
+        choices:
+          '0':
+            count: 1
+            replacement: false
+        allowDrops: true
+        type: null
+        pool:
+          - uuid: Compendium.n5eb.items.Item.3pAJEFEnaOt9DOK7
+          - uuid: Compendium.n5eb.items.Item.eo0yvcRzQBR25ymj
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      title: Explorer’s or Infiltrator’s Pack
+      hint: ''
+  startingEquipment: []
+  identifier: student
+effects: []
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: backgrounds
+      sourcePath: student.json
+      sourceId: OEvT3RNy2sEoD2UT
+      sourceType: background
+      originalSystem:
+        description:
+          value: >-
+            <p>You were identified as someone with untapped potential at a very young age and were taken in as an
+            apprentice.</p><p>You were taken from your home to be trained either by the Master who found you.</p><p>You
+            seldom ever see your biological family, and were raised and educated surrounded by the trappings of the
+            shinobi code taught to you by your master.</p><p>Now, you have set out into the greater world, seeking to
+            use what you have learned.</p><hr /><p><strong>Skill Proficiencies:</strong> Acrobatics, Choose one Ninshou,
+            Martial Arts, Illusions.</p><p><strong>Tool Proficiencies:</strong> Forensics
+            Kit</p><p><strong>Equipment:</strong> A set of Common clothes, a Book full of teachings from your master, 1
+            Blank Jutsu Scroll, the last Letter you received from your master and a wallet containing 100
+            Ryo</p><p><strong>Equipment Pack:</strong> Explorer's or Infiltrator's Pack (Choose one).</p><hr
+            /><p><strong>FEATURE: THE MASTER'S NAME</strong></p><p>You were formally trained in the art of shinobi, and
+            the name of those that trained you can open doors.</p><p>You can usually gain an audience with another
+            Shinobi Leader, simply by dropping the name of your Master or Masters School.</p><p>Furthermore, you can
+            usually find a place to stay among Monks or Shinobi Temples, unless you show yourself to be a danger to
+            them.</p><p>You may also have access to resources from those who taught you, whether that is access to your
+            school's libraries and facilities, or simply the ability to correspond with your Master and ask him or her
+            for advice.</p><hr /><p><strong>WELL LEARNED</strong></p><p>Select one:</p><p>• Increase any ability score
+            by +1. (<strong>Recommended:</strong> Dexterity, Intelligence)</p><p>• Gain a feat from Chapter 13:
+            Customization options.</p><p>Regardless of the feat chosen, you do not gain an ability score improvement
+            from the feat you select. (<strong>Recommended:</strong> General, Skill, Ninjutsu)</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Naruto 5e
+        advancement:
+          - _id: GT8o6PJHNC4ov0yf
+            type: AbilityScoreImprovement
+            configuration:
+              points: 1
+              fixed:
+                str: 0
+                dex: 0
+                con: 0
+                int: 0
+                wis: 0
+                cha: 0
+              cap: 1
+            value:
+              type: asi
+            level: 0
+            title: ''
+            hint: '[If choosing Feat, Ignore this ASI]Charisma +1 Or Wisdom +1'
+          - _id: WSpH3xmPJ6c0Bb9M
+            type: Trait
+            configuration:
+              mode: default
+              allowReplacements: true
+              grants:
+                - skills:acr
+              choices:
+                - count: 1
+                  pool:
+                    - skills:acr
+                    - skills:ill
+                    - skills:mar
+                    - skills:nsh
+            value:
+              chosen: []
+            level: 0
+            title: ''
+            hint: ''
+          - _id: e8oT4olNQfheLJGf
+            type: Trait
+            configuration:
+              mode: default
+              allowReplacements: true
+              grants:
+                - tool:kit:forensicsKit
+              choices: []
+            value:
+              chosen: []
+            level: 0
+            title: ''
+            hint: ''
+          - _id: af2GUyy8VaPYTsug
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.items.Item.n5ebWalletBasic0
+                  optional: false
+                - uuid: Compendium.n5eb.items.Item.xHE6XKVR38rZZeLV
+                  optional: false
+                - uuid: Compendium.n5eb.backgrounds.Item.uRGWwZOZgtHeKBbF
+                  optional: false
+                - uuid: Compendium.n5eb.backgrounds.Item.hT4Gdr2lbrkoQpq9
+                  optional: false
+                - uuid: Compendium.n5eb.items.Item.bikW2HKpo0Bv77fZ
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 0
+            title: Grant Equipment
+            hint: ''
+          - _id: uNpax4ZV54KlO4Ai
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.backgrounds.Item.Rl80ezLojwOsoWCj
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 0
+            title: Grant Feature
+            hint: ''
+          - _id: cRyp0K9ti2zQWvrq
+            type: ItemChoice
+            configuration:
+              choices:
+                '0':
+                  count: 1
+                  replacement: false
+              allowDrops: true
+              type: null
+              pool:
+                - uuid: Compendium.n5eb.items.Item.3pAJEFEnaOt9DOK7
+                - uuid: Compendium.n5eb.items.Item.eo0yvcRzQBR25ymj
+              spell: null
+              restriction: {}
+            value:
+              added: {}
+              replaced: {}
+            title: Explorer’s or Infiltrator’s Pack
+            hint: ''
+        startingEquipment: []
+        identifier: ''
+      currentSource:
+        sourcePack: n5eb-origins
+        sourcePath: student.yml
+        sourceId: n5ebStudent00001
+        documentName: Item
+      replacedCurrent:
+        _id: n5ebStudent00001
+        name: Student
+        type: background
+        img: icons/sundries/books/book-symbol-triangle-silver-blue.webp
+        system:
+          description:
+            value: >-
+              <p>You were identified as someone with untapped potential and trained by a master in the shinobi arts.</p>
+              <p><strong>Skill Proficiencies:</strong> Acrobatics, plus one from Ninshou, Martial Arts, or
+              Illusions.</p> <p><strong>Tool Proficiencies:</strong> Forensics Kit. This kit is not automated yet
+              because the N5eB tool taxonomy still needs to be added.</p> <p><strong>Equipment:</strong> Commoner's
+              clothes, a book of your master's teachings, one blank jutsu scroll, your master's last letter, and a
+              wallet containing 100 Ryo.</p> <p><strong>Equipment Pack:</strong> Explorer's Pack or Infiltrator's
+              Pack.</p> <p><strong>Feature: The Master's Name.</strong> Your formal training can open doors with shinobi
+              leaders, temples, and schools connected to your master.</p> <p><strong>Mentored.</strong> Choose either +1
+              to an ability score or a feat without its ability score increase.</p>
+            chat: ''
+          source:
+            custom: ''
+            book: Naruto 5e
+            page: '23'
+            license: ''
+            rules: n5eb
+          advancement:
+            - _id: n5ebStudentSk1
+              type: Trait
+              configuration:
+                mode: default
+                allowReplacements: true
+                grants:
+                  - skills:acr
+                choices:
+                  - count: 1
+                    pool:
+                      - skills:nsh
+                      - skills:mar
+                      - skills:ill
+              level: 0
+              title: Skills
+              value:
+                chosen: []
+          startingEquipment:
+            - type: AND
+              _id: n5ebStudentEq
+              group: ''
+              sort: 100000
+              requiresProficiency: false
+            - type: linked
+              count: 1
+              key: Compendium.n5eb.items.Item.xHE6XKVR38rZZeLV
+              _id: n5ebStudCloth
+              group: n5ebStudentEq
+              sort: 200000
+              requiresProficiency: false
+            - type: linked
+              count: 1
+              key: Compendium.n5eb.items.Item.EoksshBCqNfO70km
+              _id: n5ebStudScrol
+              group: n5ebStudentEq
+              sort: 300000
+              requiresProficiency: false
+            - type: linked
+              count: 1
+              key: Compendium.n5eb.items.Item.n5ebWalletBasic0
+              _id: n5ebStudWallet
+              group: n5ebStudentEq
+              sort: 400000
+              requiresProficiency: false
+          identifier: student
+        effects: []
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+        _stats:
+          duplicateSource: null
+          coreVersion: '13.351'
+          systemId: n5eb
+          systemVersion: 5.3.2
+          createdTime: 1772048400000
+          modifiedTime: 1772048400000
+          lastModifiedBy: dnd5ebuilder0000
+          exportSource: null
+        _key: '!items!n5ebStudent00001'
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1728700357511
+  modifiedTime: 1734283414811
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: backgrounds
+    sourcePath: student.json
+_id: n5ebStudent00001
+sort: 600000
+_key: '!items!n5ebStudent00001'

@@ -1,0 +1,405 @@
+folder: SyUI3mGGCLHbKjjp
+name: Izuno
+type: race
+_id: OZganR5AvRqdAMtW
+img: systems/n5eb/assets/content/clans/izuno.webp
+system:
+  origin:
+    land: ''
+    village: ''
+  description:
+    value: >-
+      <h2 id="the-izuno-clan">The Izuno Clan</h2><p><em>The Izuno clan is a distant rival of the Inuzuka clan, having
+      chosen to learn from their feline counterparts rather than fight alongside them, a challenging thing anyway as
+      cats are well-known for their independence.<br />The clan tends to be more isolated and less unified, preferring a
+      nomadic lifestyle and settling wherever they find a favorable location.<br />Their techniques, particularly their
+      powerful claws, are infamous for being deadly to those unprepared to face them.<br />Many speculate that their
+      feline traits and remarkable abilities come from an ancient blessing bestowed upon them by a powerful sage
+      beast.<br />(Created By Liviu50)</em></p><h3 id="izuno-traits">Izuno Traits</h3><p><strong>Recommended Ability
+      Score Increase:</strong> +2 Dex, +1 Con.<br /><strong>Speed:</strong> Your base walking speed is 35 ft and you
+      have a climbing speed equal to your walking speed.<br /><strong>Skill Proficiencies:</strong> You gain proficiency
+      in Stealth and one between Acrobatics or Athletics.<br /><strong>Extra Language:</strong> Standard, Feline-Speech
+      and fire dialect.<br /><strong>Izuno Hijutsu:</strong> You know an additional D-Rank jutsu from the Izuno Clan
+      Jutsu List (This does not count towards your total jutsu known).</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Homebrew
+  advancement:
+    - type: AbilityScoreImprovement
+      _id: g5SaGXAdwFxihWEn
+      configuration:
+        points: 3
+        fixed:
+          str: 0
+          dex: 0
+          con: 0
+          int: 0
+          wis: 0
+          cha: 0
+        cap: 2
+      value:
+        type: asi
+      level: 0
+      title: ''
+      hint: ''
+    - type: Size
+      _id: 34tEQDrKWnRqEGDZ
+      configuration:
+        sizes:
+          - med
+      level: 0
+      value: {}
+    - type: Trait
+      configuration:
+        grants:
+          - languages:standard:common
+        mode: default
+        allowReplacements: false
+        choices: []
+      _id: r3Gn3JQFYtEz9iiG
+      value:
+        chosen: []
+      level: 0
+    - _id: 8LwLLsGSOqHQW89E
+      type: Trait
+      configuration:
+        mode: default
+        allowReplacements: false
+        grants:
+          - skills:ste
+          - languages:standard:fire
+          - languages:cat
+        choices:
+          - count: 1
+            pool:
+              - skills:acr
+              - skills:ath
+      value:
+        chosen: []
+      level: 0
+      title: ''
+      hint: ''
+    - _id: J7uEydg5dZuwDERe
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-clan.Item.YdyGoMkM9u1oU6n4
+            optional: false
+          - uuid: Compendium.n5eb.hb-clan.Item.uy1OsPCzEKVm8MUY
+            optional: false
+          - uuid: Compendium.n5eb.hb-clan.Item.2JNKhB1G2gEkyMhc
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 1
+      title: ''
+      hint: ''
+    - _id: QhMLorzyUUvARkKk
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-clan.Item.59QQe9txzt4Xpt3d
+            optional: false
+          - uuid: Compendium.n5eb.hb-clan.Item.BFizHPYotJouHY3N
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 3
+      title: ''
+      hint: ''
+    - _id: EhjUHfZLZkEV8fMy
+      type: ItemChoice
+      configuration:
+        choices:
+          '3':
+            count: 1
+            replacement: false
+          '7':
+            count: 1
+            replacement: false
+          '11':
+            count: 1
+            replacement: false
+        allowDrops: true
+        type: null
+        pool:
+          - uuid: Compendium.n5eb.hb-clan.Item.8HRAUgnRr3QSUNPR
+          - uuid: Compendium.n5eb.hb-clan.Item.SCfLsSbcQJaCilSV
+          - uuid: Compendium.n5eb.hb-clan.Item.5JX1aAOHRuOpynKG
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      title: ''
+      hint: ''
+    - _id: EvoceGRLHZFfAvG2
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-clan.Item.TXAumpQtqXOBAvV3
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 7
+      title: ''
+      hint: ''
+    - _id: vs5Zanq8RbGMttSY
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-clan.Item.FDqMZ7ZQpcOSnLUF
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 11
+      title: ''
+      hint: ''
+    - _id: 5mXVEq3IIWo4VCqj
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-clan.Item.IkhWtotTWgJZfGUV
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 15
+      title: ''
+      hint: ''
+  movement:
+    burrow: null
+    climb: 35
+    fly: null
+    swim: null
+    walk: 35
+    units: null
+    hover: false
+  senses:
+    darkvision: null
+    chakrasight: null
+    blindsight: null
+    tremorsense: null
+    truesight: null
+    units: null
+    special: ''
+  type:
+    value: humanoid
+  identifier: izuno
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: hb-clan
+      sourcePath: izuno/izuno.json
+      sourceId: OZganR5AvRqdAMtW
+      sourceType: race
+      originalSystem:
+        description:
+          value: >-
+            <h2 id="the-izuno-clan">The Izuno Clan</h2><p><em>The Izuno clan is a distant rival of the Inuzuka clan,
+            having chosen to learn from their feline counterparts rather than fight alongside them, a challenging thing
+            anyway as cats are well-known for their independence.<br />The clan tends to be more isolated and less
+            unified, preferring a nomadic lifestyle and settling wherever they find a favorable location.<br />Their
+            techniques, particularly their powerful claws, are infamous for being deadly to those unprepared to face
+            them.<br />Many speculate that their feline traits and remarkable abilities come from an ancient blessing
+            bestowed upon them by a powerful sage beast.<br />(Created By Liviu50)</em></p><h3 id="izuno-traits">Izuno
+            Traits</h3><p><strong>Recommended Ability Score Increase:</strong> +2 Dex, +1 Con.<br
+            /><strong>Speed:</strong> Your base walking speed is 35 ft and you have a climbing speed equal to your
+            walking speed.<br /><strong>Skill Proficiencies:</strong> You gain proficiency in Stealth and one between
+            Acrobatics or Athletics.<br /><strong>Extra Language:</strong> Standard, Feline-Speech and fire dialect.<br
+            /><strong>Izuno Hijutsu:</strong> You know an additional D-Rank jutsu from the Izuno Clan Jutsu List (This
+            does not count towards your total jutsu known).</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Homebrew
+        advancement:
+          - type: AbilityScoreImprovement
+            _id: g5SaGXAdwFxihWEn
+            configuration:
+              points: 3
+              fixed:
+                str: 0
+                dex: 0
+                con: 0
+                int: 0
+                wis: 0
+                cha: 0
+              cap: 2
+            value:
+              type: asi
+            level: 0
+            title: ''
+            hint: ''
+          - type: Size
+            _id: 34tEQDrKWnRqEGDZ
+            configuration:
+              sizes:
+                - med
+            level: 0
+            value: {}
+          - type: Trait
+            configuration:
+              grants:
+                - languages:standard:common
+              mode: default
+              allowReplacements: false
+              choices: []
+            _id: r3Gn3JQFYtEz9iiG
+            value:
+              chosen: []
+            level: 0
+          - _id: 8LwLLsGSOqHQW89E
+            type: Trait
+            configuration:
+              mode: default
+              allowReplacements: false
+              grants:
+                - skills:ste
+                - languages:standard:fire
+                - languages:cat
+              choices:
+                - count: 1
+                  pool:
+                    - skills:acr
+                    - skills:ath
+            value:
+              chosen: []
+            level: 0
+            title: ''
+            hint: ''
+          - _id: J7uEydg5dZuwDERe
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.hb-clan.Item.YdyGoMkM9u1oU6n4
+                  optional: false
+                - uuid: Compendium.n5eb.hb-clan.Item.uy1OsPCzEKVm8MUY
+                  optional: false
+                - uuid: Compendium.n5eb.hb-clan.Item.2JNKhB1G2gEkyMhc
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 1
+            title: ''
+            hint: ''
+          - _id: QhMLorzyUUvARkKk
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.hb-clan.Item.59QQe9txzt4Xpt3d
+                  optional: false
+                - uuid: Compendium.n5eb.hb-clan.Item.BFizHPYotJouHY3N
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 3
+            title: ''
+            hint: ''
+          - _id: EhjUHfZLZkEV8fMy
+            type: ItemChoice
+            configuration:
+              choices:
+                '3':
+                  count: 1
+                  replacement: false
+                '7':
+                  count: 1
+                  replacement: false
+                '11':
+                  count: 1
+                  replacement: false
+              allowDrops: true
+              type: null
+              pool:
+                - uuid: Compendium.n5eb.hb-clan.Item.8HRAUgnRr3QSUNPR
+                - uuid: Compendium.n5eb.hb-clan.Item.SCfLsSbcQJaCilSV
+                - uuid: Compendium.n5eb.hb-clan.Item.5JX1aAOHRuOpynKG
+              spell: null
+              restriction: {}
+            value:
+              added: {}
+              replaced: {}
+            title: ''
+            hint: ''
+          - _id: EvoceGRLHZFfAvG2
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.hb-clan.Item.TXAumpQtqXOBAvV3
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 7
+            title: ''
+            hint: ''
+          - _id: vs5Zanq8RbGMttSY
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.hb-clan.Item.FDqMZ7ZQpcOSnLUF
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 11
+            title: ''
+            hint: ''
+          - _id: 5mXVEq3IIWo4VCqj
+            type: ItemGrant
+            configuration:
+              items:
+                - uuid: Compendium.n5eb.hb-clan.Item.IkhWtotTWgJZfGUV
+                  optional: false
+              optional: false
+              spell: null
+            value: {}
+            level: 15
+            title: ''
+            hint: ''
+        movement:
+          burrow: null
+          climb: 35
+          fly: null
+          swim: null
+          walk: 35
+          units: null
+          hover: false
+        senses:
+          darkvision: null
+          chakrasight: null
+          blindsight: null
+          tremorsense: null
+          truesight: null
+          units: null
+          special: ''
+        type:
+          value: humanoid
+        identifier: ''
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 2.0.1
+  createdTime: 1741177556863
+  modifiedTime: 1741606682510
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: hb-clan
+    sourcePath: izuno/izuno.json
+_key: '!items!OZganR5AvRqdAMtW'

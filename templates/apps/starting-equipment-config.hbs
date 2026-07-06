@@ -1,4 +1,4 @@
-<form autocomplete="off">
+<div>
     {{#*inline "list-level"}}
     <ul class="flexcol">
         {{#each entries}}
@@ -8,8 +8,7 @@
                     {{ selectOptions validTypes selected=entry.type localize=true }}
                 </select>
                 <button type="button" class="unbutton" data-action="delete-entry"
-                        data-tooltip="N5EB.StartingEquipment.Action.RemoveEntry"
-                        aria-label="{{ localize 'N5EB.StartingEquipment.Action.RemoveEntry' }}">
+                        data-tooltip aria-label="{{ localize 'DND5E.StartingEquipment.Action.RemoveEntry' }}">
                     <i class="fa-solid fa-trash fa-fw" inert></i>
                 </button>
             </div>
@@ -21,10 +20,10 @@
                    placeholder=1 step=1 min=1 }}
                 {{#if (eq entry.type "linked")}}
                 {{#if linked}}
-                {{{ n5eb-linkForUuid entry.key }}}
+                {{{ dnd5e-linkForUuid entry.key }}}
                 {{else}}
                 <div class="drop-area">
-                    {{ localize "N5EB.StartingEquipment.DropHint" }}
+                    {{ localize "DND5E.StartingEquipment.DropHint" }}
                 </div>
                 {{/if}}
                 <input type="hidden" name="startingEquipment.{{ id }}.key" value="{{ entry.key }}">
@@ -36,9 +35,9 @@
                 {{/if}}
                 {{#if showRequireProficiency}}
                 <label class="flexrow require-proficiency">
-                    <input type="checkbox" name="startingEquipment.{{ id }}.requiresProficiency"
-                           {{ checked entry.requiresProficiency }}>
-                    {{ localize "N5EB.StartingEquipment.RequireProficiency" }}
+                    <dnd5e-checkbox name="startingEquipment.{{ id }}.requiresProficiency"
+                           {{ checked entry.requiresProficiency }}></dnd5e-checkbox>
+                    {{ localize "DND5E.StartingEquipment.RequireProficiency" }}
                 </label>
                 {{else}}
                 <input type="hidden" name="startingEquipment.{{ id }}.requiresProficiency"
@@ -51,14 +50,14 @@
             <input type="hidden" name="startingEquipment.{{ id }}.sort" value="{{ entry.sort }}" data-dtype="Number">
         </li>
         {{/each}}
-        <li class="n5eb2" data-depth="{{ depth }}">
+        <li data-depth="{{ depth }}">
             <button type="button" data-action="add-entry">
                 <i class="fa-solid fa-plus" inert></i>
-                {{ localize "N5EB.StartingEquipment.Action.AddEntry" }}
+                {{ localize "DND5E.StartingEquipment.Action.AddEntry" }}
             </button>
         </li>
     </ul>
     {{/inline}}
 
     {{> "list-level" }}
- </form>
+ </div>

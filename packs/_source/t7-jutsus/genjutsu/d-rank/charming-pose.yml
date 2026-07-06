@@ -1,0 +1,364 @@
+folder: 5bT5Ys7cJquDFeYj
+name: Charming Pose
+type: spell
+_id: WSzDLr9lM8am57zj
+img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
+system:
+  description:
+    value: >-
+      <p>In response to a creature's attack, you attempt to cast a genjutsu to
+      confuse and disarm your opponent in a rather embrassing fashion. The
+      triggering creature must make a Charisma saving throw. <br
+      /><strong>Critical Success:</strong> The creature is immune to this
+      jutsu's effects for 1d4 rounds. </p><p><strong>Success:</strong> The
+      creature is able to resist this jutsu's effects.
+      </p><p><strong>Failure:</strong> The creature, in their mind, sees you
+      break out into a dance, emitting an aura of pink dazzling chakra just
+      before their attack connects. The creature gains 1 rank of Charmed until
+      the start of their next turn against you, causing their attack to fail.
+      </p><p><strong>Critical Failure:</strong> Same affects as a failure, but
+      the creature becomes flustered. The creature drops whatever items it may
+      be holding and has their movement speed reduced to 0 until the end of the
+      current turn.</p><p><strong>At Higher Ranks:</strong> For each rank you
+      cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and the
+      range by 10 feet.</p>
+    chat: ''
+  source:
+    custom: ''
+    rules: n5eb
+    book: Team 7
+  activation:
+    type: reaction
+    cost: 1
+    condition: which you take when you would be damaged by a creature within range.
+  duration:
+    value: ''
+    units: inst
+  cover: null
+  crewed: false
+  target:
+    value: ''
+    width: null
+    units: ''
+    type: ''
+    prompt: true
+  range:
+    value: 10
+    long: null
+    units: ft
+  uses:
+    value: null
+    max: ''
+    per: null
+    recovery: ''
+    prompt: true
+  consume:
+    type: ''
+    target: null
+    amount: null
+    scale: false
+  ability: ''
+  actionType: save
+  attack:
+    bonus: ''
+    flat: false
+  chatFlavor: ''
+  critical:
+    threshold: null
+    damage: ''
+  damage:
+    parts: []
+    versatile: ''
+  enchantment: null
+  formula: 1d4
+  save:
+    ability: cha
+    dc: null
+    scaling: genjutsu
+  summons: null
+  recharge:
+    value: null
+    formula: 1d8
+    charged: false
+  level: 1
+  school: ill
+  properties: []
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  preparation:
+    mode: prepared
+    prepared: false
+  scaling:
+    mode: none
+    formula: ''
+  versatileScaling:
+    mode: none
+    formula: ''
+  identifier: charming-pose
+  jutsu:
+    components:
+      - hs
+      - cm
+    keywords:
+      - genjutsu
+      - visual
+      - tactile
+    countsKnown: true
+    ability: ''
+    type: genjutsu
+  rank: d
+  chakra:
+    cost: '5'
+    scaling:
+      mode: rank
+      value: 3
+    special: ''
+  method: spell
+  prepared: 0
+effects:
+  - name: Charmed
+    origin: Compendium.n5eb.t7-jutsus.Item.WSzDLr9lM8am57zj
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - isDamaged
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: charmed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/charmed.svg
+    _id: VjCOb5WwEvy1sNbV
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+      - key: system.abilities.wis.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><ul><li><p>A
+      <strong>Charmed</strong> creature is partially infatuated with a
+      particular target.</p></li><li><p>A <strong>Charmed</strong> creature
+      increases its attitude to you, by 1 rank, for each rank of Charmed it
+      has.</p></li><li><p>A <strong>Charmed</strong> creatures suffers a -2
+      penalty to Intelligence &amp; Wisdom based skill checks made against its
+      infatuation for each rank it has.</p></li><li><p>A
+      <strong>Charmed</strong> creature cannot take hostile actions towards the
+      source of its infatuations. If they would suffer a hostile effect or
+      damage from the source of its infatuations or one of its infatuations
+      allies, they remove all ranks of this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - charmed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.W7xYf9O8awd8TITw.ActiveEffect.q6BnBoFI5WGgWuGi
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!WSzDLr9lM8am57zj.VjCOb5WwEvy1sNbV'
+sort: 0
+ownership:
+  default: 0
+flags:
+  midiProperties:
+    confirmTargets: default
+    autoFailFriendly: false
+    autoSaveFriendly: false
+    critOther: false
+    offHandWeapon: false
+    magicdam: false
+    magiceffect: false
+    noConcentrationCheck: false
+    toggleEffect: false
+    ignoreTotalCover: false
+    idr: false
+    idi: false
+    idv: false
+    ida: false
+    saveDamage: default
+    bonusSaveDamage: default
+    otherSaveDamage: default
+  midi-qol:
+    rollAttackPerTarget: default
+    itemCondition: ''
+    effectCondition: ''
+    reactionCondition: ''
+    removeAttackDamageButtons: default
+    otherCondition: ''
+  n5eb:
+    legacyImport:
+      sourceSystem: n5eb_old - Copy
+      sourcePack: t7-jutsus
+      sourcePath: genjutsu/d-rank/charming-pose.json
+      sourceId: WSzDLr9lM8am57zj
+      sourceType: spell
+      originalSystem:
+        description:
+          value: >-
+            <p>In response to a creature's attack, you attempt to cast a
+            genjutsu to confuse and disarm your opponent in a rather embrassing
+            fashion. The triggering creature must make a Charisma saving throw.
+            <br /><strong>Critical Success:</strong> The creature is immune to
+            this jutsu's effects for 1d4 rounds.
+            </p><p><strong>Success:</strong> The creature is able to resist this
+            jutsu's effects. </p><p><strong>Failure:</strong> The creature, in
+            their mind, sees you break out into a dance, emitting an aura of
+            pink dazzling chakra just before their attack connects. The creature
+            gains 1 rank of Charmed until the start of their next turn against
+            you, causing their attack to fail. </p><p><strong>Critical
+            Failure:</strong> Same affects as a failure, but the creature
+            becomes flustered. The creature drops whatever items it may be
+            holding and has their movement speed reduced to 0 until the end of
+            the current turn.</p><p><strong>At Higher Ranks:</strong> For each
+            rank you cast this jutsu above D-Rank, increase the cost of this
+            jutsu by 3 and the range by 10 feet.</p>
+          chat: ''
+        source:
+          custom: ''
+          book: Team 7
+        activation:
+          type: reaction
+          cost: 1
+          condition: which you take when you would be damaged by a creature within range.
+        duration:
+          value: ''
+          units: inst
+        cover: null
+        crewed: false
+        target:
+          value: ''
+          width: null
+          units: ''
+          type: ''
+          prompt: true
+        range:
+          value: 10
+          long: null
+          units: ft
+        uses:
+          value: null
+          max: ''
+          per: null
+          recovery: ''
+          prompt: true
+        consume:
+          type: ''
+          target: null
+          amount: null
+          scale: false
+        ability: ''
+        actionType: save
+        attack:
+          bonus: ''
+          flat: false
+        chatFlavor: ''
+        critical:
+          threshold: null
+          damage: ''
+        damage:
+          parts: []
+          versatile: ''
+        enchantment: null
+        formula: 1d4
+        save:
+          ability: cha
+          dc: null
+          scaling: genjutsu
+        summons: null
+        recharge:
+          value: null
+          formula: 1d8
+          charged: false
+        level: 1
+        school: gen
+        properties:
+          - handseals
+          - chakramolding
+        keywords:
+          - genjutsu
+          - visual
+          - tactile
+        materials:
+          value: ''
+          consumed: false
+          cost: 0
+          supply: 0
+        preparation:
+          mode: prepared
+          prepared: false
+        scaling:
+          mode: none
+          formula: ''
+        versatileScaling:
+          mode: none
+          formula: ''
+        chakraCost: 5
+        chakraScaling:
+          mode: level
+          value: 3
+_stats:
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: n5eb
+  systemVersion: 3.0.0
+  createdTime: 1731686257625
+  modifiedTime: 1733947083427
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+  legacyImport:
+    sourcePack: t7-jutsus
+    sourcePath: genjutsu/d-rank/charming-pose.json
+_key: '!items!WSzDLr9lM8am57zj'
