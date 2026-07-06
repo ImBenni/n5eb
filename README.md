@@ -3,7 +3,7 @@
 ![](https://github.com/ImBenni/n5eb/blob/main/ui/official/n5eb-repo.jpg)
 
 ![](https://img.shields.io/github/v/release/ImBenni/n5eb?label=Latest%20Version)
-![](https://img.shields.io/badge/FoundryVTT%20Compatibility-V12-orange)
+![](https://img.shields.io/badge/FoundryVTT%20Compatibility-V13%2B%20%7C%20V14%20Verified-orange)
 
 This is the official implementation of the N5e System for Foundry VTT.
 The Game System within Foundry was made by [Benni](https://github.com/ImBenni)
