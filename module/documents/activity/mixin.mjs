@@ -4,8 +4,162 @@ import AbilityTemplate from "../../canvas/ability-template.mjs";
 import { ConsumptionError } from "../../data/activity/fields/consumption-targets-field.mjs";
 import { ActorDeltasField } from "../../data/chat-message/fields/deltas-field.mjs";
 import { formatNumber, getSceneTargets, getTargetDescriptors, localizeSchema } from "../../utils.mjs";
+import { assignSystemFlagDataAliases } from "../flag-compatibility.mjs";
 import DependentDocumentMixin from "../mixins/dependent.mjs";
 import PseudoDocumentMixin from "../mixins/pseudo-document.mjs";
+
+const CLASH_NATURE_SUPERIORITY = {
+  fire: "wind",
+  wind: "lightning",
+  lightning: "earth",
+  earth: "water",
+  water: "fire"
+};
+const CLASH_SKILL_OPTIONS = ["nsh", "mar", "ill"];
+
+/**
+ * Does this activity's item support native N5eB Clash handling?
+ * @param {Item5e} item  Item being checked.
+ * @returns {boolean}
+ */
+function hasClashKeyword(item) {
+  const keywords = item?.system?.jutsu?.keywords;
+  return (item?.type === "spell") && (keywords instanceof Set ? keywords.has("clash") : keywords?.includes?.("clash"));
+}
+
+/**
+ * Is this item an Art jutsu linked to a classmod?
+ * @param {Item5e} item  Item being checked.
+ * @returns {boolean}
+ */
+function isClassmodArt(item) {
+  return Boolean(item?.system?.classmodIdentifier || `${item?.system?.sourceItem ?? ""}`.startsWith("classmod:"));
+}
+
+/**
+ * Get the default Clash skill data for a jutsu.
+ * @param {Item5e} item  Item being checked.
+ * @returns {{ skill: string, ability: string }}
+ */
+function getDefaultClashRoll(item) {
+  const type = item?.system?.jutsu?.type ?? "";
+  const keywords = item?.system?.jutsu?.keywords ?? new Set();
+  const hasKeyword = keyword => keywords instanceof Set ? keywords.has(keyword) : keywords?.includes?.(keyword);
+  if ( (type === "taijutsu") || (type === "bukijutsu") || hasKeyword("taijutsu") || hasKeyword("bukijutsu") ) {
+    return { skill: "mar", ability: "str" };
+  }
+  if ( (type === "genjutsu") || hasKeyword("genjutsu") ) return { skill: "ill", ability: "wis" };
+  return { skill: "nsh", ability: "int" };
+}
+
+/**
+ * Format a jutsu rank for Clash display.
+ * @param {string} rank  Jutsu rank.
+ * @param {object} [options]
+ * @param {boolean} [options.art=false]  Treat this rank as an Art.
+ * @returns {string}
+ */
+function getClashRankLabel(rank, { art=false }={}) {
+  if ( art ) return game.i18n.localize("N5EB.JUTSU.Clash.ArtRank");
+  return CONFIG.DND5E.jutsuRanks[rank]?.label ?? rank?.toUpperCase?.() ?? "";
+}
+
+/**
+ * Get the first nature release keyword on a jutsu.
+ * @param {Item5e} item  Item being checked.
+ * @returns {string}
+ */
+function getClashNature(item) {
+  const keywords = item?.system?.jutsu?.keywords ?? new Set();
+  const hasKeyword = keyword => keywords instanceof Set ? keywords.has(keyword) : keywords?.includes?.(keyword);
+  return Object.keys(CLASH_NATURE_SUPERIORITY).find(nature => hasKeyword(nature)) ?? "";
+}
+
+/**
+ * Render and collect native Clash setup details.
+ * @param {Activity} activity  Activity being clashed.
+ * @returns {Promise<object|null>}
+ */
+function promptClashSetup(activity) {
+  const item = activity.item;
+  const rank = item.system.effectiveRank;
+  const art = isClassmodArt(item);
+  const defaultRoll = getDefaultClashRoll(item);
+  const nature = getClashNature(item);
+  const rankOptions = Object.entries(CONFIG.DND5E.jutsuRanks).map(([value, config]) => {
+    const label = config.label ?? value.toUpperCase();
+    return `<option value="${value}" ${value === rank ? "selected" : ""}>${label}</option>`;
+  }).join("");
+  const skillOptions = CLASH_SKILL_OPTIONS.map(skill => {
+    const label = CONFIG.DND5E.skills[skill]?.label ?? skill;
+    return `<option value="${skill}" ${skill === defaultRoll.skill ? "selected" : ""}>${label}</option>`;
+  }).join("");
+  const abilityOptions = ["str", "dex", "con", "int", "wis", "cha"].map(ability => {
+    const label = CONFIG.DND5E.abilities[ability]?.label ?? ability;
+    return `<option value="${ability}" ${ability === defaultRoll.ability ? "selected" : ""}>${label}</option>`;
+  }).join("");
+  const natureLabel = nature ? CONFIG.DND5E.jutsuKeywords[nature]?.label : "";
+  const setupHint = game.i18n.format("N5EB.JUTSU.Clash.SetupHint", {
+    rank: getClashRankLabel(rank, { art }),
+    skill: CONFIG.DND5E.skills[defaultRoll.skill]?.label ?? defaultRoll.skill
+  });
+  const artHint = art ? game.i18n.localize("N5EB.JUTSU.Clash.ArtHint") : "";
+  const elementHint = nature ? game.i18n.format("N5EB.JUTSU.Clash.ElementHint", { nature: natureLabel }) : "";
+
+  return foundry.applications.api.DialogV2.prompt({
+    window: {
+      title: game.i18n.localize("N5EB.JUTSU.Clash.SetupTitle"),
+      icon: "fa-solid fa-burst"
+    },
+    classes: ["dnd5e2", "n5eb-clash-dialog"],
+    position: { width: 440 },
+    rejectClose: false,
+    content: `
+      <form>
+        <p class="hint">${setupHint}</p>
+        ${artHint ? `<p class="notification warning">${artHint}</p>` : ""}
+        <div class="form-group">
+          <label>${game.i18n.localize("N5EB.JUTSU.Clash.OpposingRank")}</label>
+          <div class="form-fields"><select name="opposingRank">${rankOptions}</select></div>
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize("N5EB.JUTSU.Clash.RollCount")}</label>
+          <div class="form-fields">
+            <select name="rounds">
+              <option value="auto" selected>${game.i18n.localize("N5EB.JUTSU.Clash.RollCountAuto")}</option>
+              <option value="1">${game.i18n.localize("N5EB.JUTSU.Clash.RollCountSingle")}</option>
+              <option value="3">${game.i18n.localize("N5EB.JUTSU.Clash.RollCountBestOf3")}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize("N5EB.JUTSU.Clash.Skill")}</label>
+          <div class="form-fields"><select name="skill">${skillOptions}</select></div>
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize("DND5E.Ability")}</label>
+          <div class="form-fields"><select name="ability">${abilityOptions}</select></div>
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize("DND5E.RollMode")}</label>
+          <div class="form-fields">
+            <select name="rollMode">
+              <option value="">${game.i18n.localize("DND5E.Normal")}</option>
+              <option value="advantage">${game.i18n.localize("DND5E.Advantage")}</option>
+              <option value="disadvantage">${game.i18n.localize("DND5E.Disadvantage")}</option>
+            </select>
+          </div>
+        </div>
+        <p class="hint">${game.i18n.localize("N5EB.JUTSU.Clash.RankBonusHint")}</p>
+        ${elementHint ? `<p class="hint">${elementHint}</p>` : ""}
+      </form>
+    `,
+    ok: {
+      label: game.i18n.localize("N5EB.JUTSU.Clash.Roll"),
+      callback: (_event, button) => new FormDataExtended(button.form).object
+    }
+  });
+}
 
 /**
  * @import { FavoriteData5e } from "../../data/abstract/_types.mjs";
@@ -208,6 +362,7 @@ export default function ActivityMixin(Base) {
         },
         hasConsumption: usageConfig.hasConsumption
       }, message);
+      assignSystemFlagDataAliases(messageConfig.data);
 
       /**
        * A hook event that fires before an activity usage is configured.
@@ -220,6 +375,7 @@ export default function ActivityMixin(Base) {
        * @returns {boolean}  Explicitly return `false` to prevent activity from being used.
        */
       if ( Hooks.call("dnd5e.preUseActivity", activity, usageConfig, dialogConfig, messageConfig) === false ) return;
+      assignSystemFlagDataAliases(messageConfig.data);
 
       // Display configuration window if necessary
       if ( dialogConfig.configure && activity._requiresConfigurationDialog(usageConfig) ) {
@@ -304,6 +460,8 @@ export default function ActivityMixin(Base) {
      * @returns {ActivityUsageUpdates|false}
      */
     async consume(usageConfig, messageConfig) {
+      assignSystemFlagDataAliases(messageConfig.data);
+
       /**
        * A hook event that fires before an item's resource consumption is calculated.
        * @function dnd5e.preActivityConsumption
@@ -314,6 +472,7 @@ export default function ActivityMixin(Base) {
        * @returns {boolean}  Explicitly return `false` to prevent activity from being activated.
        */
       if ( Hooks.call("dnd5e.preActivityConsumption", this, usageConfig, messageConfig) === false ) return false;
+      assignSystemFlagDataAliases(messageConfig.data);
 
       const updates = await this._prepareUsageUpdates(usageConfig);
       if ( !updates ) return false;
@@ -330,6 +489,7 @@ export default function ActivityMixin(Base) {
        * @returns {boolean}  Explicitly return `false` to prevent activity from being activated.
        */
       if ( Hooks.call("dnd5e.activityConsumption", this, usageConfig, messageConfig, updates) === false ) return false;
+      assignSystemFlagDataAliases(messageConfig.data);
 
       const consumed = await this.#applyUsageUpdates(updates);
       if ( !foundry.utils.isEmpty(consumed) ) {
@@ -350,6 +510,7 @@ export default function ActivityMixin(Base) {
        * @returns {boolean}  Explicitly return `false` to prevent activity from being activated.
        */
       if ( Hooks.call("dnd5e.postActivityConsumption", this, usageConfig, messageConfig, updates) === false ) return false;
+      assignSystemFlagDataAliases(messageConfig.data);
 
       return updates;
     }
@@ -787,6 +948,7 @@ export default function ActivityMixin(Base) {
       messageConfig.data.rolls = (messageConfig.data.rolls ?? []).concat(results.updates.rolls);
       const effects = this.applicableEffects?.map(e => `.ActiveEffect.${e.id}`);
       if ( effects ) foundry.utils.setProperty(messageConfig.data, "system.effects", effects);
+      assignSystemFlagDataAliases(messageConfig.data);
     }
 
     /* -------------------------------------------- */
@@ -819,6 +981,20 @@ export default function ActivityMixin(Base) {
         icon: '<i class="fa-solid fa-clock-rotate-left"></i>',
         dataset: {
           action: "refundResource"
+        }
+      });
+
+      if ( hasClashKeyword(this.item) ) buttons.push({
+        label: game.i18n.localize("N5EB.JUTSU.Clash.Roll"),
+        icon: '<i class="fa-solid fa-burst" inert></i>',
+        dataset: {
+          action: "rollClash"
+        }
+      }, {
+        label: game.i18n.localize("N5EB.JUTSU.Clash.ApplyLoss"),
+        icon: '<i class="fa-solid fa-person-falling-burst" inert></i>',
+        dataset: {
+          action: "applyClashLoss"
         }
       });
 
@@ -866,6 +1042,7 @@ export default function ActivityMixin(Base) {
         },
         rollMode: CONFIG.Dice.BasicRoll.getMessageMode()
       }, message);
+      assignSystemFlagDataAliases(messageConfig.data);
 
       /**
        * A hook event that fires before an activity usage card is created.
@@ -875,6 +1052,7 @@ export default function ActivityMixin(Base) {
        * @param {ActivityMessageConfiguration} message  Configuration info for the created message.
        */
       Hooks.callAll("dnd5e.preCreateUsageMessage", this, messageConfig);
+      assignSystemFlagDataAliases(messageConfig.data);
 
       ChatMessage.applyRollMode(messageConfig.data, messageConfig.rollMode);
       const card = messageConfig.create === false ? messageConfig.data : await ChatMessage.create(messageConfig.data);
@@ -1090,6 +1268,8 @@ export default function ActivityMixin(Base) {
         else if ( action === "consumeResource" ) await this.#consumeResource(event, target, message);
         else if ( action === "refundResource" ) await this.#refundResource(event, target, message);
         else if ( action === "placeTemplate" ) await this.#placeTemplate();
+        else if ( action === "rollClash" ) await activity.#rollClash(event, target, message);
+        else if ( action === "applyClashLoss" ) await activity.#applyClashLoss(event, target, message);
         else await activity._onChatAction(event, target, message);
       } catch(err) {
         Hooks.onError("Activity#onChatAction", err, { log: "error", notify: "error" });
@@ -1152,6 +1332,7 @@ export default function ActivityMixin(Base) {
         activity: linkedActivity.relativeUUID, resources: linkedActivity.consumption.targets.length > 0
       };
       await this.consume(usageConfig, messageConfig);
+      assignSystemFlagDataAliases(messageConfig.data);
       if ( !foundry.utils.isEmpty(messageConfig.data) ) await message.update(messageConfig.data);
     }
 
@@ -1191,6 +1372,58 @@ export default function ActivityMixin(Base) {
         });
       }
       return templates;
+    }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Roll this activity's Clash contest.
+     * @param {PointerEvent} event     Triggering click event.
+     * @param {HTMLElement} target     The capturing HTML element which defined a [data-action].
+     * @param {ChatMessage5e} message  Message associated with the activation.
+     */
+    async #rollClash(event, target, message) {
+      if ( !hasClashKeyword(this.item) ) return;
+      const actor = message.getAssociatedActor() ?? this.actor;
+      if ( !actor?.isOwner ) {
+        ui.notifications.warn("DND5E.DocumentUseWarn", { localize: true });
+        return;
+      }
+      const setup = await promptClashSetup(this);
+      if ( !setup ) return;
+      await actor.rollClash({
+        ...setup,
+        event,
+        item: this.item,
+        messageId: message.id,
+        nature: getClashNature(this.item)
+      }, {}, {
+        data: {
+          flags: {
+            n5eb: {
+              originatingMessage: message.id
+            }
+          }
+        }
+      });
+    }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Apply the book loss effects for this activity's Clash contest.
+     * @param {PointerEvent} event     Triggering click event.
+     * @param {HTMLElement} target     The capturing HTML element which defined a [data-action].
+     * @param {ChatMessage5e} message  Message associated with the activation.
+     */
+    async #applyClashLoss(event, target, message) {
+      if ( !hasClashKeyword(this.item) ) return;
+      const actor = message.getAssociatedActor() ?? this.actor;
+      if ( !actor?.isOwner ) {
+        ui.notifications.warn("DND5E.DocumentUseWarn", { localize: true });
+        return;
+      }
+      await actor.applyClashLoss({ item: this.item, messageId: message.id });
     }
 
     /* -------------------------------------------- */

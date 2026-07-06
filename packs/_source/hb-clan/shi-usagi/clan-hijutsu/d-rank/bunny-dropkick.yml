@@ -103,7 +103,85 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Prone
+    origin: Compendium.n5eb.hb-clan.Item.usxJkKLezphWqpnm
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: prone
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: Jq5B7bl0ujYXKK6B
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - prone
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!usxJkKLezphWqpnm.Jq5B7bl0ujYXKK6B'
 sort: 0
 ownership:
   default: 0

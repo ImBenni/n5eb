@@ -23,6 +23,11 @@
                     <input class="roll-result" type="number" name="value" value="{{ data.value }}">
                 </div>
             </div>
+            {{else if selectedMax}}
+            <div class="form-group label-top">
+                <label>{{ localize "DND5E.ADVANCEMENT.HitPoints.Breakdown.Max" }}</label>
+                <span>{{ hp.max }}</span>
+            </div>
             {{else}}
             <div class="form-group label-top">
                 <label>{{ localize "DND5E.ADVANCEMENT.HitPoints.Breakdown.Average" }}</label>
@@ -73,6 +78,13 @@
             <div class="form-fields">
                 <dnd5e-checkbox name="useAverage" id="{{ partId }}-useAverage"
                                 {{ checked data.useAverage }}></dnd5e-checkbox>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ partId }}-useMax">{{ localize "DND5E.ADVANCEMENT.HitPoints.TakeMax" }}</label>
+            <div class="form-fields">
+                <dnd5e-checkbox name="useMax" id="{{ partId }}-useMax"
+                                {{ checked data.useMax }}></dnd5e-checkbox>
             </div>
         </div>
     </fieldset>

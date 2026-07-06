@@ -3,26 +3,37 @@ type: spell
 img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
 system:
   description:
-    value: "<p>You begin to collect and manifest medical chakra until it laces the striking portion of your weapon. The medical chakra begins to cause your weapon to glow with a soft pink hue.</p><p>You fire a single attack into the ground or space your target is in, releasing a powerful burst of poisonous fumes to weaken them further.</p><p>Select a space you can see within range. All creatures within 10 feet of the chosen space must make a constitution saving throw.\_ \_depending on the severity of their failure, the poison does increasingly more things.</p><p>● Failed by 1~4: 5d6 poison damage and 1 ranks of corroded.<br />● Failed by 5~9: 5d6 poison damage and 2 rank of corroded.</p><p>● Failed by 10~14: 5d6 poison damage, 2 ranks of corroded, and 1 rank of envenomed.</p><p>● Failed by 15+: 5d6 poison damage, 2 ranks of corroded, and 2 rank of envenomed.\_</p>"
-    chat: ''
+    value: >-
+      <p>You begin to collect and manifest medical chakra until it laces the striking portion of your weapon. The
+      medical chakra begins to cause your weapon to glow with a soft pink hue. You make a single attack, either directly
+      injecting poison into a target, or into the ground, releasing a burst of poisonous fumes. If you cast this Jutsu
+      using a melee weapon, you make a single Melee Taijutsu Attack targeting a creature within range. Depending on the
+      accuracy of your attack, the poison is increasingly more effective. - Beat AC by 1~4: Weapon's Damage + 2d6 Poison
+      Damage and 1 rank of Corroded. - Beat AC by 5+: Weapon's Damage + 4d6 Poison Damage and 1 rank of Corroded. If you
+      cast this Jutsu using a ranged weapon, s elect a space you can see within range. All creatures within 10 feet of
+      the chosen space, must make a Constitution Saving Throw. Depending on the severity of their failure, the poison is
+      increasingly more effective. - Failed by 1~4: 5d6 Poison Damage and 1 rank of Envenomed. - Failed by 5+: 6d6
+      Poison Damage and 1 rank of Envenomed. At Higher Ranks: For each rank you cast this jutsu above C-Rank increase
+      the cost of this jutsu by 3 and the damage by 1d6.</p>
+    chat: ""
   source:
-    custom: ''
+    custom: ""
     rules: n5eb
     book: Naruto 5e
   activation:
     type: action
     cost: 1
-    condition: ''
+    condition: ""
   duration:
-    value: ''
+    value: ""
     units: inst
   cover: null
   crewed: false
   target:
-    value: ''
+    value: ""
     width: null
-    units: ''
-    type: ''
+    units: ""
+    type: ""
     prompt: true
   range:
     value: null
@@ -30,27 +41,27 @@ system:
     units: spec
   uses:
     value: null
-    max: ''
+    max: ""
     per: null
-    recovery: ''
+    recovery: ""
     prompt: true
   consume:
-    type: ''
-    target: ''
+    type: ""
+    target: ""
     amount: 8
     scale: false
   ability: taijutsu
   actionType: save
-  chatFlavor: ''
+  chatFlavor: ""
   critical:
     threshold: null
-    damage: ''
+    damage: ""
   damage:
     parts:
       - - 5d6
         - poison
-    versatile: ''
-  formula: ''
+    versatile: ""
+  formula: ""
   save:
     ability: con
     dc: null
@@ -67,16 +78,16 @@ system:
     prepared: true
   scaling:
     mode: none
-    formula: ''
+    formula: ""
   attack:
-    bonus: ''
+    bonus: ""
     flat: false
   enchantment: null
   summons: null
   properties: []
   versatileScaling:
     mode: none
-    formula: ''
+    formula: ""
   recharge:
     value: null
     formula: 1d8
@@ -92,15 +103,15 @@ system:
       - bukijutsu
       - medical
     countsKnown: true
-    ability: ''
+    ability: ""
     type: bukijutsu
   rank: c
   chakra:
-    cost: '8'
+    cost: "8"
     scaling:
       mode: none
       value: 0
-    special: ''
+    special: ""
   method: spell
   prepared: 1
 effects:
@@ -117,15 +128,15 @@ effects:
     disabled: false
     flags:
       dae:
-        enableCondition: ''
-        disableCondition: ''
+        enableCondition: ""
+        disableCondition: ""
         disableIncapacitated: false
         selfTarget: false
         selfTargetAlways: false
         dontApply: false
         stackable: count
         showIcon: false
-        durationExpression: ''
+        durationExpression: ""
         macroRepeat: none
         specialDuration: []
       core:
@@ -133,11 +144,11 @@ effects:
       ActiveAuras:
         isAura: false
         aura: None
-        nameOverride: ''
-        radius: ''
-        alignment: ''
-        type: ''
-        customCheck: ''
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
         ignoreSelf: false
         height: false
         hidden: false
@@ -152,15 +163,15 @@ effects:
     changes:
       - key: system.abilities.con.bonuses.check
         mode: 2
-        value: '-1 * @stackCount'
+        value: "-1 * @stackCount"
         priority: 20
       - key: system.abilities.con.bonuses.save
         mode: 2
-        value: '-1 * @stackCount'
+        value: "-1 * @stackCount"
         priority: 20
       - key: flags.midi-qol.DR.all
         mode: 2
-        value: '-2 * @stackCount'
+        value: "-2 * @stackCount"
         priority: 20
       - key: flags.midi-qol.OverTime
         mode: 0
@@ -180,20 +191,20 @@ effects:
       has.</p></li><li><p>A <strong>Corroded</strong> creature gains a -1 penalty to all Constitution based checks &amp;
       saves for each rank it has.</p></li><li><p>A creature can end the corroded condition by using their action making
       a DC 15 Dexterity or Constitution Ability Check or submerging themselves fully into a body of water.</p></li></ul>
-    tint: '#ffffff'
+    tint: "#ffffff"
     transfer: false
     statuses: []
     sort: 0
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.TJkoBRRPODGhibDp.ActiveEffect.gXQCDxapEi50ixYD
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: "12.331"
       systemId: n5eb
       systemVersion: 1,2,2
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-    _key: '!items.effects!FMr8cJDU1MSHRr4D.mYPeLt3RmunLi0Hl'
+    _key: "!items.effects!FMr8cJDU1MSHRr4D.mYPeLt3RmunLi0Hl"
   - name: Poisoned/Envenomed
     origin: Compendium.n5eb.jutsus.Item.FMr8cJDU1MSHRr4D
     duration:
@@ -207,15 +218,15 @@ effects:
     disabled: false
     flags:
       dae:
-        enableCondition: ''
-        disableCondition: ''
+        enableCondition: ""
+        disableCondition: ""
         disableIncapacitated: false
         selfTarget: false
         selfTargetAlways: false
         dontApply: false
         stackable: count
         showIcon: false
-        durationExpression: ''
+        durationExpression: ""
         macroRepeat: none
         specialDuration: []
       core:
@@ -223,11 +234,11 @@ effects:
       ActiveAuras:
         isAura: false
         aura: None
-        nameOverride: ''
-        radius: ''
-        alignment: ''
-        type: ''
-        customCheck: ''
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
         ignoreSelf: false
         height: false
         hidden: false
@@ -256,7 +267,7 @@ effects:
         priority: 20
       - key: system.attributes.ac.bonus
         mode: 2
-        value: '-1 * @stackCount'
+        value: "-1 * @stackCount"
         priority: 20
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
@@ -267,20 +278,20 @@ effects:
       <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune
       to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature
       suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>
-    tint: '#ffffff'
+    tint: "#ffffff"
     transfer: false
     statuses: []
     sort: 0
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: "12.331"
       systemId: n5eb
       systemVersion: 1,2,2
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-    _key: '!items.effects!FMr8cJDU1MSHRr4D.mJVBWGehh04UTlf8'
+    _key: "!items.effects!FMr8cJDU1MSHRr4D.mJVBWGehh04UTlf8"
 flags:
   cf: null
   n5eb:
@@ -302,24 +313,24 @@ flags:
       originalSystem:
         description:
           value: "<p>You begin to collect and manifest medical chakra until it laces the striking portion of your weapon. The medical chakra begins to cause your weapon to glow with a soft pink hue.</p><p>You fire a single attack into the ground or space your target is in, releasing a powerful burst of poisonous fumes to weaken them further.</p><p>Select a space you can see within range. All creatures within 10 feet of the chosen space must make a constitution saving throw.\_ \_depending on the severity of their failure, the poison does increasingly more things.</p><p>● Failed by 1~4: 5d6 poison damage and 1 ranks of corroded.<br />● Failed by 5~9: 5d6 poison damage and 2 rank of corroded.</p><p>● Failed by 10~14: 5d6 poison damage, 2 ranks of corroded, and 1 rank of envenomed.</p><p>● Failed by 15+: 5d6 poison damage, 2 ranks of corroded, and 2 rank of envenomed.\_</p>"
-          chat: ''
+          chat: ""
         source:
-          custom: ''
+          custom: ""
           book: Naruto 5e
         activation:
           type: action
           cost: 1
-          condition: ''
+          condition: ""
         duration:
-          value: ''
+          value: ""
           units: inst
         cover: null
         crewed: false
         target:
-          value: ''
+          value: ""
           width: null
-          units: ''
-          type: ''
+          units: ""
+          type: ""
           prompt: true
         range:
           value: null
@@ -327,27 +338,27 @@ flags:
           units: spec
         uses:
           value: null
-          max: ''
+          max: ""
           per: null
-          recovery: ''
+          recovery: ""
           prompt: true
         consume:
-          type: ''
-          target: ''
+          type: ""
+          target: ""
           amount: 8
           scale: false
         ability: taijutsu
         actionType: save
-        chatFlavor: ''
+        chatFlavor: ""
         critical:
           threshold: null
-          damage: ''
+          damage: ""
         damage:
           parts:
             - - 5d6
               - poison
-          versatile: ''
-        formula: ''
+          versatile: ""
+        formula: ""
         save:
           ability: con
           dc: null
@@ -364,9 +375,9 @@ flags:
           prepared: true
         scaling:
           mode: none
-          formula: ''
+          formula: ""
         attack:
-          bonus: ''
+          bonus: ""
           flat: false
         enchantment: null
         summons: null
@@ -388,7 +399,7 @@ flags:
           value: 0
         versatileScaling:
           mode: none
-          formula: ''
+          formula: ""
         recharge:
           value: null
           formula: 1d8
@@ -413,11 +424,11 @@ flags:
   midi-qol:
     rollAttackPerTarget: default
     removeAttackDamageButtons: default
-    itemCondition: ''
-    effectCondition: ''
+    itemCondition: ""
+    effectCondition: ""
 _stats:
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: "12.331"
   systemId: n5eb
   systemVersion: 3.0.0
   createdTime: 1728755893853
@@ -432,4 +443,4 @@ sort: 4800000
 ownership:
   default: 0
 _id: FMr8cJDU1MSHRr4D
-_key: '!items!FMr8cJDU1MSHRr4D'
+_key: "!items!FMr8cJDU1MSHRr4D"

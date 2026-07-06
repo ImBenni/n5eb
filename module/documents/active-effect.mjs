@@ -3,6 +3,7 @@ import * as Conditions from "../conditions.mjs";
 import FormulaField from "../data/fields/formula-field.mjs";
 import MappingField from "../data/fields/mapping-field.mjs";
 import { parseOrString, staticID } from "../utils.mjs";
+import { assignSystemFlagAliases, getSystemFlagAlias } from "./flag-compatibility.mjs";
 import Item5e from "./item.mjs";
 import DependentDocumentMixin from "./mixins/dependent.mjs";
 
@@ -88,7 +89,15 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    */
   get dependentOrigin() {
     if ( !(this.parent instanceof Item) ) return null;
-    return this.parent.effects.get(this.flags.n5eb?.dependentOn) ?? null;
+    return this.parent.effects.get(this.getFlag("n5eb", "dependentOn")) ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getFlag(scope, key) {
+    const value = super.getFlag(scope, key);
+    return getSystemFlagAlias(this, scope, key, value);
   }
 
   /* -------------------------------------------- */
@@ -167,9 +176,10 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   _initializeSource(data, options={}) {
     if ( data instanceof foundry.abstract.DataModel ) data = data.toObject();
 
-    if ( data.flags?.n5eb?.type === "enchantment" ) {
+    const flags = data.flags?.n5eb ?? data.flags?.dnd5e;
+    if ( flags?.type === "enchantment" ) {
       data.type = "enchantment";
-      delete data.flags.n5eb.type;
+      delete flags.type;
       foundry.utils.setProperty(data, "flags.n5eb.persistSourceMigration", true);
     }
 
@@ -182,7 +192,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   static migrateData(data) {
     data = super.migrateData(data);
     for ( const change of data.changes ?? [] ) {
-      if ( change.key === "flags.n5eb.initiativeAdv" ) {
+      if ( ["flags.n5eb.initiativeAdv", "flags.dnd5e.initiativeAdv"].includes(change.key) ) {
         change.key = "system.attributes.init.roll.mode";
         change.mode = CONST.ACTIVE_EFFECT_MODES.ADD;
         change.value = 1;
@@ -336,10 +346,21 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    * @protected
    */
   _applyChangeShim(change) {
-    const shim = ActiveEffect5e.SHIM_FIELDS[change.key];
-    if ( !shim ) return change;
+    let key = change.key;
+    if ( key?.startsWith("flags.dnd5e.") ) key = key.replace(/^flags\.dnd5e\./, "flags.n5eb.");
+    if ( key === "flags.n5eb.initiativeAdv" ) {
+      return {
+        ...change,
+        key: "system.attributes.init.roll.mode",
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: 1
+      };
+    }
+
+    const shim = ActiveEffect5e.SHIM_FIELDS[key];
+    if ( !shim ) return key === change.key ? change : { ...change, key };
     if ( shim.warning ) foundry.utils.logCompatibilityWarning(
-      `The active effect key "${change.key}" has been deprecated and should be changed to "${shim.key}".`,
+      `The active effect key "${key}" has been deprecated and should be changed to "${shim.key}".`,
       shim.warning
     );
     return { ...change, key: shim.key };
@@ -409,6 +430,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   prepareBaseData() {
     this.origin = this.getFlag("core", "originText") ?? this.origin;
     super.prepareBaseData();
+    assignSystemFlagAliases(this);
   }
 
   /* -------------------------------------------- */

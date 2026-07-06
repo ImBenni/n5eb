@@ -6,14 +6,18 @@ img: systems/n5eb/assets/content/clans/hutetsuu.webp
 system:
   description:
     value: >-
-      <p>You manipulate fire chakra in your hand as it takes the shape of a lengthy, flaming rod. Make a ranged ninjutsu
-      attack against a target in range. On a hit, you deal 3d8+3 fire damage, and the target gains 1 rank of
-      burned.</p><p><em><strong>Self Immolation:</strong></em> When you spend the chakra cost using your hit points, you
-      can cause the rod to explode on impact, causing all creatures (including the target) in a 5 foot radius to make a
-      Dexterity saving throw, taking half the damage on a failure and becoming slowed until the end of their next
-      turn.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the cost of
-      this jutsu by 3, and increase the damage by 1d8+1. When you cast this jutsu at B-Rank or above, you make two
-      ranged ninjutsu attacks instead.</p>
+      <p>You manipulate fire chakra in your hand as it takes the shape of a
+      lengthy, flaming rod. Make a ranged ninjutsu attack against a target in
+      range. On a hit, you deal 3d8+3 fire damage, and the target gains 1 rank
+      of burned.</p><p><em><strong>Self Immolation:</strong></em> When you spend
+      the chakra cost using your hit points, you can cause the rod to explode on
+      impact, causing all creatures (including the target) in a 5 foot radius to
+      make a Dexterity saving throw, taking half the damage on a failure and
+      becoming slowed until the end of their next turn.</p><p><strong>At Higher
+      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
+      the cost of this jutsu by 3, and increase the damage by 1d8+1. When you
+      cast this jutsu at B-Rank or above, you make two ranged ninjutsu attacks
+      instead.</p>
     chat: ''
   source:
     custom: ''
@@ -112,7 +116,185 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Burned
+    origin: Compendium.n5eb.t7-clan.Item.KVB1BMVSdZIjc0Mk
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: burned
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/burning.svg
+    _id: DAnXjQSnzfyREN0L
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          rollType=skill,
+          saveAbility=sur,
+          saveDC=15,
+          actionSave=dialog,
+          damageBeforeSave=true,
+          damageRoll=1d8,
+          damageType=fire,
+          saveRemove=true,
+          name=Burned,
+          chatFlavor=It's very hot!,
+          fastForwardDamage=true,
+        priority: 20
+      - key: system.attributes.concentration.bonuses.save
+        mode: 2
+        value: '-2 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object
+      takes 1d8 fire damage for each rank it has, at the start of each of their
+      turns.</p></li><li><p>A Burned creature takes a -2 penalty to
+      Concentration Checks for each rank it has.</p></li><li><p>Creatures that
+      are immune to fire damage is immune to this condition.</p></li><li><p>This
+      condition lasts for the duration of the effect that inflicted it or 1
+      minute has passed, whichever comes first. A Creature can spend an Action
+      to make a DC 15 Dexterity (Survival) Check to put out the flames. On a
+      successful check, the condition ends or submerging themselves fully into a
+      body of water.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - burned
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!KVB1BMVSdZIjc0Mk.DAnXjQSnzfyREN0L'
+  - name: Slowed
+    origin: Compendium.n5eb.t7-clan.Item.KVB1BMVSdZIjc0Mk
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: slowed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    _id: DAchoN2eOJkpon46
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-(10 * @stackCount)'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: slowed
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - slowed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,0
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!KVB1BMVSdZIjc0Mk.DAchoN2eOJkpon46'
 sort: 0
 ownership:
   default: 0
@@ -150,14 +332,19 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You manipulate fire chakra in your hand as it takes the shape of a lengthy, flaming rod. Make a ranged
-            ninjutsu attack against a target in range. On a hit, you deal 3d8+3 fire damage, and the target gains 1 rank
-            of burned.</p><p><em><strong>Self Immolation:</strong></em> When you spend the chakra cost using your hit
-            points, you can cause the rod to explode on impact, causing all creatures (including the target) in a 5 foot
-            radius to make a Dexterity saving throw, taking half the damage on a failure and becoming slowed until the
-            end of their next turn.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above
-            D-Rank, increase the cost of this jutsu by 3, and increase the damage by 1d8+1. When you cast this jutsu at
-            B-Rank or above, you make two ranged ninjutsu attacks instead.</p>
+            <p>You manipulate fire chakra in your hand as it takes the shape of
+            a lengthy, flaming rod. Make a ranged ninjutsu attack against a
+            target in range. On a hit, you deal 3d8+3 fire damage, and the
+            target gains 1 rank of burned.</p><p><em><strong>Self
+            Immolation:</strong></em> When you spend the chakra cost using your
+            hit points, you can cause the rod to explode on impact, causing all
+            creatures (including the target) in a 5 foot radius to make a
+            Dexterity saving throw, taking half the damage on a failure and
+            becoming slowed until the end of their next turn.</p><p><strong>At
+            Higher Ranks:</strong> For each rank you cast this jutsu above
+            D-Rank, increase the cost of this jutsu by 3, and increase the
+            damage by 1d8+1. When you cast this jutsu at B-Rank or above, you
+            make two ranged ninjutsu attacks instead.</p>
           chat: ''
         source:
           custom: ''

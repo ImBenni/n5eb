@@ -6,11 +6,13 @@ img: systems/n5eb/assets/content/jutsu-icons/earth.webp
 system:
   description:
     value: >-
-      <p>You condense a mass of earth into a small ball, before throwing it as hard as you can. Make a ranged ninjutsu
-      attack against a target you can see within range. On a hit, the target takes 2d8 earth damage and must make a
-      Strength saving throw, being knocked back 10 feet and concussed on a failed save.</p><p><strong>At Higher
-      Ranks:</strong> For each rank you cast this jutsu above <br />D-Rank, increase the cost of this jutsu by 3 and
-      increase the damage by 1d8.</p>
+      <p>You condense a mass of earth into a small ball, before throwing it as
+      hard as you can. Make a ranged ninjutsu attack against a target you can
+      see within range. On a hit, the target takes 2d8 earth damage and must
+      make a Strength saving throw, being knocked back 10 feet and concussed on
+      a failed save.</p><p><strong>At Higher Ranks:</strong> For each rank you
+      cast this jutsu above <br />D-Rank, increase the cost of this jutsu by 3
+      and increase the damage by 1d8.</p>
     chat: ''
   source:
     custom: ''
@@ -108,7 +110,123 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Concussed
+    origin: Compendium.n5eb.t7-jutsus.Item.7ezkZJUup3KmeEqN
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: concussed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/concussed.svg
+    _id: uPdMu88423mKf8Ia
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.dc
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: concussed
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has
+      experienced a traumatic blow causing their mental acuity to momentarily
+      decrease as they find themselves struggling to use complex
+      technique.</p><ul><li><p>A Concussed creature suffers a -1 penalty to all
+      of their Save DCs for each rank it has.</p></li><li><p>A Concussed
+      creature suffers a -1 penalty to all Intelligence based checks, attack
+      rolls and saving throws and checks for each rank it has.</p></li><li><p>A
+      concussed creature cannot gain the benefit of a Rest.</p></li><li><p>A
+      creature can spend its Action if it has a Medicine kit to make a DC 20
+      Medicine check, ending this condition on a success.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - concussed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!7ezkZJUup3KmeEqN.uPdMu88423mKf8Ia'
 sort: 0
 ownership:
   default: 0
@@ -146,11 +264,14 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You condense a mass of earth into a small ball, before throwing it as hard as you can. Make a ranged
-            ninjutsu attack against a target you can see within range. On a hit, the target takes 2d8 earth damage and
-            must make a Strength saving throw, being knocked back 10 feet and concussed on a failed
-            save.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above <br />D-Rank, increase
-            the cost of this jutsu by 3 and increase the damage by 1d8.</p>
+            <p>You condense a mass of earth into a small ball, before throwing
+            it as hard as you can. Make a ranged ninjutsu attack against a
+            target you can see within range. On a hit, the target takes 2d8
+            earth damage and must make a Strength saving throw, being knocked
+            back 10 feet and concussed on a failed save.</p><p><strong>At Higher
+            Ranks:</strong> For each rank you cast this jutsu above <br
+            />D-Rank, increase the cost of this jutsu by 3 and increase the
+            damage by 1d8.</p>
           chat: ''
         source:
           custom: ''

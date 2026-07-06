@@ -47,7 +47,7 @@ export class AbilityScoreImprovementValueData extends SparseDataModel {
       assignments: new MappingField(new NumberField({
         nullable: false, integer: true
       }), { required: false, initial: undefined }),
-      feat: new MappingField(new StringField(), { required: false, initial: undefined, label: "DND5E.Feature.Feat" })
+      feat: new MappingField(new StringField(), { required: false, initial: undefined, label: "DND5E.Feature.Feat.Label" })
     };
   }
 }

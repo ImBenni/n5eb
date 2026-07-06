@@ -1,4 +1,15 @@
-<section class="adversary-builder flexcol">
+<section class="npc-builder adversary-builder flexcol" data-builder-mode="adversary">
+    <nav class="npc-builder-modes" aria-label="{{ localize 'N5EB.NPCBuilder.Mode' }}">
+        <button type="button" data-action="switchBuilderMode" data-mode="adversary" class="active"
+                aria-pressed="true">
+            <i class="fa-solid fa-user-ninja" inert></i>
+            <span>{{ localize "N5EB.NPCBuilder.AdversaryMode" }}</span>
+        </button>
+        <button type="button" data-action="switchBuilderMode" data-mode="summon" aria-pressed="false">
+            <i class="fa-solid fa-paw" inert></i>
+            <span>{{ localize "N5EB.NPCBuilder.SummonMode" }}</span>
+        </button>
+    </nav>
     <div class="adversary-builder-layout">
         <aside class="adversary-blueprint">
             <div class="adversary-identity-card">
@@ -66,19 +77,36 @@
                             {{ selectOptions CONFIG.adversaryDisciplines selected=source.discipline labelAttr="label" }}
                         </select>
                     </div>
+                    <p class="hint">{{ localize "N5EB.Adversary.Builder.RoleDisciplineHint" }}</p>
                 </div>
 
                 <div class="form-group">
                     <label>{{ localize "N5EB.Adversary.Clan" }}</label>
-                    <div class="form-fields">
-                        <input type="text" name="adversary.clan" value="{{ source.clan }}">
+                    <div class="form-fields clan-picker-field">
+                        <input type="hidden" name="adversary.clan" value="{{ source.clan }}">
+                        <button type="button" class="adversary-clan-picker" data-action="chooseClan">
+                            <img src="{{ source.clanDisplay.img }}" alt="" data-clan-image>
+                            <span data-clan-label>{{ source.clanDisplay.label }}</span>
+                        </button>
+                        <button type="button" class="unbutton clear-picker" data-action="clearClan"
+                                data-tooltip="N5EB.Adversary.Builder.ClearClan"
+                                aria-label="{{ localize 'N5EB.Adversary.Builder.ClearClan' }}"
+                                {{#unless source.clan}}hidden{{/unless}}>
+                            <i class="fa-solid fa-xmark" inert></i>
+                        </button>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>{{ localize "N5EB.Adversary.Affiliation" }}</label>
-                    <div class="form-fields">
-                        <input type="text" name="adversary.affiliation" value="{{ source.affiliation }}">
+                    <div class="form-fields affiliation-fields {{#if source.affiliationIsCustom}}custom{{/if}}">
+                        <select name="adversary.affiliation">
+                            {{ selectOptions affiliationOptions selected=source.affiliationChoice valueAttr="value" labelAttr="label" }}
+                        </select>
+                        <input type="text" name="adversary.affiliationCustom" class="affiliation-custom"
+                               value="{{ source.affiliationCustom }}"
+                               placeholder="{{ localize 'N5EB.Adversary.Builder.CustomAffiliation' }}"
+                               {{#unless source.affiliationIsCustom}}hidden disabled{{/unless}}>
                     </div>
                 </div>
 
@@ -190,6 +218,9 @@
                         <span data-preview-type>{{ preview.typeLabel }}</span>
                         <span data-preview-rank>{{ preview.rankLabel }}</span>
                         <span data-preview-kind>{{ preview.kindLabel }}</span>
+                        <span data-preview-cost {{#unless preview.costLabel}}hidden{{/unless}}>{{ preview.costLabel }}</span>
+                        <span data-preview-activation {{#unless preview.activationLabel}}hidden{{/unless}}>{{ preview.activationLabel }}</span>
+                        <span data-preview-action-type {{#unless preview.actionTypeLabel}}hidden{{/unless}}>{{ preview.actionTypeLabel }}</span>
                         <span data-preview-pack>{{ preview.pack }}</span>
                     </div>
                     <div class="preview-description" data-preview-description>
@@ -208,11 +239,19 @@
             </div>
 
             <div class="adversary-content-panel" data-content-panel="features">
-                {{> ".filters" ranks=filterRanks kinds=featureKinds categories=featureCategories sources=featurePacks }}
+                {{> ".filters" ranks=featureFilterRanks kinds=featureKinds categories=featureCategories }}
                 {{#if suggestions.features.length}}
-                <div class="adversary-suggestions">
-                    {{#each suggestions.features}}
-                    {{> ".suggestion" }}
+                <div class="adversary-suggestions grouped">
+                    {{#each suggestions.featureGroups}}
+                    <section class="adversary-suggestion-group" data-suggestion-group="{{ id }}">
+                        <div class="suggestion-group-heading">
+                            <span>{{ localize label }}</span>
+                            <strong data-group-visible>{{ items.length }}</strong>
+                        </div>
+                        {{#each items}}
+                        {{> ".suggestion" }}
+                        {{/each}}
+                    </section>
                     {{/each}}
                 </div>
                 {{/if}}
@@ -220,7 +259,8 @@
             </div>
 
             <div class="adversary-content-panel" data-content-panel="jutsu" hidden>
-                {{> ".filters" ranks=filterRanks kinds=jutsuKinds sources=jutsuPacks }}
+                {{> ".filters" ranks=filterRanks kinds=jutsuKinds actions=jutsuActions actionTypes=jutsuActionTypes
+                    costs=jutsuCosts components=jutsuComponents keywords=jutsuKeywords sources=jutsuPacks }}
                 {{#if suggestions.jutsu.length}}
                 <div class="adversary-suggestions">
                     {{#each suggestions.jutsu}}
@@ -256,34 +296,146 @@
 </section>
 
 {{#*inline ".filters"}}
-<div class="adversary-filter-bar">
-    <label class="search">
-        <i class="fa-solid fa-magnifying-glass" inert></i>
-        <input type="search" class="adversary-filter" data-filter="search"
+<div class="adversary-filter-bar filter-element">
+    <search aria-label="{{ localize 'N5EB.Adversary.Builder.Search' }}">
+        <input type="text" class="adversary-filter always-interactive" data-filter="search"
                placeholder="{{ localize 'N5EB.Adversary.Builder.Search' }}">
-    </label>
-    <select class="adversary-filter" data-filter="rank" aria-label="{{ localize 'N5EB.Adversary.Rank.Label' }}">
-        {{#each ranks}}
-        <option value="{{ value }}">{{ label }}</option>
-        {{/each}}
-    </select>
-    <select class="adversary-filter" data-filter="kind" aria-label="{{ localize 'N5EB.Adversary.Builder.Type' }}">
-        {{#each kinds}}
-        <option value="{{ value }}">{{ label }}</option>
-        {{/each}}
-    </select>
-    {{#if categories}}
-    <select class="adversary-filter" data-filter="category" aria-label="{{ localize 'N5EB.Adversary.Builder.Category' }}">
-        {{#each categories}}
-        <option value="{{ value }}">{{ label }}</option>
-        {{/each}}
-    </select>
-    {{/if}}
-    <select class="adversary-filter" data-filter="source" aria-label="{{ localize 'N5EB.Adversary.Builder.Source' }}">
-        {{#each sources}}
-        <option value="{{ value }}">{{ label }}</option>
-        {{/each}}
-    </select>
+        <ul class="unlist controls">
+            <li>
+    <details class="adversary-filter-menu" data-filter-menu>
+        <summary class="unbutton filter-control filter always-interactive"
+                 aria-label="{{ localize 'N5EB.Adversary.Builder.Filters' }}">
+            <i class="fa-solid fa-sliders" inert></i>
+            <span>{{ localize "N5EB.Adversary.Builder.Filters" }}</span>
+            <strong data-filter-count hidden>0</strong>
+        </summary>
+        <div class="filter-menu-panel">
+            <div class="filter-menu-heading">
+                <div>
+                    <strong>{{ localize "N5EB.Adversary.Builder.Filters" }}</strong>
+                    <span>{{ localize "N5EB.Adversary.Builder.FilterHint" }}</span>
+                </div>
+                <button type="button" class="unbutton" data-filter-clear>
+                    {{ localize "N5EB.Adversary.Builder.ClearFilters" }}
+                </button>
+            </div>
+            <div class="filter-menu-body">
+                <section class="filter-menu-section">
+                    <div class="filter-section-title">
+                        <i class="fa-solid fa-layer-group" inert></i>
+                        <strong>{{ localize "N5EB.Adversary.Builder.FilterBasics" }}</strong>
+                    </div>
+                    <div class="filter-menu-grid">
+                        <label>
+                            <span>{{ localize "N5EB.Adversary.Rank.Label" }}</span>
+                            <select class="adversary-filter" data-filter="rank" aria-label="{{ localize 'N5EB.Adversary.Rank.Label' }}">
+                                {{#each ranks}}
+                                <option value="{{ value }}" {{#if selected}}selected{{/if}}>{{ label }}</option>
+                                {{/each}}
+                            </select>
+                        </label>
+                        <label>
+                            <span>{{ localize "N5EB.Adversary.Builder.Type" }}</span>
+                            <select class="adversary-filter" data-filter="kind" aria-label="{{ localize 'N5EB.Adversary.Builder.Type' }}">
+                                {{#each kinds}}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {{/each}}
+                            </select>
+                        </label>
+                        {{#if categories}}
+                        <label>
+                            <span>{{ localize "N5EB.Adversary.Builder.Category" }}</span>
+                            <select class="adversary-filter" data-filter="category" aria-label="{{ localize 'N5EB.Adversary.Builder.Category' }}">
+                                {{#each categories}}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {{/each}}
+                            </select>
+                        </label>
+                        {{/if}}
+                        {{#if sources}}
+                        <label>
+                            <span>{{ localize "N5EB.Adversary.Builder.Source" }}</span>
+                            <select class="adversary-filter" data-filter="source" aria-label="{{ localize 'N5EB.Adversary.Builder.Source' }}">
+                                {{#each sources}}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {{/each}}
+                            </select>
+                        </label>
+                        {{/if}}
+                    </div>
+                </section>
+                {{#if actions}}
+                <section class="filter-menu-section">
+                    <div class="filter-section-title">
+                        <i class="fa-solid fa-bolt" inert></i>
+                        <strong>{{ localize "N5EB.Adversary.Builder.FilterJutsu" }}</strong>
+                    </div>
+                    <div class="filter-menu-grid">
+                        <label>
+                            <span>{{ localize "N5EB.Adversary.Builder.Action" }}</span>
+                            <select class="adversary-filter" data-filter="activation" aria-label="{{ localize 'N5EB.Adversary.Builder.Action' }}">
+                                {{#each actions}}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {{/each}}
+                            </select>
+                        </label>
+                        {{#if actionTypes}}
+                        <label>
+                            <span>{{ localize "N5EB.Adversary.Builder.RollType" }}</span>
+                            <select class="adversary-filter" data-filter="actionType" aria-label="{{ localize 'N5EB.Adversary.Builder.RollType' }}">
+                                {{#each actionTypes}}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {{/each}}
+                            </select>
+                        </label>
+                        {{/if}}
+                        {{#if costs}}
+                        <label>
+                            <span>{{ localize "N5EB.Adversary.Builder.ChakraCost" }}</span>
+                            <select class="adversary-filter" data-filter="cost" aria-label="{{ localize 'N5EB.Adversary.Builder.ChakraCost' }}">
+                                {{#each costs}}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {{/each}}
+                            </select>
+                        </label>
+                        {{/if}}
+                        {{#if components}}
+                        <label>
+                            <span>{{ localize "N5EB.Adversary.Builder.Component" }}</span>
+                            <select class="adversary-filter" data-filter="component" aria-label="{{ localize 'N5EB.Adversary.Builder.Component' }}">
+                                {{#each components}}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {{/each}}
+                            </select>
+                        </label>
+                        {{/if}}
+                    </div>
+                </section>
+                {{/if}}
+                {{#if keywords}}
+                <fieldset class="filter-checks filter-menu-section">
+                    <legend>
+                        <i class="fa-solid fa-tags" inert></i>
+                        <span>{{ localize "N5EB.Adversary.Builder.Keywords" }}</span>
+                    </legend>
+                    <div class="filter-check-list">
+                        {{#each keywords}}
+                        {{#if value}}
+                        <label class="checkbox">
+                            <input type="checkbox" class="adversary-filter" data-filter="keyword" value="{{ value }}">
+                            <span>{{ label }}</span>
+                        </label>
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                </fieldset>
+                {{/if}}
+            </div>
+        </div>
+    </details>
+            </li>
+        </ul>
+    </search>
 </div>
 {{/inline}}
 
@@ -299,22 +451,46 @@
        data-category="{{ category }}"
        data-category-label="{{ categoryLabel }}"
        data-type-label="{{ typeLabel }}"
+       data-identifier="{{ identifier }}"
        data-pack="{{ packKey }}"
        data-pack-label="{{ pack }}"
+       data-relevance="{{ relevance }}"
+       data-required-level="{{ requiredLevel }}"
        data-source="{{ sourceKey }}"
        data-source-label="{{ sourceLabel }}"
+       data-recommended="{{ recommended }}"
+       data-activation="{{ activation }}"
+       data-activation-label="{{ activationLabel }}"
+       data-action-type="{{ actionType }}"
+       data-action-type-label="{{ actionTypeLabel }}"
+       data-display-action-type-label="{{ displayActionTypeLabel }}"
+       data-suggestion-type="{{ type }}"
+       data-cost="{{ costKey }}"
+       data-cost-label="{{ costLabel }}"
+       data-components="{{ componentsKey }}"
+       data-keywords="{{ keywordsKey }}"
        data-search="{{ search }}">
     <input type="checkbox" name="itemUuids" value="{{ uuid }}" {{ disabled disabled }}>
     <img src="{{ img }}" alt="">
-    <span class="name">{{ name }}</span>
-    <span class="meta">
-        {{#if rankLabel}}<span>{{ rankLabel }}</span>{{/if}}
-        {{#if kindLabel}}<span>{{ kindLabel }}</span>{{/if}}
-        <span>{{ pack }}</span>
+    <span class="suggestion-copy">
+        <span class="name">{{ name }}</span>
+        <span class="meta">
+            {{#if rankLabel}}<span class="meta-text">{{ rankLabel }}</span>{{/if}}
+            {{#if kindLabel}}<span class="meta-text">{{ kindLabel }}</span>{{/if}}
+            {{#if costLabel}}<span class="meta-text">{{ costLabel }}</span>{{/if}}
+            {{#if activationLabel}}<span class="meta-text">{{ activationLabel }}</span>{{/if}}
+            {{#if displayActionTypeLabel}}<span class="meta-text">{{ displayActionTypeLabel }}</span>{{/if}}
+            {{#if showRowSource}}<span class="meta-text">{{ pack }}</span>{{/if}}
+            {{#if rowBadges}}
+            {{#each rowBadges}}
+            <span class="badge">{{ this }}</span>
+            {{/each}}
+            {{/if}}
+            {{#if disabled}}
+            <span class="badge status">{{ localize "N5EB.Adversary.Builder.Added" }}</span>
+            {{/if}}
+        </span>
     </span>
-    {{#if disabled}}
-    <span class="status">{{ localize "N5EB.Adversary.Builder.Added" }}</span>
-    {{/if}}
     <template>{{{ description }}}</template>
 </label>
 {{/inline}}

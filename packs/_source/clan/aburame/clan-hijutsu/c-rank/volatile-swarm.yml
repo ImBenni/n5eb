@@ -6,44 +6,45 @@ img: systems/n5eb/assets/content/jutsu-icons/non-elemental.webp
 system:
   description:
     value: >-
-      <p>You unleash a torrent of tunneling centipedes and burrowing beetles in a 45-foot long, 5-foot wide line
-      originating from you. Creatures in the line must make a Dexterity saving throw, taking 5d6 poison damage on a
-      failed save, or half as much on a successful save.</p><p>At Higher Ranks: For each rank you cast this jutsu above
-      C-Rank, increase the cost by 3 and the damage by 2d6.</p>
-    chat: ''
+      <p>You collect a swarm of tunnelling centipedes and burrowing beetles along your arms and fingers, unleashing them
+      in a torrent of bugs in a line in front of you. All creatures in a 45 foot long, 5-foot-wide line, originating
+      from you, must make a Dexterity Saving Throw, taking 5d6 Poison Damage on a failed save, and half as much on a
+      successful save. At Higher Ranks: For each rank you cast this jutsu above C-Rank, increase the cost of this jutsu
+      by 3 and damage by 2d6</p>
+    chat: ""
   source:
-    custom: ''
+    custom: ""
     book: Naruto 5e
-    page: '8'
-    license: ''
+    page: "8"
+    license: ""
     rules: n5eb
   activation:
     type: action
-    condition: ''
+    condition: ""
     value: 1
   duration:
-    value: ''
+    value: ""
     units: inst
   target:
     affects:
       type: creature
-      count: ''
+      count: ""
       choice: false
-      special: ''
+      special: ""
     template:
-      count: '1'
+      count: "1"
       contiguous: false
       type: line
-      size: '45'
-      width: '5'
-      height: ''
+      size: "45"
+      width: "5"
+      height: ""
       units: ft
   range:
     value: null
     units: self
-    special: ''
+    special: ""
   uses:
-    max: ''
+    max: ""
     recovery: []
     spent: 0
   level: 3
@@ -51,7 +52,7 @@ system:
   school: trs
   jutsu:
     type: ninjutsu
-    ability: ''
+    ability: ""
     components:
       - hs
       - cm
@@ -60,13 +61,13 @@ system:
       - ninjutsu
     countsKnown: true
   chakra:
-    cost: '8'
+    cost: "8"
     scaling:
       mode: rank
       value: 3
-    special: ''
+    special: ""
   materials:
-    value: ''
+    value: ""
     consumed: false
     cost: 0
     supply: 0
@@ -85,10 +86,10 @@ system:
         targets: []
         scaling:
           allowed: false
-          max: ''
+          max: ""
         spellSlot: true
       description:
-        chatFlavor: ''
+        chatFlavor: ""
       duration:
         units: inst
         concentration: false
@@ -107,10 +108,10 @@ system:
       uses:
         spent: 0
         recovery: []
-        max: ''
+        max: ""
       sort: 0
       name: Cast
-      img: ''
+      img: ""
       visibility:
         level:
           min: null
@@ -119,23 +120,23 @@ system:
         parts:
           - number: 5
             denomination: 6
-            bonus: ''
+            bonus: ""
             types:
               - poison
             custom:
               enabled: false
-              formula: ''
+              formula: ""
             scaling:
               mode: whole
               number: 2
-              formula: ''
+              formula: ""
         onSave: half
       save:
         ability:
           - dex
         dc:
           calculation: spellcasting
-          formula: ''
+          formula: ""
   identifier: volatile-swarm
 effects: []
 sort: 999000
@@ -148,11 +149,11 @@ flags:
       source: Book Parity Fix Pass 5.3.10
 _stats:
   duplicateSource: null
-  coreVersion: '13.351'
+  coreVersion: "13.351"
   systemId: n5eb
   systemVersion: 5.3.10
   createdTime: 1779926400000
   modifiedTime: 1779926400000
   lastModifiedBy: n5ebbuilder00000
   exportSource: null
-_key: '!items!n5ebVolatileSwm1'
+_key: "!items!n5ebVolatileSwm1"

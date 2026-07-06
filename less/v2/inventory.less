@@ -272,6 +272,33 @@
         i.fa-bolt { color: var(--dnd5e-color-gold); }
       }
 
+      .item-ammoDie {
+        width: 70px;
+
+        &.item-detail { font-weight: bold; }
+
+        .value {
+          border: 1px solid color-mix(in oklab, var(--dnd5e-color-gold), transparent 35%);
+          border-radius: 3px;
+          color: var(--color-text-secondary);
+          font-family: var(--dnd5e-font-roboto-condensed);
+          font-size: var(--font-size-12);
+          line-height: 1;
+          padding: 2px 5px;
+          text-transform: uppercase;
+        }
+
+        &.low .value {
+          border-color: var(--dnd5e-color-gold);
+          color: var(--dnd5e-color-gold);
+        }
+
+        &.depleted .value {
+          border-color: var(--dnd5e-color-failure);
+          color: var(--dnd5e-color-failure);
+        }
+      }
+
       /* Item Recovery */
       .item-recovery { width: 60px; }
 

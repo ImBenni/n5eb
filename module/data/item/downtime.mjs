@@ -25,6 +25,7 @@ export default class DowntimeData extends ItemDataModel.mixin(ItemDescriptionTem
       category: new StringField({
         required: true, blank: false, initial: "custom", label: "N5EB.DOWNTIME.Category.Label"
       }),
+      identifier: new StringField({ required: true, initial: "", label: "DND5E.Identifier" }),
       weeks: new SchemaField({
         value: new NumberField({
           required: true, nullable: false, integer: true, min: 0, initial: 1,

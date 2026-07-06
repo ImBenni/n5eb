@@ -4,15 +4,20 @@ img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
 system:
   description:
     value: >-
-      <p>You attempt to suppress strong emotions in up to 3 creatures who can see and hear you within range. You speak
-      with a reverberating confidence that quells their fears, anger, and confusion. Up to 3 creatures you choose must
-      make a charisma saving throw; A creature can choose to fail this saving throw if it wishes. If a creature fails
-      its saving throw, choose one of the following effects.</p><p>• You can suppress any effect causing a target to be
-      charmed or feared. When this jutsu ends, any suppressed effect resumes, provided that its duration has not
-      expiredin the meantime.</p><p>• Alternatively, you can make a target indifferent about creatures of your choice
-      that it is hostile towards. This indifference ends if the target or its allies are attacked. When this jutsu ends,
-      the creature becomes hostile again.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank,
-      increase the cost of this jutsu by 3 and select 1 additional creature.</p>
+      <p>You attempt to suppress strong emotions in up to 3 creatures who can
+      see and hear you within range. You speak with a reverberating confidence
+      that quells their fears, anger, and confusion. Up to 3 creatures you
+      choose must make a charisma saving throw; A creature can choose to fail
+      this saving throw if it wishes. If a creature fails its saving throw,
+      choose one of the following effects.</p><p>• You can suppress any effect
+      causing a target to be charmed or feared. When this jutsu ends, any
+      suppressed effect resumes, provided that its duration has not expiredin
+      the meantime.</p><p>• Alternatively, you can make a target indifferent
+      about creatures of your choice that it is hostile towards. This
+      indifference ends if the target or its allies are attacked. When this
+      jutsu ends, the creature becomes hostile again.</p><p>At Higher Ranks: For
+      each rank you cast this jutsu above D-Rank, increase the cost of this
+      jutsu by 3 and select 1 additional creature.</p>
     chat: ''
   source:
     custom: ''
@@ -109,7 +114,222 @@ system:
     special: ''
   method: spell
   prepared: 1
-effects: []
+effects:
+  - name: Demoralized
+    origin: Compendium.n5eb.jutsus.Item.SxGVs0LOED6QZwT9
+    duration:
+      rounds: 100
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: demoralized
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/frightened.svg
+    _id: vHJnuKdxg9ickclQ
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: frightened
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=end,
+          saveDC=13,
+          saveAbility=cha,
+          allowIncapacitated=true,
+          label=Save to overcome Demoralized
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain
+      ranks of <strong>Fear</strong> (<strong>or Frightened</strong>), gain
+      ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong>
+      creature is disturbed by a particular target in some fashion, making them
+      seek to avoid interaction with them if possible. This heightened stress
+      causes the defenses of the Demoralized target to wane.</p><ul><li><p>A
+      <strong>Demoralized</strong> creature suffers a -1 penalty to its saving
+      throws, for each rank they have.</p></li><li><p>A
+      <strong>Demoralized</strong> creature must make concentration checks at
+      the beginning of each of their turns to maintain concentration on their
+      jutsu.</p></li><li><p>At the end of a <strong>Demoralized</strong>
+      creatures turn they make a DC 13 Charisma ability check. On a success,
+      they remove 1 rank of <strong>Demoralized</strong>. After 10 minutes, a
+      creature who still has ranks of <strong>Demoralized</strong>, loses all
+      ranks of <strong>Demoralized</strong> it has remaining</p></li><li><p>As
+      an action, a <strong>Demoralized</strong> creature can make a DC 20
+      Charisma ability check to remove all ranks of <strong>Demoralized</strong>
+      it has.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - demoralized
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!SxGVs0LOED6QZwT9.vHJnuKdxg9ickclQ'
+  - name: Charmed
+    origin: Compendium.n5eb.jutsus.Item.SxGVs0LOED6QZwT9
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - isDamaged
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: charmed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/charmed.svg
+    _id: Q82VnA0HY82Gv6dH
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.int.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+      - key: system.abilities.wis.bonuses.check
+        mode: 2
+        value: '-2'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><ul><li><p>A
+      <strong>Charmed</strong> creature is partially infatuated with a
+      particular target.</p></li><li><p>A <strong>Charmed</strong> creature
+      increases its attitude to you, by 1 rank, for each rank of Charmed it
+      has.</p></li><li><p>A <strong>Charmed</strong> creatures suffers a -2
+      penalty to Intelligence &amp; Wisdom based skill checks made against its
+      infatuation for each rank it has.</p></li><li><p>A
+      <strong>Charmed</strong> creature cannot take hostile actions towards the
+      source of its infatuations. If they would suffer a hostile effect or
+      damage from the source of its infatuations or one of its infatuations
+      allies, they remove all ranks of this condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - charmed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.W7xYf9O8awd8TITw.ActiveEffect.q6BnBoFI5WGgWuGi
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!SxGVs0LOED6QZwT9.Q82VnA0HY82Gv6dH'
 flags:
   cf: null
   n5eb:
@@ -127,15 +347,21 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You attempt to suppress strong emotions in up to 3 creatures who can see and hear you within range. You
-            speak with a reverberating confidence that quells their fears, anger, and confusion. Up to 3 creatures you
-            choose must make a charisma saving throw; A creature can choose to fail this saving throw if it wishes. If a
-            creature fails its saving throw, choose one of the following effects.</p><p>• You can suppress any effect
-            causing a target to be charmed or feared. When this jutsu ends, any suppressed effect resumes, provided that
-            its duration has not expiredin the meantime.</p><p>• Alternatively, you can make a target indifferent about
-            creatures of your choice that it is hostile towards. This indifference ends if the target or its allies are
-            attacked. When this jutsu ends, the creature becomes hostile again.</p><p>At Higher Ranks: For each rank you
-            cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and select 1 additional creature.</p>
+            <p>You attempt to suppress strong emotions in up to 3 creatures who
+            can see and hear you within range. You speak with a reverberating
+            confidence that quells their fears, anger, and confusion. Up to 3
+            creatures you choose must make a charisma saving throw; A creature
+            can choose to fail this saving throw if it wishes. If a creature
+            fails its saving throw, choose one of the following effects.</p><p>•
+            You can suppress any effect causing a target to be charmed or
+            feared. When this jutsu ends, any suppressed effect resumes,
+            provided that its duration has not expiredin the meantime.</p><p>•
+            Alternatively, you can make a target indifferent about creatures of
+            your choice that it is hostile towards. This indifference ends if
+            the target or its allies are attacked. When this jutsu ends, the
+            creature becomes hostile again.</p><p>At Higher Ranks: For each rank
+            you cast this jutsu above D-Rank, increase the cost of this jutsu by
+            3 and select 1 additional creature.</p>
           chat: ''
         source:
           custom: ''

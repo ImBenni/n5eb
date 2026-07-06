@@ -237,8 +237,14 @@
         display: inline-flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 3px;
+        gap: 4px;
         max-width: 100%;
+        min-height: 22px;
+        padding: 2px 4px;
+        border: 1px solid rgba(176, 155, 105, .18);
+        border-radius: 5px;
+        background: linear-gradient(180deg, rgba(14, 15, 18, .45), rgba(0, 0, 0, .16));
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
 
         &::before { display: none; }
       }
@@ -250,12 +256,12 @@
         display: inline-flex;
         align-items: center;
         min-height: 18px;
-        max-width: 120px;
-        padding: 2px 7px;
+        max-width: 132px;
+        padding: 2px 6px;
         overflow: hidden;
-        border: 1px solid rgba(176, 155, 105, .35);
-        border-radius: 999px;
-        background: rgba(176, 155, 105, .12);
+        border: 1px solid rgba(255, 255, 255, .09);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, .06);
         color: var(--color-text-light-highlight);
         font-size: var(--font-size-11);
         line-height: 1;
@@ -266,22 +272,46 @@
       .adversary-rank,
       .summon-rank {
         justify-content: center;
-        min-width: 25px;
-        background: var(--dnd5e-color-gold);
-        color: var(--dnd5e-color-black);
+        border-color: rgba(176, 155, 105, .46);
+        background: rgba(176, 155, 105, .2);
+        color: #e6d49b;
         font-weight: bold;
       }
 
       .adversary-rank.rank-d,
-      .summon-rank.rank-d { background: #aeb6c2; }
+      .summon-rank.rank-d {
+        border-color: rgba(174, 182, 194, .4);
+        background: rgba(174, 182, 194, .12);
+        color: #d8e0e8;
+      }
+
       .adversary-rank.rank-c,
-      .summon-rank.rank-c { background: #81b48a; }
+      .summon-rank.rank-c {
+        border-color: rgba(129, 180, 138, .42);
+        background: rgba(129, 180, 138, .13);
+        color: #c9e4cf;
+      }
+
       .adversary-rank.rank-b,
-      .summon-rank.rank-b { background: #6fa7d8; }
+      .summon-rank.rank-b {
+        border-color: rgba(111, 167, 216, .42);
+        background: rgba(111, 167, 216, .13);
+        color: #c7ddf2;
+      }
+
       .adversary-rank.rank-a,
-      .summon-rank.rank-a { background: #bc8fe3; }
+      .summon-rank.rank-a {
+        border-color: rgba(188, 143, 227, .42);
+        background: rgba(188, 143, 227, .13);
+        color: #e2cdf5;
+      }
+
       .adversary-rank.rank-s,
-      .summon-rank.rank-s { background: #dca85f; }
+      .summon-rank.rank-s {
+        border-color: rgba(220, 168, 95, .42);
+        background: rgba(220, 168, 95, .14);
+        color: #f0d4a8;
+      }
 
       .adversary-discipline {
         border-color: rgba(154, 194, 255, .32);
@@ -313,14 +343,6 @@
       width: 26px;
       height: 26px;
       font-size: var(--font-size-12);
-
-      &.adversary-active,
-      &.summon-active {
-        border-color: var(--dnd5e-color-gold);
-        background: linear-gradient(180deg, rgba(176, 155, 105, .28), rgba(35, 31, 24, .95));
-        color: var(--dnd5e-color-gold);
-        box-shadow: 0 0 0 1px rgba(176, 155, 105, .28), 0 0 8px rgba(176, 155, 105, .22);
-      }
     }
 
     /* Ability Scores */
@@ -576,6 +598,11 @@
             font-size: var(--font-size-10);
             padding: 2px 4px;
             gap: 3px;
+          }
+
+          &.icon-only .pills .pill.has-image {
+            padding: 2px;
+            gap: 0;
           }
         }
       }

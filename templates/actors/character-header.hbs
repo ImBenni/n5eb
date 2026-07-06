@@ -14,7 +14,7 @@
         <div class="class roboto-upper">{{ labels.class }}</div>
     </div>
 
-    {{!-- Level, Inspiration, XP, & Buttons --}}
+    {{!-- Level, Will of Fire, XP, & Buttons --}}
     <div class="right">
 
         {{!-- Level --}}
@@ -22,10 +22,14 @@
             {{ system.details.level }}
         </div>
 
-        {{!-- Inspiration --}}
-        <button type="button" class="inspiration unbutton" data-action="toggleInspiration"
-                aria-label="{{ localize 'DND5E.Inspiration' }}" data-tooltip="DND5E.Inspiration"
-                aria-pressed="{{ system.attributes.inspiration }}"></button>
+        {{!-- Will of Fire --}}
+        <div class="will-of-fire pips" data-prop="system.attributes.inspiration" role="group"
+             aria-label="{{ localize 'N5EB.WillOfFire.Label' }}">
+            {{#each willOfFire}}
+            <button type="button" class="{{ classes }}" data-action="togglePip" data-n="{{ n }}"
+                    data-tooltip="{{ tooltip }}" aria-label="{{ label }}" aria-pressed="{{ filled }}"></button>
+            {{/each}}
+        </div>
 
         {{!-- Epic Boons --}}
         {{#if system.details.xp.boonsEarned}}

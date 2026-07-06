@@ -267,6 +267,491 @@
 .compendium-sidebar .open-compendium-browser { flex: 0 0 100%; }
 
 /* ---------------------------------- */
+/*  Jutsu Lookup                      */
+/* ---------------------------------- */
+
+.dnd5e2.jutsu-add-menu {
+  position: fixed;
+  z-index: var(--z-index-tooltip);
+  min-width: 172px;
+  display: grid;
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid color-mix(in srgb, var(--dnd5e-color-gold) 44%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--dnd5e-background-card) 94%, var(--dnd5e-color-black));
+  box-shadow: 0 12px 28px rgb(0 0 0 / 55%);
+  font-family: var(--dnd5e-font-roboto-condensed);
+
+  button {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 7px;
+    align-items: center;
+    padding: 7px 9px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-align: start;
+
+    &:hover,
+    &:focus {
+      border-color: color-mix(in srgb, var(--dnd5e-color-gold) 32%, transparent);
+      background: color-mix(in srgb, var(--dnd5e-color-gold) 13%, transparent);
+      box-shadow: none;
+    }
+
+    i {
+      color: var(--dnd5e-color-gold);
+      text-align: center;
+    }
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.dnd5e2.jutsu-lookup {
+  min-inline-size: ~"min(920px, calc(100vw - 24px))";
+  min-block-size: ~"min(680px, calc(100vh - 32px))";
+
+  .window-content {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .jutsu-lookup-app {
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 230px minmax(360px, 1fr) minmax(260px, 320px);
+    gap: 0;
+    overflow: hidden;
+    color: var(--color-text-primary);
+  }
+
+  .jutsu-lookup-sidebar,
+  .jutsu-preview {
+    min-height: 0;
+    overflow: auto;
+    background: color-mix(in srgb, var(--dnd5e-background-card) 88%, var(--dnd5e-color-black));
+  }
+
+  .jutsu-lookup-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    border-inline-end: 1px solid color-mix(in srgb, var(--dnd5e-color-gold) 22%, transparent);
+    font-family: var(--dnd5e-font-roboto-condensed);
+  }
+
+  .jutsu-lookup-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 28px;
+    gap: 2px;
+    align-items: center;
+
+    strong {
+      min-width: 0;
+      color: var(--dnd5e-color-gold);
+      font-size: var(--font-size-18);
+    }
+
+    span {
+      min-width: 0;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-11);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    button {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      width: 28px;
+      height: 28px;
+      color: var(--dnd5e-color-gold);
+    }
+  }
+
+  .jutsu-search input {
+    width: 100%;
+    height: 32px;
+  }
+
+  .jutsu-filter-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-11);
+    text-transform: uppercase;
+
+    strong {
+      color: var(--color-text-primary);
+    }
+
+    button {
+      color: var(--dnd5e-color-gold);
+      font-size: var(--font-size-11);
+      text-transform: uppercase;
+    }
+
+    [data-filter-count] {
+      min-width: 18px;
+      padding: 1px 5px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--dnd5e-color-gold) 18%, transparent);
+      color: var(--color-text-primary);
+      text-align: center;
+    }
+  }
+
+  .jutsu-filter-list {
+    display: grid;
+    gap: 7px;
+
+    label {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    span {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-11);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    select {
+      min-width: 0;
+      width: 100%;
+      height: 28px;
+    }
+  }
+
+  .jutsu-keyword-filter {
+    min-width: 0;
+    margin: 0;
+    padding: 8px;
+    border: 1px solid color-mix(in srgb, var(--dnd5e-color-gold) 18%, transparent);
+    border-radius: 5px;
+
+    legend {
+      padding-inline: 4px;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-11);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    > div {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4px;
+      max-height: 180px;
+      overflow: auto;
+      scrollbar-gutter: stable;
+    }
+
+    label {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      min-width: 0;
+      font-size: var(--font-size-11);
+    }
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .jutsu-lookup-results {
+    min-width: 0;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    position: relative;
+    padding: 8px 8px 0;
+    overflow: hidden;
+  }
+
+  .jutsu-lookup-results .items-list {
+    min-height: 0;
+    overflow: auto;
+    scrollbar-gutter: stable;
+
+    .items-header,
+    .item-row {
+      display: grid;
+      grid-template-columns:
+        minmax(220px, 1fr) 42px minmax(94px, .45fr) minmax(84px, .38fr) minmax(100px, .42fr) 64px;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .items-header {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .item-header,
+    .item-detail {
+      min-width: 0;
+    }
+  }
+
+  .jutsu-result {
+    margin: 0;
+    border-left: 3px solid transparent;
+
+    &:nth-child(even) { background: var(--dnd5e-color-table-row-even); }
+    &:nth-child(odd) { background: var(--dnd5e-color-table-row-odd); }
+
+    &:hover,
+    &.previewed {
+      border-left-color: var(--dnd5e-color-gold);
+      background: color-mix(in srgb, var(--dnd5e-color-gold) 10%, transparent);
+    }
+
+    &.known {
+      opacity: .64;
+      cursor: var(--cursor-default);
+    }
+
+    &:not(.known) {
+      cursor: grab;
+    }
+
+    .item-row {
+      min-height: 46px;
+      padding: 5px 8px;
+    }
+
+    .item-name {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+    }
+
+    .item-image {
+      width: 32px;
+      height: 32px;
+      object-fit: cover;
+    }
+
+    .title,
+    .subtitle,
+    .item-detail {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .title {
+      color: var(--color-text-primary);
+      font-weight: 700;
+    }
+
+    .subtitle,
+    .item-detail {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-11);
+    }
+
+    .item-controls {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .known-badge {
+      padding: 1px 5px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--dnd5e-color-gold) 15%, transparent);
+      color: var(--dnd5e-color-gold);
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-10);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  .jutsu-lookup-results footer {
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 4px;
+    padding-inline: 4px;
+    color: var(--color-text-secondary);
+    font-family: var(--dnd5e-font-roboto-condensed);
+    font-size: var(--font-size-12);
+
+    strong {
+      color: var(--dnd5e-color-gold);
+    }
+
+    .total-count {
+      color: color-mix(in srgb, var(--color-text-secondary) 72%, transparent);
+    }
+
+    button {
+      min-height: 24px;
+      margin-inline-start: 6px;
+      padding: 2px 8px;
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-11);
+      font-weight: 700;
+    }
+  }
+
+  .jutsu-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    border-inline-start: 1px solid color-mix(in srgb, var(--dnd5e-color-gold) 22%, transparent);
+  }
+
+  .preview-art img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid color-mix(in srgb, var(--dnd5e-color-gold) 28%, transparent);
+    border-radius: 4px;
+    background: var(--dnd5e-color-black);
+  }
+
+  .preview-header {
+    display: grid;
+    gap: 4px;
+
+    .eyebrow {
+      color: var(--color-text-secondary);
+      font-family: var(--dnd5e-font-roboto-condensed);
+      font-size: var(--font-size-10);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    strong {
+      color: var(--color-text-primary);
+      font-family: var(--dnd5e-font-roboto-slab);
+      font-size: var(--font-size-18);
+      line-height: 1.1;
+    }
+  }
+
+  .preview-basics,
+  .preview-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .preview-basics span,
+  .preview-tags span {
+    max-width: 100%;
+    padding: 2px 7px;
+    border: 1px solid color-mix(in srgb, var(--dnd5e-color-gold) 28%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--dnd5e-color-gold) 10%, transparent);
+    color: var(--color-text-primary);
+    font-family: var(--dnd5e-font-roboto-condensed);
+    font-size: var(--font-size-11);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .preview-basics span:empty,
+  .preview-tags span:empty {
+    display: none;
+  }
+
+  .preview-description {
+    min-height: 0;
+    overflow: auto;
+    padding-inline-end: 4px;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-12);
+    line-height: 1.45;
+  }
+
+  [data-preview-open] {
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: auto;
+    font-family: var(--dnd5e-font-roboto-condensed);
+    font-weight: 700;
+  }
+
+  .empty-filter {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    translate: -50% -50%;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-13);
+    text-align: center;
+  }
+
+  .jutsu-lookup-status {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    translate: -50% -50%;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    min-width: 220px;
+    color: var(--color-text-secondary);
+    font-family: var(--dnd5e-font-roboto-condensed);
+    font-size: var(--font-size-13);
+    text-align: center;
+
+    i {
+      color: var(--dnd5e-color-gold);
+      font-size: var(--font-size-20);
+    }
+
+    button {
+      min-height: 28px;
+      padding-inline: 12px;
+      font-weight: 700;
+    }
+
+    &.error i {
+      animation: none;
+      color: var(--dnd5e-color-red);
+
+      &::before {
+        content: "\f071";
+      }
+    }
+  }
+}
+
+/* ---------------------------------- */
 /*  Source Configuration              */
 /* ---------------------------------- */
 

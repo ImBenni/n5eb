@@ -1,6 +1,6 @@
 folder: eRrJSrsktfTfZZsH
 name: Young Tamaskan
-type: class
+type: feat
 img: icons/creatures/mammals/humanoid-wolf-dog-blue.webp
 system:
   description:
@@ -21,14 +21,7 @@ system:
     custom: ''
     rules: n5eb
     book: Naruto 5e
-  startingEquipment: []
   identifier: dog-wolf-summons-4
-  levels: 1
-  toughness: 10
-  hitDice: d6
-  hitDiceUsed: 0
-  chakraDice: d6
-  chakraDiceUsed: 0
   advancement:
     - _id: rHzzq6Ak5xP9Ir7I
       type: Trait
@@ -370,6 +363,10 @@ system:
     denomination: d6
   cd:
     denomination: d6
+  type:
+    value: summon
+    subtype: inuzukaBreedDefinition
+    nestedsubtype: ''
 effects: []
 ownership:
   default: 0
@@ -738,6 +735,18 @@ flags:
         wealth: ''
     summonBuilder:
       legacyTemplate: true
+      migratedFromClassTemplate: true
+    summonDefinition:
+      kind: inuzukaBreed
+      key: tamaskan
+      label: Young Tamaskan
+      baseTribe: dogWolf
+      category: inuzuka
+      variant: tamaskan
+      summonType: carnivoran
+      toughness: 10
+      defenseAbility: dex
+      jutsuAbility: str
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

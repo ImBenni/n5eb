@@ -5,6 +5,8 @@ import { CreatureTypeField, MovementField, SensesField } from "../shared/_module
 import AdvancementTemplate from "./templates/advancement.mjs";
 import ItemDescriptionTemplate from "./templates/item-description.mjs";
 
+const { SchemaField, StringField } = foundry.data.fields;
+
 /**
  * @import { RaceItemSystemData } from "./_types.mjs";
  * @import { AdvancementTemplateData, ItemDescriptionTemplateData } from "./templates/_types.mjs";
@@ -31,6 +33,10 @@ export default class RaceData extends ItemDataModel.mixin(AdvancementTemplate, I
   /** @inheritDoc */
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
+      origin: new SchemaField({
+        land: new StringField({ required: true, blank: true, initial: "", label: "N5EB.Clan.Origin.Land" }),
+        village: new StringField({ required: true, blank: true, initial: "", label: "N5EB.Clan.Origin.Village" })
+      }, { label: "N5EB.Clan.Origin.Label" }),
       movement: new MovementField({ bonus: false, special: false }, { initialUnits: defaultUnits("length") }),
       senses: new SensesField({}, { initialUnits: defaultUnits("length") }),
       type: new CreatureTypeField({ swarm: false }, { initial: { value: "humanoid" } })
@@ -49,6 +55,24 @@ export default class RaceData extends ItemDataModel.mixin(AdvancementTemplate, I
   /** @override */
   static get compendiumBrowserFilters() {
     return new Map([
+      ["originLand", {
+        label: "N5EB.Clan.Origin.Land",
+        type: "set",
+        config: {
+          keyPath: "system.origin.land",
+          choices: CONFIG.DND5E.clanOriginLands,
+          blank: "N5EB.Clan.Origin.Unspecified"
+        }
+      }],
+      ["originVillage", {
+        label: "N5EB.Clan.Origin.Village",
+        type: "set",
+        config: {
+          keyPath: "system.origin.village",
+          choices: CONFIG.DND5E.clanOriginVillages,
+          blank: "N5EB.Clan.Origin.Unspecified"
+        }
+      }],
       ["hasDarkvision", {
         label: "DND5E.CompendiumBrowser.Filters.HasDarkvision",
         type: "boolean",

@@ -6,12 +6,15 @@ img: systems/n5eb/assets/content/jutsu-icons/taijutsu.webp
 system:
   description:
     value: >-
-      <p>You stomp the ground with incredible force causing a boulder to be chinked from the ground in front of you. You
-      then make a frontflip, channeling earth release chakra to increase your strength, grab the boulder and throw it at
-      a creature within range.</p><p>Make a ranged taijutsu attack, dealing your unarmed damage + 3d6 Earth damage and
-      the creature must make a Constitution saving throw, becoming Dazed on a failure.</p><p><strong>At Higher
-      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the cost by 3, the damage by 2d6, and the
-      range by 15ft.</p>
+      <p>You stomp the ground with incredible force causing a boulder to be
+      chinked from the ground in front of you. You then make a frontflip,
+      channeling earth release chakra to increase your strength, grab the
+      boulder and throw it at a creature within range.</p><p>Make a ranged
+      taijutsu attack, dealing your unarmed damage + 3d6 Earth damage and the
+      creature must make a Constitution saving throw, becoming Dazed on a
+      failure.</p><p><strong>At Higher Ranks:</strong> For each rank you cast
+      this jutsu above D-Rank, increase the cost by 3, the damage by 2d6, and
+      the range by 15ft.</p>
     chat: ''
   source:
     custom: ''
@@ -109,7 +112,87 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Dazed
+    origin: Compendium.n5eb.t7-jutsus.Item.Ca7XWicxmdvANnNs
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: 1
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: dazed
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: lGyk3foeH2gPo1H8
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow
+      and cannot take as many actions as usual.</p><ul><li><p>A Dazed creature
+      can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition
+      lasts until the End of the affected creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - dazed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!Ca7XWicxmdvANnNs.lGyk3foeH2gPo1H8'
 sort: 0
 ownership:
   default: 0
@@ -147,12 +230,16 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You stomp the ground with incredible force causing a boulder to be chinked from the ground in front of
-            you. You then make a frontflip, channeling earth release chakra to increase your strength, grab the boulder
-            and throw it at a creature within range.</p><p>Make a ranged taijutsu attack, dealing your unarmed damage +
-            3d6 Earth damage and the creature must make a Constitution saving throw, becoming Dazed on a
-            failure.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
-            the cost by 3, the damage by 2d6, and the range by 15ft.</p>
+            <p>You stomp the ground with incredible force causing a boulder to
+            be chinked from the ground in front of you. You then make a
+            frontflip, channeling earth release chakra to increase your
+            strength, grab the boulder and throw it at a creature within
+            range.</p><p>Make a ranged taijutsu attack, dealing your unarmed
+            damage + 3d6 Earth damage and the creature must make a Constitution
+            saving throw, becoming Dazed on a failure.</p><p><strong>At Higher
+            Ranks:</strong> For each rank you cast this jutsu above D-Rank,
+            increase the cost by 3, the damage by 2d6, and the range by
+            15ft.</p>
           chat: ''
         source:
           custom: ''

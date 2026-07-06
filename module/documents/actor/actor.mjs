@@ -3,6 +3,7 @@ import CreateDocumentDialog from "../../applications/create-document-dialog.mjs"
 import SkillToolRollConfigurationDialog from "../../applications/dice/skill-tool-configuration-dialog.mjs";
 import * as Conditions from "../../conditions.mjs";
 import PropertyAttribution from "../../applications/property-attribution.mjs";
+import * as Seals from "../../seals.mjs";
 import TravelField from "../../data/actor/fields/travel-field.mjs";
 import ActivationsField from "../../data/chat-message/fields/activations-field.mjs";
 import { ActorDeltasField } from "../../data/chat-message/fields/deltas-field.mjs";
@@ -12,12 +13,46 @@ import { createRollLabel } from "../../enrichers.mjs";
 import {
   convertTime, defaultUnits, formatLength, formatNumber, formatTime, simplifyBonus, staticID
 } from "../../utils.mjs";
+import { preserveLegacyN5eBSource } from "../../legacy-migration.mjs";
 import ActiveEffect5e from "../active-effect.mjs";
 import Item5e from "../item.mjs";
 import SystemDocumentMixin from "../mixins/document.mjs";
 import Proficiency from "./proficiency.mjs";
 import SelectChoices from "./select-choices.mjs";
 import * as Trait from "./trait.mjs";
+
+/**
+ * Is this item an Art jutsu linked to a classmod?
+ * @param {Item5e} item  Item being checked.
+ * @returns {boolean}
+ */
+function isClassmodArt(item) {
+  return Boolean(item?.system?.classmodIdentifier || `${item?.system?.sourceItem ?? ""}`.startsWith("classmod:"));
+}
+
+/**
+ * Get the numeric rank value used by Clash.
+ * @param {string} rank  Jutsu rank.
+ * @param {object} [options]
+ * @param {boolean} [options.art=false]  Treat this rank as an Art.
+ * @returns {number}
+ */
+function getClashRankValue(rank, { art=false }={}) {
+  if ( art ) return (CONFIG.DND5E.jutsuRankValues.s ?? 5) + 1;
+  return CONFIG.DND5E.jutsuRankValues[rank] ?? 0;
+}
+
+/**
+ * Format a jutsu rank for Clash display.
+ * @param {string} rank  Jutsu rank.
+ * @param {object} [options]
+ * @param {boolean} [options.art=false]  Treat this rank as an Art.
+ * @returns {string}
+ */
+function getClashRankLabel(rank, { art=false }={}) {
+  if ( art ) return game.i18n.localize("N5EB.JUTSU.Clash.ArtRank");
+  return CONFIG.DND5E.jutsuRanks[rank]?.label ?? rank?.toUpperCase?.() ?? "";
+}
 
 /**
  * @import { RequestOptions5e } from "../../_types.mjs";
@@ -189,6 +224,16 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /* -------------------------------------------- */
 
   /**
+   * Equipped armor that the actor is not proficient with.
+   * @type {Item5e|null}
+   */
+  get nonProficientArmor() {
+    return Seals.getNonProficientArmor(this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * The items this actor is concentrating on, and the relevant effects.
    * @type {{items: Set<Item5e>, effects: Set<ActiveEffect5e>}}
    */
@@ -249,6 +294,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /** @inheritDoc */
   _initializeSource(source, options={}) {
     if ( source instanceof foundry.abstract.DataModel ) source = source.toObject();
+    preserveLegacyN5eBSource(source, { documentName: "Actor" });
 
     /**
      * A hook event that fires before source data is initialized for an Actor in a compendium.
@@ -1103,6 +1149,8 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
         appliedDamage *= -1;
       }
 
+      if ( !shouldInvertHealing ) appliedDamage = Seals.applyArmorDamageReduction(this, d, appliedDamage, options);
+
       d.value = appliedDamage;
       d.active.multiplier = (d.active.multiplier ?? 1) * damageMultiplier;
       if ( d.type === "temphp" ) damages.temp += d.value;
@@ -1700,13 +1748,15 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const doubleProf = !!relevant?.prof.hasProficiency && !!alternate?.prof.hasProficiency;
     const pace = TravelField.getTravelPaceMode(config.pace, config.skill);
 
-    const { advantage, disadvantage } = AdvantageModeField.combineFields(this.system, [
+    const combinedRollMode = AdvantageModeField.combineFields(this.system, [
       `abilities.${abilityId}.check.roll.mode`,
       `${type}s.${type === "skill" ? config.skill : config.tool}.roll.mode`
     ], {
       advantages: { count: Number(doubleProf) + Number(pace.advantage) },
       disadvantages: { count: Number(pace.disadvantage) }
     });
+    let { advantage, disadvantage } = combinedRollMode;
+    if ( this.nonProficientArmor && ["str", "dex"].includes(abilityId) ) disadvantage = true;
 
     const rollConfig = foundry.utils.mergeObject({
       advantage, disadvantage,
@@ -1923,6 +1973,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       maximum: ability?.[type]?.roll.max,
       minimum: ability?.[type]?.roll.min
     };
+    if ( this.nonProficientArmor && ["str", "dex"].includes(config.ability) ) options.disadvantage = true;
 
     const rollConfig = foundry.utils.mergeObject({
       halflingLucky: this.getFlag("n5eb", "halflingLucky")
@@ -2202,6 +2253,142 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     Hooks.callAll("dnd5e.rollConcentrationV2", rolls, { subject: this });
 
     return oldFormat ? rolls[0] : rolls;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Roll a Clash contest for a jutsu with the Clash keyword.
+   * @param {object} [config={}]                        Clash roll configuration.
+   * @param {Item5e} [config.item]                      Jutsu item initiating the Clash.
+   * @param {string} [config.rank]                      Rank the initiating jutsu was cast at.
+   * @param {string} [config.opposingRank]              Rank of the opposing jutsu.
+   * @param {"auto"|"1"|"3"|number} [config.rounds]     Number of opposed checks to roll.
+   * @param {string} [config.skill]                     Skill to roll.
+   * @param {string} [config.ability]                   Ability used for the skill roll.
+   * @param {string} [config.rollMode]                  Advantage mode selected in the Clash setup dialog.
+   * @param {Partial<SkillToolRollDialogConfiguration>} [dialog={}]   Roll dialog configuration.
+   * @param {Partial<BasicRollMessageConfiguration>} [message={}]     Roll message configuration.
+   * @returns {Promise<D20Roll[]|null>}                 A Promise which resolves to the created Roll instances.
+   */
+  async rollClash(config={}, dialog={}, message={}) {
+    if ( !this.isOwner ) return null;
+    const item = config.item;
+    const rank = config.rank ?? item?.system?.effectiveRank ?? "e";
+    const opposingRank = config.opposingRank ?? rank;
+    const art = config.art ?? isClassmodArt(item);
+    const rankValue = getClashRankValue(rank, { art });
+    const opposingRankValue = getClashRankValue(opposingRank);
+    const rankBonus = Math.max(0, rankValue - opposingRankValue);
+    const bothHighRank = (rankValue >= CONFIG.DND5E.jutsuRankValues.b)
+      && (opposingRankValue >= CONFIG.DND5E.jutsuRankValues.b);
+    const rounds = config.rounds === "auto"
+      ? (bothHighRank ? 3 : 1)
+      : Math.clamp(Number(config.rounds) || 1, 1, 3);
+    const rollOptions = {
+      advantage: config.rollMode === "advantage",
+      disadvantage: config.rollMode === "disadvantage"
+    };
+    const skill = config.skill ?? "nsh";
+    const ability = config.ability ?? this.system.skills?.[skill]?.ability ?? CONFIG.DND5E.skills[skill]?.ability ?? "int";
+    const skillLabel = CONFIG.DND5E.skills[skill]?.label ?? skill;
+    const itemName = item?.name ?? game.i18n.localize("N5EB.JUTSU.Clash.UnknownJutsu");
+    const rankLabel = getClashRankLabel(rank, { art });
+    const opposingRankLabel = getClashRankLabel(opposingRank);
+    const rollConfig = {
+      ability,
+      bonus: rankBonus ? String(rankBonus) : "",
+      event: config.event,
+      hookNames: ["clash"],
+      skill,
+      rolls: Array.from({ length: rounds }, () => ({ options: rollOptions }))
+    };
+    const dialogConfig = foundry.utils.mergeObject({ configure: false }, dialog);
+    const messageConfig = foundry.utils.mergeObject({
+      data: {
+        flags: {
+          n5eb: {
+            messageType: "roll",
+            roll: {
+              ability,
+              skillId: skill,
+              type: "clash"
+            },
+            clash: {
+              itemUuid: item?.uuid,
+              messageId: config.messageId,
+              rank,
+              rankValue,
+              opposingRank,
+              opposingRankValue,
+              rankBonus,
+              rounds,
+              skill,
+              ability,
+              art,
+              nature: config.nature ?? ""
+            }
+          }
+        },
+        flavor: game.i18n.format("N5EB.JUTSU.Clash.RollFlavor", {
+          actor: this.name,
+          item: itemName,
+          rank: rankLabel,
+          opposingRank: opposingRankLabel,
+          skill: skillLabel,
+          bonus: rankBonus ? game.i18n.format("N5EB.JUTSU.Clash.RankBonus", { bonus: formatNumber(rankBonus) }) : ""
+        })
+      }
+    }, message);
+
+    const rolls = await this.rollSkill(rollConfig, dialogConfig, messageConfig);
+    if ( !rolls?.length ) return null;
+
+    Hooks.callAll("dnd5e.rollClash", rolls, { subject: this, item, config: rollConfig });
+    Hooks.callAll("dnd5e.rollClashV2", rolls, { subject: this, item, config: rollConfig });
+
+    return rolls;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply the book loss effects for a Clash contest.
+   * @param {object} [config={}]
+   * @param {Item5e} [config.item]      Losing jutsu item.
+   * @param {string} [config.origin]    Explicit effect origin.
+   * @param {string} [config.messageId] Originating chat-card id.
+   * @returns {Promise<void>}
+   */
+  async applyClashLoss({ item=null, origin=null, messageId=null }={}) {
+    if ( !this.isOwner ) return;
+    const effectOrigin = origin ?? item?.uuid ?? null;
+    const currentConcussed = this.getConditionRank("concussed");
+    await this.applyCondition("dazed", { rank: 1, origin: effectOrigin });
+    if ( !Conditions.hasConditionImmunity(this, "concussed") ) {
+      await this.updateConditionRank("concussed", Math.max(currentConcussed, 1), { origin: effectOrigin });
+    }
+    const ended = item ? await this.endConcentration(item) : [];
+
+    const chatData = {
+      content: game.i18n.format("N5EB.JUTSU.Clash.LossApplied", {
+        actor: this.name,
+        item: item?.name ?? game.i18n.localize("N5EB.JUTSU.Clash.UnknownJutsu"),
+        concentration: ended.length ? game.i18n.localize("N5EB.JUTSU.Clash.ConcentrationEnded") : ""
+      }),
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flags: {
+        n5eb: {
+          messageType: "clash",
+          clash: {
+            itemUuid: item?.uuid,
+            messageId,
+            lossApplied: true
+          }
+        }
+      }
+    };
+    await ChatMessage.create(chatData);
   }
 
   /* -------------------------------------------- */
@@ -3408,6 +3595,35 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
         label: game.i18n.localize("DND5E.ArmorClassFlat"),
         mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
         value: ac.flat
+      });
+      return new PropertyAttribution(this, attribution, "attributes.ac", { title }).renderTooltip();
+    }
+
+    if ( ac.n5eb ) {
+      attribution.push({
+        label: this.armor?.name ?? game.i18n.localize("DND5E.ArmorClassUnarmored"),
+        mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+        value: 10
+      });
+      if ( ac.n5eb.armorBonus ) attribution.push({
+        label: game.i18n.localize("N5EB.ARMOR.Bonus"),
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: ac.n5eb.armorBonus
+      });
+      if ( ac.n5eb.dex ) attribution.push({
+        label: game.i18n.localize("DND5E.AbilityDex"),
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: ac.n5eb.dex
+      });
+      if ( ac.n5eb.prof ) attribution.push({
+        label: game.i18n.localize("N5EB.ARMOR.HalfProficiency"),
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: ac.n5eb.prof
+      });
+      if ( !ac.n5eb.proficient ) attribution.push({
+        label: game.i18n.localize("N5EB.ARMOR.NonProficient"),
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: 0
       });
       return new PropertyAttribution(this, attribution, "attributes.ac", { title }).renderTooltip();
     }

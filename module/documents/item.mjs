@@ -10,11 +10,14 @@ import EquipmentData from "../data/item/equipment.mjs";
 import SpellData from "../data/item/spell.mjs";
 import ActivitiesTemplate from "../data/item/templates/activities.mjs";
 import PhysicalItemTemplate from "../data/item/templates/physical-item.mjs";
+import { preserveLegacyN5eBSource } from "../legacy-migration.mjs";
+import * as Seals from "../seals.mjs";
 import { formatIdentifier, staticID } from "../utils.mjs";
 import Scaling from "./scaling.mjs";
 import Proficiency from "./actor/proficiency.mjs";
 import SelectChoices from "./actor/select-choices.mjs";
 import Advancement from "./advancement/advancement.mjs";
+import { assignSystemFlagDataAliases } from "./flag-compatibility.mjs";
 import SystemDocumentMixin from "./mixins/document.mjs";
 
 const TextEditor = foundry.applications.ux.TextEditor.implementation;
@@ -93,6 +96,7 @@ export default class Item5e extends SystemDocumentMixin(Item) {
   /** @inheritDoc */
   _initializeSource(data, options={}) {
     if ( data instanceof foundry.abstract.DataModel ) data = data.toObject();
+    preserveLegacyN5eBSource(data, { documentName: "Item", parent: options.parent });
 
     // Migrate backpack -> container.
     if ( data.type === "backpack" ) {
@@ -251,6 +255,40 @@ export default class Item5e extends SystemDocumentMixin(Item) {
   get identifier() {
     if ( this.system.identifier ) return this.system.identifier;
     return formatIdentifier(this.name);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does this Item represent an N5eB enhancement seal?
+   * @type {boolean}
+   */
+  get isN5eBSeal() {
+    return Seals.isSeal(this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Can this item enchant the provided target item?
+   * @param {Item5e} item  Target item.
+   * @returns {true|Error[]}
+   */
+  canEnchant(item) {
+    if ( this.isN5eBSeal ) return Seals.canInstallSeal(this, item);
+    return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Install a seal on this item.
+   * @param {Item5e} seal  Seal consumable.
+   * @param {object} [options]
+   * @returns {Promise<ActiveEffect5e[]|null>}
+   */
+  async installSeal(seal, options={}) {
+    return Seals.installSeal(seal, this, options);
   }
 
   /* --------------------------------------------- */
@@ -780,6 +818,7 @@ export default class Item5e extends SystemDocumentMixin(Item) {
       foundry.utils.mergeObject(messageConfig.data.flags, message.flags);
       delete messageConfig.flags;
     }
+    assignSystemFlagDataAliases(messageConfig.data);
 
     /**
      * A hook event that fires before an item chat card is created without using an activity.
@@ -791,6 +830,7 @@ export default class Item5e extends SystemDocumentMixin(Item) {
      */
     if ( Hooks.call("dnd5e.preDisplayCard", this, messageConfig) === false ) return;
     if ( Hooks.call("dnd5e.preDisplayCardV2", this, messageConfig) === false ) return;
+    assignSystemFlagDataAliases(messageConfig.data);
 
     ChatMessage.applyRollMode(messageConfig.data, messageConfig.rollMode);
     const card = messageConfig.create === false ? messageConfig.data : await ChatMessage.create(messageConfig.data);

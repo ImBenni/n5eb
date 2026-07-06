@@ -6,13 +6,17 @@ img: systems/n5eb/assets/content/clans/yoru.webp
 system:
   description:
     value: >-
-      <p>You generate an echo on the space-time arround you, coating yourself in a mirror image of your person that
-      moves in slighly diferent maner.</p><p>For the duration of this Jutsu, the next time you suffer damage dealt by
-      another creature, the echo expands in a violent matter, showing visions of alternate realities to the creature
-      that attacked you.</p><p>The creature must succed a Wisdom Saving throw, being Blinded until the end of their next
-      turn. If the damage dealt to you was from a Melee Attack, the Saving Throw is made at Disadvantage. After this,
-      this jutsu ends.</p><p>Creatures already under the Blinded condition within range must perform this save
-      anyways.</p><p>Creatures with True Sight are immune to this Jutsu.</p>
+      <p>You generate an echo on the space-time arround you, coating yourself in
+      a mirror image of your person that moves in slighly diferent
+      maner.</p><p>For the duration of this Jutsu, the next time you suffer
+      damage dealt by another creature, the echo expands in a violent matter,
+      showing visions of alternate realities to the creature that attacked
+      you.</p><p>The creature must succed a Wisdom Saving throw, being Blinded
+      until the end of their next turn. If the damage dealt to you was from a
+      Melee Attack, the Saving Throw is made at Disadvantage. After this, this
+      jutsu ends.</p><p>Creatures already under the Blinded condition within
+      range must perform this save anyways.</p><p>Creatures with True Sight are
+      immune to this Jutsu.</p>
     chat: ''
   source:
     custom: ''
@@ -108,7 +112,104 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Blinded
+    origin: Compendium.n5eb.t7-clan.Item.wDHQIFL2xAt7kzMu
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: blinded
+          rank: 1
+          maxRank: 1
+          category: sensory
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/blinded.svg
+    _id: 2CTBFSL3Xov4nDRF
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: flags.midi-qol.grants.advantage.attack.all
+        mode: 2
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: blinded
+        priority: 20
+    description: >-
+      <p>• A <strong>Blinded</strong> creature cannot target another creature
+      with effects that require them to “target a creature they can see” unless
+      they have a special sense that does not require sight, such as
+      <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>•
+      A blinded creature can’t see and automatically fails any check that
+      requires sight.</p><p>• A <strong>Blinded</strong> creature has
+      disadvantage on Dexterity saving throws.</p><p>• Attack rolls against a
+      <strong>Blinded</strong> creature have advantage, and a
+      <strong>Blinded</strong> creature’s attack rolls have disadvantage without
+      the aid of a special sense that does not require sight, such as
+      <strong>Tremor Sense</strong> or <strong>Chakra Sensing</strong>.</p><p>•
+      A creature can willingly close their eyes as a free action for an extended
+      period of time. Doing so imposes this Condition on them until the
+      beginning of their next turn, they cannot reopen their eyes until then,
+      unless they are forced to do so by some other means.</p>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - blinded
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!wDHQIFL2xAt7kzMu.2CTBFSL3Xov4nDRF'
 sort: 0
 ownership:
   default: 0
@@ -142,13 +243,18 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You generate an echo on the space-time arround you, coating yourself in a mirror image of your person
-            that moves in slighly diferent maner.</p><p>For the duration of this Jutsu, the next time you suffer damage
-            dealt by another creature, the echo expands in a violent matter, showing visions of alternate realities to
-            the creature that attacked you.</p><p>The creature must succed a Wisdom Saving throw, being Blinded until
-            the end of their next turn. If the damage dealt to you was from a Melee Attack, the Saving Throw is made at
-            Disadvantage. After this, this jutsu ends.</p><p>Creatures already under the Blinded condition within range
-            must perform this save anyways.</p><p>Creatures with True Sight are immune to this Jutsu.</p>
+            <p>You generate an echo on the space-time arround you, coating
+            yourself in a mirror image of your person that moves in slighly
+            diferent maner.</p><p>For the duration of this Jutsu, the next time
+            you suffer damage dealt by another creature, the echo expands in a
+            violent matter, showing visions of alternate realities to the
+            creature that attacked you.</p><p>The creature must succed a Wisdom
+            Saving throw, being Blinded until the end of their next turn. If the
+            damage dealt to you was from a Melee Attack, the Saving Throw is
+            made at Disadvantage. After this, this jutsu ends.</p><p>Creatures
+            already under the Blinded condition within range must perform this
+            save anyways.</p><p>Creatures with True Sight are immune to this
+            Jutsu.</p>
           chat: ''
         source:
           custom: ''

@@ -213,12 +213,12 @@
                 <div class="meter sectioned split chakra-split">
                     <div class="temp">
                         <input type="text" name="system.attributes.chakra.temp" data-dtype="Number" inputmode="numeric"
-                               placeholder="{{ localize 'DND5E.TMP' }}" value="{{#if temp}}{{ temp }}{{/if}}"
+                               placeholder="{{ localize 'N5EB.ChakraTempShort' }}" value="{{#if temp}}{{ temp }}{{/if}}"
                                pattern="^[+=\-]?\d*">
                     </div>
                     <div class="tempmax">
                         <input type="text" name="system.attributes.chakra.tempmax" data-dtype="Number"
-                               inputmode="numeric" placeholder="+{{ localize 'DND5E.Max' }}"
+                               inputmode="numeric" placeholder="+{{ localize 'N5EB.ChakraTempMaxShort' }}"
                                value="{{#if tempmax}}{{ tempmax }}{{/if}}" pattern="^[+=\-]?\d*">
                     </div>
                 </div>
@@ -287,7 +287,7 @@
                     {{#if adversary.enabled}}
                     <li class="adversary-summary">
                         <span class="adversary-rank rank-{{ adversary.rank.key }}"
-                              data-tooltip="{{ adversary.rank.label }}">{{ adversary.rank.abbreviation }}</span>
+                              data-tooltip="{{ adversary.rank.headerLabel }}">{{ adversary.rank.headerLabel }}</span>
                         <span class="adversary-chip adversary-class">{{ adversary.class.label }}</span>
                         <span class="adversary-chip adversary-role">{{ adversary.role.label }}</span>
                         {{#if adversary.discipline}}
@@ -302,11 +302,14 @@
                     {{#if summon.enabled}}
                     <li class="summon-summary">
                         <span class="summon-rank rank-{{ summon.rank.key }}"
-                              data-tooltip="{{ summon.rank.label }}">{{ summon.rank.abbreviation }}</span>
+                              data-tooltip="{{ summon.rank.headerLabel }}">{{ summon.rank.headerLabel }}</span>
                         <span class="summon-chip summon-category">{{ summon.category.label }}</span>
                         <span class="summon-chip summon-role">{{ summon.role.label }}</span>
                         {{#if summon.tribe}}
                         <span class="summon-chip summon-tribe">{{ summon.tribe.label }}</span>
+                        {{/if}}
+                        {{#if summon.variant}}
+                        <span class="summon-chip summon-variant">{{ summon.variant.label }}</span>
                         {{/if}}
                         {{#if summon.summonType}}
                         <span class="summon-chip summon-type">{{ summon.summonType.label }}</span>
@@ -334,17 +337,10 @@
                         {{/each}}
                         {{/if}}
                         {{#if editable}}
-                        <button type="button" class="gold-button {{#if adversary.enabled}}adversary-active{{/if}}"
-                                data-action="showAdversaryBuilder"
-                                data-tooltip="N5EB.Adversary.Builder.Open"
-                                aria-label="{{ localize 'N5EB.Adversary.Builder.Open' }}">
-                            <i class="fa-solid fa-user-ninja" inert></i>
-                        </button>
-                        <button type="button" class="gold-button {{#if summon.enabled}}summon-active{{/if}}"
-                                data-action="showSummonBuilder"
-                                data-tooltip="N5EB.Summon.Builder.Open"
-                                aria-label="{{ localize 'N5EB.Summon.Builder.Open' }}">
-                            <i class="fa-solid fa-paw" inert></i>
+                        <button type="button" class="gold-button" data-action="showNpcBuilder"
+                                data-tooltip="N5EB.NPCBuilder.Open"
+                                aria-label="{{ localize 'N5EB.NPCBuilder.Open' }}">
+                            <i class="fa-solid fa-user-gear" inert></i>
                         </button>
                         {{/if}}
                     </div>

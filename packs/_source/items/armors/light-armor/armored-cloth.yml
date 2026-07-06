@@ -70,7 +70,11 @@ system:
     value: 13
     dex: 7
     magicalBonus: null
-    dr: null
+    dr: 0
+    bonus: 3
+    dexCap: 7
+    don: 1
+    doff: 1
   hp:
     value: null
     max: null
@@ -101,6 +105,10 @@ system:
     formula: 1d8
     charged: false
   identifier: armored-cloth
+  seals:
+    quality: standard
+    capacity: null
+    bonus: 0
 effects: []
 sort: 137500
 ownership:
@@ -228,11 +236,20 @@ flags:
           value: null
           formula: 1d8
           charged: false
+    armorMigration:
+      sourceOriginal:
+        armor:
+          value: 13
+          dex: 7
+          magicalBonus: null
+          dr: null
+        properties:
+          - fortified
 _stats:
   duplicateSource: null
   coreVersion: '12.331'
   systemId: n5eb
-  systemVersion: 3.0.0
+  systemVersion: 3.0.1
   createdTime: 1728575880187
   modifiedTime: 1732926240035
   lastModifiedBy: n5ebbuilder00000

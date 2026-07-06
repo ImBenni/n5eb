@@ -75,6 +75,7 @@
 /**
  * @typedef {D20RollProcessConfiguration} AttackRollProcessConfiguration
  * @property {Item5e|boolean} [ammunition]    Specific ammunition to consume, or `false` to prevent any ammo usage.
+ * @property {boolean} [ammunitionDie]         Whether to roll or spend the N5E ammunition die.
  * @property {WeaponAttackMode} [attackMode]  Mode to use for making the attack and rolling damage.
  * @property {string} [mastery]               Weapon mastery option to use.
  */
@@ -194,6 +195,7 @@
 
 /**
  * @typedef {BasicRollConfigurationDialogOptions} AttackRollConfigurationDialogOptions
+ * @property {boolean} [ammunitionDie]             Show the N5E ammunition die roll/spend checkbox.
  * @property {FormSelectOption[]} ammunitionOptions  Ammunition that can be used with the attack.
  * @property {FormSelectOption[]} attackModeOptions  Different modes of attack.
  * @property {FormSelectOption[]} masteryOptions     Available masteries for the attacking weapon.

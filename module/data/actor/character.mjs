@@ -16,6 +16,7 @@ import TraitsFields from "./templates/traits.mjs";
 const {
   ArrayField, BooleanField, HTMLField, IntegerSortField, NumberField, SchemaField, SetField, StringField
 } = foundry.data.fields;
+const MAX_WILL_OF_FIRE = 3;
 
 /**
  * @import { ActorFavorites5e, CharacterActorSystemData, ResourceData } from "./_types.mjs";
@@ -89,7 +90,10 @@ export default class CharacterData extends CreatureTemplate {
             save: new FormulaField({ required: true, label: "DND5E.DeathSaveBonus" })
           })
         }, { label: "DND5E.DeathSave" }),
-        inspiration: new BooleanField({ required: true, label: "DND5E.Inspiration" })
+        inspiration: new NumberField({
+          required: true, nullable: false, integer: true, min: 0, max: MAX_WILL_OF_FIRE, initial: 0,
+          label: "N5EB.WillOfFire.Label"
+        })
       }, { label: "DND5E.Attributes" }),
       bastion: new SchemaField({
         name: new StringField({ required: true }),
@@ -121,6 +125,7 @@ export default class CharacterData extends CreatureTemplate {
       traits: new SchemaField({
         ...TraitsFields.common,
         ...TraitsFields.creature,
+        affinity: new SimpleTraitField({}, { label: "N5EB.Affinity.Label" }),
         weaponProf: new SimpleTraitField({
           mastery: new SchemaField({
             value: new SetField(new StringField()),
@@ -162,8 +167,31 @@ export default class CharacterData extends CreatureTemplate {
   /** @inheritDoc */
   static _migrateData(source) {
     super._migrateData(source);
+    CharacterData.#migrateWillOfFire(source);
     AttributesFields._migrateInitiative(source.attributes);
     migrateDowntime(source);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate legacy inspiration booleans to the Will of Fire point pool.
+   * @param {object} source  Source system data being migrated.
+   */
+  static #migrateWillOfFire(source) {
+    source.attributes ??= {};
+    const value = source.attributes.inspiration;
+    if ( value === true ) {
+      source.attributes.inspiration = 1;
+      return;
+    }
+
+    if ( (value === false) || (value === undefined) || (value === null) || !Number.isNumeric(value) ) {
+      source.attributes.inspiration = 0;
+      return;
+    }
+
+    source.attributes.inspiration = Math.clamp(Math.floor(Number(value)), 0, MAX_WILL_OF_FIRE);
   }
 
   /* -------------------------------------------- */
@@ -413,6 +441,7 @@ function makeDowntimeField(schemaOptions={}) {
     }, { label: "N5EB.DOWNTIME.Weeks.Label" }),
     activities: new ArrayField(new SchemaField({
       _id: new StringField({ required: true, blank: false }),
+      identifier: new StringField({ required: true, initial: "" }),
       templateUuid: new StringField({ required: true, initial: "" }),
       sourceId: new StringField({ required: true, initial: "" }),
       custom: new BooleanField({ required: true, initial: false }),
@@ -473,6 +502,12 @@ function makeDowntimeField(schemaOptions={}) {
         name: new StringField({ required: true, initial: "" }),
         img: new StringField({ required: true, initial: "" })
       }),
+      result: new SchemaField({
+        claimed: new BooleanField({ required: true, initial: false }),
+        itemUuid: new StringField({ required: true, initial: "" }),
+        itemId: new StringField({ required: true, initial: "" }),
+        claimedAt: new StringField({ required: true, initial: "" })
+      }),
       description: new HTMLField({ required: true, nullable: true }),
       completion: new HTMLField({ required: true, nullable: true }),
       notes: new HTMLField({ required: true, nullable: true }),
@@ -497,6 +532,7 @@ function migrateDowntime(source) {
   if ( !Array.isArray(source.downtime.activities) ) source.downtime.activities = [];
   for ( const activity of source.downtime.activities ) {
     activity._id ||= foundry.utils.randomID();
+    activity.identifier ??= "";
     activity.templateUuid ??= "";
     activity.sourceId ??= "";
     activity.custom ??= false;
@@ -526,6 +562,11 @@ function migrateDowntime(source) {
     activity.target.uuid ??= "";
     activity.target.name ??= "";
     activity.target.img ??= "";
+    activity.result ??= {};
+    activity.result.claimed ??= false;
+    activity.result.itemUuid ??= "";
+    activity.result.itemId ??= "";
+    activity.result.claimedAt ??= "";
     activity.description ??= "";
     activity.completion ??= "";
     activity.notes ??= "";

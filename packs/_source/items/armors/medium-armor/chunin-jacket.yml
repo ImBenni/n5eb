@@ -127,6 +127,16 @@ flags:
           value: null
           formula: 1d8
           charged: false
+    armorMigration:
+      sourceOriginal:
+        armor:
+          value: 15
+          dex: 3
+          magicalBonus: null
+          dr: 3
+        properties:
+          - fortified
+          - reinforced
 system:
   description:
     value: <p>A reinforced and fortified jacket to withstand many heavy hits for the more dangerous missions.</p>
@@ -195,6 +205,10 @@ system:
     dex: 3
     magicalBonus: null
     dr: 3
+    bonus: 5
+    dexCap: 3
+    don: 5
+    doff: 1
   hp:
     value: 0
     max: 0
@@ -226,11 +240,15 @@ system:
     formula: 1d8
     charged: false
   identifier: chunin-jacket
+  seals:
+    quality: standard
+    capacity: null
+    bonus: 0
 _stats:
   duplicateSource: null
   coreVersion: '12.331'
   systemId: n5eb
-  systemVersion: 3.0.0
+  systemVersion: 3.0.1
   createdTime: 1728575880187
   modifiedTime: 1732926269431
   lastModifiedBy: n5ebbuilder00000

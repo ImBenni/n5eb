@@ -6,11 +6,13 @@ img: systems/n5eb/assets/content/jutsu-icons/non-elemental.webp
 system:
   description:
     value: >-
-      <p>By whipping around locks of your hair, you generate high-frequency sound waves that are capable of
-      simultaneously disorienting the foe by overwhelming their hearing e able to slice at the target. Every creature in
-      the range of this ninjutsu must make a Constitution saving throw, gaining the Dazed condition, and taking 2d6
-      Slashing damage on a failed save. On a success, they only take half the damage and suffer no additional
-      effects.</p>
+      <p>By whipping around locks of your hair, you generate high-frequency
+      sound waves that are capable of simultaneously disorienting the foe by
+      overwhelming their hearing e able to slice at the target. Every creature
+      in the range of this ninjutsu must make a Constitution saving throw,
+      gaining the Dazed condition, and taking 2d6 Slashing damage on a failed
+      save. On a success, they only take half the damage and suffer no
+      additional effects.</p>
     chat: ''
   source:
     custom: ''
@@ -106,7 +108,87 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Dazed
+    origin: Compendium.n5eb.t7-jutsus.Item.DmPy0CZ8qC9eDcNv
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: 1
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: dazed
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: RXgtaPyv4ZssT0pF
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow
+      and cannot take as many actions as usual.</p><ul><li><p>A Dazed creature
+      can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition
+      lasts until the End of the affected creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - dazed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!DmPy0CZ8qC9eDcNv.RXgtaPyv4ZssT0pF'
 sort: 0
 ownership:
   default: 0
@@ -146,11 +228,13 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>By whipping around locks of your hair, you generate high-frequency sound waves that are capable of
-            simultaneously disorienting the foe by overwhelming their hearing e able to slice at the target. Every
-            creature in the range of this ninjutsu must make a Constitution saving throw, gaining the Dazed condition,
-            and taking 2d6 Slashing damage on a failed save. On a success, they only take half the damage and suffer no
-            additional effects.</p>
+            <p>By whipping around locks of your hair, you generate
+            high-frequency sound waves that are capable of simultaneously
+            disorienting the foe by overwhelming their hearing e able to slice
+            at the target. Every creature in the range of this ninjutsu must
+            make a Constitution saving throw, gaining the Dazed condition, and
+            taking 2d6 Slashing damage on a failed save. On a success, they only
+            take half the damage and suffer no additional effects.</p>
           chat: ''
         source:
           custom: ''

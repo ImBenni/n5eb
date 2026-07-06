@@ -22,12 +22,14 @@ import * as conditions from "./module/conditions.mjs";
 import * as dataModels from "./module/data/_module.mjs";
 import * as dice from "./module/dice/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
+import { assignSystemFlagAliases, mirrorSystemFlagDataScopes } from "./module/documents/flag-compatibility.mjs";
 import * as enrichers from "./module/enrichers.mjs";
 import * as Filter from "./module/filter.mjs";
 import * as migrations from "./module/migration.mjs";
 import ModuleArt from "./module/module-art.mjs";
 import { registerModuleData, registerModuleRedirects, setupModulePacks } from "./module/module-registration.mjs";
 import { default as registry } from "./module/registry.mjs";
+import * as seals from "./module/seals.mjs";
 import Tooltips5e from "./module/tooltips.mjs";
 import * as utils from "./module/utils.mjs";
 import DragDrop5e from "./module/drag-drop.mjs";
@@ -48,9 +50,185 @@ globalThis.dnd5e = {
   Filter,
   migrations,
   registry,
+  seals,
   ui: {},
   utils
 };
+globalThis.n5eb = globalThis.dnd5e;
+
+/* -------------------------------------------- */
+
+/**
+ * Expose N5eB through both its native namespace and the dnd5e-compatible namespace used by automation modules.
+ */
+function assignCompatibilityNamespaceAliases() {
+  game.n5eb = game.dnd5e;
+  globalThis.n5eb = globalThis.dnd5e;
+  foundry.utils.setProperty(game.system, "flags.daeCompatible", true);
+  if ( CONFIG.DND5E ) CONFIG.N5EB = CONFIG.DND5E;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Let DAE use its DND5E system adapter for N5eB when the module is installed.
+ */
+function registerDAECompatibilityAlias() {
+  if ( !globalThis.daeSystems?.dnd5e ) return;
+  globalThis.daeSystems.n5eb ??= globalThis.daeSystems.dnd5e;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize N5eB schema entries that DAE's dnd5e adapter reads from mapping field metadata.
+ */
+function registerDAEDataModelCompatibilityHooks() {
+  Hooks.on("dae.modifyBaseValues", (actorType, baseValues) => {
+    const { DataField, NumberField } = foundry.data.fields;
+    for ( const [sense, label] of Object.entries(CONFIG.DND5E.senses ?? {}) ) {
+      const key = `system.attributes.senses.ranges.${sense}`;
+      if ( baseValues[key]?.[0] instanceof DataField ) continue;
+      baseValues[key] = [
+        new NumberField({ required: true, nullable: true, integer: true, min: 0, initial: null, label }),
+        ""
+      ];
+    }
+  });
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Expose N5eB/DND5E flag aliases on measured template documents and their serialized data.
+ */
+function registerMeasuredTemplateCompatibilityHooks() {
+  const assignTemplateAliases = template => {
+    const document = template?.document ?? template;
+    if ( document ) assignSystemFlagAliases(document);
+  };
+
+  Hooks.on("preCreateMeasuredTemplate", (document, data) => {
+    const flags = mirrorSystemFlagDataScopes(data);
+    if ( flags ) document.updateSource({ flags });
+    assignTemplateAliases(document);
+  });
+
+  Hooks.on("preUpdateMeasuredTemplate", (document, changes) => {
+    mirrorSystemFlagDataScopes(changes);
+  });
+
+  Hooks.on("createMeasuredTemplate", assignTemplateAliases);
+  Hooks.on("updateMeasuredTemplate", assignTemplateAliases);
+  Hooks.on("refreshMeasuredTemplate", assignTemplateAliases);
+  Hooks.on("canvasReady", () => canvas.scene?.templates?.forEach(assignTemplateAliases));
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Let dnd5e-targeted modules use the original system flag scope against N5eB documents.
+ */
+function registerDocumentFlagCompatibility() {
+  const Document = foundry.abstract.Document;
+  if ( Document.prototype._n5ebDocumentFlagCompatibility ) return;
+
+  const getFlag = Document.prototype.getFlag;
+  const setFlag = Document.prototype.setFlag;
+  const unsetFlag = Document.prototype.unsetFlag;
+  const isInvalidDND5eScope = error => /Flag scope "dnd5e" is not valid/.test(error.message ?? "");
+
+  Object.defineProperty(Document.prototype, "_n5ebDocumentFlagCompatibility", { value: true });
+
+  Document.prototype.getFlag = function(scope, key) {
+    if ( scope !== "dnd5e" ) return getFlag.call(this, scope, key);
+    try {
+      return getFlag.call(this, scope, key);
+    } catch(error) {
+      if ( !isInvalidDND5eScope(error) ) throw error;
+      return getFlag.call(this, "n5eb", key);
+    }
+  };
+
+  Document.prototype.setFlag = function(scope, key, value) {
+    return setFlag.call(this, scope === "dnd5e" ? "n5eb" : scope, key, value);
+  };
+
+  Document.prototype.unsetFlag = function(scope, key) {
+    return unsetFlag.call(this, scope === "dnd5e" ? "n5eb" : scope, key);
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add an alias for a registered sheet class entry if the target class is present in the registry.
+ * @param {object} registry      The sheet registry for a specific document type.
+ * @param {typeof Application} cls  The class used by the canonical sheet entry.
+ * @param {string[]} aliases     Additional sheet ids that should resolve to the same entry.
+ */
+function aliasSheetClass(registry, cls, aliases) {
+  if ( !registry ) return;
+  const entry = Object.values(registry).find(entry => entry?.cls === cls);
+  if ( !entry ) return;
+  for ( const alias of aliases ) registry[alias] ??= entry;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Register legacy dnd5e and N5eB sheet ids used by common automation modules.
+ */
+function registerCompatibilitySheetAliases() {
+  const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
+  const actorAliases = [
+    {
+      type: "character",
+      cls: applications.actor.CharacterActorSheet,
+      label: "DND5E.SheetClass.Character",
+      aliases: ["dnd5e.ActorSheet5eCharacter", "n5eb.ActorSheet5eCharacter", "dnd5e.CharacterActorSheet"]
+    },
+    {
+      type: "npc",
+      cls: applications.actor.NPCActorSheet,
+      label: "DND5E.SheetClass.NPC",
+      aliases: ["dnd5e.ActorSheet5eNPC", "n5eb.ActorSheet5eNPC", "dnd5e.NPCActorSheet"]
+    },
+    {
+      type: "vehicle",
+      cls: applications.actor.VehicleActorSheet,
+      label: "DND5E.SheetClass.Vehicle",
+      aliases: ["dnd5e.ActorSheet5eVehicle", "n5eb.ActorSheet5eVehicle", "dnd5e.VehicleActorSheet"]
+    },
+    {
+      type: "group",
+      cls: applications.actor.GroupActorSheet,
+      label: "DND5E.SheetClass.Group",
+      aliases: ["dnd5e.ActorSheet5eGroup", "n5eb.ActorSheet5eGroup", "dnd5e.GroupActorSheet"]
+    },
+    {
+      type: "encounter",
+      cls: applications.actor.EncounterActorSheet,
+      label: "DND5E.SheetClass.Encounter",
+      aliases: ["dnd5e.ActorSheet5eEncounter", "n5eb.ActorSheet5eEncounter", "dnd5e.EncounterActorSheet"]
+    }
+  ];
+  for ( const { type, cls, label, aliases } of actorAliases ) {
+    DocumentSheetConfig.registerSheet(Actor, "dnd5e", cls, {
+      types: [type],
+      makeDefault: false,
+      canConfigure: false,
+      canBeDefault: false,
+      label
+    });
+    aliasSheetClass(CONFIG.Actor.sheetClasses?.[type], cls, aliases);
+  }
+
+  for ( const registry of Object.values(CONFIG.Item.sheetClasses ?? {}) ) {
+    aliasSheetClass(registry, applications.item.ItemSheet5e, ["dnd5e.ItemSheet5e", "n5eb.ItemSheet5e"]);
+    aliasSheetClass(registry, applications.item.ContainerSheet, ["dnd5e.ContainerSheet", "n5eb.ContainerSheet"]);
+  }
+}
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -58,6 +236,11 @@ globalThis.dnd5e = {
 
 Hooks.once("init", function() {
   globalThis.dnd5e = game.dnd5e = Object.assign(game.system, globalThis.dnd5e);
+  assignCompatibilityNamespaceAliases();
+  registerDAECompatibilityAlias();
+  registerDAEDataModelCompatibilityHooks();
+  registerMeasuredTemplateCompatibilityHooks();
+  registerDocumentFlagCompatibility();
   utils.log(`Initializing the D&D Fifth Game System - Version ${dnd5e.version}\n${DND5E.ASCII}`);
 
   /**
@@ -72,6 +255,7 @@ Hooks.once("init", function() {
 
   // Record Configuration Values
   CONFIG.DND5E = DND5E;
+  CONFIG.N5EB = CONFIG.DND5E;
   CONFIG.ActiveEffect.documentClass = documents.ActiveEffect5e;
   CONFIG.ActiveEffect.legacyTransferral = false;
   CONFIG.Actor.collection = dataModels.collection.Actors5e;
@@ -129,6 +313,7 @@ Hooks.once("init", function() {
 
   // N5eB condition registry.
   conditions.configureConditionTypes(DND5E);
+  seals.registerHooks();
 
   // Register system
   DND5E.SPELL_LISTS.forEach(uuid => dnd5e.registry.spellLists.register(uuid));
@@ -201,7 +386,7 @@ Hooks.once("init", function() {
     makeDefault: false,
     canConfigure: false,
     canBeDefault: false,
-    label: "DND5E.SheetClass.JournalEntrySheetLegacy"
+    label: "DND5E.SheetClass.JournalEntryLegacy"
   });
   DocumentSheetConfig.registerSheet(JournalEntryPage, "n5eb", applications.journal.JournalClassPageSheet, {
     label: "DND5E.SheetClass.ClassSummary",
@@ -242,6 +427,7 @@ Hooks.once("init", function() {
   DocumentSheetConfig.registerSheet(TokenDocument, "n5eb", applications.TokenConfig5e, {
     label: "DND5E.SheetClass.Token"
   });
+  registerCompatibilitySheetAliases();
 
   // Preload Handlebars helpers & partials
   utils.registerHandlebarsHelpers();
@@ -583,7 +769,7 @@ Hooks.once("ready", function() {
   });
 
   // Adjust sourced items on actors now that compendium UUID redirects have been initialized
-  game.actors.forEach(a => a.sourcedItems._redirectKeys());
+  game.actors.forEach(a => a.sourcedItems?._redirectKeys?.());
 
   // Register items by type
   dnd5e.registry.classes.initialize();
@@ -605,9 +791,31 @@ Hooks.once("ready", function() {
   if ( !game.user.isGM ) return;
   migrations.ensureN5eBCompendiumFolders();
   const cv = game.settings.get("n5eb", "systemMigrationVersion") || game.world.flags.n5eb?.version;
-  const totalDocuments = game.actors.size + game.scenes.size + game.items.size;
-  if ( !cv && totalDocuments === 0 ) return game.settings.set("n5eb", "systemMigrationVersion", game.system.version);
-  if ( cv && !foundry.utils.isNewerVersion(game.system.flags.needsMigrationVersion, cv) ) return;
+  const targetMigrationVersion = migrations.getTargetMigrationVersion();
+  const needsMigration = !cv || foundry.utils.isNewerVersion(targetMigrationVersion, cv);
+  const legacyPreview = migrations.previewLegacyMigration();
+  const cleanLegacyDeletionKeys = () => {
+    migrations.cleanLegacyDeletionKeys().catch(err => {
+      err.message = `Failed legacy deletion key cleanup: ${err.message}`;
+      console.error(err);
+    });
+  };
+  if ( !cv && (legacyPreview.counts.totalDocuments === 0) ) {
+    return game.settings.set("n5eb", "systemMigrationVersion", targetMigrationVersion).then(cleanLegacyDeletionKeys);
+  }
+  if ( cv && !needsMigration ) {
+    cleanLegacyDeletionKeys();
+    return;
+  }
+
+  if ( needsMigration && legacyPreview.required ) {
+    if ( game.settings.get("n5eb", "legacyMigrationConfirmed") ) {
+      migrations.runLegacyMigration({ confirmed: true, preview: legacyPreview });
+    } else {
+      migrations.promptLegacyMigration(legacyPreview);
+    }
+    return;
+  }
 
   // Compendium pack folder migration.
   if ( foundry.utils.isNewerVersion("3.0.0", cv) ) {
@@ -618,7 +826,10 @@ Hooks.once("ready", function() {
   if ( cv && foundry.utils.isNewerVersion(game.system.flags.compatibleMigrationVersion, cv) ) {
     ui.notifications.error("MIGRATION.5eVersionTooOldWarning", {localize: true, permanent: true});
   }
-  migrations.migrateWorld();
+  migrations.migrateWorld().then(cleanLegacyDeletionKeys).catch(err => {
+    err.message = `Failed dnd5e system migration: ${err.message}`;
+    console.error(err);
+  });
 });
 
 /* -------------------------------------------- */
@@ -662,6 +873,11 @@ Hooks.on("renderActorDirectory", (app, html, data) => documents.Actor5e.onRender
 
 Hooks.on("getActorContextOptions", documents.Actor5e.addDirectoryContextOptions);
 Hooks.on("getItemContextOptions", documents.Item5e.addDirectoryContextOptions);
+Hooks.on("deleteItem", item => {
+  void import("./module/applications/actor/config/adversary-builder-config.mjs")
+    .then(({ recordDeletedAutoPassiveSuppression }) => recordDeletedAutoPassiveSuppression(item))
+    .catch(err => utils.log(`Failed to record adversary passive suppression: ${err.message}`, { level: "error" }));
+});
 
 Hooks.on("renderCompendiumDirectory", (app, html) => applications.CompendiumBrowser.injectSidebarButton(html));
 

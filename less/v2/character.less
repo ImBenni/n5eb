@@ -93,43 +93,77 @@
         margin-left: auto;
       }
 
-      /* Inspiration */
-      .inspiration {
-        --size: 36px;
+      /* Will of Fire */
+      .will-of-fire {
+        --pip-size: 24px;
+        --pool-width: calc(var(--pip-size) * 3 + 12px);
+        gap: 6px;
         padding: 0;
         position: absolute;
-        right: calc(var(--level-size) + var(--padding-right) - var(--size) / 2);
-        top: calc(var(--level-size) / 2 - var(--size) / 2);
-        width: var(--size);
-        height: var(--size);
-        background: transparent url("ui/inspiration.webp") no-repeat center / contain;
+        left: 0;
+        top: -.125rem;
+        width: var(--pool-width);
         filter: drop-shadow(0 3px 4px var(--dnd5e-shadow-45));
-        display: grid;
-        place-content: center;
 
         &:hover {
           box-shadow: none;
-          filter: drop-shadow(0 3px 4px rgb(255 255 255 / 50%));
+          filter: drop-shadow(0 3px 4px var(--dnd5e-shadow-45));
         }
 
-        &[aria-pressed="true"]::after {
-          content: "";
-          width: calc(var(--size) / 4 - 1px);
-          height: calc(var(--size) / 4 - 1px);
-          background: white;
-          transform: rotate(45deg);
-          box-shadow: 0 0 8px 3px var(--color-shadow-highlight);
-          animation: pulsate-inspiration 3s infinite ease-in-out;
+        .pip {
+          --pip-size: 24px;
+          padding: 0;
+          position: relative;
+          isolation: isolate;
+          overflow: visible;
+          border: 2px solid #9f7d3b;
+          background: radial-gradient(circle at 50% 35%, #2a1b10, #080605 72%);
+          color: #8e7238;
+          font-size: var(--font-size-13);
+          box-shadow: 0 0 5px var(--dnd5e-shadow-45), inset 0 0 0 1px rgb(255 232 155 / 10%);
+          text-shadow: 0 1px 1px black;
+          transition: border-color 150ms ease, box-shadow 150ms ease, color 150ms ease, transform 150ms ease;
 
-          @keyframes pulsate-inspiration {
-            0% { box-shadow: 0 0 8px 3px var(--color-shadow-highlight); }
-            50% { box-shadow: 0 0 8px 4px var(--color-shadow-highlight); }
-            100% { box-shadow: 0 0 8px 3px var(--color-shadow-highlight); }
+          &::after {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            z-index: -1;
+            border: 1px solid rgb(255 220 128 / 35%);
+            border-radius: 50%;
+            pointer-events: none;
           }
-        }
 
-        @media (prefers-reduced-motion) {
-          &[aria-pressed="true"]::after { animation: none; }
+          &::before {
+            content: "\f06d";
+            font-family: var(--font-awesome);
+            font-weight: 900;
+            line-height: 1;
+            position: relative;
+            z-index: 1;
+          }
+
+          &.filled {
+            border-color: #f0c86a;
+            background: radial-gradient(circle at 50% 28%, #fff0a6 0 12%, #f7a33b 30%, #9c2d19 64%, #170605 100%);
+            color: #fff2ad;
+            box-shadow: 0 0 9px rgb(242 115 35 / 60%), 0 0 5px var(--dnd5e-shadow-45),
+              inset 0 0 0 1px rgb(255 245 180 / 28%);
+            text-shadow: 0 0 4px rgb(48 10 4 / 95%);
+          }
+
+          &:not(:disabled):is(:hover, :focus) {
+            border-color: #ffd978;
+            background: radial-gradient(circle at 50% 35%, #342013, #080605 72%);
+            color: #ffdf86;
+            box-shadow: 0 0 8px rgb(255 199 86 / 60%), inset 0 0 0 1px rgb(255 238 164 / 18%);
+            transform: translateY(-1px);
+
+            &.filled {
+              background: radial-gradient(circle at 50% 28%, #fff3b3 0 12%, #ffb24a 30%, #ad351d 64%, #170605 100%);
+              box-shadow: 0 0 11px rgb(242 115 35 / 75%), inset 0 0 0 1px rgb(255 245 180 / 32%);
+            }
+          }
         }
       }
 
@@ -938,6 +972,11 @@
       }
 
       .pill { padding: .25rem .5rem; }
+
+      &.icon-only .pills .pill.has-image {
+        padding: 2px;
+        gap: 0;
+      }
     }
 
     /* Item Sections */
@@ -1447,6 +1486,32 @@
           display: inline-flex;
           align-items: center;
           gap: 4px;
+        }
+      }
+
+      .crafting-target {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 26px;
+        padding: 5px 7px;
+        border: var(--dnd5e-border-dotted);
+        border-radius: 4px;
+        background: var(--dnd5e-background-5);
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-11);
+
+        i {
+          color: var(--dnd5e-color-gold);
+        }
+
+        strong {
+          color: var(--color-text-primary);
+        }
+
+        &.empty {
+          border-style: dashed;
+          font-style: italic;
         }
       }
 

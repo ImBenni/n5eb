@@ -11,8 +11,9 @@ import IdentifiableTemplate from "./templates/identifiable.mjs";
 import ItemDescriptionTemplate from "./templates/item-description.mjs";
 import ItemTypeTemplate from "./templates/item-type.mjs";
 import PhysicalItemTemplate from "./templates/physical-item.mjs";
+import * as Seals from "../../seals.mjs";
 
-const { BooleanField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 /**
  * @import { InventorySectionDescriptor } from "../../applications/components/_types.mjs";
@@ -58,8 +59,26 @@ export default class ConsumableData extends ItemDataModel.mixin(
         base: new DamageField(),
         replace: new BooleanField()
       }),
+      ammunitionDie: new StringField({
+        required: true,
+        initial: "d8",
+        blank: false,
+        label: "N5EB.AmmoDie",
+        validate: die => die in CONFIG.DND5E.ammoDieTypes,
+        validationError: "must be a configured ammunition die"
+      }),
       magicalBonus: new FormulaField({ deterministic: true }),
       properties: new SetField(new StringField()),
+      seal: new SchemaField({
+        target: new StringField({ required: true, blank: true, initial: "", label: "N5EB.SEAL.Target" }),
+        rank: new StringField({ required: true, blank: true, initial: "", label: "N5EB.SEAL.Rank.Label" }),
+        slots: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.SEAL.Slots.Used" }),
+        baseName: new StringField({ required: true, blank: true, initial: "", label: "N5EB.SEAL.BaseName" }),
+        level: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.SEAL.Level" }),
+        craftingDC: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.SEAL.CraftingDC" }),
+        downtime: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.SEAL.Downtime" }),
+        notes: new StringField({ required: true, blank: true, initial: "", label: "N5EB.SEAL.Notes" })
+      }, { label: "N5EB.SEAL.Label" }),
       type: new ItemTypeField({ baseItem: false }, { label: "DND5E.ItemConsumableType" }),
       uses: new UsesField({
         autoDestroy: new BooleanField({ required: true })
@@ -106,7 +125,7 @@ export default class ConsumableData extends ItemDataModel.mixin(
       order: 300,
       label: "TYPES.Item.consumablePl",
       groups: { type: "consumable" },
-      columns: ["price", "weight", "quantity", "charges", "controls"]
+      columns: ["price", "weight", "quantity", "ammoDie", "charges", "controls"]
     };
   }
 
@@ -121,6 +140,7 @@ export default class ConsumableData extends ItemDataModel.mixin(
   get chatProperties() {
     return [
       this.type.label,
+      this.type.value === "ammo" ? game.i18n.format("N5EB.AmmoDieValue", { die: this.ammunitionDie }) : null,
       this.hasLimitedUses ? `${this.uses.value}/${this.uses.max} ${game.i18n.localize("DND5E.Charges")}` : null,
       this.priceLabel
     ];
@@ -186,6 +206,7 @@ export default class ConsumableData extends ItemDataModel.mixin(
     ActivitiesTemplate.migrateActivities(source);
     ConsumableData.#migrateDamage(source);
     ConsumableData.#migratePropertiesData(source);
+    ConsumableData.#migrateSealData(source);
   }
 
   /* -------------------------------------------- */
@@ -211,6 +232,28 @@ export default class ConsumableData extends ItemDataModel.mixin(
   static #migratePropertiesData(source) {
     if ( foundry.utils.getType(source.properties) !== "Object" ) return;
     source.properties = filteredKeys(source.properties);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate N5eB enhancement seal metadata from old consumable categories.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateSealData(source) {
+    if ( !["aseal", "wseal"].includes(source.type?.value) && !source.seal ) return;
+    source.seal ??= {};
+    const derived = Seals.deriveSealData({ name: source.parent?.name ?? source.name ?? "", system: source });
+    const rank = source.seal.rank || derived.rank;
+    const rankConfig = Seals.SEAL_RANKS[rank] ?? {};
+    source.seal.target ||= derived.target;
+    source.seal.rank ||= rank;
+    source.seal.slots ||= rankConfig.slots ?? 0;
+    source.seal.baseName ||= derived.baseName;
+    source.seal.level ||= rankConfig.level ?? 0;
+    source.seal.craftingDC ||= rankConfig.craftingDC ?? 0;
+    source.seal.downtime ||= rankConfig.downtime ?? 0;
+    source.seal.notes ??= "";
   }
 
   /* -------------------------------------------- */

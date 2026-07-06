@@ -67,6 +67,12 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
   #targetOptions = new Map();
 
   /**
+   * Bound apply handler so it can be safely re-attached if Foundry reconnects the custom element.
+   * @type {Function}
+   */
+  #boundApplyDamage = event => this._onApplyDamage(event);
+
+  /**
    * Options for a specific target.
    * @param {string} uuid  UUID of the targeted token.
    * @returns {DamageApplicationOptions}
@@ -110,11 +116,13 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
       `;
       this.replaceChildren(div);
       this.applyButton = div.querySelector(".apply-damage");
-      this.applyButton.addEventListener("click", this._onApplyDamage.bind(this));
       div.querySelector(".wrapper").prepend(...this.buildTargetContainer());
       div.addEventListener("click", this._handleClickHeader.bind(this));
     }
 
+    this.applyButton ??= this.querySelector(".apply-damage");
+    this.applyButton?.removeEventListener("click", this.#boundApplyDamage);
+    this.applyButton?.addEventListener("click", this.#boundApplyDamage);
     this.targetingMode = this.targetSourceControl.hidden ? "selected" : "targeted";
   }
 
@@ -145,6 +153,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
       }
     }
     const changeSources = types.reduce((acc, config) => acc + this.getChangeSourceButton(config, targetOptions), "");
+    const armorDR = this.getArmorDRSourceHTML(active.armorDR ?? []);
 
     const li = document.createElement("li");
     li.classList.add("target");
@@ -153,7 +162,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
       <img class="gold-icon">
       <div class="name-stacked">
         <span class="title"></span>
-        <span class="subtitle">${changeSources}</span>
+        <span class="subtitle">${changeSources}${armorDR}</span>
       </div>
       <div class="calculated damage">
         ${total}
@@ -208,7 +217,8 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
     let { amount, chakraAmount, chakraTemp, chakraTempMax, temp, tempMax } = damages;
 
     let active = {
-      modification: new Set(), resistance: new Set(), vulnerability: new Set(), immunity: new Set(), threshold: false
+      modification: new Set(), resistance: new Set(), vulnerability: new Set(), immunity: new Set(),
+      threshold: false, armorDR: []
     };
     for ( const damage of damages ) {
       for ( const category of Object.keys(active) ) {
@@ -216,9 +226,11 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
           if ( damage.active.threshold ) active.threshold = true;
           continue;
         }
+        if ( foundry.utils.getType(active[category]) !== "Set" ) continue;
         if ( damage.active.all?.[category] ) active[category].add("ALL");
         if ( damage.active.type?.[category] ) active[category].add(damage.type);
       }
+      if ( damage.active.n5ebArmorDR ) active.armorDR.push(damage.active.n5ebArmorDR);
     }
     temp = Math.floor(Math.max(0, temp));
     chakraTemp = Math.floor(Math.max(0, chakraTemp));
@@ -257,6 +269,25 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
         <i class="fa-solid fa-arrow-turn-down" inert></i>
       </button>
     `;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Build compact HTML for armor damage reduction sources.
+   * @param {object[]} reductions  Armor DR entries.
+   * @returns {string}
+   */
+  getArmorDRSourceHTML(reductions) {
+    return reductions.reduce((html, dr) => {
+      const label = game.i18n.format("N5EB.ARMOR.DRTooltip", {
+        amount: dr.amount,
+        source: dr.source
+      });
+      const tooltip = foundry.utils.escapeHTML(label);
+      const amount = formatNumber(-dr.amount, { signDisplay: "always" });
+      return `${html}<span class="change-source armor-dr" data-tooltip="${tooltip}"><i class="fa-solid fa-shield-halved"></i>${amount}</span>`;
+    }, "");
   }
 
   /* -------------------------------------------- */
@@ -331,17 +362,21 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
     else if ( !thresholdButton && active.threshold ) {
       const button = this.getChangeSourceButton({
         change: "threshold", icon: "systems/n5eb/icons/svg/damage/threshold.svg", type: "threshold"
-      }, this.getTargetOptions(entry.dataset.uuid));
+      }, this.getTargetOptions(entry.dataset.targetUuid));
       entry.querySelector(".subtitle").insertAdjacentHTML("beforeend", button);
     }
 
     for ( const element of entry.querySelectorAll(".change-source") ) {
+      if ( element.classList.contains("armor-dr") ) continue;
       const { type, change } = element.dataset;
       const { label, pressed } = this.getChangeSourceOptions(type, change, options);
       element.dataset.tooltip = label;
       element.ariaLabel = label;
       element.ariaPressed = pressed;
     }
+    entry.querySelectorAll(".change-source.armor-dr").forEach(el => el.remove());
+    const armorDR = this.getArmorDRSourceHTML(active.armorDR ?? []);
+    if ( armorDR ) entry.querySelector(".subtitle").insertAdjacentHTML("beforeend", armorDR);
   }
 
   /* -------------------------------------------- */
@@ -354,10 +389,11 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
    */
   async _onApplyDamage(event) {
     event.preventDefault();
+    event.stopPropagation();
     for ( const target of this.targetList.querySelectorAll("[data-target-uuid]") ) {
       const token = fromUuidSync(target.dataset.targetUuid);
       const options = this.getTargetOptions(target.dataset.targetUuid);
-      await token?.applyDamage(this.damages, { ...options, isDelta: true, origin: this.chatMessage });
+      await token?.applyDamage(this.damages, { ...options, isDelta: true, originatingMessage: this.chatMessage });
     }
     if ( game.settings.get("n5eb", "autoCollapseChatTrays") !== "manual" ) {
       this.open = false;

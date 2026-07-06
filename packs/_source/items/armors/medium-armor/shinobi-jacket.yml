@@ -73,6 +73,10 @@ system:
     dex: 3
     magicalBonus: null
     dr: 2
+    bonus: 4
+    dexCap: 3
+    don: 5
+    doff: 1
   hp:
     value: null
     max: null
@@ -97,13 +101,17 @@ system:
   enchantment: null
   summons: null
   properties:
-    - fashion
+    - fashionable
     - reinforced
   recharge:
     value: null
     formula: 1d8
     charged: false
   identifier: shinobi-jacket
+  seals:
+    quality: standard
+    capacity: null
+    bonus: 0
 effects: []
 sort: 112500
 ownership:
@@ -234,11 +242,21 @@ flags:
           value: null
           formula: 1d8
           charged: false
+    armorMigration:
+      sourceOriginal:
+        armor:
+          value: 14
+          dex: 3
+          magicalBonus: null
+          dr: 2
+        properties:
+          - fashion
+          - reinforced
 _stats:
   duplicateSource: null
   coreVersion: '12.331'
   systemId: n5eb
-  systemVersion: 3.0.0
+  systemVersion: 3.0.1
   createdTime: 1728575880187
   modifiedTime: 1732926261063
   lastModifiedBy: n5ebbuilder00000

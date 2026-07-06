@@ -1,3 +1,5 @@
+import { assignSystemFlagAliases, getSystemFlagAlias } from "../flag-compatibility.mjs";
+
 /**
  * Mixin used to add system flags enforcement to types.
  * @template {foundry.abstract.Document} T
@@ -24,6 +26,15 @@ export default function SystemFlagsMixin(Base) {
       if ( ("n5eb" in this.flags) && this._systemFlagsDataModel ) {
         this.flags.n5eb = new this._systemFlagsDataModel(this._source.flags.n5eb, { parent: this });
       }
+      assignSystemFlagAliases(this);
+    }
+
+    /* -------------------------------------------- */
+
+    /** @inheritDoc */
+    getFlag(scope, key) {
+      const value = super.getFlag(scope, key);
+      return getSystemFlagAlias(this, scope, key, value);
     }
 
     /* -------------------------------------------- */

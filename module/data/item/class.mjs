@@ -1,7 +1,7 @@
 import ChakraAdvancement from "../../documents/advancement/chakra.mjs";
 import ScaleValueAdvancement from "../../documents/advancement/scale-value.mjs";
 import TraitAdvancement from "../../documents/advancement/trait.mjs";
-import { formatIdentifier, simplifyBonus } from "../../utils.mjs";
+import { formatIdentifier, getJutsuProgressionFromDescription, simplifyBonus } from "../../utils.mjs";
 import ItemDataModel from "../abstract/item-data-model.mjs";
 import FormulaField from "../fields/formula-field.mjs";
 import SpellcastingField from "./fields/spellcasting-field.mjs";
@@ -11,6 +11,11 @@ import StartingEquipmentTemplate from "./templates/starting-equipment.mjs";
 
 const { BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 const JUTSU_KNOWN_SCALE_ID = "jutsu-known";
+const JUTSU_KNOWN_SCALE_ALIASES = new Set([
+  JUTSU_KNOWN_SCALE_ID,
+  "jutsus-known",
+  "spells-known"
+]);
 const JUTSU_MAX_RANK_SCALE_ID = "jutsu-max-rank";
 const JUTSU_MAX_RANK_SCALE_ALIASES = new Set([
   JUTSU_MAX_RANK_SCALE_ID,
@@ -213,10 +218,24 @@ export default class ClassData extends ItemDataModel.mixin(
    */
   static _migrateChakraAdvancement(source) {
     const advancement = source.system?.advancement;
-    if ( !("name" in source) || !advancement
-      || foundry.utils.getProperty(source, "flags.n5eb.migratedChakraAdvancement") ) return;
+    if ( !("name" in source) || !advancement ) return;
 
     const advancements = Object.values(advancement);
+    let normalized = false;
+    for ( const data of advancements ) {
+      if ( data?.type !== "ChakraPoints" ) continue;
+      data.type = "Chakra";
+      normalized = true;
+    }
+
+    if ( normalized ) {
+      foundry.utils.setProperty(source, "flags.n5eb.migratedChakraAdvancement", true);
+      foundry.utils.setProperty(source, "flags.n5eb.persistSourceMigration", true);
+      return;
+    }
+
+    if ( foundry.utils.getProperty(source, "flags.n5eb.migratedChakraAdvancement") ) return;
+
     if ( advancements.some(a => a?.type === "Chakra") ) {
       foundry.utils.setProperty(source, "flags.n5eb.migratedChakraAdvancement", true);
       foundry.utils.setProperty(source, "flags.n5eb.persistSourceMigration", true);
@@ -535,10 +554,39 @@ function createJutsuScaleAdvancement({ identifier, title, type, scale }) {
  * @returns {number|null}
  */
 function getJutsuKnownValue(item, rollData) {
-  const scaled = item.scaleValues?.[JUTSU_KNOWN_SCALE_ID]?.value;
+  const scaled = getJutsuKnownScaleValue(item);
   if ( Number.isFinite(scaled) ) return scaled;
+  const table = getJutsuProgressionFromDescription(item);
+  if ( Number.isFinite(table.known) ) return table.known;
   const legacy = item.system.jutsu?.known;
   if ( legacy ) return simplifyBonus(legacy, rollData);
+  return null;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Retrieve a reserved or legacy jutsu-known scale value from a class.
+ * @param {Item5e} item  Class item.
+ * @returns {number|null}
+ */
+function getJutsuKnownScaleValue(item) {
+  const scaleValues = item.scaleValues ?? {};
+  for ( const identifier of JUTSU_KNOWN_SCALE_ALIASES ) {
+    const value = Number(scaleValues[identifier]?.value);
+    if ( Number.isFinite(value) ) return value;
+  }
+
+  const level = item.system.levels ?? 0;
+  for ( const advancement of item.advancement?.byType?.ScaleValue ?? [] ) {
+    const identifier = advancement.identifier;
+    if ( !JUTSU_KNOWN_SCALE_ALIASES.has(identifier) && (formatIdentifier(advancement.title ?? "") !== JUTSU_KNOWN_SCALE_ID) ) {
+      continue;
+    }
+    const value = Number(advancement.valueForLevel(level)?.value);
+    if ( Number.isFinite(value) ) return value;
+  }
+
   return null;
 }
 
@@ -568,6 +616,9 @@ function getJutsuMaxRank(item) {
     const rank = normalizeJutsuRank(advancement.valueForLevel(level)?.value);
     if ( rank ) return rank;
   }
+
+  const tableRank = normalizeJutsuRank(getJutsuProgressionFromDescription(item).maxRank);
+  if ( tableRank ) return tableRank;
 
   return normalizeJutsuRank(item.system.jutsu?.maxRank);
 }

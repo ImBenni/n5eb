@@ -1,5 +1,5 @@
 name: Snake
-type: class
+type: feat
 img: icons/creatures/reptiles/serpent-horned-green.webp
 system:
   description:
@@ -24,13 +24,7 @@ system:
     custom: ''
     rules: n5eb
     book: Naruto 5e
-  startingEquipment: []
   identifier: snake
-  levels: 1
-  hitDice: d4
-  hitDiceUsed: 0
-  chakraDice: d4
-  chakraDiceUsed: 0
   advancement:
     - _id: T5qd9wZc6JJcrf5h
       type: Trait
@@ -332,7 +326,6 @@ system:
     preparation:
       formula: ''
   wealth: ''
-  toughness: 10
   jutsu:
     abilities:
       ninjutsu:
@@ -348,6 +341,10 @@ system:
     denomination: d4
   cd:
     denomination: d4
+  type:
+    value: summon
+    subtype: tribeDefinition
+    nestedsubtype: ''
 effects: []
 folder: BM9wg1vuAweLBmZJ
 ownership:
@@ -697,6 +694,15 @@ flags:
         toughness: 10
     summonBuilder:
       legacyTemplate: true
+      migratedFromClassTemplate: true
+    summonDefinition:
+      kind: tribe
+      key: snake
+      label: Snake
+      summonType: dragon
+      toughness: 10
+      defenseAbility: dex
+      jutsuAbility: cha
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

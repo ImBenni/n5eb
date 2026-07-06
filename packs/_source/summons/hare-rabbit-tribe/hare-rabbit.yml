@@ -1,5 +1,5 @@
 name: Hare/Rabbit
-type: class
+type: feat
 img: systems/n5eb/assets/content/items/rabbit.webp
 system:
   description:
@@ -23,13 +23,7 @@ system:
     custom: ''
     rules: n5eb
     book: Naruto 5e
-  startingEquipment: []
   identifier: hare-rabbit
-  levels: 1
-  hitDice: d4
-  hitDiceUsed: 0
-  chakraDice: d4
-  chakraDiceUsed: 0
   advancement:
     - _id: T5qd9wZc6JJcrf5h
       type: Trait
@@ -327,7 +321,6 @@ system:
     preparation:
       formula: ''
   wealth: ''
-  toughness: 6
   jutsu:
     abilities:
       ninjutsu:
@@ -343,6 +336,10 @@ system:
     denomination: d4
   cd:
     denomination: d4
+  type:
+    value: summon
+    subtype: tribeDefinition
+    nestedsubtype: ''
 effects: []
 folder: nDaKuNO9jFE3eKzn
 ownership:
@@ -687,6 +684,15 @@ flags:
         toughness: 6
     summonBuilder:
       legacyTemplate: true
+      migratedFromClassTemplate: true
+    summonDefinition:
+      kind: tribe
+      key: hareRabbit
+      label: Hare/Rabbit
+      summonType: rodent
+      toughness: 6
+      defenseAbility: dex
+      jutsuAbility: int
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

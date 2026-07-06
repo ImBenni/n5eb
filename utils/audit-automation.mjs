@@ -49,6 +49,29 @@ const ENGINE_CUES = {
   knownLimits: /\b(jutsu known|highest[- ]rank[- ]known|counts? against .* known)\b/i
 };
 
+const ENGINE_SUPPORT_MARKERS = {
+  clash: {
+    "module/documents/activity/mixin.mjs": ["rollClash", "applyClashLoss"],
+    "module/documents/actor/actor.mjs": ["rollClash", "applyClashLoss"]
+  },
+  crafting: {
+    "module/applications/actor/character-sheet.mjs": [
+      "applyDowntimeCraftingTarget",
+      "claimDowntimeCraftingResult",
+      "getDowntimeCraftingContribution",
+      "N5EB.DOWNTIME.Crafting.SealTargetNote"
+    ],
+    "module/data/actor/character.mjs": ["identifier", "result", "claimedAt"],
+    "module/data/item/downtime.mjs": ["identifier"],
+    "module/config.mjs": ["DND5E.sealRanks", "craftingDC", "downtime"]
+  },
+  knownLimits: {
+    "module/data/item/class.mjs": ["getJutsuKnownValue", "getJutsuKnownScaleValue", "highest-rank-known"],
+    "module/data/actor/templates/attributes.mjs": ["WarnKnownExceeded", "WarnMaxRankExceeded", "countsKnown"],
+    "templates/actors/tabs/creature-spells.hbs": ["jutsuKnown"]
+  }
+};
+
 const REPORT_STATUSES = ["fullyAutomated", "partiallyAutomated", "textOnly", "blockedByEngine"];
 const UUID_PATTERN = /Compendium\.n5eb\.([A-Za-z0-9_-]+)\.(?:(Actor|Item|JournalEntry|RollTable)\.)?([A-Za-z0-9]{8,})/g;
 const VALID_SOURCE_BOOKS = new Set(["Naruto 5e", "Team 7", "Homebrew"]);
@@ -59,6 +82,7 @@ const packMetadata = new Map((SYSTEM_JSON.packs ?? []).map(pack => [pack.name, p
 const auditedPacks = (SYSTEM_JSON.packs ?? [])
   .filter(pack => argv.includeSrd || !pack.flags?.n5eb?.hiddenFromN5eB)
   .map(pack => pack.name);
+const supportedEngineCues = getSupportedEngineCues();
 
 const sourceRecords = loadSourceRecords();
 const sourceIds = buildSourceIdIndex(sourceRecords.records);
@@ -160,6 +184,7 @@ function buildReport({ records, parseErrors }) {
     parseErrors,
     metadata: {
       validSourceBooks: Array.from(VALID_SOURCE_BOOKS),
+      supportedEngineCues: Array.from(supportedEngineCues).sort(),
       sourceDocumentsChecked,
       sourceIssues,
       brokenImages
@@ -211,7 +236,7 @@ function analyzeDocument(doc, record) {
     .filter(([, pattern]) => pattern.test(text))
     .map(([key]) => key);
   const blockers = Object.entries(ENGINE_CUES)
-    .filter(([, pattern]) => pattern.test(text))
+    .filter(([key, pattern]) => pattern.test(text) && !supportedEngineCues.has(key))
     .map(([key]) => key);
   const gaps = findGaps({ system, activities, activityText, effects, advancements, cues });
   const hasAutomation = hasAutomationData({ system, activities, effects, advancements });
@@ -324,6 +349,20 @@ function classifyFinding({ hasAutomation, gaps, blockers }) {
   if ( hasAutomation && !gaps.length ) return "fullyAutomated";
   if ( hasAutomation ) return "partiallyAutomated";
   return "textOnly";
+}
+
+function getSupportedEngineCues() {
+  const supported = new Set();
+  for ( const [cue, files] of Object.entries(ENGINE_SUPPORT_MARKERS) ) {
+    const ok = Object.entries(files).every(([file, markers]) => {
+      const sourcePath = path.join(SYSTEM_ROOT, file);
+      if ( !fs.existsSync(sourcePath) ) return false;
+      const source = fs.readFileSync(sourcePath, "utf8");
+      return markers.every(marker => source.includes(marker));
+    });
+    if ( ok ) supported.add(cue);
+  }
+  return supported;
 }
 
 function auditReferences({ pack, file, doc }) {

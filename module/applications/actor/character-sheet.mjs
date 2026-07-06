@@ -8,6 +8,7 @@ import Item5e from "../../documents/item.mjs";
 import * as Trait from "../../documents/actor/trait.mjs";
 
 const TextEditor = foundry.applications.ux.TextEditor.implementation;
+const MAX_WILL_OF_FIRE = 3;
 
 /**
  * @import { FavoriteData5e } from "../../data/abstract/_types.mjs";
@@ -24,6 +25,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
     actions: {
       addDowntimeActivity: CharacterActorSheet.#addDowntimeActivity,
       adjustDowntimeWeeks: CharacterActorSheet.#adjustDowntimeWeeks,
+      claimDowntimeCraftingResult: CharacterActorSheet.#claimDowntimeCraftingResult,
       completeDowntimeActivity: CharacterActorSheet.#completeDowntimeActivity,
       deleteFavorite: CharacterActorSheet.#deleteFavorite,
       deleteDowntimeActivity: CharacterActorSheet.#deleteDowntimeActivity,
@@ -35,7 +37,6 @@ export default class CharacterActorSheet extends BaseActorSheet {
       setSpellcastingAbility: CharacterActorSheet.#setSpellcastingAbility,
       spendDowntimeWeek: CharacterActorSheet.#spendDowntimeWeek,
       toggleDeathTray: CharacterActorSheet.#toggleDeathTray,
-      toggleInspiration: CharacterActorSheet.#toggleInspiration,
       useFacility: CharacterActorSheet.#useFacility,
       useFavorite: CharacterActorSheet.#useFavorite
     },
@@ -190,7 +191,9 @@ export default class CharacterActorSheet extends BaseActorSheet {
   async _configureInventorySections(sections) {
     sections.forEach(s => {
       s.minWidth = 250;
-      if ( s.id === "weapons" ) s.columns = ["price", "weight", "quantity", "charges", "roll", "formula", "controls"];
+      if ( s.id === "weapons" ) {
+        s.columns = ["price", "weight", "quantity", "ammoDie", "charges", "roll", "formula", "controls"];
+      }
     });
   }
 
@@ -599,6 +602,17 @@ export default class CharacterActorSheet extends BaseActorSheet {
         { number: formatNumber(context.system.details.xp.boonsEarned ?? 0, { signDisplay: "always" }) }
       );
     }
+
+    // Will of Fire
+    const willOfFire = Math.clamp(Math.floor(Number(context.system.attributes.inspiration) || 0), 0, MAX_WILL_OF_FIRE);
+    const willOfFireLabel = game.i18n.localize("N5EB.WillOfFire.Label");
+    context.willOfFire = Array.fromRange(MAX_WILL_OF_FIRE, 1).map(n => {
+      const filled = willOfFire >= n;
+      const label = game.i18n.format("N5EB.WillOfFire.Pip", { n, max: MAX_WILL_OF_FIRE });
+      const classes = ["pip"];
+      if ( filled ) classes.push("filled");
+      return { n, filled, label, tooltip: willOfFireLabel, classes: classes.join(" ") };
+    });
 
     // Visibility
     context.showExperience = game.settings.get("n5eb", "levelingMode") !== "noxp";
@@ -1145,6 +1159,64 @@ export default class CharacterActorSheet extends BaseActorSheet {
   /* -------------------------------------------- */
 
   /**
+   * Claim a crafted downtime target as an owned actor item.
+   * @this {CharacterActorSheet}
+   * @param {Event} event         Triggering click event.
+   * @param {HTMLElement} target  Button that was clicked.
+   * @returns {Promise<Actor5e|Item5e[]|void>}
+   */
+  static async #claimDowntimeCraftingResult(event, target) {
+    if ( !this.actor.isOwner ) return;
+    const activity = this.#getDowntimeActivity(target);
+    if ( !activity || !isCraftingActivity(activity) ) return;
+    if ( activity.status !== "completed" ) {
+      ui.notifications.warn("N5EB.DOWNTIME.Crafting.NotCompleted", { localize: true });
+      return;
+    }
+    if ( activity.result?.claimed ) {
+      ui.notifications.warn("N5EB.DOWNTIME.Crafting.AlreadyClaimed", { localize: true });
+      return;
+    }
+    const item = activity.target?.uuid ? await fromUuid(activity.target.uuid) : null;
+    if ( !item ) {
+      ui.notifications.warn("N5EB.DOWNTIME.Crafting.NoTarget", { localize: true });
+      return;
+    }
+
+    const source = item.pack ? game.items.fromCompendium(item, { keepId: false }) : item.toObject();
+    delete source._id;
+    source.system ??= {};
+    source.system.quantity = Math.max(1, Number(source.system.quantity ?? 1));
+    foundry.utils.setProperty(source, "flags.n5eb.downtimeCrafting", {
+      activityId: activity._id,
+      activityName: activity.name,
+      templateUuid: activity.templateUuid,
+      sourceUuid: item.uuid,
+      claimedAt: new Date().toISOString()
+    });
+
+    const [created] = await this.actor.createEmbeddedDocuments("Item", [source]);
+    if ( !created ) return;
+    const activities = this.#getDowntimeActivities();
+    const updated = activities.find(a => a._id === activity._id);
+    if ( updated ) {
+      updated.result = {
+        claimed: true,
+        itemUuid: created.uuid,
+        itemId: created.id,
+        claimedAt: new Date().toISOString()
+      };
+      await this.#updateDowntimeActivities(activities);
+    }
+    ui.notifications.info(game.i18n.format("N5EB.DOWNTIME.Crafting.Claimed", {
+      item: created.name, activity: activity.name
+    }));
+    return [created];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Handle deleting a downtime activity.
    * @this {CharacterActorSheet}
    * @param {Event} event         Triggering click event.
@@ -1427,18 +1499,6 @@ export default class CharacterActorSheet extends BaseActorSheet {
   /* -------------------------------------------- */
 
   /**
-   * Handle toggling inspiration.
-   * @this {CharacterActorSheet}
-   * @param {Event} event         Triggering click event.
-   * @param {HTMLElement} target  Button that was clicked.
-   */
-  static #toggleInspiration(event, target) {
-    this.submit({ updateData: { "system.attributes.inspiration": !this.actor.system.attributes.inspiration } });
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Handle using a facility.
    * @this {CharacterActorSheet}
    * @param {Event} event         Triggering click event.
@@ -1601,6 +1661,10 @@ export default class CharacterActorSheet extends BaseActorSheet {
     if ( event.target.closest('[data-tab="downtime"]') && (item.type === "downtime") ) {
       return this.#createDowntimeActivityFromItem(item);
     }
+    if ( event.target.closest('[data-tab="downtime"]') ) {
+      const target = event.target.closest("[data-activity-id]");
+      if ( target ) return this.#setDowntimeActivityTarget(target, item);
+    }
     if ( !event.target.closest(".favorites") || (item.parent !== this.actor) ) return super._onDropItem(event, item);
     const uuid = item.getRelativeUUID(this.actor);
     return this._onDropFavorite(event, { type: "item", id: uuid });
@@ -1711,6 +1775,19 @@ export default class CharacterActorSheet extends BaseActorSheet {
   /* -------------------------------------------- */
 
   /**
+   * Set a downtime activity target from a dropped item.
+   * @param {HTMLElement} target  Sheet control.
+   * @param {Item5e} item         Dropped item.
+   * @returns {Promise<Actor5e>|undefined}
+   */
+  #setDowntimeActivityTarget(target, item) {
+    if ( !this.actor.isOwner || !item ) return undefined;
+    return this.#patchDowntimeActivity(target, activity => applyDowntimeCraftingTarget(activity, item, this.actor));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Build an actor-local downtime activity.
    * @param {object} [overrides={}]  Activity overrides.
    * @returns {object}
@@ -1719,6 +1796,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
     const maxSort = this.#getDowntimeActivities().reduce((sort, activity) => Math.max(sort, activity.sort ?? 0), 0);
     return foundry.utils.mergeObject({
       _id: foundry.utils.randomID(),
+      identifier: "",
       templateUuid: "",
       sourceId: "",
       custom: false,
@@ -1731,6 +1809,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       cost: getDefaultDowntimeCost(),
       roll: { enabled: false, ability: "", skill: "", tool: "", dc: 0, label: "" },
       target: { type: "", uuid: "", name: "", img: "" },
+      result: { claimed: false, itemUuid: "", itemId: "", claimedAt: "" },
       description: "",
       completion: "",
       notes: "",
@@ -1836,6 +1915,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
   #createDowntimeActivityFromItem(item) {
     const system = item.system ?? {};
     const activity = this.#newDowntimeActivity({
+      identifier: system.identifier ?? "",
       templateUuid: item.uuid,
       sourceId: item._stats?.compendiumSource ?? item.uuid,
       custom: false,
@@ -1861,6 +1941,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
         name: "",
         img: ""
       },
+      result: { claimed: false, itemUuid: "", itemId: "", claimedAt: "" },
       description: system.description?.value ?? "",
       completion: system.completion ?? "",
       notes: ""
@@ -1895,6 +1976,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       costLabel: payment.costLabel,
       costNote: activity.cost?.note ?? "",
       payment,
+      crafting: getDowntimeCraftingProfile(activity),
       rollLabel: getDowntimeRollLabel(activity.roll),
       targetLabel: activity.target?.name || activity.target?.uuid || activity.target?.type || "",
       sort: activity.sort ?? 0
@@ -1988,6 +2070,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
 function normalizeDowntimeActivity(activity) {
   const normalized = foundry.utils.mergeObject({
     _id: foundry.utils.randomID(),
+    identifier: "",
     templateUuid: "",
     sourceId: "",
     custom: false,
@@ -2000,13 +2083,175 @@ function normalizeDowntimeActivity(activity) {
     cost: getDefaultDowntimeCost(),
     roll: { enabled: false, ability: "", skill: "", tool: "", dc: 0, label: "" },
     target: { type: "", uuid: "", name: "", img: "" },
+    result: { claimed: false, itemUuid: "", itemId: "", claimedAt: "" },
     description: "",
     completion: "",
     notes: "",
     completedAt: ""
   }, activity, { inplace: false });
+  normalized.result = foundry.utils.mergeObject({
+    claimed: false,
+    itemUuid: "",
+    itemId: "",
+    claimedAt: ""
+  }, normalized.result ?? {}, { inplace: false });
   normalizeDowntimeCost(normalized);
   return normalized;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Apply a dropped item as the target of a downtime activity.
+ * @param {object} activity  Downtime activity source.
+ * @param {Item5e} item      Dropped item.
+ * @param {Actor5e} actor    Actor owning the activity.
+ */
+function applyDowntimeCraftingTarget(activity, item, actor) {
+  const previousTarget = activity.target?.uuid ?? "";
+  activity.target = {
+    type: item.type,
+    uuid: item.uuid,
+    name: item.name,
+    img: item.img
+  };
+  if ( previousTarget && (previousTarget !== item.uuid) ) {
+    activity.result = { claimed: false, itemUuid: "", itemId: "", claimedAt: "" };
+    activity.progress ??= {};
+    activity.progress.value = 0;
+  }
+  activity.result ??= { claimed: false, itemUuid: "", itemId: "", claimedAt: "" };
+  if ( !isCraftingActivity(activity) ) return;
+
+  const price = getItemRyoValue(item);
+  const seal = getItemSealData(item);
+  activity.category = "crafting";
+  activity.roll ??= { enabled: false, ability: "", skill: "", tool: "", dc: 0, label: "" };
+  activity.cost ??= getDefaultDowntimeCost();
+  activity.progress ??= { value: 0, max: 1 };
+
+  if ( seal ) {
+    const rankConfig = CONFIG.DND5E.sealRanks[seal.rank] ?? {};
+    const downtime = Math.max(1, Number(seal.downtime || rankConfig.downtime || 1));
+    const dc = Number(seal.craftingDC || rankConfig.craftingDC || 0);
+    activity.identifier ||= "crafting-chakra-enhanced-items";
+    activity.progress.max = downtime;
+    activity.progress.value = Math.min(Number(activity.progress.value ?? 0), downtime);
+    activity.cost.mode = "fixed";
+    activity.cost.due = "completion";
+    activity.cost.fixed = price;
+    activity.cost.value = price;
+    activity.cost.per = "activity";
+    activity.cost.rank = seal.rank ?? "";
+    activity.cost.note = game.i18n.format("N5EB.DOWNTIME.Crafting.SealTargetNote", {
+      item: item.name,
+      cost: formatRyo(price),
+      weeks: downtime,
+      dc: dc || "-"
+    });
+    activity.roll.enabled = true;
+    activity.roll.ability = activity.roll.ability || "int";
+    activity.roll.skill = activity.roll.skill || "cra";
+    activity.roll.dc = dc;
+    activity.roll.label = game.i18n.localize("N5EB.DOWNTIME.Crafting.SealRoll");
+    activity.completion ||= game.i18n.localize("N5EB.DOWNTIME.Crafting.SealCompletion");
+    return;
+  }
+
+  const contribution = getDowntimeCraftingContribution(activity, actor);
+  const weeks = Math.max(1, Math.ceil(price / contribution));
+  const materialCost = Math.ceil(price / 2);
+  activity.identifier ||= "crafting-non-enhanced-items";
+  activity.progress.max = weeks;
+  activity.progress.value = Math.min(Number(activity.progress.value ?? 0), weeks);
+  activity.cost.mode = "fixed";
+  activity.cost.due = "completion";
+  activity.cost.fixed = materialCost;
+  activity.cost.value = materialCost;
+  activity.cost.per = "activity";
+  activity.cost.note = game.i18n.format("N5EB.DOWNTIME.Crafting.TargetNote", {
+    item: item.name,
+    value: formatRyo(price),
+    cost: formatRyo(materialCost),
+    weeks,
+    contribution: formatRyo(contribution)
+  });
+  activity.roll.enabled = true;
+  activity.roll.ability = activity.roll.ability || "int";
+  activity.roll.skill = activity.roll.skill || "cra";
+  activity.roll.label ||= game.i18n.localize("N5EB.DOWNTIME.Crafting.Roll");
+  activity.completion ||= game.i18n.localize("N5EB.DOWNTIME.Crafting.Completion");
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Prepare crafting display metadata for a downtime activity.
+ * @param {object} activity  Downtime activity source.
+ * @returns {object}
+ */
+function getDowntimeCraftingProfile(activity) {
+  const crafting = isCraftingActivity(activity);
+  const claimed = Boolean(activity.result?.claimed);
+  return {
+    active: crafting,
+    hasTarget: Boolean(activity.target?.uuid),
+    canClaim: crafting && Boolean(activity.target?.uuid) && (activity.status === "completed") && !claimed,
+    claimed,
+    claimedAt: activity.result?.claimedAt ?? "",
+    itemUuid: activity.result?.itemUuid ?? ""
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Is this activity one of the crafting downtime templates or custom crafting entries?
+ * @param {object} activity  Downtime activity source.
+ * @returns {boolean}
+ */
+function isCraftingActivity(activity) {
+  const identifier = activity.identifier || activity.sourceId || activity.templateUuid || "";
+  return (activity.category === "crafting") || `${identifier}`.includes("crafting");
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get an item's Ryo price.
+ * @param {Item5e} item  Item being checked.
+ * @returns {number}
+ */
+function getItemRyoValue(item) {
+  const price = item.system?.price ?? {};
+  return Math.max(0, Number(price.value ?? 0));
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get item seal metadata if the item is an Enhancement Seal.
+ * @param {Item5e} item  Item being checked.
+ * @returns {object|null}
+ */
+function getItemSealData(item) {
+  const seal = item.system?.seal;
+  if ( !seal?.target || !seal?.rank ) return null;
+  return seal;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Determine the Ryo value a crafter contributes each downtime week.
+ * @param {object} activity  Downtime activity source.
+ * @param {Actor5e} actor    Actor doing the crafting.
+ * @returns {number}
+ */
+function getDowntimeCraftingContribution(activity, actor) {
+  const tool = activity.roll?.tool;
+  const mastery = tool ? Number(actor.system.tools?.[tool]?.mastery ?? 0) : 0;
+  return mastery >= 1 ? 150 : 100;
 }
 
 /* -------------------------------------------- */

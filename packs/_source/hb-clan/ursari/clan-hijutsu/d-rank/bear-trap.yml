@@ -6,13 +6,16 @@ img: systems/n5eb/assets/content/clans/ursari.webp
 system:
   description:
     value: >-
-      <p>As you prepare a trap to be sprung, you infuse its mechanism with chakra to increase its effectiveness. This
-      jutsu's casting time equals how long it takes to prepare the trap being used as a component. The chakra poured
-      into the trap lasts for 24 hours. When the trap is activated during the duration of this jutsu, it gains an
-      additional effect: the trap deals damage equal to double your unarmed attack, and its DC gains a bonus equal to
-      your Strength Modifier. If the trap was a restraining trap, the target must make a Constitution save or gain a
-      rank of Slowed. If the trap was a weapon trap, its damage is chakra-enhanced and also deals chakra damage equal to
-      half the trap's total damage</p>
+      <p>As you prepare a trap to be sprung, you infuse its mechanism with
+      chakra to increase its effectiveness. This jutsu's casting time equals how
+      long it takes to prepare the trap being used as a component. The chakra
+      poured into the trap lasts for 24 hours. When the trap is activated during
+      the duration of this jutsu, it gains an additional effect: the trap deals
+      damage equal to double your unarmed attack, and its DC gains a bonus equal
+      to your Strength Modifier. If the trap was a restraining trap, the target
+      must make a Constitution save or gain a rank of Slowed. If the trap was a
+      weapon trap, its damage is chakra-enhanced and also deals chakra damage
+      equal to half the trap's total damage</p>
     chat: ''
   source:
     custom: ''
@@ -109,7 +112,85 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Slowed
+    origin: Compendium.n5eb.hb-clan.Item.inKzyxHMjzZUO4Di
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: slowed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    _id: 1aEyuVIeMrVQPAB5
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-(10 * @stackCount)'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: slowed
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - slowed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,0
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!inKzyxHMjzZUO4Di.1aEyuVIeMrVQPAB5'
 sort: 0
 ownership:
   default: 0
@@ -143,13 +224,17 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>As you prepare a trap to be sprung, you infuse its mechanism with chakra to increase its effectiveness.
-            This jutsu's casting time equals how long it takes to prepare the trap being used as a component. The chakra
-            poured into the trap lasts for 24 hours. When the trap is activated during the duration of this jutsu, it
-            gains an additional effect: the trap deals damage equal to double your unarmed attack, and its DC gains a
-            bonus equal to your Strength Modifier. If the trap was a restraining trap, the target must make a
-            Constitution save or gain a rank of Slowed. If the trap was a weapon trap, its damage is chakra-enhanced and
-            also deals chakra damage equal to half the trap's total damage</p>
+            <p>As you prepare a trap to be sprung, you infuse its mechanism with
+            chakra to increase its effectiveness. This jutsu's casting time
+            equals how long it takes to prepare the trap being used as a
+            component. The chakra poured into the trap lasts for 24 hours. When
+            the trap is activated during the duration of this jutsu, it gains an
+            additional effect: the trap deals damage equal to double your
+            unarmed attack, and its DC gains a bonus equal to your Strength
+            Modifier. If the trap was a restraining trap, the target must make a
+            Constitution save or gain a rank of Slowed. If the trap was a weapon
+            trap, its damage is chakra-enhanced and also deals chakra damage
+            equal to half the trap's total damage</p>
           chat: ''
         source:
           custom: ''

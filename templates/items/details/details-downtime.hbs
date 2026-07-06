@@ -4,6 +4,7 @@
     {{!-- Category --}}
     {{ formField fields.category value=source.category choices=downtime.categories labelAttr="label" localize=true
                  rootId=partId }}
+    {{ formField fields.identifier value=source.identifier rootId=partId }}
 
     {{!-- Weeks --}}
     {{ formField fields.weeks.fields.value value=source.weeks.value rootId=partId }}

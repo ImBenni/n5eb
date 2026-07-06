@@ -6,6 +6,7 @@ const { SchemaField, StringField } = foundry.data.fields;
  * @param {object} [options={}]                   Options to configure this field's behavior.
  * @param {string} [options.value]                An initial value for the Item's type.
  * @param {string|boolean} [options.subtype]      An initial value for the Item's subtype, or false to exclude it.
+ * @param {string} [options.nestedsubtype]        An initial value for the Item's nested subtype.
  * @param {string|boolean} [options.baseItem]     An initial value for the Item's baseItem, or false to exclude it.
  * @param {DataFieldOptions} [schemaOptions={}]   Options forwarded to the SchemaField.
  */
@@ -22,6 +23,9 @@ export default class ItemTypeField extends SchemaField {
         required: true, blank: true, initial: options.baseItem ?? "", label: "DND5E.BaseItem"
       })
     };
+    if ( "nestedsubtype" in options ) fields.nestedsubtype = new StringField({
+      required: true, blank: true, initial: options.nestedsubtype ?? "", label: "N5EB.Feature.Rank"
+    });
     if ( options.subtype === false ) delete fields.subtype;
     if ( options.baseItem === false ) delete fields.baseItem;
     super(fields, schemaOptions);

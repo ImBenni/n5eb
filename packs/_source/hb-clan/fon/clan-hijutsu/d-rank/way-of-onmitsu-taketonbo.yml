@@ -5,15 +5,19 @@ img: systems/n5eb/assets/content/clans/fon.webp
 system:
   description:
     value: >-
-      <p>You hold your hand out to the side, performing a simple yet effective throw that violently flips a target
-      creature upside down, knocking the wind out of them.</p><p>Once per round, when you would hit a creature with a
-      melee attack, or a creature would attempt to or successfully Grapple or Restrain you, you can cast this jutsu to
-      force them to make a Dexterity Saving Throw vs. your Martial Arts check. If you have expertise, you add +1d4
-      instead of doubling your Proficiency Bonus.</p><p>On a success, you knock them Prone and they become Weakened, and
-      their attempt to Grapple or Restrain you fails if they had tried to do so.</p><p><strong>At Higher Ranks:</strong>
-      For each rank you cast this jutsu above D-Rank, increase the cost by 3. If this jutsu is cast at B-Rank, you gain
-      a +2 bonus to the Martial Arts check. If this jutsu is cast at S-Rank, you gain a +3 bonus to the Martial Arts
-      check.</p>
+      <p>You hold your hand out to the side, performing a simple yet effective
+      throw that violently flips a target creature upside down, knocking the
+      wind out of them.</p><p>Once per round, when you would hit a creature with
+      a melee attack, or a creature would attempt to or successfully Grapple or
+      Restrain you, you can cast this jutsu to force them to make a Dexterity
+      Saving Throw vs. your Martial Arts check. If you have expertise, you add
+      +1d4 instead of doubling your Proficiency Bonus.</p><p>On a success, you
+      knock them Prone and they become Weakened, and their attempt to Grapple or
+      Restrain you fails if they had tried to do so.</p><p><strong>At Higher
+      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
+      the cost by 3. If this jutsu is cast at B-Rank, you gain a +2 bonus to the
+      Martial Arts check. If this jutsu is cast at S-Rank, you gain a +3 bonus
+      to the Martial Arts check.</p>
     chat: ''
   source:
     custom: ''
@@ -109,7 +113,93 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Weakened
+    origin: Compendium.n5eb.hb-clan.Item.nQqx1cWN8RTP8uK3
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: weakened
+          rank: 1
+          maxRank: 5
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: BNIUjgayJ8fc40ZQ
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Weakened creature is unable
+      to exert their maximum physicality and effort as they have had the wind
+      blown out of them.</p><ul><li><p>A <strong>Weakened</strong> creature
+      reduces damage it deals with attacks and Jutsu by -4 for each rank it
+      has.</p></li><li><p>A <strong>Weakened</strong> creature has a -1 penalty
+      to Strength saving throws.</p></li><li><p>The <strong>Weakened</strong>
+      condition last for the duration of its duration or 1 minute has passed,
+      whichever comes first.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!nQqx1cWN8RTP8uK3.BNIUjgayJ8fc40ZQ'
 ownership:
   default: 0
 flags:
@@ -142,15 +232,20 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You hold your hand out to the side, performing a simple yet effective throw that violently flips a target
-            creature upside down, knocking the wind out of them.</p><p>Once per round, when you would hit a creature
-            with a melee attack, or a creature would attempt to or successfully Grapple or Restrain you, you can cast
-            this jutsu to force them to make a Dexterity Saving Throw vs. your Martial Arts check. If you have
-            expertise, you add +1d4 instead of doubling your Proficiency Bonus.</p><p>On a success, you knock them Prone
-            and they become Weakened, and their attempt to Grapple or Restrain you fails if they had tried to do
-            so.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the
-            cost by 3. If this jutsu is cast at B-Rank, you gain a +2 bonus to the Martial Arts check. If this jutsu is
-            cast at S-Rank, you gain a +3 bonus to the Martial Arts check.</p>
+            <p>You hold your hand out to the side, performing a simple yet
+            effective throw that violently flips a target creature upside down,
+            knocking the wind out of them.</p><p>Once per round, when you would
+            hit a creature with a melee attack, or a creature would attempt to
+            or successfully Grapple or Restrain you, you can cast this jutsu to
+            force them to make a Dexterity Saving Throw vs. your Martial Arts
+            check. If you have expertise, you add +1d4 instead of doubling your
+            Proficiency Bonus.</p><p>On a success, you knock them Prone and they
+            become Weakened, and their attempt to Grapple or Restrain you fails
+            if they had tried to do so.</p><p><strong>At Higher Ranks:</strong>
+            For each rank you cast this jutsu above D-Rank, increase the cost by
+            3. If this jutsu is cast at B-Rank, you gain a +2 bonus to the
+            Martial Arts check. If this jutsu is cast at S-Rank, you gain a +3
+            bonus to the Martial Arts check.</p>
           chat: ''
         source:
           custom: ''

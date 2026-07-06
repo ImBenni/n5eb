@@ -9,6 +9,34 @@ import ItemTypeTemplate from "./templates/item-type.mjs";
 import ItemTypeField from "./fields/item-type-field.mjs";
 
 const { BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const FEATURE_RANK_SUBTYPE_ALIASES = {
+  affiliationpassive: "affiliation",
+  affiliationtrait: "affiliation",
+  clanpassive: "clan",
+  clantrait: "clan",
+  classmod: "classMod",
+  classmodtrait: "classMod",
+  "class-mod": "classMod",
+  "class-mod-trait": "classMod",
+  generaltrait: "general",
+  rolepassive: "role",
+  roletrait: "role"
+};
+
+/**
+ * Resolve nested Feature rank choices for the selected Feature type data.
+ * @param {object} typeData  Feature type source data.
+ * @returns {object|null}
+ */
+function getFeatureRankOptions(typeData) {
+  const type = typeData?.value ?? "";
+  const rawSubtype = `${typeData?.subtype ?? ""}`;
+  const subtypeKey = rawSubtype.slugify({ strict: true });
+  const subtype = FEATURE_RANK_SUBTYPE_ALIASES[subtypeKey] ?? rawSubtype;
+  const subtypeConfig = CONFIG.DND5E.featureTypes?.[type]?.subtypes?.[subtype];
+  const nestedSubtypes = subtypeConfig?.nestedsubtypes;
+  return Object.keys(nestedSubtypes ?? {}).length ? nestedSubtypes : null;
+}
 
 /**
  * @import { FeatItemSystemData } from "./_types.mjs";
@@ -57,7 +85,7 @@ export default class FeatData extends ItemDataModel.mixin(
       }),
       properties: new SetField(new StringField()),
       requirements: new StringField({ required: true, nullable: true }),
-      type: new ItemTypeField({ baseItem: false })
+      type: new ItemTypeField({ baseItem: false, nestedsubtype: "" })
     });
   }
 
@@ -307,6 +335,7 @@ export default class FeatData extends ItemDataModel.mixin(
     if ( itemTypes ) {
       context.itemType = itemTypes.label;
       context.itemSubtypes = itemTypes.subtypes;
+      context.featureRankOptions = getFeatureRankOptions(this._source.type);
     }
   }
 

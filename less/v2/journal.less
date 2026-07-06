@@ -560,6 +560,571 @@
 }
 
 /* ----------------------------------------- */
+/*  Naruto 5e Library                        */
+/* ----------------------------------------- */
+
+.table-of-contents .n5eb-handbook,
+.journal-entry-content .n5eb-handbook,
+.journal-entry-page .n5eb-handbook {
+  --n5eb-library-bg: #f7f1e5;
+  --n5eb-library-ink: #201b17;
+  --n5eb-library-muted: #655b4d;
+  --n5eb-library-line: #c8b895;
+  --n5eb-library-card: #fffaf0;
+  --n5eb-library-accent: #9f2c2c;
+  --n5eb-library-accent-2: #2f6f57;
+
+  box-sizing: border-box;
+  max-width: min(980px, calc(100% - 24px));
+  margin: 0 auto 24px;
+  color: var(--n5eb-library-ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+  columns: unset;
+  column-count: auto;
+  column-width: auto;
+
+  &.n5eb-handbook-sage {
+    --n5eb-library-accent: #5c3d80;
+    --n5eb-library-accent-2: #52733c;
+  }
+
+  &.n5eb-handbook-jade {
+    --n5eb-library-accent: #24745b;
+    --n5eb-library-accent-2: #a94d35;
+  }
+
+  &.n5eb-handbook-indigo {
+    --n5eb-library-accent: #3d5a9b;
+    --n5eb-library-accent-2: #8a5a2d;
+  }
+
+  &.n5eb-handbook-amber {
+    --n5eb-library-accent: #9a5b19;
+    --n5eb-library-accent-2: #8d3030;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  .n5eb-handbook-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 28%);
+    gap: 18px;
+    align-items: stretch;
+    margin: 0 0 18px;
+    padding: 18px;
+    border: 1px solid var(--n5eb-library-line);
+    border-left: 6px solid var(--n5eb-library-accent);
+    border-radius: 6px;
+    background:
+      linear-gradient(135deg, rgb(255 255 255 / .78), rgb(255 250 240 / .9)),
+      var(--n5eb-library-bg);
+    box-shadow: 0 2px 10px rgb(0 0 0 / .08);
+  }
+
+  .n5eb-handbook-hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .n5eb-handbook-eyebrow {
+    margin: 0 0 8px;
+    color: var(--n5eb-library-accent);
+    font-size: var(--font-size-12);
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  h1, h2, h3 {
+    color: var(--n5eb-library-ink);
+    letter-spacing: 0;
+    text-shadow: none;
+  }
+
+  h1 {
+    margin: 0;
+    border: none;
+    font-family: var(--dnd5e-font-modesto);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+  }
+
+  .n5eb-handbook-subtitle {
+    max-width: 62ch;
+    margin: 10px 0 0;
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-15);
+  }
+
+  .n5eb-handbook-hero-media {
+    min-width: 0;
+    margin: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #1f1a16;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / .18);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 170px;
+      max-height: 310px;
+      object-fit: cover;
+      object-position: top center;
+    }
+  }
+
+  .n5eb-handbook-summary,
+  .n5eb-handbook-source-page,
+  .n5eb-related,
+  .n5eb-change-group,
+  .n5eb-handbook-toc,
+  .n5eb-handbook-callouts > div {
+    margin: 0 0 14px;
+    padding: 14px 16px;
+    border: 1px solid var(--n5eb-library-line);
+    border-radius: 6px;
+    background: var(--n5eb-library-card);
+  }
+
+  .n5eb-handbook-summary p,
+  .n5eb-handbook-source-page p,
+  .n5eb-change-group p,
+  .n5eb-handbook-callouts p {
+    margin: 0 0 .75em;
+    max-width: 78ch;
+  }
+
+  .n5eb-source-note {
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-13);
+  }
+
+  .n5eb-handbook-toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 6px 14px;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .n5eb-handbook-toc li,
+  .n5eb-change-group li,
+  .n5eb-handbook-source-page li {
+    margin-block: 4px;
+    break-inside: avoid;
+  }
+
+  .n5eb-handbook-callouts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+
+    > div {
+      margin: 0;
+      border-top: 4px solid var(--n5eb-library-accent);
+    }
+  }
+
+  .n5eb-related h2,
+  .n5eb-handbook-toc h2,
+  .n5eb-change-group h2,
+  .n5eb-extracted-tables h3 {
+    margin: 0 0 10px;
+    border: none;
+    color: var(--n5eb-library-accent);
+    font-family: var(--dnd5e-font-modesto);
+    font-size: 1.45rem;
+  }
+
+  .n5eb-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 8px;
+  }
+
+  .n5eb-related-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 58px;
+    padding: 10px;
+    border: 1px solid color-mix(in srgb, var(--n5eb-library-accent), white 55%);
+    border-radius: 6px;
+    background: #fff;
+    overflow-wrap: anywhere;
+
+    &:hover {
+      border-color: var(--n5eb-library-accent);
+      box-shadow: 0 0 0 1px var(--n5eb-library-accent);
+    }
+  }
+
+  .n5eb-related-title {
+    color: var(--n5eb-library-ink);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    .content-link {
+      display: inline;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: inherit;
+      font-weight: inherit;
+      line-height: 1.25;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+  }
+
+  .n5eb-related-meta {
+    margin-top: 4px;
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-12);
+  }
+
+  .n5eb-handbook-source-page {
+    overflow: hidden;
+
+    h2, h3 {
+      margin: 1rem 0 .45rem;
+      border: none;
+      color: var(--n5eb-library-accent-2);
+      font-family: var(--dnd5e-font-modesto);
+      line-height: 1.1;
+    }
+
+    h2 { font-size: 1.7rem; }
+    h3 { font-size: 1.3rem; }
+  }
+
+  &.n5eb-handbook-wiki {
+    --n5eb-library-bg: #f8f4eb;
+    --n5eb-library-card: #fffdf8;
+    --n5eb-library-line: #d6c7a6;
+    --n5eb-library-accent: #8c2f2f;
+    --n5eb-library-accent-2: #315f53;
+    max-width: min(900px, calc(100% - 24px));
+
+    .n5eb-handbook-hero {
+      grid-template-columns: minmax(0, 1fr) minmax(150px, 220px);
+      padding: 14px 16px;
+      border-left-width: 4px;
+      box-shadow: 0 1px 4px rgb(0 0 0 / .08);
+    }
+
+    .n5eb-handbook-hero-media img {
+      min-height: 130px;
+      max-height: 210px;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
+    }
+  }
+
+  .n5eb-reader-summary {
+    font-size: var(--font-size-15);
+  }
+
+  .n5eb-library-index {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+    margin-block: 14px;
+  }
+
+  .n5eb-library-group {
+    padding: 12px 14px;
+    border: 1px solid var(--n5eb-library-line);
+    border-radius: 6px;
+    background: var(--n5eb-library-card);
+
+    h2 {
+      margin: 0 0 8px;
+      border: none;
+      color: var(--n5eb-library-accent);
+      font-family: var(--dnd5e-font-modesto);
+      font-size: 1.35rem;
+    }
+
+    ol {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    li {
+      margin-block: 3px;
+    }
+  }
+
+  .n5eb-chapter-contents {
+    > ol {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 8px 18px;
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    ol ol {
+      display: block;
+      margin: 5px 0 0;
+      padding-left: 1rem;
+      color: var(--n5eb-library-muted);
+      font-size: var(--font-size-13);
+    }
+
+    li {
+      margin-block: 4px;
+      break-inside: avoid;
+    }
+  }
+
+  .n5eb-topic-brief,
+  .n5eb-topic-body {
+    margin: 0 0 14px;
+    padding: 14px 16px;
+    border: 1px solid var(--n5eb-library-line);
+    border-radius: 6px;
+    background: var(--n5eb-library-card);
+  }
+
+  .n5eb-topic-brief {
+    border-left: 4px solid var(--n5eb-library-accent-2);
+
+    h2 {
+      margin: 0 0 8px;
+      border: none;
+      color: var(--n5eb-library-ink);
+      font-family: var(--dnd5e-font-modesto);
+      font-size: 1.35rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+  }
+
+  .n5eb-topic-group,
+  .n5eb-source-chip {
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-12);
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .n5eb-source-chip {
+    display: inline-flex;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--n5eb-library-accent), white 86%);
+    color: var(--n5eb-library-accent);
+  }
+
+  .n5eb-topic-body {
+    p {
+      max-width: 76ch;
+      margin: 0 0 .75em;
+    }
+
+    ul, ol {
+      max-width: 76ch;
+      margin-block: .25em .9em;
+      padding-left: 1.25rem;
+    }
+  }
+
+  .n5eb-generated-table {
+    margin: 0 0 16px;
+    padding: 12px 14px;
+    border: 1px solid color-mix(in srgb, var(--n5eb-library-accent), white 58%);
+    border-left: 4px solid var(--n5eb-library-accent);
+    border-radius: 6px;
+    background: #fffdf8;
+
+    h2 {
+      margin: 0 0 6px;
+      border: none;
+      color: var(--n5eb-library-accent);
+      font-family: var(--dnd5e-font-modesto);
+      font-size: 1.35rem;
+      line-height: 1.12;
+    }
+
+    .n5eb-generated-table-note {
+      max-width: 82ch;
+      margin: 0 0 8px;
+      color: var(--n5eb-library-muted);
+      font-size: var(--font-size-13);
+    }
+  }
+
+  .n5eb-minor-heading {
+    margin: 1.05rem 0 .35rem;
+    color: var(--n5eb-library-accent-2);
+    font-family: var(--dnd5e-font-modesto);
+    font-size: 1.25rem;
+    line-height: 1.1;
+  }
+
+  .n5eb-table-drawer {
+    margin-top: 12px;
+    border-top: 1px solid var(--n5eb-library-line);
+    padding-top: 10px;
+
+    summary {
+      cursor: pointer;
+      color: var(--n5eb-library-accent);
+      font-weight: 700;
+    }
+  }
+
+  .n5eb-topic-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+    color: var(--n5eb-library-muted);
+    font-size: var(--font-size-13);
+
+    span {
+      min-width: 0;
+      padding: 8px 10px;
+      border: 1px solid var(--n5eb-library-line);
+      border-radius: 6px;
+      background: rgb(255 255 255 / .65);
+    }
+
+    .n5eb-topic-nav-next {
+      text-align: right;
+    }
+  }
+
+  .n5eb-page-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    margin-bottom: 8px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--n5eb-library-accent), white 83%);
+    color: var(--n5eb-library-accent);
+    font-size: var(--font-size-12);
+    font-weight: 700;
+  }
+
+  .n5eb-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 10px 0;
+    border: 1px solid var(--n5eb-library-line);
+    border-radius: 6px;
+    background: #fffaf0;
+    color: var(--n5eb-library-ink);
+  }
+
+  table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    margin: 0;
+    background: #fffaf0;
+    color: var(--n5eb-library-ink);
+    font-size: var(--font-size-13);
+  }
+
+  .n5eb-generated-table .n5eb-table-wrap table {
+    min-width: 880px;
+  }
+
+  .n5eb-armor-table .n5eb-table-wrap table,
+  .n5eb-weapon-table .n5eb-table-wrap table,
+  .n5eb-gear-table .n5eb-table-wrap table,
+  .n5eb-tool-table .n5eb-table-wrap table,
+  .n5eb-consumable-table .n5eb-table-wrap table,
+  .n5eb-trap-table .n5eb-table-wrap table {
+    min-width: 1040px;
+  }
+
+  thead,
+  tbody,
+  tr,
+  tbody tr:nth-child(n) {
+    background: transparent;
+    background-color: transparent;
+    color: var(--n5eb-library-ink);
+  }
+
+  th, td {
+    padding: 7px 9px;
+    border: 1px solid color-mix(in srgb, var(--n5eb-library-line), white 35%);
+    color: var(--n5eb-library-ink);
+    vertical-align: top;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  th {
+    background: #e8d9c3;
+    background-color: #e8d9c3;
+    color: var(--n5eb-library-ink);
+    font-weight: 700;
+  }
+
+  tbody tr:nth-child(odd) td {
+    background: #fffaf0;
+    background-color: #fffaf0;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: #f3eadb;
+    background-color: #f3eadb;
+  }
+
+  tbody tr:hover td {
+    background: #eadcc8;
+    background-color: #eadcc8;
+  }
+
+  td .content-link,
+  .n5eb-table-wrap .content-link {
+    display: inline;
+    max-width: 100%;
+    color: #5c2f21;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 720px) {
+    max-width: calc(100% - 12px);
+
+    .n5eb-handbook-hero {
+      grid-template-columns: 1fr;
+      padding: 14px;
+    }
+
+    .n5eb-handbook-hero-media img {
+      max-height: 220px;
+    }
+
+    .n5eb-handbook-callouts {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+/* ----------------------------------------- */
 /*  Tracking Sheets                          */
 /* ----------------------------------------- */
 

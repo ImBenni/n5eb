@@ -78,15 +78,49 @@ system:
     formula: 1d8
     charged: false
   type:
-    value: ''
-    subtype: ''
+    value: feat
+    subtype: stance
     nestedsubtype: ''
   prerequisites:
     level: null
   properties: []
   requirements: ''
   identifier: kikounkenjutsu
-effects: []
+effects:
+  - name: Kikounkenjutsu
+    origin: Compendium.n5eb.t7-feats.Item.SZIzrjaX3Lo05lSj
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      core:
+        overlay: false
+      n5eb:
+        stance:
+          identifier: kikounkenjutsu
+          tracked: true
+          automatic: []
+          manual:
+            - Bonus action grants reach stacks to an eligible melee weapon until the start of your next turn.
+            - Reduce weapon damage die one step per additional reach stack, minimum d4.
+            - Reaction follow-up attacks and optional C-rank jutsu cast are resolved manually.
+    img: icons/skills/melee/weapons-crossed-swords-yellow-teal.webp
+    _id: KKStanceAE000001
+    type: base
+    system: {}
+    changes: []
+    description: Tracks Kikounkenjutsu. Reach stacking, weapon die stepdown, reaction follow-up attacks, and the optional C-rank jutsu cast remain manual until native stance weapon-context automation exists.
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _key: '!items.effects!SZIzrjaX3Lo05lSj.KKStanceAE000001'
 sort: 0
 ownership:
   default: 0

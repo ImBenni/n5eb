@@ -60,8 +60,12 @@
     {{#if properties.object.amm}}
     {{ formField fields.ammunition.fields.type value=source.ammunition.type choices=CONFIG.consumableTypes.ammo.subtypes
                  rootId=partId }}
+    {{ formField fields.ammunitionDie value=source.ammunitionDie choices=CONFIG.ammoDieTypes label="N5EB.AmmoDie"
+                 localize=true rootId=partId }}
     {{/if}}
 </fieldset>
+
+{{> "dnd5e.details-seals" }}
 
 <fieldset>
     <legend>{{ localize "DND5E.Range" }}</legend>

@@ -6,13 +6,16 @@ img: systems/n5eb/assets/content/clans/reiuji.webp
 system:
   description:
     value: >-
-      <p>Your Radiant release chakra starts leaking from you, taking its toll on other creature's bodies. When you
-      activate this jutsu Creatures within range must succeed a Constitution saving throw or gain a rank of weakened for
-      the duration, a weakened creature can make another constitution save at the end of each of its turns, losing this
-      rank on a success, a creature that leaves the jutsu area has advantage on these saving throws. A creature makes
-      the saving throw when it enters the aura for the first time on a turn or ends its turn there.<br /><strong>At
-      Higher Ranks</strong>: For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and
-      the radius by 5ft.</p>
+      <p>Your Radiant release chakra starts leaking from you, taking its toll on
+      other creature's bodies. When you activate this jutsu Creatures within
+      range must succeed a Constitution saving throw or gain a rank of weakened
+      for the duration, a weakened creature can make another constitution save
+      at the end of each of its turns, losing this rank on a success, a creature
+      that leaves the jutsu area has advantage on these saving throws. A
+      creature makes the saving throw when it enters the aura for the first time
+      on a turn or ends its turn there.<br /><strong>At Higher Ranks</strong>:
+      For each rank you cast this jutsu above D-Rank, increase the cost of this
+      jutsu by 3 and the radius by 5ft.</p>
     chat: ''
   source:
     custom: ''
@@ -112,7 +115,93 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Weakened
+    origin: Compendium.n5eb.hb-clan.Item.bX3Qi7rmn3AtW5J0
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: weakened
+          rank: 1
+          maxRank: 5
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: gEAmOo12z01sGUxj
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Weakened creature is unable
+      to exert their maximum physicality and effort as they have had the wind
+      blown out of them.</p><ul><li><p>A <strong>Weakened</strong> creature
+      reduces damage it deals with attacks and Jutsu by -4 for each rank it
+      has.</p></li><li><p>A <strong>Weakened</strong> creature has a -1 penalty
+      to Strength saving throws.</p></li><li><p>The <strong>Weakened</strong>
+      condition last for the duration of its duration or 1 minute has passed,
+      whichever comes first.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!bX3Qi7rmn3AtW5J0.gEAmOo12z01sGUxj'
 sort: 0
 ownership:
   default: 0
@@ -152,13 +241,17 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>Your Radiant release chakra starts leaking from you, taking its toll on other creature's bodies. When you
-            activate this jutsu Creatures within range must succeed a Constitution saving throw or gain a rank of
-            weakened for the duration, a weakened creature can make another constitution save at the end of each of its
-            turns, losing this rank on a success, a creature that leaves the jutsu area has advantage on these saving
-            throws. A creature makes the saving throw when it enters the aura for the first time on a turn or ends its
-            turn there.<br /><strong>At Higher Ranks</strong>: For each rank you cast this jutsu above D-Rank, increase
-            the cost of this jutsu by 3 and the radius by 5ft.</p>
+            <p>Your Radiant release chakra starts leaking from you, taking its
+            toll on other creature's bodies. When you activate this jutsu
+            Creatures within range must succeed a Constitution saving throw or
+            gain a rank of weakened for the duration, a weakened creature can
+            make another constitution save at the end of each of its turns,
+            losing this rank on a success, a creature that leaves the jutsu area
+            has advantage on these saving throws. A creature makes the saving
+            throw when it enters the aura for the first time on a turn or ends
+            its turn there.<br /><strong>At Higher Ranks</strong>: For each rank
+            you cast this jutsu above D-Rank, increase the cost of this jutsu by
+            3 and the radius by 5ft.</p>
           chat: ''
         source:
           custom: ''

@@ -58,6 +58,8 @@ export default class SensesField extends foundry.data.fields.SchemaField {
    */
   static _shim(senses) {
     for ( const key of SensesField.#DEFAULT_SENSES ) {
+      const descriptor = Object.getOwnPropertyDescriptor(senses, key);
+      if ( descriptor?.get ) continue;
       Object.defineProperty(senses, key, {
         get() {
           foundry.utils.logCompatibilityWarning(`senses.${key} has moved to "senses.ranges.${key}".`, {
@@ -71,7 +73,8 @@ export default class SensesField extends foundry.data.fields.SchemaField {
           });
           this.ranges[key] = value;
         },
-        enumerable: true
+        configurable: true,
+        enumerable: false
       });
     }
   }

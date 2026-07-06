@@ -3,10 +3,21 @@ type: spell
 img: systems/n5eb/assets/content/jutsu-icons/bukijutsu.webp
 system:
   description:
-    value: "<p>You begin to collect and manifest water release chakra until it laces the striking portion of your weapon. The water release chakra begins to transform into streams of water, capable of being seen and felt as you perform a zigzag or curved attack, attacking in an irregular motion. When casting this jutsu, you can choose to make a Zigzag or Curved attack.</p><p>• Zigzag: Make one ranged taijutsu attack against a creature in your\_ weapons range. Each creature within of your choice, between you and your target must make a Dexterity saving throw. On a hit or failed save, you deal your weapons damage + 4d6 cold damage and<br />affected creatures gain 1 rank of chilled or half as much damage on a successful save. A creature whom you target that is either Dazed or chilled grants you a 1d4 bonus to hit. A creature whom you force to make a saving throw that is either Dazed or chilled suffers a 1d4 penalty to their saving throw.</p><p>• Curved: You fire off a curved shot, capable of bypassing defenses. Make one ranged taijutsu attack. This attack ignores boosts to AC as a result of features, traits or jutsu. On a hit, you deal twice your weapons damage die</p><p>+ 3d8 cold damage, and being dazed on a failed save or half as much on a successful one.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank increase the cost of this jutsu by 3 and the damage by 1d6 or 1d8.\_</p>"
-    chat: ''
+    value: >-
+      <p>You begin to collect and manifest water release chakra until it laces the striking portion of your weapon. The
+      water release chakra begins to transform into streams of water, capable of being seen and felt. Make a single
+      Taijutsu Attack against one creature you can see within range. Whether this attack is Ranged or Melee is
+      determined by the weapon being used. On a hit you deal your Weapon's Damage + 5d6 Cold Damage and the target
+      creature gains 1 rank of Chilled. If you cast this jutsu using a melee weapon, all creatures within your weapon's
+      r ange must make a Dexterity Saving Throw, taking your Weapon's Damage + 4d6 on a failure, or half as much on a
+      success. If you cast this jutsu using a ranged weapon, all creatures in a straight line between you and your
+      target make the saving throw instead, and the attack's damage is reduced by 1d6. Regardless of the weapon type,
+      you gain a 1d4 bonus to hit when you target creatures that are either Dazed or Chilled with this jutsu, and they
+      suffer a 1d4 penalty to saving throws made against this jutsu. At Higher Ranks: For each rank you cast this jutsu
+      above C-Rank increase the cost of this jutsu by 3 and the damage by 1d6.</p>
+    chat: ""
   source:
-    custom: ''
+    custom: ""
     rules: n5eb
     book: Naruto 5e
   activation:
@@ -14,15 +25,15 @@ system:
     cost: 1
     condition: Any Ranged
   duration:
-    value: ''
+    value: ""
     units: inst
   cover: null
   crewed: false
   target:
-    value: ''
+    value: ""
     width: null
-    units: ''
-    type: ''
+    units: ""
+    type: ""
     prompt: true
   range:
     value: null
@@ -30,27 +41,27 @@ system:
     units: spec
   uses:
     value: null
-    max: ''
+    max: ""
     per: null
-    recovery: ''
+    recovery: ""
     prompt: true
   consume:
-    type: ''
-    target: ''
+    type: ""
+    target: ""
     amount: 8
     scale: false
   ability: taijutsu
   actionType: rsak
-  chatFlavor: ''
+  chatFlavor: ""
   critical:
     threshold: null
-    damage: ''
+    damage: ""
   damage:
     parts:
       - - 4d6
         - cold
     versatile: 3d8
-  formula: ''
+  formula: ""
   save:
     ability: dex
     dc: null
@@ -69,7 +80,7 @@ system:
     mode: level
     formula: 1d6
   attack:
-    bonus: ''
+    bonus: ""
     flat: false
   enchantment: null
   summons: null
@@ -91,15 +102,15 @@ system:
       - bukijutsu
       - water
     countsKnown: true
-    ability: ''
+    ability: ""
     type: bukijutsu
   rank: c
   chakra:
-    cost: '8'
+    cost: "8"
     scaling:
       mode: rank
       value: 3
-    special: ''
+    special: ""
   method: spell
   prepared: 1
 effects:
@@ -116,15 +127,15 @@ effects:
     disabled: false
     flags:
       dae:
-        enableCondition: ''
-        disableCondition: ''
+        enableCondition: ""
+        disableCondition: ""
         disableIncapacitated: false
         selfTarget: false
         selfTargetAlways: false
         dontApply: false
         stackable: noneName
         showIcon: false
-        durationExpression: ''
+        durationExpression: ""
         macroRepeat: none
         specialDuration: []
       core:
@@ -132,11 +143,11 @@ effects:
       ActiveAuras:
         isAura: false
         aura: None
-        nameOverride: ''
-        radius: ''
-        alignment: ''
-        type: ''
-        customCheck: ''
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
         ignoreSelf: false
         height: false
         hidden: false
@@ -151,43 +162,43 @@ effects:
     changes:
       - key: system.attributes.movement.walk
         mode: 2
-        value: '-5'
+        value: "-5"
         priority: 20
       - key: system.attributes.movement.fly
         mode: 2
-        value: '-5'
+        value: "-5"
         priority: 20
       - key: system.attributes.movement.burrow
         mode: 2
-        value: '-5'
+        value: "-5"
         priority: 20
       - key: system.attributes.movement.swim
         mode: 2
-        value: '-5'
+        value: "-5"
         priority: 20
       - key: system.abilities.dex.bonuses.check
         mode: 2
-        value: '-1'
+        value: "-1"
         priority: 20
       - key: system.abilities.dex.bonuses.save
         mode: 2
-        value: '-1'
+        value: "-1"
         priority: 20
-    description: ''
-    tint: '#ffffff'
+    description: ""
+    tint: "#ffffff"
     transfer: false
     statuses: []
     sort: 0
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: "12.331"
       systemId: n5eb
       systemVersion: 1,2,2
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-    _key: '!items.effects!I3pe3vU7M4D8wdpp.Iy0wgbbqY6nZmybu'
+    _key: "!items.effects!I3pe3vU7M4D8wdpp.Iy0wgbbqY6nZmybu"
   - name: Dazed
     origin: Compendium.n5eb.jutsus.Item.I3pe3vU7M4D8wdpp
     duration:
@@ -201,15 +212,15 @@ effects:
     disabled: false
     flags:
       dae:
-        disableCondition: ''
+        disableCondition: ""
         disableIncapacitated: false
         stackable: noneName
         showIcon: false
-        durationExpression: ''
+        durationExpression: ""
         macroRepeat: none
         specialDuration:
           - turnEnd
-        enableCondition: ''
+        enableCondition: ""
         selfTarget: false
         selfTargetAlways: false
         dontApply: false
@@ -218,11 +229,11 @@ effects:
       ActiveAuras:
         isAura: false
         aura: None
-        nameOverride: ''
-        radius: ''
-        alignment: ''
-        type: ''
-        customCheck: ''
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
         ignoreSelf: false
         height: false
         hidden: false
@@ -244,20 +255,20 @@ effects:
       usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed
       creature cannot take a bonus action.</p></li><li><p>The Dazed Condition lasts until the End of the affected
       creature’s next turn.</p></li></ul>
-    tint: '#ffffff'
+    tint: "#ffffff"
     transfer: false
     statuses: []
     sort: 0
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: "12.331"
       systemId: n5eb
       systemVersion: 1,2,2
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-    _key: '!items.effects!I3pe3vU7M4D8wdpp.xxSMNymnm76tz7sR'
+    _key: "!items.effects!I3pe3vU7M4D8wdpp.xxSMNymnm76tz7sR"
 flags:
   cf: null
   n5eb:
@@ -276,24 +287,24 @@ flags:
       originalSystem:
         description:
           value: "<p>You begin to collect and manifest water release chakra until it laces the striking portion of your weapon. The water release chakra begins to transform into streams of water, capable of being seen and felt as you perform a zigzag or curved attack, attacking in an irregular motion. When casting this jutsu, you can choose to make a Zigzag or Curved attack.</p><p>• Zigzag: Make one ranged taijutsu attack against a creature in your\_ weapons range. Each creature within of your choice, between you and your target must make a Dexterity saving throw. On a hit or failed save, you deal your weapons damage + 4d6 cold damage and<br />affected creatures gain 1 rank of chilled or half as much damage on a successful save. A creature whom you target that is either Dazed or chilled grants you a 1d4 bonus to hit. A creature whom you force to make a saving throw that is either Dazed or chilled suffers a 1d4 penalty to their saving throw.</p><p>• Curved: You fire off a curved shot, capable of bypassing defenses. Make one ranged taijutsu attack. This attack ignores boosts to AC as a result of features, traits or jutsu. On a hit, you deal twice your weapons damage die</p><p>+ 3d8 cold damage, and being dazed on a failed save or half as much on a successful one.</p><p>At Higher Ranks: For each rank you cast this jutsu above C-Rank increase the cost of this jutsu by 3 and the damage by 1d6 or 1d8.\_</p>"
-          chat: ''
+          chat: ""
         source:
-          custom: ''
+          custom: ""
           book: Naruto 5e
         activation:
           type: action
           cost: 1
           condition: Any Ranged
         duration:
-          value: ''
+          value: ""
           units: inst
         cover: null
         crewed: false
         target:
-          value: ''
+          value: ""
           width: null
-          units: ''
-          type: ''
+          units: ""
+          type: ""
           prompt: true
         range:
           value: null
@@ -301,27 +312,27 @@ flags:
           units: spec
         uses:
           value: null
-          max: ''
+          max: ""
           per: null
-          recovery: ''
+          recovery: ""
           prompt: true
         consume:
-          type: ''
-          target: ''
+          type: ""
+          target: ""
           amount: 8
           scale: false
         ability: taijutsu
         actionType: rtak
-        chatFlavor: ''
+        chatFlavor: ""
         critical:
           threshold: null
-          damage: ''
+          damage: ""
         damage:
           parts:
             - - 4d6
               - cold
           versatile: 3d8
-        formula: ''
+        formula: ""
         save:
           ability: dex
           dc: null
@@ -340,7 +351,7 @@ flags:
           mode: level
           formula: 1d6
         attack:
-          bonus: ''
+          bonus: ""
           flat: false
         enchantment: null
         summons: null
@@ -385,13 +396,13 @@ flags:
   midi-qol:
     rollAttackPerTarget: default
     removeAttackDamageButtons: default
-    itemCondition: ''
-    otherCondition: ''
-    effectCondition: ''
+    itemCondition: ""
+    otherCondition: ""
+    effectCondition: ""
     fumbleThreshold: null
 _stats:
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: "12.331"
   systemId: n5eb
   systemVersion: 3.0.0
   createdTime: 1728755893853
@@ -406,4 +417,4 @@ sort: 5400000
 ownership:
   default: 0
 _id: I3pe3vU7M4D8wdpp
-_key: '!items!I3pe3vU7M4D8wdpp'
+_key: "!items!I3pe3vU7M4D8wdpp"

@@ -6,13 +6,15 @@ img: systems/n5eb/assets/content/jutsu-icons/water.webp
 system:
   description:
     value: >-
-      <p>You create a rushing current of water that flows on the ground at blistering speeds. Each creature in a
-      5-foot-wide, 30-foot-long line must make a Strength saving throw or take 2d12 cold damage and be knocked prone on
-      a failed save, or half as much damage and no additional effects on a successful
-      one.</p><p><em><strong>Saturation.</strong></em> If used near a sufficient source of water, reduce the chakra cost
-      of this jutsu by 2 or increase the width of the line by 5 feet.</p><p><strong>At Higher Ranks:</strong> For each
-      rank you cast this jutsu above <br />D-Rank, increase the cost of this jutsu by 3 and increase the damage by
-      1d12.</p>
+      <p>You create a rushing current of water that flows on the ground at
+      blistering speeds. Each creature in a 5-foot-wide, 30-foot-long line must
+      make a Strength saving throw or take 2d12 cold damage and be knocked prone
+      on a failed save, or half as much damage and no additional effects on a
+      successful one.</p><p><em><strong>Saturation.</strong></em> If used near a
+      sufficient source of water, reduce the chakra cost of this jutsu by 2 or
+      increase the width of the line by 5 feet.</p><p><strong>At Higher
+      Ranks:</strong> For each rank you cast this jutsu above <br />D-Rank,
+      increase the cost of this jutsu by 3 and increase the damage by 1d12.</p>
     chat: ''
   source:
     custom: ''
@@ -110,7 +112,85 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Prone
+    origin: Compendium.n5eb.t7-jutsus.Item.cnSSoaWm9wqDfaNM
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: prone
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: ZTTi69LRssx3SzEf
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - prone
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!cnSSoaWm9wqDfaNM.ZTTi69LRssx3SzEf'
 sort: 0
 ownership:
   default: 0
@@ -150,13 +230,17 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You create a rushing current of water that flows on the ground at blistering speeds. Each creature in a
-            5-foot-wide, 30-foot-long line must make a Strength saving throw or take 2d12 cold damage and be knocked
-            prone on a failed save, or half as much damage and no additional effects on a successful
-            one.</p><p><em><strong>Saturation.</strong></em> If used near a sufficient source of water, reduce the
-            chakra cost of this jutsu by 2 or increase the width of the line by 5 feet.</p><p><strong>At Higher
-            Ranks:</strong> For each rank you cast this jutsu above <br />D-Rank, increase the cost of this jutsu by 3
-            and increase the damage by 1d12.</p>
+            <p>You create a rushing current of water that flows on the ground at
+            blistering speeds. Each creature in a 5-foot-wide, 30-foot-long line
+            must make a Strength saving throw or take 2d12 cold damage and be
+            knocked prone on a failed save, or half as much damage and no
+            additional effects on a successful
+            one.</p><p><em><strong>Saturation.</strong></em> If used near a
+            sufficient source of water, reduce the chakra cost of this jutsu by
+            2 or increase the width of the line by 5 feet.</p><p><strong>At
+            Higher Ranks:</strong> For each rank you cast this jutsu above <br
+            />D-Rank, increase the cost of this jutsu by 3 and increase the
+            damage by 1d12.</p>
           chat: ''
         source:
           custom: ''

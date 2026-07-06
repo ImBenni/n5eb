@@ -7,6 +7,7 @@ import Advancement from "./advancement.mjs";
 const N5EB_TOOLKIT_POOLS = {
   base: [
     "Compendium.n5eb.items.Item.D6VMeGBiJcYRWzMv", // Alchemist Kit
+    "Compendium.n5eb.items.Item.Wx6LQQs1MqrIm671", // Standard Antidote Kit
     "Compendium.n5eb.items.Item.L5F0pAOcpGOxzC3O", // Armorsmith Kit
     "Compendium.n5eb.items.Item.P3lH99iyu5c1JItf", // Cooking Kit
     "Compendium.n5eb.items.Item.XBTl7rEwdz1si3Pu", // Demolitions Kit

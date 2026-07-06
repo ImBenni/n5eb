@@ -30,7 +30,7 @@ export default class SpellListJournalPageData extends foundry.abstract.TypeDataM
       description: new SchemaField({
         value: new HTMLField({ textSearch: true, label: "DND5E.Description" })
       }),
-      spells: new SetField(new StringField(), { label: "DND5E.ItemTypeSpellPl" }),
+      spells: new SetField(new StringField(), { label: "TYPES.Item.spellPl" }),
       unlinkedSpells: new ArrayField(new SchemaField({
         _id: new DocumentIdField({ initial: () => foundry.utils.randomID() }),
         identifier: new IdentifierField({ label: "DND5E.Identifier" }),

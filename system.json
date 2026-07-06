@@ -407,14 +407,16 @@
     },
     {
       "name": "rules",
-      "label": "Rules",
+      "label": "Rules Compatibility (Internal)",
       "system": "n5eb",
       "path": "packs/rules",
       "type": "JournalEntry",
-      "private": false,
+      "private": true,
       "flags": {
         "n5eb": {
-          "sourceBook": "Naruto 5e"
+          "display": "compatibility",
+          "sourceBook": "Naruto 5e",
+          "internal": true
         }
       }
     },
@@ -581,6 +583,20 @@
       "flags": {
         "n5eb": {
           "sourceBook": "Naruto 5e"
+        }
+      }
+    },
+    {
+      "name": "handbooks",
+      "label": "Naruto 5e Library",
+      "system": "n5eb",
+      "path": "packs/handbooks",
+      "type": "JournalEntry",
+      "private": false,
+      "flags": {
+        "n5eb": {
+          "sourceBook": "Naruto 5e",
+          "sorting": "a"
         }
       }
     },
@@ -1052,8 +1068,8 @@
           "sorting": "a",
           "color": "#698a2c",
           "packs": [
-            "rules",
             "cheat-sheets",
+            "handbooks",
             "conditions",
             "downtime-activities"
           ]
@@ -1185,13 +1201,14 @@
   "primaryTokenAttribute": "attributes.hp",
   "background": "systems/n5eb/ui/official/n5eb-background.webp",
   "flags": {
+    "daeCompatible": true,
     "compendiumArtMappings": {
       "n5eb": {
         "mapping": "systems/n5eb/json/fa-token-mapping.json",
         "credit": "<em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em>"
       }
     },
-    "needsMigrationVersion": "5.3.24",
+    "needsMigrationVersion": "5.3.29",
     "compatibleMigrationVersion": "0.8",
     "hotReload": {
       "extensions": [

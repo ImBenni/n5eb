@@ -43,6 +43,9 @@ const SUMMON_TYPES = new Set([
   "spirit", "other"
 ]);
 const ABILITIES = new Set(["str", "dex", "con", "int", "wis", "cha"]);
+const CLASS_TEMPLATE_FIELDS = [
+  "levels", "toughness", "hitDice", "hitDiceUsed", "chakraDice", "chakraDiceUsed", "startingEquipment"
+];
 
 const argv = yargs(hideBin(process.argv))
   .option("dry-run", {
@@ -70,7 +73,10 @@ const audit = {
   summonJutsuAudited: 0,
   embeddedSummonItemsNormalized: 0,
   legacyClassTemplates: 0,
-  legacyClassTemplatesMarked: 0,
+  summonTribeDefinitionsConverted: 0,
+  summonTribeDefinitionsAlreadyTyped: 0,
+  summonInuzukaBreedDefinitionsConverted: 0,
+  summonInuzukaBreedDefinitionsAlreadyTyped: 0,
   changedFiles: [],
   warnings: []
 };
@@ -186,24 +192,43 @@ function normalizeItemDocument(document, relativePath, pack) {
 
   if ( document.type === "class" && summonSourced ) {
     audit.legacyClassTemplates++;
-    document.flags ??= {};
-    document.flags.n5eb ??= {};
-    document.flags.n5eb.summonBuilder ??= {};
-    if ( document.flags.n5eb.summonBuilder.legacyTemplate !== true ) {
-      document.flags.n5eb.summonBuilder.legacyTemplate = true;
-      audit.legacyClassTemplatesMarked++;
+    if ( isInuzukaBreedDefinitionPath(sourcePath) ) {
+      convertClassTemplateToInuzukaBreedDefinition(document, sourcePath);
+      audit.summonInuzukaBreedDefinitionsConverted++;
+    } else {
+      convertClassTemplateToSummonDefinition(document, sourcePath);
+      audit.summonTribeDefinitionsConverted++;
     }
     return;
   }
 
   if ( document.type === "feat" && summonSourced ) {
+    if ( isInuzukaBreedDefinitionPath(sourcePath) ) {
+      if ( isInuzukaBreedDefinition(document) ) audit.summonInuzukaBreedDefinitionsAlreadyTyped++;
+      else {
+        convertClassTemplateToInuzukaBreedDefinition(document, sourcePath);
+        audit.summonInuzukaBreedDefinitionsConverted++;
+      }
+      return;
+    }
+
     document.system ??= {};
     document.system.type ??= {};
     const wasSummon = document.system.type.value === "summon";
     document.system.type.value = "summon";
-    document.system.type.subtype = normalizeSubtype(document.system.type.subtype, sourcePath);
-    const rank = normalizeRank(document.system.type.nestedsubtype ?? inferRank(sourcePath));
-    document.system.type.nestedsubtype = rank || "";
+    const subtype = normalizeSubtype(document.system.type.subtype, sourcePath);
+    document.system.type.subtype = subtype;
+    if ( ["tribeDefinition", "typeDefinition", "inuzukaBreedDefinition"].includes(subtype) ) {
+      document.system.type.nestedsubtype = "";
+      cleanClassTemplateFields(document);
+      if ( document.flags?.n5eb?.summonDefinition?.kind === "tribe" ) audit.summonTribeDefinitionsAlreadyTyped++;
+      if ( document.flags?.n5eb?.summonDefinition?.kind === "inuzukaBreed" ) {
+        audit.summonInuzukaBreedDefinitionsAlreadyTyped++;
+      }
+    } else {
+      const rank = normalizeRank(document.system.type.nestedsubtype ?? inferRank(sourcePath));
+      document.system.type.nestedsubtype = rank || "";
+    }
     if ( wasSummon ) audit.summonFeaturesAlreadyTyped++;
     else audit.summonFeaturesNormalized++;
     return;
@@ -211,6 +236,126 @@ function normalizeItemDocument(document, relativePath, pack) {
 
   if ( document.type === "weapon" && summonSourced ) audit.summonWeaponsAudited++;
   if ( document.type === "spell" && summonSourced ) audit.summonJutsuAudited++;
+}
+
+function convertClassTemplateToSummonDefinition(document, sourcePath) {
+  const parsed = parseSummonTemplate(document.system?.description?.value ?? "");
+  parsed.jutsuAbility ||= getClassJutsuAbility(document);
+  const key = getTemplateDefinitionKey(document, sourcePath);
+  const summonType = normalizeSummonType(
+    document.flags?.n5eb?.summonDefinition?.summonType ?? parsed.summonType
+  );
+  const toughness = Math.max(
+    0,
+    Number(document.flags?.n5eb?.summonDefinition?.toughness ?? document.system?.toughness ?? parsed.toughness) || 0
+  );
+  const defenseAbility = normalizeAbility(
+    document.flags?.n5eb?.summonDefinition?.defenseAbility ?? parsed.defenseAbility
+  );
+  const jutsuAbility = normalizeAbility(
+    document.flags?.n5eb?.summonDefinition?.jutsuAbility ?? parsed.jutsuAbility
+  );
+
+  document.type = "feat";
+  document.system ??= {};
+  document.system.type = {
+    value: "summon",
+    subtype: "tribeDefinition",
+    nestedsubtype: ""
+  };
+  document.system.identifier ??= key;
+  document.flags ??= {};
+  document.flags.n5eb ??= {};
+  document.flags.n5eb.summonDefinition = {
+    kind: "tribe",
+    key,
+    label: document.flags.n5eb.summonDefinition?.label ?? document.name,
+    summonType,
+    toughness,
+    defenseAbility,
+    jutsuAbility
+  };
+  document.flags.n5eb.summonBuilder ??= {};
+  document.flags.n5eb.summonBuilder.migratedFromClassTemplate = true;
+
+  cleanClassTemplateFields(document);
+}
+
+function convertClassTemplateToInuzukaBreedDefinition(document, sourcePath) {
+  const parsed = parseSummonTemplate(document.system?.description?.value ?? "");
+  parsed.jutsuAbility ||= getClassJutsuAbility(document);
+  const variant = inferInuzukaVariant(sourcePath) || inferInuzukaVariant(document.name) || slug(document.name);
+  const summonType = normalizeSummonType(
+    document.flags?.n5eb?.summonDefinition?.summonType ?? parsed.summonType
+  );
+  const toughness = Math.max(
+    0,
+    Number(document.flags?.n5eb?.summonDefinition?.toughness ?? document.system?.toughness ?? parsed.toughness) || 0
+  );
+  const defenseAbility = normalizeAbility(
+    document.flags?.n5eb?.summonDefinition?.defenseAbility ?? parsed.defenseAbility
+  );
+  const jutsuAbility = normalizeAbility(
+    document.flags?.n5eb?.summonDefinition?.jutsuAbility ?? parsed.jutsuAbility
+  );
+
+  document.type = "feat";
+  document.system ??= {};
+  document.system.type = {
+    value: "summon",
+    subtype: "inuzukaBreedDefinition",
+    nestedsubtype: ""
+  };
+  document.flags ??= {};
+  document.flags.n5eb ??= {};
+  document.flags.n5eb.summonDefinition = {
+    kind: "inuzukaBreed",
+    key: variant,
+    label: document.flags.n5eb.summonDefinition?.label ?? document.name,
+    baseTribe: "dogWolf",
+    category: "inuzuka",
+    variant,
+    summonType,
+    toughness,
+    defenseAbility,
+    jutsuAbility
+  };
+  document.flags.n5eb.summonBuilder ??= {};
+  document.flags.n5eb.summonBuilder.migratedFromClassTemplate = true;
+
+  cleanClassTemplateFields(document);
+}
+
+function isInuzukaBreedDefinition(document) {
+  return (document.system?.type?.subtype === "inuzukaBreedDefinition")
+    && (document.flags?.n5eb?.summonDefinition?.kind === "inuzukaBreed");
+}
+
+function isInuzukaBreedDefinitionPath(sourcePath) {
+  sourcePath = slug(sourcePath);
+  return /dog-wolf-inuzuka-summons-young-(inuit|kugsha|tamaskan)/.test(sourcePath);
+}
+
+function inferInuzukaVariant(value) {
+  value = slug(value);
+  if ( value.includes("inuit") ) return "inuit";
+  if ( value.includes("kugsha") ) return "kugsha";
+  if ( value.includes("tamaskan") || value.includes("yamaskan") ) return "tamaskan";
+  return "";
+}
+
+function cleanClassTemplateFields(document) {
+  for ( const field of CLASS_TEMPLATE_FIELDS ) delete document.system?.[field];
+}
+
+function getTemplateDefinitionKey(document, sourcePath) {
+  const flagged = normalizeTribe(document.flags?.n5eb?.summonDefinition?.key);
+  if ( flagged ) return flagged;
+  const identifier = normalizeTribe(document.system?.identifier);
+  if ( identifier ) return identifier;
+  const inferred = normalizeTribe(inferTribe(sourcePath) || inferTribe(document.name));
+  if ( inferred ) return inferred;
+  return slug(document.name);
 }
 
 function normalizeEmbeddedSummonItems(document, actorSourcePath) {
@@ -249,11 +394,14 @@ function printSummary() {
   console.log(`Summon jutsu audited: ${audit.summonJutsuAudited}`);
   console.log(`Embedded summon items normalized: ${audit.embeddedSummonItemsNormalized}`);
   console.log(`Legacy summon class templates: ${audit.legacyClassTemplates}`);
-  console.log(`Legacy class templates marked: ${audit.legacyClassTemplatesMarked}`);
+  console.log(`Summon tribe definitions converted: ${audit.summonTribeDefinitionsConverted}`);
+  console.log(`Summon tribe definitions already typed: ${audit.summonTribeDefinitionsAlreadyTyped}`);
+  console.log(`Inuzuka breed definitions converted: ${audit.summonInuzukaBreedDefinitionsConverted}`);
+  console.log(`Inuzuka breed definitions already typed: ${audit.summonInuzukaBreedDefinitionsAlreadyTyped}`);
   console.log(`Changed files: ${audit.changedFiles.length}`);
   if ( argv.audit ) console.log(`Audit report: ${path.resolve(argv.audit)}`);
   if ( audit.legacyClassTemplates ) {
-    console.log("Legacy class templates are kept as authoring references; no NPC stat blocks were synthesized from them.");
+    console.log("Legacy class templates are converted to advancement-bearing summon feature definitions.");
   }
 }
 
@@ -342,7 +490,7 @@ function normalizeTribe(tribe) {
   if ( ["corvid", "insect", "lizard", "rat", "shark", "snake", "spider", "toad", "turtle", "weasel"].includes(tribe) ) {
     return tribe;
   }
-  return tribe ? "custom" : "";
+  return tribe;
 }
 
 function inferTribe(value) {
@@ -366,7 +514,7 @@ function normalizeSummonType(type) {
   type = slug(type);
   if ( type === "rodents" ) return "rodent";
   if ( type === "dragon" ) return "dragon";
-  return SUMMON_TYPES.has(type) ? type : "";
+  return SUMMON_TYPES.has(type) ? type : type;
 }
 
 function normalizeAbility(ability) {
@@ -376,11 +524,17 @@ function normalizeAbility(ability) {
 
 function normalizeSubtype(subtype, sourcePath) {
   const original = `${subtype ?? ""}`;
-  if ( ["role", "tribe", "rank", "naturalWeapon", "senses", "variant", "jutsu", "special"].includes(original) ) {
+  if ( [
+    "role", "tribe", "tribeDefinition", "typeDefinition", "inuzukaBreedDefinition", "rank", "naturalWeapon",
+    "senses", "variant", "jutsu", "special"
+  ].includes(original) ) {
     return original;
   }
   subtype = slug(original);
   if ( subtype === "naturalweapon" ) return "naturalWeapon";
+  if ( subtype === "tribedefinition" ) return "tribeDefinition";
+  if ( subtype === "typedefinition" ) return "typeDefinition";
+  if ( subtype === "inuzukabreeddefinition" ) return "inuzukaBreedDefinition";
   if ( ["role", "tribe", "rank", "senses", "variant", "jutsu", "special"].includes(subtype) ) return subtype;
   if ( sourcePath.includes("role-features") ) return "role";
   if ( sourcePath.includes("natural-weapons") || sourcePath.includes("tribe-weapons") ) return "naturalWeapon";

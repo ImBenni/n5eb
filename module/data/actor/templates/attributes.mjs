@@ -3,7 +3,10 @@ import Proficiency from "../../../documents/actor/proficiency.mjs";
 import {
   getClassmodArtsCastingKey, getClassmodArtsColor, getClassmodArtsLabel, isClassmodArtsCastingKey
 } from "../../../classmod-arts.mjs";
-import { convertLength, defaultUnits, replaceFormulaData, simplifyBonus } from "../../../utils.mjs";
+import * as Seals from "../../../seals.mjs";
+import {
+  convertLength, defaultUnits, formatIdentifier, getJutsuProgressionFromDescription, replaceFormulaData, simplifyBonus
+} from "../../../utils.mjs";
 import AdvantageModeField from "../../fields/advantage-mode-field.mjs";
 import FormulaField from "../../fields/formula-field.mjs";
 import MovementField from "../../shared/movement-field.mjs";
@@ -12,6 +15,11 @@ import SensesField from "../../shared/senses-field.mjs";
 
 const { NumberField, SchemaField, StringField } = foundry.data.fields;
 const JUTSU_KNOWN_SCALE_ID = "jutsu-known";
+const JUTSU_KNOWN_SCALE_ALIASES = new Set([
+  JUTSU_KNOWN_SCALE_ID,
+  "jutsus-known",
+  "spells-known"
+]);
 const JUTSU_MAX_RANK_SCALE_ID = "jutsu-max-rank";
 const JUTSU_MAX_RANK_SCALE_ALIASES = new Set([
   JUTSU_MAX_RANK_SCALE_ID,
@@ -181,6 +189,9 @@ export default class AttributesFields {
     ac.armor = 10;
     ac.shield = ac.cover = 0;
     ac.min = ac.bonus = "";
+    delete ac.n5eb;
+    delete ac.equippedArmor;
+    delete ac.equippedShield;
   }
 
   /* -------------------------------------------- */
@@ -222,7 +233,7 @@ export default class AttributesFields {
     }, { armors: [], shields: [] });
 
     // Set stealth disadvantage
-    if ( armors[0]?.system.properties.has("stealthDisadvantage") ) {
+    if ( Seals.hasArmorProperty(armors[0], "bulky") ) {
       AdvantageModeField.setMode(this, "skills.ste.roll.mode", -1);
     }
 
@@ -247,28 +258,57 @@ export default class AttributesFields {
           if ( armors.length > 1 ) this.parent._preparationWarnings.push({
             message: game.i18n.localize("DND5E.WarnMultipleArmor"), type: "warning"
           });
-          const armorData = armors[0].system.armor;
-          const isHeavy = armors[0].system.type.value === "heavy";
-          ac.armor = armorData.value ?? ac.armor;
-          ac.dex = isHeavy ? 0 : Math.min(armorData.dex ?? Infinity, this.abilities.dex?.mod ?? 0);
-          ac.equippedArmor = armors[0];
+          const armor = armors[0];
+          ac.equippedArmor = armor;
+          if ( Seals.isArmorItem(armor) ) {
+            const proficient = Seals.isArmorProficient(this.parent, armor);
+            const armorBonus = proficient ? Seals.getArmorBonus(armor) : 0;
+            const dex = proficient ? Seals.getArmorDexBonus(armor, this.abilities.dex?.mod ?? 0) : 0;
+            const prof = proficient ? Math.floor((this.attributes.prof ?? 0) / 2) : 0;
+            ac.n5eb = {
+              armorBonus,
+              dex,
+              prof,
+              proficient,
+              dr: proficient ? Seals.getArmorDamageReduction(armor) : 0,
+              slots: Seals.getSealSlots(armor)
+            };
+            ac.armor = 10 + armorBonus + prof;
+            ac.dex = dex;
+            ac.base = 10 + armorBonus + dex + prof;
+            if ( !proficient ) this.parent._preparationWarnings.push({
+              message: game.i18n.format("N5EB.ARMOR.Warning.NonProficient", {
+                actor: this.parent.name,
+                armor: armor.name
+              }),
+              type: "warning"
+            });
+            break;
+          } else {
+            const armorData = armor.system.armor;
+            const isHeavy = armor.system.type.value === "heavy";
+            ac.armor = armorData.value ?? ac.armor;
+            ac.dex = isHeavy ? 0 : Math.min(armorData.dex ?? Infinity, this.abilities.dex?.mod ?? 0);
+          }
         }
         else ac.dex = this.abilities.dex?.mod ?? 0;
 
         if ( !ac.equippedArmor ) ac.label = null;
 
-        rollData.attributes.ac = ac;
-        try {
-          const replaced = replaceFormulaData(formula, rollData, {
-            actor: this, missing: null, property: game.i18n.localize("DND5E.ArmorClass")
-          });
-          ac.base = replaced ? new Roll(replaced).evaluateSync().total : 0;
-        } catch(err) {
-          this.parent._preparationWarnings.push({
-            message: game.i18n.format("DND5E.WarnBadACFormula", { formula }), link: "armor", type: "error"
-          });
-          const replaced = Roll.replaceFormulaData(CONFIG.DND5E.armorClasses.default.formula, rollData);
-          ac.base = new Roll(replaced).evaluateSync().total;
+        if ( !ac.n5eb ) {
+          rollData.attributes.ac = ac;
+          try {
+            const replaced = replaceFormulaData(formula, rollData, {
+              actor: this, missing: null, property: game.i18n.localize("DND5E.ArmorClass")
+            });
+            ac.base = replaced ? new Roll(replaced).evaluateSync().total : 0;
+          } catch(err) {
+            this.parent._preparationWarnings.push({
+              message: game.i18n.format("DND5E.WarnBadACFormula", { formula }), link: "armor", type: "error"
+            });
+            const replaced = Roll.replaceFormulaData(CONFIG.DND5E.armorClasses.default.formula, rollData);
+            ac.base = new Roll(replaced).evaluateSync().total;
+          }
         }
         break;
     }
@@ -743,9 +783,11 @@ function getJutsuProgressionClass(system) {
 function getJutsuProgression(cls) {
   if ( !cls ) return { known: null, maxRank: "" };
 
-  const knownScale = cls.scaleValues?.[JUTSU_KNOWN_SCALE_ID]?.value;
+  const knownScale = getJutsuKnownScaleValue(cls);
   const legacyKnown = cls.system.jutsu?.known;
   let known = Number.isFinite(knownScale) ? knownScale : null;
+  const table = getJutsuProgressionFromDescription(cls);
+  if ( !Number.isFinite(known) && Number.isFinite(table.known) ) known = table.known;
   if ( !Number.isFinite(known) && legacyKnown ) {
     known = simplifyBonus(legacyKnown, cls.getRollData({ deterministic: true }));
   }
@@ -754,6 +796,33 @@ function getJutsuProgression(cls) {
     known,
     maxRank: getJutsuMaxRank(cls)
   };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Retrieve a reserved or legacy jutsu-known scale value from a class.
+ * @param {Item5e} cls  Class item.
+ * @returns {number|null}
+ */
+function getJutsuKnownScaleValue(cls) {
+  const scaleValues = cls.scaleValues ?? {};
+  for ( const identifier of JUTSU_KNOWN_SCALE_ALIASES ) {
+    const value = Number(scaleValues[identifier]?.value);
+    if ( Number.isFinite(value) ) return value;
+  }
+
+  const level = cls.system.levels ?? 0;
+  for ( const advancement of cls.advancement?.byType?.ScaleValue ?? [] ) {
+    const identifier = advancement.identifier;
+    if ( !JUTSU_KNOWN_SCALE_ALIASES.has(identifier) && (formatIdentifier(advancement.title ?? "") !== JUTSU_KNOWN_SCALE_ID) ) {
+      continue;
+    }
+    const value = Number(advancement.valueForLevel(level)?.value);
+    if ( Number.isFinite(value) ) return value;
+  }
+
+  return null;
 }
 
 /* -------------------------------------------- */
@@ -782,6 +851,9 @@ function getJutsuMaxRank(cls) {
     const rank = normalizeJutsuRank(advancement.valueForLevel(level)?.value);
     if ( rank ) return rank;
   }
+
+  const tableRank = normalizeJutsuRank(getJutsuProgressionFromDescription(cls).maxRank);
+  if ( tableRank ) return tableRank;
 
   return normalizeJutsuRank(cls.system.jutsu?.maxRank);
 }

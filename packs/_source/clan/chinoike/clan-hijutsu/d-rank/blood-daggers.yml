@@ -4,12 +4,20 @@ img: systems/n5eb/assets/content/clans/chinoike.webp
 system:
   description:
     value: >-
-      <p>You manipulate the water and iron in the atmosphere to make two iron-rich aqua daggers that swirl around you in
-      the air. As a bonus action, you can send out one dagger at a creature within 60 feet. Make a ranged ninjutsu
-      attack, dealing 3d6 + your Ninjutsu ability modifier in piercing damage on hit. Once all daggers have been thrown,
-      this jutsu ends</p><p>If your Ketsuryūgan is active while this jutsu is active, increase the damage die of each
-      dagger by 1 step.</p><p>At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the cost of this
-      jutsu by 3, and the number of daggers created by +1.</p>
+      <p>You manipulate the water and iron in the atmosphere to make two iron
+      -rich aqua daggers that swirl around you in the air. As a bonus action,
+      you can send out one dagger at a creature within 60 feet. Make a ranged
+      ninjutsu attack, dealing 3d4 + your Ninjutsu ability modifier in piercing
+      damage on hit. Once all daggers have been thrown, this jutsu ends. If your
+      Ketsuryūgan is active while this jutsu is active, on a successful hit the
+      affected creature makes a Constitution saving throw gaining a rank of
+      bleed on a failure. At Higher Ranks: For each rank you cast this jutsu
+      above D-Rank, increase the cost of this jutsu by 3. If this jutsu is cat
+      at C-Rank or higher, increase the number of daggers this jutsu generates
+      by +1. If this jutsu is cast at B-Rank or higher, increase its damage die
+      to a d6. If this jutsu is cast at A-Rank or higher, increase the number of
+      daggers this jutsu generates by +1. If this jutsu is cast at S-Rank
+      increase its damage die to a d8.</p>
     chat: ''
   source:
     custom: ''
@@ -108,7 +116,111 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Bleeding
+    origin: Compendium.n5eb.clan.Item.daSZxHuPXKlQ9Vja
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: bleeding
+          rank: 1
+          maxRank: 5
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    _id: fJQji26ItzT1VaSw
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d4, damageType=necrotic,
+          label=Bleeding,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=Lil paper cut fr,
+          rollType=skill,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bleeding
+        priority: 0
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has
+      suffered a minor abrasion to their flesh, causing slow blood loss if
+      untreated.</p><ul><li><p>At the start of their turn, a bleeding creature
+      takes 1d4 necrotic damage for each rank of Bleed they
+      have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop
+      the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>A
+      creature who would gain a sixth (or more) ranks of the Bleeding condition
+      immediately gains 5 ranks of the Lacerated condition, ending the Bleeding
+      condition.</p><ul><li><p>The first time per rest a Bleeding creature would
+      gain the Lacerated this way, they must succeed a DC 11 flat check,
+      immediately taking the damage of their Lacerated ranks as they suffer a
+      great wound.</p></li></ul></li><li><p>Outside of combat, every 10-minutes
+      a creature suffers the effects of this condition as if a turn has passed
+      in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - bleeding
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!daSZxHuPXKlQ9Vja.fJQji26ItzT1VaSw'
 folder: 1WtqKIcOXPF8JW7o
 flags:
   n5eb:
@@ -124,12 +236,16 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You manipulate the water and iron in the atmosphere to make two iron-rich aqua daggers that swirl around
-            you in the air. As a bonus action, you can send out one dagger at a creature within 60 feet. Make a ranged
-            ninjutsu attack, dealing 3d6 + your Ninjutsu ability modifier in piercing damage on hit. Once all daggers
-            have been thrown, this jutsu ends</p><p>If your Ketsuryūgan is active while this jutsu is active, increase
-            the damage die of each dagger by 1 step.</p><p>At Higher Ranks: For each rank you cast this jutsu above
-            D-Rank, increase the cost of this jutsu by 3, and the number of daggers created by +1.</p>
+            <p>You manipulate the water and iron in the atmosphere to make two
+            iron-rich aqua daggers that swirl around you in the air. As a bonus
+            action, you can send out one dagger at a creature within 60 feet.
+            Make a ranged ninjutsu attack, dealing 3d6 + your Ninjutsu ability
+            modifier in piercing damage on hit. Once all daggers have been
+            thrown, this jutsu ends</p><p>If your Ketsuryūgan is active while
+            this jutsu is active, increase the damage die of each dagger by 1
+            step.</p><p>At Higher Ranks: For each rank you cast this jutsu above
+            D-Rank, increase the cost of this jutsu by 3, and the number of
+            daggers created by +1.</p>
           chat: ''
         source:
           custom: ''

@@ -37,6 +37,34 @@ import { preLocalize } from "./utils.mjs";
 
 // Namespace Configuration Values
 const DND5E = {};
+DND5E.CONFIG_BASE_ITEM_ID_PREFIX = "config:n5eb.";
+
+/**
+ * Create a virtual identifier for config entries that do not have a backing compendium item.
+ * @param {string} path  Path within CONFIG.DND5E.
+ * @param {string} key   Config key.
+ * @returns {string}
+ */
+function configBaseItemId(path, key) {
+  return `${DND5E.CONFIG_BASE_ITEM_ID_PREFIX}${path}.${key}`;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Assign virtual identifiers to config-backed base items that do not have compendium entries.
+ * @param {object} entries         Config object to update.
+ * @param {string} path            Path within CONFIG.DND5E.
+ * @param {object} [options={}]
+ * @param {string|null} [options.idKey=null]  Property containing the base item id, if entries are objects.
+ */
+function assignConfigBaseItemIds(entries, path, { idKey=null }={}) {
+  for ( const [key, entry] of Object.entries(entries) ) {
+    if ( idKey ) {
+      if ( entry && !entry[idKey] ) entry[idKey] = configBaseItemId(path, key);
+    } else if ( !entry ) entries[key] = configBaseItemId(path, key);
+  }
+}
 
 // ASCII Artwork
 DND5E.ASCII = `_______________________________
@@ -473,50 +501,81 @@ DND5E.weaponTypeMap = {
 /* -------------------------------------------- */
 
 /**
- * The basic weapon types in 5e. This enables specific weapon proficiencies or
+ * The base weapon types in N5eB. This enables specific weapon proficiencies or
  * starting equipment provided by classes and backgrounds.
  * @enum {string}
  */
 DND5E.weaponIds = {
-  battleaxe: "",
-  blowgun: "",
-  club: "",
-  dagger: "",
-  dart: "",
-  flail: "",
-  glaive: "",
-  greataxe: "",
-  greatclub: "",
-  greatsword: "",
-  halberd: "",
-  handaxe: "",
-  handcrossbow: "",
-  heavycrossbow: "",
-  javelin: "",
-  lance: "",
-  lightcrossbow: "",
-  lighthammer: "",
-  longbow: "",
-  longsword: "",
-  mace: "",
-  maul: "",
-  morningstar: "",
-  musket: "",
-  pike: "",
-  pistol: "",
-  quarterstaff: "",
-  rapier: "",
-  scimitar: "",
-  shortsword: "",
-  sickle: "",
-  spear: "",
-  shortbow: "",
-  sling: "",
-  trident: "",
-  warpick: "",
-  warhammer: "",
-  whip: ""
+  battlewire: "Compendium.n5eb.items.Item.uKuifTHmF5GNrmI3",
+  blowgun: "Compendium.n5eb.items.Item.ZdkI4f6cAvCaSDc1",
+  bola: "Compendium.n5eb.items.Item.IL8LZUVODw2I7Sgq",
+  boomerang: "Compendium.n5eb.items.Item.gD4c2yTrcU4CxwWG",
+  broadsword: "Compendium.n5eb.items.Item.xe110rLxmQETPJyq",
+  chainedspear: "Compendium.n5eb.items.Item.PTHvIz6IH9HpbHg7",
+  chainhand: "Compendium.n5eb.items.Item.UGGW1wNtVXUSj9vL",
+  chakram: "Compendium.n5eb.items.Item.L1AT9ekTDUJQHB9T",
+  chigiriki: "Compendium.n5eb.items.Item.UMoGHGfFGPMh3jUz",
+  chokuto: "Compendium.n5eb.items.Item.n5ebChokuto00100",
+  cleaver: "Compendium.n5eb.items.Item.btloYHSfvg9jCaEe",
+  combatbracer: "Compendium.n5eb.items.Item.7JdFwOiRWfq35OWT",
+  fumashuriken: "Compendium.n5eb.items.Item.TXvRdUiQQuxwTgyF",
+  giantscroll: "Compendium.n5eb.items.Item.ra6VVESirCvn7xGl",
+  greataxe: "Compendium.n5eb.items.Item.5xpZcxYjWmAjXo1j",
+  gunbaifan: "Compendium.n5eb.items.Item.5iQx0lqDjKWtjRhr",
+  gunsen: "Compendium.n5eb.items.Item.54PHccgUwAWzUJHv",
+  handaxe: "Compendium.n5eb.items.Item.GUsi2ly8gxYK0TH2",
+  handcrossbow: "Compendium.n5eb.items.Item.7efcoLqgvay98RUV",
+  heavycrossbow: "Compendium.n5eb.items.Item.OU67WU4IBvI5Uszm",
+  hiddenblade: "Compendium.n5eb.items.Item.FkRjY9kbiJqcOmtB",
+  hiya: "Compendium.n5eb.items.Item.QJkHz9j35wxbvGhE",
+  hookedlance: "Compendium.n5eb.items.Item.bEtYwzE76RhPISms",
+  ironclaw: "Compendium.n5eb.items.Item.00uRBzVYYgEZFy4Q",
+  jitte: "Compendium.n5eb.items.Item.M5abrR0syMtZh0Xx",
+  kama: "Compendium.n5eb.items.Item.leaxVAjbtN86I6qA",
+  kanabo: "Compendium.n5eb.items.Item.S9HzmdE5Eu6KzXl6",
+  katana: "Compendium.n5eb.items.Item.h9iLNkcRhCnDZGAO",
+  knuckleblades: "Compendium.n5eb.items.Item.VSbOUoRmdTYpBPaS",
+  knuckleduster: "Compendium.n5eb.items.Item.Tby5PMQIKpb9rYGx",
+  kunai: "Compendium.n5eb.items.Item.RbcM59vdQ9ZgYBKV",
+  kunaigun: "Compendium.n5eb.items.Item.Q7j5Bnx8XQa7RDZI",
+  lightcrossbow: "Compendium.n5eb.items.Item.FWGcoc7BjZs8AFRQ",
+  longbow: "Compendium.n5eb.items.Item.ZTgwdJyugEGiMJqu",
+  monsterboomerang: "Compendium.n5eb.items.Item.NZfmgtjsiYP0Ejus",
+  monsterchakram: "Compendium.n5eb.items.Item.nMbckfVmQyomfZY3",
+  monstershuriken: "Compendium.n5eb.items.Item.sxBvPLkkop5jkScv",
+  naginata: "Compendium.n5eb.items.Item.5Ay4NnbFHXHmFTi0",
+  nunchaku: "Compendium.n5eb.items.Item.XbuMO8dh6j7n9CT5",
+  odachi: "Compendium.n5eb.items.Item.SMFAFXkdTIvipYqB",
+  otsuchihammer: "Compendium.n5eb.items.Item.d61QwZheWTJqXh1F",
+  pistol: "Compendium.n5eb.items.Item.bj5OpPm7YdurzWqx",
+  quarterstaff: "Compendium.n5eb.items.Item.XAVJqdQWLqV8jffm",
+  rifle: "Compendium.n5eb.items.Item.DI1aOlTQH9Oe48Rs",
+  sai: "Compendium.n5eb.items.Item.ALF1a6YXSriswAHo",
+  sansetsukon: "Compendium.n5eb.items.Item.3JvvGzwRucPCEg86",
+  sasumata: "Compendium.n5eb.items.Item.pc6Z8vmwn4TKyXya",
+  scroll: "Compendium.n5eb.items.Item.n5ebCombatScrl00",
+  scythe: "Compendium.n5eb.items.Item.AEHqJwlyfAPCGPgX",
+  senbon: "Compendium.n5eb.items.Item.AqeyHEGdWCFAqWP0",
+  shortbow: "Compendium.n5eb.items.Item.1vdllonFUUQnkUvJ",
+  shruikenrifle: "Compendium.n5eb.items.Item.syin8xkdHP4Cxvvh",
+  shuriken: "Compendium.n5eb.items.Item.YReiEBmBtKhLaoxF",
+  sling: "Compendium.n5eb.items.Item.yNkLtAbQTIZY7ZCC",
+  spear: "Compendium.n5eb.items.Item.Qrxp2ypJNrdBfnxF",
+  tachi: "Compendium.n5eb.items.Item.X18WwwezwaUIohDU",
+  tanto: "Compendium.n5eb.items.Item.HbrlOL6HWNiuNaiU",
+  tetsubo: "Compendium.n5eb.items.Item.mlxyNFZW5tPGsb0R",
+  tinberochin: "Compendium.n5eb.items.Item.RN4s5LRwSNYAmr47",
+  tonfa: "Compendium.n5eb.items.Item.AxFRDY4CRyUOEoLo",
+  torinawa: "Compendium.n5eb.items.Item.mkxokPPH3HOzg4on",
+  triplekatar: "Compendium.n5eb.items.Item.FtxlhFazXQGNLidt",
+  triplescythe: "Compendium.n5eb.items.Item.Jj7qRiYj9ilcGAOe",
+  urumi: "Compendium.n5eb.items.Item.eXpKP3i35aLcpdW9",
+  warclub: "Compendium.n5eb.items.Item.lN8v13BroQh5YgI5",
+  weightchain: "Compendium.n5eb.items.Item.MVeoq1E1DCwCZTwc",
+  whip: "Compendium.n5eb.items.Item.W5ZfgVCgxsGpLzR4",
+  yari: "Compendium.n5eb.items.Item.oPHKYOMseg819DAB"
 };
+assignConfigBaseItemIds(DND5E.weaponIds, "weaponIds");
 
 /* -------------------------------------------- */
 
@@ -530,6 +589,19 @@ DND5E.ammoIds = {
   crossbowBolt: "",
   firearmBullet: "",
   slingBullet: ""
+};
+
+/**
+ * N5E ammunition die steps used instead of tracking each individual piece of ammunition.
+ * @enum {string}
+ */
+DND5E.ammoDieTypes = {
+  1: "1",
+  d4: "d4",
+  d6: "d6",
+  d8: "d8",
+  d10: "d10",
+  d12: "d12"
 };
 
 /* -------------------------------------------- */
@@ -910,6 +982,7 @@ DND5E.tools = {
     id: ""
   }
 };
+assignConfigBaseItemIds(DND5E.tools, "tools", { idKey: "id" });
 
 /**
  * N5eB tool proficiencies exposed to actor configuration and advancement choices.
@@ -1691,6 +1764,7 @@ DND5E.armorIds = {
   splint: "",
   studded: ""
 };
+assignConfigBaseItemIds(DND5E.armorIds, "armorIds");
 
 /* -------------------------------------------- */
 
@@ -1701,6 +1775,7 @@ DND5E.armorIds = {
 DND5E.shieldIds = {
   shield: ""
 };
+assignConfigBaseItemIds(DND5E.shieldIds, "shieldIds");
 
 /* -------------------------------------------- */
 
@@ -1825,6 +1900,12 @@ DND5E.consumableTypes = {
   food: {
     label: "DND5E.CONSUMABLE.Type.Food.Label"
   },
+  aseal: {
+    label: "N5EB.SEAL.Type.Armor"
+  },
+  wseal: {
+    label: "N5EB.SEAL.Type.Weapon"
+  },
   scroll: {
     label: "DND5E.CONSUMABLE.Type.Scroll.Label"
   },
@@ -1948,6 +2029,14 @@ DND5E.featureTypes = {
   clanfeat: {
     label: "DND5E.Feature.ClanFeat"
   },
+  classfeat: {
+    label: "N5EB.Feature.ClassFeat.Label",
+    subtypes: {
+      archetype: "N5EB.Feature.ClassFeat.Archetype",
+      caster: "N5EB.Feature.ClassFeat.Caster",
+      martial: "N5EB.Feature.ClassFeat.Martial"
+    }
+  },
   latentAbility: {
     label: "DND5E.Feature.LatentAbility"
   },
@@ -2005,6 +2094,7 @@ DND5E.featureTypes = {
     subtypes: {
       general: "DND5E.Feature.Feat.General",
       origin: "DND5E.Feature.Feat.Origin",
+      stance: "N5EB.Feature.Feat.Stance",
       fightingStyle: "DND5E.Feature.Feat.FightingStyle",
       epicBoon: "DND5E.Feature.Feat.EpicBoon"
     }
@@ -2023,6 +2113,7 @@ DND5E.featureTypes = {
 };
 preLocalize("featureTypes", { key: "label" });
 preLocalize("featureTypes.class.subtypes", { sort: true });
+preLocalize("featureTypes.classfeat.subtypes", { sort: true });
 preLocalize("featureTypes.adversaryTrait.subtypes", { key: "label", sort: true });
 preLocalize("featureTypes.adversaryTrait.subtypes.general.nestedsubtypes", { keys: ["label", "abbreviation"] });
 preLocalize("featureTypes.adversaryTrait.subtypes.role.nestedsubtypes", { keys: ["label", "abbreviation"] });
@@ -2123,6 +2214,36 @@ DND5E.itemProperties = {
   stealthDisadvantage: {
     label: "DND5E.ITEM.Property.StealthDisadvantage"
   },
+  bulky: {
+    label: "N5EB.ARMOR.Property.Bulky"
+  },
+  bulwark: {
+    label: "N5EB.ARMOR.Property.Bulwark"
+  },
+  camouflage: {
+    label: "N5EB.ARMOR.Property.Camouflage"
+  },
+  fashionable: {
+    label: "N5EB.ARMOR.Property.Fashionable"
+  },
+  fortified: {
+    label: "N5EB.ARMOR.Property.Fortified"
+  },
+  heavyweight: {
+    label: "N5EB.ARMOR.Property.Heavyweight"
+  },
+  highQuality: {
+    label: "N5EB.ARMOR.Property.HighQuality"
+  },
+  lightweight: {
+    label: "N5EB.ARMOR.Property.Lightweight"
+  },
+  reinforced: {
+    label: "N5EB.ARMOR.Property.Reinforced"
+  },
+  threatening: {
+    label: "N5EB.ARMOR.Property.Threatening"
+  },
   thr: {
     label: "DND5E.ITEM.Property.Thrown"
   },
@@ -2165,9 +2286,18 @@ DND5E.validProperties = {
   ]),
   equipment: new Set([
     "ada",
+    "bulky",
+    "bulwark",
+    "camouflage",
+    "fashionable",
     "foc",
+    "fortified",
+    "heavyweight",
+    "highQuality",
+    "lightweight",
     "mgc",
-    "stealthDisadvantage"
+    "reinforced",
+    "threatening"
   ]),
   feat: new Set([
     "mgc",
@@ -2207,6 +2337,48 @@ DND5E.validProperties = {
     "mgc"
   ])
 };
+
+/* -------------------------------------------- */
+
+/**
+ * N5eB enhancement seal rank rules.
+ * @enum {{label: string, slots: number, level: number, craftingDC: number, downtime: number}}
+ */
+DND5E.sealRanks = {
+  d: { label: "N5EB.SEAL.Rank.D", slots: 1, level: 1, craftingDC: 14, downtime: 2 },
+  c: { label: "N5EB.SEAL.Rank.C", slots: 2, level: 5, craftingDC: 18, downtime: 4 },
+  b: { label: "N5EB.SEAL.Rank.B", slots: 3, level: 9, craftingDC: 22, downtime: 8 },
+  a: { label: "N5EB.SEAL.Rank.A", slots: 4, level: 13, craftingDC: 26, downtime: 12 },
+  s: { label: "N5EB.SEAL.Rank.S", slots: 5, level: 17, craftingDC: 30, downtime: 20 }
+};
+preLocalize("sealRanks", { key: "label" });
+
+/* -------------------------------------------- */
+
+/**
+ * N5eB item quality seal slot totals.
+ * @enum {{label: string, slots: number}}
+ */
+DND5E.sealQualities = {
+  standard: { label: "N5EB.SEAL.Quality.Standard", slots: 3 },
+  greater: { label: "N5EB.SEAL.Quality.Greater", slots: 5 },
+  superior: { label: "N5EB.SEAL.Quality.Superior", slots: 7 },
+  supreme: { label: "N5EB.SEAL.Quality.Supreme", slots: 9 }
+};
+preLocalize("sealQualities", { key: "label" });
+
+/* -------------------------------------------- */
+
+/**
+ * N5eB enhancement seal target types.
+ * @enum {string}
+ */
+DND5E.sealTargets = {
+  weapon: "TYPES.Item.weapon",
+  armor: "DND5E.Armor",
+  equipment: "TYPES.Item.equipment"
+};
+preLocalize("sealTargets");
 
 /* -------------------------------------------- */
 
@@ -3456,6 +3628,56 @@ DND5E.jutsuSpellLevelByRank = Object.fromEntries(
 );
 
 /* -------------------------------------------- */
+/*  Clans                                       */
+/* -------------------------------------------- */
+
+/**
+ * In-world lands used for clan origin filtering.
+ * @enum {{ label: string }}
+ */
+DND5E.clanOriginLands = {
+  fire: { label: "N5EB.Clan.Origin.Lands.Fire" },
+  wind: { label: "N5EB.Clan.Origin.Lands.Wind" },
+  water: { label: "N5EB.Clan.Origin.Lands.Water" },
+  lightning: { label: "N5EB.Clan.Origin.Lands.Lightning" },
+  earth: { label: "N5EB.Clan.Origin.Lands.Earth" },
+  rain: { label: "N5EB.Clan.Origin.Lands.Rain" },
+  grass: { label: "N5EB.Clan.Origin.Lands.Grass" },
+  sound: { label: "N5EB.Clan.Origin.Lands.Sound" },
+  minor: { label: "N5EB.Clan.Origin.Lands.Minor" },
+  iron: { label: "N5EB.Clan.Origin.Lands.Iron" },
+  snow: { label: "N5EB.Clan.Origin.Lands.Snow" },
+  "hot-water": { label: "N5EB.Clan.Origin.Lands.HotWater" },
+  bears: { label: "N5EB.Clan.Origin.Lands.Bears" },
+  whirlpool: { label: "N5EB.Clan.Origin.Lands.Whirlpool" },
+  moon: { label: "N5EB.Clan.Origin.Lands.Moon" },
+  frost: { label: "N5EB.Clan.Origin.Lands.Frost" },
+  jungles: { label: "N5EB.Clan.Origin.Lands.Jungles" },
+  wolves: { label: "N5EB.Clan.Origin.Lands.Wolves" },
+  cackles: { label: "N5EB.Clan.Origin.Lands.Cackles" },
+  carrots: { label: "N5EB.Clan.Origin.Lands.Carrots" },
+  rice: { label: "N5EB.Clan.Origin.Lands.Rice" }
+};
+preLocalize("clanOriginLands", { key: "label" });
+
+/**
+ * In-world villages used for clan origin filtering.
+ * @enum {{ label: string }}
+ */
+DND5E.clanOriginVillages = {
+  "hidden-leaf": { label: "N5EB.Clan.Origin.Villages.HiddenLeaf" },
+  "hidden-sand": { label: "N5EB.Clan.Origin.Villages.HiddenSand" },
+  "hidden-mist": { label: "N5EB.Clan.Origin.Villages.HiddenMist" },
+  "hidden-cloud": { label: "N5EB.Clan.Origin.Villages.HiddenCloud" },
+  "hidden-stone": { label: "N5EB.Clan.Origin.Villages.HiddenStone" },
+  "hidden-rain": { label: "N5EB.Clan.Origin.Villages.HiddenRain" },
+  "hidden-star": { label: "N5EB.Clan.Origin.Villages.HiddenStar" },
+  "hidden-sound": { label: "N5EB.Clan.Origin.Villages.HiddenSound" },
+  "hidden-moon": { label: "N5EB.Clan.Origin.Villages.HiddenMoon" }
+};
+preLocalize("clanOriginVillages", { key: "label" });
+
+/* -------------------------------------------- */
 /*  Adversaries                                 */
 /* -------------------------------------------- */
 
@@ -3688,6 +3910,15 @@ DND5E.featureTypes.summon = {
       label: "N5EB.Feature.Summon.Tribe",
       nestedsubtypes: DND5E.summonRanks
     },
+    tribeDefinition: {
+      label: "N5EB.Feature.Summon.TribeDefinition"
+    },
+    typeDefinition: {
+      label: "N5EB.Feature.Summon.TypeDefinition"
+    },
+    inuzukaBreedDefinition: {
+      label: "N5EB.Feature.Summon.InuzukaBreedDefinition"
+    },
     rank: {
       label: "N5EB.Feature.Summon.Rank",
       nestedsubtypes: DND5E.summonRanks
@@ -3789,9 +4020,20 @@ DND5E.jutsuKeywords = {
   sensory: { label: "N5EB.JUTSU.Keyword.Sensory" },
   construct: { label: "N5EB.JUTSU.Keyword.Construct" },
   chain: { label: "N5EB.JUTSU.Keyword.Chain" },
+  chain1: { label: "N5EB.JUTSU.Keyword.Chain1" },
+  chain2: { label: "N5EB.JUTSU.Keyword.Chain2" },
+  chain3: { label: "N5EB.JUTSU.Keyword.Chain3" },
+  chainx: { label: "N5EB.JUTSU.Keyword.ChainX" },
   clash: { label: "N5EB.JUTSU.Keyword.Clash" },
   combination: { label: "N5EB.JUTSU.Keyword.Combination" },
   clone: { label: "N5EB.JUTSU.Keyword.Clone" },
+  "main-branch": { label: "N5EB.JUTSU.Keyword.MainBranch", limited: true },
+  "side-branch": { label: "N5EB.JUTSU.Keyword.SideBranch", limited: true },
+  "any-nature": { label: "N5EB.JUTSU.Keyword.AnyNature", limited: true },
+  "artistic-style": { label: "N5EB.JUTSU.Keyword.ArtisticStyle", limited: true },
+  "laser-style": { label: "N5EB.JUTSU.Keyword.LaserStyle", limited: true },
+  "reckless-style": { label: "N5EB.JUTSU.Keyword.RecklessStyle", limited: true },
+  "storm-style": { label: "N5EB.JUTSU.Keyword.StormStyle", limited: true },
   hijutsu: { label: "N5EB.JUTSU.Keyword.Hijutsu", limited: true },
   kinjutsu: { label: "N5EB.JUTSU.Keyword.Kinjutsu", limited: true },
   medical: { label: "N5EB.JUTSU.Keyword.Medical", limited: true },
@@ -3802,6 +4044,40 @@ DND5E.jutsuKeywords = {
   lightning: { label: "N5EB.JUTSU.Keyword.LightningRelease", limited: true }
 };
 preLocalize("jutsuKeywords", { key: "label" });
+
+/* -------------------------------------------- */
+
+/**
+ * Release Affinities available to characters and NPCs.
+ * @enum {{ label: string, icon: string }}
+ */
+DND5E.affinities = {
+  fire: {
+    label: "N5EB.JUTSU.Keyword.FireRelease",
+    icon: "systems/n5eb/assets/content/jutsu-icons/fire.webp"
+  },
+  water: {
+    label: "N5EB.JUTSU.Keyword.WaterRelease",
+    icon: "systems/n5eb/assets/content/jutsu-icons/water.webp"
+  },
+  wind: {
+    label: "N5EB.JUTSU.Keyword.WindRelease",
+    icon: "systems/n5eb/assets/content/jutsu-icons/wind.webp"
+  },
+  earth: {
+    label: "N5EB.JUTSU.Keyword.EarthRelease",
+    icon: "systems/n5eb/assets/content/jutsu-icons/earth.webp"
+  },
+  lightning: {
+    label: "N5EB.JUTSU.Keyword.LightningRelease",
+    icon: "systems/n5eb/assets/content/jutsu-icons/lightning.webp"
+  },
+  medical: {
+    label: "N5EB.JUTSU.Keyword.Medical",
+    icon: "systems/n5eb/assets/content/jutsu-icons/medical.webp"
+  }
+};
+preLocalize("affinities", { key: "label" });
 
 /* -------------------------------------------- */
 /*  Spellcasting                                */
@@ -4920,6 +5196,14 @@ DND5E.traits = {
       all: "DND5E.Language.All"
     },
     icon: "icons/skills/social/diplomacy-peace-alliance.webp"
+  },
+  affinity: {
+    labels: {
+      title: "N5EB.Affinity.Label",
+      localization: "N5EB.Affinity.Plural"
+    },
+    icon: "systems/n5eb/icons/svg/chakra.svg",
+    configKey: "affinities"
   },
   armor: {
     labels: {

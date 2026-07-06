@@ -49,9 +49,15 @@
     {{/if}}
 </fieldset>
 
+{{> "dnd5e.details-seals" }}
+
 {{#if (eq source.type.value "ammo")}}
 <fieldset>
     <legend>{{ localize "DND5E.CONSUMABLE.FIELDS.damage.label" }}</legend>
+
+    {{!-- Ammunition Die --}}
+    {{ formField fields.ammunitionDie value=source.ammunitionDie choices=CONFIG.ammoDieTypes label="N5EB.AmmoDie"
+                 localize=true rootId=partId }}
 
     {{!-- Replace Damage --}}
     {{ formField fields.damage.fields.replace value=source.damage.replace input=inputs.createCheckboxInput

@@ -26,7 +26,7 @@
  * @property {number} attributes.death.failure            Number of failed death saves.
  * @property {object} attributes.death.bonuses
  * @property {string} attributes.death.bonuses.save       Numeric or dice bonus to death saving throws.
- * @property {number} attributes.inspiration              Does this character have inspiration?
+ * @property {number} attributes.inspiration              Number of Will of Fire points.
  * @property {object} bastion
  * @property {string} bastion.name                        The name of the character's bastion.
  * @property {string} bastion.description                 Additional description and details for the character's

@@ -6,18 +6,25 @@ img: systems/n5eb/assets/content/clans/sankaku.webp
 system:
   description:
     value: >-
-      <p>You perform a potential three piece combo to lock an opponent down. Make two melee taijutsu attacks, dealing
-      your unarmed damage + 1d4. On each hit, the creature must succeed a Constitution saving throw or become Dazed. If
-      both attacks were successful, you can follow up with a 3rd melee taijutsu attack, dealing your unarmed damage and
-      knocking the creature prone on a hit. This third attack scores a critical hit on a 19-20. These attacks do not add
-      your ability modifier.</p><p><strong>Danger Amplification:</strong> By using <strong>Danger Points</strong>, you
-      can improve this jutsu's effect. When you impose a Constitution saving throw with this jutsu, you can spend 2
-      Danger Points to cause the creature to become Weakened until the end of your next turn on a failure. You must
-      declare you are spending Danger Points for this purpose before you attack.</p><p><strong>At Higher Ranks:</strong>
-      For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and both instances of damage
-      by 1d4. If cast to B-Rank or higher, increase the damage die by 1 step, and you can now add half your ability
-      modifier to each attack. If cast to S-Rank or higher, increase the damage die by 1 step, and you now add your full
-      ability modifier to each attack.</p><pre><code></code></pre>
+      <p>You perform a potential three piece combo to lock an opponent down.
+      Make two melee taijutsu attacks, dealing your unarmed damage + 1d4. On
+      each hit, the creature must succeed a Constitution saving throw or become
+      Dazed. If both attacks were successful, you can follow up with a 3rd melee
+      taijutsu attack, dealing your unarmed damage and knocking the creature
+      prone on a hit. This third attack scores a critical hit on a 19-20. These
+      attacks do not add your ability modifier.</p><p><strong>Danger
+      Amplification:</strong> By using <strong>Danger Points</strong>, you can
+      improve this jutsu's effect. When you impose a Constitution saving throw
+      with this jutsu, you can spend 2 Danger Points to cause the creature to
+      become Weakened until the end of your next turn on a failure. You must
+      declare you are spending Danger Points for this purpose before you
+      attack.</p><p><strong>At Higher Ranks:</strong> For each rank you cast
+      this jutsu above D-Rank, increase the cost of this jutsu by 3 and both
+      instances of damage by 1d4. If cast to B-Rank or higher, increase the
+      damage die by 1 step, and you can now add half your ability modifier to
+      each attack. If cast to S-Rank or higher, increase the damage die by 1
+      step, and you now add your full ability modifier to each
+      attack.</p><pre><code></code></pre>
     chat: ''
   source:
     custom: ''
@@ -115,7 +122,173 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Dazed
+    origin: Compendium.n5eb.t7-clan.Item.kSEFAGQrUtMjMgV4
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: 1
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration:
+          - turnEnd
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: dazed
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    _id: 8mNu11K8pJO9nvfc
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: dazed
+        priority: 20
+    description: >-
+      <p>A <strong>Dazed</strong> creature is recovering from a powerful blow
+      and cannot take as many actions as usual.</p><ul><li><p>A Dazed creature
+      can only either move or take an action, not both.</p></li><li><p>A Dazed
+      creature cannot take a bonus action.</p></li><li><p>The Dazed Condition
+      lasts until the End of the affected creature’s next turn.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - dazed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!kSEFAGQrUtMjMgV4.8mNu11K8pJO9nvfc'
+  - name: Weakened
+    origin: Compendium.n5eb.t7-clan.Item.kSEFAGQrUtMjMgV4
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: weakened
+          rank: 1
+          maxRank: 5
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    _id: VEe1SWuhjwciOVkj
+    type: base
+    system: {}
+    changes:
+      - key: system.bonuses.All-Damage
+        mode: 2
+        value: '-4 * @stackCount'
+        priority: 20
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Weakened creature is unable
+      to exert their maximum physicality and effort as they have had the wind
+      blown out of them.</p><ul><li><p>A <strong>Weakened</strong> creature
+      reduces damage it deals with attacks and Jutsu by -4 for each rank it
+      has.</p></li><li><p>A <strong>Weakened</strong> creature has a -1 penalty
+      to Strength saving throws.</p></li><li><p>The <strong>Weakened</strong>
+      condition last for the duration of its duration or 1 minute has passed,
+      whichever comes first.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - weakened
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!kSEFAGQrUtMjMgV4.VEe1SWuhjwciOVkj'
 sort: 400000
 ownership:
   default: 0
@@ -153,19 +326,26 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You perform a potential three piece combo to lock an opponent down. Make two melee taijutsu attacks,
-            dealing your unarmed damage + 1d4. On each hit, the creature must succeed a Constitution saving throw or
-            become Dazed. If both attacks were successful, you can follow up with a 3rd melee taijutsu attack, dealing
-            your unarmed damage and knocking the creature prone on a hit. This third attack scores a critical hit on a
-            19-20. These attacks do not add your ability modifier.</p><p><strong>Danger Amplification:</strong> By using
-            <strong>Danger Points</strong>, you can improve this jutsu's effect. When you impose a Constitution saving
-            throw with this jutsu, you can spend 2 Danger Points to cause the creature to become Weakened until the end
-            of your next turn on a failure. You must declare you are spending Danger Points for this purpose before you
-            attack.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the
-            cost of this jutsu by 3 and both instances of damage by 1d4. If cast to B-Rank or higher, increase the
-            damage die by 1 step, and you can now add half your ability modifier to each attack. If cast to S-Rank or
-            higher, increase the damage die by 1 step, and you now add your full ability modifier to each
-            attack.</p><pre><code></code></pre>
+            <p>You perform a potential three piece combo to lock an opponent
+            down. Make two melee taijutsu attacks, dealing your unarmed damage +
+            1d4. On each hit, the creature must succeed a Constitution saving
+            throw or become Dazed. If both attacks were successful, you can
+            follow up with a 3rd melee taijutsu attack, dealing your unarmed
+            damage and knocking the creature prone on a hit. This third attack
+            scores a critical hit on a 19-20. These attacks do not add your
+            ability modifier.</p><p><strong>Danger Amplification:</strong> By
+            using <strong>Danger Points</strong>, you can improve this jutsu's
+            effect. When you impose a Constitution saving throw with this jutsu,
+            you can spend 2 Danger Points to cause the creature to become
+            Weakened until the end of your next turn on a failure. You must
+            declare you are spending Danger Points for this purpose before you
+            attack.</p><p><strong>At Higher Ranks:</strong> For each rank you
+            cast this jutsu above D-Rank, increase the cost of this jutsu by 3
+            and both instances of damage by 1d4. If cast to B-Rank or higher,
+            increase the damage die by 1 step, and you can now add half your
+            ability modifier to each attack. If cast to S-Rank or higher,
+            increase the damage die by 1 step, and you now add your full ability
+            modifier to each attack.</p><pre><code></code></pre>
           chat: ''
         source:
           custom: ''

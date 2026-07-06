@@ -15,6 +15,85 @@ import * as LEGACY from "./config-legacy.mjs";
 const { StringField } = foundry.data.fields;
 
 /**
+ * Settings that common dnd5e automation modules still read from the original system namespace.
+ * These are registered under dnd5e as hidden aliases and routed back to N5eB at runtime.
+ * @type {Set<string>}
+ */
+const DND5E_COMPATIBILITY_SETTING_ALIASES = new Set([
+  "attackRollVisibility",
+  "challengeVisibility",
+  "criticalDamageMaxDice",
+  "criticalDamageModifiers",
+  "disableConcentration",
+  "honorScore",
+  "metricLengthUnits",
+  "sanityScore"
+]);
+
+/**
+ * Symbol used to mark a patched settings manager.
+ * @type {symbol}
+ */
+const DND5E_SETTING_ALIAS_PATCH = Symbol.for("n5eb.dnd5eSettingAliases");
+
+/**
+ * Patch game.settings access so reads and writes to known dnd5e aliases use N5eB values.
+ */
+function patchDnd5eCompatibilitySettingAccess() {
+  if ( game.settings[DND5E_SETTING_ALIAS_PATCH] ) return;
+  const manager = game.settings;
+  const original = {
+    get: manager.get.bind(manager),
+    set: manager.set.bind(manager)
+  };
+
+  manager.get = function(namespace, key, ...args) {
+    if ( (namespace === "dnd5e") && DND5E_COMPATIBILITY_SETTING_ALIASES.has(key)
+      && manager.settings.has(`n5eb.${key}`) ) {
+      return original.get("n5eb", key, ...args);
+    }
+    return original.get(namespace, key, ...args);
+  };
+
+  manager.set = function(namespace, key, value, ...args) {
+    if ( (namespace === "dnd5e") && DND5E_COMPATIBILITY_SETTING_ALIASES.has(key)
+      && manager.settings.has(`n5eb.${key}`) ) {
+      return original.set("n5eb", key, value, ...args);
+    }
+    return original.set(namespace, key, value, ...args);
+  };
+
+  Object.defineProperty(manager, DND5E_SETTING_ALIAS_PATCH, { value: original });
+}
+
+/**
+ * Register hidden dnd5e namespace settings used by automation modules so their setting lookups pass.
+ */
+function registerDnd5eCompatibilitySettingAliases() {
+  for ( const key of DND5E_COMPATIBILITY_SETTING_ALIASES ) {
+    if ( game.settings.settings.has(`dnd5e.${key}`) ) continue;
+    const setting = game.settings.settings.get(`n5eb.${key}`);
+    if ( !setting ) continue;
+
+    const config = {};
+    for ( const prop of ["name", "hint", "scope", "type", "default", "choices", "range", "requiresReload"] ) {
+      if ( setting[prop] !== undefined ) config[prop] = setting[prop];
+    }
+    config.config = false;
+    try {
+      config.default = game.settings.get("n5eb", key);
+    } catch(err) {
+      console.warn(`N5eB | Unable to initialize dnd5e setting alias for ${key}`, err);
+    }
+    game.settings.register("dnd5e", key, config);
+  }
+
+  patchDnd5eCompatibilitySettingAccess();
+}
+
+/* -------------------------------------------- */
+
+/**
  * Rerender all currently open actor sheets.
  */
 function rerenderOpenActorSheets() {
@@ -67,6 +146,30 @@ export function registerSystemSettings() {
     config: false,
     type: String,
     default: ""
+  });
+
+  game.settings.register("n5eb", "legacyDeletionKeyCleanupVersion", {
+    name: "Legacy Deletion Key Cleanup Version",
+    scope: "world",
+    config: false,
+    type: String,
+    default: ""
+  });
+
+  game.settings.register("n5eb", "legacyMigrationConfirmed", {
+    name: "Legacy Migration Confirmed",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register("n5eb", "legacyMigrationReport", {
+    name: "Legacy Migration Report",
+    scope: "world",
+    config: false,
+    type: Object,
+    default: {}
   });
 
   // Polymorph Settings
@@ -660,6 +763,7 @@ export function registerSystemSettings() {
     config: true
   });
 
+  registerDnd5eCompatibilitySettingAliases();
   cacheSettings();
 }
 

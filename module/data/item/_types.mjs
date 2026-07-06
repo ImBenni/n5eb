@@ -25,6 +25,7 @@
 
 /**
  * @typedef ConsumableItemSystemData
+ * @property {string} ammunitionDie                 N5E ammunition die for ammo consumables.
  * @property {object} damage
  * @property {DamageData} damage.base               Damage caused by this ammunition.
  * @property {string} damage.replace                Should ammunition damage replace the base weapon's damage?
@@ -123,6 +124,7 @@
 
 /**
  * @typedef RaceItemSystemData
+ * @property {{ land: string, village: string }} origin
  * @property {Omit<MovementData, "special">} movement
  * @property {SensesData} senses
  * @property {Omit<CreatureTypeData, "swarm">} type
@@ -170,6 +172,7 @@
  * @typedef WeaponItemSystemData
  * @property {object} ammunition
  * @property {string} ammunition.type              Type of ammunition fired by this weapon.
+ * @property {string} ammunitionDie                N5E ammunition die for ammunition weapons.
  * @property {object} armor
  * @property {number} armor.value                  Siege or vehicle weapon's armor class.
  * @property {object} damage

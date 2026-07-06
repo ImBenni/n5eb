@@ -38,6 +38,14 @@ export default class InventoryElement extends (foundry.applications.elements.Ado
       label: "DND5E.Charges",
       template: "systems/n5eb/templates/inventory/columns/uses.hbs"
     },
+    ammoDie: {
+      id: "ammoDie",
+      width: 70,
+      order: 550,
+      priority: 650,
+      label: "N5EB.AmmoDieColumn",
+      template: "systems/n5eb/templates/inventory/columns/ammunition-die.hbs"
+    },
     controls: {
       id: "controls",
       width: 70,

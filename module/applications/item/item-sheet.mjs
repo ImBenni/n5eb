@@ -1,5 +1,6 @@
 import UsesField from "../../data/shared/uses-field.mjs";
 import * as Trait from "../../documents/actor/trait.mjs";
+import * as Seals from "../../seals.mjs";
 import { filteredKeys } from "../../utils.mjs";
 import AdvancementManager from "../advancement/advancement-manager.mjs";
 import AdvancementMigrationDialog from "../advancement/advancement-migration-dialog.mjs";
@@ -13,6 +14,84 @@ import SourceConfig from "../shared/source-config.mjs";
 import StartingEquipmentConfig from "./config/starting-equipment-config.mjs";
 
 const TextEditor = foundry.applications.ux.TextEditor.implementation;
+const FEATURE_RANK_SUBTYPE_ALIASES = {
+  affiliationpassive: "affiliation",
+  affiliationtrait: "affiliation",
+  clanpassive: "clan",
+  clantrait: "clan",
+  classmod: "classMod",
+  classmodtrait: "classMod",
+  "class-mod": "classMod",
+  "class-mod-trait": "classMod",
+  generaltrait: "general",
+  rolepassive: "role",
+  roletrait: "role"
+};
+
+/**
+ * Prepare N5eB summon definition and content tag fields for feature item sheets.
+ * @param {Item5e} item  Item being rendered.
+ * @returns {object}
+ */
+function prepareN5eSummonItemContext(item) {
+  const definition = foundry.utils.getProperty(item, "flags.n5eb.summonDefinition") ?? {};
+  const content = foundry.utils.getProperty(item, "flags.n5eb.summonContent") ?? {};
+  const subtype = item.system.type?.subtype ?? "";
+  let definitionKind = definition.kind;
+  if ( !definitionKind && (subtype === "tribeDefinition") ) definitionKind = "tribe";
+  if ( !definitionKind && (subtype === "typeDefinition") ) definitionKind = "type";
+  if ( !definitionKind && (subtype === "inuzukaBreedDefinition") ) definitionKind = "inuzukaBreed";
+  return {
+    isSummonFeature: (item.type === "feat") && (item.system.type?.value === "summon"),
+    isDefinition: ["tribe", "type", "inuzukaBreed"].includes(definitionKind),
+    isTribeDefinition: ["tribe", "inuzukaBreed"].includes(definitionKind),
+    isInuzukaBreedDefinition: definitionKind === "inuzukaBreed",
+    definition: {
+      kind: definitionKind,
+      key: definition.key ?? "",
+      label: definition.label ?? item.name,
+      baseTribe: definition.baseTribe ?? "",
+      category: definition.category ?? "",
+      variant: definition.variant ?? "",
+      summonType: definition.summonType ?? "",
+      toughness: definition.toughness ?? "",
+      defenseAbility: definition.defenseAbility ?? "",
+      jutsuAbility: definition.jutsuAbility ?? ""
+    },
+    content: {
+      tribes: formatFlagList(content.tribes),
+      types: formatFlagList(content.types),
+      roles: formatFlagList(content.roles),
+      ranks: formatFlagList(content.ranks)
+    }
+  };
+}
+
+/**
+ * Format a persisted flag list for a comma-separated text field.
+ * @param {string|string[]|Set<string>} value  Stored flag value.
+ * @returns {string}
+ */
+function formatFlagList(value) {
+  if ( value instanceof Set ) return Array.from(value).join(", ");
+  if ( Array.isArray(value) ) return value.join(", ");
+  return `${value ?? ""}`;
+}
+
+/**
+ * Resolve nested Feature rank choices for the selected Feature type/subtype.
+ * @param {object} source  Item system source data.
+ * @returns {object|null}
+ */
+function getFeatureRankOptions(source) {
+  const type = source?.type?.value ?? "";
+  const rawSubtype = `${source?.type?.subtype ?? ""}`;
+  const subtypeKey = rawSubtype.slugify({ strict: true });
+  const subtype = FEATURE_RANK_SUBTYPE_ALIASES[subtypeKey] ?? rawSubtype;
+  const subtypeConfig = CONFIG.DND5E.featureTypes?.[type]?.subtypes?.[subtype];
+  const nestedSubtypes = subtypeConfig?.nestedsubtypes;
+  return Object.keys(nestedSubtypes ?? {}).length ? nestedSubtypes : null;
+}
 
 /**
  * Base item sheet built on ApplicationV2.
@@ -26,10 +105,12 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
       deleteDocument: ItemSheet5e.#deleteDocument,
       deleteRecovery: ItemSheet5e.#deleteRecovery,
       editDescription: ItemSheet5e.#editDescription,
+      installSeal: ItemSheet5e.#installSeal,
       modifyAdvancementChoices: ItemSheet5e.#modifyAdvancementChoices,
       showConfiguration: ItemSheet5e.#showConfiguration,
       showDocument: ItemSheet5e.#showDocument,
       showIcon: ItemSheet5e.#showIcon,
+      uninstallSeal: ItemSheet5e.#uninstallSeal,
       toggleState: ItemSheet5e.#toggleState
     },
     classes: ["item"],
@@ -191,6 +272,8 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
       user: game.user
     };
     context.source = context.editable ? this.item.system._source : this.item.system;
+    context.n5ebSummon = prepareN5eSummonItemContext(this.item);
+    context.n5ebSeals = Seals.prepareItemSheetContext(this.item);
     context.expanded = this.expandedSections.entries().reduce((obj, [k, v]) => {
       obj[k] = v;
       return obj;
@@ -200,7 +283,8 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
       active: [],
       object: Object.fromEntries((context.system.properties ?? []).map(p => [p, true])),
       options: (this.item.system.validProperties ?? []).reduce((arr, k) => {
-        const { label } = CONFIG.DND5E.itemProperties[k];
+        const { label } = CONFIG.DND5E.itemProperties[k] ?? {};
+        if ( !label ) return arr;
         arr.push({
           label,
           value: k,
@@ -339,6 +423,7 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
 
     context.baseItemOptions = await this._getBaseItemOptions(context);
     context.coverOptions = Object.entries(CONFIG.DND5E.cover).map(([value, label]) => ({ value, label }));
+    context.featureRankOptions = this.item.type === "feat" ? getFeatureRankOptions(context.source) : null;
     context.unitsOptions = Object.entries(CONFIG.DND5E.movementUnits).map(([value, { label }]) => ({ value, label }));
 
     // If using modern rules, do not show redundant artificer progression unless it is already selected.
@@ -1070,7 +1155,8 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
    */
   async _onDropItem(event, data) {
     const item = await Item.implementation.fromDropData(data);
-    if ( (item?.type === "spell") && this.item.system.activities ) this._onDropSpell(event, item);
+    if ( item?.isN5eBSeal && Seals.canReceiveSeals(this.item) ) await Seals.installSeal(item, this.item);
+    else if ( (item?.type === "spell") && this.item.system.activities ) this._onDropSpell(event, item);
     else this._onDropAdvancement(event, data);
   }
 
@@ -1134,6 +1220,32 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
    */
   static itemHasAdvancement(item) {
     return "advancement" in item.system;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle installing a seal from the item sheet picker.
+   * @this {ItemSheet5e}
+   * @param {PointerEvent} event  Triggering event.
+   */
+  static async #installSeal(event) {
+    event.preventDefault();
+    await Seals.promptInstallSeal(this.item);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle removing an installed seal from this item.
+   * @this {ItemSheet5e}
+   * @param {PointerEvent} event  Triggering event.
+   * @param {HTMLElement} target  Triggering element.
+   */
+  static async #uninstallSeal(event, target) {
+    event.preventDefault();
+    const effectId = target.closest("[data-effect-id]")?.dataset.effectId;
+    if ( effectId ) await Seals.uninstallSeal(this.item, effectId);
   }
 
   /* -------------------------------------------- */

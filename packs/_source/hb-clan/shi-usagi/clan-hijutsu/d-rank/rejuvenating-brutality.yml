@@ -104,7 +104,229 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Berserk
+    origin: Compendium.n5eb.hb-clan.Item.3kbBda7iRRbcIqhJ
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: count
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: berserk
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/berserk.svg
+    _id: t4EgwstWH5zNWKhQ
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: berserk
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Berserk creature has
+      experienced a temporary loss in sanity, causing them to act rabid to a
+      varying degree. This condition is typically the result of a Genjutsu or
+      mind-altering poison.</p><ul><li><p>A Berserk creature must use all
+      action(s) and movement to attack/harm the creature nearest to it that it
+      can perceive as if that creature was a mortal enemy. If multiple creatures
+      are potential targets, it picks one at random.</p></li><li><p>When a
+      creature moves out of a berserk creature's reach, it provokes an
+      opportunity attack.</p></li><li><p>A Berserk creature has a -1 penalty to
+      all Charisma based attacks, checks and saving throws for each rank it
+      has.</p></li><li><p>Creatures that are immune to the charmed condition are
+      also immune to the berserk condition. A Jutsu which cures the charmed
+      condition also cures this Condition.</p></li><li><p>A Berserk creature
+      loses 1 rank of Berserk at the end of each of its turns as its mind slowly
+      clears.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - berserk
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.qAXtyj0uf1xsaU9G.ActiveEffect.LK4NzyOAL92TbrYA
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,0
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!3kbBda7iRRbcIqhJ.t4EgwstWH5zNWKhQ'
+  - name: Demoralized
+    origin: Compendium.n5eb.hb-clan.Item.3kbBda7iRRbcIqhJ
+    duration:
+      rounds: 100
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: demoralized
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/frightened.svg
+    _id: 9XIGn7aOLKuDgnZ0
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: frightened
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=end,
+          saveDC=13,
+          saveAbility=cha,
+          allowIncapacitated=true,
+          label=Save to overcome Demoralized
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain
+      ranks of <strong>Fear</strong> (<strong>or Frightened</strong>), gain
+      ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong>
+      creature is disturbed by a particular target in some fashion, making them
+      seek to avoid interaction with them if possible. This heightened stress
+      causes the defenses of the Demoralized target to wane.</p><ul><li><p>A
+      <strong>Demoralized</strong> creature suffers a -1 penalty to its saving
+      throws, for each rank they have.</p></li><li><p>A
+      <strong>Demoralized</strong> creature must make concentration checks at
+      the beginning of each of their turns to maintain concentration on their
+      jutsu.</p></li><li><p>At the end of a <strong>Demoralized</strong>
+      creatures turn they make a DC 13 Charisma ability check. On a success,
+      they remove 1 rank of <strong>Demoralized</strong>. After 10 minutes, a
+      creature who still has ranks of <strong>Demoralized</strong>, loses all
+      ranks of <strong>Demoralized</strong> it has remaining</p></li><li><p>As
+      an action, a <strong>Demoralized</strong> creature can make a DC 20
+      Charisma ability check to remove all ranks of <strong>Demoralized</strong>
+      it has.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - demoralized
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!3kbBda7iRRbcIqhJ.9XIGn7aOLKuDgnZ0'
 sort: 0
 ownership:
   default: 0

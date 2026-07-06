@@ -654,6 +654,21 @@
         left: 8px;
         top: -1px;
       }
+
+      &.armor-dr {
+        width: auto;
+        grid-template-areas: none;
+        grid-auto-flow: column;
+        align-items: center;
+        gap: 2px;
+        padding-inline: 3px;
+        color: var(--color-text-light-7);
+        border: 1px solid var(--dnd5e-color-gold);
+        background: rgb(0 0 0 / 35%);
+
+        > * { grid-area: auto; }
+        > i { color: var(--dnd5e-color-gold); }
+      }
     }
 
     .calculated {

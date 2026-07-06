@@ -1,6 +1,8 @@
 /**
  * A helper class for building MeasuredTemplates for 5e spells and abilities
  */
+import { mirrorSystemFlagDataScopes } from "../documents/flag-compatibility.mjs";
+
 export default class AbilityTemplate extends foundry.canvas.placeables.MeasuredTemplate {
 
   /**
@@ -98,6 +100,7 @@ export default class AbilityTemplate extends foundry.canvas.placeables.MeasuredT
       default:
         break;
     }
+    mirrorSystemFlagDataScopes(templateData);
 
     /**
      * A hook event that fires before a template is created for an Activity.
@@ -108,6 +111,7 @@ export default class AbilityTemplate extends foundry.canvas.placeables.MeasuredT
      * @returns {boolean}            Explicitly return `false` to prevent the template from being placed.
      */
     if ( Hooks.call("dnd5e.preCreateActivityTemplate", activity, templateData) === false ) return null;
+    mirrorSystemFlagDataScopes(templateData);
 
     // Construct the templates from activity data
     const cls = CONFIG.MeasuredTemplate.documentClass;

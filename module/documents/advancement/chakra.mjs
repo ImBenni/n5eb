@@ -168,6 +168,7 @@ export default class ChakraAdvancement extends Advancement {
     if ( options.initial ) {
       if ( (level === 1) && this.item.isOriginalClass ) data[level] = "max";
       else if ( this.value[level - 1] === "avg" ) data[level] = "avg";
+      else if ( this.value[level - 1] === "max" ) data[level] = "max";
     }
 
     let value = this.constructor.valueForLevel(data, this.chakraDieValue, level);
@@ -185,6 +186,7 @@ export default class ChakraAdvancement extends Advancement {
   async automaticApplicationValue(level) {
     if ( (level === 1) && this.item.isOriginalClass ) return { [level]: "max" };
     if ( this.value[level - 1] === "avg" ) return { [level]: "avg" };
+    if ( this.value[level - 1] === "max" ) return { [level]: "max" };
     return false;
   }
 

@@ -6,11 +6,14 @@ img: systems/n5eb/assets/content/clans/akushu.webp
 system:
   description:
     value: >-
-      <p>You coat either your fists or a melee weapon within reach with fuming toxic chakra. If coating your fists, you
-      may use Intelligence for its attack and damage rolls.</p><p>Your fists or the weapon now deal an additional 1d8
-      poison damage on each hit. When you score a critical hit against a creature this way it must succeed a
-      Constitution saving throw or become envenomed.</p><p>Creatures you damage with a melee attack enhanced by this
-      jutsu that have ranks of envenomed inflicted take an additional 1d6 poison damage for each rank it possesses.</p>
+      <p>You coat either your fists or a melee weapon within reach with fuming
+      toxic chakra. If coating your fists, you may use Intelligence for its
+      attack and damage rolls.</p><p>Your fists or the weapon now deal an
+      additional 1d8 poison damage on each hit. When you score a critical hit
+      against a creature this way it must succeed a Constitution saving throw or
+      become envenomed.</p><p>Creatures you damage with a melee attack enhanced
+      by this jutsu that have ranks of envenomed inflicted take an additional
+      1d6 poison damage for each rank it possesses.</p>
     chat: ''
   source:
     custom: ''
@@ -111,7 +114,108 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Envenomed
+    origin: Compendium.n5eb.t7-clan.Item.vbO6Gd0Dzimc974q
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: envenomed
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    _id: mzilRupacwjLfAbY
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d6,
+          damageType=poison,
+          label=Poisoned/Envenomed,
+          chatFlavor=YUCK I feel SICK,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: poisoned
+        priority: 20
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong>
+      creature (sometimes called Poisoned) has been exposed to some kind of
+      venom or toxin, causing their vitality and immune health to drop
+      rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object
+      takes 1d6 poison damage for each rank it has, at the start of each of
+      their turns for the duration of this condition</p></li><li><p>An
+      <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for
+      each rank it has.</p></li><li><p>An <strong>Envenomed</strong> creature
+      cannot gain the benefits of a rest.</p></li><li><p>Creatures that are
+      immune to poison damage are immune to the envenomed
+      condition.</p></li><li><p>Outside of combat, every hour a creature suffers
+      the effects of this condition as if a turn has passed in
+      combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - envenomed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!vbO6Gd0Dzimc974q.mzilRupacwjLfAbY'
 sort: 100000
 ownership:
   default: 0
@@ -150,11 +254,14 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You coat either your fists or a melee weapon within reach with fuming toxic chakra. If coating your
-            fists, you may use Intelligence for its attack and damage rolls.</p><p>Your fists or the weapon now deal an
-            additional 1d8 poison damage on each hit. When you score a critical hit against a creature this way it must
-            succeed a Constitution saving throw or become envenomed.</p><p>Creatures you damage with a melee attack
-            enhanced by this jutsu that have ranks of envenomed inflicted take an additional 1d6 poison damage for each
+            <p>You coat either your fists or a melee weapon within reach with
+            fuming toxic chakra. If coating your fists, you may use Intelligence
+            for its attack and damage rolls.</p><p>Your fists or the weapon now
+            deal an additional 1d8 poison damage on each hit. When you score a
+            critical hit against a creature this way it must succeed a
+            Constitution saving throw or become envenomed.</p><p>Creatures you
+            damage with a melee attack enhanced by this jutsu that have ranks of
+            envenomed inflicted take an additional 1d6 poison damage for each
             rank it possesses.</p>
           chat: ''
         source:

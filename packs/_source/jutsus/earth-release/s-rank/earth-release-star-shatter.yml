@@ -6,30 +6,29 @@ system:
     value: >-
       <p>You create a single star shaped Quake Shard in the sky, 1 mile in the air before you cause it to shatter.
       Select a space you can see within range. All creatures of your choice within 120 feet of the selected space must
-      make a Strength saving throw as the weight of a dying star is thrust upon them.</p><p>On a failed save they are
-      Stunned and knocked Prone as they become unable to move and find it hard to even breathe.</p><p>A creature who
-      begins their turn in this space, ends their turn in this space, or enters this space for the first time must make
-      the Strength saving throw.</p><p>A creature Stunned by this jutsu takes 9d8 Earth damage at the beginning of their
-      turn. A creature Stunned by this jutsu takes 9d8 Earth damage at the end of their turns if they do not make the
-      saving throw to end this jutsu's effects.</p><p>A stunned creature makes a Strength Saving Throw at the end of
-      their turns (They do not automatically fail as a result of being Stunned). On a successful save, they end the
-      Stunned condition on themselves.</p>
-    chat: ''
+      make a Strength Saving Throw as the weight of a dying star is thrust upon them. On a failed save they are Stunned
+      as they become unable to move and find it hard to even breathe. A creature who begins their turn in this space or
+      enters this space for the first time must also make the Strength Saving Throw. A creature Stunned by this jutsu
+      takes 9d8 Earth Damage at the beginning of their turn. A creature Stunned by this jutsu takes 9d8 Earth Damage at
+      the end of their turns if they do not make the Saving Throw to end this jutsu's effects. A Stunned creature makes
+      a Strength Saving Throw at the end of their turns (They do not automatically fail as a result of being Stunned).
+      On a successful save, they end the Stunned condition on themselves.</p>
+    chat: ""
   source:
-    custom: ''
+    custom: ""
     rules: n5eb
     book: Naruto 5e
   activation:
     type: fullturnaction
     cost: 1
-    condition: ''
+    condition: ""
   duration:
-    value: '1'
+    value: "1"
     units: minute
   cover: null
   crewed: false
   target:
-    value: '120'
+    value: "120"
     width: null
     units: ft
     type: radius
@@ -40,27 +39,27 @@ system:
     units: mi
   uses:
     value: null
-    max: ''
+    max: ""
     per: null
-    recovery: ''
+    recovery: ""
     prompt: true
   consume:
-    type: ''
-    target: ''
+    type: ""
+    target: ""
     amount: 30
     scale: false
   ability: ninjutsu
   actionType: save
-  chatFlavor: ''
+  chatFlavor: ""
   critical:
     threshold: null
-    damage: ''
+    damage: ""
   damage:
     parts:
       - - 9d8
         - earth
-    versatile: ''
-  formula: ''
+    versatile: ""
+  formula: ""
   save:
     ability: str
     dc: null
@@ -68,7 +67,7 @@ system:
   level: 9
   school: trs
   materials:
-    value: ''
+    value: ""
     consumed: false
     cost: 0
     supply: 0
@@ -77,9 +76,9 @@ system:
     prepared: true
   scaling:
     mode: none
-    formula: ''
+    formula: ""
   attack:
-    bonus: ''
+    bonus: ""
     flat: false
   enchantment: null
   summons: null
@@ -87,7 +86,7 @@ system:
     - concentration
   versatileScaling:
     mode: none
-    formula: ''
+    formula: ""
   recharge:
     value: null
     formula: 1d8
@@ -102,15 +101,15 @@ system:
       - kinjutsu
       - earth
     countsKnown: true
-    ability: ''
+    ability: ""
     type: ninjutsu
   rank: s
   chakra:
-    cost: '30'
+    cost: "30"
     scaling:
       mode: none
       value: 0
-    special: ''
+    special: ""
   method: spell
   prepared: 1
 effects:
@@ -127,14 +126,14 @@ effects:
     disabled: false
     flags:
       dae:
-        disableCondition: ''
+        disableCondition: ""
         disableIncapacitated: false
         stackable: noneName
         showIcon: false
-        durationExpression: ''
+        durationExpression: ""
         macroRepeat: none
         specialDuration: []
-        enableCondition: ''
+        enableCondition: ""
         selfTarget: false
         selfTargetAlways: false
         dontApply: false
@@ -143,11 +142,11 @@ effects:
       ActiveAuras:
         isAura: false
         aura: None
-        nameOverride: ''
-        radius: ''
-        alignment: ''
-        type: ''
-        customCheck: ''
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
         ignoreSelf: false
         height: false
         hidden: false
@@ -162,15 +161,15 @@ effects:
     changes:
       - key: flags.midi-qol.fail.ability.save.dex
         mode: 2
-        value: '1'
+        value: "1"
         priority: 20
       - key: flags.midi-qol.fail.ability.save.str
         mode: 2
-        value: '1'
+        value: "1"
         priority: 20
       - key: flags.midi-qol.grants.advantage.attack.all
         mode: 2
-        value: '1'
+        value: "1"
         priority: 20
       - key: StatusEffect
         mode: 0
@@ -180,20 +179,20 @@ effects:
       <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
       falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
       throws.</p></li><li><p>Attack rolls against the creature have advantage.</p></li></ul>
-    tint: '#ffffff'
+    tint: "#ffffff"
     transfer: false
     statuses: []
     sort: 0
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: "12.331"
       systemId: n5eb
       systemVersion: 1,2,2
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-    _key: '!items.effects!DXChwg2T8iKje4SZ.WzZGBSiCHc9jFsBj'
+    _key: "!items.effects!DXChwg2T8iKje4SZ.WzZGBSiCHc9jFsBj"
   - name: Prone
     origin: Compendium.n5eb.jutsus.Item.DXChwg2T8iKje4SZ
     duration:
@@ -207,15 +206,15 @@ effects:
     disabled: false
     flags:
       dae:
-        enableCondition: ''
-        disableCondition: ''
+        enableCondition: ""
+        disableCondition: ""
         disableIncapacitated: false
         selfTarget: false
         selfTargetAlways: false
         dontApply: false
         stackable: noneName
         showIcon: false
-        durationExpression: ''
+        durationExpression: ""
         macroRepeat: none
         specialDuration: []
       core:
@@ -223,11 +222,11 @@ effects:
       ActiveAuras:
         isAura: false
         aura: None
-        nameOverride: ''
-        radius: ''
-        alignment: ''
-        type: ''
-        customCheck: ''
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
         ignoreSelf: false
         height: false
         hidden: false
@@ -242,27 +241,27 @@ effects:
     changes:
       - key: flags.midi-qol.disadvantage.attack.all
         mode: 5
-        value: '1'
+        value: "1"
         priority: 20
       - key: StatusEffect
         mode: 0
         value: prone
         priority: 20
-    description: ''
-    tint: '#ffffff'
+    description: ""
+    tint: "#ffffff"
     transfer: false
     statuses: []
     sort: 0
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: "12.331"
       systemId: n5eb
       systemVersion: 1,2,2
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-    _key: '!items.effects!DXChwg2T8iKje4SZ.sIxkh1Gtvb7nVnmm'
+    _key: "!items.effects!DXChwg2T8iKje4SZ.sIxkh1Gtvb7nVnmm"
 flags:
   cf: null
   n5eb:
@@ -290,21 +289,21 @@ flags:
             their turns if they do not make the saving throw to end this jutsu's effects.</p><p>A stunned creature makes
             a Strength Saving Throw at the end of their turns (They do not automatically fail as a result of being
             Stunned). On a successful save, they end the Stunned condition on themselves.</p>
-          chat: ''
+          chat: ""
         source:
-          custom: ''
+          custom: ""
           book: Naruto 5e
         activation:
           type: fullturnaction
           cost: 1
-          condition: ''
+          condition: ""
         duration:
-          value: '1'
+          value: "1"
           units: minute
         cover: null
         crewed: false
         target:
-          value: '120'
+          value: "120"
           width: null
           units: ft
           type: radius
@@ -315,27 +314,27 @@ flags:
           units: mi
         uses:
           value: null
-          max: ''
+          max: ""
           per: null
-          recovery: ''
+          recovery: ""
           prompt: true
         consume:
-          type: ''
-          target: ''
+          type: ""
+          target: ""
           amount: 30
           scale: false
         ability: ninjutsu
         actionType: save
-        chatFlavor: ''
+        chatFlavor: ""
         critical:
           threshold: null
-          damage: ''
+          damage: ""
         damage:
           parts:
             - - 9d8
               - earth
-          versatile: ''
-        formula: ''
+          versatile: ""
+        formula: ""
         save:
           ability: str
           dc: null
@@ -343,7 +342,7 @@ flags:
         level: 5
         school: nin
         materials:
-          value: ''
+          value: ""
           consumed: false
           cost: 0
           supply: 0
@@ -352,9 +351,9 @@ flags:
           prepared: true
         scaling:
           mode: none
-          formula: ''
+          formula: ""
         attack:
-          bonus: ''
+          bonus: ""
           flat: false
         enchantment: null
         summons: null
@@ -373,7 +372,7 @@ flags:
           value: 0
         versatileScaling:
           mode: none
-          formula: ''
+          formula: ""
         recharge:
           value: null
           formula: 1d8
@@ -384,8 +383,8 @@ flags:
     autoTarget: default
     rollAttackPerTarget: default
     removeAttackDamageButtons: default
-    itemCondition: ''
-    effectCondition: ''
+    itemCondition: ""
+    effectCondition: ""
   midiProperties:
     confirmTargets: default
     saveDamage: default
@@ -405,7 +404,7 @@ flags:
     ida: false
 _stats:
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: "12.331"
   systemId: n5eb
   systemVersion: 3.0.0
   createdTime: 1728752013350
@@ -420,4 +419,4 @@ sort: 0
 ownership:
   default: 0
 _id: DXChwg2T8iKje4SZ
-_key: '!items!DXChwg2T8iKje4SZ'
+_key: "!items!DXChwg2T8iKje4SZ"

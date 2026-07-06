@@ -6,11 +6,13 @@ img: systems/n5eb/assets/content/clans/mugen.webp
 system:
   description:
     value: >-
-      <p>When you hit a creature with an attack or Mugen Hijutsu, you may cast this jutsu as a bonus action. When you do
-      so, you intensify the infinity surrounding the creature. The creature must make a Constitution Saving Throw. On a
-      failed save, they gain 1 rank of the Slowed condition as they find moving through this limitless space difficult
-      and taxing. On a success, they instead just reduce their movement speed by 10 feet. Either effect lasts until the
-      end of their next turn.</p>
+      <p>When you hit a creature with an attack or Mugen Hijutsu, you may cast
+      this jutsu as a bonus action. When you do so, you intensify the infinity
+      surrounding the creature. The creature must make a Constitution Saving
+      Throw. On a failed save, they gain 1 rank of the Slowed condition as they
+      find moving through this limitless space difficult and taxing. On a
+      success, they instead just reduce their movement speed by 10 feet. Either
+      effect lasts until the end of their next turn.</p>
     chat: ''
   source:
     custom: ''
@@ -105,7 +107,85 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Slowed
+    origin: Compendium.n5eb.t7-clan.Item.bkAH5qZAOzMeMLso
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: slowed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    _id: OcNdEjWdM1x1Dj2w
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '-(10 * @stackCount)'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: slowed
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - slowed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,2,0
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!bkAH5qZAOzMeMLso.OcNdEjWdM1x1Dj2w'
 sort: 0
 ownership:
   default: 0
@@ -139,11 +219,14 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>When you hit a creature with an attack or Mugen Hijutsu, you may cast this jutsu as a bonus action. When
-            you do so, you intensify the infinity surrounding the creature. The creature must make a Constitution Saving
-            Throw. On a failed save, they gain 1 rank of the Slowed condition as they find moving through this limitless
-            space difficult and taxing. On a success, they instead just reduce their movement speed by 10 feet. Either
-            effect lasts until the end of their next turn.</p>
+            <p>When you hit a creature with an attack or Mugen Hijutsu, you may
+            cast this jutsu as a bonus action. When you do so, you intensify the
+            infinity surrounding the creature. The creature must make a
+            Constitution Saving Throw. On a failed save, they gain 1 rank of the
+            Slowed condition as they find moving through this limitless space
+            difficult and taxing. On a success, they instead just reduce their
+            movement speed by 10 feet. Either effect lasts until the end of
+            their next turn.</p>
           chat: ''
         source:
           custom: ''

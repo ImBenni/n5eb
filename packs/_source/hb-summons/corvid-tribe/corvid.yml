@@ -1,6 +1,6 @@
 folder: 1XeGhLDEhMsGok5v
 name: Corvid
-type: class
+type: feat
 _id: XHs1vWEp6ciehsEu
 img: icons/creatures/birds/corvid-call-sound-blue.webp
 system:
@@ -35,14 +35,7 @@ system:
     custom: ''
     rules: n5eb
     book: Homebrew
-  startingEquipment: []
   identifier: corvid
-  levels: 1
-  toughness: 6
-  hitDice: d6
-  hitDiceUsed: 0
-  chakraDice: d6
-  chakraDiceUsed: 0
   advancement:
     - _id: 62N9wGXE2JM0rhDa
       type: ItemChoice
@@ -358,6 +351,10 @@ system:
     denomination: d6
   cd:
     denomination: d6
+  type:
+    value: summon
+    subtype: tribeDefinition
+    nestedsubtype: ''
 effects: []
 sort: 0
 ownership:
@@ -420,9 +417,9 @@ flags:
               allowDrops: false
               type: null
               pool:
-                - uuid: Compendium.n5eb.summons.Item.lmsLpYjj3uMO7EZB
-                - uuid: Compendium.n5eb.summons.Item.nCuvhpe1JeQ8PdMb
-                - uuid: Compendium.n5eb.summons.Item.ZKCAOfh5zBhQjKUd
+                - uuid: Compendium.n5eb.hb-summons.Item.lmsLpYjj3uMO7EZB
+                - uuid: Compendium.n5eb.hb-summons.Item.nCuvhpe1JeQ8PdMb
+                - uuid: Compendium.n5eb.hb-summons.Item.ZKCAOfh5zBhQjKUd
               spell: null
               restriction:
                 type: ''
@@ -466,7 +463,7 @@ flags:
             configuration:
               items:
                 - optional: false
-                  uuid: Compendium.n5eb.summons.Item.KSPzwKeGCjMuJbdN
+                  uuid: Compendium.n5eb.hb-summons.Item.KSPzwKeGCjMuJbdN
               optional: false
               spell: null
             value: {}
@@ -530,9 +527,9 @@ flags:
               allowDrops: false
               type: null
               pool:
-                - uuid: Compendium.n5eb.summons.Item.AtoR0Kd1uTnBoBYo
-                - uuid: Compendium.n5eb.summons.Item.DoqmEic6ukdbk2zz
-                - uuid: Compendium.n5eb.summons.Item.Jijce4dnqQVlW3LQ
+                - uuid: Compendium.n5eb.hb-summons.Item.AtoR0Kd1uTnBoBYo
+                - uuid: Compendium.n5eb.hb-summons.Item.DoqmEic6ukdbk2zz
+                - uuid: Compendium.n5eb.hb-summons.Item.Jijce4dnqQVlW3LQ
               spell: null
               restriction: {}
             value:
@@ -550,9 +547,9 @@ flags:
               allowDrops: true
               type: null
               pool:
-                - uuid: Compendium.n5eb.summons.Item.YRP8rRzPoKKI86EW
-                - uuid: Compendium.n5eb.summons.Item.o2i4f4ZIs6WnVeTG
-                - uuid: Compendium.n5eb.summons.Item.RF3ovrPAgJHkSYSv
+                - uuid: Compendium.n5eb.hb-summons.Item.YRP8rRzPoKKI86EW
+                - uuid: Compendium.n5eb.hb-summons.Item.o2i4f4ZIs6WnVeTG
+                - uuid: Compendium.n5eb.hb-summons.Item.RF3ovrPAgJHkSYSv
               spell: null
               restriction: {}
             value:
@@ -570,9 +567,9 @@ flags:
               allowDrops: false
               type: null
               pool:
-                - uuid: Compendium.n5eb.summons.Item.KH7H86ggqILAakXw
-                - uuid: Compendium.n5eb.summons.Item.pmXUgEn5ZbQVisi9
-                - uuid: Compendium.n5eb.summons.Item.IdoWaqZHqUa0BXWC
+                - uuid: Compendium.n5eb.hb-summons.Item.KH7H86ggqILAakXw
+                - uuid: Compendium.n5eb.hb-summons.Item.pmXUgEn5ZbQVisi9
+                - uuid: Compendium.n5eb.hb-summons.Item.IdoWaqZHqUa0BXWC
               spell: null
               restriction: {}
             value:
@@ -590,9 +587,9 @@ flags:
               allowDrops: false
               type: null
               pool:
-                - uuid: Compendium.n5eb.summons.Item.PKZIdRirjEEvbotZ
-                - uuid: Compendium.n5eb.summons.Item.DjvItvCxwcVqHFg2
-                - uuid: Compendium.n5eb.summons.Item.LL81cnWVn4dhS5AX
+                - uuid: Compendium.n5eb.hb-summons.Item.PKZIdRirjEEvbotZ
+                - uuid: Compendium.n5eb.hb-summons.Item.DjvItvCxwcVqHFg2
+                - uuid: Compendium.n5eb.hb-summons.Item.LL81cnWVn4dhS5AX
               spell: null
               restriction: {}
             value:
@@ -692,9 +689,9 @@ flags:
             configuration:
               items:
                 - optional: false
-                  uuid: Compendium.n5eb.summons.Item.TtmHt27hiYcqBD5p
+                  uuid: Compendium.n5eb.hb-summons.Item.TtmHt27hiYcqBD5p
                 - optional: false
-                  uuid: Compendium.n5eb.summons.Item.nHYIBIWRXqsGupXa
+                  uuid: Compendium.n5eb.hb-summons.Item.nHYIBIWRXqsGupXa
               optional: false
               spell: null
             value: {}
@@ -714,6 +711,15 @@ flags:
         wealth: ''
     summonBuilder:
       legacyTemplate: true
+      migratedFromClassTemplate: true
+    summonDefinition:
+      kind: tribe
+      key: corvid
+      label: Corvid
+      summonType: avian
+      toughness: 6
+      defenseAbility: dex
+      jutsuAbility: int
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

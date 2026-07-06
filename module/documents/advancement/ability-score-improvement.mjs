@@ -126,7 +126,7 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
   /** @inheritDoc */
   titleForLevel(level, { configMode=false }={}) {
     if ( this.value.selected !== "feat" ) return this.title;
-    return game.i18n.localize("DND5E.Feature.Feat");
+    return game.i18n.localize("DND5E.Feature.Feat.Label");
   }
 
   /* -------------------------------------------- */

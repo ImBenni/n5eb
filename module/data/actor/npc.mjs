@@ -11,6 +11,7 @@ import SourceField from "../shared/source-field.mjs";
 import AttributesFields from "./templates/attributes.mjs";
 import CreatureTemplate from "./templates/creature.mjs";
 import DetailsFields from "./templates/details.mjs";
+import SimpleTraitField from "./fields/simple-trait-field.mjs";
 import TraitsFields from "./templates/traits.mjs";
 
 const TextEditor = foundry.applications.ux.TextEditor.implementation;
@@ -154,6 +155,9 @@ export default class NPCData extends CreatureTemplate {
             required: true, blank: true, initial: "", label: "N5EB.Adversary.Affiliation"
           }),
           specialRoles: new SetField(new StringField(), { label: "N5EB.Adversary.SpecialRole.Label" }),
+          suppressedAutoPassives: new SetField(new StringField(), {
+            label: "N5EB.Adversary.SuppressedAutoPassives"
+          }),
           fixedJutsuCost: new BooleanField({
             required: true, initial: true, label: "N5EB.Adversary.FixedJutsuCost"
           }),
@@ -239,6 +243,7 @@ export default class NPCData extends CreatureTemplate {
       traits: new SchemaField({
         ...TraitsFields.common,
         ...TraitsFields.creature,
+        affinity: new SimpleTraitField({}, { label: "N5EB.Affinity.Label" }),
         important: new BooleanField()
       }, { label: "DND5E.Traits" })
     });
@@ -507,6 +512,7 @@ export default class NPCData extends CreatureTemplate {
       clan: adversary.clan ?? details.clan ?? "",
       affiliation: adversary.affiliation ?? details.affiliation ?? "",
       specialRoles: adversary.specialRoles ?? details.highRole ?? [],
+      suppressedAutoPassives: adversary.suppressedAutoPassives ?? [],
       fixedJutsuCost: adversary.fixedJutsuCost ?? true,
       migrated: adversary.migrated ?? Boolean(hasLegacyFields)
     };
@@ -709,10 +715,12 @@ export default class NPCData extends CreatureTemplate {
    * @returns {string}
    */
   static #normalizeSummonTribe(tribe) {
-    tribe = typeof tribe === "string" ? tribe.slugify({ strict: true }) : "";
-    if ( tribe === "dog-wolf" ) return "dogWolf";
-    if ( tribe === "hare-rabbit" ) return "hareRabbit";
-    return (tribe in CONFIG.DND5E.summonTribes) ? tribe : "";
+    if ( typeof tribe !== "string" ) return "";
+    if ( tribe in CONFIG.DND5E.summonTribes ) return tribe;
+    const slug = tribe.slugify({ strict: true });
+    if ( slug === "dog-wolf" ) return "dogWolf";
+    if ( slug === "hare-rabbit" ) return "hareRabbit";
+    return (slug in CONFIG.DND5E.summonTribes) ? slug : slug;
   }
 
   /* -------------------------------------------- */
@@ -738,7 +746,7 @@ export default class NPCData extends CreatureTemplate {
   static #normalizeSummonType(type) {
     type = typeof type === "string" ? type.slugify({ strict: true }) : "";
     if ( type === "rodents" ) return "rodent";
-    return (type in CONFIG.DND5E.summonTypes) ? type : "";
+    return (type in CONFIG.DND5E.summonTypes) ? type : type;
   }
 
   /* -------------------------------------------- */

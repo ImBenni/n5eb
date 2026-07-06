@@ -34,6 +34,7 @@ import TraitsConfig from "../config/traits-config.mjs";
 import WeaponsConfig from "../config/weapons-config.mjs";
 import TransformDialog from "../transform-dialog.mjs";
 import ItemListControlsElement from "../../components/item-list-controls.mjs";
+import JutsuLookup from "../../jutsu-lookup.mjs";
 
 const { BooleanField, NumberField, SchemaField, StringField } = foundry.data.fields;
 const SKILL_ABILITY_SORT_ORDER = ["str", "dex", "con", "wis", "int", "cha"];
@@ -662,6 +663,7 @@ export default class BaseActorSheet extends PrimarySheetMixin(
       else if ( !Array.isArray(values) ) values = [values];
       values = values.map(key => {
         const value = { key, label: Trait.keyLabel(key, { trait }) ?? key };
+        if ( trait === "affinity" ) value.img = CONFIG.DND5E.affinities[key]?.icon;
         const icons = value.icons = [];
         if ( data.bypasses?.size && CONFIG.DND5E.damageTypes[key]?.isPhysical ) icons.push(...data.bypasses.map(p => {
           const type = CONFIG.DND5E.itemProperties[p]?.label;
@@ -918,6 +920,22 @@ export default class BaseActorSheet extends PrimarySheetMixin(
 
     // Subtitles
     ctx.subtitle = [item.system.type?.label, item.isActive ? item.labels.activation : null].filterJoin(" • ");
+
+    // Ammunition Die
+    const showAmmoDie = ((item.type === "weapon") && item.system.properties?.has("amm"))
+      || ((item.type === "consumable") && (item.system.type?.value === "ammo"));
+    if ( showAmmoDie ) {
+      const die = item.system.ammunitionDie ?? "d8";
+      const label = game.i18n.format("N5EB.AmmoDieValue", { die });
+      const tooltip = game.i18n.format("N5EB.AmmoDieTooltip", { die });
+      ctx.ammoDie = {
+        die,
+        label: label === "N5EB.AmmoDieValue" ? `Ammo ${die}` : label,
+        tooltip: tooltip === "N5EB.AmmoDieTooltip" ? `Ammunition Die: ${die}` : tooltip,
+        low: die === "1",
+        depleted: item.system.quantity <= 0
+      };
+    }
 
     // Weight
     ctx.totalWeight = item.system.totalWeight?.toNearest(0.1);
@@ -1186,11 +1204,30 @@ export default class BaseActorSheet extends PrimarySheetMixin(
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onClose(options) {
+    this.#closeJutsuAddMenu();
+    await super._onClose(options);
+  }
+
+  /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
   /** @override */
   _addDocument(event, target) {
+    if ( this.tabGroups.primary === "spells" ) return this.#showJutsuAddMenu(event, target);
+    return this.#createDocumentForActiveTab();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create a document using the normal active-tab behavior.
+   * @returns {Promise<Document>|Document}
+   */
+  #createDocumentForActiveTab() {
     if ( this.tabGroups.primary === "effects" ) return ActiveEffect.implementation.create({
       name: game.i18n.localize("DND5E.EffectNew"),
       icon: "icons/svg/aura.svg"
@@ -1205,6 +1242,86 @@ export default class BaseActorSheet extends PrimarySheetMixin(
     return Item.implementation.create({
       type, name: game.i18n.format("DOCUMENT.New", { type: game.i18n.format(CONFIG.Item.typeLabels[type]) })
     }, { parent: actor, renderSheet: true });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Show the jutsu creation menu from the sheet plus button.
+   * @param {PointerEvent} event  Triggering click.
+   * @param {HTMLElement} target  Plus button.
+   */
+  #showJutsuAddMenu(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.#closeJutsuAddMenu();
+
+    const menu = document.createElement("div");
+    menu.className = "dnd5e2 jutsu-add-menu";
+    menu.innerHTML = `
+      <button type="button" data-jutsu-add-action="create">
+        <i class="fa-solid fa-pen-to-square" inert></i>
+        <span>${game.i18n.localize("N5EB.JutsuLookup.MakeJutsu")}</span>
+      </button>
+      <button type="button" data-jutsu-add-action="lookup">
+        <i class="fa-solid fa-book-open-reader" inert></i>
+        <span>${game.i18n.localize("N5EB.JutsuLookup.LookupJutsu")}</span>
+      </button>
+    `;
+
+    const close = () => this.#closeJutsuAddMenu();
+    const onPointerDown = pointerEvent => {
+      if ( menu.contains(pointerEvent.target) || (pointerEvent.target === target) ) return;
+      close();
+    };
+    const onKeyDown = keyEvent => {
+      if ( keyEvent.key === "Escape" ) close();
+    };
+
+    menu.addEventListener("click", clickEvent => {
+      const button = clickEvent.target.closest("[data-jutsu-add-action]");
+      if ( !button ) return;
+      clickEvent.preventDefault();
+      clickEvent.stopPropagation();
+      close();
+      if ( button.dataset.jutsuAddAction === "lookup" ) {
+        return new JutsuLookup({ actor: this.actor }).render({ force: true });
+      }
+      return this.#createDocumentForActiveTab();
+    });
+
+    document.body.append(menu);
+    const rect = target.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+    let left = Math.min(window.innerWidth - menuRect.width - 8, rect.right - menuRect.width);
+    let top = rect.top - menuRect.height - 8;
+    if ( top < 8 ) top = rect.bottom + 8;
+    left = Math.max(8, left);
+    top = Math.min(window.innerHeight - menuRect.height - 8, top);
+    Object.assign(menu.style, {
+      left: `${left}px`,
+      top: `${Math.max(8, top)}px`
+    });
+
+    this._jutsuAddMenu = { menu, onPointerDown, onKeyDown };
+    setTimeout(() => {
+      document.addEventListener("pointerdown", onPointerDown, true);
+      document.addEventListener("keydown", onKeyDown, true);
+    }, 0);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Close any active jutsu creation menu.
+   */
+  #closeJutsuAddMenu() {
+    const active = this._jutsuAddMenu;
+    if ( !active ) return;
+    active.menu.remove();
+    document.removeEventListener("pointerdown", active.onPointerDown, true);
+    document.removeEventListener("keydown", active.onKeyDown, true);
+    this._jutsuAddMenu = null;
   }
 
   /* -------------------------------------------- */

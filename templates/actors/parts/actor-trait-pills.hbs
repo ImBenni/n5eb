@@ -1,5 +1,5 @@
 {{#if (or @root.editable values.length)}}
-<div class="pills-group {{#unless values.length}}empty{{/unless}}">
+<div class="pills-group {{ groupClass }} {{#if iconOnly}}icon-only{{/if}} {{#unless values.length}}empty{{/unless}}">
     <h3 class="icon">
         {{#if icon}}<i class="{{ icon }}"></i>
         {{~else if svg}}<dnd5e-icon src="systems/n5eb/icons/svg/{{ svg }}.svg"></dnd5e-icon>{{/if}}
@@ -15,12 +15,17 @@
     </h3>
     <ul class="pills">
         {{#each values}}
-        <li class="pill {{ ../color }} {{ color }} {{~ifThen draggable ' draggable' ''}}">
+        <li class="pill {{ ../color }} {{ color }} {{#if img}}has-image{{/if}} {{~ifThen draggable ' draggable' ''}}"
+            {{#if img}}data-tooltip="{{ label }}" aria-label="{{ label }}"{{/if}}>
             {{#if link}}<a class="{{ @root.rollableClass }}" {{ dnd5e-dataset link }}>{{/if}}
+            {{#if img}}<img class="pill-image" src="{{ img }}" alt="" inert>{{/if}}
             {{#each icons}}
             <i class="{{ icon }}" data-tooltip="{{ label }}" aria-label="{{ label }}"></i>
             {{/each}}
+            {{#if (and ../iconOnly img)}}
+            {{else}}
             <span class="label">{{ label }}</span>
+            {{/if}}
             {{#if value}}
             <span class="separator">&vert;</span>
             <span class="value">{{ dnd5e-numberFormat value signDisplay=../signDisplay }}</span>

@@ -73,15 +73,54 @@ system:
     formula: 1d8
     charged: false
   type:
-    value: ''
-    subtype: ''
+    value: feat
+    subtype: stance
     nestedsubtype: ''
   prerequisites:
     level: null
   properties: []
   requirements: ''
   identifier: illusion-fist-stance
-effects: []
+effects:
+  - name: Illusion Fist Stance
+    origin: Compendium.n5eb.t7-feats.Item.nLZHAYNavkelMryx
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      core:
+        overlay: false
+      n5eb:
+        stance:
+          identifier: illusion-fist-stance
+          tracked: true
+          automatic:
+            - Adds +2 AC while this effect is active.
+          manual:
+            - Unarmed damage die becomes d4 while not wielding weapons.
+            - Tactile Genjutsu may use the Taijutsu ability modifier for attack and damage rolls.
+            - Apply +2 damage reduction manually until native temporary DR effect support exists.
+    img: icons/skills/melee/unarmed-punch-fist-yellow-red.webp
+    _id: IFStanceAE000001
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '2'
+        priority: 20
+    description: Adds the automated +2 AC portion of Illusion Fist Stance while active. The unarmed die, Tactile Genjutsu ability substitution, and +2 damage reduction remain manual.
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    sort: 0
+    _key: '!items.effects!nLZHAYNavkelMryx.IFStanceAE000001'
 sort: 0
 ownership:
   default: 0

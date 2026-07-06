@@ -58,6 +58,14 @@ export default class WeaponData extends ItemDataModel.mixin(
       ammunition: new SchemaField({
         type: new StringField()
       }),
+      ammunitionDie: new StringField({
+        required: true,
+        initial: "d8",
+        blank: false,
+        label: "N5EB.AmmoDie",
+        validate: die => die in CONFIG.DND5E.ammoDieTypes,
+        validationError: "must be a configured ammunition die"
+      }),
       armor: new SchemaField({
         value: new NumberField({ integer: true, min: 0 })
       }),
@@ -129,7 +137,7 @@ export default class WeaponData extends ItemDataModel.mixin(
       order: 100,
       label: "TYPES.Item.weaponPl",
       groups: { type: "weapon" },
-      columns: ["price", "weight", "quantity", "charges", "controls"]
+      columns: ["price", "weight", "quantity", "ammoDie", "charges", "controls"]
     };
   }
 
@@ -149,7 +157,11 @@ export default class WeaponData extends ItemDataModel.mixin(
       .map(item => ({
         item,
         value: item.id,
-        label: `${item.name} (${item.system.quantity})`,
+        label: game.i18n.format("N5EB.AmmoOptionLabel", {
+          name: item.name,
+          die: item.system.ammunitionDie,
+          quantity: item.system.quantity
+        }),
         disabled: !item.system.quantity
       }))
       .sort((lhs, rhs) => lhs.label.localeCompare(rhs.label, game.i18n.lang));
@@ -242,6 +254,7 @@ export default class WeaponData extends ItemDataModel.mixin(
   get chatProperties() {
     return [
       this.type.label,
+      this.properties.has("amm") ? game.i18n.format("N5EB.AmmoDieValue", { die: this.ammunitionDie }) : null,
       CONFIG.DND5E.weaponMasteries[this.mastery]?.label,
       this.isMountable ? (this.parent.labels?.armor ?? null) : null
     ];
@@ -255,6 +268,7 @@ export default class WeaponData extends ItemDataModel.mixin(
    */
   get cardProperties() {
     return [
+      this.properties.has("amm") ? game.i18n.format("N5EB.AmmoDieValue", { die: this.ammunitionDie }) : null,
       this.isMountable ? (this.parent.labels?.armor ?? null) : null
     ];
   }

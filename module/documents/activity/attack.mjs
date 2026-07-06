@@ -1,6 +1,7 @@
 import AttackSheet from "../../applications/activity/attack-sheet.mjs";
 import AttackRollConfigurationDialog from "../../applications/dice/attack-configuration-dialog.mjs";
 import * as Conditions from "../../conditions.mjs";
+import * as Seals from "../../seals.mjs";
 import BaseAttackActivityData from "../../data/activity/attack-data.mjs";
 import { getTargetDescriptors } from "../../utils.mjs";
 import ActivityMixin from "./mixin.mjs";
@@ -9,8 +10,32 @@ import ActivityMixin from "./mixin.mjs";
  * @import {
  *   AttackRollDialogConfiguration, AttackRollProcessConfiguration, BasicRollMessageConfiguration, D20RollConfiguration
  * } from "../../dice/_types.mjs";
- * @import { AmmunitionUpdate } from "./_types.mjs";
+ * @import { AmmunitionDieUpdate, AmmunitionUpdate } from "./_types.mjs";
  */
+
+/**
+ * Get the next lower N5E ammunition die.
+ * @param {string} die  Current ammunition die.
+ * @returns {string}
+ */
+function getLowerAmmunitionDie(die) {
+  const dice = Object.keys(CONFIG.DND5E.ammoDieTypes);
+  const index = dice.indexOf(die);
+  return dice[Math.max(0, index - 1)] ?? "1";
+}
+
+/**
+ * Format a localized string with an English fallback if the key is unavailable.
+ * @param {string} key       Localization key.
+ * @param {object} data      Formatting data.
+ * @param {string} fallback  Fallback string.
+ * @returns {string}
+ */
+function formatLocalized(key, data={}, fallback="") {
+  const localized = game.i18n.format(key, data);
+  if ( localized !== key ) return localized;
+  return fallback.replace(/\{(\w+)}/g, (_match, prop) => data[prop] ?? "");
+}
 
 /**
  * Activity for making attacks and rolling damage.
@@ -94,6 +119,7 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
 
     const rollConfig = foundry.utils.mergeObject({
       ammunition: this.item.getFlag("n5eb", `last.${this.id}.ammunition`),
+      ammunitionDie: true,
       attackMode: this.item.getFlag("n5eb", `last.${this.id}.attackMode`),
       elvenAccuracy: this.actor?.getFlag("n5eb", "elvenAccuracy")
         && CONFIG.DND5E.characterFlags.elvenAccuracy.abilities.includes(this.ability),
@@ -121,6 +147,7 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
     rollConfig.rolls = [CONFIG.Dice.D20Roll.mergeConfigs({
       options: {
         ammunition: rollConfig.ammunition,
+        ammunitionDie: rollConfig.ammunitionDie,
         attackMode: rollConfig.attackMode,
         criticalSuccess: this.criticalThreshold,
         mastery: rollConfig.mastery
@@ -131,6 +158,7 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
     const dialogConfig = foundry.utils.mergeObject({
       applicationClass: AttackRollConfigurationDialog,
       options: {
+        ammunitionDie: (this.item.type === "weapon") && this.item.system.properties?.has("amm"),
         ammunitionOptions: rollConfig.ammunition !== false ? ammunitionOptions : [],
         attackModeOptions,
         buildConfig,
@@ -173,21 +201,32 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
 
     const flags = {};
     let ammoUpdate = null;
+    let ammoDieUpdate = null;
 
     const canUpdate = this.item.isOwner && !this.item.inCompendium;
-    if ( rolls[0].options.ammunition ) {
-      const ammo = this.actor?.items.get(rolls[0].options.ammunition);
-      if ( ammo ) {
-        if ( !ammo.system.properties?.has("ret") ) {
-          ammoUpdate = { id: ammo.id, quantity: Math.max(0, ammo.system.quantity - 1) };
-          ammoUpdate.destroy = ammo.system.uses.autoDestroy && (ammoUpdate.quantity === 0);
-        }
-        flags.ammunition = rolls[0].options.ammunition;
+    const attackMode = rolls[0].options.attackMode ?? rollConfig.attackMode;
+    const selectedAmmo = rolls[0].options.ammunition ? this.actor?.items.get(rolls[0].options.ammunition) : null;
+    const usesAmmunitionDie = (rolls[0].options.ammunitionDie !== false)
+      && (this.item.type === "weapon") && this.item.system.properties?.has("amm")
+      && (this.getActionType(attackMode) === "rwak") && !selectedAmmo?.system.properties?.has("ret")
+      && !this.item.system.properties?.has("ret");
+
+    if ( selectedAmmo ) flags.ammunition = rolls[0].options.ammunition;
+    else if ( !rolls[0].options.ammunition && dialogConfig.options?.ammunitionOptions?.length ) flags.ammunition = "";
+
+    if ( usesAmmunitionDie ) {
+      const ammunition = selectedAmmo ?? this.item;
+      if ( ammunition.system.ammunitionDie === "1" ) {
+        await this._postAmmunitionConsumedMessage(ammunition, messageConfig);
+        ammoUpdate = { id: ammunition.id, quantity: Math.max(0, ammunition.system.quantity - 1) };
+        ammoUpdate.destroy = (ammunition.type === "consumable")
+          && ammunition.system.uses.autoDestroy && (ammoUpdate.quantity === 0);
+      } else {
+        ammoDieUpdate = await this._rollAmmunitionDie(ammunition, messageConfig);
       }
-    } else if ( rolls[0].options.attackMode?.startsWith("thrown") && !this.item.system.properties?.has("ret") ) {
+    } else if ( !selectedAmmo && !this.item.system.properties?.has("amm") && rolls[0].options.attackMode?.startsWith("thrown")
+      && !this.item.system.properties?.has("ret") ) {
       ammoUpdate = { id: this.item.id, quantity: Math.max(0, this.item.system.quantity - 1) };
-    } else if ( !rolls[0].options.ammunition && dialogConfig.options?.ammunitionOptions?.length ) {
-      flags.ammunition = "";
     }
     if ( rolls[0].options.attackMode ) flags.attackMode = rolls[0].options.attackMode;
     else if ( rollConfig.attackMode ) rolls[0].options.attackMode = rollConfig.attackMode;
@@ -204,11 +243,15 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
      * @param {object} data
      * @param {AttackActivity|null} data.subject       The Activity that performed the attack.
      * @param {AmmunitionUpdate|null} data.ammoUpdate  Any updates related to ammo consumption for this attack.
+     * @param {AmmunitionDieUpdate|null} data.ammoDieUpdate  Any updates to the N5E ammunition die.
      */
-    Hooks.callAll("dnd5e.rollAttack", rolls, { subject: this, ammoUpdate });
-    Hooks.callAll("dnd5e.rollAttackV2", rolls, { subject: this, ammoUpdate });
+    Hooks.callAll("dnd5e.rollAttack", rolls, { subject: this, ammoUpdate, ammoDieUpdate });
+    Hooks.callAll("dnd5e.rollAttackV2", rolls, { subject: this, ammoUpdate, ammoDieUpdate });
 
     // Commit ammunition consumption on attack rolls resource consumption if the attack roll was made
+    if ( canUpdate && ammoDieUpdate ) await this.actor?.updateEmbeddedDocuments("Item", [
+      { _id: ammoDieUpdate.id, "system.ammunitionDie": ammoDieUpdate.die }
+    ]);
     if ( canUpdate && ammoUpdate?.destroy ) {
       // If ammunition was deleted, store a copy of it in the roll message
       const data = this.actor.items.get(ammoUpdate.id).toObject();
@@ -230,7 +273,7 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
      * @param {object} data
      * @param {AttackActivity|null} data.subject  The activity that performed the attack.
      */
-    Hooks.callAll("dnd5e.postRollAttack", rolls, { subject: this });
+    Hooks.callAll("dnd5e.postRollAttack", rolls, { subject: this, ammoUpdate, ammoDieUpdate });
 
     return rolls;
   }
@@ -247,15 +290,18 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
    */
   _buildAttackConfig(process, config, formData, index) {
     const ammunition = formData?.get("ammunition") ?? process.ammunition;
+    const ammunitionDie = formData?.get("ammunitionDie") ?? process.ammunitionDie;
     const attackMode = formData?.get("attackMode") ?? process.attackMode;
     const mastery = formData?.get("mastery") ?? process.mastery;
 
     let { parts, data } = this.getAttackData({ ammunition, attackMode });
     const options = config.options ?? {};
     if ( ammunition !== undefined ) options.ammunition = ammunition;
+    if ( ammunitionDie !== undefined ) options.ammunitionDie = ammunitionDie;
     if ( attackMode !== undefined ) options.attackMode = attackMode;
     if ( mastery !== undefined ) options.mastery = mastery;
     Conditions.applyAttackConditionOptions(this, options);
+    Seals.applyArmorAttackOptions(this, options);
 
     config.parts = [...(config.parts ?? []), ...parts];
     config.data = { ...data, ...(config.data ?? {}) };
@@ -309,6 +355,95 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
 
   /* -------------------------------------------- */
   /*  Helpers                                     */
+  /* -------------------------------------------- */
+
+  /**
+   * Post a chat message when the last piece of ammunition is consumed.
+   * @param {Item5e} ammunition                         Ammunition source item.
+   * @param {BasicRollMessageConfiguration} messageConfig  Attack roll message configuration.
+   * @returns {Promise<ChatMessage5e|void>}
+   * @protected
+   */
+  async _postAmmunitionConsumedMessage(ammunition, messageConfig={}) {
+    if ( messageConfig.create === false ) return;
+    const remaining = Math.max(0, ammunition.system.quantity - 1);
+    const chatData = {
+      content: `<p>${formatLocalized(
+        "N5EB.AmmoDieConsumed",
+        { quantity: remaining },
+        "Ammo 1: spent 1 ammunition. {quantity} remaining."
+      )}</p>`,
+      flavor: formatLocalized("N5EB.AmmunitionRoll", { name: ammunition.name }, "{name} - Ammunition Roll"),
+      flags: {
+        n5eb: {
+          ...this.messageFlags,
+          messageType: "roll",
+          roll: {
+            type: "ammunition",
+            itemId: ammunition.id,
+            consumed: true
+          }
+        }
+      },
+      speaker: ChatMessage.getSpeaker({ actor: this.actor })
+    };
+    ChatMessage.applyRollMode(chatData, messageConfig.rollMode ?? CONFIG.Dice.BasicRoll.getMessageMode());
+    return ChatMessage.create(chatData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Roll the N5E ammunition die and post the result to chat.
+   * @param {Item5e} ammunition                         Ammunition source item.
+   * @param {BasicRollMessageConfiguration} messageConfig  Attack roll message configuration.
+   * @returns {Promise<AmmunitionDieUpdate|null>}
+   * @protected
+   */
+  async _rollAmmunitionDie(ammunition, messageConfig={}) {
+    const currentDie = ammunition.system.ammunitionDie || "d8";
+    const roll = new Roll(currentDie);
+    await roll.evaluate();
+
+    const newDie = roll.total <= 2 ? getLowerAmmunitionDie(currentDie) : currentDie;
+    const rollResult = formatLocalized(
+      "N5EB.AmmoDieRollResult",
+      { currentDie, total: roll.total },
+      "Rolled <strong>{total}</strong> on <strong>{currentDie}</strong>."
+    );
+    const result = formatLocalized(
+      newDie === currentDie ? "N5EB.AmmoDieRemain" : "N5EB.AmmoDieDecrease",
+      { currentDie, newDie },
+      newDie === currentDie
+        ? "The ammunition die remains at <strong>{currentDie}</strong>."
+        : "The ammunition die decreases to <strong>{newDie}</strong>."
+    );
+    const chatData = {
+      content: `<p>${rollResult}</p><p>${result}</p>`,
+      flavor: formatLocalized("N5EB.AmmunitionRoll", { name: ammunition.name }, "{name} - Ammunition Roll"),
+      flags: {
+        n5eb: {
+          ...this.messageFlags,
+          messageType: "roll",
+          roll: {
+            type: "ammunition",
+            itemId: ammunition.id,
+            currentDie,
+            newDie
+          }
+        }
+      },
+      rolls: [roll],
+      speaker: ChatMessage.getSpeaker({ actor: this.actor })
+    };
+    if ( messageConfig.create !== false ) {
+      ChatMessage.applyRollMode(chatData, messageConfig.rollMode ?? CONFIG.Dice.BasicRoll.getMessageMode());
+      await ChatMessage.create(chatData);
+    }
+    if ( newDie === currentDie ) return null;
+    return { id: ammunition.id, die: newDie, previousDie: currentDie };
+  }
+
   /* -------------------------------------------- */
 
   /** @inheritDoc */

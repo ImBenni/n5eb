@@ -1,4 +1,15 @@
-<section class="adversary-builder summon-builder flexcol">
+<section class="npc-builder adversary-builder summon-builder flexcol" data-builder-mode="summon">
+    <nav class="npc-builder-modes" aria-label="{{ localize 'N5EB.NPCBuilder.Mode' }}">
+        <button type="button" data-action="switchBuilderMode" data-mode="adversary" aria-pressed="false">
+            <i class="fa-solid fa-user-ninja" inert></i>
+            <span>{{ localize "N5EB.NPCBuilder.AdversaryMode" }}</span>
+        </button>
+        <button type="button" data-action="switchBuilderMode" data-mode="summon" class="active"
+                aria-pressed="true">
+            <i class="fa-solid fa-paw" inert></i>
+            <span>{{ localize "N5EB.NPCBuilder.SummonMode" }}</span>
+        </button>
+    </nav>
     <div class="adversary-builder-layout">
         <aside class="adversary-blueprint">
             <div class="adversary-identity-card summon-identity-card">
@@ -12,6 +23,9 @@
                         <span class="identity-chip" data-identity-role>{{ identity.role.label }}</span>
                         <span class="identity-chip" data-identity-tribe {{#unless identity.tribe}}hidden{{/unless}}>
                             {{ identity.tribe.label }}
+                        </span>
+                        <span class="identity-chip" data-identity-variant {{#unless identity.variant}}hidden{{/unless}}>
+                            {{ identity.variant.label }}
                         </span>
                         <span class="identity-chip" data-identity-type {{#unless identity.summonType}}hidden{{/unless}}>
                             {{ identity.summonType.label }}
@@ -51,11 +65,16 @@
                 <div class="form-group">
                     <label>{{ localize "N5EB.Summon.Tribe.Label" }}</label>
                     <div class="form-fields">
-                        <select name="summon.tribe">
-                            {{ selectOptions CONFIG.summonTribes selected=source.tribe labelAttr="label" }}
-                        </select>
+                        <span class="summon-tribe-readout">
+                            {{#if selectedTribe}}
+                            {{ selectedTribe.label }}
+                            {{else}}
+                            {{ localize "N5EB.Summon.Builder.NoTribeSelected" }}
+                            {{/if}}
+                        </span>
                     </div>
                 </div>
+                <input type="hidden" name="summon.tribe" value="{{ source.tribe }}">
 
                 <div class="form-group">
                     <label>{{ localize "N5EB.Summon.Variant" }}</label>
@@ -77,13 +96,96 @@
                     <label>{{ localize "N5EB.Summon.Type.Label" }}</label>
                     <div class="form-fields">
                         <select name="summon.summonType">
-                            {{ selectOptions CONFIG.summonTypes selected=source.summonType labelAttr="label" }}
+                            {{ selectOptions summonTypeOptions selected=source.summonType labelAttr="label" }}
                         </select>
                     </div>
                 </div>
 
                 <input type="hidden" name="summon.migrated" value="{{ source.migrated }}">
                 <input type="hidden" name="summon.sourceUuid" value="{{ source.sourceUuid }}">
+            </fieldset>
+
+            <fieldset class="card adversary-card summon-library-card">
+                <legend>{{ localize "N5EB.Summon.Builder.Library" }}</legend>
+                <div class="summon-selected-definition {{#unless selectedTribe}}empty{{/unless}}">
+                    <img src="{{#if selectedTribe}}{{ selectedTribe.img }}{{else}}icons/svg/book.svg{{/if}}" alt="">
+                    <div>
+                        <span class="eyebrow">{{ localize "N5EB.Summon.Builder.SelectedTribe" }}</span>
+                        <strong>
+                            {{#if selectedTribe}}
+                            {{ selectedTribe.label }}
+                            {{else}}
+                            {{ localize "N5EB.Summon.Builder.NoTribeSelected" }}
+                            {{/if}}
+                        </strong>
+                        <small>
+                            {{#if selectedTribe}}
+                            {{ selectedTribe.sourceLabel }}
+                            {{else}}
+                            {{ localize "N5EB.Summon.Builder.TribeAdvancementHint" }}
+                            {{/if}}
+                        </small>
+                    </div>
+                    {{#if selectedTribe.uuid}}
+                    <button type="button" class="unbutton" data-action="openDefinition" data-uuid="{{ selectedTribe.uuid }}"
+                            data-tooltip="N5EB.Summon.Builder.OpenTribe"
+                            aria-label="{{ localize 'N5EB.Summon.Builder.OpenTribe' }}">
+                        <i class="fa-solid fa-arrow-up-right-from-square" inert></i>
+                    </button>
+                    {{/if}}
+                </div>
+                <div class="summon-library-actions">
+                    <button type="button" data-action="selectTribe">
+                        <i class="fa-solid fa-book-open-reader" inert></i>
+                        <span>{{ localize "N5EB.Summon.Builder.SelectTribe" }}</span>
+                    </button>
+                    <button type="button" data-action="createDefinition" data-kind="tribe">
+                        <i class="fa-solid fa-plus" inert></i>
+                        <span>{{ localize "N5EB.Summon.Builder.CreateTribe" }}</span>
+                    </button>
+                    <button type="button" data-action="createDefinition" data-kind="type">
+                        <i class="fa-solid fa-plus" inert></i>
+                        <span>{{ localize "N5EB.Summon.Builder.CreateType" }}</span>
+                    </button>
+                </div>
+            </fieldset>
+
+            <fieldset class="card adversary-card summon-library-card" data-inuzuka-breed-card
+                      {{#unless showInuzukaBreed}}hidden{{/unless}}>
+                <legend>{{ localize "N5EB.Summon.Builder.InuzukaBreed" }}</legend>
+                <div class="summon-selected-definition {{#unless selectedBreed}}empty{{/unless}}">
+                    <img src="{{#if selectedBreed}}{{ selectedBreed.img }}{{else}}systems/n5eb/icons/svg/actors/npc.svg{{/if}}" alt="">
+                    <div>
+                        <span class="eyebrow">{{ localize "N5EB.Summon.Builder.SelectedBreed" }}</span>
+                        <strong>
+                            {{#if selectedBreed}}
+                            {{ selectedBreed.label }}
+                            {{else}}
+                            {{ localize "N5EB.Summon.Builder.NoBreedSelected" }}
+                            {{/if}}
+                        </strong>
+                        <small>
+                            {{#if selectedBreed}}
+                            {{ selectedBreed.sourceLabel }}
+                            {{else}}
+                            {{ localize "N5EB.Summon.Builder.BreedAdvancementHint" }}
+                            {{/if}}
+                        </small>
+                    </div>
+                    {{#if selectedBreed.uuid}}
+                    <button type="button" class="unbutton" data-action="openDefinition" data-uuid="{{ selectedBreed.uuid }}"
+                            data-tooltip="N5EB.Summon.Builder.OpenBreed"
+                            aria-label="{{ localize 'N5EB.Summon.Builder.OpenBreed' }}">
+                        <i class="fa-solid fa-arrow-up-right-from-square" inert></i>
+                    </button>
+                    {{/if}}
+                </div>
+                <div class="summon-library-actions one-action">
+                    <button type="button" data-action="selectBreed">
+                        <i class="fa-solid fa-dog" inert></i>
+                        <span>{{ localize "N5EB.Summon.Builder.SelectBreed" }}</span>
+                    </button>
+                </div>
             </fieldset>
 
             <fieldset class="card adversary-card summary-card">
@@ -184,7 +286,7 @@
             </div>
 
             <div class="adversary-content-panel" data-content-panel="features">
-                {{> ".filters" ranks=filterRanks kinds=featureKinds categories=featureCategories sources=featurePacks }}
+                {{> ".filters" ranks=filterRanks kinds=featureKinds categories=featureCategories sources=featurePacks tribes=tribeFilters types=typeFilters }}
                 {{#if suggestions.features.length}}
                 <div class="adversary-suggestions">
                     {{#each suggestions.features}}
@@ -196,7 +298,7 @@
             </div>
 
             <div class="adversary-content-panel" data-content-panel="weapons" hidden>
-                {{> ".filters" ranks=filterRanks kinds=weaponKinds categories=weaponCategories sources=weaponPacks }}
+                {{> ".filters" ranks=filterRanks kinds=weaponKinds categories=weaponCategories sources=weaponPacks tribes=tribeFilters types=typeFilters }}
                 {{#if suggestions.weapons.length}}
                 <div class="adversary-suggestions">
                     {{#each suggestions.weapons}}
@@ -208,7 +310,7 @@
             </div>
 
             <div class="adversary-content-panel" data-content-panel="jutsu" hidden>
-                {{> ".filters" ranks=filterRanks kinds=jutsuKinds categories=jutsuCategories sources=jutsuPacks }}
+                {{> ".filters" ranks=filterRanks kinds=jutsuKinds categories=jutsuCategories sources=jutsuPacks tribes=tribeFilters types=typeFilters }}
                 {{#if suggestions.jutsu.length}}
                 <div class="adversary-suggestions">
                     {{#each suggestions.jutsu}}
@@ -272,6 +374,20 @@
         <option value="{{ value }}">{{ label }}</option>
         {{/each}}
     </select>
+    {{#if tribes}}
+    <select class="adversary-filter" data-filter="tribe" aria-label="{{ localize 'N5EB.Summon.Tribe.Label' }}">
+        {{#each tribes}}
+        <option value="{{ value }}">{{ label }}</option>
+        {{/each}}
+    </select>
+    {{/if}}
+    {{#if types}}
+    <select class="adversary-filter" data-filter="summonType" aria-label="{{ localize 'N5EB.Summon.Type.Label' }}">
+        {{#each types}}
+        <option value="{{ value }}">{{ label }}</option>
+        {{/each}}
+    </select>
+    {{/if}}
 </div>
 {{/inline}}
 
@@ -291,6 +407,10 @@
        data-pack-label="{{ pack }}"
        data-source="{{ sourceKey }}"
        data-source-label="{{ sourceLabel }}"
+       data-tribes="{{ tribes }}"
+       data-types="{{ types }}"
+       data-roles="{{ roles }}"
+       data-ranks="{{ ranks }}"
        data-search="{{ search }}">
     <input type="checkbox" name="itemUuids" value="{{ uuid }}" {{ disabled disabled }}>
     <img src="{{ img }}" alt="">

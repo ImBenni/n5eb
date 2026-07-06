@@ -406,12 +406,16 @@ export default class ActivitiesTemplate extends SystemDataModel {
       });
       return riders;
     }, { activity: new Set(), effect: new Set() });
+    const ForcedDeletion = foundry.data?.operators?.ForcedDeletion;
+    const deleteOperator = () => ForcedDeletion ? new ForcedDeletion() : null;
     if ( !riders.activity.size && !riders.effect.size ) {
-      foundry.utils.setProperty(changed, "flags.n5eb.-=riders", null);
+      if ( ForcedDeletion ) foundry.utils.setProperty(changed, "flags.n5eb.riders", deleteOperator());
+      else foundry.utils.setProperty(changed, "flags.n5eb.-=riders", null);
     } else {
       foundry.utils.setProperty(changed, "flags.n5eb.riders", Object.entries(riders)
         .reduce((updates, [key, value]) => {
           if ( value.size ) updates[key] = Array.from(value);
+          else if ( ForcedDeletion ) updates[key] = deleteOperator();
           else updates[`-=${key}`] = null;
           return updates;
         }, {})

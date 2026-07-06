@@ -6,19 +6,26 @@ img: systems/n5eb/assets/content/clans/shimura.webp
 system:
   description:
     value: >-
-      <p><em>As part of casting this jutsu, you may pick up to 4 creatures who will not be effected by the jutsu.</em>
-      You place a seal on a surface of your choosing. The seal then conceals itself and is invisible to all creatures
-      without chakra sight. <br />  <em><strong>Activation:</strong></em> As a bonus action on subsequent turns, you can
-      trigger this seal's activation. Once activated, the seal conjures a lifelike mirage of the caster's choosing,
-      manifesting within a 10-foot radius around the seal. This illusionary display remains for one minute before
-      gradually dissipating. All creatures who can see the mirage must make a Wisdom saving throw against your genjutsu
-      save DC. A creature can only be affected by the mirage if it can see it, and the effect can only occur once per
-      casting.</p><p><strong>Critical Success:</strong> Affected creature is able to resist this jutsu's effect,
-      becoming immune to further castings of this jutsu until 3 turns have passed.</p><p><strong>Success:</strong>
-      Affected creature is uneffected by the Genjutsu</p><p><strong>Failure:</strong> Affected creatures are fully
-      convinced that what they are seeing is real. They gain 1 rank of fear or confused (your choice, but should be
-      reflected in the mirage)</p><p><strong>Critical Failure:</strong> Same as failure, but it gains an extra rank of
-      the applied condition.</p>
+      <p><em>As part of casting this jutsu, you may pick up to 4 creatures who
+      will not be effected by the jutsu.</em> You place a seal on a surface of
+      your choosing. The seal then conceals itself and is invisible to all
+      creatures without chakra sight. <br /> 
+      <em><strong>Activation:</strong></em> As a bonus action on subsequent
+      turns, you can trigger this seal's activation. Once activated, the seal
+      conjures a lifelike mirage of the caster's choosing, manifesting within a
+      10-foot radius around the seal. This illusionary display remains for one
+      minute before gradually dissipating. All creatures who can see the mirage
+      must make a Wisdom saving throw against your genjutsu save DC. A creature
+      can only be affected by the mirage if it can see it, and the effect can
+      only occur once per casting.</p><p><strong>Critical Success:</strong>
+      Affected creature is able to resist this jutsu's effect, becoming immune
+      to further castings of this jutsu until 3 turns have
+      passed.</p><p><strong>Success:</strong> Affected creature is uneffected by
+      the Genjutsu</p><p><strong>Failure:</strong> Affected creatures are fully
+      convinced that what they are seeing is real. They gain 1 rank of fear or
+      confused (your choice, but should be reflected in the
+      mirage)</p><p><strong>Critical Failure:</strong> Same as failure, but it
+      gains an extra rank of the applied condition.</p>
     chat: ''
   source:
     custom: ''
@@ -117,7 +124,238 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Demoralized
+    origin: Compendium.n5eb.t7-clan.Item.u54CJo6pyXFN0vAN
+    duration:
+      rounds: 100
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: demoralized
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/frightened.svg
+    _id: 6mlvkxCaAK5kEZyc
+    type: base
+    system: {}
+    changes:
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: frightened
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=end,
+          saveDC=13,
+          saveAbility=cha,
+          allowIncapacitated=true,
+          label=Save to overcome Demoralized
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain
+      ranks of <strong>Fear</strong> (<strong>or Frightened</strong>), gain
+      ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong>
+      creature is disturbed by a particular target in some fashion, making them
+      seek to avoid interaction with them if possible. This heightened stress
+      causes the defenses of the Demoralized target to wane.</p><ul><li><p>A
+      <strong>Demoralized</strong> creature suffers a -1 penalty to its saving
+      throws, for each rank they have.</p></li><li><p>A
+      <strong>Demoralized</strong> creature must make concentration checks at
+      the beginning of each of their turns to maintain concentration on their
+      jutsu.</p></li><li><p>At the end of a <strong>Demoralized</strong>
+      creatures turn they make a DC 13 Charisma ability check. On a success,
+      they remove 1 rank of <strong>Demoralized</strong>. After 10 minutes, a
+      creature who still has ranks of <strong>Demoralized</strong>, loses all
+      ranks of <strong>Demoralized</strong> it has remaining</p></li><li><p>As
+      an action, a <strong>Demoralized</strong> creature can make a DC 20
+      Charisma ability check to remove all ranks of <strong>Demoralized</strong>
+      it has.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - demoralized
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!u54CJo6pyXFN0vAN.6mlvkxCaAK5kEZyc'
+  - name: Confused
+    origin: Compendium.n5eb.t7-clan.Item.u54CJo6pyXFN0vAN
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: confused
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/confused.svg
+    _id: VEShqNpM5O3jxzuG
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: confused
+        priority: 20
+      - key: system.abilities.wis.bonuses.check
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          saveAbility=int,
+          rollType=check,
+          saveRemove=true,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><p>A Confused creature has difficulty
+      distinguishing friend from foe and experiences lapsing
+      judgement.</p><ul><li><p>A Confused creature suffers a -1 penalty to all
+      Wisdom based checks, attack rolls, and saving throws for each rank it
+      has.</p></li><li><p>A Confused creature who would target hostile or
+      friendly creature with an attack, jutsu, feature or trait (even
+      themselves) must first make a DC 8 Flat check. On a failure, they must
+      target the closest creature to them, ignoring allied or hostile
+      distinctions. For rank of Confused beyond the first, increase this DC by
+      +1 (Max DC 12).</p></li><li><p>A Confused creature cannot choose targets
+      when a jutsu, feature or trait would allow them to pick. All creatures in
+      range become the target, ignoring ally or hostile
+      distinctions.</p></li><li><p>As an Action, a Confused creature can make a
+      DC 15 Intelligence ability check, ending this condition on a
+      success.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - confused
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.T4ZSbPxGKQwZ0WRG.ActiveEffect.TlQn0pODrzXO8IRz
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!u54CJo6pyXFN0vAN.VEShqNpM5O3jxzuG'
 sort: 0
 ownership:
   default: 0
@@ -154,19 +392,27 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p><em>As part of casting this jutsu, you may pick up to 4 creatures who will not be effected by the
-            jutsu.</em> You place a seal on a surface of your choosing. The seal then conceals itself and is invisible
-            to all creatures without chakra sight. <br />  <em><strong>Activation:</strong></em> As a bonus action on
-            subsequent turns, you can trigger this seal's activation. Once activated, the seal conjures a lifelike
-            mirage of the caster's choosing, manifesting within a 10-foot radius around the seal. This illusionary
-            display remains for one minute before gradually dissipating. All creatures who can see the mirage must make
-            a Wisdom saving throw against your genjutsu save DC. A creature can only be affected by the mirage if it can
-            see it, and the effect can only occur once per casting.</p><p><strong>Critical Success:</strong> Affected
-            creature is able to resist this jutsu's effect, becoming immune to further castings of this jutsu until 3
-            turns have passed.</p><p><strong>Success:</strong> Affected creature is uneffected by the
-            Genjutsu</p><p><strong>Failure:</strong> Affected creatures are fully convinced that what they are seeing is
-            real. They gain 1 rank of fear or confused (your choice, but should be reflected in the
-            mirage)</p><p><strong>Critical Failure:</strong> Same as failure, but it gains an extra rank of the applied
+            <p><em>As part of casting this jutsu, you may pick up to 4 creatures
+            who will not be effected by the jutsu.</em> You place a seal on a
+            surface of your choosing. The seal then conceals itself and is
+            invisible to all creatures without chakra sight. <br /> 
+            <em><strong>Activation:</strong></em> As a bonus action on
+            subsequent turns, you can trigger this seal's activation. Once
+            activated, the seal conjures a lifelike mirage of the caster's
+            choosing, manifesting within a 10-foot radius around the seal. This
+            illusionary display remains for one minute before gradually
+            dissipating. All creatures who can see the mirage must make a Wisdom
+            saving throw against your genjutsu save DC. A creature can only be
+            affected by the mirage if it can see it, and the effect can only
+            occur once per casting.</p><p><strong>Critical Success:</strong>
+            Affected creature is able to resist this jutsu's effect, becoming
+            immune to further castings of this jutsu until 3 turns have
+            passed.</p><p><strong>Success:</strong> Affected creature is
+            uneffected by the Genjutsu</p><p><strong>Failure:</strong> Affected
+            creatures are fully convinced that what they are seeing is real.
+            They gain 1 rank of fear or confused (your choice, but should be
+            reflected in the mirage)</p><p><strong>Critical Failure:</strong>
+            Same as failure, but it gains an extra rank of the applied
             condition.</p>
           chat: ''
         source:

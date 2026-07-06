@@ -1,0 +1,8 @@
+{{#if ctx.ammoDie}}
+<div class="item-detail item-ammoDie {{#if ctx.ammoDie.low}}low{{/if}} {{#if ctx.ammoDie.depleted}}depleted{{/if}}"
+     data-column-id="ammoDie" data-tooltip="{{ ctx.ammoDie.tooltip }}" aria-label="{{ ctx.ammoDie.tooltip }}">
+    <span class="value">{{ ctx.ammoDie.die }}</span>
+</div>
+{{else}}
+<div class="item-detail item-ammoDie empty" data-column-id="ammoDie"></div>
+{{/if}}

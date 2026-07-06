@@ -9,6 +9,7 @@ import ItemTypeTemplate from "./templates/item-type.mjs";
 import PhysicalItemTemplate from "./templates/physical-item.mjs";
 import MountableTemplate from "./templates/mountable.mjs";
 import ItemTypeField from "./fields/item-type-field.mjs";
+import * as Seals from "../../seals.mjs";
 
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
@@ -56,7 +57,12 @@ export default class EquipmentData extends ItemDataModel.mixin(
       armor: new SchemaField({
         value: new NumberField({ required: true, integer: true, min: 0, label: "DND5E.ArmorClass" }),
         magicalBonus: new FormulaField({ deterministic: true, label: "DND5E.MagicalBonus" }),
-        dex: new NumberField({ required: true, integer: true, label: "DND5E.ItemEquipmentDexMod" })
+        dex: new NumberField({ required: true, integer: true, label: "DND5E.ItemEquipmentDexMod" }),
+        bonus: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.ARMOR.Bonus" }),
+        dexCap: new NumberField({ nullable: true, integer: true, initial: null, label: "N5EB.ARMOR.DexCap" }),
+        dr: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.ARMOR.DR" }),
+        don: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.ARMOR.Don" }),
+        doff: new NumberField({ required: true, integer: true, min: 0, initial: 0, label: "N5EB.ARMOR.Doff" })
       }),
       proficient: new NumberField({
         required: true, min: 0, max: 1, integer: true, initial: null, label: "DND5E.ProficiencyLevel"
@@ -123,7 +129,7 @@ export default class EquipmentData extends ItemDataModel.mixin(
     return [
       this.type.label,
       (this.isArmor || this.isMountable) ? (this.parent.labels?.armor ?? null) : null,
-      this.properties.has("stealthDisadvantage") ? game.i18n.localize("DND5E.ITEM.Property.StealthDisadvantage") : null
+      this.properties.has("bulky") ? game.i18n.localize("N5EB.ARMOR.Property.Bulky") : null
     ];
   }
 
@@ -136,7 +142,7 @@ export default class EquipmentData extends ItemDataModel.mixin(
   get cardProperties() {
     return [
       (this.isArmor || this.isMountable) ? (this.parent.labels?.armor ?? null) : null,
-      this.properties.has("stealthDisadvantage") ? game.i18n.localize("DND5E.ITEM.Property.StealthDisadvantage") : null
+      this.properties.has("bulky") ? game.i18n.localize("N5EB.ARMOR.Property.Bulky") : null
     ];
   }
 
@@ -214,6 +220,16 @@ export default class EquipmentData extends ItemDataModel.mixin(
       if ( dex === "" ) source.armor.dex = null;
       else if ( Number.isNumeric(dex) ) source.armor.dex = Number(dex);
     }
+    const type = source.type?.value;
+    if ( source.armor.bonus === undefined ) source.armor.bonus = Seals.legacyArmorValueToBonus(source.armor.value);
+    if ( source.armor.dexCap === undefined ) source.armor.dexCap = Seals.defaultArmorDexCap(type, source.armor.dex);
+    if ( source.armor.dr === undefined ) {
+      source.armor.dr = Number(foundry.utils.getProperty(source, "flags.n5eb.legacyImport.originalSystem.armor.dr")
+        ?? source.armor.dr ?? 0) || 0;
+    }
+    if ( source.armor.don === undefined ) source.armor.don = type === "light" ? 1 : type === "medium" ? 5 : 10;
+    if ( source.armor.doff === undefined ) source.armor.doff = type === "light" ? 1 : type === "medium" ? 1 : 5;
+    if ( source.properties ) source.properties = Seals.normalizeArmorProperties(source.properties);
   }
 
   /* -------------------------------------------- */
@@ -269,6 +285,11 @@ export default class EquipmentData extends ItemDataModel.mixin(
   prepareBaseData() {
     super.prepareBaseData();
     this.armor.base = this.armor.value = (this._source.armor.value ?? 0);
+    const sourceBonus = Number(this._source.armor.bonus);
+    this.armor.bonus = Number.isFinite(sourceBonus)
+      ? sourceBonus
+      : Seals.legacyArmorValueToBonus(this.armor.value);
+    this.armor.dr = Number(this._source.armor.dr) || 0;
   }
 
   /* -------------------------------------------- */
@@ -281,7 +302,10 @@ export default class EquipmentData extends ItemDataModel.mixin(
     this.preparePhysicalData();
     this.prepareMountableData();
     const magicalBonus = simplifyBonus(this.armor.magicalBonus, this.parent.getRollData());
-    if ( this.magicAvailable && magicalBonus ) this.armor.value += magicalBonus;
+    if ( this.magicAvailable && magicalBonus ) {
+      this.armor.value += magicalBonus;
+      this.armor.bonus += magicalBonus;
+    }
     this.type.label = CONFIG.DND5E.equipmentTypes[this.type.value]
       ?? game.i18n.localize(CONFIG.Item.typeLabels.equipment);
     this.type.identifier = this.type.value === "shield"
@@ -289,7 +313,14 @@ export default class EquipmentData extends ItemDataModel.mixin(
       : CONFIG.DND5E.armorIds[this.type.baseItem];
 
     const labels = this.parent.labels ??= {};
-    labels.armor = this.armor.value ? `${this.armor.value} ${game.i18n.localize("DND5E.AC")}` : "";
+    if ( this.isArmor && (this.type.value !== "shield") ) {
+      const parts = [];
+      if ( this.armor.bonus ) parts.push(game.i18n.format("N5EB.ARMOR.Label.Bonus", { bonus: this.armor.bonus }));
+      if ( this.armor.dr ) parts.push(game.i18n.format("N5EB.ARMOR.Label.DR", { dr: this.armor.dr }));
+      labels.armor = parts.join(" / ");
+    } else {
+      labels.armor = this.armor.value ? `${this.armor.value} ${game.i18n.localize("DND5E.AC")}` : "";
+    }
   }
 
   /* -------------------------------------------- */
@@ -325,12 +356,12 @@ export default class EquipmentData extends ItemDataModel.mixin(
       ...Object.entries(CONFIG.DND5E.armorTypes).map(([value, label]) => ({ value, label, group: "DND5E.Armor" }))
     ];
     context.hasDexModifier = this.isArmor && (this.type.value !== "shield");
-    if ( this.armor.value && (this.isArmor || (this.type.value === "shield")) ) {
+    if ( (this.isArmor || (this.type.value === "shield")) && (this.armor.value || this.armor.bonus) ) {
       context.properties.active.shift();
       context.info = [{
         label: "DND5E.ArmorClass",
         classes: "info-lg",
-        value: this.type.value === "shield" ? dnd5e.utils.formatModifier(this.armor.value) : this.armor.value
+        value: this.type.value === "shield" ? dnd5e.utils.formatModifier(this.armor.value) : this.armor.bonus
       }];
     }
   }

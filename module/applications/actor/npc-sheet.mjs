@@ -2,12 +2,52 @@ import { getClassmodArtsSpellcastingCards } from "../../classmod-arts.mjs";
 import { formatNumber, getPluralRules, splitSemicolons } from "../../utils.mjs";
 import { createCheckboxInput } from "../fields.mjs";
 import BaseActorSheet from "./api/base-actor-sheet.mjs";
-import AdversaryBuilderConfig from "./config/adversary-builder-config.mjs";
 import HabitatConfig from "./config/habitat-config.mjs";
-import SummonBuilderConfig from "./config/summon-builder-config.mjs";
+import NpcBuilderConfig from "./config/npc-builder-config.mjs";
 import TreasureConfig from "./config/treasure-config.mjs";
 
 const TextEditor = foundry.applications.ux.TextEditor.implementation;
+
+/**
+ * Format compact rank labels for the NPC header.
+ * @param {string} label  Configured rank label or abbreviation.
+ * @returns {string}
+ */
+function formatHeaderRankLabel(label) {
+  const text = String(label ?? "").trim();
+  const match = text.match(/^([A-Za-z])-rank$/i) ?? text.match(/^([A-Za-z])$/i);
+  return match ? `${match[1].toUpperCase()}-Rank` : text;
+}
+
+/**
+ * Format custom summon keys for NPC header chips.
+ * @param {string} key  Stored summon key.
+ * @returns {string}
+ */
+function formatHeaderChoiceLabel(key) {
+  return String(key ?? "")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, letter => letter.toUpperCase());
+}
+
+/**
+ * Format summon variant labels for the NPC header.
+ * @param {object} summon  Summon details.
+ * @returns {string}
+ */
+function formatHeaderSummonVariantLabel(summon) {
+  if ( summon.category === "inuzuka" ) {
+    const key = String(summon.variant ?? "").slugify({ strict: true });
+    const labels = {
+      inuit: "Young Inuit",
+      kugsha: "Young Kugsha",
+      tamaskan: "Young Tamaskan"
+    };
+    if ( labels[key] ) return labels[key];
+  }
+  return formatHeaderChoiceLabel(summon.variant);
+}
 
 /**
  * Extension of base actor sheet for NPCs.
@@ -17,8 +57,7 @@ export default class NPCActorSheet extends BaseActorSheet {
   static DEFAULT_OPTIONS = {
     actions: {
       editDescription: NPCActorSheet.#editDescription,
-      showAdversaryBuilder: NPCActorSheet.#showAdversaryBuilder,
-      showSummonBuilder: NPCActorSheet.#showSummonBuilder
+      showNpcBuilder: NPCActorSheet.#showNpcBuilder
     },
     classes: ["npc", "vertical-tabs"],
     position: {
@@ -140,9 +179,17 @@ export default class NPCActorSheet extends BaseActorSheet {
 
   /** @inheritDoc */
   async _prepareContext(options) {
+    const { attributes, details } = this.actor.system;
+    const hasChakra = [attributes.chakra?.max, attributes.chakra?.effectiveMax, attributes.chakra?.value,
+      attributes.chakra?.temp, attributes.chakra?.tempmax].some(value => Number(value) > 0);
+    const hasChakraDice = [attributes.cd?.max, attributes.cd?.value, attributes.cd?.spent]
+      .some(value => Number(value) > 0);
+    const hasJutsu = (this.actor.itemTypes.spell?.length ?? 0) > 0;
     const context = {
       ...await super._prepareContext(options),
       important: !foundry.utils.isEmpty(this.actor.classes) || this.actor.system.traits.important,
+      showChakraDice: hasChakra || hasChakraDice || hasJutsu
+        || details.adversary?.enabled || details.summon?.enabled,
       isNPC: true
     };
     context.hasClasses = context.itemCategories.classes?.length;
@@ -303,6 +350,7 @@ export default class NPCActorSheet extends BaseActorSheet {
     context.hasLegendaries = resources.legact.max || resources.legres.max
       || (context.modernRules && resources.lair.value) || (!context.modernRules && resources.lair.initiative);
     const adversary = context.system.details.adversary;
+    const adversaryRank = CONFIG.DND5E.adversaryRanks[adversary.rank];
     const specialRoles = Array.from(adversary.specialRoles ?? []).map(key => ({
       key,
       label: CONFIG.DND5E.adversarySpecialRoles[key]?.label ?? key
@@ -315,8 +363,9 @@ export default class NPCActorSheet extends BaseActorSheet {
       },
       rank: {
         key: adversary.rank,
-        label: CONFIG.DND5E.adversaryRanks[adversary.rank]?.label ?? adversary.rank.toUpperCase(),
-        abbreviation: CONFIG.DND5E.adversaryRanks[adversary.rank]?.abbreviation ?? adversary.rank.toUpperCase()
+        label: adversaryRank?.label ?? adversary.rank.toUpperCase(),
+        abbreviation: adversaryRank?.abbreviation ?? adversary.rank.toUpperCase(),
+        headerLabel: formatHeaderRankLabel(adversaryRank?.label ?? adversaryRank?.abbreviation ?? adversary.rank)
       },
       role: {
         key: adversary.role,
@@ -332,6 +381,7 @@ export default class NPCActorSheet extends BaseActorSheet {
     context.hasAdversaryResources = resources.tenacity.max || resources.eliteact.max || adversary.enabled;
 
     const summon = context.system.details.summon;
+    const summonRank = CONFIG.DND5E.summonRanks[summon.rank];
     context.summon = {
       enabled: summon.enabled,
       category: {
@@ -340,8 +390,9 @@ export default class NPCActorSheet extends BaseActorSheet {
       },
       rank: {
         key: summon.rank,
-        label: CONFIG.DND5E.summonRanks[summon.rank]?.label ?? summon.rank.toUpperCase(),
-        abbreviation: CONFIG.DND5E.summonRanks[summon.rank]?.abbreviation ?? summon.rank.toUpperCase()
+        label: summonRank?.label ?? summon.rank.toUpperCase(),
+        abbreviation: summonRank?.abbreviation ?? summon.rank.toUpperCase(),
+        headerLabel: formatHeaderRankLabel(summonRank?.label ?? summonRank?.abbreviation ?? summon.rank)
       },
       role: {
         key: summon.role,
@@ -349,13 +400,16 @@ export default class NPCActorSheet extends BaseActorSheet {
       },
       tribe: summon.tribe ? {
         key: summon.tribe,
-        label: CONFIG.DND5E.summonTribes[summon.tribe]?.label ?? summon.tribe
+        label: CONFIG.DND5E.summonTribes[summon.tribe]?.label ?? formatHeaderChoiceLabel(summon.tribe)
       } : null,
       summonType: summon.summonType ? {
         key: summon.summonType,
-        label: CONFIG.DND5E.summonTypes[summon.summonType]?.label ?? summon.summonType
+        label: CONFIG.DND5E.summonTypes[summon.summonType]?.label ?? formatHeaderChoiceLabel(summon.summonType)
       } : null,
-      variant: summon.variant,
+      variant: summon.variant ? {
+        key: summon.variant,
+        label: formatHeaderSummonVariantLabel(summon)
+      } : null,
       level: summon.level
     };
 
@@ -633,25 +687,13 @@ export default class NPCActorSheet extends BaseActorSheet {
   /* -------------------------------------------- */
 
   /**
-   * Open the adversary builder.
+   * Open the NPC builder.
    * @this {NPCActorSheet}
    * @param {Event} event         Triggering event.
    * @param {HTMLElement} target  Action target.
    */
-  static #showAdversaryBuilder(event, target) {
-    this._renderChild(new AdversaryBuilderConfig({ document: this.actor }));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Open the summon builder.
-   * @this {NPCActorSheet}
-   * @param {Event} event         Triggering event.
-   * @param {HTMLElement} target  Action target.
-   */
-  static #showSummonBuilder(event, target) {
-    this._renderChild(new SummonBuilderConfig({ document: this.actor }));
+  static #showNpcBuilder(event, target) {
+    this._renderChild(NpcBuilderConfig.create({ document: this.actor }));
   }
 
   /* -------------------------------------------- */

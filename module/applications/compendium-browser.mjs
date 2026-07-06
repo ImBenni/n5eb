@@ -60,6 +60,7 @@ export default class CompendiumBrowser extends Application5e {
       closeOnSubmit: true
     },
     hint: null,
+    includeWorld: false,
     position: {
       width: 850,
       height: 700
@@ -605,6 +606,7 @@ export default class CompendiumBrowser extends Application5e {
     this.#results = CompendiumBrowser.fetch(CONFIG[context.filters.documentClass].documentClass, {
       filters,
       types: context.filters.types,
+      includeWorld: this.options.includeWorld,
       indexFields: new Set(["system.source"])
     });
     context.displaySelection = this.displaySelection;
@@ -1093,13 +1095,16 @@ export default class CompendiumBrowser extends Application5e {
    * @param {Set<string>} [options.types]    Individual document subtypes to filter upon (e.g. "loot", "class", "npc").
    * @param {FilterDescription[]} [options.filters]  Filters to provide further filters.
    * @param {boolean} [options.index=true]   Should only the index for each document be returned, or the whole thing?
+   * @param {boolean} [options.includeWorld=false]  Include matching world documents in addition to compendium entries.
    * @param {Set<string>} [options.indexFields]  Key paths for fields to index.
    * @param {boolean|string|Function} [options.sort=true]  Should the contents be sorted? By default sorting will be
    *                                         performed using document names, but a key path can be provided to sort on
    *                                         a specific property or a function to provide more advanced sorting.
    * @returns {object[]|Document[]}
    */
-  static async fetch(documentClass, { types=new Set(), filters=[], index=true, indexFields=new Set(), sort=true }={}) {
+  static async fetch(
+    documentClass, { types=new Set(), filters=[], index=true, includeWorld=false, indexFields=new Set(), sort=true }={}
+  ) {
     // Nothing within containers should be shown
     filters.push({ k: "system.container", o: "in", v: [null, undefined] });
 
@@ -1152,6 +1157,12 @@ export default class CompendiumBrowser extends Application5e {
 
     // Wait for everything to finish loading and flatten the arrays
     documents = (await Promise.all(documents)).flat();
+
+    if ( includeWorld && (documentClass === Item) ) {
+      documents.push(...game.items.filter(item => {
+        return (!types.size || types.has(item.type)) && (!filters.length || Filter.performCheck(item, filters));
+      }));
+    }
 
     if ( sort ) {
       if ( sort === true ) sort = "name";

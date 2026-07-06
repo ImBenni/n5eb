@@ -21,21 +21,34 @@
         <label>{{ localize "DND5E.Armor" }}</label>
         <div class="form-fields">
 
-            {{!-- Value --}}
-            {{ formField fields.armor.fields.value value=source.armor.value step=1 label="DND5E.AC" localize=true
+            {{!-- Armor Bonus --}}
+            {{ formField fields.armor.fields.bonus value=source.armor.bonus step=1 label="N5EB.ARMOR.Bonus" localize=true
                          classes="label-top" rootId=partId }}
 
             {{!-- Max Dex --}}
             {{#if hasDexModifier}}
-            {{ formField fields.armor.fields.dex value=source.armor.dex label="DND5E.ItemEquipmentDexModAbbr"
+            {{ formField fields.armor.fields.dexCap value=source.armor.dexCap label="N5EB.ARMOR.DexCap"
                          placeholder="∞" localize=true classes="label-top" rootId=partId }}
             {{/if}}
+
+            {{!-- Damage Reduction --}}
+            {{ formField fields.armor.fields.dr value=source.armor.dr step=1 label="N5EB.ARMOR.DR" localize=true
+                         classes="label-top" rootId=partId }}
 
             {{!-- Strength Requirement --}}
             {{#if system.isArmor}}
             {{ formField fields.strength value=source.strength label="DND5E.AbilityStr" placeholder="—" localize=true
                          classes="label-top" rootId=partId }}
             {{/if}}
+        </div>
+    </div>
+    <div class="form-group split-group">
+        <label>{{ localize "N5EB.ARMOR.Time" }}</label>
+        <div class="form-fields">
+            {{ formField fields.armor.fields.don value=source.armor.don step=1 label="N5EB.ARMOR.Don" localize=true
+                         classes="label-top" rootId=partId }}
+            {{ formField fields.armor.fields.doff value=source.armor.doff step=1 label="N5EB.ARMOR.Doff" localize=true
+                         classes="label-top" rootId=partId }}
         </div>
     </div>
     {{/if}}
@@ -76,6 +89,8 @@
     </div>
     {{/if}}
 </fieldset>
+
+{{> "dnd5e.details-seals" }}
 
 {{#if system.isMountable}}
     {{> "dnd5e.details-mountable" }}

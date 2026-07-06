@@ -101,7 +101,113 @@ system:
     special: ''
   method: spell
   prepared: 1
-effects: []
+effects:
+  - name: Sealed
+    origin: Compendium.n5eb.jutsus.Item.mdGiJi1xShI6mQl8
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: sealed
+          rank: 1
+          maxRank: 5
+          category: mental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/sealed.svg
+    _id: 2fgH3QFYsKNAsSs1
+    type: base
+    system: {}
+    changes:
+      - key: StatusEffect
+        mode: 0
+        value: sealed
+        priority: 20
+      - key: system.attributes.ninjutsudc
+        mode: 0
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: system.attributes.genjutsudc
+        mode: 0
+        value: '-1 * @stackCount'
+        priority: 20
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          turn=start,
+          label=Sealed,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=MY CHAKRA ITS GONE,
+          rollType=skill,
+          saveAbility=nin|ill,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Sealed creature has a
+      limiter on their chakra network, causing their chakra to become
+      inefficient and wasteful. This condition is usually the result of a
+      Fuinjutsu.</p><ul><li><p>A <strong>Sealed</strong> creature increases the
+      base chakra cost of Ninjutsu &amp; Genjutsu by +2, for each rank it
+      has.</p></li><li><p>A <strong>Sealed</strong> creature suffers a -1
+      penalty to all of their Ninjutsu &amp; Genjutsu Save DCs for each rank it
+      has.</p></li><li><p>A creature can spend its action to make a DC 15
+      Ninshou or Illusions check to remove 1 rank of this condition. For every
+      +5 their result is over the DC, they remove 1 additional rank of
+      <strong>Sealed</strong>.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - sealed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.KZhkgzm0QOWCbyVx.ActiveEffect.67Zr4SffTsSb5mM1
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!mdGiJi1xShI6mQl8.2fgH3QFYsKNAsSs1'
 flags:
   cf: null
   n5eb:

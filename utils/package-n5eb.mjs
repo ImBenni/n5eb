@@ -102,7 +102,9 @@ function copyEntries() {
       recursive: true,
       filter: sourcePath => {
         const parts = sourcePath.split(path.sep);
-        return !parts.includes("_source") && path.basename(sourcePath) !== "LOCK";
+        return !parts.includes("_source")
+          && path.basename(sourcePath) !== "LOCK"
+          && path.extname(sourcePath).toLowerCase() !== ".md";
       }
     });
   }
@@ -134,6 +136,11 @@ function prepare() {
   fs.rmSync(STAGE, { force: true, recursive: true });
   fs.mkdirSync(STAGE, { recursive: true });
   fs.mkdirSync(DIST, { recursive: true });
+  for ( const entry of fs.readdirSync(DIST, { withFileTypes: true }) ) {
+    if ( entry.isFile() && /^n5eb-.+\.zip$/i.test(entry.name) ) {
+      fs.rmSync(path.join(DIST, entry.name), { force: true });
+    }
+  }
 }
 
 /* -------------------------------------------- */
@@ -158,8 +165,8 @@ function verify() {
     throw new Error("Package verification failed: staged system.json is missing.");
   }
   const stagedManifest = readJson(path.relative(ROOT, path.join(STAGE, "system.json")));
-  if ( stagedManifest.version !== "3.0.0" ) {
-    throw new Error(`Package verification failed: expected version 3.0.0, found ${stagedManifest.version}.`);
+  if ( stagedManifest.version !== manifest.version ) {
+    throw new Error(`Package verification failed: expected version ${manifest.version}, found ${stagedManifest.version}.`);
   }
 }
 

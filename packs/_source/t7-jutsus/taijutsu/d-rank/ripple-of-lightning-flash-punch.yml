@@ -6,14 +6,19 @@ img: systems/n5eb/assets/content/jutsu-icons/taijutsu.webp
 system:
   description:
     value: >-
-      <p>You inhale and take a charging stance, manifesting ripples of lightning release chakra throughout your entire
-      body. You rear your hand back and coat it in a controlled lighting as you dislocate your bones and keep them
-      together with no pain thanks to the lightning, striking at an enemy unexpectedly.</p><p>Make a melee taijutsu
-      attack dealing your unarmed damage + 2d6 Lightning damage, the creature must then make a constitution saving
-      throw, gaining shocked on a failed save.</p><p><strong>Overcharge:</strong> When you cast this jutsu, as a bonus
-      action or reaction, you can overcharge its effects. When you do this jutsu becomes unreactable</p><p><strong>At
-      Higher Ranks:</strong> For each rank you cast this jutsu above <br />D-Rank, increase the cost of this jutsu by 3
-      and increase the damage by 2d6 and increase the range by 5ft</p><p></p>
+      <p>You inhale and take a charging stance, manifesting ripples of lightning
+      release chakra throughout your entire body. You rear your hand back and
+      coat it in a controlled lighting as you dislocate your bones and keep them
+      together with no pain thanks to the lightning, striking at an enemy
+      unexpectedly.</p><p>Make a melee taijutsu attack dealing your unarmed
+      damage + 2d6 Lightning damage, the creature must then make a constitution
+      saving throw, gaining shocked on a failed
+      save.</p><p><strong>Overcharge:</strong> When you cast this jutsu, as a
+      bonus action or reaction, you can overcharge its effects. When you do this
+      jutsu becomes unreactable</p><p><strong>At Higher Ranks:</strong> For each
+      rank you cast this jutsu above <br />D-Rank, increase the cost of this
+      jutsu by 3 and increase the damage by 2d6 and increase the range by
+      5ft</p><p></p>
     chat: ''
   source:
     custom: ''
@@ -111,7 +116,99 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Shocked
+    origin: Compendium.n5eb.t7-jutsus.Item.m3GN0jWLz0tcgjVF
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: shocked
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    _id: vDKyU4hqCkqGJKVs
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 2
+        value: |-
+          saveDC=15,
+          rollType=skill,
+          saveAbility=sur,
+          actionSave=dialog,
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous
+      system has been flooded with electricity, causing muscle spasms and brain
+      fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
+      reaction, takes 1d6 Lightning damage, for each rank it has, once per
+      turn.</p></li><li><p>A <strong>Shocked</strong> creature who takes a
+      Reaction to cast a jutsu must first make a DC 8 Flat check. On a failure,
+      they double the cost of the jutsu. For rank of shocked beyond the first,
+      increase this DC by +1 (Max DC 12).</p></li><li><p>A creature resistant to
+      Lightning damage makes their flat check at advantage and also has
+      resistance to this condition. A creature immune to Lightning damage has
+      immunity to this condition.</p></li><li><p>A creature can spend an Action
+      to make a DC 15 Constitution (Survival) Check to ground themselves,
+      dispersing the electricity in their body ending this
+      condition.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - shocked
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!m3GN0jWLz0tcgjVF.vDKyU4hqCkqGJKVs'
 sort: 0
 ownership:
   default: 0
@@ -149,15 +246,19 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You inhale and take a charging stance, manifesting ripples of lightning release chakra throughout your
-            entire body. You rear your hand back and coat it in a controlled lighting as you dislocate your bones and
-            keep them together with no pain thanks to the lightning, striking at an enemy unexpectedly.</p><p>Make a
-            melee taijutsu attack dealing your unarmed damage + 2d6 Lightning damage, the creature must then make a
-            constitution saving throw, gaining shocked on a failed save.</p><p><strong>Overcharge:</strong> When you
-            cast this jutsu, as a bonus action or reaction, you can overcharge its effects. When you do this jutsu
-            becomes unreactable</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above <br
-            />D-Rank, increase the cost of this jutsu by 3 and increase the damage by 2d6 and increase the range by
-            5ft</p><p></p>
+            <p>You inhale and take a charging stance, manifesting ripples of
+            lightning release chakra throughout your entire body. You rear your
+            hand back and coat it in a controlled lighting as you dislocate your
+            bones and keep them together with no pain thanks to the lightning,
+            striking at an enemy unexpectedly.</p><p>Make a melee taijutsu
+            attack dealing your unarmed damage + 2d6 Lightning damage, the
+            creature must then make a constitution saving throw, gaining shocked
+            on a failed save.</p><p><strong>Overcharge:</strong> When you cast
+            this jutsu, as a bonus action or reaction, you can overcharge its
+            effects. When you do this jutsu becomes unreactable</p><p><strong>At
+            Higher Ranks:</strong> For each rank you cast this jutsu above <br
+            />D-Rank, increase the cost of this jutsu by 3 and increase the
+            damage by 2d6 and increase the range by 5ft</p><p></p>
           chat: ''
         source:
           custom: ''

@@ -1,6 +1,7 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import { formatNumber, staticID } from "./utils.mjs";
 
+const TextEditor = foundry.applications.ux.TextEditor.implementation;
 const STATUS_ICON = "systems/n5eb/icons/svg/statuses";
 
 /**

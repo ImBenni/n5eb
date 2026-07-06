@@ -41,8 +41,10 @@ export default class HitPointsFlow extends AdvancementFlow {
     return {
       ...context,
       data: {
-        value: value === "avg" ? this.advancement.average : Number.isInteger(value) ? value : "",
-        useAverage: value === "avg"
+        value: value === "avg" ? this.advancement.average : value === "max" ? this.advancement.hitDieValue
+          : Number.isInteger(value) ? value : "",
+        useAverage: value === "avg",
+        useMax: value === "max"
       },
       hp: {
         average: this.advancement.average,
@@ -60,7 +62,8 @@ export default class HitPointsFlow extends AdvancementFlow {
       },
       hitDie: this.advancement.hitDie,
       isFirstClassLevel: (this.level === 1) && this.advancement.item.isOriginalClass,
-      manual: !["avg", "max"].includes(value)
+      manual: !["avg", "max"].includes(value),
+      selectedMax: value === "max"
     };
   }
 
@@ -91,14 +94,16 @@ export default class HitPointsFlow extends AdvancementFlow {
     let newValue;
     if ( event.target?.name === "useAverage" ) {
       newValue = event.target.checked ? "avg" : null;
+    } else if ( event.target?.name === "useMax" ) {
+      newValue = event.target.checked ? "max" : null;
     } else if ( event.target?.name === "value" ) {
       newValue = Number.isInteger(event.target.valueAsNumber) ? event.target.valueAsNumber : null;
     } else {
       // If neither the value input nor the useAverage checkbox is present, this is the first-class-level case where
       // max HP is shown statically and no user input is required.
       if ( form.querySelector("[name=value], [name=useAverage]") ) {
-        const { useAverage, value } = formData.object;
-        if ( !useAverage && !Number.isInteger(value) ) {
+        const { useAverage, useMax, value } = formData.object;
+        if ( !useAverage && !useMax && !Number.isInteger(value) ) {
           const errorType = value === null ? "Empty" : "Invalid";
           throw new Advancement.ERROR(
             game.i18n.localize(`DND5E.ADVANCEMENT.HitPoints.Warning.${errorType}`),

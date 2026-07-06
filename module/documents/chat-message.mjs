@@ -1,6 +1,7 @@
 import aggregateDamageRolls from "../dice/aggregate-damage-rolls.mjs";
 import DamageRoll from "../dice/damage-roll.mjs";
 import simplifyRollFormula from "../dice/simplify-roll-formula.mjs";
+import { assignSystemFlagAliases, assignSystemFlagDataAliases, getSystemFlagAlias } from "./flag-compatibility.mjs";
 
 export default class ChatMessage5e extends ChatMessage {
 
@@ -19,6 +20,14 @@ export default class ChatMessage5e extends ChatMessage {
    * @type {Token5e|null}
    */
   _highlighted = null;
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getFlag(scope, key) {
+    const value = super.getFlag(scope, key);
+    return getSystemFlagAlias(this, scope, key, value);
+  }
 
   /* -------------------------------------------- */
 
@@ -82,6 +91,7 @@ export default class ChatMessage5e extends ChatMessage {
   /** @inheritDoc */
   static migrateData(source) {
     source = super.migrateData(source);
+    assignSystemFlagDataAliases(source);
     if ( foundry.utils.hasProperty(source, "flags.n5eb.itemData") ) {
       foundry.utils.setProperty(source, "flags.n5eb.item.data", source.flags.n5eb.itemData);
       delete source.flags.n5eb.itemData;
@@ -103,6 +113,7 @@ export default class ChatMessage5e extends ChatMessage {
   /** @inheritDoc */
   prepareData() {
     super.prepareData();
+    assignSystemFlagAliases(this);
     if ( !this.flags.n5eb?.item?.data && this.flags.n5eb?.item?.id ) {
       const itemData = this.system.deltas?.deleted?.find(i => i._id === this.flags.n5eb.item.id);
       if ( itemData ) Object.defineProperty(this.flags.n5eb.item, "data", { value: itemData });
@@ -515,11 +526,13 @@ export default class ChatMessage5e extends ChatMessage {
 
     const tooltipContents = breakdown.reduce((str, { type, total, constant, dice, icon, method }) => {
       const config = CONFIG.DND5E.damageTypes[type] ?? CONFIG.DND5E.healingTypes[type];
+      const iconHTML = icon
+        ? `<span class="part-method" data-tooltip aria-label="${game.i18n.localize(method)}">${icon}</span>`
+        : "";
       return `${str}
         <section class="tooltip-part">
           <div class="dice">
-            ${icon
-              ? `<span class="part-method" data-tooltip aria-label="${game.i18n.localize(method)}">${icon}</span>` : ""}
+            ${iconHTML}
             <ol class="dice-rolls">
               ${dice.reduce((str, { result, classes }) => `
                 ${str}<li class="roll ${classes}">${result}</li>

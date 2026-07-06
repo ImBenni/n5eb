@@ -6,13 +6,16 @@ img: systems/n5eb/assets/content/clans/kamizuru.webp
 system:
   description:
     value: >-
-      <p>You command your hive to swarm and sting a single target you can see within range. Make a ranged ninjutsu
-      attack. On a hit, they take 4d6 Poison damage and must make a Constitution saving throw, gaining a rank of
-      <strong>Envenomed</strong> on a failed save.</p><p>Additionally on a successful hit, the affected creature takes
-      2d6 Poison damage at the start of their turns for the duration of this Jutsu. This creature can end the effects of
-      this Jutsu early by removing the stinger as an Action, Bonus Action, or Reaction.</p><p><strong>At Higher
-      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and increase
-      the damage by 1d6 and targets by +1.</p>
+      <p>You command your hive to swarm and sting a single target you can see
+      within range. Make a ranged ninjutsu attack. On a hit, they take 4d6
+      Poison damage and must make a Constitution saving throw, gaining a rank of
+      <strong>Envenomed</strong> on a failed save.</p><p>Additionally on a
+      successful hit, the affected creature takes 2d6 Poison damage at the start
+      of their turns for the duration of this Jutsu. This creature can end the
+      effects of this Jutsu early by removing the stinger as an Action, Bonus
+      Action, or Reaction.</p><p><strong>At Higher Ranks:</strong> For each rank
+      you cast this jutsu above D-Rank, increase the cost of this jutsu by 3 and
+      increase the damage by 1d6 and targets by +1.</p>
     chat: ''
   source:
     custom: ''
@@ -110,7 +113,108 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Envenomed
+    origin: Compendium.n5eb.hb-clan.Item.6ZqhJ0lp6owsPGVd
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: envenomed
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    _id: IAEYfnEGpWLjGOaH
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d6,
+          damageType=poison,
+          label=Poisoned/Envenomed,
+          chatFlavor=YUCK I feel SICK,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: poisoned
+        priority: 20
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong>
+      creature (sometimes called Poisoned) has been exposed to some kind of
+      venom or toxin, causing their vitality and immune health to drop
+      rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object
+      takes 1d6 poison damage for each rank it has, at the start of each of
+      their turns for the duration of this condition</p></li><li><p>An
+      <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for
+      each rank it has.</p></li><li><p>An <strong>Envenomed</strong> creature
+      cannot gain the benefits of a rest.</p></li><li><p>Creatures that are
+      immune to poison damage are immune to the envenomed
+      condition.</p></li><li><p>Outside of combat, every hour a creature suffers
+      the effects of this condition as if a turn has passed in
+      combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - envenomed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!6ZqhJ0lp6owsPGVd.IAEYfnEGpWLjGOaH'
 sort: 0
 ownership:
   default: 0
@@ -150,13 +254,17 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You command your hive to swarm and sting a single target you can see within range. Make a ranged ninjutsu
-            attack. On a hit, they take 4d6 Poison damage and must make a Constitution saving throw, gaining a rank of
-            <strong>Envenomed</strong> on a failed save.</p><p>Additionally on a successful hit, the affected creature
-            takes 2d6 Poison damage at the start of their turns for the duration of this Jutsu. This creature can end
-            the effects of this Jutsu early by removing the stinger as an Action, Bonus Action, or
-            Reaction.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
-            the cost of this jutsu by 3 and increase the damage by 1d6 and targets by +1.</p>
+            <p>You command your hive to swarm and sting a single target you can
+            see within range. Make a ranged ninjutsu attack. On a hit, they take
+            4d6 Poison damage and must make a Constitution saving throw, gaining
+            a rank of <strong>Envenomed</strong> on a failed
+            save.</p><p>Additionally on a successful hit, the affected creature
+            takes 2d6 Poison damage at the start of their turns for the duration
+            of this Jutsu. This creature can end the effects of this Jutsu early
+            by removing the stinger as an Action, Bonus Action, or
+            Reaction.</p><p><strong>At Higher Ranks:</strong> For each rank you
+            cast this jutsu above D-Rank, increase the cost of this jutsu by 3
+            and increase the damage by 1d6 and targets by +1.</p>
           chat: ''
         source:
           custom: ''

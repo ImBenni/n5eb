@@ -8,6 +8,56 @@ import SelectChoices from "./select-choices.mjs";
 const _cachedIndices = {};
 
 /**
+ * Determine whether an identifier points to a config-backed virtual base item.
+ * @param {string} identifier  Base item identifier.
+ * @returns {boolean}
+ * @private
+ */
+function _isVirtualBaseItemId(identifier) {
+  return !!identifier?.startsWith(CONFIG.DND5E.CONFIG_BASE_ITEM_ID_PREFIX);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build a readable label from a config key.
+ * @param {string} key  Config key.
+ * @returns {string}
+ * @private
+ */
+function _labelFromKey(key) {
+  return key
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, char => char.toUpperCase());
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Create a minimal index-like object for config entries without a backing compendium item.
+ * @param {string} identifier  Virtual base item identifier.
+ * @returns {object}
+ * @private
+ */
+function _getVirtualBaseItemIndex(identifier) {
+  const path = identifier.slice(CONFIG.DND5E.CONFIG_BASE_ITEM_ID_PREFIX.length);
+  const key = path.split(".").pop();
+  const config = foundry.utils.getProperty(CONFIG.DND5E, path);
+  let label = foundry.utils.getType(config) === "Object" ? config.label : config;
+  if ( label === identifier ) label = null;
+  const name = label ? game.i18n.localize(label) : _labelFromKey(key);
+  return {
+    _id: identifier,
+    name,
+    img: CONFIG.Item.typeIcons?.loot ?? CONST.DEFAULT_TOKEN,
+    system: { type: { value: "" } }
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
  * Determine the appropriate label to use for a trait category.
  * @param {object|string} data  Category for which to fetch the label.
  * @param {object} config       Trait configuration data.
@@ -279,6 +329,9 @@ export async function mixedChoices(keys) {
  *                                       otherwise else a simple object containing the minimal index data.
  */
 export function getBaseItem(identifier, { indexOnly=false, fullItem=false }={}) {
+  if ( _isVirtualBaseItemId(identifier) ) {
+    return fullItem && !indexOnly ? undefined : _getVirtualBaseItemIndex(identifier);
+  }
   const uuid = getBaseItemUUID(identifier);
   const { collection, documentId: id } = foundry.utils.parseUuid(uuid);
   const pack = collection?.metadata.id;
@@ -322,6 +375,7 @@ export function getBaseItem(identifier, { indexOnly=false, fullItem=false }={}) 
  * @returns {string}
  */
 export function getBaseItemUUID(identifier) {
+  if ( !identifier || _isVirtualBaseItemId(identifier) ) return "";
   if ( identifier.startsWith("Compendium.") ) return identifier;
   let pack = CONFIG.DND5E.sourcePacks.ITEMS;
   let [scope, collection, id] = identifier.split(".");
@@ -371,11 +425,14 @@ export function traitLabel(trait, count) {
  * @param {string} key             Key for which to generate the icon.
  * @param {object} [config={}]
  * @param {string} [config.trait]  Trait as defined in `CONFIG.DND5E.traits` if not using a prefixed key.
+ * @param {string} [config.type]   Alias for `trait` used by some advancement applications.
  * @returns {string|null}
  */
-export function keyIcon(key, { trait }={}) {
+export function keyIcon(key, { trait, type }={}) {
   let parts = key.split(":");
+  trait ??= type;
   if ( !trait ) trait = parts.shift();
+  else if ( parts[0] === trait ) parts.shift();
 
   // For simple traits, retrieve from config directly
   const traitConfig = CONFIG.DND5E.traits[trait];
@@ -404,6 +461,7 @@ export function keyIcon(key, { trait }={}) {
  * @param {object} [config={}]
  * @param {number} [config.count]   Number to display, only if a wildcard is used as final part of key.
  * @param {string} [config.trait]   Trait as defined in `CONFIG.DND5E.traits` if not using a prefixed key.
+ * @param {string} [config.type]    Alias for `trait` used by some advancement applications.
  * @param {boolean} [config.final]  Is this the final in a list?
  * @returns {string}                Retrieved label.
  *
@@ -442,12 +500,14 @@ export function keyIcon(key, { trait }={}) {
  * keyLabel("shortsword", { trait: "weapon" });
  */
 export function keyLabel(key, config={}) {
-  let { count, trait, final } = config;
+  let { count, trait, type, final } = config;
 
   let parts = key.split(":");
   const pluralRules = new Intl.PluralRules(game.i18n.lang);
 
+  trait ??= type;
   if ( !trait ) trait = parts.shift();
+  else if ( parts[0] === trait ) parts.shift();
   const traitConfig = CONFIG.DND5E.traits[trait];
   if ( !traitConfig ) return key;
   const traitData = CONFIG.DND5E[traitConfig.configKey ?? trait] ?? {};

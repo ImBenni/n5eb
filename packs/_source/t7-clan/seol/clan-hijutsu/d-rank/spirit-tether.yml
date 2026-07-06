@@ -6,19 +6,26 @@ img: systems/n5eb/assets/content/clans/seol.webp
 system:
   description:
     value: >-
-      <p>You perform a deadly strike against an enemy that makes it seem like you looked into their soul to see their
-      weakness. This jutsu can only be cast as a <em><strong>Finisher</strong></em>.</p><p>Make a melee or ranged
-      Taijutsu attack against a creature within range. On a successful hit, they take your weapon's damage + 2d8 and
-      gain 2 ranks of Bleed. Damage dealt by the Bleeding condition inflicted by this jutsu is Force damage.</p><p>If
-      this jutsu is used with your Ego Weapon as a component, the initial attack is made at advantage, and on a
-      successful hit the creature's soul is marked with an tether that is only visible to those with chakra sight or
-      true sight. The tether extends to the edge of this jutsu's range, and a creature that the tether is attached to
-      has disadvantage on checks made to conceal themselves from you.</p><p>If a creature would leave the range of this
-      jutsu the tether snaps and ends the effects of this jutsu on them, but their movement speed is halved until the
-      end of your next turn.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank,
-      increase the cost of this jutsu by 3, the range by 15 feet, and the damage by 2d8. If this jutsu is cast at B-Rank
-      or higher, a creature must make a Charisma Saving Throw at the start of each of their turns the tether remains on
-      them, having their movement speed halved on a failure.</p><p></p>
+      <p>You perform a deadly strike against an enemy that makes it seem like
+      you looked into their soul to see their weakness. This jutsu can only be
+      cast as a <em><strong>Finisher</strong></em>.</p><p>Make a melee or ranged
+      Taijutsu attack against a creature within range. On a successful hit, they
+      take your weapon's damage + 2d8 and gain 2 ranks of Bleed. Damage dealt by
+      the Bleeding condition inflicted by this jutsu is Force damage.</p><p>If
+      this jutsu is used with your Ego Weapon as a component, the initial attack
+      is made at advantage, and on a successful hit the creature's soul is
+      marked with an tether that is only visible to those with chakra sight or
+      true sight. The tether extends to the edge of this jutsu's range, and a
+      creature that the tether is attached to has disadvantage on checks made to
+      conceal themselves from you.</p><p>If a creature would leave the range of
+      this jutsu the tether snaps and ends the effects of this jutsu on them,
+      but their movement speed is halved until the end of your next
+      turn.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this
+      jutsu above D-Rank, increase the cost of this jutsu by 3, the range by 15
+      feet, and the damage by 2d8. If this jutsu is cast at B-Rank or higher, a
+      creature must make a Charisma Saving Throw at the start of each of their
+      turns the tether remains on them, having their movement speed halved on a
+      failure.</p><p></p>
     chat: ''
   source:
     custom: ''
@@ -122,7 +129,111 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Bleeding 2
+    origin: Compendium.n5eb.t7-clan.Item.a4ADQhVHWIeWKScE
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: bleeding
+          rank: 2
+          maxRank: 5
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    _id: lmcz38egiq2H1BPc
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d4, damageType=necrotic,
+          label=Bleeding,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=Lil paper cut fr,
+          rollType=skill,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bleeding
+        priority: 0
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has
+      suffered a minor abrasion to their flesh, causing slow blood loss if
+      untreated.</p><ul><li><p>At the start of their turn, a bleeding creature
+      takes 1d4 necrotic damage for each rank of Bleed they
+      have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop
+      the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>A
+      creature who would gain a sixth (or more) ranks of the Bleeding condition
+      immediately gains 5 ranks of the Lacerated condition, ending the Bleeding
+      condition.</p><ul><li><p>The first time per rest a Bleeding creature would
+      gain the Lacerated this way, they must succeed a DC 11 flat check,
+      immediately taking the damage of their Lacerated ranks as they suffer a
+      great wound.</p></li></ul></li><li><p>Outside of combat, every 10-minutes
+      a creature suffers the effects of this condition as if a turn has passed
+      in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - bleeding
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!a4ADQhVHWIeWKScE.lmcz38egiq2H1BPc'
 sort: 0
 ownership:
   default: 0
@@ -158,20 +269,27 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You perform a deadly strike against an enemy that makes it seem like you looked into their soul to see
-            their weakness. This jutsu can only be cast as a <em><strong>Finisher</strong></em>.</p><p>Make a melee or
-            ranged Taijutsu attack against a creature within range. On a successful hit, they take your weapon's damage
-            + 2d8 and gain 2 ranks of Bleed. Damage dealt by the Bleeding condition inflicted by this jutsu is Force
-            damage.</p><p>If this jutsu is used with your Ego Weapon as a component, the initial attack is made at
-            advantage, and on a successful hit the creature's soul is marked with an tether that is only visible to
-            those with chakra sight or true sight. The tether extends to the edge of this jutsu's range, and a creature
-            that the tether is attached to has disadvantage on checks made to conceal themselves from you.</p><p>If a
-            creature would leave the range of this jutsu the tether snaps and ends the effects of this jutsu on them,
-            but their movement speed is halved until the end of your next turn.</p><p><strong>At Higher Ranks:</strong>
-            For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3, the range by 15 feet,
-            and the damage by 2d8. If this jutsu is cast at B-Rank or higher, a creature must make a Charisma Saving
-            Throw at the start of each of their turns the tether remains on them, having their movement speed halved on
-            a failure.</p><p></p>
+            <p>You perform a deadly strike against an enemy that makes it seem
+            like you looked into their soul to see their weakness. This jutsu
+            can only be cast as a <em><strong>Finisher</strong></em>.</p><p>Make
+            a melee or ranged Taijutsu attack against a creature within range.
+            On a successful hit, they take your weapon's damage + 2d8 and gain 2
+            ranks of Bleed. Damage dealt by the Bleeding condition inflicted by
+            this jutsu is Force damage.</p><p>If this jutsu is used with your
+            Ego Weapon as a component, the initial attack is made at advantage,
+            and on a successful hit the creature's soul is marked with an tether
+            that is only visible to those with chakra sight or true sight. The
+            tether extends to the edge of this jutsu's range, and a creature
+            that the tether is attached to has disadvantage on checks made to
+            conceal themselves from you.</p><p>If a creature would leave the
+            range of this jutsu the tether snaps and ends the effects of this
+            jutsu on them, but their movement speed is halved until the end of
+            your next turn.</p><p><strong>At Higher Ranks:</strong> For each
+            rank you cast this jutsu above D-Rank, increase the cost of this
+            jutsu by 3, the range by 15 feet, and the damage by 2d8. If this
+            jutsu is cast at B-Rank or higher, a creature must make a Charisma
+            Saving Throw at the start of each of their turns the tether remains
+            on them, having their movement speed halved on a failure.</p><p></p>
           chat: ''
         source:
           custom: ''

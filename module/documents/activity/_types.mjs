@@ -112,6 +112,13 @@
  * @property {number} quantity  New quantity after the ammunition is spent.
  */
 
+/**
+ * @typedef AmmunitionDieUpdate
+ * @property {string} id           ID of the item whose ammunition die should be updated.
+ * @property {string} die          New ammunition die value.
+ * @property {string} previousDie  Previous ammunition die value.
+ */
+
 /* -------------------------------------------- */
 
 /**

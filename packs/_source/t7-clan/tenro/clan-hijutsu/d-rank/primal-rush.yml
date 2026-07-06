@@ -6,15 +6,20 @@ img: systems/n5eb/assets/content/clans/tenro.webp
 system:
   description:
     value: >-
-      <p><em>As a part of casting this jutsu, you must be gaining the benefits of the <strong>Primal Fist
-      Stance</strong>.</em> You let your primal instincts take over, rushing forward to a target in range as you attempt
-      to maul them. You move up to your full walking speed to a creature you can sense in range. This does not provoke
-      opportunity attacks. Then make one melee taijutsu attack against the target. On a hit, you deal your unarmed
-      damage + 2d6, and the creature must make a strength saving throw be knocked prone.</p><p>Until the end of your
-      turn, you can target one affected creature with a Taijutsu <em><strong>Finisher</strong></em> regardless of range,
-      once per turn, using either an Action or Bonus action, ignoring its listed casting time.</p><p><strong>At Higher
-      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the cost by 3 and the additional damage
-      by 1d6. When you cast this jutsu at B-Rank or above, you instead make two melee taijutsu attacks.</p>
+      <p><em>As a part of casting this jutsu, you must be gaining the benefits
+      of the <strong>Primal Fist Stance</strong>.</em> You let your primal
+      instincts take over, rushing forward to a target in range as you attempt
+      to maul them. You move up to your full walking speed to a creature you can
+      sense in range. This does not provoke opportunity attacks. Then make one
+      melee taijutsu attack against the target. On a hit, you deal your unarmed
+      damage + 2d6, and the creature must make a strength saving throw be
+      knocked prone.</p><p>Until the end of your turn, you can target one
+      affected creature with a Taijutsu <em><strong>Finisher</strong></em>
+      regardless of range, once per turn, using either an Action or Bonus
+      action, ignoring its listed casting time.</p><p><strong>At Higher
+      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
+      the cost by 3 and the additional damage by 1d6. When you cast this jutsu
+      at B-Rank or above, you instead make two melee taijutsu attacks.</p>
     chat: ''
   source:
     custom: ''
@@ -113,7 +118,85 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Prone
+    origin: Compendium.n5eb.t7-clan.Item.RrCUlmslvM55Luxh
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: prone
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: hAHdj0IhfSRfPa3F
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - prone
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!RrCUlmslvM55Luxh.hAHdj0IhfSRfPa3F'
 sort: 0
 ownership:
   default: 0
@@ -151,16 +234,22 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p><em>As a part of casting this jutsu, you must be gaining the benefits of the <strong>Primal Fist
-            Stance</strong>.</em> You let your primal instincts take over, rushing forward to a target in range as you
-            attempt to maul them. You move up to your full walking speed to a creature you can sense in range. This does
-            not provoke opportunity attacks. Then make one melee taijutsu attack against the target. On a hit, you deal
-            your unarmed damage + 2d6, and the creature must make a strength saving throw be knocked prone.</p><p>Until
-            the end of your turn, you can target one affected creature with a Taijutsu
-            <em><strong>Finisher</strong></em> regardless of range, once per turn, using either an Action or Bonus
-            action, ignoring its listed casting time.</p><p><strong>At Higher Ranks:</strong> For each rank you cast
-            this jutsu above D-Rank, increase the cost by 3 and the additional damage by 1d6. When you cast this jutsu
-            at B-Rank or above, you instead make two melee taijutsu attacks.</p>
+            <p><em>As a part of casting this jutsu, you must be gaining the
+            benefits of the <strong>Primal Fist Stance</strong>.</em> You let
+            your primal instincts take over, rushing forward to a target in
+            range as you attempt to maul them. You move up to your full walking
+            speed to a creature you can sense in range. This does not provoke
+            opportunity attacks. Then make one melee taijutsu attack against the
+            target. On a hit, you deal your unarmed damage + 2d6, and the
+            creature must make a strength saving throw be knocked
+            prone.</p><p>Until the end of your turn, you can target one affected
+            creature with a Taijutsu <em><strong>Finisher</strong></em>
+            regardless of range, once per turn, using either an Action or Bonus
+            action, ignoring its listed casting time.</p><p><strong>At Higher
+            Ranks:</strong> For each rank you cast this jutsu above D-Rank,
+            increase the cost by 3 and the additional damage by 1d6. When you
+            cast this jutsu at B-Rank or above, you instead make two melee
+            taijutsu attacks.</p>
           chat: ''
         source:
           custom: ''

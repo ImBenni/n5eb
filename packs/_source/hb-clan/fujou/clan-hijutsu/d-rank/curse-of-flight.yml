@@ -6,16 +6,22 @@ img: systems/n5eb/assets/content/clans/fujou.webp
 system:
   description:
     value: >-
-      <p>You whisper words of defenestration, as a creature within range is filled with a desire to fly away. Choose one
-      creature you can see within range, it must make a wisdom saving throw:</p><ul><li><strong>Success</strong>: No
-      effect.</li><li><strong>Failure</strong>: On its next turn, the target must use all its movement to get to the
-      highest possible place it can reach on that turn, and throw itself to the ground. If there is no place high enough
-      it can reach that would deal fall damage, the target drops whatever it is holding and falls
-      prone.</li><li><strong>Critical Failure</strong>: As a failure, but the target must also spend its action and
-      bonus action dashing or using the faster route to gain height. If there is no place high enough it can reach that
-      would deal fall damage, it drops whatever it is holding, falls prone, and has its speed reduced to 0 until the end
-      of their next turn.</li></ul><p><strong>At higher ranks:</strong> For each rank above D-rank, increase this
-      jutsu's cost by 3, and the number of affected creatures by +1.</p>
+      <p>You whisper words of defenestration, as a creature within range is
+      filled with a desire to fly away. Choose one creature you can see within
+      range, it must make a wisdom saving
+      throw:</p><ul><li><strong>Success</strong>: No
+      effect.</li><li><strong>Failure</strong>: On its next turn, the target
+      must use all its movement to get to the highest possible place it can
+      reach on that turn, and throw itself to the ground. If there is no place
+      high enough it can reach that would deal fall damage, the target drops
+      whatever it is holding and falls prone.</li><li><strong>Critical
+      Failure</strong>: As a failure, but the target must also spend its action
+      and bonus action dashing or using the faster route to gain height. If
+      there is no place high enough it can reach that would deal fall damage, it
+      drops whatever it is holding, falls prone, and has its speed reduced to 0
+      until the end of their next turn.</li></ul><p><strong>At higher
+      ranks:</strong> For each rank above D-rank, increase this jutsu's cost by
+      3, and the number of affected creatures by +1.</p>
     chat: ''
   source:
     custom: ''
@@ -114,7 +120,85 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Prone
+    origin: Compendium.n5eb.hb-clan.Item.9HW6OWKbnRp00VWi
+    duration:
+      rounds: null
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: prone
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/prone.svg
+    _id: 8ZXgFh42eVnFICfO
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.disadvantage.attack.all
+        mode: 5
+        value: '1'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: prone
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - prone
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!9HW6OWKbnRp00VWi.8ZXgFh42eVnFICfO'
 sort: 0
 ownership:
   default: 0
@@ -148,17 +232,23 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You whisper words of defenestration, as a creature within range is filled with a desire to fly away.
-            Choose one creature you can see within range, it must make a wisdom saving
-            throw:</p><ul><li><strong>Success</strong>: No effect.</li><li><strong>Failure</strong>: On its next turn,
-            the target must use all its movement to get to the highest possible place it can reach on that turn, and
-            throw itself to the ground. If there is no place high enough it can reach that would deal fall damage, the
-            target drops whatever it is holding and falls prone.</li><li><strong>Critical Failure</strong>: As a
-            failure, but the target must also spend its action and bonus action dashing or using the faster route to
-            gain height. If there is no place high enough it can reach that would deal fall damage, it drops whatever it
-            is holding, falls prone, and has its speed reduced to 0 until the end of their next
-            turn.</li></ul><p><strong>At higher ranks:</strong> For each rank above D-rank, increase this jutsu's cost
-            by 3, and the number of affected creatures by +1.</p>
+            <p>You whisper words of defenestration, as a creature within range
+            is filled with a desire to fly away. Choose one creature you can see
+            within range, it must make a wisdom saving
+            throw:</p><ul><li><strong>Success</strong>: No
+            effect.</li><li><strong>Failure</strong>: On its next turn, the
+            target must use all its movement to get to the highest possible
+            place it can reach on that turn, and throw itself to the ground. If
+            there is no place high enough it can reach that would deal fall
+            damage, the target drops whatever it is holding and falls
+            prone.</li><li><strong>Critical Failure</strong>: As a failure, but
+            the target must also spend its action and bonus action dashing or
+            using the faster route to gain height. If there is no place high
+            enough it can reach that would deal fall damage, it drops whatever
+            it is holding, falls prone, and has its speed reduced to 0 until the
+            end of their next turn.</li></ul><p><strong>At higher
+            ranks:</strong> For each rank above D-rank, increase this jutsu's
+            cost by 3, and the number of affected creatures by +1.</p>
           chat: ''
         source:
           custom: ''

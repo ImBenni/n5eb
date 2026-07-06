@@ -130,6 +130,17 @@ flags:
           value: null
           formula: 1d8
           charged: false
+    armorMigration:
+      sourceOriginal:
+        armor:
+          value: 16
+          dex: 3
+          magicalBonus: null
+          dr: 4
+        properties:
+          - heavyweight
+          - highquality
+          - reinforced
 system:
   description:
     value: >-
@@ -200,6 +211,10 @@ system:
     dex: 3
     magicalBonus: null
     dr: 4
+    bonus: 6
+    dexCap: 3
+    don: 5
+    doff: 1
   hp:
     value: 0
     max: 0
@@ -225,18 +240,22 @@ system:
   summons: null
   properties:
     - heavyweight
-    - highquality
+    - highQuality
     - reinforced
   recharge:
     value: null
     formula: 1d8
     charged: false
   identifier: battle-coat
+  seals:
+    quality: standard
+    capacity: null
+    bonus: 0
 _stats:
   duplicateSource: null
   coreVersion: '12.331'
   systemId: n5eb
-  systemVersion: 3.0.0
+  systemVersion: 3.0.1
   createdTime: 1728575880187
   modifiedTime: 1732926273626
   lastModifiedBy: n5ebbuilder00000

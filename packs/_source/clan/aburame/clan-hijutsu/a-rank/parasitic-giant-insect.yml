@@ -6,36 +6,35 @@ img: systems/n5eb/assets/content/clans/aburame.webp
 system:
   description:
     value: >-
-      <p>As part of the activation of this jutsu, you select one creature you can see within range. The target creature
-      becomes swarmed by parasitic beetle as they land on them and begins to attempt to burrow into their skin. The
-      target makes a constitution saving throw at the beginning of each of its turns for the next minute as they resist
-      having the beetles burrow into them.</p><p>Each time a creature fails this saving throw, they gain a rank of
-      Envenomed, Weakened and Dazzled for the next 10 minutes. A creature who fails this saving throw 5 or more times
-      begins to experience a violent outburst of constantly reproducing beetles as they escape through the targets skin
-      and flesh taking 10d12 poison damage and 12d10 Chakra damage.</p><p>A creature who succeeds their saving throw 5
-      or more times ends this jutsu immediately.</p><p>Once you cast this jutsu, you cannot cast it again until you
-      spend at least 10 minutes nurturing a new parasitic giant insect.</p><p>At Higher Ranks: For each rank you cast
-      this jutsu above A-Rank, increase the cost of this jutsu by 3, the damage by 2d12 poison and 2d10 Chakra
-      damage.</p>
-    chat: ''
+      <p>You insert a special insect that burrows into the skin of your target and then explosively grows the more flesh
+      and chakra it consumes. Make a Melee Ninjutsu Attack. On a hit, at the start of the target creature's next turn,
+      the insect explodes out of their body, leaving a giant hole in their wake, dealing 10d10 Necrotic Damage that
+      ignores Damage Reduction, 8d10 Chakra Damage, and inflicting 2 ranks of Bleed. The creature then has to succeed a
+      Constitution Saving Throw to resist the poison the insect leaves behind or gain a rank of Envenomed. A creature
+      can have more than one parasitic giant insect implanted in them at a time. You can choose to plant the insect
+      subtly by making a Sleight of Hand Check against the target's Passive Perception. You can also delay its growth by
+      designating the number of rounds the insect will wait to start eating at the time of casting, to a maximum of 10.
+      At Higher Ranks: For each rank you cast this jutsu above A-Rank, increase the cost of this jutsu by 3 and the
+      Necrotic Damage by 2d10.</p>
+    chat: ""
   source:
-    custom: ''
+    custom: ""
     rules: n5eb
     book: Naruto 5e
   activation:
     type: action
     cost: 1
-    condition: ''
+    condition: ""
   duration:
-    value: ''
+    value: ""
     units: inst
   cover: null
   crewed: false
   target:
-    value: ''
+    value: ""
     width: null
-    units: ''
-    type: ''
+    units: ""
+    type: ""
     prompt: true
   range:
     value: 120
@@ -43,31 +42,31 @@ system:
     units: ft
   uses:
     value: null
-    max: ''
+    max: ""
     per: null
-    recovery: ''
+    recovery: ""
     prompt: true
   consume:
-    type: ''
+    type: ""
     target: null
     amount: null
     scale: false
-  ability: ''
+  ability: ""
   actionType: save
   attack:
-    bonus: ''
+    bonus: ""
     flat: false
-  chatFlavor: ''
+  chatFlavor: ""
   critical:
     threshold: null
-    damage: ''
+    damage: ""
   damage:
     parts:
       - - 10d12
         - poison
     versatile: 12d10
   enchantment: null
-  formula: ''
+  formula: ""
   save:
     ability: con
     dc: null
@@ -77,7 +76,7 @@ system:
   school: trs
   properties: []
   materials:
-    value: ''
+    value: ""
     consumed: false
     cost: 0
     supply: 0
@@ -102,15 +101,15 @@ system:
       - ninjutsu
       - hijutsu
     countsKnown: true
-    ability: ''
+    ability: ""
     type: ninjutsu
   rank: a
   chakra:
-    cost: '20'
+    cost: "20"
     scaling:
       mode: rank
       value: 3
-    special: ''
+    special: ""
   method: spell
   prepared: 0
 effects:
@@ -127,15 +126,15 @@ effects:
     disabled: false
     flags:
       dae:
-        enableCondition: ''
-        disableCondition: ''
+        enableCondition: ""
+        disableCondition: ""
         disableIncapacitated: false
         selfTarget: false
         selfTargetAlways: false
         dontApply: false
         stackable: count
         showIcon: false
-        durationExpression: ''
+        durationExpression: ""
         macroRepeat: none
         specialDuration: []
       core:
@@ -143,11 +142,11 @@ effects:
       ActiveAuras:
         isAura: false
         aura: None
-        nameOverride: ''
-        radius: ''
-        alignment: ''
-        type: ''
-        customCheck: ''
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
         ignoreSelf: false
         height: false
         hidden: false
@@ -176,7 +175,7 @@ effects:
         priority: 20
       - key: system.attributes.ac.bonus
         mode: 2
-        value: '-1 * @stackCount'
+        value: "-1 * @stackCount"
         priority: 20
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
@@ -187,20 +186,20 @@ effects:
       <strong>Envenomed</strong> creature cannot gain the benefits of a rest.</p></li><li><p>Creatures that are immune
       to poison damage are immune to the envenomed condition.</p></li><li><p>Outside of combat, every hour a creature
       suffers the effects of this condition as if a turn has passed in combat.</p></li></ul>
-    tint: '#ffffff'
+    tint: "#ffffff"
     transfer: false
     statuses: []
     sort: 0
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: "12.331"
       systemId: n5eb
       systemVersion: 1,2,2
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-    _key: '!items.effects!IOpxZ8sdBiIfv6jK.satg1bHTqMg1wbW3'
+    _key: "!items.effects!IOpxZ8sdBiIfv6jK.satg1bHTqMg1wbW3"
   - name: Weakened
     origin: Compendium.n5eb.clan.Item.IOpxZ8sdBiIfv6jK
     duration:
@@ -214,15 +213,15 @@ effects:
     disabled: false
     flags:
       dae:
-        enableCondition: ''
-        disableCondition: ''
+        enableCondition: ""
+        disableCondition: ""
         disableIncapacitated: false
         selfTarget: false
         selfTargetAlways: false
         dontApply: false
         stackable: noneName
         showIcon: false
-        durationExpression: ''
+        durationExpression: ""
         macroRepeat: none
         specialDuration: []
       core:
@@ -230,11 +229,11 @@ effects:
       ActiveAuras:
         isAura: false
         aura: None
-        nameOverride: ''
-        radius: ''
-        alignment: ''
-        type: ''
-        customCheck: ''
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
         ignoreSelf: false
         height: false
         hidden: false
@@ -249,14 +248,14 @@ effects:
     changes:
       - key: system.bonuses.All-Damage
         mode: 2
-        value: '-4 * @stackCount'
+        value: "-4 * @stackCount"
         priority: 20
       - key: system.abilities.str.bonuses.save
         mode: 2
-        value: '-1 * @stackCount'
+        value: "-1 * @stackCount"
         priority: 20
-    description: ''
-    tint: '#ffffff'
+    description: ""
+    tint: "#ffffff"
     transfer: false
     statuses:
       - weakened
@@ -264,13 +263,13 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: "12.331"
       systemId: n5eb
       systemVersion: 1,2,2
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-    _key: '!items.effects!IOpxZ8sdBiIfv6jK.NcChRxg4zDh0Fnaq'
+    _key: "!items.effects!IOpxZ8sdBiIfv6jK.NcChRxg4zDh0Fnaq"
   - name: Dazzled
     origin: Compendium.n5eb.clan.Item.IOpxZ8sdBiIfv6jK
     duration:
@@ -284,15 +283,15 @@ effects:
     disabled: false
     flags:
       dae:
-        enableCondition: ''
-        disableCondition: ''
+        enableCondition: ""
+        disableCondition: ""
         disableIncapacitated: false
         selfTarget: false
         selfTargetAlways: false
         dontApply: false
         stackable: count
         showIcon: false
-        durationExpression: ''
+        durationExpression: ""
         macroRepeat: none
         specialDuration: []
       core:
@@ -300,11 +299,11 @@ effects:
       ActiveAuras:
         isAura: false
         aura: None
-        nameOverride: ''
-        radius: ''
-        alignment: ''
-        type: ''
-        customCheck: ''
+        nameOverride: ""
+        radius: ""
+        alignment: ""
+        type: ""
+        customCheck: ""
         ignoreSelf: false
         height: false
         hidden: false
@@ -319,7 +318,7 @@ effects:
     changes:
       - key: system.bonuses.All-Attacks
         mode: 2
-        value: '-2 * @stackCount'
+        value: "-2 * @stackCount"
         priority: 20
       - key: StatusEffect
         mode: 0
@@ -333,20 +332,20 @@ effects:
       and ranged attacks made by 15 feet for each rank it has down to a minimum of 5 feet.</p><p>• A
       <strong>Dazzled</strong> creature can make a DC 15 Constitution ability check as an action, to remove all ranks of
       this condition.</p>
-    tint: '#ffffff'
+    tint: "#ffffff"
     transfer: false
     statuses: []
     sort: 0
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.Aa2bI0MeSmyi3eOJ.ActiveEffect.rNLK6dZIg5pamybW
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: "12.331"
       systemId: n5eb
       systemVersion: 1,2,2
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-    _key: '!items.effects!IOpxZ8sdBiIfv6jK.1ahkxWMM0V0cUinx'
+    _key: "!items.effects!IOpxZ8sdBiIfv6jK.1ahkxWMM0V0cUinx"
 sort: 100000
 ownership:
   default: 0
@@ -371,10 +370,10 @@ flags:
     otherSaveDamage: default
   midi-qol:
     rollAttackPerTarget: default
-    itemCondition: ''
-    effectCondition: ''
+    itemCondition: ""
+    effectCondition: ""
     removeAttackDamageButtons: default
-    otherCondition: ''
+    otherCondition: ""
   n5eb:
     legacyImport:
       sourceSystem: n5eb_old - Copy
@@ -396,24 +395,24 @@ flags:
             this jutsu, you cannot cast it again until you spend at least 10 minutes nurturing a new parasitic giant
             insect.</p><p>At Higher Ranks: For each rank you cast this jutsu above A-Rank, increase the cost of this
             jutsu by 3, the damage by 2d12 poison and 2d10 Chakra damage.</p>
-          chat: ''
+          chat: ""
         source:
-          custom: ''
+          custom: ""
           book: Naruto 5e
         activation:
           type: action
           cost: 1
-          condition: ''
+          condition: ""
         duration:
-          value: ''
+          value: ""
           units: inst
         cover: null
         crewed: false
         target:
-          value: ''
+          value: ""
           width: null
-          units: ''
-          type: ''
+          units: ""
+          type: ""
           prompt: true
         range:
           value: 120
@@ -421,31 +420,31 @@ flags:
           units: ft
         uses:
           value: null
-          max: ''
+          max: ""
           per: null
-          recovery: ''
+          recovery: ""
           prompt: true
         consume:
-          type: ''
+          type: ""
           target: null
           amount: null
           scale: false
-        ability: ''
+        ability: ""
         actionType: save
         attack:
-          bonus: ''
+          bonus: ""
           flat: false
-        chatFlavor: ''
+        chatFlavor: ""
         critical:
           threshold: null
-          damage: ''
+          damage: ""
         damage:
           parts:
             - - 10d12
               - poison
           versatile: 12d10
         enchantment: null
-        formula: ''
+        formula: ""
         save:
           ability: con
           dc: null
@@ -459,7 +458,7 @@ flags:
           - ninjutsu
           - hijutsu
         materials:
-          value: ''
+          value: ""
           consumed: false
           cost: 0
           supply: 0
@@ -482,7 +481,7 @@ flags:
           charged: false
 _stats:
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: "12.331"
   systemId: n5eb
   systemVersion: 3.0.0
   createdTime: 1728752284287
@@ -492,4 +491,4 @@ _stats:
   legacyImport:
     sourcePack: clan
     sourcePath: aburame/clan-hijutsu/a-rank/parasitic-giant-insect.json
-_key: '!items!IOpxZ8sdBiIfv6jK'
+_key: "!items!IOpxZ8sdBiIfv6jK"

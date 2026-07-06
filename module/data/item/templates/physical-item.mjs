@@ -39,7 +39,18 @@ export default class PhysicalItemTemplate extends SystemDataModel {
           required: true, blank: false, initial: () => CONFIG.DND5E.defaultCurrency, label: "DND5E.Currency"
         })
       }, { label: "DND5E.Price" }),
-      rarity: new StringField({ required: true, blank: true, label: "DND5E.Rarity" })
+      rarity: new StringField({ required: true, blank: true, label: "DND5E.Rarity" }),
+      seals: new SchemaField({
+        quality: new StringField({
+          required: true, blank: false, initial: "standard", label: "N5EB.SEAL.Quality.Label"
+        }),
+        capacity: new NumberField({
+          nullable: true, integer: true, min: 0, initial: null, label: "N5EB.SEAL.Slots.Override"
+        }),
+        bonus: new NumberField({
+          required: true, integer: true, initial: 0, label: "N5EB.SEAL.Slots.Bonus"
+        })
+      }, { label: "N5EB.SEAL.Slots.Label" })
     };
   }
 

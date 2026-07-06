@@ -6,11 +6,14 @@ img: systems/n5eb/assets/content/jutsu-icons/earth.webp
 system:
   description:
     value: >-
-      <p>You summon a small sphere made of earth release chakra that has a noxious odor. You then throw the sphere at a
-      creature or object within range. Make a Ranged Ninjutsu Attack against the target. On a hit, the target takes 2d6
-      Earth damage and must succeed a Constitution saving throw gaining 1 rank of envenomed for 1 minute on a failed
-      save.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the cost of
-      this jutsu by 3 and the damage by 1d6.</p>
+      <p>You summon a small sphere made of earth release chakra that has a
+      noxious odor. You then throw the sphere at a creature or object within
+      range. Make a Ranged Ninjutsu Attack against the target. On a hit, the
+      target takes 2d6 Earth damage and must succeed a Constitution saving throw
+      gaining 1 rank of envenomed for 1 minute on a failed
+      save.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this
+      jutsu above D-Rank, increase the cost of this jutsu by 3 and the damage by
+      1d6.</p>
     chat: ''
   source:
     custom: ''
@@ -108,7 +111,108 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Envenomed
+    origin: Compendium.n5eb.t7-jutsus.Item.snLCPAmLUxkfEwN8
+    duration:
+      rounds: 10
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: envenomed
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    _id: K0Xkfm5RredqIM9q
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d6,
+          damageType=poison,
+          label=Poisoned/Envenomed,
+          chatFlavor=YUCK I feel SICK,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: poisoned
+        priority: 20
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong>
+      creature (sometimes called Poisoned) has been exposed to some kind of
+      venom or toxin, causing their vitality and immune health to drop
+      rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object
+      takes 1d6 poison damage for each rank it has, at the start of each of
+      their turns for the duration of this condition</p></li><li><p>An
+      <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for
+      each rank it has.</p></li><li><p>An <strong>Envenomed</strong> creature
+      cannot gain the benefits of a rest.</p></li><li><p>Creatures that are
+      immune to poison damage are immune to the envenomed
+      condition.</p></li><li><p>Outside of combat, every hour a creature suffers
+      the effects of this condition as if a turn has passed in
+      combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - envenomed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!snLCPAmLUxkfEwN8.K0Xkfm5RredqIM9q'
 sort: 0
 ownership:
   default: 0
@@ -146,11 +250,14 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You summon a small sphere made of earth release chakra that has a noxious odor. You then throw the sphere
-            at a creature or object within range. Make a Ranged Ninjutsu Attack against the target. On a hit, the target
-            takes 2d6 Earth damage and must succeed a Constitution saving throw gaining 1 rank of envenomed for 1 minute
-            on a failed save.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank,
-            increase the cost of this jutsu by 3 and the damage by 1d6.</p>
+            <p>You summon a small sphere made of earth release chakra that has a
+            noxious odor. You then throw the sphere at a creature or object
+            within range. Make a Ranged Ninjutsu Attack against the target. On a
+            hit, the target takes 2d6 Earth damage and must succeed a
+            Constitution saving throw gaining 1 rank of envenomed for 1 minute
+            on a failed save.</p><p><strong>At Higher Ranks:</strong> For each
+            rank you cast this jutsu above D-Rank, increase the cost of this
+            jutsu by 3 and the damage by 1d6.</p>
           chat: ''
         source:
           custom: ''

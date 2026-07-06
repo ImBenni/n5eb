@@ -6,12 +6,14 @@ img: systems/n5eb/assets/content/clans/otogi.webp
 system:
   description:
     value: >-
-      <p>This is an advanced version of the 'Slicing Airwaves' jutsu. You channel compressed air through both of your
-      arms as you knead chakra into it, causing that air to vibrate intensely. Make two ranged ninjutsu attacks against
-      up to two targets.</p><p>On each hit, you deal 2d8 force damage, and the target gains one rank of
-      bleeding.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the
-      cost of this jutsu by 3, also increase the damage dealt from each attack by 1d8 and the ranks of bleeding by
-      +1.</p>
+      <p>This is an advanced version of the 'Slicing Airwaves' jutsu. You
+      channel compressed air through both of your arms as you knead chakra into
+      it, causing that air to vibrate intensely. Make two ranged ninjutsu
+      attacks against up to two targets.</p><p>On each hit, you deal 2d8 force
+      damage, and the target gains one rank of bleeding.</p><p><strong>At Higher
+      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
+      the cost of this jutsu by 3, also increase the damage dealt from each
+      attack by 1d8 and the ranks of bleeding by +1.</p>
     chat: ''
   source:
     custom: ''
@@ -112,7 +114,111 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Bleeding
+    origin: Compendium.n5eb.t7-clan.Item.EFoyzwsfO0ZpMUeS
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: bleeding
+          rank: 1
+          maxRank: 5
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    _id: Q02AdQlP3SKrZX1U
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d4, damageType=necrotic,
+          label=Bleeding,
+          damageBeforeSave=true,
+          actionSave=dialog,
+          saveRemove=true,
+          saveDC=15,
+          chatFlavor=Lil paper cut fr,
+          rollType=skill,
+          saveAbility=med,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: bleeding
+        priority: 0
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has
+      suffered a minor abrasion to their flesh, causing slow blood loss if
+      untreated.</p><ul><li><p>At the start of their turn, a bleeding creature
+      takes 1d4 necrotic damage for each rank of Bleed they
+      have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
+      rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop
+      the bleeding by succeeding on a DC 15 Medicine check.</p></li><li><p>A
+      creature who would gain a sixth (or more) ranks of the Bleeding condition
+      immediately gains 5 ranks of the Lacerated condition, ending the Bleeding
+      condition.</p><ul><li><p>The first time per rest a Bleeding creature would
+      gain the Lacerated this way, they must succeed a DC 11 flat check,
+      immediately taking the damage of their Lacerated ranks as they suffer a
+      great wound.</p></li></ul></li><li><p>Outside of combat, every 10-minutes
+      a creature suffers the effects of this condition as if a turn has passed
+      in combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - bleeding
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!EFoyzwsfO0ZpMUeS.Q02AdQlP3SKrZX1U'
 sort: 0
 ownership:
   default: 0
@@ -148,11 +254,14 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>This is an advanced version of the 'Slicing Airwaves' jutsu. You channel compressed air through both of
-            your arms as you knead chakra into it, causing that air to vibrate intensely. Make two ranged ninjutsu
-            attacks against up to two targets.</p><p>On each hit, you deal 2d8 force damage, and the target gains one
-            rank of bleeding.</p><p><strong>At Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank,
-            increase the cost of this jutsu by 3, also increase the damage dealt from each attack by 1d8 and the ranks
+            <p>This is an advanced version of the 'Slicing Airwaves' jutsu. You
+            channel compressed air through both of your arms as you knead chakra
+            into it, causing that air to vibrate intensely. Make two ranged
+            ninjutsu attacks against up to two targets.</p><p>On each hit, you
+            deal 2d8 force damage, and the target gains one rank of
+            bleeding.</p><p><strong>At Higher Ranks:</strong> For each rank you
+            cast this jutsu above D-Rank, increase the cost of this jutsu by 3,
+            also increase the damage dealt from each attack by 1d8 and the ranks
             of bleeding by +1.</p>
           chat: ''
         source:

@@ -12,7 +12,9 @@
         </h3>
     </div>
     {{/with}}
+    {{/if}}
 
+    {{#if showChakraDice}}
     {{#with system.attributes.cd}}
     <div class="pills-group empty">
         <h3 class="icon">
@@ -65,6 +67,10 @@
     {{!-- Damage Modification --}}
     {{> "dnd5e.actor-trait-pills" values=traits.dm key="dm" icon="fas fa-heart-circle-plus"
         label="DND5E.DamageModification.Label" }}
+
+    {{!-- Affinities --}}
+    {{> "dnd5e.actor-trait-pills" values=traits.affinity key="affinity" svg="chakra"
+        label="N5EB.Affinity.Label" groupClass="affinity-pills" iconOnly=true }}
 
     {{!-- Languages --}}
     {{> "dnd5e.actor-trait-pills" values=traits.languages key="languages" icon="fas fa-flag"

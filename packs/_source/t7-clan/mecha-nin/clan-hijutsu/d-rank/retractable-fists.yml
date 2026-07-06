@@ -6,14 +6,18 @@ img: systems/n5eb/assets/content/clans/mecha-nin.webp
 system:
   description:
     value: >-
-      <p>You aim both fists as they rocket forth from your arms at a target in range while tethering cables back to you.
-      If the target is a creature, on a hit, you deal your unarmed damage + 2d6, and the creature becomes grappled by
-      you. Alternatively, you may target a fixed surface such as a ledge or wall, or a medium or smaller object within
-      range.</p><p>After a successful hit you can choose to retract your fists, which either moves you within 5 feet of
-      the target or pulls the target within your reach (if applicable). If the target is a creature, it must succeed a
-      Strength saving throw or be pulled 30 feet closer to you.</p><p><strong>At Higher Ranks:</strong> For each rank
-      you cast this jutsu above D-Rank, increase the cost of this jutsu by 3, the damage increases by 1d6, and increase
-      the jutsu's ranges by 10 feet.</p>
+      <p>You aim both fists as they rocket forth from your arms at a target in
+      range while tethering cables back to you. If the target is a creature, on
+      a hit, you deal your unarmed damage + 2d6, and the creature becomes
+      grappled by you. Alternatively, you may target a fixed surface such as a
+      ledge or wall, or a medium or smaller object within range.</p><p>After a
+      successful hit you can choose to retract your fists, which either moves
+      you within 5 feet of the target or pulls the target within your reach (if
+      applicable). If the target is a creature, it must succeed a Strength
+      saving throw or be pulled 30 feet closer to you.</p><p><strong>At Higher
+      Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase
+      the cost of this jutsu by 3, the damage increases by 1d6, and increase the
+      jutsu's ranges by 10 feet.</p>
     chat: ''
   source:
     custom: ''
@@ -112,7 +116,101 @@ system:
     special: ''
   method: spell
   prepared: 0
-effects: []
+effects:
+  - name: Grappled
+    origin: Compendium.n5eb.t7-clan.Item.opZnTSG0JMW7QWe9
+    duration:
+      rounds: 1
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        disableCondition: ''
+        disableIncapacitated: false
+        stackable: noneName
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+        enableCondition: ''
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: grappled
+          rank: 1
+          maxRank: 1
+          category: physical
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/grappled.svg
+    _id: RyNjIAYFCN5b8llZ
+    type: base
+    system: {}
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.swim
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.climb
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.burrow
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '0'
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: grappled
+        priority: 20
+    description: ''
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - grappled
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.KfqyjVTZEhRigxiO.ActiveEffect.Eme0Y4daNNi3gpIR
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!opZnTSG0JMW7QWe9.RyNjIAYFCN5b8llZ'
 sort: 0
 ownership:
   default: 0
@@ -150,14 +248,19 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You aim both fists as they rocket forth from your arms at a target in range while tethering cables back
-            to you. If the target is a creature, on a hit, you deal your unarmed damage + 2d6, and the creature becomes
-            grappled by you. Alternatively, you may target a fixed surface such as a ledge or wall, or a medium or
-            smaller object within range.</p><p>After a successful hit you can choose to retract your fists, which either
-            moves you within 5 feet of the target or pulls the target within your reach (if applicable). If the target
-            is a creature, it must succeed a Strength saving throw or be pulled 30 feet closer to you.</p><p><strong>At
-            Higher Ranks:</strong> For each rank you cast this jutsu above D-Rank, increase the cost of this jutsu by 3,
-            the damage increases by 1d6, and increase the jutsu's ranges by 10 feet.</p>
+            <p>You aim both fists as they rocket forth from your arms at a
+            target in range while tethering cables back to you. If the target is
+            a creature, on a hit, you deal your unarmed damage + 2d6, and the
+            creature becomes grappled by you. Alternatively, you may target a
+            fixed surface such as a ledge or wall, or a medium or smaller object
+            within range.</p><p>After a successful hit you can choose to retract
+            your fists, which either moves you within 5 feet of the target or
+            pulls the target within your reach (if applicable). If the target is
+            a creature, it must succeed a Strength saving throw or be pulled 30
+            feet closer to you.</p><p><strong>At Higher Ranks:</strong> For each
+            rank you cast this jutsu above D-Rank, increase the cost of this
+            jutsu by 3, the damage increases by 1d6, and increase the jutsu's
+            ranges by 10 feet.</p>
           chat: ''
         source:
           custom: ''

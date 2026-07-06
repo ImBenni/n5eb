@@ -1,4 +1,5 @@
 import RollConfigurationDialog from "../applications/dice/roll-configuration-dialog.mjs";
+import { assignSystemFlagDataAliases } from "../documents/flag-compatibility.mjs";
 import BasicDie from "./basic-die.mjs";
 
 const { DiceTerm, NumericTerm } = foundry.dice.terms;
@@ -86,6 +87,7 @@ export default class BasicRoll extends Roll {
    */
   static async buildConfigure(config={}, dialog={}, message={}) {
     config.hookNames = [...(config.hookNames ?? []), ""];
+    assignSystemFlagDataAliases(message.data ??= {});
 
     /**
      * A hook event that fires before a roll is performed. Multiple hooks may be called depending on the rolling
@@ -101,6 +103,7 @@ export default class BasicRoll extends Roll {
     for ( const hookName of config.hookNames ) {
       if ( Hooks.call(`dnd5e.preRoll${hookName.capitalize()}`, config, dialog, message) === false ) return [];
       if ( Hooks.call(`dnd5e.preRoll${hookName.capitalize()}V2`, config, dialog, message) === false ) return [];
+      assignSystemFlagDataAliases(message.data);
     }
 
     this.applyKeybindings(config, dialog, message);
@@ -123,6 +126,7 @@ export default class BasicRoll extends Roll {
     // Store the roll type in roll.options so it can be accessed from only the roll
     const rollType = foundry.utils.getProperty(message, "data.flags.n5eb.roll.type");
     if ( rollType ) rolls.forEach(roll => roll.options.rollType ??= rollType);
+    assignSystemFlagDataAliases(message.data);
 
     /**
      * A hook event that fires after roll configuration is complete, but before the roll is evaluated.
@@ -140,6 +144,7 @@ export default class BasicRoll extends Roll {
     for ( const hookName of config.hookNames ) {
       const name = `dnd5e.post${hookName.capitalize()}RollConfiguration`;
       if ( Hooks.call(name, rolls, config, dialog, message) === false ) return [];
+      assignSystemFlagDataAliases(message.data);
     }
 
     return rolls;
@@ -170,8 +175,10 @@ export default class BasicRoll extends Roll {
    */
   static async buildPost(rolls, config, message) {
     message.data = foundry.utils.expandObject(message.data ?? {});
+    assignSystemFlagDataAliases(message.data);
     const messageId = config.event?.target.closest("[data-message-id]")?.dataset.messageId;
     if ( messageId ) foundry.utils.setProperty(message.data, "flags.n5eb.originatingMessage", messageId);
+    assignSystemFlagDataAliases(message.data);
 
     if ( rolls?.length && (config.evaluate !== false) ) {
       message[message.create !== false ? "document" : "data"] = await this.toMessage(
@@ -248,17 +255,25 @@ export default class BasicRoll extends Roll {
     // Prepare chat data
     messageData = foundry.utils.mergeObject({ sound: CONFIG.sounds.dice }, messageData);
     this._prepareMessageData(rolls, messageData);
+    assignSystemFlagDataAliases(messageData);
     messageData.rolls = rolls.map(r => this.fromData(r.toJSON()));
 
     // Process the chat data
     const cls = getDocumentClass("ChatMessage");
     const msg = new cls(messageData);
+    assignSystemFlagDataAliases(msg);
 
     // Either create or return the data
-    if ( create ) return cls.create(msg.toObject(), { rollMode });
+    if ( create ) {
+      const data = msg.toObject();
+      assignSystemFlagDataAliases(data);
+      return cls.create(data, { rollMode });
+    }
     else {
       if ( rollMode ) msg.applyRollMode(rollMode);
-      return msg.toObject();
+      const data = msg.toObject();
+      assignSystemFlagDataAliases(data);
+      return data;
     }
   }
 

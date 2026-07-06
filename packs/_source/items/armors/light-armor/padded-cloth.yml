@@ -125,6 +125,14 @@ flags:
           value: null
           formula: 1d8
           charged: false
+    armorMigration:
+      sourceOriginal:
+        armor:
+          value: 11
+          dex: 7
+          magicalBonus: null
+          dr: null
+        properties: []
 system:
   description:
     value: "<p>Padded Armor Consists of Resistant Materials layered on top of one another in a way that provides protection to your more vulnerable parts of your body.</p>\n<p>\_</p>"
@@ -192,7 +200,11 @@ system:
     value: 11
     dex: 7
     magicalBonus: null
-    dr: null
+    dr: 0
+    bonus: 1
+    dexCap: 7
+    don: 1
+    doff: 1
   hp:
     value: 0
     max: 0
@@ -222,11 +234,15 @@ system:
     formula: 1d8
     charged: false
   identifier: padded-cloth
+  seals:
+    quality: standard
+    capacity: null
+    bonus: 0
 _stats:
   duplicateSource: null
   coreVersion: '12.331'
   systemId: n5eb
-  systemVersion: 3.0.0
+  systemVersion: 3.0.1
   createdTime: 1728575880187
   modifiedTime: 1732925705063
   lastModifiedBy: n5ebbuilder00000

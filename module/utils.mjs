@@ -63,6 +63,67 @@ export function formatIdentifier(input) {
 /* -------------------------------------------- */
 
 /**
+ * Extract jutsu-known and highest-rank-known progression from an imported class advancement table.
+ * This is a compatibility fallback for old N5eB class entries whose visible table was imported before
+ * reserved ScaleValue identifiers existed.
+ * @param {Item5e} item  Class item containing the source description.
+ * @returns {{known: number|null, maxRank: string}}
+ */
+export function getJutsuProgressionFromDescription(item) {
+  const html = item.system?.description?.value ?? "";
+  if ( !html.includes("<table") || !/jutsu\s+known/i.test(html) ) return { known: null, maxRank: "" };
+
+  const level = Number(item.system?.levels ?? 0);
+  if ( !level ) return { known: null, maxRank: "" };
+
+  for ( const table of html.matchAll(/<table[\s\S]*?<\/table>/gi) ) {
+    const rows = Array.from(table[0].matchAll(/<tr[\s\S]*?<\/tr>/gi), match => {
+      return Array.from(match[0].matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi), cell => cleanHTMLText(cell[1]));
+    }).filter(row => row.length);
+    if ( rows.length < 2 ) continue;
+
+    const headers = rows[0].map(cell => cell.toLowerCase());
+    const levelIndex = headers.findIndex(cell => /^level\b/.test(cell));
+    const knownIndex = headers.findIndex(cell => /\bjutsu\s+known\b/.test(cell));
+    const rankIndex = headers.findIndex(cell => /\bhighest\s+rank\s+jutsu\s+known\b/.test(cell));
+    if ( (levelIndex < 0) || ((knownIndex < 0) && (rankIndex < 0)) ) continue;
+
+    let selected;
+    for ( const row of rows.slice(1) ) {
+      const rowLevel = Number(row[levelIndex]?.match(/\d+/)?.[0] ?? 0);
+      if ( !rowLevel || (rowLevel > level) ) continue;
+      if ( !selected || (rowLevel >= selected.level) ) selected = { level: rowLevel, row };
+    }
+    if ( !selected ) continue;
+
+    return {
+      known: knownIndex >= 0 ? Number(selected.row[knownIndex]?.match(/\d+/)?.[0] ?? NaN) : null,
+      maxRank: rankIndex >= 0 ? selected.row[rankIndex] ?? "" : ""
+    };
+  }
+
+  return { known: null, maxRank: "" };
+}
+
+/**
+ * Strip simple HTML table cell content into normalized text.
+ * @param {string} html  HTML fragment to clean.
+ * @returns {string}
+ */
+function cleanHTMLText(html) {
+  return `${html}`
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/* -------------------------------------------- */
+
+/**
  * Form a number using the provided length unit.
  * @param {number} value         The length to format.
  * @param {string} unit          Length unit as defined in `CONFIG.DND5E.movementUnits`.
@@ -874,6 +935,7 @@ export async function preloadHandlebarsTemplates() {
     "systems/n5eb/templates/items/details/details-feat.hbs",
     "systems/n5eb/templates/items/details/details-loot.hbs",
     "systems/n5eb/templates/items/details/details-mountable.hbs",
+    "systems/n5eb/templates/items/details/details-seals.hbs",
     "systems/n5eb/templates/items/details/details-species.hbs",
     "systems/n5eb/templates/items/details/details-spell.hbs",
     "systems/n5eb/templates/items/details/details-spellcasting.hbs",

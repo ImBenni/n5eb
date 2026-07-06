@@ -70,7 +70,11 @@ system:
     value: 14
     dex: 7
     magicalBonus: null
-    dr: null
+    dr: 0
+    bonus: 4
+    dexCap: 7
+    don: 1
+    doff: 1
   hp:
     value: null
     max: null
@@ -95,12 +99,16 @@ system:
   enchantment: null
   summons: null
   properties:
-    - fashion
+    - fashionable
   recharge:
     value: null
     formula: 1d8
     charged: false
   identifier: synthetic-weave
+  seals:
+    quality: standard
+    capacity: null
+    bonus: 0
 effects: []
 sort: 143750
 ownership:
@@ -228,11 +236,20 @@ flags:
           value: null
           formula: 1d8
           charged: false
+    armorMigration:
+      sourceOriginal:
+        armor:
+          value: 14
+          dex: 7
+          magicalBonus: null
+          dr: null
+        properties:
+          - fashion
 _stats:
   duplicateSource: null
   coreVersion: '12.331'
   systemId: n5eb
-  systemVersion: 3.0.0
+  systemVersion: 3.0.1
   createdTime: 1728575880187
   modifiedTime: 1732926251827
   lastModifiedBy: n5ebbuilder00000

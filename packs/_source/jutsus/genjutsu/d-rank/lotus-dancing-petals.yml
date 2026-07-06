@@ -4,20 +4,26 @@ img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
 system:
   description:
     value: >-
-      <p>You grasp a hand full of poisonous Lotus petals, spreading them around yourself in a dance of despair. Once
-      this jutsu is cast, you cannot cast it again until the end of your next turn.</p><p>As they flutter around you,
-      all creatures within range must make a Charisma saving throw to realize they should hold their breath before
-      inhaling the poisonous pollen.</p><p>Critical Success: Affected creature is able to resist this jutsu's effect,
-      becoming immune to further castings of this jutsu until the end of the casters next turn.</p><p>Success: Affected
-      creature is able to resist most of this jutsu's effects, but still takes 2d6 poison damage.</p><p>Failure:
-      Affected creature inhales a mass of poisonous petal pollen taking 3d6 poison damage and are begin to cough and
-      retch in an attempt to remove the pollen from their breathing passages. Creatures who failed this save lose
-      concentration of any Ninjutsu they are concentrating on for the duration. As an action on an affected creatures
-      turn, they can make a Constitution check vs a DC 13. On a success, this jutsu's effects end.</p><p>Critical
-      Failure: Same as failure, but if the target attempts the ability check to end its effects, all creatures who are
-      currently unaffected by this jutsu, within 10 feet of the retching target must also make the DC 11 Constitution
-      ability check. On a failure, they suffer the effects of this jutsu's failure. On a success, they suffer no
-      effects.</p>
+      <p>You grasp a hand full of poisonous Lotus petals, spreading them around
+      yourself in a dance of despair. Once this jutsu is cast, you cannot cast
+      it again until the end of your next turn.</p><p>As they flutter around
+      you, all creatures within range must make a Charisma saving throw to
+      realize they should hold their breath before inhaling the poisonous
+      pollen.</p><p>Critical Success: Affected creature is able to resist this
+      jutsu's effect, becoming immune to further castings of this jutsu until
+      the end of the casters next turn.</p><p>Success: Affected creature is able
+      to resist most of this jutsu's effects, but still takes 2d6 poison
+      damage.</p><p>Failure: Affected creature inhales a mass of poisonous petal
+      pollen taking 3d6 poison damage and are begin to cough and retch in an
+      attempt to remove the pollen from their breathing passages. Creatures who
+      failed this save lose concentration of any Ninjutsu they are concentrating
+      on for the duration. As an action on an affected creatures turn, they can
+      make a Constitution check vs a DC 13. On a success, this jutsu's effects
+      end.</p><p>Critical Failure: Same as failure, but if the target attempts
+      the ability check to end its effects, all creatures who are currently
+      unaffected by this jutsu, within 10 feet of the retching target must also
+      make the DC 11 Constitution ability check. On a failure, they suffer the
+      effects of this jutsu's failure. On a success, they suffer no effects.</p>
     chat: ''
   source:
     custom: ''
@@ -117,7 +123,108 @@ system:
     special: ''
   method: spell
   prepared: 1
-effects: []
+effects:
+  - name: Envenomed
+    origin: Compendium.n5eb.jutsus.Item.c0WRwgkKL8OBKhH9
+    duration:
+      rounds: 99
+      startTime: null
+      seconds: null
+      combat: null
+      turns: null
+      startRound: null
+      startTurn: null
+    disabled: false
+    flags:
+      dae:
+        enableCondition: ''
+        disableCondition: ''
+        disableIncapacitated: false
+        selfTarget: false
+        selfTargetAlways: false
+        dontApply: false
+        stackable: countDeleteDecrement
+        showIcon: false
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+      ActiveAuras:
+        isAura: false
+        aura: None
+        nameOverride: ''
+        radius: ''
+        alignment: ''
+        type: ''
+        customCheck: ''
+        ignoreSelf: false
+        height: false
+        hidden: false
+        displayTemp: false
+        hostile: false
+        onlyOnce: false
+        wallsBlock: system
+      core:
+        overlay: false
+      n5eb:
+        condition:
+          id: envenomed
+          rank: 1
+          maxRank: 5
+          category: elemental
+          source: main-book
+    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    _id: RQPQzTRhY9ATEf27
+    type: base
+    system: {}
+    changes:
+      - key: flags.midi-qol.OverTime
+        mode: 5
+        value: |-
+          turn=start,
+          damageRoll=1d6,
+          damageType=poison,
+          label=Poisoned/Envenomed,
+          chatFlavor=YUCK I feel SICK,
+          fastForwardDamage=true,
+        priority: 20
+      - key: StatusEffect
+        mode: 0
+        value: poisoned
+        priority: 20
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '-1 * @stackCount'
+        priority: 20
+    description: >-
+      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong>
+      creature (sometimes called Poisoned) has been exposed to some kind of
+      venom or toxin, causing their vitality and immune health to drop
+      rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object
+      takes 1d6 poison damage for each rank it has, at the start of each of
+      their turns for the duration of this condition</p></li><li><p>An
+      <strong>Envenomed</strong> creature suffers a -1 penalty to their AC for
+      each rank it has.</p></li><li><p>An <strong>Envenomed</strong> creature
+      cannot gain the benefits of a rest.</p></li><li><p>Creatures that are
+      immune to poison damage are immune to the envenomed
+      condition.</p></li><li><p>Outside of combat, every hour a creature suffers
+      the effects of this condition as if a turn has passed in
+      combat.</p></li></ul>
+    tint: '#ffffff'
+    transfer: false
+    statuses:
+      - envenomed
+    sort: 0
+    _stats:
+      compendiumSource: >-
+        Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: n5eb
+      systemVersion: 1,1,1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!items.effects!c0WRwgkKL8OBKhH9.RQPQzTRhY9ATEf27'
 flags:
   cf: null
   n5eb:
@@ -136,20 +243,29 @@ flags:
       originalSystem:
         description:
           value: >-
-            <p>You grasp a hand full of poisonous Lotus petals, spreading them around yourself in a dance of despair.
-            Once this jutsu is cast, you cannot cast it again until the end of your next turn.</p><p>As they flutter
-            around you, all creatures within range must make a Charisma saving throw to realize they should hold their
-            breath before inhaling the poisonous pollen.</p><p>Critical Success: Affected creature is able to resist
-            this jutsu's effect, becoming immune to further castings of this jutsu until the end of the casters next
-            turn.</p><p>Success: Affected creature is able to resist most of this jutsu's effects, but still takes 2d6
-            poison damage.</p><p>Failure: Affected creature inhales a mass of poisonous petal pollen taking 3d6 poison
-            damage and are begin to cough and retch in an attempt to remove the pollen from their breathing passages.
-            Creatures who failed this save lose concentration of any Ninjutsu they are concentrating on for the
-            duration. As an action on an affected creatures turn, they can make a Constitution check vs a DC 13. On a
-            success, this jutsu's effects end.</p><p>Critical Failure: Same as failure, but if the target attempts the
-            ability check to end its effects, all creatures who are currently unaffected by this jutsu, within 10 feet
-            of the retching target must also make the DC 11 Constitution ability check. On a failure, they suffer the
-            effects of this jutsu's failure. On a success, they suffer no effects.</p>
+            <p>You grasp a hand full of poisonous Lotus petals, spreading them
+            around yourself in a dance of despair. Once this jutsu is cast, you
+            cannot cast it again until the end of your next turn.</p><p>As they
+            flutter around you, all creatures within range must make a Charisma
+            saving throw to realize they should hold their breath before
+            inhaling the poisonous pollen.</p><p>Critical Success: Affected
+            creature is able to resist this jutsu's effect, becoming immune to
+            further castings of this jutsu until the end of the casters next
+            turn.</p><p>Success: Affected creature is able to resist most of
+            this jutsu's effects, but still takes 2d6 poison
+            damage.</p><p>Failure: Affected creature inhales a mass of poisonous
+            petal pollen taking 3d6 poison damage and are begin to cough and
+            retch in an attempt to remove the pollen from their breathing
+            passages. Creatures who failed this save lose concentration of any
+            Ninjutsu they are concentrating on for the duration. As an action on
+            an affected creatures turn, they can make a Constitution check vs a
+            DC 13. On a success, this jutsu's effects end.</p><p>Critical
+            Failure: Same as failure, but if the target attempts the ability
+            check to end its effects, all creatures who are currently unaffected
+            by this jutsu, within 10 feet of the retching target must also make
+            the DC 11 Constitution ability check. On a failure, they suffer the
+            effects of this jutsu's failure. On a success, they suffer no
+            effects.</p>
           chat: ''
         source:
           custom: ''

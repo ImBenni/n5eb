@@ -6,46 +6,48 @@ img: systems/n5eb/assets/content/jutsu-icons/genjutsu.webp
 system:
   description:
     value: >-
-      <p>You hum or sing an erratic tune in an unintelligible language, sending creatures within a 20-foot radius into
-      bouts of madness. For the duration, you do not spend chakra to maintain this jutsu, but you must spend a bonus
-      action on later turns to maintain it.</p><p>Creatures that begin their turns within range must make an
-      Intelligence saving throw. On a failure, the creature gains the madness condition until the end of its next turn.
-      On a critical failure, the creature gains madness for 1d4 of its turns.</p><p>At Higher Ranks: For each rank you
-      cast this jutsu above D-Rank, increase the cost by 3 and the radius by 5 feet.</p>
-    chat: ''
+      <p>You begin to hum or sing an erratic tune in an unintelligible language designed to send those who hear it into
+      a short bout of madness. When you do, all creatures within a 20-foot radius of you begin to experience bouts of
+      madness. For the duration, you do not spend chakra to maintain this jutsu, instead you must spend a Bonus Action
+      on subsequent turns to maintain it. Creatures who begin their turns within range must make an Intelligence Saving
+      Throw. Success: Affected creature is able to resist this jutsu's effects. Failure: Affected creature gains the
+      madness condition until the end of their next turn. Critical Failure: Affected creature gains the madness
+      condition for 1d4 of their turns. At Higher Ranks: For each rank you cast this jutsu above D-Rank, increase the
+      cost of this jutsu by 3 and the radius by 5.</p>
+    chat: ""
   source:
-    custom: ''
+    custom: ""
     book: Naruto 5e
-    page: '185'
-    license: ''
+    page: "185"
+    license: ""
     rules: n5eb
   activation:
     type: action
-    condition: ''
+    condition: ""
     value: 1
   duration:
-    value: '10'
+    value: "10"
     units: minute
   target:
     affects:
       type: creature
-      count: ''
+      count: ""
       choice: false
-      special: ''
+      special: ""
     template:
-      count: '1'
+      count: "1"
       contiguous: false
       type: sphere
-      size: '20'
-      width: ''
-      height: ''
+      size: "20"
+      width: ""
+      height: ""
       units: ft
   range:
     value: null
     units: self
-    special: ''
+    special: ""
   uses:
-    max: ''
+    max: ""
     recovery: []
     spent: 0
   level: 1
@@ -53,7 +55,7 @@ system:
   school: ill
   jutsu:
     type: genjutsu
-    ability: ''
+    ability: ""
     components:
       - hs
       - cm
@@ -63,13 +65,13 @@ system:
       - tactile
     countsKnown: true
   chakra:
-    cost: '5'
+    cost: "5"
     scaling:
       mode: rank
       value: 3
-    special: ''
+    special: ""
   materials:
-    value: ''
+    value: ""
     consumed: false
     cost: 0
     supply: 0
@@ -89,10 +91,10 @@ system:
         targets: []
         scaling:
           allowed: false
-          max: ''
+          max: ""
         spellSlot: true
       description:
-        chatFlavor: ''
+        chatFlavor: ""
       duration:
         units: inst
         concentration: false
@@ -111,10 +113,10 @@ system:
       uses:
         spent: 0
         recovery: []
-        max: ''
+        max: ""
       sort: 0
       name: Cast
-      img: ''
+      img: ""
       visibility:
         level:
           min: null
@@ -127,7 +129,7 @@ system:
           - int
         dc:
           calculation: spellcasting
-          formula: ''
+          formula: ""
   identifier: song-of-the-ancients
 effects: []
 sort: 999000
@@ -140,11 +142,11 @@ flags:
       source: Book Parity Fix Pass 5.3.10
 _stats:
   duplicateSource: null
-  coreVersion: '13.351'
+  coreVersion: "13.351"
   systemId: n5eb
   systemVersion: 5.3.10
   createdTime: 1779926400000
   modifiedTime: 1779926400000
   lastModifiedBy: n5ebbuilder00000
   exportSource: null
-_key: '!items!n5ebSongAncients'
+_key: "!items!n5ebSongAncients"

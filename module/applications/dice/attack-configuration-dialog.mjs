@@ -11,6 +11,7 @@ import D20RollConfigurationDialog from "./d20-configuration-dialog.mjs";
 export default class AttackRollConfigurationDialog extends D20RollConfigurationDialog {
   /** @override */
   static DEFAULT_OPTIONS = {
+    ammunitionDie: false,
     ammunitionOptions: [],
     attackModeOptions: [],
     masteryOptions: []
@@ -28,6 +29,14 @@ export default class AttackRollConfigurationDialog extends D20RollConfigurationD
       { key: "ammunition", label: "DND5E.CONSUMABLE.Type.Ammunition.Label", options: this.options.ammunitionOptions },
       { key: "mastery", label: "DND5E.WEAPON.Mastery.Label", options: this.options.masteryOptions }
     ];
+    const ammunitionDieField = this.options.ammunitionDie ? [{
+      field: new foundry.data.fields.BooleanField({
+        label: game.i18n.localize("N5EB.AmmoDieRollPrompt"),
+        hint: game.i18n.localize("N5EB.AmmoDieRollPromptHint")
+      }),
+      name: "ammunitionDie",
+      value: this.config.ammunitionDie !== false
+    }] : [];
     context.fields = [
       ...optionsFields.map(({ key, label, options }) => options.length ? {
         field: new foundry.data.fields.StringField({ label: game.i18n.localize(label), blank: false, required: true }),
@@ -35,6 +44,7 @@ export default class AttackRollConfigurationDialog extends D20RollConfigurationD
         options,
         value: this.config[key]
       } : null).filter(_ => _),
+      ...ammunitionDieField,
       ...context.fields
     ];
     return context;

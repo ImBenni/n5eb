@@ -1,5 +1,10 @@
 import * as Conditions from "./conditions.mjs";
 import { DEFAULT_CLASSMOD_ARTS_COLOR } from "./classmod-arts.mjs";
+import {
+  collectUnmappedLegacyPaths, getLegacyMigrationReportId, getLegacyN5eBSourceMetadata, isLegacyN5eBSource,
+  isLegacyN5eBVersion, LEGACY_MIGRATION_REPORT_TITLE, summarizeLegacyDocument
+} from "./legacy-migration.mjs";
+import * as Seals from "./seals.mjs";
 import { formatIdentifier, log } from "./utils.mjs";
 
 const LEGACY_CURRENCY_CONVERSIONS = {
@@ -21,6 +26,558 @@ const N5EB_EQUIPMENT_PACK_ALIAS_UUID_RE =
 const N5EB_ASSET_REFERENCE_RE =
   /(?:(?:systems\/n5eb\/)?assets|worlds\/[^"'<>]*?\/assets\/(?:items|actors|pages))[^"'<>]*?\.(?:png|jpe?g|webp)/gi;
 const N5EB_BOOK_PARITY_FIX_VERSION = "5.3.10";
+
+const N5EB_AFFINITY_KEYS = new Set(["fire", "water", "wind", "earth", "lightning", "medical"]);
+
+const LEGACY_DELETION_KEY_CLEANUP_SETTING = "legacyDeletionKeyCleanupVersion";
+const LEGACY_REPORT_LIMIT = 500;
+const LEGACY_MIGRATION_I18N = {
+  BackupAck: "I have made or confirmed a backup of this world before migrating.",
+  Cancelled: "N5eB legacy migration paused. A GM must confirm the backup acknowledgement before migration continues.",
+  Confirm: "Confirm and Migrate",
+  PromptActors: "World actors: {count}",
+  PromptBody: "{world} appears to use legacy N5eB data from version {version}. This migration will preserve original actor and item system data before converting it. Make a Foundry/world backup before continuing.",
+  PromptItems: "World items: {count}",
+  PromptPacks: "World compendium packs: {count}",
+  PromptTitle: "N5eB Legacy Migration",
+  RequiresConfirmation: "N5eB legacy migration requires GM backup confirmation. Use game.dnd5e.migrations.runLegacyMigration({ confirmed: true }) after confirming a backup."
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Get the target version that should be stored once system migration has completed.
+ * @returns {string}
+ */
+export function getTargetMigrationVersion() {
+  return game.system.flags?.needsMigrationVersion ?? game.system.version;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Remove persisted legacy forced-deletion keys that Foundry v14 warns about while loading world data.
+ * @param {object} [options]
+ * @param {string} [options.version]  Target cleanup version.
+ * @param {boolean} [options.force]   Force cleanup even if already marked complete.
+ * @returns {Promise<object>}         Summary of updated documents.
+ */
+export async function cleanLegacyDeletionKeys({ version=getTargetMigrationVersion(), force=false }={}) {
+  if ( !game.user.isGM ) return { skipped: true, reason: "not-gm" };
+
+  const current = game.settings.get("n5eb", LEGACY_DELETION_KEY_CLEANUP_SETTING);
+  if ( !force && current && !foundry.utils.isNewerVersion(version, current) ) {
+    return { skipped: true, version: current };
+  }
+
+  if ( !foundry.data?.operators?.ForcedReplacement?.create ) {
+    return { skipped: true, reason: "missing-forced-replacement" };
+  }
+
+  const summary = {
+    actors: 0,
+    actorItems: 0,
+    actorEffects: 0,
+    actorItemEffects: 0,
+    items: 0,
+    itemEffects: 0,
+    errors: []
+  };
+
+  const run = async (label, fn) => {
+    try {
+      await fn();
+    } catch(err) {
+      err.message = `Failed legacy deletion key cleanup for ${label}: ${err.message}`;
+      console.error(err);
+      summary.errors.push({ label, message: err.message });
+    }
+  };
+
+  for ( const actor of game.actors ) {
+    await run(`Actor ${actor.name}`, async () => {
+      if ( await _cleanLegacyDeletionKeysForDocument(actor) ) summary.actors++;
+      summary.actorEffects += await _cleanLegacyDeletionKeysForEmbedded(actor, "ActiveEffect", actor.effects);
+      summary.actorItems += await _cleanLegacyDeletionKeysForEmbedded(actor, "Item", actor.items);
+      for ( const item of actor.items ) {
+        summary.actorItemEffects += await _cleanLegacyDeletionKeysForEmbedded(item, "ActiveEffect", item.effects);
+      }
+    });
+  }
+
+  for ( const item of game.items ) {
+    await run(`Item ${item.name}`, async () => {
+      if ( await _cleanLegacyDeletionKeysForDocument(item) ) summary.items++;
+      summary.itemEffects += await _cleanLegacyDeletionKeysForEmbedded(item, "ActiveEffect", item.effects);
+    });
+  }
+
+  if ( summary.errors.length ) return summary;
+
+  await game.settings.set("n5eb", LEGACY_DELETION_KEY_CLEANUP_SETTING, version);
+  const total = summary.actors + summary.actorItems + summary.actorEffects
+    + summary.actorItemEffects + summary.items + summary.itemEffects;
+  if ( total ) log(`Cleaned legacy deletion keys from ${total} N5eB world documents.`);
+  return summary;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Preview whether the current world needs the guarded legacy N5eB migration path.
+ * @returns {object}
+ */
+export function previewLegacyMigration() {
+  const currentVersion = _getCurrentMigrationVersion();
+  const worldSource = {
+    _stats: {
+      systemId: game.world.system ?? game.system.id,
+      systemVersion: currentVersion || game.world.systemVersion
+    }
+  };
+  const worldMetadata = getLegacyN5eBSourceMetadata(worldSource);
+  const packs = game.packs.filter(_shouldMigrateCompendium);
+  const worldPacks = packs.filter(p => p.metadata.packageType === "world");
+
+  const counts = {
+    actors: game.actors.size,
+    items: game.items.size,
+    scenes: game.scenes.size,
+    macros: game.macros.size,
+    messages: game.messages.size,
+    tables: game.tables.size,
+    actorDeltas: game.scenes.reduce((total, scene) => {
+      return total + scene.tokens.filter(t => !t.actorLink && t.actor).length;
+    }, 0),
+    worldPacks: worldPacks.length,
+    worldPackDocuments: worldPacks.reduce((total, pack) => total + pack.index.size, 0),
+    legacyActors: _countLegacyDocuments(game.actors),
+    legacyItems: _countLegacyDocuments(game.items),
+    legacyActorDeltas: _countLegacyActorDeltas(),
+    invalidActors: game.actors.invalidDocumentIds?.size ?? 0,
+    invalidItems: game.items.invalidDocumentIds?.size ?? 0
+  };
+  counts.totalDocuments = counts.actors + counts.items + counts.scenes + counts.macros + counts.messages + counts.tables
+    + counts.actorDeltas + counts.worldPackDocuments;
+  counts.legacyDocuments = counts.legacyActors + counts.legacyItems + counts.legacyActorDeltas;
+
+  const required = worldMetadata.isLegacy || counts.legacyDocuments > 0
+    || (Boolean(currentVersion) && isLegacyN5eBVersion(currentVersion));
+  return {
+    required,
+    reportId: getLegacyMigrationReportId(),
+    generatedAt: new Date().toISOString(),
+    world: {
+      id: game.world.id,
+      title: game.world.title,
+      system: game.world.system,
+      systemVersion: game.world.systemVersion,
+      migrationVersion: currentVersion
+    },
+    target: {
+      system: game.system.id,
+      version: getTargetMigrationVersion()
+    },
+    counts,
+    migratedWorldPacks: worldPacks.map(pack => pack.collection)
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Prompt the GM to confirm a guarded legacy migration.
+ * @param {object} [preview]  Preview data from {@link previewLegacyMigration}.
+ * @returns {Promise<object|undefined>}
+ */
+export async function promptLegacyMigration(preview=previewLegacyMigration()) {
+  if ( !preview.required || !game.user.isGM ) return preview;
+  const promptVersion = foundry.utils.escapeHTML(
+    preview.world.migrationVersion || preview.world.systemVersion || "unknown"
+  );
+  const promptWorld = foundry.utils.escapeHTML(game.world.title);
+  const promptBody = _legacyMigrationText("PromptBody", {
+    world: promptWorld,
+    version: promptVersion
+  });
+  const content = `
+    <form class="n5eb legacy-migration">
+      <p>${promptBody}</p>
+      <ul>
+        <li>${_legacyMigrationText("PromptActors", { count: preview.counts.actors })}</li>
+        <li>${_legacyMigrationText("PromptItems", { count: preview.counts.items })}</li>
+        <li>${_legacyMigrationText("PromptPacks", { count: preview.counts.worldPacks })}</li>
+      </ul>
+      <label class="checkbox">
+        <input type="checkbox" name="backup">
+        <span>${_legacyMigrationText("BackupAck")}</span>
+      </label>
+    </form>`;
+  const confirmed = await foundry.applications.api.Dialog.prompt({
+    window: { title: _legacyMigrationText("PromptTitle") },
+    content,
+    ok: {
+      label: _legacyMigrationText("Confirm"),
+      callback: (event, button) => button.form.elements.backup.checked
+    },
+    rejectClose: false
+  });
+  if ( !confirmed ) {
+    ui.notifications.warn(_legacyMigrationText("Cancelled"), { permanent: true });
+    return preview;
+  }
+  await game.settings.set("n5eb", "legacyMigrationConfirmed", true);
+  return runLegacyMigration({ confirmed: true, preview });
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Localize legacy migration prompt text, falling back to English when translations are unavailable during startup.
+ * @param {string} key       Legacy migration localization key suffix.
+ * @param {object} [data]    Formatting data.
+ * @returns {string}
+ * @private
+ */
+function _legacyMigrationText(key, data={}) {
+  const localizationKey = `N5EB.LegacyMigration.${key}`;
+  const localized = game.i18n.localize(localizationKey);
+  const template = (localized && (localized !== localizationKey))
+    ? localized
+    : (LEGACY_MIGRATION_I18N[key] ?? localizationKey);
+  return template.replaceAll(/\{([^}]+)\}/g, (match, property) => {
+    return Object.hasOwn(data, property) ? data[property] : match;
+  });
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Run the guarded legacy migration after explicit GM confirmation.
+ * @param {object} [options={}]
+ * @param {boolean} [options.confirmed=false]  Explicit confirmation from the caller.
+ * @param {object} [options.preview]           Previously generated preview.
+ * @returns {Promise<object>}
+ */
+export async function runLegacyMigration({ confirmed=false, preview }={}) {
+  if ( !game.user.isGM ) throw new Error("Only a GM can run N5eB legacy migration.");
+  const settingConfirmed = game.settings.get("n5eb", "legacyMigrationConfirmed");
+  if ( !confirmed && !settingConfirmed ) {
+    ui.notifications.error(_legacyMigrationText("RequiresConfirmation"), { permanent: true });
+    return previewLegacyMigration();
+  }
+  await game.settings.set("n5eb", "legacyMigrationConfirmed", true);
+  preview ??= previewLegacyMigration();
+  const report = _createLegacyMigrationReport(preview);
+  await migrateWorld({ bypassVersionCheck: true, legacyReport: report });
+  return game.settings.get("n5eb", "legacyMigrationReport");
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Create an empty legacy migration report.
+ * @param {object} preview  Preview data.
+ * @returns {object}
+ * @private
+ */
+function _createLegacyMigrationReport(preview) {
+  return {
+    reportId: preview.reportId,
+    startedAt: new Date().toISOString(),
+    completedAt: null,
+    world: preview.world,
+    target: preview.target,
+    counts: {
+      ...preview.counts,
+      migratedDocuments: 0,
+      preservedLegacySnapshots: 0,
+      unmappedPaths: 0,
+      errors: 0,
+      warnings: 0
+    },
+    migratedWorldPacks: preview.migratedWorldPacks,
+    preservedLegacySnapshots: [],
+    unmappedPaths: [],
+    errors: [],
+    warnings: [],
+    finalMigrationVersion: null,
+    success: false
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get the best available world migration source version.
+ * @returns {string}
+ * @private
+ */
+function _getCurrentMigrationVersion() {
+  return game.settings.get("n5eb", "systemMigrationVersion") || game.world.flags.n5eb?.version
+    || game.world.systemVersion || "";
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Count documents whose source still looks like legacy N5eB data.
+ * @param {Collection} collection  Document collection.
+ * @returns {number}
+ * @private
+ */
+function _countLegacyDocuments(collection) {
+  return collection.reduce((total, document) => total + (isLegacyN5eBSource(_getDocumentSource(document)) ? 1 : 0), 0);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Count unlinked token actor deltas that still look like legacy N5eB data.
+ * @returns {number}
+ * @private
+ */
+function _countLegacyActorDeltas() {
+  return game.scenes.reduce((total, scene) => total + scene.tokens.reduce((subtotal, token) => {
+    if ( token.actorLink || !token.actor ) return subtotal;
+    return subtotal + (isLegacyN5eBSource(_getDocumentSource(token.actor)) ? 1 : 0);
+  }, 0), 0);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get raw source for a document-like object.
+ * @param {Document|object} document  Document or source.
+ * @returns {object}
+ * @private
+ */
+function _getDocumentSource(document) {
+  return document?._source ?? document?.toObject?.() ?? document;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Record the migration result for one document in a legacy report.
+ * @param {object} report            Legacy report object.
+ * @param {object} documentData      Document source data.
+ * @param {string} documentName      Document class name.
+ * @param {object} [updateData={}]   Update data generated for this document.
+ * @param {object} [options={}]
+ * @param {string} [options.pack]    Compendium pack collection.
+ * @param {string} [options.parent]  Parent document label for embedded documents.
+ * @private
+ */
+function _recordLegacyReportDocument(report, documentData, documentName, updateData={}, { pack="", parent="" }={}) {
+  if ( !report || !documentData ) return;
+  if ( !foundry.utils.isEmpty(updateData) ) report.counts.migratedDocuments++;
+
+  const documentKey = [
+    pack || "world", parent || "", documentName, documentData.uuid || documentData._id || documentData.name || ""
+  ].join(".");
+  const legacyMigration = foundry.utils.getProperty(documentData, "flags.n5eb.legacyMigration");
+  if ( legacyMigration?.originalSystem ) {
+    report._seenPreserved ??= new Set();
+    if ( !report._seenPreserved.has(documentKey) ) {
+      report._seenPreserved.add(documentKey);
+      report.counts.preservedLegacySnapshots++;
+      if ( report.preservedLegacySnapshots.length < LEGACY_REPORT_LIMIT ) {
+        report.preservedLegacySnapshots.push({
+          ...summarizeLegacyDocument(documentData, documentName),
+          pack,
+          parent,
+          preservedPath: "flags.n5eb.legacyMigration.originalSystem"
+        });
+      }
+    }
+  }
+
+  const reportDocumentName = documentName === "ActorDelta" ? "Actor" : documentName;
+  for ( const path of collectUnmappedLegacyPaths(documentData, updateData, reportDocumentName) ) {
+    report._seenUnmapped ??= new Set();
+    const pathKey = `${documentKey}.${path}`;
+    if ( report._seenUnmapped.has(pathKey) ) continue;
+    report._seenUnmapped.add(pathKey);
+    report.counts.unmappedPaths++;
+    if ( report.unmappedPaths.length < LEGACY_REPORT_LIMIT ) {
+      report.unmappedPaths.push({
+        documentName,
+        id: documentData._id ?? "",
+        name: documentData.name ?? "",
+        type: documentData.type ?? "",
+        pack,
+        parent,
+        path: `system.${path}`
+      });
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Record a migration error in a legacy report.
+ * @param {object} report        Legacy report object.
+ * @param {Error} err            Error thrown while migrating.
+ * @param {string} documentName  Document class name.
+ * @param {string} name          Document name or identifier.
+ * @private
+ */
+function _recordLegacyReportError(report, err, documentName, name) {
+  if ( !report ) return;
+  report.counts.errors++;
+  if ( report.errors.length >= LEGACY_REPORT_LIMIT ) return;
+  report.errors.push({
+    documentName,
+    name: `${name ?? ""}`,
+    message: err.message,
+    stack: err.stack ?? ""
+  });
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Finalize, persist, and write the visible Journal report for a legacy migration.
+ * @param {object} report             Legacy report object.
+ * @param {object} [options={}]
+ * @param {boolean} [options.hasErrors=false]  Whether the migration encountered errors.
+ * @returns {Promise<void>}
+ * @private
+ */
+async function _finalizeLegacyMigrationReport(report, { hasErrors=false }={}) {
+  if ( !report ) return;
+  report.completedAt = new Date().toISOString();
+  report.finalMigrationVersion = getTargetMigrationVersion();
+  report.success = !hasErrors;
+  delete report._seenPreserved;
+  delete report._seenUnmapped;
+
+  await game.settings.set("n5eb", "legacyMigrationReport", report);
+
+  try {
+    await _upsertLegacyMigrationJournal(report);
+  } catch(err) {
+    console.warn(`Failed to write ${LEGACY_MIGRATION_REPORT_TITLE}`, err);
+    report.counts.warnings++;
+    if ( report.warnings.length < LEGACY_REPORT_LIMIT ) {
+      report.warnings.push({
+        message: `Could not create or update the Journal report: ${err.message}`,
+        stack: err.stack ?? ""
+      });
+    }
+    await game.settings.set("n5eb", "legacyMigrationReport", report);
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Create or update the visible Journal entry for a legacy migration report.
+ * @param {object} report  Legacy report object.
+ * @returns {Promise<JournalEntry>}
+ * @private
+ */
+async function _upsertLegacyMigrationJournal(report) {
+  const content = _renderLegacyMigrationReport(report);
+  const pageData = {
+    name: "Report",
+    type: "text",
+    text: {
+      format: CONST.JOURNAL_ENTRY_PAGE_FORMATS?.HTML ?? 1,
+      content
+    }
+  };
+  const journal = game.journal.find(entry =>
+    (entry.getFlag("n5eb", "legacyMigrationReport") === report.reportId)
+    || (entry.name === LEGACY_MIGRATION_REPORT_TITLE)
+  );
+
+  if ( !journal ) {
+    return JournalEntry.create({
+      name: LEGACY_MIGRATION_REPORT_TITLE,
+      flags: { n5eb: { legacyMigrationReport: report.reportId } },
+      pages: [pageData]
+    });
+  }
+
+  await journal.update({ "flags.n5eb.legacyMigrationReport": report.reportId });
+  const page = journal.pages.find(p => p.name === "Report");
+  if ( page ) await page.update({ text: pageData.text });
+  else await journal.createEmbeddedDocuments("JournalEntryPage", [pageData]);
+  return journal;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Render the legacy migration report as Journal HTML.
+ * @param {object} report  Legacy report object.
+ * @returns {string}
+ * @private
+ */
+function _renderLegacyMigrationReport(report) {
+  const esc = value => foundry.utils.escapeHTML(`${value ?? ""}`);
+  const countRows = Object.entries(report.counts).map(([key, value]) =>
+    `<tr><th>${esc(_titleCaseKey(key))}</th><td>${esc(value)}</td></tr>`
+  ).join("");
+  const packs = report.migratedWorldPacks.length
+    ? report.migratedWorldPacks.map(pack => `<li>${esc(pack)}</li>`).join("")
+    : "<li>None</li>";
+  const snapshots = report.preservedLegacySnapshots.slice(0, 50).map(snapshot =>
+    `<li>${esc(snapshot.pack ? `${snapshot.pack}: ` : "")}${esc(snapshot.documentName)}`
+    + ` ${esc(snapshot.name || snapshot.id)}`
+    + ` (${esc(snapshot.preservedPath)})</li>`
+  ).join("") || "<li>None</li>";
+  const unmapped = report.unmappedPaths.slice(0, 100).map(entry =>
+    `<li>${esc(entry.pack ? `${entry.pack}: ` : "")}${esc(entry.documentName)}`
+    + ` ${esc(entry.name || entry.id)}: <code>${esc(entry.path)}</code></li>`
+  ).join("") || "<li>None</li>";
+  const errors = report.errors.slice(0, 50).map(error =>
+    `<li>${esc(error.documentName)} ${esc(error.name)}: ${esc(error.message)}</li>`
+  ).join("") || "<li>None</li>";
+  const warnings = report.warnings.slice(0, 50).map(warning =>
+    `<li>${esc(warning.message)}</li>`
+  ).join("") || "<li>None</li>";
+
+  return `
+    <h1>${esc(LEGACY_MIGRATION_REPORT_TITLE)}</h1>
+    <p><strong>World:</strong> ${esc(report.world.title)} (${esc(report.world.id)})</p>
+    <p><strong>Source:</strong> ${esc(report.world.system || "unknown")}
+      ${esc(report.world.migrationVersion || report.world.systemVersion || "unknown")}</p>
+    <p><strong>Target:</strong> ${esc(report.target.system)} ${esc(report.finalMigrationVersion)}</p>
+    <p><strong>Status:</strong> ${report.success ? "Completed" : "Completed with errors"}</p>
+    <p><strong>Started:</strong> ${esc(report.startedAt)}<br><strong>Completed:</strong> ${esc(report.completedAt)}</p>
+    <h2>Counts</h2>
+    <table><tbody>${countRows}</tbody></table>
+    <h2>Migrated World Packs</h2>
+    <ul>${packs}</ul>
+    <h2>Preserved Legacy Snapshots</h2>
+    <p>Original legacy system data is stored at
+      <code>flags.n5eb.legacyMigration.originalSystem</code> on migrated actor and item documents.</p>
+    <ul>${snapshots}</ul>
+    <h2>Unmapped Preserved Paths</h2>
+    <ul>${unmapped}</ul>
+    <h2>Warnings</h2>
+    <ul>${warnings}</ul>
+    <h2>Errors</h2>
+    <ul>${errors}</ul>`;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Convert a camelCase report key to a display label.
+ * @param {string} key  Report key.
+ * @returns {string}
+ * @private
+ */
+function _titleCaseKey(key) {
+  return key.replace(/([A-Z])/g, " $1").replace(/^./, c => c.toUpperCase());
+}
+
+/* -------------------------------------------- */
 
 const N5EB_DAMAGE_TYPE_MIGRATIONS = {
   radiant: "lightning",
@@ -207,10 +764,11 @@ const N5EB_CONTAINER_STALE_SYSTEM_KEYS = [
  * @param {object} [options={}]
  * @param {boolean} [options.bypassVersionCheck=false]  Bypass certain migration restrictions gated behind system
  *                                                      version stored in item stats.
+ * @param {object} [options.legacyReport]  Report object for guarded legacy migrations.
  * @returns {Promise}      A Promise which resolves once the migration is completed
  */
-export async function migrateWorld({ bypassVersionCheck=false }={}) {
-  const version = game.system.version;
+export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}) {
+  const version = getTargetMigrationVersion();
   const progress = ui.notifications.info("MIGRATION.5eBegin", {
     console: false, format: { version }, permanent: true, progress: true
   });
@@ -232,6 +790,7 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
   const logError = (err, type, name) => {
     err.message = `Failed dnd5e system migration for ${type} ${name}: ${err.message}`;
     console.error(err);
+    _recordLegacyReportError(legacyReport, err, type, name);
     hasErrors = true;
   };
 
@@ -239,11 +798,13 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
   const actors = game.actors.map(a => [a, true])
     .concat(Array.from(game.actors.invalidDocumentIds).map(id => [game.actors.getInvalid(id), false]));
   for ( const [actor, valid] of actors ) {
+    let source;
+    let updateData = {};
     try {
-      const flags = { bypassVersionCheck, persistSourceMigration: false };
-      const source = valid ? actor.toObject() : game.data.actors.find(a => a._id === actor.id);
+      const flags = { bypassVersionCheck, persistSourceMigration: false, legacyReport };
+      source = valid ? actor.toObject() : game.data.actors.find(a => a._id === actor.id);
       const version = actor._stats.systemVersion;
-      let updateData = migrateActorData(actor, source, migrationData, flags, { actorUuid: actor.uuid });
+      updateData = migrateActorData(actor, source, migrationData, flags, { actorUuid: actor.uuid });
       if ( !foundry.utils.isEmpty(updateData) ) {
         log(`Migrating Actor document ${actor.name}`);
         if ( flags.persistSourceMigration ) {
@@ -254,6 +815,7 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
           recursive: !flags.persistSourceMigration, render: false
         });
       }
+      _recordLegacyReportDocument(legacyReport, source, "Actor", updateData);
       if ( actor.effects && actor.items && foundry.utils.isNewerVersion("3.0.3", version) ) {
         const deleteIds = _duplicatedEffects(actor);
         if ( deleteIds.size ) await actor.deleteEmbeddedDocuments("ActiveEffect", Array.from(deleteIds), {
@@ -273,10 +835,12 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
     ? { inplace: false, applyOperators: true }
     : { inplace: false, performDeletions: true };
   for ( const [item, valid] of items ) {
+    let source;
+    let updateData = {};
     try {
-      const flags = { bypassVersionCheck, persistSourceMigration: false };
-      const source = valid ? item.toObject() : game.data.items.find(i => i._id === item.id);
-      let updateData = migrateItemData(item, source, migrationData, flags);
+      const flags = { bypassVersionCheck, persistSourceMigration: false, legacyReport };
+      source = valid ? item.toObject() : game.data.items.find(i => i._id === item.id);
+      updateData = migrateItemData(item, source, migrationData, flags);
       if ( !foundry.utils.isEmpty(updateData) ) {
         log(`Migrating Item document ${item.name}`);
         if ( flags.persistSourceMigration ) {
@@ -290,6 +854,7 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
           recursive: !flags.persistSourceMigration, render: false
         });
       }
+      _recordLegacyReportDocument(legacyReport, source, "Item", updateData);
     } catch(err) {
       logError(err, "Item", item.name);
     }
@@ -304,6 +869,7 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
         log(`Migrating Macro document ${m.name}`);
         await m.update(updateData, {enforceTypes: false, render: false});
       }
+      _recordLegacyReportDocument(legacyReport, m.toObject(), "Macro", updateData);
     } catch(err) {
       logError(err, "Macro", m.name);
     }
@@ -318,9 +884,11 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
         log(`Migrating Message document ${m.id}`);
         await m.update(updateData, { enforceTypes: false, render: false });
       }
+      _recordLegacyReportDocument(legacyReport, m.toObject(), "ChatMessage", updateData);
     } catch(err) {
       err.message = `Failed dnd5e system migration for Message ${m.id}: ${err.message}`;
       console.error(err);
+      _recordLegacyReportError(legacyReport, err, "Message", m.id);
     }
   }
 
@@ -332,6 +900,7 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
         log(`Migrating RollTable document ${table.name}`);
         await table.update(updateData, { enforceTypes: false, render: false });
       }
+      _recordLegacyReportDocument(legacyReport, table.toObject(), "RollTable", updateData);
     } catch(err) {
       logError(err, "RollTable", table.name);
     }
@@ -346,6 +915,7 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
         log(`Migrating Scene document ${s.name}`);
         await s.update(updateData, {enforceTypes: false, render: false});
       }
+      _recordLegacyReportDocument(legacyReport, s.toObject(), "Scene", updateData);
     } catch(err) {
       logError(err, "Scene", s.name);
     }
@@ -356,10 +926,12 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
         incrementProgress();
         continue;
       }
+      let source;
+      let updateData = {};
       try {
-        const flags = { bypassVersionCheck, persistSourceMigration: false };
-        const source = token.actor.toObject();
-        let updateData = migrateActorData(token.actor, source, migrationData, flags, { actorUuid: token.actor.uuid });
+        const flags = { bypassVersionCheck, persistSourceMigration: false, legacyReport };
+        source = token.actor.toObject();
+        updateData = migrateActorData(token.actor, source, migrationData, flags, { actorUuid: token.actor.uuid });
         if ( !foundry.utils.isEmpty(updateData) ) {
           log(`Migrating ActorDelta document ${token.actor.name} [${token.delta.id}] in Scene ${s.name}`);
           if ( flags.persistSourceMigration ) {
@@ -378,6 +950,7 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
             recursive: !flags.persistSourceMigration, render: false
           });
         }
+        _recordLegacyReportDocument(legacyReport, source, "ActorDelta", updateData);
       } catch(err) {
         logError(err, "ActorDelta", `[${token.id}]`);
       }
@@ -387,13 +960,14 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
 
   // Migrate World Compendium Packs
   for ( let p of packs ) {
-    await migrateCompendium(p, { incrementProgress });
+    await migrateCompendium(p, { incrementProgress, legacyReport });
   }
   const legacyFolder = game.folders.find(f => f.type === "Compendium" && f.name === "D&D SRD Content");
   if ( legacyFolder ) legacyFolder.update({ name: "D&D Legacy Content" });
 
   // Set the migration as complete
-  game.settings.set("n5eb", "systemMigrationVersion", game.system.version);
+  await game.settings.set("n5eb", "systemMigrationVersion", version);
+  await _finalizeLegacyMigrationReport(legacyReport, { hasErrors });
   progress.element?.classList.add(hasErrors ? "warning" : "success");
   progress.update({ message: "MIGRATION.5eComplete", format: { version }, pct: 1 });
 }
@@ -421,6 +995,79 @@ function _shouldMigrateCompendium(pack) {
 /* -------------------------------------------- */
 
 /**
+ * Clean legacy deletion marker keys from a document.
+ * @param {foundry.abstract.Document} document  Document to update.
+ * @returns {Promise<boolean>}                 Whether an update was applied.
+ */
+async function _cleanLegacyDeletionKeysForDocument(document) {
+  const update = _getLegacyDeletionKeyCleanupUpdate(document.toObject());
+  if ( !update ) return false;
+  await document.update(update, { diff: false, recursive: true, render: false });
+  return true;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Clean legacy deletion marker keys from an embedded collection.
+ * @param {foundry.abstract.Document} parent  Parent document.
+ * @param {string} embeddedName              Embedded document name.
+ * @param {Collection} collection            Embedded document collection.
+ * @returns {Promise<number>}                Number of updates applied.
+ */
+async function _cleanLegacyDeletionKeysForEmbedded(parent, embeddedName, collection) {
+  if ( !collection?.size ) return 0;
+  const updates = [];
+  for ( const document of collection ) {
+    const update = _getLegacyDeletionKeyCleanupUpdate(document.toObject());
+    if ( update ) updates.push({ _id: document.id, ...update });
+  }
+  if ( !updates.length ) return 0;
+  await parent.updateEmbeddedDocuments(embeddedName, updates, { diff: false, recursive: true, render: false });
+  return updates.length;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build a v14-safe update that replaces flags.n5eb with a cleaned copy.
+ * @param {object} source  Document source data.
+ * @returns {object|null}
+ */
+function _getLegacyDeletionKeyCleanupUpdate(source) {
+  const flags = source.flags?.n5eb;
+  if ( !foundry.utils.isPlainObject(flags) || foundry.utils.isEmpty(flags) ) return null;
+
+  const cleaned = foundry.utils.deepClone(flags);
+  _deleteLegacyDeletionKeys(cleaned);
+  return { "flags.n5eb": foundry.data.operators.ForcedReplacement.create(cleaned) };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Remove legacy "-=" marker keys from an object tree.
+ * @param {object} obj  Object to clean in place.
+ * @returns {boolean}
+ */
+function _deleteLegacyDeletionKeys(obj) {
+  let changed = false;
+  for ( const key of Object.keys(obj) ) {
+    if ( key.startsWith("-=") ) {
+      delete obj[key];
+      changed = true;
+      continue;
+    }
+
+    const value = obj[key];
+    if ( foundry.utils.isPlainObject(value) ) changed = _deleteLegacyDeletionKeys(value) || changed;
+  }
+  return changed;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Apply migration rules to all Documents within a single Compendium pack
  * @param {CompendiumCollection} pack       Pack to be migrated.
  * @param {object} [options={}]
@@ -428,9 +1075,12 @@ function _shouldMigrateCompendium(pack) {
  *                                                      version stored in item stats.
  * @param {Function} [options.incrementProgress]        Function that can be called to increment the progress bar.
  * @param {boolean} [options.strict=false]  Migrate errors should stop the whole process.
+ * @param {object} [options.legacyReport]  Report object for guarded legacy migrations.
  * @returns {Promise}
  */
-export async function migrateCompendium(pack, { bypassVersionCheck=false, incrementProgress, strict=false }={}) {
+export async function migrateCompendium(
+  pack, { bypassVersionCheck=false, incrementProgress, strict=false, legacyReport }={}
+) {
   const documentName = pack.documentName;
   if ( !["Actor", "Item", "Scene"].includes(documentName) ) return;
 
@@ -448,9 +1098,10 @@ export async function migrateCompendium(pack, { bypassVersionCheck=false, increm
     // Iterate over compendium entries - applying fine-tuned migration functions
     for ( let doc of documents ) {
       let updateData = {};
+      let source;
       try {
-        const flags = { bypassVersionCheck, persistSourceMigration: false };
-        const source = doc.toObject();
+        const flags = { bypassVersionCheck, persistSourceMigration: false, legacyReport };
+        source = doc.toObject();
         switch ( documentName ) {
           case "Actor":
             updateData = migrateActorData(doc, source, migrationData, flags, { actorUuid: doc.uuid });
@@ -475,6 +1126,7 @@ export async function migrateCompendium(pack, { bypassVersionCheck=false, increm
         if ( foundry.utils.isEmpty(updateData) ) continue;
         if ( flags.persistSourceMigration ) updateData = foundry.utils.mergeObject(source, updateData);
         await doc.update(updateData, { diff: !flags.persistSourceMigration });
+        _recordLegacyReportDocument(legacyReport, source, documentName, updateData, { pack: pack.collection });
         log(`Migrated ${documentName} document ${doc.name} in Compendium ${pack.collection}`);
       }
 
@@ -482,6 +1134,7 @@ export async function migrateCompendium(pack, { bypassVersionCheck=false, increm
       catch(err) {
         err.message = `Failed dnd5e system migration for document ${doc.name} in pack ${pack.collection}: ${err.message}`;
         console.error(err);
+        _recordLegacyReportError(legacyReport, err, documentName, `${pack.collection}.${doc.name}`);
         if ( strict ) throw err;
       }
 
@@ -752,11 +1405,13 @@ export async function migrateSettings() {
 export function migrateActorData(actor, actorData, migrationData, flags={}, { actorUuid }={}) {
   const updateData = {};
   _migrateTokenImage(actorData, updateData);
+  _migrateLegacyN5eBActorData(actorData, updateData);
   _migrateActorAC(actorData, updateData);
   _migrateActorFlags(actorData, updateData);
   _migrateActorMovementSenses(actorData, updateData);
   _migrateN5eBHalfSaveDefaults(actorData, updateData, flags);
   _migrateN5eBDamageTypes(actorData, updateData);
+  _migrateN5eBAffinityTrait(actorData, updateData);
   _migrateActorSkillToolMastery(actorData, updateData);
   _migrateN5eBActorToolKits(actorData, updateData);
   _migrateRyoCurrency(actorData.system, updateData);
@@ -779,6 +1434,11 @@ export function migrateActorData(actor, actorData, migrationData, flags={}, { ac
     updateData["system.source.rules"] = "2014";
   }
 
+  if ( foundry.utils.getProperty(actorData, "flags.n5eb.persistSourceMigration") ) {
+    flags.persistSourceMigration = true;
+    updateData["flags.n5eb.-=persistSourceMigration"] = null;
+  }
+
   // Migrate Owned Items
   if ( !actorData.items ) return updateData;
   const mergeOptions = game.release.generation > 13
@@ -788,9 +1448,11 @@ export function migrateActorData(actor, actorData, migrationData, flags={}, { ac
     // Migrate the Owned Item
     const itemData = i instanceof CONFIG.Item.documentClass ? i.toObject() : i;
     const itemFlags = {
-      actorData, bypassVersionCheck: flags.bypassVersionCheck ?? false, persistSourceMigration: false
+      actorData, bypassVersionCheck: flags.bypassVersionCheck ?? false, persistSourceMigration: false,
+      legacyReport: flags.legacyReport
     };
     let itemUpdate = migrateItemData(i, itemData, migrationData, itemFlags);
+    _migrateClassChakraAdvancement(actorData, itemData, itemUpdate, updateData);
 
     if ( (itemData.type === "background") && (actorData.system?.details?.background !== itemData._id) ) {
       updateData["system.details.background"] = itemData._id;
@@ -804,6 +1466,9 @@ export function migrateActorData(actor, actorData, migrationData, flags={}, { ac
 
     // Update the Owned Item
     if ( itemFlags.persistSourceMigration ) flags.persistSourceMigration = true;
+    _recordLegacyReportDocument(flags.legacyReport, itemData, "Item", itemUpdate, {
+      parent: actorData.name || actorData._id
+    });
     arr.push({ itemData, itemUpdate });
 
     // Update tool expertise.
@@ -866,6 +1531,7 @@ export function migrateItemData(item, itemData, migrationData, flags={}) {
   _migrateCurrencyDenomination(itemData.system?.price, updateData, "system.price");
   _migrateBulkWeight(itemData.system, updateData, "system");
   _migrateN5eBContainerItem(itemData, updateData);
+  _migrateN5eBArmorAndSeals(itemData, updateData);
   _migrateJutsuChakraScaling(itemData, updateData);
   _migrateN5eBClassmodArts(itemData, updateData);
   _migrateN5eBBookParityFixes(itemData, updateData, migrationData);
@@ -1025,6 +1691,7 @@ export function migrateEffectData(effect, migrationData, { parent }={}) {
   _migrateEffectArmorClass(effect, updateData);
   _migrateN5eBKitEffectKeys(effect, updateData);
   _migrateN5eBDamageEffectKeys(effect, updateData);
+  _migrateN5eBAffinityEffectKeys(effect, updateData);
   _migrateN5eBConditionEffect(effect, updateData);
   if ( foundry.utils.isNewerVersion("3.1.0", effect._stats?.systemVersion ?? parent?._stats?.systemVersion) ) {
     _migrateTransferEffect(effect, parent, updateData);
@@ -1253,6 +1920,135 @@ function _migrateN5eBDamageEffectKeys(effect, updateData) {
     if ( migrated !== change.value ) updateData[`changes.${index}.value`] = migrated;
   }
   return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Migrate legacy actor affinity data into the native N5eB affinity trait shape.
+ * @param {object} actorData   Actor data being migrated.
+ * @param {object} updateData  Existing update data. *Will be mutated.*
+ * @returns {object}           Modified update data.
+ * @private
+ */
+function _migrateN5eBAffinityTrait(actorData, updateData) {
+  const affinity = actorData.system?.traits?.affinity;
+  if ( affinity === undefined ) return updateData;
+
+  const { value, changed } = _normalizeN5eBAffinityTrait(affinity);
+  if ( changed ) updateData["system.traits.affinity"] = value;
+  return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize old Active Effect affinity paths and values.
+ * @param {object} effect      Active Effect data being migrated.
+ * @param {object} updateData  Existing update data. *Will be mutated.*
+ * @returns {object}           Modified update data.
+ * @private
+ */
+function _migrateN5eBAffinityEffectKeys(effect, updateData) {
+  for ( const [index, change] of (effect.changes ?? []).entries() ) {
+    const key = change.key;
+    if ( key === "system.traits.affinity" ) updateData[`changes.${index}.key`] = "system.traits.affinity.value";
+    if ( (key !== "system.traits.affinity") && (key !== "system.traits.affinity.value") ) continue;
+
+    const migrated = _normalizeN5eBAffinityKey(change.value);
+    if ( migrated && (migrated !== change.value) ) updateData[`changes.${index}.value`] = migrated;
+  }
+  return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize affinity trait data.
+ * @param {unknown} value  Legacy or current affinity data.
+ * @returns {{ value: object, changed: boolean }}
+ * @private
+ */
+function _normalizeN5eBAffinityTrait(value) {
+  const isObject = foundry.utils.getType(value) === "Object";
+  const current = isObject ? value : {};
+  const normalized = {
+    ...current,
+    value: [],
+    custom: typeof current.custom === "string" ? current.custom : ""
+  };
+
+  const affinities = new Set();
+  const custom = new Set(normalized.custom.split(";").map(v => v.trim()).filter(Boolean));
+  const rawValue = Object.hasOwn(current, "value") ? current.value : value;
+  _collectN5eBAffinityValues(rawValue, affinities, custom);
+  normalized.value = Array.from(affinities);
+  normalized.custom = Array.from(custom).join("; ");
+
+  const wasCurrentShape = isObject
+    && Array.isArray(value.value)
+    && (typeof value.custom === "string")
+    && value.value.every(v => affinities.has(v))
+    && (value.value.length === affinities.size)
+    && (value.custom === normalized.custom);
+
+  return { value: normalized, changed: !wasCurrentShape };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Collect affinity values from legacy data.
+ * @param {unknown} value       Source value.
+ * @param {Set<string>} values  Normalized canonical values. *Will be mutated.*
+ * @param {Set<string>} custom  Unrecognized values. *Will be mutated.*
+ * @private
+ */
+function _collectN5eBAffinityValues(value, values, custom) {
+  if ( value instanceof Set ) value = Array.from(value);
+  if ( Array.isArray(value) ) {
+    value.forEach(v => _collectN5eBAffinityValues(v, values, custom));
+    return;
+  }
+
+  if ( value && (typeof value === "object") ) {
+    Object.entries(value).forEach(([key, selected]) => {
+      if ( selected ) _collectN5eBAffinityValues(key, values, custom);
+    });
+    return;
+  }
+
+  if ( typeof value !== "string" ) return;
+  for ( const entry of value.split(/[;,]/).map(v => v.trim()).filter(Boolean) ) {
+    const normalized = _normalizeN5eBAffinityKey(entry);
+    if ( normalized ) values.add(normalized);
+    else if ( entry !== "*" ) custom.add(entry);
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize one affinity key or label.
+ * @param {unknown} value  Affinity key.
+ * @returns {string|null}
+ * @private
+ */
+function _normalizeN5eBAffinityKey(value) {
+  if ( typeof value !== "string" ) return null;
+  value = value.trim();
+  if ( !value || (value === "*") ) return null;
+  value = value.replace(/^affinity:/i, "");
+  const compact = value.toLowerCase().replace(/[\s_-]/g, "").replace(/release$/i, "");
+  const map = {
+    earth: "earth",
+    fire: "fire",
+    lightning: "lightning",
+    medical: "medical",
+    water: "water",
+    wind: "wind"
+  };
+  return map[compact] ?? (N5EB_AFFINITY_KEYS.has(value) ? value : null);
 }
 
 /* -------------------------------------------- */
@@ -2216,6 +3012,21 @@ function _migrateN5eBContainerItem(itemData, updateData) {
 /* -------------------------------------------- */
 
 /**
+ * Migrate N5eB armor and enhancement seal metadata.
+ * @param {object} itemData    Item data being migrated.
+ * @param {object} updateData  Existing updates being applied. *Will be mutated.*
+ * @returns {object}           Modified version of update data.
+ * @private
+ */
+function _migrateN5eBArmorAndSeals(itemData, updateData) {
+  Seals.migrateArmorSourceData(itemData, updateData);
+  Seals.migrateSealSourceData(itemData, updateData);
+  return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Apply high-confidence book parity corrections to item copies that still match stale source data.
  * @param {object} itemData       Item data being migrated.
  * @param {object} updateData     Existing updates being applied. *Will be mutated.*
@@ -2344,6 +3155,75 @@ function _migrateActorBulkWeight(systemData, updateData) {
 /* -------------------------------------------- */
 
 /**
+ * Backfill missing Chakra advancement values on class items that already had HP advancement applied.
+ * @param {object} actorData       Actor source data being migrated.
+ * @param {object} itemData        Embedded item source data being migrated.
+ * @param {object} itemUpdate      Existing embedded item update data. *Will be mutated.*
+ * @param {object} actorUpdate     Existing actor update data. *Will be mutated.*
+ * @private
+ */
+function _migrateClassChakraAdvancement(actorData, itemData, itemUpdate, actorUpdate) {
+  if ( (actorData.type !== "character") || (itemData.type !== "class") ) return;
+  if ( actorData.system?.details?.originalClass !== itemData._id ) return;
+  if ( Number(itemData.system?.levels ?? 0) < 1 ) return;
+
+  const advancement = _getAdvancementEntries(itemData.system?.advancement);
+  const hp = advancement.find(entry => entry?.type === "HitPoints");
+  const chakra = advancement.find(entry => ["Chakra", "ChakraPoints"].includes(entry?.type));
+  if ( !chakra?._id ) return;
+
+  if ( chakra.type === "ChakraPoints" ) itemUpdate[`system.advancement.${chakra._id}.type`] = "Chakra";
+  if ( chakra.value?.[1] !== undefined ) return;
+
+  const chakraState = actorData.system?.attributes?.chakra ?? {};
+  const hpWasApplied = hp?.value?.[1] !== undefined;
+  const staleZeroChakra = [undefined, null, 0].includes(chakraState.max)
+    && [undefined, null, 0].includes(chakraState.value);
+  if ( !hpWasApplied && !staleZeroChakra ) return;
+
+  itemUpdate[`system.advancement.${chakra._id}.value.1`] = "max";
+  itemUpdate["flags.n5eb.chakraAdvancementFix.level1"] = "max";
+  itemUpdate["flags.n5eb.chakraAdvancementFix.migratedAt"] = "system-migration";
+
+  if ( chakraState.max === 0 ) actorUpdate["system.attributes.chakra.max"] = null;
+  if ( staleZeroChakra ) actorUpdate["system.attributes.chakra.value"] = _getInitialClassChakra(actorData, itemData);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get advancement entries from either old array storage or current object storage.
+ * @param {object[]|object} advancement  Advancement source data.
+ * @returns {object[]}                   Advancement entries.
+ * @private
+ */
+function _getAdvancementEntries(advancement) {
+  if ( Array.isArray(advancement) ) return advancement;
+  if ( foundry.utils.getType(advancement) === "Object" ) return Object.values(advancement);
+  return [];
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Calculate the initial Chakra value for a class at level 1.
+ * @param {object} actorData  Actor source data.
+ * @param {object} itemData   Class item source data.
+ * @returns {number}          Initial Chakra value.
+ * @private
+ */
+function _getInitialClassChakra(actorData, itemData) {
+  const die = String(itemData.system?.cd?.denomination ?? itemData.system?.chakraDice ?? "d0");
+  const dieValue = Number(die.match(/\d+/)?.[0] ?? 0);
+  const ability = CONFIG.DND5E.defaultAbilities?.chakraPoints ?? "con";
+  const score = Number(actorData.system?.abilities?.[ability]?.value ?? 10);
+  const mod = Math.floor((score - 10) / 2);
+  return Math.max(dieValue + mod, 1);
+}
+
+/* -------------------------------------------- */
+
+/**
  * Identify effects that might have been duplicated when legacyTransferral was disabled.
  * @param {object} parent   Data of the actor being migrated.
  * @returns {Set<string>}   IDs of effects to delete from the actor.
@@ -2362,6 +3242,74 @@ function _duplicatedEffects(parent) {
     }
   }
   return deleteIds;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Restore high-risk legacy N5eB actor fields from the preserved pre-cleanup source snapshot.
+ * @param {object} actorData   Actor source data being migrated.
+ * @param {object} updateData  Existing updates being applied to actor. *Will be mutated.*
+ * @returns {object}           Modified version of update data.
+ * @private
+ */
+function _migrateLegacyN5eBActorData(actorData, updateData) {
+  const original = foundry.utils.getProperty(actorData, "flags.n5eb.legacyMigration.originalSystem");
+  if ( foundry.utils.getType(original) !== "Object" ) return updateData;
+
+  const oldCP = original.attributes?.cp;
+  if ( foundry.utils.getType(oldCP) === "Object" ) {
+    const chakra = foundry.utils.mergeObject(actorData.system?.attributes?.chakra ?? {}, oldCP, { inplace: false });
+    chakra.formula ??= "";
+    updateData["system.attributes.chakra"] = chakra;
+    updateData["system.attributes.-=cp"] = null;
+  }
+
+  const oldChakraSight = original.attributes?.senses?.chakrasight;
+  if ( oldChakraSight !== undefined ) {
+    const chakraSightPath = "system.attributes.senses.ranges.chakrasight";
+    if ( foundry.utils.getProperty(actorData, chakraSightPath) === undefined ) {
+      updateData[chakraSightPath] = oldChakraSight;
+    }
+    updateData["system.attributes.senses.-=chakrasight"] = null;
+  }
+
+  const oldSpellcasting = original.attributes?.spellcasting;
+  if ( foundry.utils.getType(oldSpellcasting) === "Object" ) {
+    for ( const key of ["ninjutsu", "genjutsu", "taijutsu"] ) {
+      const ability = oldSpellcasting[key];
+      if ( ability ) updateData[`system.attributes.jutsu.${key}.ability`] = ability;
+    }
+  } else if ( oldSpellcasting && !actorData.system?.attributes?.spellcasting ) {
+    updateData["system.attributes.spellcasting"] = oldSpellcasting;
+  }
+
+  const oldChakraDie = original.resources?.chakradie;
+  const tertiary = actorData.system?.resources?.tertiary;
+  if ( foundry.utils.getType(oldChakraDie) === "Object" && _isEmptyLegacyResource(tertiary) ) {
+    updateData["system.resources.tertiary"] = foundry.utils.deepClone(oldChakraDie);
+    updateData["system.resources.-=chakradie"] = null;
+  }
+
+  return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Determine whether a resource slot is effectively empty.
+ * @param {object} resource  Resource source data.
+ * @returns {boolean}
+ * @private
+ */
+function _isEmptyLegacyResource(resource) {
+  if ( !resource ) return true;
+  const label = `${resource.label ?? ""}`.trim();
+  const value = Number(resource.value ?? 0);
+  const max = Number(resource.max ?? 0);
+  const lr = Boolean(resource.lr);
+  const sr = Boolean(resource.sr);
+  return !label && !value && !max && !lr && !sr;
 }
 
 /* -------------------------------------------- */
@@ -2839,7 +3787,8 @@ function _migrateJutsuChakraScaling(itemData, updateData) {
     return updateData;
   }
 
-  const original = foundry.utils.getProperty(itemData, "flags.n5eb.legacyImport.originalSystem.chakraScaling");
+  const original = foundry.utils.getProperty(itemData, "flags.n5eb.legacyMigration.originalSystem.chakraScaling")
+    ?? foundry.utils.getProperty(itemData, "flags.n5eb.legacyImport.originalSystem.chakraScaling");
   const legacy = system.chakraScaling ?? original ?? _parseLegacyChakraScaling(system.chakra?.special);
   const mode = `${legacy?.mode ?? ""}`.toLowerCase();
   const value = Number(legacy?.value ?? 0);

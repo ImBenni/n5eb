@@ -129,6 +129,16 @@ flags:
           value: null
           formula: 1d8
           charged: false
+    armorMigration:
+      sourceOriginal:
+        armor:
+          value: 16
+          dex: 0
+          magicalBonus: null
+          dr: 4
+        properties:
+          - stealthDisadvantage
+          - reinforced
 system:
   description:
     value: >-
@@ -199,6 +209,10 @@ system:
     dex: 0
     magicalBonus: null
     dr: 4
+    bonus: 6
+    dexCap: 0
+    don: 10
+    doff: 5
   hp:
     value: 0
     max: 0
@@ -210,7 +224,7 @@ system:
   strength: null
   proficient: null
   properties:
-    - stealthDisadvantage
+    - bulky
     - reinforced
   unidentified:
     description: ''
@@ -230,11 +244,15 @@ system:
     formula: 1d8
     charged: false
   identifier: combat-armor
+  seals:
+    quality: standard
+    capacity: null
+    bonus: 0
 _stats:
   duplicateSource: null
   coreVersion: '12.331'
   systemId: n5eb
-  systemVersion: 3.0.0
+  systemVersion: 3.0.1
   createdTime: 1728575880187
   modifiedTime: 1732926282675
   lastModifiedBy: n5ebbuilder00000
