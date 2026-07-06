@@ -1,4 +1,5 @@
 import aggregateDamageRolls from "../dice/aggregate-damage-rolls.mjs";
+import { calculateChakraUpdates } from "./chakra-application.mjs";
 import DamageRoll from "../dice/damage-roll.mjs";
 import simplifyRollFormula from "../dice/simplify-roll-formula.mjs";
 import { assignSystemFlagAliases, assignSystemFlagDataAliases, getSystemFlagAlias } from "./flag-compatibility.mjs";
@@ -724,21 +725,21 @@ export default class ChatMessage5e extends ChatMessage {
         name: game.i18n.localize("DND5E.ChatContextChakraDamage"),
         icon: '<i class="fas fa-bolt"></i>',
         condition: canApply,
-        callback: li => game.messages.get(li.dataset.messageId)?.applyChatCardDamage(li, 1, "chakra"),
+        callback: li => game.messages.get(li.dataset.messageId)?.applyChatCardChakra(li, "damage"),
         group: "damage"
       },
       {
         name: game.i18n.localize("DND5E.ChatContextChakraHealing"),
         icon: '<i class="fas fa-bolt"></i>',
         condition: canApply,
-        callback: li => game.messages.get(li.dataset.messageId)?.applyChatCardDamage(li, -1, "chakrahealing"),
+        callback: li => game.messages.get(li.dataset.messageId)?.applyChatCardChakra(li, "healing"),
         group: "damage"
       },
       {
         name: game.i18n.localize("DND5E.ChatContextTempCP"),
         icon: '<i class="fas fa-bolt"></i>',
         condition: canApply,
-        callback: li => game.messages.get(li.dataset.messageId)?.applyChatCardTemp(li, "tempcp"),
+        callback: li => game.messages.get(li.dataset.messageId)?.applyChatCardChakra(li, "temp"),
         group: "damage"
       },
       {
@@ -832,18 +833,14 @@ export default class ChatMessage5e extends ChatMessage {
    *
    * @param {HTMLElement} li      The chat entry which contains the roll data
    * @param {number} multiplier   A damage multiplier to apply to the rolled damage.
-   * @param {string} [type]        Override the roll's damage or healing type.
    * @returns {Promise}
    */
-  applyChatCardDamage(li, multiplier, type) {
-    const damages = aggregateDamageRolls(this.rolls, { respectProperties: true }).map(roll => {
-      const rollType = type ?? roll.options.type;
-      return {
-        value: Math.max(0, roll.total) * (rollType in CONFIG.DND5E.healingTypes ? -1 : 1),
-        type: rollType,
-        properties: new Set(roll.options.properties ?? [])
-      };
-    });
+  applyChatCardDamage(li, multiplier) {
+    const damages = aggregateDamageRolls(this.rolls, { respectProperties: true }).map(roll => ({
+      value: Math.max(0, roll.total) * (roll.options.type in CONFIG.DND5E.healingTypes ? -1 : 1),
+      type: roll.options.type,
+      properties: new Set(roll.options.properties ?? [])
+    }));
     return Promise.all(canvas.tokens.controlled.map(t => {
       return t.actor?.applyDamage(damages, { multiplier, isDelta: true, originatingMessage: this });
     }));
@@ -876,19 +873,30 @@ export default class ChatMessage5e extends ChatMessage {
   /* -------------------------------------------- */
 
   /**
-   * Apply rolled dice as temporary hit points to the controlled token(s).
-   * @param {HTMLElement} li    The chat entry which contains the roll data.
-   * @param {string} [type]     The temporary pool to apply to.
+   * Apply rolled dice to the controlled token(s)' Chakra pool.
+   * @param {HTMLElement} li  The chat entry which contains the roll data.
+   * @param {string} mode     The Chakra application mode.
    * @returns {Promise}
    */
-  applyChatCardTemp(li, type="temphp") {
+  applyChatCardChakra(li, mode) {
+    const total = aggregateDamageRolls(this.rolls, { respectProperties: true })
+      .reduce((acc, roll) => acc + Math.max(0, roll.total), 0);
+    return Promise.all(canvas.tokens.controlled.map(t => {
+      const actor = t.actor;
+      const updates = calculateChakraUpdates(actor?.system.attributes.chakra, total, mode);
+      return Object.keys(updates).length ? actor.update(updates) : actor;
+    }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply rolled dice as temporary hit points to the controlled token(s).
+   * @param {HTMLElement} li  The chat entry which contains the roll data
+   * @returns {Promise}
+   */
+  applyChatCardTemp(li) {
     const total = this.rolls.reduce((acc, roll) => acc + roll.total, 0);
-    if ( type === "tempcp" ) {
-      const damages = [{ value: total, type, properties: new Set() }];
-      return Promise.all(canvas.tokens.controlled.map(t => {
-        return t.actor?.applyDamage(damages, { isDelta: true, originatingMessage: this });
-      }));
-    }
     return Promise.all(canvas.tokens.controlled.map(t => {
       return t.actor?.applyTempHP(total);
     }));
