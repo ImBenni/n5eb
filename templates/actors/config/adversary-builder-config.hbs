@@ -241,7 +241,8 @@
             <div class="adversary-content-panel" data-content-panel="features">
                 {{> ".filters" ranks=featureFilterRanks kinds=featureKinds categories=featureCategories }}
                 {{#if suggestions.features.length}}
-                <div class="adversary-suggestions grouped">
+                <div class="adversary-suggestions grouped" data-suggestion-list="features">
+                    {{#if renderFeatureRows}}
                     {{#each suggestions.featureGroups}}
                     <section class="adversary-suggestion-group" data-suggestion-group="{{ id }}">
                         <div class="suggestion-group-heading">
@@ -253,6 +254,7 @@
                         {{/each}}
                     </section>
                     {{/each}}
+                    {{/if}}
                 </div>
                 {{/if}}
                 <p class="empty-filter" data-filter-empty hidden>{{ localize "N5EB.Adversary.Builder.NoSuggestions" }}</p>
@@ -262,10 +264,12 @@
                 {{> ".filters" ranks=filterRanks kinds=jutsuKinds actions=jutsuActions actionTypes=jutsuActionTypes
                     costs=jutsuCosts components=jutsuComponents keywords=jutsuKeywords sources=jutsuPacks }}
                 {{#if suggestions.jutsu.length}}
-                <div class="adversary-suggestions">
+                <div class="adversary-suggestions" data-suggestion-list="jutsu">
+                    {{#if renderJutsuRows}}
                     {{#each suggestions.jutsu}}
                     {{> ".suggestion" }}
                     {{/each}}
+                    {{/if}}
                 </div>
                 {{/if}}
                 <p class="empty-filter" data-filter-empty hidden>{{ localize "N5EB.Adversary.Builder.NoSuggestions" }}</p>
@@ -440,7 +444,7 @@
 {{/inline}}
 
 {{#*inline ".suggestion"}}
-<label class="adversary-suggestion {{#if disabled}}is-added{{/if}}"
+<label class="adversary-suggestion {{#if disabled}}is-added{{/if}} {{#if selected}}selected{{/if}}"
        data-uuid="{{ uuid }}"
        data-name="{{ name }}"
        data-img="{{ img }}"
@@ -470,7 +474,7 @@
        data-components="{{ componentsKey }}"
        data-keywords="{{ keywordsKey }}"
        data-search="{{ filterSearch }}">
-    <input type="checkbox" name="itemUuids" value="{{ uuid }}" {{ disabled disabled }}>
+    <input type="checkbox" name="itemUuids" value="{{ uuid }}" {{ disabled disabled }} {{#if selected}}checked{{/if}}>
     <img src="{{ img }}" alt="" loading="lazy" decoding="async">
     <span class="suggestion-copy">
         <span class="name">{{ name }}</span>

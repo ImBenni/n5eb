@@ -1625,6 +1625,7 @@ dialog.dnd5e2.application {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    contain: layout style;
     overflow: auto;
     padding-inline-end: 2px;
   }
@@ -2040,6 +2041,7 @@ dialog.dnd5e2.application {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    contain: layout style;
     overflow: visible;
     padding: 10px;
     border: 1px solid rgba(176, 155, 105, .22);
@@ -2099,6 +2101,7 @@ dialog.dnd5e2.application {
     display: grid;
     grid-template-columns: 56px minmax(0, 1fr) 24px;
     gap: 10px;
+    contain: layout paint style;
     min-height: 118px;
     padding: 9px;
     border: 1px solid rgba(255, 255, 255, .08);
@@ -2130,6 +2133,8 @@ dialog.dnd5e2.application {
 
     .preview-description {
       max-height: 48px;
+      contain: content;
+      content-visibility: auto;
       overflow: auto;
       color: var(--color-text-secondary);
       font-size: var(--font-size-12);
@@ -2149,6 +2154,7 @@ dialog.dnd5e2.application {
     flex: 1;
     flex-direction: column;
     gap: 8px;
+    contain: layout style;
   }
 
   .adversary-filter-bar {
@@ -2514,8 +2520,10 @@ dialog.dnd5e2.application {
     display: grid;
     grid-template-columns: 1fr;
     gap: 5px;
+    contain: content;
     min-height: 0;
     overflow: auto;
+    scrollbar-gutter: stable;
 
     &.grouped {
       gap: 10px;
@@ -2526,6 +2534,7 @@ dialog.dnd5e2.application {
     display: grid;
     grid-template-columns: 1fr;
     gap: 5px;
+    contain: layout paint style;
 
     &[hidden] {
       display: none;
@@ -2574,6 +2583,9 @@ dialog.dnd5e2.application {
     grid-template-columns: 18px 30px minmax(0, 1fr);
     align-items: center;
     gap: 8px;
+    contain: layout paint style;
+    contain-intrinsic-size: 48px;
+    content-visibility: auto;
     min-height: 48px;
     padding: 6px 8px;
     border: 1px solid transparent;
@@ -2602,6 +2614,7 @@ dialog.dnd5e2.application {
     }
 
     &[data-suggestion-type="spell"] {
+      contain-intrinsic-size: 42px;
       min-height: 42px;
       padding-block: 4px;
 
