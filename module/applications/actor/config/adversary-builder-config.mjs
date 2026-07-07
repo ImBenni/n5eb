@@ -1,11 +1,7 @@
 import BaseConfigSheet from "../api/base-config-sheet.mjs";
 import CompendiumBrowser from "../../compendium-browser.mjs";
 import { switchNpcBuilderMode } from "./npc-builder-mode-switch.mjs";
-import {
-  JUTSU_INDEX_FIELDS,
-  formatJutsuLookupEntry,
-  getJutsuItemPacks
-} from "../../jutsu-lookup-data.mjs";
+import { collectJutsuLookupEntries } from "../../jutsu-lookup-data.mjs";
 
 const CLAN_PACKS = ["clan", "t7-clan", "hb-clan"];
 const RANK_ORDER = ["e", "d", "c", "b", "a", "s"];
@@ -212,6 +208,24 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
    */
   #activeTab = "features";
 
+  /**
+   * Queued filter animation frame.
+   * @type {number|null}
+   */
+  #filterFrame = null;
+
+  /**
+   * Panel waiting for a deferred filter pass.
+   * @type {HTMLElement|null}
+   */
+  #queuedFilterPanel = null;
+
+  /**
+   * Suggestion data by source UUID for preview rendering.
+   * @type {Map<string, object>}
+   */
+  #suggestionLookup = new Map();
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -247,6 +261,7 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
     context.identity = getAdversaryIdentity(source);
     context.summary = getAdversarySummary(source);
     context.suggestions = await getAdversarySuggestions(this.document, source);
+    this.#suggestionLookup = buildSuggestionLookup(context.suggestions);
     context.warnings = getAdversaryWarnings(this.document, source, context.suggestions);
     context.contentTabs = [
       {
@@ -303,9 +318,6 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
     this.#syncAffiliationCustom();
     this.#syncSummary();
     this.#syncIdentity();
-    this.#refreshAllFilters();
-    this.#refreshSelection();
-    this.#previewInitialSuggestion();
   }
 
   /* -------------------------------------------- */
@@ -471,14 +483,14 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
     root.addEventListener("input", event => {
       const target = event.target;
       if ( !(target instanceof HTMLElement) ) return;
-      if ( target.matches(".adversary-filter") ) this.#applyFilters(target.closest("[data-content-panel]"));
+      if ( target.matches(".adversary-filter") ) this.#queueFilter(target.closest("[data-content-panel]"));
       if ( target.matches("[name='adversary.level']") ) this.#syncSummary();
     });
 
     root.addEventListener("change", event => {
       const target = event.target;
       if ( !(target instanceof HTMLElement) ) return;
-      if ( target.matches(".adversary-filter") ) this.#applyFilters(target.closest("[data-content-panel]"));
+      if ( target.matches(".adversary-filter") ) this.#queueFilter(target.closest("[data-content-panel]"));
       if ( target.matches("input[name='itemUuids']") ) {
         target.closest(".adversary-suggestion")?.classList.toggle("selected", target.checked);
         this.#refreshSelection();
@@ -536,6 +548,7 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
       panel.hidden = panel.dataset.contentPanel !== this.#activeTab;
     }
     this.#refreshSelection();
+    this.#refreshActiveFilters();
     this.#previewInitialSuggestion();
   }
 
@@ -631,15 +644,6 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
   /* -------------------------------------------- */
 
   /**
-   * Apply all content panel filters.
-   */
-  #refreshAllFilters() {
-    for ( const panel of this.element.querySelectorAll("[data-content-panel]") ) this.#applyFilters(panel);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Apply filters to one content panel.
    * @param {HTMLElement|null} panel  Panel to filter.
    */
@@ -656,11 +660,14 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
     const component = panel.querySelector("[data-filter='component']")?.value ?? "";
     const keywords = Array.from(panel.querySelectorAll("[data-filter='keyword']:checked"))
       .map(input => input.value).filter(Boolean);
+    const needsComponent = Boolean(component);
+    const needsKeywords = keywords.length > 0;
+    const groupCounts = new Map();
     let visible = 0;
 
     for ( const row of panel.querySelectorAll(".adversary-suggestion") ) {
-      const rowKeywords = row.dataset.keywords?.split(/\s+/).filter(Boolean) ?? [];
-      const matchesSearch = !search || row.dataset.search?.includes(search);
+      const matchesSearch = !search || row.dataset.search?.includes(search)
+        || this.#suggestionLookup.get(row.dataset.uuid ?? "")?.search?.includes(search);
       const matchesRank = rankMatchesFilter(row.dataset.rank, rank, panel.dataset.contentPanel);
       const matchesKind = !kind || row.dataset.kind === kind;
       const matchesCategory = !category || row.dataset.category === category;
@@ -668,17 +675,21 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
       const matchesActivation = !activation || row.dataset.activation === activation;
       const matchesActionType = !actionType || row.dataset.actionType === actionType;
       const matchesCost = !cost || row.dataset.cost === cost;
-      const matchesComponent = !component || row.dataset.components?.split(/\s+/).includes(component);
-      const matchesKeyword = !keywords.length || keywords.every(keyword => rowKeywords.includes(keyword));
+      const matchesComponent = !needsComponent || row.dataset.components?.split(/\s+/).includes(component);
+      const rowKeywords = needsKeywords ? row.dataset.keywords?.split(/\s+/).filter(Boolean) ?? [] : [];
+      const matchesKeyword = !needsKeywords || keywords.every(keyword => rowKeywords.includes(keyword));
       const hidden = !(matchesSearch && matchesRank && matchesKind && matchesCategory && matchesSource
         && matchesActivation && matchesActionType && matchesCost && matchesComponent && matchesKeyword);
       row.hidden = hidden;
-      if ( !hidden ) visible++;
+      if ( !hidden ) {
+        visible++;
+        const group = row.closest("[data-suggestion-group]");
+        if ( group ) groupCounts.set(group, (groupCounts.get(group) ?? 0) + 1);
+      }
     }
 
     for ( const group of panel.querySelectorAll("[data-suggestion-group]") ) {
-      const groupVisible = Array.from(group.querySelectorAll(".adversary-suggestion"))
-        .filter(row => !row.hidden).length;
+      const groupVisible = groupCounts.get(group) ?? 0;
       group.hidden = groupVisible === 0;
       group.querySelector("[data-group-visible]")?.replaceChildren(`${groupVisible}`);
     }
@@ -728,6 +739,43 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
   /* -------------------------------------------- */
 
   /**
+   * Apply filters only to the currently visible content panel.
+   */
+  #refreshActiveFilters() {
+    this.#applyFilters(this.#activeContentPanel());
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the currently active content panel.
+   * @returns {HTMLElement|null}
+   */
+  #activeContentPanel() {
+    return this.element.querySelector(`[data-content-panel='${this.#activeTab}']`);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Defer rapid filter input to one browser frame.
+   * @param {HTMLElement|null} panel  Panel to filter.
+   */
+  #queueFilter(panel) {
+    if ( !panel ) return;
+    this.#queuedFilterPanel = panel;
+    if ( this.#filterFrame ) return;
+    this.#filterFrame = requestAnimationFrame(() => {
+      const queuedPanel = this.#queuedFilterPanel;
+      this.#filterFrame = null;
+      this.#queuedFilterPanel = null;
+      this.#applyFilters(queuedPanel);
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Preview the first visible suggestion in the active panel.
    */
   #previewInitialSuggestion() {
@@ -746,25 +794,27 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
   #previewSuggestion(row) {
     const preview = this.element.querySelector("[data-preview]");
     if ( !preview ) return;
-    preview.dataset.uuid = row.dataset.uuid ?? "";
-    preview.querySelector("[data-preview-name]")?.replaceChildren(row.dataset.name ?? "");
-    preview.querySelector("[data-preview-type]")?.replaceChildren(row.dataset.typeLabel ?? "");
-    preview.querySelector("[data-preview-rank]")?.replaceChildren(row.dataset.rankLabel ?? "");
-    preview.querySelector("[data-preview-kind]")?.replaceChildren(row.dataset.kindLabel ?? "");
-    setOptionalPreviewTag(preview, "pack", row.dataset.suggestionType === "spell" ? "" : row.dataset.packLabel);
-    setOptionalPreviewTag(preview, "cost", row.dataset.costLabel);
-    setOptionalPreviewTag(preview, "activation", row.dataset.activationLabel);
-    setOptionalPreviewTag(preview, "action-type", row.dataset.actionTypeLabel);
+    const suggestion = this.#suggestionLookup.get(row.dataset.uuid ?? "");
+    const name = suggestion?.name ?? row.dataset.name ?? "";
+    preview.dataset.uuid = suggestion?.uuid ?? row.dataset.uuid ?? "";
+    preview.querySelector("[data-preview-name]")?.replaceChildren(name);
+    preview.querySelector("[data-preview-type]")?.replaceChildren(suggestion?.typeLabel ?? row.dataset.typeLabel ?? "");
+    preview.querySelector("[data-preview-rank]")?.replaceChildren(suggestion?.rankLabel ?? row.dataset.rankLabel ?? "");
+    preview.querySelector("[data-preview-kind]")?.replaceChildren(suggestion?.kindLabel ?? row.dataset.kindLabel ?? "");
+    setOptionalPreviewTag(preview, "pack",
+      (suggestion?.type ?? row.dataset.suggestionType) === "spell" ? "" : suggestion?.pack ?? row.dataset.packLabel);
+    setOptionalPreviewTag(preview, "cost", suggestion?.costLabel ?? row.dataset.costLabel);
+    setOptionalPreviewTag(preview, "activation", suggestion?.activationLabel ?? row.dataset.activationLabel);
+    setOptionalPreviewTag(preview, "action-type", suggestion?.actionTypeLabel ?? row.dataset.actionTypeLabel);
 
     const image = preview.querySelector("[data-preview-image]");
     if ( image ) {
-      image.src = row.dataset.img || DEFAULT_ICON;
-      image.alt = row.dataset.name ?? "";
+      image.src = suggestion?.img || row.dataset.img || DEFAULT_ICON;
+      image.alt = name;
     }
 
     const description = preview.querySelector("[data-preview-description]");
-    const template = row.querySelector("template");
-    if ( description ) description.innerHTML = template?.innerHTML?.trim()
+    if ( description ) description.innerHTML = suggestion?.description?.trim()
       || `<p>${game.i18n.localize("N5EB.Adversary.Builder.NoPreview")}</p>`;
 
     for ( const candidate of this.element.querySelectorAll(".adversary-suggestion.previewed") ) {
@@ -1137,7 +1187,6 @@ function setOptionalPreviewTag(preview, key, value) {
 async function getAdversarySuggestions(actor, adversary) {
   const existing = getExistingSuggestionKeys(actor);
   const features = [];
-  const jutsu = [];
 
   for ( const pack of getN5eItemPacks() ) {
     const index = await pack.getIndex({ fields: FEATURE_INDEX_FIELDS });
@@ -1156,18 +1205,14 @@ async function getAdversarySuggestions(actor, adversary) {
     features.push(formatSuggestion(item, null, featureType, existing, adversary));
   }
 
-  for ( const pack of getJutsuItemPacks({ systemOnly: true }) ) {
-    const index = await pack.getIndex({ fields: JUTSU_INDEX_FIELDS });
-    for ( const entry of index ) {
-      if ( entry.type !== "spell" ) continue;
-      jutsu.push(formatJutsuLookupEntry(entry, pack, existing, { labelPrefix: "N5EB.Adversary.Builder" }));
-    }
-  }
-
-  for ( const item of game.items ) {
-    if ( item.type !== "spell" ) continue;
-    jutsu.push(formatJutsuLookupEntry(item, null, existing, { labelPrefix: "N5EB.Adversary.Builder" }));
-  }
+  const jutsu = (await collectJutsuLookupEntries({
+    actor,
+    systemOnly: true,
+    labelPrefix: "N5EB.Adversary.Builder"
+  })).map(suggestion => ({
+    ...suggestion,
+    filterSearch: getCompactJutsuSearch(suggestion)
+  }));
 
   const sortedFeatures = features.toSorted((lhs, rhs) => sortFeatureSuggestion(lhs, rhs, adversary));
   return {
@@ -1175,6 +1220,20 @@ async function getAdversarySuggestions(actor, adversary) {
     featureGroups: getFeatureSuggestionGroups(sortedFeatures),
     jutsu: jutsu.toSorted(sortSuggestion)
   };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build suggestion lookup data for preview updates without per-row HTML templates.
+ * @param {object} suggestions  Suggestion collections.
+ * @returns {Map<string, object>}
+ */
+function buildSuggestionLookup(suggestions) {
+  const lookup = new Map();
+  for ( const suggestion of suggestions?.features ?? [] ) lookup.set(suggestion.uuid, suggestion);
+  for ( const suggestion of suggestions?.jutsu ?? [] ) lookup.set(suggestion.uuid, suggestion);
+  return lookup;
 }
 
 /* -------------------------------------------- */
@@ -1348,6 +1407,7 @@ function formatSuggestion(entry, pack, type, existing, adversary) {
     costKey: "",
     costLabel: "",
     costSort: 0,
+    filterSearch: search,
     kind: labels.kind,
     kindLabel: labels.categoryLabel,
     keywords: [],
@@ -1371,6 +1431,24 @@ function formatSuggestion(entry, pack, type, existing, adversary) {
     uuid,
     name: displayName
   };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build compact row search text without serializing full jutsu descriptions into the DOM.
+ * @param {object} suggestion  Jutsu suggestion.
+ * @returns {string}
+ */
+function getCompactJutsuSearch(suggestion) {
+  return [
+    suggestion.name, suggestion.identifier, suggestion.rankLabel, suggestion.categoryLabel, suggestion.typeLabel,
+    suggestion.sourceLabel, suggestion.sourcePath, suggestion.kind, suggestion.category, suggestion.activationLabel,
+    suggestion.actionTypeLabel, suggestion.costLabel, ...(suggestion.componentLabels ?? []),
+    ...(suggestion.keywordLabels ?? [])
+  ]
+    .filter(Boolean).join(" ")
+    .toLocaleLowerCase(game.i18n.lang);
 }
 
 /* -------------------------------------------- */

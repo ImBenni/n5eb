@@ -469,9 +469,9 @@
        data-cost-label="{{ costLabel }}"
        data-components="{{ componentsKey }}"
        data-keywords="{{ keywordsKey }}"
-       data-search="{{ search }}">
+       data-search="{{ filterSearch }}">
     <input type="checkbox" name="itemUuids" value="{{ uuid }}" {{ disabled disabled }}>
-    <img src="{{ img }}" alt="">
+    <img src="{{ img }}" alt="" loading="lazy" decoding="async">
     <span class="suggestion-copy">
         <span class="name">{{ name }}</span>
         <span class="meta">
@@ -491,6 +491,5 @@
             {{/if}}
         </span>
     </span>
-    <template>{{{ description }}}</template>
 </label>
 {{/inline}}
