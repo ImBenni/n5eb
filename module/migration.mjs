@@ -796,7 +796,7 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
     progress.update({ pct: Math.min(migrated / totalDocuments, 0.99) });
     if ( progressUpdatesSinceYield < MIGRATION_PROGRESS_YIELD_INTERVAL ) return;
     progressUpdatesSinceYield = 0;
-    await foundry.utils.sleep(0);
+    await new Promise(resolve => setTimeout(resolve, 0));
   };
 
   const migrationData = await getMigrationData();
