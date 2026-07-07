@@ -278,6 +278,30 @@ export async function runLegacyMigration({ confirmed=false, preview }={}) {
 /* -------------------------------------------- */
 
 /**
+ * Remove embedded collections from full-source preservation updates.
+ * @param {object} source        Document source data.
+ * @param {string} documentName  Document class name.
+ * @returns {object}             Source data safe to merge into a document update.
+ * @private
+ */
+function _withoutEmbeddedCollectionSources(source, documentName) {
+  const data = foundry.utils.deepClone(source);
+  switch ( documentName ) {
+    case "Actor":
+    case "ActorDelta":
+      delete data.items;
+      delete data.effects;
+      break;
+    case "Item":
+      delete data.effects;
+      break;
+  }
+  return data;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Create an empty legacy migration report.
  * @param {object} preview  Preview data.
  * @returns {object}
@@ -790,6 +814,9 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
     + game.scenes.reduce((total, s) => total + s.tokens.size, 0) + packDocuments);
   let migrated = 0;
   let progressUpdatesSinceYield = 0;
+  const mergeOptions = game.release.generation > 13
+    ? { inplace: false, applyOperators: true }
+    : { inplace: false, performDeletions: true };
   const incrementProgress = async () => {
     migrated++;
     progressUpdatesSinceYield++;
@@ -823,7 +850,8 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
       if ( !foundry.utils.isEmpty(updateData) ) {
         log(`Migrating Actor document ${actor.name}`);
         if ( flags.persistSourceMigration ) {
-          updateData = foundry.utils.mergeObject(source, updateData, {inplace: false});
+          updateData = foundry.utils.mergeObject(_withoutEmbeddedCollectionSources(source, "Actor"), updateData,
+            mergeOptions);
         }
         await actor.update(updateData, {
           enforceTypes: false, diff: valid && !flags.persistSourceMigration,
@@ -846,9 +874,6 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
   // Migrate World Items
   const items = game.items.map(i => [i, true])
     .concat(Array.from(game.items.invalidDocumentIds).map(id => [game.items.getInvalid(id), false]));
-  const mergeOptions = game.release.generation > 13
-    ? { inplace: false, applyOperators: true }
-    : { inplace: false, performDeletions: true };
   for ( const [item, valid] of items ) {
     let source;
     let updateData = {};
@@ -862,7 +887,8 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
           if ( "effects" in updateData ) updateData.effects = source.effects.map(effect => foundry.utils.mergeObject(
             effect, updateData.effects.find(e => e._id === effect._id) ?? {}, mergeOptions
           ));
-          updateData = foundry.utils.mergeObject(source, updateData, mergeOptions);
+          updateData = foundry.utils.mergeObject(_withoutEmbeddedCollectionSources(source, "Item"), updateData,
+            mergeOptions);
         }
         await item.update(updateData, {
           enforceTypes: false, diff: valid && !flags.persistSourceMigration,
@@ -952,7 +978,8 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
         if ( !foundry.utils.isEmpty(updateData) ) {
           log(`Migrating ActorDelta document ${token.actor.name} [${token.delta.id}] in Scene ${s.name}`);
           if ( flags.persistSourceMigration ) {
-            updateData = foundry.utils.mergeObject(source, updateData, { inplace: false });
+            updateData = foundry.utils.mergeObject(_withoutEmbeddedCollectionSources(source, "Actor"), updateData,
+              mergeOptions);
           } else {
             // Workaround for core issue of bulk updating ActorDelta collections.
             ["items", "effects"].forEach(col => {
@@ -1100,6 +1127,9 @@ export async function migrateCompendium(
 ) {
   const documentName = pack.documentName;
   if ( !["Actor", "Item", "Scene"].includes(documentName) ) return;
+  const mergeOptions = game.release.generation > 13
+    ? { inplace: false, applyOperators: true }
+    : { inplace: false, performDeletions: true };
 
   const migrationData = await getMigrationData();
 
@@ -1141,7 +1171,10 @@ export async function migrateCompendium(
 
         // Save the entry, if data was changed
         if ( foundry.utils.isEmpty(updateData) ) continue;
-        if ( flags.persistSourceMigration ) updateData = foundry.utils.mergeObject(source, updateData);
+        if ( flags.persistSourceMigration ) {
+          updateData = foundry.utils.mergeObject(_withoutEmbeddedCollectionSources(source, documentName), updateData,
+            mergeOptions);
+        }
         await doc.update(updateData, { diff: !flags.persistSourceMigration });
         _recordLegacyReportDocument(legacyReport, source, documentName, updateData, { pack: pack.collection });
         log(`Migrated ${documentName} document ${doc.name} in Compendium ${pack.collection}`);
@@ -1505,7 +1538,8 @@ export function migrateActorData(actor, actorData, migrationData, flags={}, { ac
       if ( "effects" in itemUpdate ) itemUpdate.effects = itemData.effects.map(effect => foundry.utils.mergeObject(
         effect, itemUpdate.effects.find(e => e._id === effect._id) ?? {}, mergeOptions
       ));
-      itemUpdate = foundry.utils.mergeObject(itemData, itemUpdate, mergeOptions);
+      itemUpdate = foundry.utils.mergeObject(_withoutEmbeddedCollectionSources(itemData, "Item"), itemUpdate,
+        mergeOptions);
     }
     return foundry.utils.isEmpty(itemUpdate) ? null : { ...itemUpdate, _id: itemData._id };
   }).filter(_ => _);
