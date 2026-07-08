@@ -52,8 +52,22 @@ export default class ChakraAdvancement extends Advancement {
    * @returns {string}
    */
   get chakraDie() {
-    if ( this.actor?.system.isNPC ) return `d${this.actor.system.attributes.cd.denomination}`;
-    return this.item.system.cd.denomination;
+    const denomination = this.actor?.system.isNPC
+      ? this.actor.system.attributes.cd.denomination
+      : this.item.system.cd.denomination;
+    return this.constructor.normalizeDie(denomination);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a chakra die denomination.
+   * @param {*} denomination  Candidate die denomination.
+   * @returns {string}
+   */
+  static normalizeDie(denomination) {
+    const match = `${denomination ?? ""}`.trim().toLowerCase().match(/^d*(\d+)$/);
+    return match ? `d${match[1]}` : "d6";
   }
 
   /* -------------------------------------------- */
@@ -63,7 +77,8 @@ export default class ChakraAdvancement extends Advancement {
    * @returns {number}
    */
   get chakraDieValue() {
-    return Number(this.chakraDie.substring(1));
+    const value = Number(this.chakraDie.slice(1));
+    return Number.isFinite(value) ? value : 6;
   }
 
   /* -------------------------------------------- */
@@ -106,11 +121,12 @@ export default class ChakraAdvancement extends Advancement {
    */
   static valueForLevel(data, chakraDieValue, level) {
     const value = data[level];
-    if ( !value ) return null;
+    if ( (value === undefined) || (value === null) || (value === "") ) return null;
 
     if ( value === "max" ) return chakraDieValue;
     if ( value === "avg" ) return (chakraDieValue / 2) + 1;
-    return value;
+    const numeric = Number(value);
+    return Number.isFinite(numeric) ? numeric : null;
   }
 
   /* -------------------------------------------- */
@@ -132,7 +148,9 @@ export default class ChakraAdvancement extends Advancement {
    */
   getAdjustedTotal(mod) {
     return Object.keys(this.value).reduce((total, level) => {
-      return total + Math.max(this.valueForLevel(parseInt(level)) + mod, 1);
+      const value = this.valueForLevel(parseInt(level));
+      if ( value === null ) return total;
+      return total + Math.max(value + mod, 1);
     }, 0);
   }
 
@@ -156,9 +174,12 @@ export default class ChakraAdvancement extends Advancement {
    */
   #getApplicableValue(value) {
     const abilityId = CONFIG.DND5E.defaultAbilities.chakraPoints || "con";
-    value = Math.max(value + (this.actor.system.abilities[abilityId]?.mod ?? 0), 1);
-    value += simplifyBonus(this.actor.system.attributes.chakra.bonuses?.level, this.actor.getRollData());
-    return value;
+    value = Number(value);
+    if ( !Number.isFinite(value) ) return 0;
+    const mod = Number(this.actor.system.abilities[abilityId]?.mod ?? 0);
+    value = Math.max(Math.floor(value + (Number.isFinite(mod) ? mod : 0)), 1);
+    const bonus = Number(simplifyBonus(this.actor.system.attributes.chakra.bonuses?.level, this.actor.getRollData()));
+    return value + (Number.isFinite(bonus) ? bonus : 0);
   }
 
   /* -------------------------------------------- */
@@ -172,11 +193,12 @@ export default class ChakraAdvancement extends Advancement {
     }
 
     let value = this.constructor.valueForLevel(data, this.chakraDieValue, level);
-    if ( value === undefined ) return;
+    if ( value === null ) return;
     if ( this.value[level] !== undefined ) await this.reverse(level);
     this.updateSource({ value: data });
+    const current = Number(this.actor.system.attributes.chakra.value);
     this.actor.updateSource({
-      "system.attributes.chakra.value": this.actor.system.attributes.chakra.value + this.#getApplicableValue(value)
+      "system.attributes.chakra.value": (Number.isFinite(current) ? current : 0) + this.#getApplicableValue(value)
     });
   }
 
@@ -202,11 +224,12 @@ export default class ChakraAdvancement extends Advancement {
   /** @inheritDoc */
   async reverse(level, options={}) {
     let value = this.valueForLevel(level);
-    if ( value === undefined ) return;
+    if ( value === null ) return;
     const source = { [level]: this.value[level] };
     this.updateSource({ [`value.-=${level}`]: null });
+    const current = Number(this.actor.system.attributes.chakra.value);
     this.actor.updateSource({
-      "system.attributes.chakra.value": this.actor.system.attributes.chakra.value - this.#getApplicableValue(value)
+      "system.attributes.chakra.value": Math.max((Number.isFinite(current) ? current : 0) - this.#getApplicableValue(value), 0)
     });
     return source;
   }

@@ -306,20 +306,25 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
    */
   static transformConsumptionData(source, options) {
     const targets = [];
+    const legacyConsume = source.system.consume ?? {};
+    const isJutsu = source.type === "spell"
+      && (source.system.jutsu || source.system.rank || source.system.chakra);
+    let legacyTarget = legacyConsume.target ?? "";
+    if ( legacyConsume.type === "attribute" ) legacyTarget = `${legacyTarget}`.trim().replace(/^@/, "");
 
     const type = {
       attribute: "attribute",
       hitDice: "hitDice",
       material: "material",
       charges: "itemUses"
-    }[source.system.consume?.type];
+    }[legacyConsume.type];
 
-    if ( type ) targets.push({
+    if ( type && (!isJutsu || (type !== "attribute") || legacyTarget) ) targets.push({
       type,
-      target: source.system.consume?.target ?? "",
-      value: source.system.consume?.amount ?? "1",
+      target: type === "attribute" ? legacyTarget : legacyConsume.target ?? "",
+      value: legacyConsume.amount ?? "1",
       scaling: {
-        mode: source.system.consume?.scale ? "amount" : "",
+        mode: legacyConsume.scale ? "amount" : "",
         formula: ""
       }
     });
@@ -330,7 +335,7 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
       target: "",
       value: "1",
       scaling: {
-        mode: source.system.consume?.scale ? "amount" : "",
+        mode: legacyConsume.scale ? "amount" : "",
         formula: ""
       }
     });
@@ -345,7 +350,7 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
     return {
       targets,
       scaling: {
-        allowed: source.system.consume?.scale ?? false,
+        allowed: legacyConsume.scale ?? false,
         max: ""
       }
     };

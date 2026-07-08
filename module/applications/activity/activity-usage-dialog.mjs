@@ -1,3 +1,6 @@
+import {
+  CLASSMOD_ARTS_MECHANICAL_RANK, getClassmodArtRankLabel, isClassmodArtItem
+} from "../../classmod-arts.mjs";
 import { filteredKeys, formatNumber, simplifyBonus } from "../../utils.mjs";
 import Dialog5e from "../api/dialog.mjs";
 
@@ -415,13 +418,15 @@ export default class ActivityUsageDialog extends Dialog5e {
       const rankOrder = CONFIG.DND5E.jutsuRankOrder;
       const baseRank = this.item.system.effectiveRank;
       const baseIndex = Math.max(rankOrder.indexOf(baseRank), 0);
-      const currentLevel = this.item.system.level + (this.config.scaling ?? 0);
-      const currentRank = this.config.jutsu?.rank
-        ?? CONFIG.DND5E.jutsuRankBySpellLevel[Math.clamp(currentLevel, 0, 9)]
-        ?? baseRank;
+      const scaling = this.config.scaling === false ? 0 : (this.config.scaling ?? 0);
+      const currentRank = this.config.jutsu?.rank ?? this.item.system.rankForDelta?.(scaling) ?? baseRank;
+      const isArt = isClassmodArtItem(this.item);
+      const labelRank = rank => isArt && (rank === CLASSMOD_ARTS_MECHANICAL_RANK)
+        ? getClassmodArtRankLabel()
+        : CONFIG.DND5E.jutsuRanks[rank]?.label ?? rank;
       const rankOptions = rankOrder.slice(baseIndex).map(rank => ({
         value: rank,
-        label: CONFIG.DND5E.jutsuRanks[rank].label,
+        label: labelRank(rank),
         selected: rank === currentRank
       }));
       context.spellSlots = {
@@ -437,7 +442,7 @@ export default class ActivityUsageDialog extends Dialog5e {
       if ( (actorMaxIndex >= 0) && (currentIndex > actorMaxIndex) ) context.notes.push({
         type: "warn",
         message: game.i18n.format("N5EB.JUTSU.WarnCastRank", {
-          rank: CONFIG.DND5E.jutsuRanks[currentRank]?.label ?? currentRank,
+          rank: labelRank(currentRank),
           max: CONFIG.DND5E.jutsuRanks[actorMaxRank]?.label ?? actorMaxRank
         })
       });
@@ -451,7 +456,7 @@ export default class ActivityUsageDialog extends Dialog5e {
           ability: CONFIG.DND5E.abilities[abilityId]?.label ?? abilityId,
           value: ability?.value ?? 0,
           required: minimumAbility,
-          rank: CONFIG.DND5E.jutsuRanks[currentRank]?.label ?? currentRank
+          rank: labelRank(currentRank)
         })
       });
 
@@ -599,8 +604,7 @@ export default class ActivityUsageDialog extends Dialog5e {
     const submitData = foundry.utils.expandObject(formData.object);
     if ( foundry.utils.hasProperty(submitData, "jutsu.rank") ) {
       submitData.jutsu.rank ||= this.#config.jutsu?.rank ?? this.item.system.effectiveRank;
-      const level = CONFIG.DND5E.jutsuSpellLevelByRank[submitData.jutsu.rank] ?? this.item.system.level;
-      submitData.scaling = Math.max(0, level - this.item.system.level);
+      submitData.scaling = this.item.system.getRankDelta(submitData.jutsu.rank);
     } else if ( foundry.utils.hasProperty(submitData, "spell.slot") ) {
       submitData.spell.slot ||= this.#config.spell?.slot;
       const level = this.actor.system.spells?.[submitData.spell.slot]?.level ?? 0;

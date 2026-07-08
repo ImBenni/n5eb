@@ -2140,7 +2140,10 @@ DND5E.itemProperties = {
     isPhysical: true
   },
   amm: {
-    label: "DND5E.ITEM.Property.Ammunition"
+    label: "N5EB.Item.Property.Ammunition"
+  },
+  blo: {
+    label: "N5EB.Item.Property.Blocking"
   },
   concentration: {
     label: "DND5E.ITEM.Property.Concentration",
@@ -2149,11 +2152,26 @@ DND5E.itemProperties = {
     reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.ow58p27ctAnr4VPH",
     isTag: true
   },
+  cri: {
+    label: "N5EB.Item.Property.Critical"
+  },
+  dea: {
+    label: "N5EB.Item.Property.Deadly"
+  },
+  dis: {
+    label: "N5EB.Item.Property.Disarm"
+  },
+  evo: {
+    label: "N5EB.Item.Property.Evocation"
+  },
   fin: {
-    label: "DND5E.ITEM.Property.Finesse"
+    label: "N5EB.Item.Property.Finesse"
   },
   fir: {
     label: "DND5E.ITEM.Property.Firearm"
+  },
+  flx: {
+    label: "N5EB.Item.Property.Flexible"
   },
   foc: {
     label: "DND5E.ITEM.Property.Focus"
@@ -2161,14 +2179,23 @@ DND5E.itemProperties = {
   gear: {
     label: "DND5E.ITEM.Property.Gear"
   },
+  grp: {
+    label: "N5EB.Item.Property.Grapple"
+  },
   hvy: {
-    label: "DND5E.ITEM.Property.Heavy"
+    label: "N5EB.Item.Property.Heavy"
+  },
+  hid: {
+    label: "N5EB.Item.Property.Hidden"
+  },
+  let: {
+    label: "N5EB.Item.Property.Lethal"
   },
   lgt: {
-    label: "DND5E.ITEM.Property.Light"
+    label: "N5EB.Item.Property.Light"
   },
   lod: {
-    label: "DND5E.ITEM.Property.Loading"
+    label: "N5EB.Item.Property.Loading"
   },
   material: {
     label: "DND5E.ITEM.Property.Material",
@@ -2176,18 +2203,24 @@ DND5E.itemProperties = {
     reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.AeH5eDS4YeM9RETC"
   },
   mgc: {
-    label: "DND5E.ITEM.Property.Magical",
+    label: "N5EB.Item.Property.Magical",
     icon: "systems/n5eb/icons/svg/properties/magical.svg",
     isPhysical: true
   },
+  mla: {
+    label: "N5EB.Item.Property.Multiattack"
+  },
+  rng: {
+    label: "N5EB.Item.Property.Range"
+  },
   rch: {
-    label: "DND5E.ITEM.Property.Reach"
+    label: "N5EB.Item.Property.Reach"
   },
   rel: {
     label: "DND5E.ITEM.Property.Reload"
   },
   ret: {
-    label: "DND5E.ITEM.Property.Returning"
+    label: "N5EB.Item.Property.Returning"
   },
   ritual: {
     label: "DND5E.ITEM.Property.Ritual",
@@ -2209,7 +2242,7 @@ DND5E.itemProperties = {
     reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.qwUNgUNilEmZkSC9"
   },
   spc: {
-    label: "DND5E.ITEM.Property.Special"
+    label: "N5EB.Item.Property.Special"
   },
   stealthDisadvantage: {
     label: "DND5E.ITEM.Property.StealthDisadvantage"
@@ -2245,21 +2278,36 @@ DND5E.itemProperties = {
     label: "N5EB.ARMOR.Property.Threatening"
   },
   thr: {
-    label: "DND5E.ITEM.Property.Thrown"
+    label: "N5EB.Item.Property.Thrown"
+  },
+  tac: {
+    label: "N5EB.Item.Property.Tactical"
   },
   trait: {
     label: "DND5E.ITEM.Property.Trait"
   },
+  trp: {
+    label: "N5EB.Item.Property.Trip"
+  },
   two: {
-    label: "DND5E.ITEM.Property.TwoHanded"
+    label: "N5EB.Item.Property.TwoHanded"
+  },
+  una: {
+    label: "N5EB.Item.Property.Unarmed"
   },
   ver: {
-    label: "DND5E.ITEM.Property.Versatile"
+    label: "N5EB.Item.Property.Versatile"
+  },
+  vol: {
+    label: "N5EB.Item.Property.Volatile"
   },
   vocal: {
     label: "DND5E.ITEM.Property.Verbal",
     abbreviation: "DND5E.ComponentVerbalAbbr",
     reference: "Compendium.n5eb.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.6UXTNWMCQ0nSlwwx"
+  },
+  win: {
+    label: "N5EB.Item.Property.Winding"
   },
   weightlessContents: {
     label: "DND5E.ITEM.Property.WeightlessContents"
@@ -2307,23 +2355,34 @@ DND5E.validProperties = {
     "mgc"
   ]),
   weapon: new Set([
-    "ada",
     "amm",
+    "blo",
+    "cri",
+    "dea",
+    "dis",
+    "evo",
     "fin",
-    "fir",
-    "foc",
+    "flx",
+    "grp",
     "hvy",
+    "hid",
+    "let",
     "lgt",
     "lod",
     "mgc",
+    "mla",
+    "rng",
     "rch",
-    "rel",
     "ret",
-    "sil",
     "spc",
     "thr",
+    "tac",
+    "trp",
     "two",
-    "ver"
+    "una",
+    "ver",
+    "vol",
+    "win"
   ]),
   spell: new Set([
     "vocal",

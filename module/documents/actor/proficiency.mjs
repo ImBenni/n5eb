@@ -128,7 +128,7 @@ export default class Proficiency {
    * @returns {number}      Proficiency modifier.
    */
   static calculateMod(level) {
-    return Math.floor((level + 7) / 4);
+    return Math.floor((level + 8) / 3);
   }
 
   /* -------------------------------------------- */

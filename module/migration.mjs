@@ -1,5 +1,5 @@
 import * as Conditions from "./conditions.mjs";
-import { DEFAULT_CLASSMOD_ARTS_COLOR } from "./classmod-arts.mjs";
+import { CLASSMOD_ARTS_MECHANICAL_RANK, DEFAULT_CLASSMOD_ARTS_COLOR, isClassmodArtItem } from "./classmod-arts.mjs";
 import {
   collectUnmappedLegacyPaths, getLegacyMigrationReportId, getLegacyN5eBSourceMetadata, isLegacyN5eBSource,
   isLegacyN5eBVersion, LEGACY_MIGRATION_REPORT_TITLE, summarizeLegacyDocument
@@ -28,6 +28,19 @@ const N5EB_ASSET_REFERENCE_RE =
 const N5EB_BOOK_PARITY_FIX_VERSION = "5.3.10";
 
 const N5EB_AFFINITY_KEYS = new Set(["fire", "water", "wind", "earth", "lightning", "medical"]);
+const N5EB_JUTSU_RANK_KEYS = new Set(["e", "d", "c", "b", "a", "s"]);
+const N5EB_JUTSU_RANK_BY_SPELL_LEVEL = {
+  0: "e",
+  1: "d",
+  2: "d",
+  3: "c",
+  4: "c",
+  5: "b",
+  6: "b",
+  7: "a",
+  8: "a",
+  9: "s"
+};
 
 const LEGACY_DELETION_KEY_CLEANUP_SETTING = "legacyDeletionKeyCleanupVersion";
 const LEGACY_REPORT_LIMIT = 500;
@@ -591,6 +604,12 @@ const N5EB_DAMAGE_TYPE_MIGRATIONS = {
   none: null
 };
 
+const N5EB_WEAPON_PROPERTY_MIGRATIONS = {
+  gra: "grp",
+  ran: "rng",
+  mul: "mla"
+};
+
 const N5EB_CLAN_FEATURE_SUBTYPE_MIGRATIONS = {
   adaption: "adaptation"
 };
@@ -796,7 +815,7 @@ export async function migrateWorld({ bypassVersionCheck=false, legacyReport }={}
     progress.update({ pct: Math.min(migrated / totalDocuments, 0.99) });
     if ( progressUpdatesSinceYield < MIGRATION_PROGRESS_YIELD_INTERVAL ) return;
     progressUpdatesSinceYield = 0;
-    await foundry.utils.sleep(0);
+    await new Promise(resolve => setTimeout(resolve, 0));
   };
 
   const migrationData = await getMigrationData();
@@ -1549,6 +1568,8 @@ export function migrateItemData(item, itemData, migrationData, flags={}) {
   _migrateBulkWeight(itemData.system, updateData, "system");
   _migrateN5eBContainerItem(itemData, updateData);
   _migrateN5eBArmorAndSeals(itemData, updateData);
+  _migrateN5eBJutsuRank(itemData, updateData);
+  _migrateN5eBClassmodArtJutsu(itemData, updateData);
   _migrateJutsuChakraScaling(itemData, updateData);
   _migrateN5eBClassmodArts(itemData, updateData);
   _migrateN5eBBookParityFixes(itemData, updateData, migrationData);
@@ -1589,6 +1610,7 @@ export function migrateItemData(item, itemData, migrationData, flags={}) {
     updateData["system.properties"] = Array.from(properties);
     updateData["flags.n5eb.-=migratedProperties"] = null;
   }
+  _migrateN5eBWeaponProperties(itemData, updateData);
 
   // Migrate gear property
   if ( (flags.actorData?.type === "npc") && item.system.quantity && (item.system.type?.value !== "natural")
@@ -2989,6 +3011,41 @@ function _migrateBulkWeight(systemData, updateData, path) {
 /* -------------------------------------------- */
 
 /**
+ * Normalize legacy N5eB weapon property keys.
+ * @param {object} itemData    Item data being migrated.
+ * @param {object} updateData  Existing updates being applied. *Will be mutated.*
+ * @returns {object}           Modified version of update data.
+ * @private
+ */
+function _migrateN5eBWeaponProperties(itemData, updateData) {
+  if ( itemData.type !== "weapon" ) return updateData;
+
+  const source = updateData["system.properties"] ?? foundry.utils.getProperty(itemData, "system.properties");
+  const type = foundry.utils.getType(source);
+  const properties = type === "Object" ? Object.entries(source).filter(([, value]) => value).map(([key]) => key)
+    : Array.isArray(source) ? source
+      : source instanceof Set ? Array.from(source)
+        : null;
+  if ( !properties ) return updateData;
+
+  const normalized = [];
+  let changed = type === "Object";
+  for ( const property of properties ) {
+    const migrated = N5EB_WEAPON_PROPERTY_MIGRATIONS[property] ?? property;
+    if ( migrated !== property ) changed = true;
+    if ( normalized.includes(migrated) ) {
+      changed = true;
+      continue;
+    }
+    normalized.push(migrated);
+  }
+  if ( changed ) updateData["system.properties"] = normalized;
+  return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Convert early N5eB physical container content from loot/equipment to real container items.
  * @param {object} itemData    Item data being migrated.
  * @param {object} updateData  Existing updates being applied. *Will be mutated.*
@@ -3785,6 +3842,81 @@ function _migrateN5eBKitTraitKey(key) {
   if ( !match ) return key;
   const baseItem = N5EB_KIT_BASE_ITEM_MIGRATIONS[match[1]];
   return baseItem ? `tool:kit:${baseItem}` : null;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize embedded jutsu ranks saved before N5eB split ranks from spell levels.
+ * @param {object} itemData    Item data being migrated.
+ * @param {object} updateData  Existing updates being applied to item. *Will be mutated.*
+ * @returns {object}           Modified version of update data.
+ * @private
+ */
+function _migrateN5eBJutsuRank(itemData, updateData) {
+  if ( itemData.type !== "spell" ) return updateData;
+  const system = itemData.system ?? {};
+  const rank = _normalizeN5eBJutsuRank(system.rank);
+  if ( rank ) {
+    if ( rank !== system.rank ) updateData["system.rank"] = rank;
+    return updateData;
+  }
+
+  updateData["system.rank"] = _rankForN5eBSpellLevel(system.level);
+  return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize classmod Art jutsu to their mechanical S-rank representation.
+ * @param {object} itemData    Item data being migrated.
+ * @param {object} updateData  Existing updates being applied to item. *Will be mutated.*
+ * @returns {object}           Modified version of update data.
+ * @private
+ */
+function _migrateN5eBClassmodArtJutsu(itemData, updateData) {
+  if ( itemData.type !== "spell" ) return updateData;
+  if ( !isClassmodArtItem(itemData) ) return updateData;
+
+  const system = itemData.system ?? {};
+  const level = 9;
+  if ( (updateData["system.rank"] ?? system.rank) !== CLASSMOD_ARTS_MECHANICAL_RANK ) {
+    updateData["system.rank"] = CLASSMOD_ARTS_MECHANICAL_RANK;
+  }
+  if ( Number(system.level) !== level ) updateData["system.level"] = level;
+  return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize a stored jutsu rank.
+ * @param {*} rank  Candidate rank value.
+ * @returns {string|null}
+ * @private
+ */
+function _normalizeN5eBJutsuRank(rank) {
+  const value = `${rank ?? ""}`.trim().toLowerCase();
+  if ( !value ) return null;
+  if ( /^\d+$/.test(value) ) return _rankForN5eBSpellLevel(value);
+  if ( N5EB_JUTSU_RANK_KEYS.has(value) ) return value;
+  const match = value.replace(/\s+/g, "").match(/^([edcbas])(?:-?rank)?$/);
+  const normalized = match?.[1];
+  return N5EB_JUTSU_RANK_KEYS.has(normalized) ? normalized : null;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Convert a legacy spell level to an N5eB jutsu rank.
+ * @param {*} level  Candidate spell level.
+ * @returns {string}
+ * @private
+ */
+function _rankForN5eBSpellLevel(level) {
+  level = Math.clamp(Number(level) || 0, 0, 9);
+  return N5EB_JUTSU_RANK_BY_SPELL_LEVEL[level] ?? "d";
 }
 
 /* -------------------------------------------- */

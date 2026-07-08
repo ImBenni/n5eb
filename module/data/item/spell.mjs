@@ -1,5 +1,8 @@
 import { getRulesVersion } from "../../enrichers.mjs";
-import { getClassmodArtsCastingKey, getClassmodIdentifierFromCastingKey } from "../../classmod-arts.mjs";
+import {
+  CLASSMOD_ARTS_MECHANICAL_RANK, getClassmodArtRankLabel, getClassmodArtsCastingKey,
+  getClassmodIdentifierFromCastingKey, isClassmodArtItem
+} from "../../classmod-arts.mjs";
 import { filteredKeys, formatNumber, simplifyBonus } from "../../utils.mjs";
 import ItemDataModel from "../abstract/item-data-model.mjs";
 import FormulaField from "../fields/formula-field.mjs";
@@ -186,6 +189,16 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   /* -------------------------------------------- */
 
   /**
+   * Is this jutsu a classmod Art?
+   * @type {boolean}
+   */
+  get isClassmodArt() {
+    return isClassmodArtItem(this.parent ?? this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * @deprecated since 5.3
    * @ignore
    */
@@ -317,7 +330,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     if ( this.level === 0 ) return Math.floor(((this.parent.actor?.system.cantripLevel?.(this.parent) ?? 0) + 1) / 6);
     const activity = this.linkedActivity;
     if ( !activity?.spell?.level || (activity.spell.level <= this.level) ) return null;
-    return activity.spell.level - this.level;
+    return this.getRankDelta(SpellData.rankForLevel(activity.spell.level));
   }
 
   /* -------------------------------------------- */
@@ -334,6 +347,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    * @type {string}
    */
   get effectiveRank() {
+    if ( this.isClassmodArt ) return CLASSMOD_ARTS_MECHANICAL_RANK;
     return this.rank || SpellData.rankForLevel(this.level);
   }
 
@@ -381,6 +395,19 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   getRankDelta(rank=this.effectiveRank) {
     const rankIndex = CONFIG.DND5E.jutsuRankOrder.indexOf(rank);
     return Math.max((rankIndex >= 0 ? rankIndex : this.baseRankIndex) - this.baseRankIndex, 0);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Calculate the jutsu rank for a number of cast-rank increases above the base rank.
+   * @param {number} [delta=0]  Number of ranks above the base rank.
+   * @returns {string}
+   */
+  rankForDelta(delta=0) {
+    const rankOrder = CONFIG.DND5E.jutsuRankOrder;
+    const targetIndex = Math.clamp(this.baseRankIndex + (Number(delta) || 0), this.baseRankIndex, rankOrder.length - 1);
+    return rankOrder[targetIndex] ?? this.effectiveRank;
   }
 
   /* -------------------------------------------- */
@@ -452,7 +479,9 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   static _migrateData(source) {
     super._migrateData(source);
     SpellData.#migrateLegacyN5eBJutsu(source);
+    SpellData.#migrateJutsuConsumption(source);
     ActivitiesTemplate.migrateActivities(source);
+    SpellData.#migrateJutsuConsumption(source);
     SpellData.#migrateActivation(source);
     SpellData.#migrateJutsuData(source);
     SpellData.#migrateTarget(source);
@@ -572,15 +601,17 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     source.properties = oldProperties.filter(p => ["concentration", "material", "ritual", "somatic", "vocal"].includes(p));
     delete source.keywords;
 
-    source.actionType = {
-      abil: "abil",
-      mgak: "msak",
-      mnak: "msak",
-      mtak: "msak",
-      rgak: "rsak",
-      rnak: "rsak",
-      rtak: "rsak"
-    }[source.actionType] ?? source.actionType;
+    if ( "actionType" in source ) {
+      source.actionType = {
+        abil: "abil",
+        mgak: "msak",
+        mnak: "msak",
+        mtak: "msak",
+        rgak: "rsak",
+        rnak: "rsak",
+        rtak: "rsak"
+      }[source.actionType] ?? source.actionType;
+    }
   }
 
   /* -------------------------------------------- */
@@ -659,7 +690,45 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    * @param {object} source  The candidate source data from which the model will be constructed.
    */
   static #migrateJutsuData(source) {
-    if ( !("rank" in source) && ("level" in source) ) source.rank = SpellData.rankForLevel(source.level);
+    if ( isClassmodArtItem(source) ) {
+      source.rank = CLASSMOD_ARTS_MECHANICAL_RANK;
+      source.level = SpellData.levelForRank(CLASSMOD_ARTS_MECHANICAL_RANK);
+      return;
+    }
+
+    const rank = SpellData.resolveRank(source.rank, source.level);
+    if ( rank ) source.rank = rank;
+    else source.rank = "d";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Migrate legacy jutsu consumption away from accidental blank Attribute targets.
+   * @param {object} source  The candidate source data from which the model will be constructed.
+   */
+  static #migrateJutsuConsumption(source) {
+    if ( !(source.jutsu || source.rank || source.chakra) ) return;
+
+    if ( source.consume?.type === "attribute" ) {
+      source.consume.target = `${source.consume.target ?? ""}`.trim().replace(/^@/, "");
+      if ( !source.consume.target ) source.consume.type = "";
+    }
+
+    for ( const activity of Object.values(source.activities ?? {}) ) {
+      const targets = activity?.consumption?.targets;
+      if ( !Array.isArray(targets) ) continue;
+      activity.consumption.targets = targets.reduce((arr, target) => {
+        if ( target?.type !== "attribute" ) {
+          arr.push(target);
+          return arr;
+        }
+
+        target.target = `${target.target ?? ""}`.trim().replace(/^@/, "");
+        if ( target.target ) arr.push(target);
+        return arr;
+      }, []);
+    }
   }
 
   /* -------------------------------------------- */
@@ -740,6 +809,50 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   /* -------------------------------------------- */
 
   /**
+   * Normalize a legacy jutsu rank value.
+   * @param {*} rank  Candidate rank value.
+   * @returns {string|null}
+   */
+  static normalizeRank(rank) {
+    const value = `${rank ?? ""}`.trim().toLowerCase();
+    if ( !value ) return null;
+    if ( /^\d+$/.test(value) ) return SpellData.rankForLevel(value);
+    if ( value in CONFIG.DND5E.jutsuRanks ) return value;
+    const match = value.replace(/\s+/g, "").match(/^([edcbas])(?:-?rank)?$/);
+    const normalized = match?.[1];
+    return (normalized && (normalized in CONFIG.DND5E.jutsuRanks)) ? normalized : null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve a jutsu rank from rank and compatibility spell level data.
+   * @param {*} rank   Candidate rank value.
+   * @param {*} level  Candidate compatibility spell level.
+   * @returns {string|null}
+   */
+  static resolveRank(rank, level) {
+    const normalized = SpellData.normalizeRank(rank);
+    const levelRank = (level !== null) && (level !== undefined) && (`${level}`.trim() !== "")
+      ? SpellData.rankForLevel(level)
+      : null;
+
+    // D-rank is the schema default, and dropped jutsu can also inherit a lower target rank from the list they
+    // were dropped into. If the compatibility spell level points to a higher jutsu rank, trust the level.
+    if ( levelRank ) {
+      const rankOrder = CONFIG.DND5E.jutsuRankOrder;
+      const normalizedIndex = rankOrder.indexOf(normalized);
+      const levelIndex = rankOrder.indexOf(levelRank);
+      if ( !normalized || (normalized === "d") || ((normalizedIndex >= 0) && (levelIndex > normalizedIndex)) ) {
+        return levelRank;
+      }
+    }
+    return normalized ?? levelRank;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Convert jutsu rank to the compatibility spell level.
    * @param {string} rank  Jutsu rank.
    * @returns {number}
@@ -762,8 +875,10 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     const labels = this.parent.labels ??= {};
     const rank = this.effectiveRank;
     const rankConfig = CONFIG.DND5E.jutsuRanks[rank];
-    labels.rank = rankConfig?.label ?? rank;
-    labels.rankAbbr = rankConfig?.abbreviation ?? rank.toUpperCase();
+    const isArt = this.isClassmodArt;
+    labels.rank = isArt ? getClassmodArtRankLabel() : (rankConfig?.label ?? rank);
+    labels.rankAbbr = isArt ? getClassmodArtRankLabel({ abbreviation: true })
+      : (rankConfig?.abbreviation ?? rank.toUpperCase());
     labels.level = labels.rank;
     labels.school = CONFIG.DND5E.spellSchools[this.school]?.label;
     labels.jutsuType = CONFIG.DND5E.jutsuTypes[this.jutsu.type]?.label ?? game.i18n.localize("N5EB.JUTSU.Unclassified");
@@ -1054,9 +1169,14 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     }, new Set());
 
     const { system } = itemData;
-    if ( rank in CONFIG.DND5E.jutsuRanks ) {
-      system.rank = rank;
-      system.level = SpellData.levelForRank(rank);
+    const targetRank = SpellData.normalizeRank(rank);
+    const itemRank = isClassmodArtItem(itemData)
+      ? CLASSMOD_ARTS_MECHANICAL_RANK
+      : SpellData.resolveRank(system.rank, system.level);
+    if ( itemRank || targetRank ) {
+      const resolvedRank = itemRank ?? targetRank;
+      system.rank = resolvedRank;
+      system.level = SpellData.levelForRank(resolvedRank);
     }
     const methods = CONFIG.DND5E.spellcasting;
     if ( methods[method] ) system.method = method;
@@ -1071,11 +1191,16 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   /** @inheritDoc */
   getRollData(...options) {
     const data = super.getRollData(...options);
-    data.item.level = data.item.level + (this.parent.getFlag("n5eb", "scaling")
-      ?? (this.level !== 0 ? this.scalingIncrease : 0));
-    data.item.rank = CONFIG.DND5E.jutsuRankBySpellLevel[Math.clamp(data.item.level, 0, 9)] ?? this.effectiveRank;
+    const flagScaling = this.parent.getFlag("n5eb", "scaling");
+    const scaling = flagScaling ?? (this.level !== 0 ? this.scalingIncrease : 0);
+    data.item.rank = (flagScaling === undefined) && (this.level === 0)
+      ? this.effectiveRank
+      : this.rankForDelta(scaling);
+    data.item.level = SpellData.levelForRank(data.item.rank);
     data.item.rankDelta = this.getRankDelta(data.item.rank);
     data.item.rankValue = CONFIG.DND5E.jutsuRankValues[data.item.rank] ?? 0;
+    data.item.isArt = this.isClassmodArt;
+    data.item.rankLabel = this.parent.labels.rank;
     data.item.chakraCost = this.getChakraCost({ rank: data.item.rank });
     data.item.maintainCost = this.getMaintainCost({ rank: data.item.rank, cost: data.item.chakraCost });
     return data;
@@ -1156,6 +1281,10 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     if ( (await super._preCreate(data, options, user)) === false ) return false;
     if ( !this.parent.isEmbedded ) return;
     const system = data.system ?? {};
+    const resolvedRank = SpellData.resolveRank(this.rank, this.level);
+    if ( resolvedRank && (resolvedRank !== this.rank) ) {
+      this.updateSource({ rank: resolvedRank, level: SpellData.levelForRank(resolvedRank) });
+    }
 
     // Set as prepared for NPCs, and not prepared for PCs
     if ( this.parent.actor?.system.isCreature && !("prepared" in system) ) {

@@ -14,6 +14,12 @@ import MountableTemplate from "./templates/mountable.mjs";
 
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
+const N5EB_WEAPON_PROPERTY_ALIASES = {
+  gra: "grp",
+  ran: "rng",
+  mul: "mla"
+};
+
 /**
  * @import { InventorySectionDescriptor } from "../../applications/components/_types.mjs";
  * @import { WeaponItemSystemData } from "./_types.mjs";
@@ -442,12 +448,29 @@ export default class WeaponData extends ItemDataModel.mixin(
   /* -------------------------------------------- */
 
   /**
-   * Migrate the properties object into a set.
+   * Migrate the properties object into a set and normalize legacy N5eB aliases.
    * @param {object} source  The candidate source data from which the model will be constructed.
    */
   static #migratePropertiesData(source) {
-    if ( foundry.utils.getType(source.properties) !== "Object" ) return;
-    source.properties = filteredKeys(source.properties);
+    const type = foundry.utils.getType(source.properties);
+    const properties = type === "Object" ? filteredKeys(source.properties)
+      : Array.isArray(source.properties) ? source.properties
+        : source.properties instanceof Set ? Array.from(source.properties)
+          : null;
+    if ( !properties ) return;
+
+    const normalized = [];
+    let changed = type === "Object";
+    for ( const property of properties ) {
+      const alias = N5EB_WEAPON_PROPERTY_ALIASES[property] ?? property;
+      if ( alias !== property ) changed = true;
+      if ( normalized.includes(alias) ) {
+        changed = true;
+        continue;
+      }
+      normalized.push(alias);
+    }
+    if ( changed ) source.properties = normalized;
   }
 
   /* -------------------------------------------- */

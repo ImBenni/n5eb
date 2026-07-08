@@ -90,7 +90,7 @@ function assignFlagScopeKeyAliases(target, fallback) {
     const targetValue = getScopeValue(target, key);
     const fallbackValue = getScopeValue(fallback, key);
     if ( targetValue === undefined ) {
-      if ( descriptor && !descriptor.configurable ) continue;
+      if ( descriptor || (fallbackValue === undefined) ) continue;
       Object.defineProperty(target, key, {
         configurable: true,
         get: () => getScopeValue(fallback, key),
@@ -145,9 +145,13 @@ function mirrorFlagScopeKeys(target, fallback) {
   if ( target === fallback ) return;
 
   for ( const key of getScopeKeys(fallback) ) {
+    const descriptor = Object.getOwnPropertyDescriptor(target, key);
     const targetValue = getScopeValue(target, key);
     const fallbackValue = getScopeValue(fallback, key);
-    if ( targetValue === undefined ) target[key] = foundry.utils.deepClone(fallbackValue);
+    if ( targetValue === undefined ) {
+      if ( descriptor || (fallbackValue === undefined) ) continue;
+      target[key] = foundry.utils.deepClone(fallbackValue);
+    }
     else if ( canAliasScope(targetValue) && canAliasScope(fallbackValue) ) {
       mirrorFlagScopeKeys(targetValue, fallbackValue);
     }

@@ -1,6 +1,9 @@
 import ActivitySheet from "../../applications/activity/activity-sheet.mjs";
 import ActivityUsageDialog from "../../applications/activity/activity-usage-dialog.mjs";
 import AbilityTemplate from "../../canvas/ability-template.mjs";
+import {
+  CLASSMOD_ARTS_DISPLAY_RANK, CLASSMOD_ARTS_MECHANICAL_RANK, isClassmodArtItem
+} from "../../classmod-arts.mjs";
 import { ConsumptionError } from "../../data/activity/fields/consumption-targets-field.mjs";
 import { ActorDeltasField } from "../../data/chat-message/fields/deltas-field.mjs";
 import { formatNumber, getSceneTargets, getTargetDescriptors, localizeSchema } from "../../utils.mjs";
@@ -25,15 +28,6 @@ const CLASH_SKILL_OPTIONS = ["nsh", "mar", "ill"];
 function hasClashKeyword(item) {
   const keywords = item?.system?.jutsu?.keywords;
   return (item?.type === "spell") && (keywords instanceof Set ? keywords.has("clash") : keywords?.includes?.("clash"));
-}
-
-/**
- * Is this item an Art jutsu linked to a classmod?
- * @param {Item5e} item  Item being checked.
- * @returns {boolean}
- */
-function isClassmodArt(item) {
-  return Boolean(item?.system?.classmodIdentifier || `${item?.system?.sourceItem ?? ""}`.startsWith("classmod:"));
 }
 
 /**
@@ -83,13 +77,16 @@ function getClashNature(item) {
 function promptClashSetup(activity) {
   const item = activity.item;
   const rank = item.system.effectiveRank;
-  const art = isClassmodArt(item);
+  const art = isClassmodArtItem(item);
   const defaultRoll = getDefaultClashRoll(item);
   const nature = getClashNature(item);
   const rankOptions = Object.entries(CONFIG.DND5E.jutsuRanks).map(([value, config]) => {
     const label = config.label ?? value.toUpperCase();
-    return `<option value="${value}" ${value === rank ? "selected" : ""}>${label}</option>`;
-  }).join("");
+    return `<option value="${value}" ${(!art && (value === rank)) ? "selected" : ""}>${label}</option>`;
+  });
+  rankOptions.push(`<option value="${CLASSMOD_ARTS_DISPLAY_RANK}" ${art ? "selected" : ""}>${
+    game.i18n.localize("N5EB.JUTSU.Clash.ArtRank")
+  }</option>`);
   const skillOptions = CLASH_SKILL_OPTIONS.map(skill => {
     const label = CONFIG.DND5E.skills[skill]?.label ?? skill;
     return `<option value="${skill}" ${skill === defaultRoll.skill ? "selected" : ""}>${label}</option>`;
@@ -120,7 +117,7 @@ function promptClashSetup(activity) {
         ${artHint ? `<p class="notification warning">${artHint}</p>` : ""}
         <div class="form-group">
           <label>${game.i18n.localize("N5EB.JUTSU.Clash.OpposingRank")}</label>
-          <div class="form-fields"><select name="opposingRank">${rankOptions}</select></div>
+          <div class="form-fields"><select name="opposingRank">${rankOptions.join("")}</select></div>
         </div>
         <div class="form-group">
           <label>${game.i18n.localize("N5EB.JUTSU.Clash.RollCount")}</label>
@@ -156,7 +153,14 @@ function promptClashSetup(activity) {
     `,
     ok: {
       label: game.i18n.localize("N5EB.JUTSU.Clash.Roll"),
-      callback: (_event, button) => new FormDataExtended(button.form).object
+      callback: (_event, button) => {
+        const data = new FormDataExtended(button.form).object;
+        if ( data.opposingRank === CLASSMOD_ARTS_DISPLAY_RANK ) {
+          data.opposingRank = CLASSMOD_ARTS_MECHANICAL_RANK;
+          data.opposingArt = true;
+        }
+        return data;
+      }
     }
   });
 }
@@ -606,10 +610,9 @@ export default function ActivityMixin(Base) {
 
       else if ( this.isSpell ) {
         config.jutsu ??= {};
-        config.jutsu.rank ??= CONFIG.DND5E.jutsuRankBySpellLevel[Math.clamp(this.item.system.level
-          + (config.scaling ?? 0), 0, 9)] ?? this.item.system.effectiveRank;
-        config.scaling ??= Math.max(0, (CONFIG.DND5E.jutsuSpellLevelByRank[config.jutsu.rank]
-          ?? this.item.system.level) - this.item.system.level);
+        const scaling = config.scaling === false ? 0 : (config.scaling ?? 0);
+        config.jutsu.rank ??= this.item.system.rankForDelta?.(scaling) ?? this.item.system.effectiveRank;
+        config.scaling ??= this.item.system.getRankDelta(config.jutsu.rank);
       }
 
       else {
@@ -684,13 +687,19 @@ export default function ActivityMixin(Base) {
     async _prepareUsageScaling(usageConfig, messageConfig, item) {
       const levelingFlag = this.item.getFlag("n5eb", "spellLevel");
       if ( levelingFlag ) {
-        usageConfig.scaling = Math.max(0, levelingFlag.value - levelingFlag.base);
+        const rank = CONFIG.DND5E.jutsuRankBySpellLevel[levelingFlag.value];
+        usageConfig.scaling = (item.type === "spell") && rank && item.system.getRankDelta
+          ? item.system.getRankDelta(rank)
+          : Math.max(0, levelingFlag.value - levelingFlag.base);
       } else if ( this.isSpell ) {
-        const rank = usageConfig.jutsu?.rank ?? this.item.system.effectiveRank;
+        usageConfig.jutsu ??= {};
+        const rank = usageConfig.jutsu.rank ?? item.system.rankForDelta?.(usageConfig.scaling ?? 0)
+          ?? this.item.system.effectiveRank;
+        usageConfig.jutsu.rank = rank;
         const level = CONFIG.DND5E.jutsuSpellLevelByRank[rank]
           ?? this.actor.system.spells?.[usageConfig.spell?.slot]?.level;
         if ( Number.isNumeric(level) ) {
-          usageConfig.scaling = Math.max(0, level - item.system.level);
+          usageConfig.scaling = item.system.getRankDelta(rank);
           usageConfig.chakra ??= {};
           usageConfig.chakra.cost = item.system.getChakraCost({ rank });
           usageConfig.chakra.maintain = item.system.getMaintainCost({ rank, cost: usageConfig.chakra.cost });
@@ -915,11 +924,16 @@ export default function ActivityMixin(Base) {
         const chakra = chakraCost ? game.i18n.format("N5EB.JUTSU.ChakraCostLabel", {
           cost: formatNumber(chakraCost)
         }) : "";
+        const rankLabel = CONFIG.DND5E.jutsuRanks[rank]?.label;
         data.subtitle = [
-          CONFIG.DND5E.jutsuRanks[rank]?.label,
+          rankLabel,
           this.item.labels.jutsuType,
           chakra
         ].filterJoin(" &bull; ");
+        const rankIndex = properties.indexOf(this.item.labels.rank);
+        if ( rankLabel && (rankIndex >= 0) ) properties[rankIndex] = rankLabel;
+        const chakraIndex = properties.indexOf(this.item.labels.chakra);
+        if ( chakra && (chakraIndex >= 0) ) properties[chakraIndex] = chakra;
       }
 
       return {
@@ -1267,7 +1281,7 @@ export default function ActivityMixin(Base) {
         if ( handler ) await handler.call(activity, event, target, message);
         else if ( action === "consumeResource" ) await this.#consumeResource(event, target, message);
         else if ( action === "refundResource" ) await this.#refundResource(event, target, message);
-        else if ( action === "placeTemplate" ) await this.#placeTemplate();
+        else if ( action === "placeTemplate" ) await activity.#placeTemplate();
         else if ( action === "rollClash" ) await activity.#rollClash(event, target, message);
         else if ( action === "applyClashLoss" ) await activity.#applyClashLoss(event, target, message);
         else await activity._onChatAction(event, target, message);

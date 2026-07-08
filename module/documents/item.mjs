@@ -1403,10 +1403,13 @@ export default class Item5e extends SystemDocumentMixin(Item) {
 
     // Get spell data
     const itemData = (spell instanceof Item5e) ? spell.toObject() : spell;
-    const flags = itemData.flags ?? {};
+    const flags = itemData.flags ??= {};
     if ( Number.isNumeric(config.level) ) {
       flags.n5eb ??= {};
-      flags.n5eb.scaling = Math.max(0, config.level - spell.system.level);
+      const rank = (itemData.type === "spell") ? CONFIG.DND5E.jutsuRankBySpellLevel[config.level] : null;
+      flags.n5eb.scaling = rank && spell.system?.getRankDelta
+        ? spell.system.getRankDelta(rank)
+        : Math.max(0, config.level - spell.system.level);
       flags.n5eb.spellLevel = {
         value: config.level,
         base: spell.system.level

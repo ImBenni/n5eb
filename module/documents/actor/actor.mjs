@@ -10,6 +10,7 @@ import { ActorDeltasField } from "../../data/chat-message/fields/deltas-field.mj
 import AdvantageModeField from "../../data/fields/advantage-mode-field.mjs";
 import TransformationSetting from "../../data/settings/transformation-setting.mjs";
 import { createRollLabel } from "../../enrichers.mjs";
+import { getClassmodArtClashRankValue, isClassmodArtItem } from "../../classmod-arts.mjs";
 import {
   convertTime, defaultUnits, formatLength, formatNumber, formatTime, simplifyBonus, staticID
 } from "../../utils.mjs";
@@ -22,15 +23,6 @@ import SelectChoices from "./select-choices.mjs";
 import * as Trait from "./trait.mjs";
 
 /**
- * Is this item an Art jutsu linked to a classmod?
- * @param {Item5e} item  Item being checked.
- * @returns {boolean}
- */
-function isClassmodArt(item) {
-  return Boolean(item?.system?.classmodIdentifier || `${item?.system?.sourceItem ?? ""}`.startsWith("classmod:"));
-}
-
-/**
  * Get the numeric rank value used by Clash.
  * @param {string} rank  Jutsu rank.
  * @param {object} [options]
@@ -38,7 +30,7 @@ function isClassmodArt(item) {
  * @returns {number}
  */
 function getClashRankValue(rank, { art=false }={}) {
-  if ( art ) return (CONFIG.DND5E.jutsuRankValues.s ?? 5) + 1;
+  if ( art ) return getClassmodArtClashRankValue();
   return CONFIG.DND5E.jutsuRankValues[rank] ?? 0;
 }
 
@@ -2263,6 +2255,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
    * @param {Item5e} [config.item]                      Jutsu item initiating the Clash.
    * @param {string} [config.rank]                      Rank the initiating jutsu was cast at.
    * @param {string} [config.opposingRank]              Rank of the opposing jutsu.
+   * @param {boolean} [config.opposingArt=false]        Treat the opposing jutsu as an Art.
    * @param {"auto"|"1"|"3"|number} [config.rounds]     Number of opposed checks to roll.
    * @param {string} [config.skill]                     Skill to roll.
    * @param {string} [config.ability]                   Ability used for the skill roll.
@@ -2276,9 +2269,10 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const item = config.item;
     const rank = config.rank ?? item?.system?.effectiveRank ?? "e";
     const opposingRank = config.opposingRank ?? rank;
-    const art = config.art ?? isClassmodArt(item);
+    const art = config.art ?? isClassmodArtItem(item);
+    const opposingArt = config.opposingArt ?? false;
     const rankValue = getClashRankValue(rank, { art });
-    const opposingRankValue = getClashRankValue(opposingRank);
+    const opposingRankValue = getClashRankValue(opposingRank, { art: opposingArt });
     const rankBonus = Math.max(0, rankValue - opposingRankValue);
     const bothHighRank = (rankValue >= CONFIG.DND5E.jutsuRankValues.b)
       && (opposingRankValue >= CONFIG.DND5E.jutsuRankValues.b);
@@ -2294,7 +2288,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const skillLabel = CONFIG.DND5E.skills[skill]?.label ?? skill;
     const itemName = item?.name ?? game.i18n.localize("N5EB.JUTSU.Clash.UnknownJutsu");
     const rankLabel = getClashRankLabel(rank, { art });
-    const opposingRankLabel = getClashRankLabel(opposingRank);
+    const opposingRankLabel = getClashRankLabel(opposingRank, { art: opposingArt });
     const rollConfig = {
       ability,
       bonus: rankBonus ? String(rankBonus) : "",
@@ -2321,6 +2315,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
               rankValue,
               opposingRank,
               opposingRankValue,
+              opposingArt,
               rankBonus,
               rounds,
               skill,

@@ -1,3 +1,5 @@
+import { getClassmodArtRankLabel, isClassmodArtItem } from "../classmod-arts.mjs";
+
 const RANK_ORDER = ["e", "d", "c", "b", "a", "s"];
 const RANK_ALIASES = {
   erank: "e",
@@ -20,9 +22,10 @@ let jutsuLookupCacheHooksRegistered = false;
 export const JUTSU_INDEX_FIELDS = [
   "img", "type", "system.description.value", "system.rank", "system.level", "system.identifier",
   "system.jutsu.type", "system.jutsu.components", "system.jutsu.keywords", "system.activation.type",
-  "system.actionType", "system.chakra.cost", "system.chakra.special", "system.source.book",
+  "system.actionType", "system.chakra.cost", "system.chakra.special", "system.source.book", "system.sourceItem",
   "system.source.custom", "system.source.rules", "flags.core.sourceId", "flags.n5eb.legacyImport.sourcePack",
-  "flags.n5eb.legacyImport.sourcePath", "_stats.legacyImport.sourcePath", "_stats.compendiumSource"
+  "flags.n5eb.classmodArt", "flags.n5eb.legacyImport.sourcePath", "_stats.legacyImport.sourcePath",
+  "_stats.compendiumSource"
 ];
 
 /* -------------------------------------------- */
@@ -229,7 +232,9 @@ export function createJutsuSuggestionKeys(actor) {
 export function formatJutsuLookupEntry(entry, pack, existing=null, { labelPrefix="N5EB.JutsuLookup" }={}) {
   const uuid = entry.uuid ?? (pack ? `Compendium.${pack.collection}.Item.${entry._id}` : `Item.${entry.id}`);
   const rank = getEntryRank(entry);
-  const rankLabel = getRankAbbreviation(rank);
+  const rankLabel = isClassmodArtItem(entry)
+    ? getClassmodArtRankLabel({ abbreviation: true })
+    : getRankAbbreviation(rank);
   const description = foundry.utils.getProperty(entry, "system.description.value") ?? "";
   const displayName = entry.name;
   const identifier = getEntryIdentifier(entry);

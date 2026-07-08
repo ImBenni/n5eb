@@ -3,6 +3,9 @@ import Item5e from "../../../documents/item.mjs";
 import {
   formatLength, formatNumber, parseInputDelta, simplifyBonus, splitSemicolons, staticID
 } from "../../../utils.mjs";
+import {
+  CLASSMOD_ARTS_MECHANICAL_RANK, getClassmodArtRankLabel, isClassmodArtItem
+} from "../../../classmod-arts.mjs";
 
 import AdvancementConfirmationDialog from "../../advancement/advancement-confirmation-dialog.mjs";
 import AdvancementManager from "../../advancement/advancement-manager.mjs";
@@ -596,6 +599,7 @@ export default class BaseActorSheet extends PrimarySheetMixin(
     const configuredCap = rankOrder.indexOf(maxRank);
     const displayCap = configuredCap >= 0 ? configuredCap : rankOrder.indexOf("e");
     const spellsByRank = Object.fromEntries(rankOrder.map(rank => [rank, []]));
+    const artSpells = [];
     const columns = customElements.get(this.options.elements.inventory).mapColumns([
       "chakra", "time", "range", "target", "roll", { id: "uses", order: 650, priority: 300 },
       { id: "formula", priority: 200 }, "controls"
@@ -622,10 +626,34 @@ export default class BaseActorSheet extends PrimarySheetMixin(
       };
     };
 
+    /**
+     * Register the classmod Art section.
+     */
+    const registerArtSection = () => {
+      const rank = CLASSMOD_ARTS_MECHANICAL_RANK;
+      spellbook.art = {
+        label: getClassmodArtRankLabel(),
+        columns,
+        order: CONFIG.DND5E.jutsuRankOrder.length,
+        usesSlots: false,
+        id: "art",
+        slot: rank,
+        items: [],
+        minWidth: 220,
+        draggable: true,
+        dataset: { rank, type: "spell", jutsuCategory: "art" }
+      };
+    };
+
     // Iterate over every jutsu item, grouping it before deciding which empty sections to show.
     (context.itemCategories.spells ?? []).forEach(spell => {
       if ( spell.getFlag("n5eb", "cachedFor") ) {
         if ( !spell.system.linkedActivity?.displayInSpellbook ) return;
+      }
+
+      if ( isClassmodArtItem(spell) ) {
+        artSpells.push(spell);
+        return;
       }
 
       let rank = spell.system.effectiveRank ?? CONFIG.DND5E.jutsuRankBySpellLevel[spell.system.level] ?? "d";
@@ -637,6 +665,10 @@ export default class BaseActorSheet extends PrimarySheetMixin(
       if ( (rankOrder.indexOf(rank) > displayCap) && !spellsByRank[rank].length ) continue;
       registerSection(rank);
       spellbook[rank].items.push(...spellsByRank[rank]);
+    }
+    if ( artSpells.length ) {
+      registerArtSection();
+      spellbook.art.items.push(...artSpells);
     }
 
     return spellbook;
@@ -2069,8 +2101,31 @@ export default class BaseActorSheet extends PrimarySheetMixin(
       }
     });
     const created = await Item5e.createDocuments(toCreate, { parent: this.inventorySource, keepId: true });
+    await this._onDropNormalizeJutsuRanks(created);
     if ( behavior === "move" ) items.forEach(i => i.delete({ deleteContents: true }));
     return created;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize dropped jutsu ranks after document creation.
+   * @param {Item5e[]} items  Created items.
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDropNormalizeJutsuRanks(items) {
+    const SpellData = CONFIG.Item.dataModels.spell;
+    if ( !SpellData?.resolveRank ) return;
+    await Promise.all(items.map(item => {
+      if ( item.type !== "spell" ) return null;
+      const rank = SpellData.resolveRank(item.system.rank, item.system.level);
+      if ( !rank || (rank === item.system.rank) ) return null;
+      return item.update({
+        "system.rank": rank,
+        "system.level": SpellData.levelForRank(rank)
+      }, { render: false });
+    }));
   }
 
   /* -------------------------------------------- */

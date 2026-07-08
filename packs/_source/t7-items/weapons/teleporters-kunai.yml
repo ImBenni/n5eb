@@ -1,6 +1,6 @@
 folder: h9njv8oV9PJaipWF
 name: Teleporter's Kunai
-type: equipment
+type: weapon
 _id: S1Kst8pRP2gKiLT9
 img: icons/weapons/thrown/dagger-ringed-hollow.webp
 system:
@@ -29,8 +29,8 @@ system:
   attuned: false
   equipped: false
   activation:
-    type: ''
-    cost: null
+    type: action
+    cost: 1
     condition: ''
   duration:
     value: ''
@@ -44,9 +44,9 @@ system:
     type: ''
     prompt: true
   range:
-    value: null
-    long: null
-    units: ''
+    value: 30
+    long: 60
+    units: ft
   uses:
     value: null
     max: ''
@@ -55,11 +55,11 @@ system:
     prompt: true
   consume:
     type: ''
-    target: null
-    amount: null
+    target: ''
+    amount: 0
     scale: false
-  ability: null
-  actionType: ''
+  ability: ''
+  actionType: mwak
   attack:
     bonus: ''
     flat: false
@@ -68,39 +68,45 @@ system:
     threshold: null
     damage: ''
   damage:
-    parts: []
+    parts:
+      - - 1d4+@mod
+        - piercing
     versatile: ''
   enchantment: null
-  formula: ''
+  formula: 1d4
   save:
     ability: ''
     dc: null
-    scaling: spell
+    scaling: ninjutsu
   summons: null
   recharge:
     value: null
     formula: 1d8
     charged: false
   armor:
-    value: null
-    magicalBonus: null
-    dex: null
-    dr: null
+    value: 10
   hp:
-    value: null
-    max: null
+    value: 0
+    max: 0
     dt: null
     conditions: ''
   type:
-    value: trinket
+    value: simpleM
     nestedsubtype: ''
-    baseItem: ''
-  properties: []
+    baseItem: kunai
+  properties:
+    - amm
+    - fin
+    - lgt
+    - mla
+    - mgc
+    - thr
   speed:
     value: null
     conditions: ''
   strength: null
   proficient: null
+  magicalBonus: 1
   identifier: teleporter-s-kunai
 effects: []
 sort: 2100000

@@ -25,6 +25,8 @@
         {{!-- Will of Fire --}}
         <div class="will-of-fire pips" data-prop="system.attributes.inspiration" role="group"
              aria-label="{{ localize 'N5EB.WillOfFire.Label' }}">
+            <input type="hidden" class="always-interactive" name="system.attributes.inspiration"
+                   value="{{ system.attributes.inspiration }}">
             {{#each willOfFire}}
             <button type="button" class="{{ classes }}" data-action="togglePip" data-n="{{ n }}"
                     data-tooltip="{{ tooltip }}" aria-label="{{ label }}" aria-pressed="{{ filled }}"></button>
