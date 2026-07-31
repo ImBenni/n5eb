@@ -1,0 +1,184 @@
+folder: 6a56b67e590001fb
+name: Edo Tensei Construction Formula
+type: feat
+_id: 247f8e1c5f118201
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: |-
+      <h2>Edo Tensei Construction Formula</h2>
+          <table><thead><tr><th>Rank</th><th>Level</th><th>Jutsu Slots</th><th>Jutsu</th><th>Speed</th></tr></thead><tbody>
+          <tr><td>D</td><td>8</td><td>10</td><td>3 B-Rank or lower</td><td>30 ft.</td></tr>
+          <tr><td>C</td><td>11</td><td>14</td><td>+1 B-Rank and +1 A-Rank or lower</td><td>45 ft.</td></tr>
+          <tr><td>B</td><td>14</td><td>18</td><td>+2 A-Rank or lower</td><td>60 ft.</td></tr>
+          <tr><td>A</td><td>17</td><td>22</td><td>+1 A-Rank and +1 S-Rank or lower</td><td>75 ft.</td></tr>
+          <tr><td>S</td><td>20</td><td>26</td><td>+2 S-Rank or lower</td><td>90 ft.</td></tr>
+          </tbody></table>
+          <p>Start all ability scores at 16. At each rank after D, assign +6 Ability Score Increases, with caps of 20 at C,
+          22 at B, 24 at A, and 26 at S.</p>
+          <p><strong>AC:</strong> 10 + half level + Defensive Ability modifier. <strong>HP:</strong> (Toughness 10 +
+          Constitution modifier) × level. Standard costs 1 Unholy Charge, Elite 2, and Solo 3.</p>
+          <h3>Class Modifiers</h3>
+          <ul><li><strong>Elite:</strong> Double HP and Jutsu Slots; one Elite Action; three skills or Mastery ranks.</li>
+          <li><strong>Solo:</strong> S-Rank only; triple HP and Jutsu Slots; two Elite Actions; five skills or Mastery ranks.</li></ul>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-edo-tensei-construction-formula
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    98d89ff52d06ff28:
+      _id: 98d89ff52d06ff28
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Calculate Base AC
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 10 + floor(@details.level / 2) + @abilities.dex.mod
+        name: Edo Tensei Base AC
+        prompt: false
+        visible: true
+    bbccf492b62f385a:
+      _id: bbccf492b62f385a
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Calculate Base Hit Points
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: (10 + @abilities.con.mod) * @details.level
+        name: Edo Tensei Base Hit Points
+        prompt: false
+        visible: true
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: rank-level-ac-hp-slot-speed-and-class-multiplier-formulas
+          mode: native
+        - clause: ability-score-role-jutsu-skill-and-mastery-assignment
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!247f8e1c5f118201"

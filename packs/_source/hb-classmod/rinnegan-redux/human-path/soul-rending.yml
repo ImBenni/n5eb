@@ -1,0 +1,256 @@
+folder: 55c2660c9501ab6b
+name: Soul Rending
+type: feat
+_id: 8b687a08051342af
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Soul Rending</h2><p><strong>Prerequisites:</strong> Soul Reading and Soul Distortion I. If Soul Reading
+      reduces a creature to 0 Hit Points, it dies and cannot be revived.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-soul-rending
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    7ea77d9c6d98e4a4:
+      _id: 7ea77d9c6d98e4a4
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-divine-awakening
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (3 Divine Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    a1149a5d114c067c:
+      _id: a1149a5d114c067c
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use only if Human Path is your chosen specialized Path; all listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-specialized-divine-awakening
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (3 Specialized Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    410ca75b15481d6f:
+      _id: 410ca75b15481d6f
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Resolve the triggering Art, prerequisite, timing, target, and source-specific outcome described above.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Use Soul Rending
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: 3-point-general-or-matching-specialized-purchase
+          mode: native
+        - clause: talent-timing-target-roll-damage-condition-and-duration
+          mode: prompt
+        - clause: cross-art-prerequisite-and-state-resolution
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!8b687a08051342af"

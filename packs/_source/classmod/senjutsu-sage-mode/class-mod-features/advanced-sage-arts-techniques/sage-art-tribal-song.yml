@@ -2,7 +2,7 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Tribal Song'
 type: spell
 _id: I4xxg7hpYUL5CwDG
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -24,9 +24,10 @@ system:
       Beast must only complete 5 Recuperating downtime activities before you can cast this Art again.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: fullturnaction
     cost: null
@@ -111,7 +112,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -121,17 +122,77 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    cb0ea0b3465c5186:
+      _id: cb0ea0b3465c5186
+      type: save
+      activation:
+        type: special
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Tribal Song'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts: []
+        onSave: none
 effects:
   - name: Stunned
     origin: Compendium.n5eb.classmod.Item.I4xxg7hpYUL5CwDG
     duration:
-      rounds: 1
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -163,27 +224,27 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: 6E3IDe8cCXJ0221I
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.fail.ability.save.dex
-        mode: 2
-        value: '1'
-        priority: 20
-      - key: flags.midi-qol.fail.ability.save.str
-        mode: 2
-        value: '1'
-        priority: 20
-      - key: flags.midi-qol.grants.advantage.attack.all
-        mode: 2
-        value: '1'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: stunned
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.fail.ability.save.dex
+          value: 1
+          priority: 20
+          type: add
+        - key: flags.midi-qol.fail.ability.save.str
+          value: 1
+          priority: 20
+          type: add
+        - key: flags.midi-qol.grants.advantage.attack.all
+          value: 1
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: stunned
+          priority: 20
+          type: custom
     description: >-
       <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
       falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
@@ -195,23 +256,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!I4xxg7hpYUL5CwDG.6E3IDe8cCXJ0221I'
   - name: Blinded
     origin: Compendium.n5eb.classmod.Item.I4xxg7hpYUL5CwDG
     duration:
-      rounds: 1
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -243,23 +305,23 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/blinded.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: iMrDWYqPCajInqhq
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.disadvantage.attack.all
-        mode: 5
-        value: '1'
-        priority: 20
-      - key: flags.midi-qol.grants.advantage.attack.all
-        mode: 2
-        value: '1'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: blinded
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.disadvantage.attack.all
+          value: 1
+          priority: 20
+          type: override
+        - key: flags.midi-qol.grants.advantage.attack.all
+          value: 1
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: blinded
+          priority: 20
+          type: custom
     description: >-
       <p>• A <strong>Blinded</strong> creature cannot target another creature with effects that require them to “target
       a creature they can see” unless they have a special sense that does not require sight, such as <strong>Tremor
@@ -278,23 +340,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.owH6cQirjHUk1YUO.ActiveEffect.HVI7Zl9jETjwR6v4
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!I4xxg7hpYUL5CwDG.iMrDWYqPCajInqhq'
   - name: Deafened
     origin: Compendium.n5eb.classmod.Item.I4xxg7hpYUL5CwDG
     duration:
-      rounds: 1
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: true
     flags:
       dae:
@@ -322,23 +385,23 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/deafened.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: Pmbvq39VvKIT9IpO
     type: base
-    system: {}
-    changes:
-      - key: system.skills.prc.bonuses.check
-        mode: 2
-        value: '-10'
-        priority: 20
-      - key: flags.midi-qol.disadvantage.ability.save.wis
-        mode: 5
-        value: '1'
-        priority: 20
-      - key: flags.midi-qol.disadvantage.attack.wis
-        mode: 5
-        value: '1'
-        priority: 20
+    system:
+      changes:
+        - key: system.skills.prc.bonuses.check
+          value: -10
+          priority: 20
+          type: add
+        - key: flags.midi-qol.disadvantage.ability.save.wis
+          value: 1
+          priority: 20
+          type: override
+        - key: flags.midi-qol.disadvantage.attack.wis
+          value: 1
+          priority: 20
+          type: override
     description: >-
       <p>• A <strong>Deafened</strong> creature can’t hear and automatically fails any check that requires
       hearing.</p><p>• A <strong>Deafened</strong> creatures has a -10 penalty to their Perception.</p><p>• Creatures
@@ -353,23 +416,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.LtF9jNCx9U6p4U6w.ActiveEffect.JD6YqfV0jNWOgoBJ
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!I4xxg7hpYUL5CwDG.Pmbvq39VvKIT9IpO'
   - name: Prone
     origin: Compendium.n5eb.classmod.Item.I4xxg7hpYUL5CwDG
     duration:
-      rounds: null
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
     disabled: false
     flags:
       dae:
@@ -401,19 +465,19 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/prone.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: W2c5PBlXMl2NDSxj
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.disadvantage.attack.all
-        mode: 5
-        value: '1'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: prone
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.disadvantage.attack.all
+          value: 1
+          priority: 20
+          type: override
+        - key: StatusEffect
+          value: prone
+          priority: 20
+          type: custom
     description: ''
     tint: '#ffffff'
     transfer: false
@@ -422,23 +486,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!I4xxg7hpYUL5CwDG.W2c5PBlXMl2NDSxj'
   - name: Restrained
     origin: Compendium.n5eb.classmod.Item.I4xxg7hpYUL5CwDG
     duration:
-      rounds: 1
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -470,43 +535,43 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/restrained.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: RioorYAtIx2zFovF
     type: base
-    system: {}
-    changes:
-      - key: system.attributes.movement.walk
-        mode: 5
-        value: '0'
-        priority: 20
-      - key: system.attributes.movement.swim
-        mode: 5
-        value: '0'
-        priority: 20
-      - key: system.attributes.movement.burrow
-        mode: 5
-        value: '0'
-        priority: 20
-      - key: system.attributes.movement.fly
-        mode: 5
-        value: '0'
-        priority: 20
-      - key: flags.midi-qol.disadvantage.attack.all
-        mode: 5
-        value: '1'
-        priority: 20
-      - key: flags.midi-qol.disadvantage.ability.save.dex
-        mode: 5
-        value: '1'
-        priority: 20
-      - key: flags.midi-qol.grants.advantage.attack.all
-        mode: 5
-        value: '1'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: restrained
-        priority: 20
+    system:
+      changes:
+        - key: system.attributes.movement.walk
+          value: 0
+          priority: 20
+          type: override
+        - key: system.attributes.movement.swim
+          value: 0
+          priority: 20
+          type: override
+        - key: system.attributes.movement.burrow
+          value: 0
+          priority: 20
+          type: override
+        - key: system.attributes.movement.fly
+          value: 0
+          priority: 20
+          type: override
+        - key: flags.midi-qol.disadvantage.attack.all
+          value: 1
+          priority: 20
+          type: override
+        - key: flags.midi-qol.disadvantage.ability.save.dex
+          value: 1
+          priority: 20
+          type: override
+        - key: flags.midi-qol.grants.advantage.attack.all
+          value: 1
+          priority: 20
+          type: override
+        - key: StatusEffect
+          value: restrained
+          priority: 20
+          type: custom
     description: >-
       <p>A <strong>Restrained</strong> creature has been completely pinned in place, unable to move from their
       space.</p><ul><li><p>A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its
@@ -519,12 +584,16 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.JNnzuuXPtG53TNVf.ActiveEffect.J3ccgXNOtDjjusUq
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!I4xxg7hpYUL5CwDG.RioorYAtIx2zFovF'
 sort: 0
 ownership:
@@ -646,6 +715,15 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
   midi-qol:
     AoETargetType: any
     AoETargetTypeIncludeSelf: true

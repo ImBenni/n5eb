@@ -410,7 +410,10 @@ function auditSources(record) {
           actual: source.value?.book ?? ""
         });
       }
-      if ( source.value?.custom ) {
+      const isNamedHomebrewClassmod = record.pack === "hb-classmod"
+        && source.value?.book === expected
+        && entry.doc.flags?.n5eb?.classmodCompendium;
+      if ( source.value?.custom && !isNamedHomebrewClassmod ) {
         issues.push({
           pack: record.pack,
           file: path.relative(SYSTEM_ROOT, record.file),

@@ -1,0 +1,187 @@
+folder: c214cc850a8d621d
+name: Reactive Limbo
+type: feat
+_id: 25f6a19d7240a278
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/limbo.webp
+system:
+  description:
+    value: >-
+      <h2>Reactive Limbo</h2><p>As a Reaction when targeted by an attack or saving throw, command a Limbo clone to move
+      up to its full speed and interpose itself according to the source.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 17
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-reactive-limbo
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    09e5d08f459ff96b:
+      _id: 09e5d08f459ff96b
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-divine-awakening
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (4 Divine Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/limbo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    f6606f9d62c81e5b:
+      _id: f6606f9d62c81e5b
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Resolve the prerequisite, triggering Outer Art, targets, rolls, duration, and confirmed consequences described
+          above.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Use Reactive Limbo
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/limbo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: four-point-general-divine-awakening-purchase
+          mode: native
+        - clause: outer-talent-timing-roll-target-duration-and-prerequisite
+          mode: prompt
+        - clause: irreversible-eye-death-capacity-creature-capture-or-classmod-consequence
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!25f6a19d7240a278"

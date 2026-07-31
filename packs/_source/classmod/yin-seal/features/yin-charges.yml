@@ -1,0 +1,68 @@
+folder: 12cb413cf58fe844
+name: Yin Charges
+type: feat
+_id: 47fc52efa17d1c39
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <p>Also, at 1st level of this class mod, your Seal grants you special techniques, known as Yin Arts. Yin Arts are
+      extremely powerful abilities that do not spend the user's upfront chakra, instead they spend the stored chakra in
+      the user's Yin Seal, represented by Yin Charges. You begin with 2 Yin Charges as shown in the Yin Charges column
+      in the Yin Seal class mod table, per Full -Rest.</p><p>Your Yin Charge maximum increases by +2 each time you
+      Subsume a creature. When you take a short rest, you regain spend Charges equal to your Yin Seal Class mod level.
+      When you take a long rest, you regain spend charges equal to half your current level's maximum charges. Finally,
+      you gain 2 Yin Arts of your choice, from the listed Yin arts at the end of this class mod.</p><p>Each level
+      afterwards, you gain one additional Yin Art. Yin arts are abilities that function similar to a jutsu when used
+      with a casting time, effect and du ration. Yin Arts that require concentration don't spend Yin Charges to maintain
+      concentration. Regardless these all use your Yang attack bonus or save DC. To calculate your Yang Art, Save DC and
+      Attack bonus, do the following;</p><p>Yin Save DC = 10 + half your character Level + your Proficiency bonus; Yin
+      Attack Bonus = Half your character Level + your Yang Seal class mod level + Your Proficiency bonus;</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '119'
+    license: ''
+    rules: n5eb
+  uses:
+    max: 2 + 4 * (@classmods.yin-seal.levels - 1)
+    recovery:
+      - period: sr
+        type: formula
+        formula: '@classmods.yin-seal.levels'
+      - period: lr
+        type: formula
+        formula: floor(@item.uses.max / 2)
+    spent: 0
+  properties: []
+  identifier: yin-charges
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: resource-tracking
+          mode: native
+        - clause: special-recovery-or-growth
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!47fc52efa17d1c39'

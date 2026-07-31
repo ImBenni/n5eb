@@ -84,6 +84,8 @@ effects:
       startTurn: null
     disabled: false
     flags:
+      n5eb:
+        requiresNoArmor: true
       dae:
         disableCondition: ''
         disableIncapacitated: false
@@ -120,11 +122,7 @@ effects:
         priority: 20
       - key: system.attributes.ac.formula
         mode: 5
-        value: 10 + @abilities.dex.mod
-        priority: 20
-      - key: system.attributes.ac.prof
-        mode: 5
-        value: '@attributes.prof'
+        value: 10 + @attributes.prof + @abilities.dex.mod
         priority: 20
     description: ''
     tint: '#ffffff'

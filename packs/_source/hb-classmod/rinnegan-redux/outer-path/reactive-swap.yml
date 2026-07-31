@@ -1,0 +1,187 @@
+folder: c214cc850a8d621d
+name: Reactive Swap
+type: feat
+_id: 1f6dd446e48761e4
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Reactive Swap</h2><p>As a Reaction when a creature is targeted by an attack or saving throw, cast
+      Amenotejikara to redirect the effect or alter positions as adjudicated from the swap.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 16
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-reactive-swap
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    171ab7114c437888:
+      _id: 171ab7114c437888
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-divine-awakening
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (4 Divine Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    dfea1269014e1ca0:
+      _id: dfea1269014e1ca0
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Resolve the prerequisite, triggering Outer Art, targets, rolls, duration, and confirmed consequences described
+          above.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Use Reactive Swap
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: four-point-general-divine-awakening-purchase
+          mode: native
+        - clause: outer-talent-timing-roll-target-duration-and-prerequisite
+          mode: prompt
+        - clause: irreversible-eye-death-capacity-creature-capture-or-classmod-consequence
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!1f6dd446e48761e4"

@@ -1,0 +1,117 @@
+folder: af0b1a9d3f3959d9
+name: Bone Hydra Spawn
+type: feat
+_id: b216bea85f4e03cd
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Bone Hydra Spawn</h2><p><strong>Cost:</strong> 1 Unholy Blessing. Gain +2 reach on melee attacks. Once per
+      encounter, make two additional melee attacks.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 19
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-bone-hydra-spawn
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    b9d94d1ac410d090:
+      _id: b9d94d1ac410d090
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery:
+          - period: initiative
+            type: recoverAll
+        max: "1"
+      sort: 0
+      name: Bone Hydra Additional Attacks
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: bone-hydra-spawn-static-or-rolled-benefits
+          mode: native
+        - clause: bone-hydra-spawn-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: bone-hydra-spawn-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!b216bea85f4e03cd"

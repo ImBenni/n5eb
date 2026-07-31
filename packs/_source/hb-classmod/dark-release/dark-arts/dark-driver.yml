@@ -1,0 +1,291 @@
+folder: 340d32452873a125
+name: Dark Driver
+type: spell
+_id: cb23d83eca55ff14
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <h3>Dark Art Type: Dark Taijutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Dark
+      Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>Touch</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>10
+      Dark Chakra</dd><dt>Keywords:</dt><dd>Taijutsu, Dark Release, Force</dd></dl><h3>Description:</h3><p>Make a melee
+      Dark Art attack against a creature you can touch. On a hit, it takes 8d8 force damage, then makes a Constitution
+      saving throw. On a failed save, it loses 1d4 Chakra Dice.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: dark-driver
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: taijutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - taijutsu
+      - dark-release
+      - force
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Dark Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:dark-release
+  activities:
+    5e8c9f4015c1c845:
+      _id: 5e8c9f4015c1c845
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: Requires an active Dark Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:dark-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: Touch
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    c9e0e7d68b02cbf0:
+      _id: c9e0e7d68b02cbf0
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: Use after Dark Driver hits; this activity has no additional Dark Chakra cost.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: Touch
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Chakra Die Loss
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+    5b0bd7242e615172:
+      _id: 5b0bd7242e615172
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Roll after a failed Chakra Die Loss save.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Chakra Dice Lost
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d4
+        name: Chakra Dice Lost
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: dark-release
+      classification: Dark Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!cb23d83eca55ff14"

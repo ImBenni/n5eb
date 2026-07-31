@@ -1,0 +1,152 @@
+folder: fc47bb38af3b70c1
+name: Light Tether
+type: spell
+_id: e1514dc063f48c7e
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+system:
+  description:
+    value: >-
+      <h3>Light Art Type: Light Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Light
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>60 feet</dd><dt>Duration:</dt><dd>Concentration,
+      up to 1 minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>20 Light
+      Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Light Release, Link,
+      Concentration</dd></dl><h3>Description:</h3><p>Link yourself to one willing creature within range. The tether does
+      not count against the number of effects on which you can concentrate, but it still requires concentration and its
+      Light Chakra upkeep. The linked creature gains the same effects that affect you and benefits from your
+      self-targeting Jutsu and Light Arts. The link breaks if the target leaves range, is concealed from you, or becomes
+      unconscious.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: light-tether
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - light-release
+      - link
+      - concentration
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 20 Light Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:light-release
+  activities:
+    180348409f0ba1a4:
+      _id: 180348409f0ba1a4
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires an active Light Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:light-chakra
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: light-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: light-release
+      classification: Light Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e1514dc063f48c7e"

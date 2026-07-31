@@ -12,7 +12,7 @@ import TransformationSetting from "../../data/settings/transformation-setting.mj
 import { createRollLabel } from "../../enrichers.mjs";
 import { getClassmodArtClashRankValue, isClassmodArtItem } from "../../classmod-arts.mjs";
 import {
-  convertTime, defaultUnits, formatLength, formatNumber, formatTime, simplifyBonus, staticID
+  convertTime, defaultUnits, formatLength, formatNumber, formatTime, replaceFormulaData, simplifyBonus, staticID
 } from "../../utils.mjs";
 import { preserveLegacyN5eBSource } from "../../legacy-migration.mjs";
 import ActiveEffect5e from "../active-effect.mjs";
@@ -3585,16 +3585,41 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const cfg = CONFIG.DND5E.armorClasses[ac.calc];
     const attribution = [];
 
+    if ( ac.override ) {
+      let source = this._prepareActiveEffectAttributions("system.attributes.ac.override", {
+        modes: [CONST.ACTIVE_EFFECT_MODES.OVERRIDE]
+      });
+      source = source.length ? source : [{
+        label: game.i18n.localize("DND5E.ArmorClass"),
+        mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+        value: ac.override
+      }];
+      source.forEach(entry => entry.value = ac.override);
+      return new PropertyAttribution(this, source, "attributes.ac", { title }).renderTooltip();
+    }
+
     if ( ac.calc === "flat" ) {
       attribution.push({
         label: game.i18n.localize("DND5E.ArmorClassFlat"),
         mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
         value: ac.flat
       });
+      const exhaustionPenalty = this.getExhaustionPenalty?.() ?? 0;
+      if ( exhaustionPenalty ) attribution.push({
+        label: game.i18n.localize("N5EB.CONDITION.Exhaustion"),
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: -exhaustionPenalty
+      });
+      const conditionPenalty = this.getConditionACPenalty?.() ?? 0;
+      if ( conditionPenalty ) attribution.push({
+        label: game.i18n.localize("N5EB.CONDITION.Envenomed"),
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: -conditionPenalty
+      });
       return new PropertyAttribution(this, attribution, "attributes.ac", { title }).renderTooltip();
     }
 
-    if ( ac.n5eb ) {
+    if ( ac.n5eb && (ac.calc !== "custom") ) {
       attribution.push({
         label: this.armor?.name ?? game.i18n.localize("DND5E.ArmorClassUnarmored"),
         mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
@@ -3620,44 +3645,71 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
         mode: CONST.ACTIVE_EFFECT_MODES.ADD,
         value: 0
       });
-      return new PropertyAttribution(this, attribution, "attributes.ac", { title }).renderTooltip();
-    }
+    } else {
+      // Base AC Attribution
+      switch ( ac.calc ) {
 
-    // Base AC Attribution
-    switch ( ac.calc ) {
-
-      // Natural armor
-      case "natural":
-        attribution.push({
-          label: game.i18n.localize("DND5E.ArmorClassNatural"),
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: ac.flat
-        });
-        break;
-
-      default:
-        const formula = ac.calc === "custom" ? ac.formula : cfg.formula;
-        let base = ac.base;
-        const dataRgx = new RegExp(/@([a-z.0-9_-]+)/gi);
-        for ( const [match, term] of formula.matchAll(dataRgx) ) {
-          const value = String(foundry.utils.getProperty(rollData, term));
-          if ( (term === "attributes.ac.armor") || (value === "0") ) continue;
-          if ( Number.isNumeric(value) ) base -= Number(value);
+        // Natural armor
+        case "natural":
           attribution.push({
-            label: match,
-            mode: CONST.ACTIVE_EFFECT_MODES.ADD,
-            value
+            label: game.i18n.localize("DND5E.ArmorClassNatural"),
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: ac.flat
           });
-        }
-        const armorInFormula = formula.includes("@attributes.ac.armor");
-        let label = game.i18n.localize("DND5E.PropertyBase");
-        if ( armorInFormula ) label = this.armor?.name ?? game.i18n.localize("DND5E.ArmorClassUnarmored");
-        attribution.unshift({
-          label,
-          mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
-          value: base
-        });
-        break;
+          break;
+
+        default:
+          const formula = ac.calc === "custom" ? ac.formula : cfg.formula;
+          let formulaTotal = ac.base;
+          try {
+            const replaced = replaceFormulaData(formula, rollData, { missing: null });
+            if ( replaced ) formulaTotal = new Roll(replaced).evaluateSync().total;
+          } catch(error) {
+            // Use the prepared AC base when a custom formula can no longer be evaluated for display.
+          }
+          let base = formulaTotal;
+          const dataRgx = new RegExp(/@([a-z.0-9_-]+)/gi);
+          const references = new Map(Array.from(formula.matchAll(dataRgx), ([match, term]) => [term, match]));
+          for ( const [term, match] of references ) {
+            const value = String(foundry.utils.getProperty(rollData, term));
+            if ( (term === "attributes.ac.armor") || (value === "0") ) continue;
+
+            // Attribute the value the reference actually contributes to the evaluated formula. Reading the raw
+            // property is incorrect for expressions such as floor(@attributes.prof / 2).
+            let contribution = value;
+            if ( Number.isNumeric(value) ) {
+              contribution = Number(value);
+              try {
+                const withoutReference = foundry.utils.deepClone(rollData);
+                foundry.utils.setProperty(withoutReference, term, 0);
+                const replaced = replaceFormulaData(formula, withoutReference, { missing: null });
+                const withoutTotal = replaced ? new Roll(replaced).evaluateSync().total : 0;
+                if ( Number.isFinite(withoutTotal) ) contribution = formulaTotal - withoutTotal;
+              } catch(error) {
+                // Fall back to the raw reference value for malformed or non-deterministic custom formulas.
+              }
+              base -= contribution;
+            }
+
+            const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const isHalfProficiency = ["attributes.prof", "proficiency"].includes(term)
+              && new RegExp(`floor\\s*\\(\\s*@${escapedTerm}\\s*\\/\\s*2\\s*\\)`, "i").test(formula);
+            attribution.push({
+              label: isHalfProficiency ? game.i18n.localize("N5EB.ARMOR.HalfProficiency") : match,
+              mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+              value: contribution
+            });
+          }
+          const armorInFormula = formula.includes("@attributes.ac.armor");
+          let label = game.i18n.localize("DND5E.PropertyBase");
+          if ( armorInFormula ) label = this.armor?.name ?? game.i18n.localize("DND5E.ArmorClassUnarmored");
+          attribution.unshift({
+            label,
+            mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            value: base
+          });
+          break;
+      }
     }
 
     // Shield
@@ -3665,6 +3717,13 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       label: this.shield?.name ?? game.i18n.localize("DND5E.EquipmentShield"),
       mode: CONST.ACTIVE_EFFECT_MODES.ADD,
       value: ac.shield
+    });
+
+    // Blocking
+    if ( ac.blocking ) attribution.push({
+      label: game.i18n.localize("N5EB.Item.Property.Blocking"),
+      mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+      value: ac.blocking
     });
 
     // Bonus
@@ -3675,6 +3734,32 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
       label: game.i18n.localize("DND5E.Cover"),
       mode: CONST.ACTIVE_EFFECT_MODES.ADD,
       value: ac.cover
+    });
+
+    // Minimum
+    if ( ac.min ) {
+      const minimum = this._prepareActiveEffectAttributions("system.attributes.ac.min", {
+        modes: [CONST.ACTIVE_EFFECT_MODES.UPGRADE, CONST.ACTIVE_EFFECT_MODES.OVERRIDE]
+      });
+      attribution.push(...minimum.length ? minimum : [{
+        label: game.i18n.localize("DND5E.Minimum"),
+        mode: CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+        value: ac.min
+      }]);
+    }
+
+    // Penalties
+    const exhaustionPenalty = this.getExhaustionPenalty?.() ?? 0;
+    if ( exhaustionPenalty ) attribution.push({
+      label: game.i18n.localize("N5EB.CONDITION.Exhaustion"),
+      mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+      value: -exhaustionPenalty
+    });
+    const conditionPenalty = this.getConditionACPenalty?.() ?? 0;
+    if ( conditionPenalty ) attribution.push({
+      label: game.i18n.localize("N5EB.CONDITION.Envenomed"),
+      mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+      value: -conditionPenalty
     });
 
     if ( attribution.length ) {
@@ -3689,22 +3774,29 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
   /**
    * Break down all of the Active Effects affecting a given target property.
    * @param {string} target               The data property being targeted.
+   * @param {object} [options]
+   * @param {number[]} [options.modes]     Active Effect modes to include.
    * @returns {AttributionDescription[]}  Any active effects that modify that property.
    * @protected
    */
-  _prepareActiveEffectAttributions(target) {
+  _prepareActiveEffectAttributions(target, { modes=[CONST.ACTIVE_EFFECT_MODES.ADD] }={}) {
     const rollData = this.getRollData({ deterministic: true });
     const attributions = [];
+    modes = new Set(modes);
     for ( const e of this.allApplicableEffects() ) {
       let source = e.sourceName;
       if ( !e.origin || (e.origin === this.uuid) ) source = e.name;
       if ( !source || e.disabled || e.isSuppressed ) continue;
-      const value = e.changes.reduce((n, change) => {
-        if ( (ActiveEffect5e.SHIM_FIELDS[change.key]?.key ?? change.key) !== target ) return n;
-        if ( change.mode !== CONST.ACTIVE_EFFECT_MODES.ADD ) return n;
-        return n + simplifyBonus(change.value, rollData);
-      }, 0);
-      if ( value ) attributions.push({ value, label: source, document: e, mode: CONST.ACTIVE_EFFECT_MODES.ADD });
+      const changes = e.changes.filter(change =>
+        ((ActiveEffect5e.SHIM_FIELDS[change.key]?.key ?? change.key) === target) && modes.has(change.mode)
+      );
+      for ( const [mode, grouped] of Map.groupBy(changes, change => change.mode) ) {
+        const value = grouped.reduce((total, change) => {
+          change = e._prepareOriginDataChange(change);
+          return total + simplifyBonus(change.value, rollData);
+        }, 0);
+        if ( value ) attributions.push({ value, label: source, document: e, mode });
+      }
     }
     return attributions;
   }
@@ -4543,19 +4635,21 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
    */
   updateEncumbrance(options) {
     const encumbrance = this.system.attributes?.encumbrance;
-    if ( !encumbrance || (game.settings.get("n5eb", "encumbrance") === "none") ) return;
+    const effect = this.effects.get(ActiveEffect5e.ID.ENCUMBERED);
+    const setting = game.settings.get("n5eb", "encumbrance");
+    if ( !encumbrance || (setting !== "variant") ) {
+      return effect?.delete({ n5eb: { automaticEncumbrance: true } });
+    }
     const statuses = [];
-    const variant = game.settings.get("n5eb", "encumbrance") === "variant";
     if ( encumbrance.bulk ) {
-      if ( (encumbrance.value > encumbrance.thresholds.maximum) && variant ) statuses.push("encumbered");
+      if ( encumbrance.value > encumbrance.thresholds.maximum ) statuses.push("encumbered");
     } else {
       if ( encumbrance.value > encumbrance.thresholds.maximum ) statuses.push("exceedingCarryingCapacity");
-      if ( (encumbrance.value > encumbrance.thresholds.heavilyEncumbered) && variant ) statuses.push("heavilyEncumbered");
-      if ( (encumbrance.value > encumbrance.thresholds.encumbered) && variant ) statuses.push("encumbered");
+      if ( encumbrance.value > encumbrance.thresholds.heavilyEncumbered ) statuses.push("heavilyEncumbered");
+      if ( encumbrance.value > encumbrance.thresholds.encumbered ) statuses.push("encumbered");
     }
 
-    const effect = this.effects.get(ActiveEffect5e.ID.ENCUMBERED);
-    if ( !statuses.length ) return effect?.delete();
+    if ( !statuses.length ) return effect?.delete({ n5eb: { automaticEncumbrance: true } });
 
     const effectData = { ...CONFIG.DND5E.encumbrance.effects[statuses[0]], statuses };
     if ( effect ) {

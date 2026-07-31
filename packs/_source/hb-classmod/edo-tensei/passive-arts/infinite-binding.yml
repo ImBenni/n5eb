@@ -1,0 +1,143 @@
+folder: 9810d0a72d66ded8
+name: Infinite Binding
+type: spell
+_id: f754328a9de673ed
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Infinite Binding</h2><h3>Edo Tensei Art Type: Passive</h3><dl class="n5eb-classmod-summary"><dt>Casting
+      Time:</dt><dd>Special</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>HS,
+      CS, CM</dd><dt>Cost:</dt><dd>Special</dd><dt>Keywords:</dt><dd>Kinjutsu</dd></dl><h3>Description:</h3><p>Control
+      one additional Edo Tensei beyond your class-mod limit. Each summon lasts 1 additional minute in combat or 1
+      additional hour outside combat per class-mod level. You may pre-prepare an Edo Tensei with a successful Summoning
+      Check to appear on a chosen trigger, act autonomously toward a pre-assigned objective, and return to the Realm of
+      Death when complete.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-infinite-binding
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - hs
+      - cs
+      - cm
+    keywords:
+      - kinjutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: ""
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:edo-tensei
+  activities:
+    d10210d02c393720:
+      _id: d10210d02c393720
+      type: utility
+      activation:
+        type: minute
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Prepare Triggered Summoning
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.nsh.total
+        name: Advance Summoning Check
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: source-rule-and-numeric-resolution
+          mode: native
+        - clause: target-choice-prerequisite-or-trigger
+          mode: prompt
+        - clause: cross-actor-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: edo-tensei
+      classification: Passive
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!f754328a9de673ed"

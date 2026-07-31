@@ -1,0 +1,245 @@
+folder: 988dfcc2ab9c9979
+name: Beast Bomb
+type: spell
+_id: 814fc95d267da8d9
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Beast Bomb</h2><h3>Vermillion Art</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Vermillion
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>120 feet; 30-foot
+      burst</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>30 Twisted
+      Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Vermillion</dd></dl><h3>Description:</h3><p>Requires a Stage 2 or
+      higher Transformation Art unless in Desperate Rage. Make a ranged Vermillion attack against a target within 120
+      feet. On hit, deal 20d12 Force damage. Hit or miss, every creature including the target within 30 feet makes a
+      Dexterity save, taking 12d12 Force damage on failure or half on success. Constructs and structures take four times
+      the damage.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-beast-bomb
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - vermillion
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 30 Twisted Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:sealed-beast-redux
+  activities:
+    3a6098d77b492699:
+      _id: 3a6098d77b492699
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: Requires Stage 2+ Transformation or Desperate Rage. Resolve the Explosion activity hit or miss.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "30"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 120
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Fire Beast Bomb
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "@classmods.sealed-beast-redux.attack"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 20
+            denomination: 12
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    f6471ee03466c72d:
+      _id: f6471ee03466c72d
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: No additional cost. Center on the original target and include it.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: radius
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve Beast Bomb Explosion
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: 12 + @classmods.sealed-beast-redux.levels + @prof
+      damage:
+        parts:
+          - number: 12
+            denomination: 12
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: activation-resource-save-attack-range-and-damage
+          mode: native
+        - clause: transformation-prerequisite-conditions-and-forced-movement
+          mode: prompt
+        - clause: construct-damage-and-dynamic-cross-activity-results
+          mode: manual
+    classmodArt:
+      classmod: sealed-beast-redux
+      classification: Vermillion Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!814fc95d267da8d9"

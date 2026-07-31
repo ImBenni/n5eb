@@ -1,0 +1,308 @@
+folder: 340d32452873a125
+name: Suffocating Dark
+type: spell
+_id: d30953bf2784d03f
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <h3>Dark Art Type: Dark Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Dark
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>5 feet</dd><dt>Duration:</dt><dd>Concentration,
+      up to 1 minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>10 Dark
+      Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Dark Release, Concentration,
+      Debuff</dd></dl><h3>Description:</h3><p>Choose one creature within range. It makes a Constitution saving throw. On
+      a failed save, it is Dazed and Weakened for the duration and loses 1d4 Chakra Dice.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 14
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: suffocating-dark
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - dark-release
+      - concentration
+      - debuff
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Dark Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:dark-release
+  activities:
+    92cb904f1ecb2f41:
+      _id: 92cb904f1ecb2f41
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires an active Dark Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:dark-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 89e03887315f184f
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+        - _id: 5d46ab4e48815819
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+      appliedEffects:
+        - 5d46ab4e48815819
+    e256b9679cfcd81d:
+      _id: e256b9679cfcd81d
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Roll after the target fails its save.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Chakra Dice Lost
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d4
+        name: Chakra Dice Lost
+        prompt: false
+        visible: true
+effects:
+  - name: Dazed
+    img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+    origin: Item.d30953bf2784d03f
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses:
+      - dazed
+    _id: 89e03887315f184f
+    type: base
+    system: {}
+    description: ""
+    tint: "#30104f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: dark-release
+          form: ""
+          sourceItemId: d30953bf2784d03f
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!d30953bf2784d03f.89e03887315f184f"
+  - name: Weakened
+    img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+    origin: Item.d30953bf2784d03f
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses:
+      - weakened
+    _id: 5d46ab4e48815819
+    type: base
+    system: {}
+    description: ""
+    tint: "#30104f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: dark-release
+          form: ""
+          sourceItemId: d30953bf2784d03f
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!d30953bf2784d03f.5d46ab4e48815819"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: dark-release
+      classification: Dark Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!d30953bf2784d03f"

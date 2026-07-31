@@ -1,0 +1,185 @@
+folder: d860638b35530b74
+name: Hypnotic Eye III
+type: feat
+_id: c91bd1f544feae17
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+system:
+  description:
+    value: >-
+      <p><strong>Prerequisite:</strong> @UUID[Compendium.n5eb.clan.Item.RevD4kvLOxQ6RrAz]{Hypnotic Eye II}. When you use
+      Hypnotic Eye, Sharingan: Genjutsu and Genjutsu cast with it gain the Unaware keyword.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 12
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-hypnotic-eye-iii
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    7e3e6973c5f10739:
+      _id: 7e3e6973c5f10739
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. Prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-awakening
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (8 Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    5fa5e52f15e0e8ca:
+      _id: 5fa5e52f15e0e8ca
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Prerequisite: @UUID[Compendium.n5eb.clan.Item.RevD4kvLOxQ6RrAz]{Hypnotic Eye II}. When you use Hypnotic Eye,
+          Sharingan: Genjutsu and Genjutsu cast with it gain the Unaware keyword.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Upgrade
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: awakening-purchase-cost
+          mode: native
+        - clause: cross-item-uchiha-feature-upgrade
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!c91bd1f544feae17"

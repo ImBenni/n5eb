@@ -1,0 +1,217 @@
+folder: 25ce697c3a7f94ce
+name: Naraka Path Access
+type: feat
+_id: c59ab7f2dd87064e
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Naraka Path Access</h2><p>Spend 12 Divine Awakening to access Naraka Path. Gain one of its base Divine Arts
+      without additional cost.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties:
+    - advancement
+  identifier: rinnegan-redux-naraka-path-access
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    ee630ba3e2d22f23:
+      _id: ee630ba3e2d22f23
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-divine-awakening
+            value: "12"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (12 Divine Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    cbc97a3d9183a0c1:
+      _id: cbc97a3d9183a0c1
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use only if Naraka Path is your chosen specialized Path; all listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-specialized-divine-awakening
+            value: "12"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (12 Specialized Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement:
+    23566e38127fbd1d:
+      _id: 23566e38127fbd1d
+      type: ItemChoice
+      configuration:
+        choices:
+          "1":
+            count: 1
+            replacement: false
+        allowDrops: false
+        type: null
+        pool:
+          - uuid: Compendium.n5eb.hb-classmod.Item.261f40aba90d3934
+          - uuid: Compendium.n5eb.hb-classmod.Item.864fd6b116db77b4
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      level: 1
+      title: Choose a Naraka Path Art
+      hint: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: twelve-point-general-or-matching-specialized-purchase
+          mode: native
+        - clause: one-free-base-art-choice
+          mode: native
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!c59ab7f2dd87064e"

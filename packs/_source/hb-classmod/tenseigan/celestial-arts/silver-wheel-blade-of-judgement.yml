@@ -1,0 +1,879 @@
+folder: 10a1a7fb0f5d333c
+name: Silver Wheel Blade of Judgement
+type: spell
+_id: 1eb97dce1b888279
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: >-
+      <h2>Silver Wheel Blade of Judgement</h2><dl class="n5eb-classmod-summary"><dt>Origin:</dt><dd>Vacuum
+      Palm</dd><dt>Classification:</dt><dd>Celestial Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>60 feet</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M,
+      CM</dd><dt>Cost:</dt><dd>8 Celestial Chakra</dd><dt>Celestial
+      Strain:</dt><dd>+1</dd><dt>Keywords:</dt><dd>Hijutsu, Taijutsu, Clash</dd></dl><h3>Description</h3><p>Fire
+      Celestial Chakra beams through creatures’ bodies and spirits. Make 2 ranged Celestial Art
+          attacks, targeting up to 2 creatures in range. On a hit, deal 8d8 force damage and reduce Chakra by half the
+          result.</p><p>Each creature in a 5-foot-wide, 30-foot-long line directly behind a hit target makes a Dexterity save,
+          taking 8d8 force damage on a failure or half as much on a success.</p><h3>Art Magnification</h3><p>Increase the cost
+          by 2 to fire 1 additional beam. Celestial Chakra Mode doubles this benefit.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: silver-wheel-blade-of-judgement
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: taijutsu
+    ability: ""
+    components:
+      - m
+      - cm
+    keywords:
+      - hijutsu
+      - taijutsu
+      - clash
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 8 Celestial Chakra; +1 Celestial Strain
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:tenseigan
+  activities:
+    9a814d559933d0d5:
+      _id: 9a814d559933d0d5
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan. Make 2 attacks against up to 2 creatures. Each hit also deals half the result as
+          Chakra damage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 8 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "2"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Judgement Beams
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    f1d7971be549321b:
+      _id: f1d7971be549321b
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: Requires an active Tenseigan. Make 3 attacks and resolve a line behind each hit target.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 10 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "3"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Judgement Beams — Magnified
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    6d8d9bf7dc92c389:
+      _id: 6d8d9bf7dc92c389
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: Requires an active Tenseigan. Place this 5-foot-wide line directly behind one creature hit by a beam.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Resolve after the linked primary cast; do not spend the Art's cost again.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 30
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "30"
+          width: "5"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve Line Behind Hit Target
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    88e8b58287d47954:
+      _id: 88e8b58287d47954
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Make 2 attacks against up to
+          2 creatures. Each hit also deals half the result as Chakra damage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 5 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "2"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Judgement Beams (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "4"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    f2a8a36669737af0:
+      _id: f2a8a36669737af0
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Make 4 attacks because the
+          magnification benefit is doubled; resolve each line.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "7"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 7 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "4"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Judgement Beams — Magnified (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "4"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    3cc8c9f3025503cf:
+      _id: 3cc8c9f3025503cf
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Place this 5-foot-wide line
+          directly behind one creature hit by a beam.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Resolve after the linked primary cast; do not spend the Art's cost again.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 30
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "30"
+          width: "5"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve Line Behind Hit Target (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: custom
+          formula: 14 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    ae1338559efc8c48:
+      _id: ae1338559efc8c48
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Make 2 attacks against up to 2
+          creatures. Each hit also deals half the result as Chakra damage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 4 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "2"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Judgement Beams (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "6"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    74d71370244baa34:
+      _id: 74d71370244baa34
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Make 4 attacks because the
+          magnification benefit is doubled; resolve each line.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 6 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "4"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Judgement Beams — Magnified (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "6"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    eac2caa3e669907e:
+      _id: eac2caa3e669907e
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Place this 5-foot-wide line
+          directly behind one creature hit by a beam.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Resolve after the linked primary cast; do not spend the Art's cost again.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 30
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "30"
+          width: "5"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve Line Behind Hit Target (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: custom
+          formula: 15 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: two-ranged-attacks-force-damage-line-save-cost-strain-and-mode-dc
+          mode: native
+        - clause: half-result-chakra-damage-per-hit-line-placement-and-beam-distribution
+          mode: midi-enhanced
+        - clause: magnification-and-mode-doubled-additional-beams
+          mode: prompt
+    classmodArt:
+      classmod: tenseigan
+      classification: Celestial Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!1eb97dce1b888279"

@@ -1,0 +1,257 @@
+folder: e8e1e7cd04d78ecc
+name: Exploding Rocket Punch
+type: feat
+_id: 04d450aacf0fc5f4
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+system:
+  description:
+    value: >-
+      <h2>Exploding Rocket Punch</h2><p>When using Warring Demon, pay its activation cost again. Whether Rocket Punch
+      hits or misses, every creature within 30 feet of the target makes a Dexterity save; failure deals 10d6 force
+      damage. The source specifies no damage on a successful save.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-exploding-rocket-punch
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    1ee4e290250f24c1:
+      _id: 1ee4e290250f24c1
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-divine-awakening
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (6 Divine Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    5e6f2152463f199c:
+      _id: 5e6f2152463f199c
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use only if Asura Path is your chosen specialized Path; all listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-specialized-divine-awakening
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (6 Specialized Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    14adcc03f0308e3b:
+      _id: 14adcc03f0308e3b
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Resolve the triggering Art, prerequisite, timing, target, and source-specific outcome described above.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Use Exploding Rocket Punch
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: 6-point-general-or-matching-specialized-purchase
+          mode: native
+        - clause: talent-timing-target-roll-damage-condition-and-duration
+          mode: prompt
+        - clause: cross-art-prerequisite-and-state-resolution
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!04d450aacf0fc5f4"

@@ -1,0 +1,185 @@
+folder: d860638b35530b74
+name: Sharingan Adaptation II
+type: feat
+_id: 31ed3d5eeee31672
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+system:
+  description:
+    value: >-
+      <p><strong>Prerequisite:</strong> @UUID[Compendium.n5eb.clan.Item.kty4he7NuqbfYwXo]{Sharingan Adaptation}. You may
+      use your Malefic Attack Bonus and Malefic Save DC when casting the Jutsu type chosen for Sharingan Adaptation.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 12
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-sharingan-adaptation-ii
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    6ebef491c3358284:
+      _id: 6ebef491c3358284
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. Prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-awakening
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (4 Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    99a300dbb75394b9:
+      _id: 99a300dbb75394b9
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Prerequisite: @UUID[Compendium.n5eb.clan.Item.kty4he7NuqbfYwXo]{Sharingan Adaptation}. You may use your
+          Malefic Attack Bonus and Malefic Save DC when casting the Jutsu type chosen for Sharingan Adaptation.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Upgrade
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: awakening-purchase-cost
+          mode: native
+        - clause: cross-item-uchiha-feature-upgrade
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!31ed3d5eeee31672"

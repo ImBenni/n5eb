@@ -1,0 +1,163 @@
+folder: 7bc2175b28f29a4d
+name: Almighty Push
+type: spell
+_id: de85dde15985caa1
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/almighty-push.webp
+system:
+  description:
+    value: >-
+      <h2>Almighty Push</h2><h3>Divine Art</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Divine
+      Art</dd><dt>Casting Time:</dt><dd>Action</dd><dt>Range:</dt><dd>Self (30-foot
+      sphere)</dd><dt>Duration:</dt><dd>Instantaneous</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>10 Chakra or
+      1 Chakra Die</dd><dt>Keywords:</dt><dd>Divine</dd></dl><h3>Description:</h3><p>As an Action, emit force in a
+      30-foot sphere centered on yourself. Creatures in range make a Strength save. On failure, push them 30 feet and
+      deal 22d4 force damage; on success, push them 5 feet and deal half damage. Almighty Push is unavailable until the
+      end of your next turn.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-almighty-push
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - divine
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Chakra or 1 Chakra Die
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:rinnegan-redux
+  activities:
+    908b4116372717e2:
+      _id: 908b4116372717e2
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: "Failed save: push 30 feet. Successful save: push 5 feet. Unavailable until the end of your next turn."
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: Self (30-foot sphere)
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: Creatures in a 30-foot sphere centered on you
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast Almighty Push
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/almighty-push.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: 12 + @classmods.rinnegan-redux.levels + @prof
+      damage:
+        parts:
+          - number: 22
+            denomination: 4
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: source-rule-and-explicit-numeric-resolution
+          mode: native
+        - clause: timing-target-choice-and-prerequisite-resolution
+          mode: prompt
+        - clause: cross-item-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: rinnegan-redux
+      classification: Divine Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!de85dde15985caa1"

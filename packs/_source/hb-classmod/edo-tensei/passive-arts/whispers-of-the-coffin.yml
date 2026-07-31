@@ -1,0 +1,195 @@
+folder: 9810d0a72d66ded8
+name: Whispers of the Coffin
+type: spell
+_id: 21626eb3255a13ff
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Whispers of the Coffin</h2><h3>Edo Tensei Art Type: Passive</h3><dl class="n5eb-classmod-summary"><dt>Casting
+      Time:</dt><dd>Special</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>HS,
+      CS, CM</dd><dt>Cost:</dt><dd>Special</dd><dt>Keywords:</dt><dd>Kinjutsu</dd></dl><h3>Description:</h3><p>Gain
+      proficiency in two skills of your choice, reselected after each long rest. Add 1d4 to Strength, Dexterity, and
+      Constitution saving throws. Once per short rest, ask bound souls one question as if casting augury; the GM answers
+      with a cryptic omen.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-whispers-of-the-coffin
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - hs
+      - cs
+      - cm
+    keywords:
+      - kinjutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: ""
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:edo-tensei
+  activities:
+    5941f684372cd2fc:
+      _id: 5941f684372cd2fc
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery:
+          - period: sr
+            type: recoverAll
+        max: "1"
+      sort: 0
+      name: Ask the Bound Souls
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects:
+  - name: Whispers of the Coffin
+    img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+    origin: Item.21626eb3255a13ff
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.str.bonuses.save
+        mode: 2
+        value: 1d4
+        priority: 20
+      - key: system.abilities.dex.bonuses.save
+        mode: 2
+        value: 1d4
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: 1d4
+        priority: 20
+    statuses: []
+    _id: 9e7eaee37d52a346
+    type: base
+    system: {}
+    description: ""
+    tint: "#4a394f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: edo-tensei
+          form: ""
+          sourceItemId: 21626eb3255a13ff
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!21626eb3255a13ff.9e7eaee37d52a346"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: source-rule-and-numeric-resolution
+          mode: native
+        - clause: target-choice-prerequisite-or-trigger
+          mode: prompt
+        - clause: cross-actor-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: edo-tensei
+      classification: Passive
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!21626eb3255a13ff"

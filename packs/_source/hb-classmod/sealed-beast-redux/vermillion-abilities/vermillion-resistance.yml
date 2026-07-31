@@ -1,0 +1,386 @@
+folder: 9e58e3b4cea2bfa2
+name: Vermillion Resistance
+type: feat
+_id: 3de6e252e8fc94bb
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Vermillion Resistance</h2><p>As a Bonus Action, spend 5 Twisted Chakra to remove up to three ranks of any
+      Elemental, Physical, or Mental Condition. Spend another 5 to remove another three ranks, up to three payments per
+      use. Separately, as a Bonus Action when unable to Mold Chakra, spend 10 Twisted Chakra to regain that ability
+      regardless of imposed conditions.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 11
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-vermillion-resistance
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    a631b9057eec337d:
+      _id: a631b9057eec337d
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-awakening
+            value: "9"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (9 Twisted Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    69824bce83e8ac63:
+      _id: 69824bce83e8ac63
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Choose Elemental, Physical, or Mental Condition ranks to remove.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Remove up to 3 Condition Ranks
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    7aec0058e9bcc838:
+      _id: 7aec0058e9bcc838
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Choose Elemental, Physical, or Mental Condition ranks to remove.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Remove up to 6 Condition Ranks
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    f4f53114d90503da:
+      _id: f4f53114d90503da
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Choose Elemental, Physical, or Mental Condition ranks to remove.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "15"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Remove up to 9 Condition Ranks
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    72d3c62b4576f349:
+      _id: 72d3c62b4576f349
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Remove the effect preventing Chakra molding.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Restore Chakra Molding
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: scoped-twisted-chakra-cost-options
+          mode: native
+        - clause: condition-rank-selection-and-chakra-molding-restoration
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!3de6e252e8fc94bb"

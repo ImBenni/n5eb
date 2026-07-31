@@ -2,7 +2,7 @@ folder: 9oB7JBEWRfhwU3zb
 name: Cursed Chakra [Lvl 1]
 type: feat
 _id: 4fgVUE7RtukNAA4m
-img: icons/magic/symbols/circled-gem-pink.webp
+img: systems/n5eb/assets/content/classmod-icons/cursed-seal/cursemark-second-state.webp
 system:
   description:
     value: >-
@@ -11,13 +11,14 @@ system:
       corrupted chakra of your patron. You begin with a pool of 20 Cursed Chakra that you gain access to while your
       cursed seal is active, as a result of the Cursed Seal Release class mod feature.</p><p>Spent Cursed Chakra
       recovers when you spend Chakra Die to regain normal chakra. You regain Cursed Chakra equal to twice the result of
-      normal chakra regained. You recover all Cursed Chakra on a Full-Rest.</p><p>When your Cursed seal Release is
-      active, you cannot spend Normal Chakra and must spend Cursed chakra in its place.</p>
+      normal chakra regained. You recover all Cursed Chakra on a Full-Rest. When your Cursed seal Release is active, you
+      cannot spend Normal Chakra and must spend Cursed chakra in its place.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: '40'
   activation:
     type: ''
     cost: null
@@ -38,11 +39,11 @@ system:
     long: null
     units: ''
   uses:
-    value: null
-    max: ''
-    per: null
-    recovery: ''
-    prompt: true
+    max: 20 * @classmods.cursed-seal.levels
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
   consume:
     type: ''
     target: null
@@ -186,6 +187,13 @@ flags:
         prerequisites:
           level: null
         properties: []
+    classmodCompendium:
+      classmod: cursed-seal
+      coverage:
+        - clause: cursed-chakra-pool-and-full-rest
+          mode: native
+        - clause: chakra-die-recovery-conversion
+          mode: prompt
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

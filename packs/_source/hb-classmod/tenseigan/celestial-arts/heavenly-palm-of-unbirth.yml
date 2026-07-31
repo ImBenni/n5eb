@@ -1,0 +1,653 @@
+folder: 10a1a7fb0f5d333c
+name: Heavenly Palm of Unbirth
+type: spell
+_id: e53eb8800d9a1663
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: >-
+      <h2>Heavenly Palm of Unbirth</h2><dl class="n5eb-classmod-summary"><dt>Origin:</dt><dd>Palm
+      Strike</dd><dt>Classification:</dt><dd>Celestial Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>5
+      feet</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M</dd><dt>Cost:</dt><dd>9 Celestial
+      Chakra</dd><dt>Celestial Strain:</dt><dd>+2</dd><dt>Keywords:</dt><dd>Hijutsu, Taijutsu,
+      Clash</dd></dl><h3>Description</h3><p>Collect Celestial Chakra over your hand and strike the spiritual center of a
+      target. Make a melee
+          Celestial Art attack that scores a critical hit on 18–20. On a hit, deal 7d10 force damage and reduce the target’s
+          Chakra by half the result.</p><p>On a critical hit, triple the damage dice and treat every roll of 2 or lower as 3.
+          A creature hit by this Art cannot regain Hit Points or Chakra Points until the end of your next turn.</p>
+          <h3>Art Magnification</h3><p>Increase the cost by 2 to deal 3d10 additional damage. Celestial Chakra Mode doubles
+          this benefit.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: heavenly-palm-of-unbirth
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: taijutsu
+    ability: ""
+    components:
+      - m
+    keywords:
+      - hijutsu
+      - taijutsu
+      - clash
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 9 Celestial Chakra; +2 Celestial Strain
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:tenseigan
+  activities:
+    550390325a522b7e:
+      _id: 550390325a522b7e
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan. Apply half the force result as Chakra damage. On a critical, treat d10 results
+          of 1–2 as 3.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "9"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 9 Celestial Chakra and incur 2 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Palm of Unbirth
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: 18
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: 7d10
+        includeBase: false
+        parts:
+          - number: 7
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    61d418d4b3949844:
+      _id: 61d418d4b3949844
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan. Apply half the force result as Chakra damage. On a critical, treat d10 results
+          of 1–2 as 3.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "11"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 11 Celestial Chakra and incur 2 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Palm of Unbirth — Magnified
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: 18
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: 10d10
+        includeBase: false
+        parts:
+          - number: 10
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    b9c1abcc91636a79:
+      _id: b9c1abcc91636a79
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Apply half the force result
+          as Chakra damage. On a critical, treat d10 results of 1–2 as 3.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 6 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Palm of Unbirth (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "4"
+        critical:
+          threshold: 18
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: 7d10
+        includeBase: false
+        parts:
+          - number: 7
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    d0eb9a081888c98b:
+      _id: d0eb9a081888c98b
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Apply half the force result
+          as Chakra damage. On a critical, treat d10 results of 1–2 as 3.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 8 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Palm of Unbirth — Magnified (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "4"
+        critical:
+          threshold: 18
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: 13d10
+        includeBase: false
+        parts:
+          - number: 13
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    a0876cd4a44105d5:
+      _id: a0876cd4a44105d5
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Apply half the force result as
+          Chakra damage. On a critical, treat d10 results of 1–2 as 3.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 5 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Palm of Unbirth (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "6"
+        critical:
+          threshold: 18
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: 7d10
+        includeBase: false
+        parts:
+          - number: 7
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    988b7eec3ffb6fa3:
+      _id: 988b7eec3ffb6fa3
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Apply half the force result as
+          Chakra damage. On a critical, treat d10 results of 1–2 as 3.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "7"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 7 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Palm of Unbirth — Magnified (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "6"
+        critical:
+          threshold: 18
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: 13d10
+        includeBase: false
+        parts:
+          - number: 13
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: melee-attack-eighteen-to-twenty-critical-triple-dice-cost-strain-and-magnified-damage
+          mode: native
+        - clause: half-result-chakra-damage-and-critical-minimum-die-result
+          mode: prompt
+        - clause: healing-and-chakra-recovery-lock-until-end-next-turn
+          mode: midi-enhanced
+    classmodArt:
+      classmod: tenseigan
+      classification: Celestial Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e53eb8800d9a1663"

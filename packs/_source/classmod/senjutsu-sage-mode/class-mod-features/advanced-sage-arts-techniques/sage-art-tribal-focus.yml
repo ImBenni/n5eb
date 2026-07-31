@@ -2,22 +2,24 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Tribal Focus'
 type: spell
 _id: DNehfw5PGg94vpSj
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
-      <p>Reduced Cost: 4 Sage Chakra</p><p> You use Sage Chakra to manifest an aura of focus enhancing both yourself and
-      your allies. All creatures of your choice in range, when this Art is cast gains a +3 bonus to all D20 based rolls
-      that they would make. A creature can gain the benefit of this bonus no more than five times per short rest, before
-      the stress of this enhancement weighs on them. A creature under the effects of this Art who would attempt to gain
-      this bonus an additional time beyond the fifth, prior to a short rest, gains 1 rank of Exhaustion.</p><p>Sage
-      Affinity Synergy: If you have the Herbavorian Senjutsu class mod feature, when you cast this Senjutsu, you may
-      utilize the techniques that your tribe has entrusted you with. If you do, the bonus instead becomes +5.</p>
+      <p><strong>Reduced Cost:</strong> 4 Sage Chakra You use Sage Chakra to manifest an aura of focus enhancing both
+      yourself and your allies. All creatures of your choice in range, when this Art is cast gains a +3 bonus to all D20
+      based rolls that they would make. A creature can gain the benefit of this bonus no more than five times per short
+      rest, before the stress of this enhancement weighs on them.</p><p>A creature under the effects of this Art who
+      would attempt to gain this bonus an additional time beyond the fifth, prior to a short rest, gains 1 rank of
+      Exhaustion. Sage Affinity Synergy: If you have the Herbavorian Senjutsu class mod feature, when you cast this
+      Senjutsu, you may utilize the techniques that your tribe has entrusted you with. If you do, the bonus instead
+      becomes +5.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -102,7 +104,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -112,6 +114,65 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    c3e85762030dd676:
+      _id: c3e85762030dd676
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Tribal Focus'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
 effects: []
 sort: 0
 ownership:
@@ -224,6 +285,13 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: prompt
   midi-qol:
     AoETargetType: any
     AoETargetTypeIncludeSelf: true

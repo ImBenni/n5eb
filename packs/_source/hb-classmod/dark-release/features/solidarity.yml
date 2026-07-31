@@ -1,0 +1,187 @@
+folder: d8b9c237b68542ef
+name: Solidarity
+type: feat
+_id: 55084688b099c561
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <p>At 5th level while your Dark Chakra Cloak is active, as an action force every creature within 120 feet to make
+      a Constitution saving throw. On a failed save, a creature loses Chakra equal to twice your Dark Release
+      level.</p><p>If at least one creature fails, regain Dark Chakra equal to twice your Dark Release level, increase
+      your Dark Art Save DC by 2, and gain temporary Hit Points equal to twice your Dark Release level for the duration.
+      You can use this feature once per Long Rest.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 12
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: dark-solidarity
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    34cd7357a5037883:
+      _id: 34cd7357a5037883
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Dark Chakra Cloak. Apply the self-benefits only if at least one target fails.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "120"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Solidarity
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+    124ea20efd12d1ea:
+      _id: 124ea20efd12d1ea
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Roll after the saves; award self-benefits only if at least one target failed.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Solidarity Amount
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 2 * @classmods.dark-release.levels
+        name: Chakra Loss / Dark Chakra Gain / Temporary HP
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: long-rest-use-save-and-scaling-roll
+          mode: native
+        - clause: per-target-chakra-loss-and-at-least-one-failure-gate
+          mode: midi-enhanced
+        - clause: temporary-class-mod-save-dc-increase
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!55084688b099c561"

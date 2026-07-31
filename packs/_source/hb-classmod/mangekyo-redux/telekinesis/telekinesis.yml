@@ -1,0 +1,437 @@
+folder: e48b9dc9fde18097
+name: Telekinesis
+type: spell
+_id: 75ba9c5dc750f780
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/telekinesis.webp
+system:
+  description:
+    value: >-
+      <h3>Malefic Ninshou</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Malefic Art</dd><dt>Casting
+      Time:</dt><dd>1 Bonus Action</dd><dt>Range:</dt><dd>5 feet</dd><dt>Duration:</dt><dd>1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>9 Chakra and 3 Burn; Mastered: 7 Chakra and 2
+      Burn</dd><dt>Keywords:</dt><dd>Ninshou, Weapon, Malefic</dd></dl><h3>Description:</h3><p>Bond any number of
+      unattended weapons within 5 feet. As an action for 1 minute, make a Malefic Assault with the cluster: it deals 1d6
+      plus 1d6 per bonded weapon, to a maximum of 10d6, using the majority damage type among Bludgeoning, Piercing, and
+      Slashing. It is a Heavy, Reach 5 weapon attack made with your Malefic attack bonus and is not a Jutsu
+      component.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-telekinesis
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninshou
+      - weapon
+      - malefic
+    countsKnown: false
+  chakra:
+    cost: "9"
+    scaling:
+      mode: none
+      value: 0
+    special: "9 Chakra and 3 Burn; Mastered: 7 Chakra and 2 Burn"
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:mangekyo-redux
+  activities:
+    d3e86fabadc5f9ca:
+      _id: d3e86fabadc5f9ca
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. Prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-awakening
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (20 Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/telekinesis.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    3360f9c7c1159e4a:
+      _id: 3360f9c7c1159e4a
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires Mastered Telekinesis. Spend its restricted Awakening instead of general Awakening.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-mastered-telekinesis-awakening
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase with Mastered Telekinesis (20)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/telekinesis.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    651d8786e591c439:
+      _id: 651d8786e591c439
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Bond any number of unattended weapons within 5 feet.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: object
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/telekinesis.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    557f6ae8115a9fe8:
+      _id: 557f6ae8115a9fe8
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires Mastered Telekinesis. Pay 2 less Chakra and 1 less Burn.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: object
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast (Mastered)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/telekinesis.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    74c3e8094f77f52d:
+      _id: 74c3e8094f77f52d
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: Set the bonded-weapons scale or roll the correct 1d6–10d6 formula; choose the cluster's majority damage type.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Malefic Assault
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/telekinesis.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 10
+            denomination: 6
+            bonus: ""
+            types:
+              - slashing
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: rules-text-and-explicit-numeric-resolution
+          mode: native
+        - clause: cross-item-prerequisites-and-tactical-decisions
+          mode: prompt
+        - clause: source-ambiguous-or-narrative-adjudication
+          mode: manual
+    classmodArt:
+      classmod: mangekyo-redux
+      classification: Malefic Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!75ba9c5dc750f780"

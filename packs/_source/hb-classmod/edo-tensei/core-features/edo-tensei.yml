@@ -1,0 +1,115 @@
+folder: 71fb6fb35e87ae98
+name: Edo Tensei
+type: feat
+_id: 24c8b092b1e72fc6
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Edo Tensei</h2><p>At 1st level, bind the souls of the dead into corpses. Your maximum active Edo Tensei is 1
+      at level 1, 2 at level 2, 3 at level 3, 4 at level 4, and 5 at level 5. Your maximum summon rank is D at level 1,
+      C at level 2, B at level 3, A at level 4, and S at level 5. Edo Tensei have disadvantage on saves against
+      Fuinjutsu of equal or higher rank.</p><p>If reduced to 0 hit points by Fuinjutsu, the summon is sealed and
+      requires full-rest reconstruction costing 10 Ryo per maximum hit point.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-edo-tensei
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    629a9b99f6cda2cc:
+      _id: 629a9b99f6cda2cc
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Review Summon Capacity
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "@classmods.edo-tensei.levels"
+        name: Maximum Active Edo Tensei
+        prompt: false
+        visible: true
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: level-scaled-active-limit-and-rank-ceiling
+          mode: native
+        - clause: fuinjutsu-disadvantage-sealing-and-reconstruction
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!24c8b092b1e72fc6"

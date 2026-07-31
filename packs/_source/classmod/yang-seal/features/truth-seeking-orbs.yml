@@ -1,0 +1,73 @@
+folder: 08a23f16cde087b8
+name: Truth-Seeking Orbs
+type: feat
+_id: b55b299b566454a0
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/truthseeker-orbs-cycle.webp
+system:
+  description:
+    value: >-
+      <p>Also at 1st level, you gain access to a highly malleable spheres of Nature Chakra, known as Truth-Seeking Orbs.
+      When you activate your Yang Seal, you gain a number of Orbs equal to your Class Mod level +1. Spend Orbs return to
+      you and can be used again at the start of each of your turns. You can use the Orbs to do the following
+      Truth-Seeking Action:</p><ul><li><strong>Yang Assault:</strong> As an action, you can turn your orbs into a series
+      of black spikes that are launched towards a target. Make one ranged Yang attack for each spend orb against a
+      creature within 60ft of you. These attacks can be directed against the same creature or different creatures. On a
+      hit, a target takes 3d10 force damage.</li><li><strong>Yang Weapon:</strong> As a Bonus action, you can combine
+      the Orbs into a Yang Weapon. This weapon has the statistics of one simple, martial or exotic melee weapon of your
+      choice, it has a bonus to weapon attack and damage rolls equal to half the amount of Orbs spend to create it
+      (rounded up), and gains 1 rank of reach for each Orb spend a fter the first. You are always proficient with this
+      weapon. The weapon last until your Yang Seal activation ends or until you dismiss the weapon as a bonus action.
+      Orbs spend on the weapon are not recovered until you dismiss the weapon.</li><li><strong>Yang Barrier:</strong> As
+      a Reaction, you can turn the Orbs into a Black Wall of Chakra. You gain damage reduction equal to 10 times the
+      amount of Orbs spend against all damage. Allied creatures within 10ft of you also benefit from this damage
+      reduction for the duration, or unti l they get further away from you. If this would reduce the damage to 0, you
+      also take no other effects. This damage reduction cannot be ignored or pierced beyond half.</li><li><strong>Yang
+      Casting:</strong> When you would cast a Ninjutsu, Taijutsu or Bukijutsu, you can spend any number of orbs to
+      increases the Jutsu's damage dice by +1, once per casting, and reduce the Jutsu's Yang Chakra cost by an amount
+      equal to the amount of Orbs Spend (minimum 1). If the jutsu is a combination jutsu, you can spend a orb to let a
+      creature within 30 feet of you take part in the casting, without making a skill check, regardless of what nature
+      release it has.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '107'
+    license: ''
+    rules: n5eb
+  uses:
+    max: '@classmods.yang-seal.levels + 1'
+    recovery:
+      - period: turnStart
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: yang-truth-seeking-orbs
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: resource-tracking
+          mode: native
+        - clause: special-recovery-or-growth
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!b55b299b566454a0'

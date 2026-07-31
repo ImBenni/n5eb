@@ -1,0 +1,168 @@
+folder: 8fdd8f370e7d6672
+name: Full Moon Phase
+type: feat
+_id: b7fb15bef8b632f4
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <p>You concentrate completely on the offense, overwhelming your enemies with Bukijutsu. • Increase the dice of
+      damage, healing, temporary hit points, and damage reduction of Bukijutsu you cast by your class mod level, twice
+      per turn. • Bukijutsu you cast deal double damage to temporary hit points and pierce half of the target's damage
+      reduction. • Increase the critical threat range of bukijutsu you cast by your Yin Seal class mod level, to a
+      maximum of 15-20.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '120'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: full-moon-phase
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    bc14c4fe8097e800:
+      _id: bc14c4fe8097e800
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Remove the other mutually exclusive option.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: 1a846bd5f827d02d
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - 1a846bd5f827d02d
+effects:
+  - name: Full Moon Phase Benefits
+    img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+    origin: Item.b7fb15bef8b632f4
+    transfer: false
+    disabled: false
+    duration:
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startTime: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 1a846bd5f827d02d
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!b7fb15bef8b632f4.1a846bd5f827d02d'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!b7fb15bef8b632f4'

@@ -1,6 +1,6 @@
 name: Senjutsu Infusion [Lvl 3]
 type: feat
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -12,9 +12,10 @@ system:
       increased by +2, once per casting.</p><p>• Ranks of a condition applied, increased by +1.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: ''
     cost: null
@@ -181,6 +182,13 @@ flags:
         prerequisites:
           level: null
         properties: []
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

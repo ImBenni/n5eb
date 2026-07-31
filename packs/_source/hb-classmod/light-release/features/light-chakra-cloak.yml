@@ -1,0 +1,242 @@
+folder: 81b11a79503ed8c5
+name: Light Chakra Cloak
+type: feat
+_id: 500bb90a3d94b729
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+system:
+  description:
+    value: >-
+      <p>At 3rd level, while your Light Seal is active, you can use a bonus action and spend 20 Light Chakra to form a
+      cloak for the rest of the activation. Guiding Light: chosen creatures within 60 feet reduce Jutsu costs by 3, to a
+      minimum of 1, and their Jutsu deal +1 damage die.</p><p><strong>Materialized Hope:</strong> as a reaction when a
+      creature you can see within 90 feet falls to 0 Hit Points, spend 10 Light Chakra to leave it at 1 Hit Point and
+      grant it 25 temporary Hit Points until the start of its next turn. Each creature can benefit once per Short
+      Rest.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: light-chakra-cloak
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    e780898bd2d6e9f3:
+      _id: e780898bd2d6e9f3
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires an active Light Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:light-chakra
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: Remainder of the Light Seal activation
+        override: false
+      effects:
+        - _id: 42e6a6804b1e9585
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Light Chakra Cloak
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 42e6a6804b1e9585
+    bca1dfe7d7bba45a:
+      _id: bca1dfe7d7bba45a
+      type: heal
+      activation:
+        type: reaction
+        value: 1
+        condition: Use when a visible creature falls to 0 Hit Points; each creature can benefit once per Short Rest.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:light-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 90
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Materialized Hope
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - temphp
+        custom:
+          enabled: true
+          formula: "25"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+effects:
+  - name: Light Chakra Cloak
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+    origin: Item.500bb90a3d94b729
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 42e6a6804b1e9585
+    type: base
+    system: {}
+    description: ""
+    tint: "#fff6b0"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: light-release
+          form: light-chakra-cloak
+          sourceItemId: 500bb90a3d94b729
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!500bb90a3d94b729.42e6a6804b1e9585"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: light-release
+      coverage:
+        - clause: cloak-cost-state-reaction-cost-and-temporary-hit-point-roll
+          mode: native
+        - clause: guiding-light-aura-and-per-creature-short-rest-limit
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!500bb90a3d94b729"

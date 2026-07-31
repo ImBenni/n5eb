@@ -1,0 +1,311 @@
+folder: 03825f75ca2db9a8
+name: Frenzy
+type: feat
+_id: 206e147e25c0e89e
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Frenzy</h2><p>When you Frenzy, immediately increase current Hit Points by 25; overflow becomes temporary Hit
+      Points, and activate Dormant Beast if needed. Chakra lost to gain Twisted Chakra is doubled. If Desperate Rage
+      triggered the Frenzy, you must take every possible hostile action against its triggering creature; otherwise, you
+      are hostile to every creature.</p><p>If Chakra reaches 0 in Frenzy, the beast consumes you, you die, and it is
+      unleashed. Every Twisted Chakra spent during Frenzy also requires the same amount of normal Chakra. At each turn's
+      end, make a Charisma check against the Desperate Rage DC. On success halve Twisted Chakra; Frenzy ends if it falls
+      below normal Chakra. Frenzied Assault:</p><ul><li>Strength and Dexterity below 18 become 18.</li><li>Gain
+      Multiattack (2), making three unarmed attacks instead of the normal attack action.</li><li>Unarmed damage gains
+      1d8, increasing by 1d8 at class-mod levels 3 and 5.</li><li>Gain one additional action that must cast a Vermillion
+      Art at a hostile creature.</li><li>Movement speed doubles.</li><li>Unarmed critical threat increases by 1, by 2 at
+      level 3; at level 4, critical hits deal maximum damage. When Frenzy ends, take irreducible Necrotic damage equal
+      to Twisted Chakra removed by the successful check, halved from level 3, and gain 1 + class-mod level ranks of
+      Weakened for 1d6 rounds.</li></ul>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-frenzy
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    022c4bc4b73ada04:
+      _id: 022c4bc4b73ada04
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: Until a successful end check lowers Twisted Chakra below normal Chakra
+        override: false
+      effects:
+        - _id: ca2753da0b34a463
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Enter Frenzy
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - ca2753da0b34a463
+    7504767b6f686ed5:
+      _id: 7504767b6f686ed5
+      type: heal
+      activation:
+        type: special
+        value: null
+        condition: Heal current Hit Points first; convert only overflow into temporary Hit Points.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Frenzy Hit Point Surge
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: "25"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+    49ab6c912f990ddc:
+      _id: 49ab6c912f990ddc
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: At the end of your turn. On success, halve Twisted Chakra and resolve the end consequences.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Attempt to End Frenzy
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.cha.mod
+        name: Frenzy End Check vs Desperate Rage DC
+        prompt: false
+        visible: true
+  advancement: {}
+effects:
+  - name: Frenzy Active
+    img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+    origin: Item.206e147e25c0e89e
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.str.value
+        mode: 5
+        value: "18"
+        priority: 20
+      - key: system.abilities.dex.value
+        mode: 5
+        value: "18"
+        priority: 20
+      - key: system.attributes.movement.walk
+        mode: 1
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: ca2753da0b34a463
+    type: base
+    system: {}
+    description: ""
+    tint: "#a54a1b"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: sealed-beast-redux
+          form: frenzy
+          sourceItemId: 206e147e25c0e89e
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!206e147e25c0e89e.ca2753da0b34a463"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: frenzy-state-minimum-abilities-and-doubled-movement
+          mode: native
+        - clause: hostility-extra-action-multiattack-and-resource-mirroring
+          mode: prompt
+        - clause: death-release-critical-rules-and-end-consequences
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!206e147e25c0e89e"

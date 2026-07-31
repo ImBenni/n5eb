@@ -1,0 +1,274 @@
+folder: 55be1e571eb68368
+name: Hijutsu Breaker
+type: spell
+_id: 5cbd8c0d3489c8b9
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+system:
+  description:
+    value: >-
+      <h2>Hijutsu Breaker</h2><p><strong>DNA Point Cost:</strong> 5<br><strong>Genetic Degradation:</strong>
+      1<br><strong>Casting Time:</strong> 1 Reaction, when targeted or forced to save by a
+      Hijutsu<br><strong>Range:</strong> Self<br><strong>Duration:</strong> Instant</p><p>Make an Intelligence or
+      Constitution ability check against DC 13 + the Jutsu's rank. On success, negate the Hijutsu's effects and absorb
+      its chakra into a prepared container. The container counts as DNA for creating a Jutsu Splice.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-hijutsu-breaker
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components: []
+    keywords:
+      - genetic-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 5 DNA Points allocated; 1 Genetic Degradation when used
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:master-geneticist
+  activities:
+    6435f4edb06aab7d:
+      _id: 6435f4edb06aab7d
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this Genetic Art is learned. Do not spend this purchase cost when casting it.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Allocate DNA Cost (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    b5c1f4745f384a55:
+      _id: b5c1f4745f384a55
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: DC 13 + triggering Hijutsu rank.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Break with Intelligence
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.int.mod
+        name: Intelligence Check
+        prompt: false
+        visible: true
+    55e7aab1ebdb67d1:
+      _id: 55e7aab1ebdb67d1
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: DC 13 + triggering Hijutsu rank.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Break with Constitution
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.con.mod
+        name: Constitution Check
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: one-time-dna-allocation-and-per-use-degradation
+          mode: native
+        - clause: trigger-and-cross-jutsu-resolution
+          mode: midi-enhanced
+        - clause: choices-and-irreversible-results
+          mode: prompt
+    classmodArt:
+      classmod: master-geneticist
+      classification: Genetic Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!5cbd8c0d3489c8b9"

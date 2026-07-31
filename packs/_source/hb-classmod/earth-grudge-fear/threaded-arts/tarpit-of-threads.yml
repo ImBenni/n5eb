@@ -1,0 +1,327 @@
+folder: 453486bacac9d208
+name: Tarpit of Threads
+type: spell
+_id: 722eb1559c9feb22
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Technique</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Kinjutsu</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>Self (30-foot-radius sphere)</dd><dt>Duration:</dt><dd>Up to 1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>7 Decay</dd><dt>Keywords:</dt><dd>Threaded
+      Art</dd></dl><h3>Description:</h3><p>Create chosen-creature difficult terrain in a 30-foot-radius sphere;
+      creatures in it may be targeted as if within 5 feet. End it early as a bonus action to force a creature in the
+      terrain to make a Strength save, becoming restrained on a failure. It may use an action to make Athletics against
+      your DC at disadvantage.</p><p>If Thread Monsters are summoned, each dissolves into its own identical sphere,
+      ceases to be a creature and cannot incur Decay, and may cage a different creature; monsters reform when the Art
+      ends.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-tarpit-of-threads
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - threaded-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 7 Decay
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    e64e7351a8451f0d:
+      _id: e64e7351a8451f0d
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires Earth Grudge Fear to be active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "7"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Tarpit
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    64cde6f9a4932087:
+      _id: 64cde6f9a4932087
+      type: save
+      activation:
+        type: bonus
+        value: 1
+        condition: Target must stand in one of this Art's difficult-terrain spheres.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: 57f40708aab65448
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: 30
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "End Early: Thread Cage"
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+      appliedEffects:
+        - 57f40708aab65448
+    ebc037fc43417592:
+      _id: ebc037fc43417592
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered Earth Grudge Fear and an active Earth Grudge Fear.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Mastered Create Tarpit
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects:
+  - name: Thread Cage
+    img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+    origin: Item.722eb1559c9feb22
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses:
+      - restrained
+    _id: 57f40708aab65448
+    type: base
+    system: {}
+    description: ""
+    tint: "#4b1f29"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: earth-grudge-fear
+          form: ""
+          sourceItemId: 722eb1559c9feb22
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!722eb1559c9feb22.57f40708aab65448"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: decay-cost-primary-roll-and-template
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: ambiguous-or-permanent-clauses
+          mode: prompt
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!722eb1559c9feb22"

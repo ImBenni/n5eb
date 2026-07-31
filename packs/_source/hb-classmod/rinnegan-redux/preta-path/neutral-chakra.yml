@@ -1,0 +1,257 @@
+folder: acf0311ea381da42
+name: Neutral Chakra
+type: feat
+_id: e2be3f5782941d36
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Neutral Chakra</h2><p>Choose Chakra Barrier or Chakra Consumption. On a failed Constitution save after gaining
+      cursed or sage Chakra from the chosen Art, take damage equal to half the Chakra absorbed instead of becoming
+      Petrified. You may buy this Talent twice, choosing the other Art the second time.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: "2"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-neutral-chakra
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    fe4264b93dec92d0:
+      _id: fe4264b93dec92d0
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-divine-awakening
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (6 Divine Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    20d84c14f9e56485:
+      _id: 20d84c14f9e56485
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use only if Preta Path is your chosen specialized Path; all listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-specialized-divine-awakening
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (6 Specialized Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    91640cd25e747cea:
+      _id: 91640cd25e747cea
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Resolve the triggering Art, prerequisite, timing, target, and source-specific outcome described above.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Use Neutral Chakra
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: 6-point-general-or-matching-specialized-purchase
+          mode: native
+        - clause: talent-timing-target-roll-damage-condition-and-duration
+          mode: prompt
+        - clause: cross-art-prerequisite-and-state-resolution
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e2be3f5782941d36"

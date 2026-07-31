@@ -187,8 +187,8 @@ export default class AttributesFields {
   static prepareBaseArmorClass() {
     const ac = this.attributes.ac;
     ac.armor = 10;
-    ac.shield = ac.cover = 0;
-    ac.min = ac.bonus = "";
+    ac.shield = ac.cover = ac.blocking = 0;
+    ac.min = ac.bonus = ac.override = "";
     delete ac.n5eb;
     delete ac.equippedArmor;
     delete ac.equippedShield;
@@ -231,6 +231,7 @@ export default class AttributesFields {
       else obj.armors.push(equip);
       return obj;
     }, { armors: [], shields: [] });
+    ac.blocking = Seals.getBlockingBonus(this.parent);
 
     // Set stealth disadvantage
     if ( Seals.hasArmorProperty(armors[0], "bulky") ) {
@@ -244,7 +245,9 @@ export default class AttributesFields {
 
       // Flat AC (no additional bonuses)
       case "flat":
-        ac.value = Math.max(0, Number(ac.flat) - (this.parent.getExhaustionPenalty?.() ?? 0));
+        ac.value = ac.override ? Math.max(0, simplifyBonus(ac.override, rollData)) : Math.max(0, Number(ac.flat)
+          - (this.parent.getExhaustionPenalty?.() ?? 0)
+          - (this.parent.getConditionACPenalty?.() ?? 0));
         return;
 
       // Natural AC (includes bonuses)
@@ -283,7 +286,6 @@ export default class AttributesFields {
               }),
               type: "warning"
             });
-            break;
           } else {
             const armorData = armor.system.armor;
             const isHeavy = armor.system.type.value === "heavy";
@@ -295,7 +297,7 @@ export default class AttributesFields {
 
         if ( !ac.equippedArmor ) ac.label = null;
 
-        if ( !ac.n5eb ) {
+        if ( !ac.n5eb || (ac.calc === "custom") ) {
           rollData.attributes.ac = ac;
           try {
             const replaced = replaceFormulaData(formula, rollData, {
@@ -330,8 +332,10 @@ export default class AttributesFields {
     ac.bonus = simplifyBonus(ac.bonus, rollData);
     const exhaustionPenalty = this.parent.getExhaustionPenalty?.() ?? 0;
     const conditionPenalty = this.parent.getConditionACPenalty?.() ?? 0;
-    ac.value = Math.max(0, Math.max(ac.min, ac.base + ac.shield + ac.bonus + ac.cover)
-      - exhaustionPenalty - conditionPenalty);
+    ac.override = simplifyBonus(ac.override, rollData);
+    ac.value = ac.override ? Math.max(0, ac.override)
+      : Math.max(0, Math.max(ac.min, ac.base + ac.shield + ac.bonus + ac.cover + ac.blocking)
+        - exhaustionPenalty - conditionPenalty);
   }
 
   /* -------------------------------------------- */
@@ -487,10 +491,8 @@ export default class AttributesFields {
     // Initiative proficiency
     const isLegacy = dnd5e.settings.rulesVersion === "legacy";
     const prof = this.attributes.prof ?? 0;
-    const joat = flags.jackOfAllTrades && isLegacy;
-    const ra = this.parent._isRemarkableAthlete(abilityId);
-    const alert = flags.initiativeAlert && !isLegacy;
-    init.prof = new Proficiency(prof, alert ? 1 : (joat || ra) ? 0.5 : 0, !ra);
+    const alert = flags.initiativeAlert;
+    init.prof = new Proficiency(prof, alert ? 1 : 0.5, true);
 
     // Adjust rolling mode
     if ( (flags.remarkableAthlete && !isLegacy) || this.parent.hasConditionEffect("initiativeAdvantage") ) {
@@ -505,7 +507,6 @@ export default class AttributesFields {
     const abilityBonus = simplifyBonus(ability.bonuses?.check, rollData);
     const quality = this.attributes.quality?.value ?? 0;
     init.total = init.mod + initBonus + abilityBonus + globalCheckBonus + quality
-      + (flags.initiativeAlert && isLegacy ? 5 : 0)
       + (Number.isNumeric(init.prof.term) ? init.prof.flat : 0);
     init.score = CONFIG.DND5E.skillPassive.base + init.total + (init.roll.mode * CONFIG.DND5E.skillPassive.modifier);
   }
@@ -659,8 +660,7 @@ export default class AttributesFields {
 
     const known = attributes.jutsu.known ??= {};
     known.value = this.parent.itemTypes.spell.reduce((total, item) => {
-      if ( item.getFlag("n5eb", "cachedFor") ) return total;
-      return item.system.jutsu?.countsKnown === false ? total : total + 1;
+      return countsAgainstJutsuKnown(item) ? total + 1 : total;
     }, 0);
 
     const rankOrder = CONFIG.DND5E.jutsuRankOrder;
@@ -682,7 +682,7 @@ export default class AttributesFields {
     });
     if ( max >= 0 ) {
       const overRank = this.parent.itemTypes.spell.find(item => {
-        if ( item.system.jutsu?.countsKnown === false ) return false;
+        if ( !countsAgainstJutsuKnown(item) ) return false;
         return rankOrder.indexOf(item.system.effectiveRank) > max;
       });
       if ( overRank ) this.parent._preparationWarnings.push({
@@ -759,6 +759,24 @@ export default class AttributesFields {
      */
     Hooks.callAll(`dnd5e.${changes.total > 0 ? "heal" : "damage"}Actor`, this.parent, changes, changed, userId);
   }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Determine whether a jutsu consumes one of the actor's class-based Jutsu Known choices.
+ * Jutsu granted by a class, subclass, clan, or feat do not count by rule.
+ * @param {Item5e} item  Jutsu item.
+ * @returns {boolean} Whether the jutsu counts against the limit.
+ */
+function countsAgainstJutsuKnown(item) {
+  if ( item.getFlag("n5eb", "cachedFor") ) return false;
+  if ( item.system.jutsu?.countsKnown === false ) return false;
+  const advancementOrigin = item.getFlag("n5eb", "advancementOrigin");
+  if ( !advancementOrigin ) return true;
+  const [sourceId] = advancementOrigin.split(".");
+  const sourceType = item.parent?.items?.get(sourceId)?.type;
+  return sourceType ? !["class", "subclass", "race", "feat"].includes(sourceType) : false;
 }
 
 /* -------------------------------------------- */

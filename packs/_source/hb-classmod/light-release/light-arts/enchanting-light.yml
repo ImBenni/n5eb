@@ -1,0 +1,240 @@
+folder: fc47bb38af3b70c1
+name: Enchanting Light
+type: spell
+_id: 30de6bd45d5e9f33
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+system:
+  description:
+    value: >-
+      <h3>Light Art Type: Light Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Light
+      Art</dd><dt>Casting Time:</dt><dd>1 Bonus Action</dd><dt>Range:</dt><dd>30
+      feet</dd><dt>Duration:</dt><dd>Concentration, up to 1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>10 Light Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu,
+      Light Release, Enhancement, Concentration</dd></dl><h3>Description:</h3><p>Choose one creature other than yourself
+      within range. For the duration, it gains +2 AC, +2 to attack rolls, +1 damage die, advantage on saving throws
+      against Ninjutsu and Genjutsu, immunity to Blindness, +1 to its Ninjutsu and Genjutsu save DCs, and a 2-point
+      reduction to its Jutsu costs, to a minimum cost of 1. It sheds bright light for 20 feet and dim light for 20 feet
+      beyond that.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: enchanting-light
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - light-release
+      - enhancement
+      - concentration
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Light Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:light-release
+  activities:
+    389e671ae75678e9:
+      _id: 389e671ae75678e9
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires an active Light Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:light-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 7ec2f6cb12924c5c
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: 30
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 7ec2f6cb12924c5c
+effects:
+  - name: Enchanting Light
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+    origin: Item.30de6bd45d5e9f33
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.mwak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.rwak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.mnak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.rnak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.mgak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.rgak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.mtak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.rtak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.traits.ci.value
+        mode: 2
+        value: blinded
+        priority: 20
+    statuses: []
+    _id: 7ec2f6cb12924c5c
+    type: base
+    system: {}
+    description: ""
+    tint: "#fff6b0"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: light-release
+          form: ""
+          sourceItemId: 30de6bd45d5e9f33
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!30de6bd45d5e9f33.7ec2f6cb12924c5c"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: light-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: light-release
+      classification: Light Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!30de6bd45d5e9f33"

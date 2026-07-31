@@ -1,0 +1,152 @@
+folder: 64fa38d1b95e9c96
+name: 'Yang Release: Regeneration'
+type: spell
+_id: b2b4acf3befbcba9
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/mitotic-regeneration.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Yang Ninjutsu</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>Touch</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>5
+      Yang Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Yang Release, Medical</dd></dl><h3>Description:</h3><p>You course
+      Yang release chakra through the target's body, using its ability to control vitality and form to restore a
+      creature. One creature within range recovers 18d8 lost hit points, ends one condition on itself, other than
+      exhaustion, and loses all failed death saving throws. Alternatively, an affected creature loses one rank of
+      exhaustion and all failed death saving throws it h as.</p><p><strong>Yang Power:</strong> Allied creatures, other
+      than yourself, within 30ft of you can spend their reaction to enhance this art. Each creature that spends its
+      reaction this way increases the healing by 3d8.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '111'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yang-release-regeneration
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - yang-release
+      - medical
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 5 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    8ebf23d1f677c1bc:
+      _id: 8ebf23d1f677c1bc
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '5'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: null
+        units: spec
+        special: Touch
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/mitotic-regeneration.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!b2b4acf3befbcba9'

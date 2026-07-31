@@ -1,0 +1,368 @@
+folder: 913bd9464e829b26
+name: Genetic Degradation
+type: feat
+_id: bbfd0cd90d8805a7
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+system:
+  description:
+    value: >-
+      <h2>Genetic Degradation</h2><p>Your DNA tampering has led to potential issues as your body rejects itself.
+      Installed Genetic Modifications increase your minimum Degradation; you can never reduce the tracker below that
+      minimum.</p><h3>Recovery</h3><p>At the end of a Long Rest, make a DC 20 Constitution ability check. On a success,
+      reduce Degradation by 1d4 + 1. If you fail by 10 or more, increase it by 3. If you have non-passive Degradation
+      and choose not to attempt this check, it increases by 1. A week of downtime reduces it by 1d6 +
+      5.</p><h3>Thresholds</h3><table><thead><tr><th>Amount</th><th>Effect</th></tr></thead><tbody><tr><td>10</td><td>Hijutsu
+      costs increase by rank: D 1, C 2, B 3, A 4, S 5.</td></tr><tr><td>20</td><td>Whenever you gain Degradation, add 2;
+      this becomes 5 at 50. Passive Modifications are exempt.</td></tr><tr><td>30</td><td>Lose Genetic Superiority's
+      speed bonus and damage reduction.</td></tr><tr><td>40</td><td>Perception and Investigation rolls have
+      disadvantage.</td></tr><tr><td>50</td><td>Hijutsu costs are doubled instead of the 10-point increase; DNA Points
+      cannot refresh clan resources or features.</td></tr><tr><td>60</td><td>Gain the Monstrosity type; automatically
+      fail Persuasion and Deception checks and gain advantage on Intimidation.</td></tr><tr><td>70</td><td>Lose all
+      Genetic Superiority benefits.</td></tr><tr><td>80</td><td>Lose half maximum DNA Points; unfunded Modifications
+      become inert until this threshold is healed.</td></tr><tr><td>90</td><td>Take 1d8 irreducible necrotic damage
+      every turn you physically push yourself, such as in combat, and may spend downtime only on
+      Degradation.</td></tr><tr><td>100</td><td>Resolve the source's DC 25 Constitution check and permanent outcome with
+      the GM.</td></tr></tbody></table>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: "100"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-genetic-degradation
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    0e34b0e875b1965e:
+      _id: 0e34b0e875b1965e
+      type: utility
+      activation:
+        type: longRest
+        value: null
+        condition: >-
+          On success refund 1d4 + 1 Degradation without going below the passive minimum; add 3 on a failure by 10 or
+          more.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Long-Rest Recovery Check
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.con.mod
+        name: DC 20 Constitution Check
+        prompt: false
+        visible: true
+    4075b20523c13f6c:
+      _id: 4075b20523c13f6c
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires one week of downtime. Refund the roll without going below the passive minimum.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Downtime Recovery
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d6 + 5
+        name: Degradation Reduced
+        prompt: false
+        visible: true
+    eaa3a9c148be4eb0:
+      _id: eaa3a9c148be4eb0
+      type: utility
+      activation:
+        type: turnEnd
+        value: null
+        condition: Use every turn you physically push yourself while at 90 or more Degradation.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "90 Degradation: Physical Exertion"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d8
+        name: Irreducible Necrotic Damage
+        prompt: false
+        visible: true
+    c032f9044e10188d:
+      _id: c032f9044e10188d
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          No bonus or penalty from any source. Do not remove the class mod, apply permanent Berserk, prevent revival, or
+          kill the Actor without GM confirmation.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "100 Degradation: GM-Confirmed Check"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.con.mod
+        name: Unmodified DC 25 Constitution Check
+        prompt: false
+        visible: true
+    ac3c2065ae5f0699:
+      _id: ac3c2065ae5f0699
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Only after failing the 100-Degradation check by 10 or more and receiving GM confirmation.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: radius
+          size: "10"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Critical Failure Explosion (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 10d10
+        name: Acid Damage
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: degradation-spending-recovery-rolls-and-90-point-damage-roll
+          mode: native
+        - clause: threshold-cost-adjustments-feature-locks-and-condition-effects
+          mode: prompt
+        - clause: classmod-loss-berserk-death-and-no-revival-outcomes
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!bbfd0cd90d8805a7"

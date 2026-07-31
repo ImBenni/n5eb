@@ -1,0 +1,202 @@
+folder: e8e1e7cd04d78ecc
+name: Mechanical Body
+type: spell
+_id: 0035a0a087d63277
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+system:
+  description:
+    value: >-
+      <h2>Mechanical Body</h2><h3>Divine Art</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Divine
+      Art</dd><dt>Casting Time:</dt><dd>Bonus Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>14 Chakra or 1 Chakra
+      Die</dd><dt>Keywords:</dt><dd>Divine</dd></dl><h3>Description:</h3><p>As a Bonus Action, activate Arm
+      Multiplication for 1 minute. Strength and Dexterity increase by 2, you can wield additional weapons, and gain one
+      additional Action usable only to make a melee weapon attack.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-mechanical-body
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - divine
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 14 Chakra or 1 Chakra Die
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:rinnegan-redux
+  activities:
+    67e0b8d025c9b382:
+      _id: 67e0b8d025c9b382
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "14"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 107017a8f8e51df9
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Arm Multiplication
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 107017a8f8e51df9
+effects:
+  - name: Arm Multiplication
+    img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+    origin: Item.0035a0a087d63277
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.str.value
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.abilities.dex.value
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: 107017a8f8e51df9
+    type: base
+    system: {}
+    description: ""
+    tint: "#68428f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: rinnegan-redux
+          form: ""
+          sourceItemId: 0035a0a087d63277
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!0035a0a087d63277.107017a8f8e51df9"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: source-rule-and-explicit-numeric-resolution
+          mode: native
+        - clause: timing-target-choice-and-prerequisite-resolution
+          mode: prompt
+        - clause: cross-item-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: rinnegan-redux
+      classification: Divine Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!0035a0a087d63277"

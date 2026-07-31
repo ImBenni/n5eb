@@ -1,0 +1,115 @@
+folder: af0b1a9d3f3959d9
+name: Silent Scholar
+type: feat
+_id: 7b114deba45df88a
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Silent Scholar</h2><p><strong>Cost:</strong> 1 Unholy Blessing. Gain Investigation proficiency and +2 Mastery.
+      As a bonus action, roll Investigation against passive Deception; success finds a weak point, granting advantage on
+      the next attack or disadvantage on the next save this turn. Transfer the benefit to an ally who can hear you.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 22
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-silent-scholar
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    5a7b1cc8b23ca839:
+      _id: 5a7b1cc8b23ca839
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Find Weak Point
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.inv.total
+        name: Investigation vs Passive Deception
+        prompt: false
+        visible: true
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: silent-scholar-static-or-rolled-benefits
+          mode: native
+        - clause: silent-scholar-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: silent-scholar-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!7b114deba45df88a"

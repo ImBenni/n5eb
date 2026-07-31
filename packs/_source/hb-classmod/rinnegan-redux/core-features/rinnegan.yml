@@ -1,0 +1,173 @@
+folder: 61c289ceee8656c2
+name: Rinnegan
+type: feat
+_id: 03dd0921df707e9c
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Rinnegan</h2><p>At 1st level, as a Bonus Action spend 10 Chakra to awaken the Rinnegan for 10 minutes or until
+      Chakra reaches 0. During that duration you may deactivate or reactivate it without an action. While active, you
+      see Chakra within 120 feet and see creatures and objects within range that are otherwise invisible.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-rinnegan
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    87db7fca9d06dba1:
+      _id: 87db7fca9d06dba1
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "10"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 40e23548e4d2f851
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Awaken Rinnegan
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 40e23548e4d2f851
+  advancement: {}
+effects:
+  - name: Rinnegan Active
+    img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+    origin: Item.03dd0921df707e9c
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.senses.ranges.chakrasight
+        mode: 2
+        value: "120"
+        priority: 20
+    statuses: []
+    _id: 40e23548e4d2f851
+    type: base
+    system: {}
+    description: ""
+    tint: "#68428f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: rinnegan-redux
+          form: rinnegan
+          sourceItemId: 03dd0921df707e9c
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!03dd0921df707e9c.40e23548e4d2f851"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: bonus-action-cost-duration-and-chakra-sight
+          mode: native
+        - clause: zero-chakra-ending-and-free-toggle-during-duration
+          mode: prompt
+        - clause: see-invisible-within-sight-range
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!03dd0921df707e9c"

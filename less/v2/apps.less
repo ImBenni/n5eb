@@ -2049,6 +2049,28 @@ dialog.dnd5e2.application {
     background: rgba(24, 26, 33, .92);
   }
 
+  .npc-builder-load-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 8px;
+    border: 1px solid rgba(176, 155, 105, .2);
+    border-radius: 4px;
+    color: var(--color-text-secondary);
+
+    &.error {
+      color: var(--dnd5e-color-warning);
+    }
+
+    button {
+      flex: 0 0 auto;
+      width: auto;
+      padding-inline: 12px;
+    }
+  }
+
   .adversary-content-tabs {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

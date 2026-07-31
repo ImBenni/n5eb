@@ -1,0 +1,198 @@
+folder: 64fa38d1b95e9c96
+name: 'Yang Release: Guardian of the Land'
+type: spell
+_id: de5720b4075cd7a6
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/wood-golem.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Yang Ninjutsu</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>1 minute
+      (Concentration)</dd><dt>Components:</dt><dd>CM, HS, CS</dd><dt>Cost:</dt><dd>10 Yang
+      Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Yang Release, Fuinjutsu, Construct</dd></dl><h3>Description:</h3><p>You
+      use Yang Chakra and Fuinjutsu to Create a temporary tailed beast. You manifest a Guardian of the Land, which takes
+      the form of a Gargantuan Humanoid. The size of this construct is of titanic proportions, occupying a 30 -foot cube
+      as its single space. The description and design of it is of your choice. This Construct can only be unsummoned by
+      being destroyed, by you ending concentration, or by its own effects.</p><p>This construct has 6 hands which it can
+      use as you wish. When summoned, you are place inside of the constructs torso, out of reach of most entities. You
+      must spend this art's ful cost at the start of each of your turns to maintain concentration. The construct has the
+      following Statistics, and acts in your place on your turn. You cannot act while this construct is active.</p><p>It
+      acts on your turn, being able to use your Action, Bonus action, movement or reaction as you see fit. The turn this
+      construct is summoned, it can act as if you had 1 Action remaining. Yang Power: Allied creatures, other than
+      yourself, within 30ft of you can spend their reaction to enhance this art. Each creature that spends their
+      reaction this way is placed inside the torso of the Guardian of the Land.</p><p>To a maximum of 5 Creatures.
+      Gargantuan Humanoid Construct Armor Class 23 + 1 for each creature inside the construct Hit Points 100 + 100 for
+      each creature inside the construct Speed 80ft + 10ft for each creature inside the construct STR DEX CON 32 (+11)
+      18 (+4) 30 (+10) Condition Immunity All Damage Resistance All Senses Chakra Sight 120ft, Blindsight 60ft, Passive
+      Perception 30 Critical Defense.</p><p>Creatures cannot score critical hit against the guardian. Immutable Form.
+      The Guardian is immune to any Jutsu or effect that would alter your form. Too Big to Tail. The Guardian uses its
+      summoners Proficiency + Its Strength Modifier for all saving throws and athletics checks. Truth-Seeker. The
+      Guardian can use the Truth-Seeking Orbs of the art's caster, being treated as having an active Yang Seal of the
+      same level.</p><p>Kami of the Land. The Guardian treats all demons and aberrations as Vulnerable to all its
+      attacks Yang of Many. Whenever a creature inside the Guardian, other than the summoner, would take its turn, the
+      guardian spends 5 Yang Chakra and takes the turn instead. Multiattack The Guardian can attack 6 times using its
+      guardian fist, and makes one Truth Nuke attack for each creature inside of it. Guardian Fist.</p><p><strong>Melee
+      Weapon Attack:</strong> + 20 to hit, Reach 20ft., one target. Hit: 10d10 + Str Bludgeoning or Slashing damage.
+      Truth Nuke. Melee Weapon Attack: + 20 to hit, Reach 30ft., one target. Hit: 10d6 + Str Force damage. Heavenly
+      Advent (Recharge 5-6). You slam your fist against the ground, causing an eruption of pure Yang Chakra. Melee
+      Weapon Attack: Self (30- foot radius), Strength Saving throw.</p><p>On a failed save, creatures take 20d12 force
+      damage or half as much on a success. +2d12 for each creature inside the Guardian. Super Truth-Seeking Barrage
+      (Recharge 5-6). You collect all your Truth- Seeking Orbs on a single Orb, before throwing it at the enemy. Ranged
+      Weapon attack: 120ft (30ft Radius). Dexterity saving Throw. 7d8 force damage for each Orb on a failed save, half
+      as much damage on a success.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '109'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yang-release-guardian-of-the-land
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+      - hs
+      - cs
+    keywords:
+      - ninjutsu
+      - yang-release
+      - fuinjutsu
+      - construct
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    e21c279264f341b8:
+      _id: e21c279264f341b8
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '10'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: true
+        value: '1'
+        units: minute
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          contiguous: false
+          units: ft
+          type: ''
+        affects:
+          choice: false
+          count: '1'
+          type: space
+          special: ''
+        override: false
+        prompt: true
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/wood-golem.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      bonuses:
+        ac: ''
+        hd: ''
+        hp: ''
+        attackDamage: ''
+        saveDamage: ''
+        healing: ''
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: false
+        proficiency: false
+        saves: false
+      profiles:
+        - count: ''
+          name: Guardian of the Land
+          _id: 35a8ba6eef14f20f
+          uuid: Compendium.n5eb.npc.Actor.b39968ecaa1b5697
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: guardian-of-the-land
+        mode: ''
+        prompt: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
+        - clause: guardian-summon-and-cleanup
+          mode: native
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!de5720b4075cd7a6'

@@ -1,0 +1,261 @@
+folder: f866a16edc684215
+name: Path of the Beast
+type: feat
+_id: b130c63fc6a4ba23
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Path of the Beast</h2><p>At level 2, as a Bonus Action make a Constitution check against the Desperate Rage
+      DC. On success, gain Twisted Chakra equal to ten times class-mod level, remove effects preventing Chakra molding,
+      and heal by the Twisted Chakra gained; failure causes Frenzy. At level 3 failure no longer causes Frenzy. At level
+      4, you may fight the beast alone in your inner world.</p><p>Reducing it to half Hit Points or forcing surrender
+      makes Dormant Beast gain four Twisted Chakra per Chakra lost; failure kills you. At level 5, after defeating it,
+      you may offer a pact of trust. If accepted at GM discretion, you cannot Frenzy, Dormant Beast stops draining
+      Chakra, and grants access to a pool of 500 Twisted Chakra. You may offer again after refusal.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-path-of-the-beast
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    dc42dac9ed930543:
+      _id: dc42dac9ed930543
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Force Chakra Draw Check
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.con.mod
+        name: Force Chakra Draw vs Desperate Rage DC
+        prompt: false
+        visible: true
+    529c6b3c0531a1d5:
+      _id: 529c6b3c0531a1d5
+      type: heal
+      activation:
+        type: special
+        value: null
+        condition: Use only after success; also remove any effect preventing Chakra molding.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "-10 * @classmods.sealed-beast-redux.levels"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Successful Chakra Draw
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: 10 * @classmods.sealed-beast-redux.levels
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+    267d40ee064de94f:
+      _id: 267d40ee064de94f
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "@prof"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "-4 * @prof"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Defeated Beast Exchange (Level 4+)
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: path-progression-and-explicit-resource-exchanges
+          mode: prompt
+        - clause: desperate-rage-modifiers-relationship-and-death-outcomes
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!b130c63fc6a4ba23"

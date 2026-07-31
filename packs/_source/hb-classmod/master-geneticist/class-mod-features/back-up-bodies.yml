@@ -1,0 +1,303 @@
+folder: 913bd9464e829b26
+name: Back Up Bodies
+type: feat
+_id: ed53486c5d9a2f27
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/reanimation.webp
+system:
+  description:
+    value: >-
+      <h2>Back Up Bodies</h2><p>At 3rd level, create a one-to-one duplicate body and tether it to yourself. The process
+      takes 15 weeks of downtime and successful DC 25 Medicine and Craft checks, followed by a special Fuinjutsu. The
+      empty body requires a containment device costing 100 Ryo per week.</p><h3>Body Transfer</h3><p>One minute after
+      you die, the seal begins transferring your mind and soul. After 24 hours, you revive in the body with 3 ranks of
+      Exhaustion and half your Genetic Degradation, but otherwise full health and chakra.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-back-up-bodies
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    124dfae50e28ce2c:
+      _id: 124dfae50e28ce2c
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires 15 weeks of downtime and the paired Craft check.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Create Body: Medicine Check"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/reanimation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.med.total
+        name: DC 25 Medicine
+        prompt: false
+        visible: true
+    6d6fe46c3a321100:
+      _id: 6d6fe46c3a321100
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires 15 weeks of downtime and the paired Medicine check.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Create Body: Craft Check"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/reanimation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.cra.total
+        name: DC 25 Craft
+        prompt: false
+        visible: true
+    cdec66a56ed854bb:
+      _id: cdec66a56ed854bb
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Use after both checks succeed. The spent use represents the stored body and its ongoing 100 Ryo weekly
+          maintenance.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Record Stored Backup Body
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/reanimation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    d276c3b135ad8a81:
+      _id: d276c3b135ad8a81
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Begins one minute after death. With GM confirmation, revive at full health and chakra, apply 3 Exhaustion,
+          halve Degradation, and consume the stored body.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "24"
+        units: hour
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve Body Transfer (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/reanimation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: downtime-skill-checks-and-stored-body-use
+          mode: native
+        - clause: death-trigger-delay-revival-exhaustion-and-degradation-adjustment
+          mode: prompt
+        - clause: soul-transfer-and-character-state-consequences
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!ed53486c5d9a2f27"

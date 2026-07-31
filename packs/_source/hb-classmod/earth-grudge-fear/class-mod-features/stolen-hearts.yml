@@ -1,0 +1,418 @@
+folder: 3624d4c7d6d19680
+name: Stolen Hearts
+type: feat
+_id: 0552be8a18dcfd65
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <p>This owned tracker represents your five available heart slots. Spending one use fills a slot; refund a use only
+      when that heart is ejected, destroyed, or otherwise no longer absorbed. A qualifying heart comes from a defeated
+      creature of at least your level that can mold Chakra and is an Elite or Solo adversary.</p><p>Each heart grants
+      one Ninjutsu of the victim's highest known rank; if it uses an elemental release, choose the highest-rank Jutsu of
+      that release. You cannot hold two hearts for the same elemental release. While Earth Grudge Fear is active, a D-,
+      C-, B-, A-, or S-rank heart grants respectively 25, 50, 75, 100, or 150 temporary Hit Points and temporary Chakra,
+      recovering on a Full Rest.</p><p>At class-mod level 3 these values instead increase maximum Hit Points and maximum
+      Chakra. Keep the heart's name, release, stolen Jutsu, and rank on the owned Item.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: "5"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-stolen-hearts
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    c7222f9ba2e5f13e:
+      _id: c7222f9ba2e5f13e
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Confirm level, Elite/Solo rank, Chakra molding, unique release, stolen Jutsu, and heart roster entry.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Absorb Qualifying Heart (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    9fe60f5844fb95fe:
+      _id: 9fe60f5844fb95fe
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply as temporary HP and temporary Chakra while EGF is active; at class-mod level 3 update maxima instead.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: D-Rank Heart Benefit
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "25"
+        name: D-Rank Heart HP and Chakra
+        prompt: true
+        visible: true
+    ffd21bd725fce35d:
+      _id: ffd21bd725fce35d
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply as temporary HP and temporary Chakra while EGF is active; at class-mod level 3 update maxima instead.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: C-Rank Heart Benefit
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "50"
+        name: C-Rank Heart HP and Chakra
+        prompt: true
+        visible: true
+    900502ec9dcdc5f7:
+      _id: 900502ec9dcdc5f7
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply as temporary HP and temporary Chakra while EGF is active; at class-mod level 3 update maxima instead.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: B-Rank Heart Benefit
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "75"
+        name: B-Rank Heart HP and Chakra
+        prompt: true
+        visible: true
+    fcf4a05f7f021bce:
+      _id: fcf4a05f7f021bce
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply as temporary HP and temporary Chakra while EGF is active; at class-mod level 3 update maxima instead.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: A-Rank Heart Benefit
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "100"
+        name: A-Rank Heart HP and Chakra
+        prompt: true
+        visible: true
+    cf22ad4901281a75:
+      _id: cf22ad4901281a75
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply as temporary HP and temporary Chakra while EGF is active; at class-mod level 3 update maxima instead.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: S-Rank Heart Benefit
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "150"
+        name: S-Rank Heart HP and Chakra
+        prompt: true
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: owned-resource-uses-tracker
+          mode: native
+        - clause: heart-destruction-and-narrative-roster
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!0552be8a18dcfd65"

@@ -1,0 +1,170 @@
+folder: 2e440cb54ddde75c
+name: Rinne-Beast Construction
+type: feat
+_id: 5301b57dea2cd9c2
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinne-beast.webp
+system:
+  description:
+    value: |-
+      <h2>Rinne-Beast Construction</h2>
+          <p>Build the source's variable summon as a separate helper Actor. It is a summon with Toughness 8; choose
+          Constitution or Charisma as its defensive ability, any three Saving Throws, any four skills, and Darkvision
+          120 feet. Its natural weapon is Chakra enhanced, has 5-foot reach, uses Strength, and deals Bludgeoning, Piercing,
+          or Slashing damage at creation. The source does not specify a natural-weapon damage die or a Hit Point formula.</p>
+          <h3>Roles</h3>
+          <ul>
+            <li><strong>Striker:</strong> Multiattack (2), making two Bite attacks, and add Dexterity to damage once per turn.</li>
+            <li><strong>Lurker:</strong> once per turn, add Xd8 on a hit when one of the target's other enemies is within
+            5 feet; X equals half the Rinne-Beast's level.</li>
+          </ul>
+          <h3>Rank Statistics</h3>
+          <table><thead><tr><th>Rank</th><th>Level</th><th>Size</th><th>Jutsu Slots</th><th>Speed</th></tr></thead><tbody>
+            <tr><td>D</td><td>4</td><td>Small</td><td>6; 2 D-rank</td><td>50 ft.</td></tr>
+            <tr><td>C</td><td>8</td><td>Small–Medium</td><td>9; 2 D or lower, 2 C</td><td>65 ft.</td></tr>
+            <tr><td>B</td><td>12</td><td>Small–Large</td><td>12; 2 C or lower, 2 B</td><td>80 ft.</td></tr>
+            <tr><td>A</td><td>16</td><td>Small–Huge</td><td>15; 3 B or lower, 1 A</td><td>95 ft.</td></tr>
+            <tr><td>S</td><td>20</td><td>Small–Gargantuan</td><td>18; 3 A or lower, 1 S</td><td>110 ft.</td></tr>
+          </tbody></table>
+          <p>Base ability scores are Strength 14, Dexterity 10, Constitution 16, Intelligence 6, Wisdom 12, and Charisma 14.
+          At each rank above D distribute 8 additional ability-score points. Ability maximums are 22 at C, 24 at B, 26 at
+          A, and 28 at S. A Rinne-Beast can learn non-Hijutsu Bukijutsu matching its natural-weapon damage type and
+          non-Hijutsu Taijutsu without Nature Release or Medical keywords.</p>
+          <h3>D-Rank Features</h3>
+          <ul>
+            <li><strong>Divine Beast:</strong> spend an available jutsu slot to cast any Divine Art its owner knows except
+            Rinne-Beast Summoning, using the owner's attack and save formulas. It gains no Path Talent benefits.</li>
+            <li><strong>Reckless:</strong> use Reckless as defined by the source.</li>
+            <li><strong>Guardian:</strong> when a creature within half its speed is attacked, move to intercept according
+            to the source.</li>
+          </ul>
+          <h3>C-Rank Features</h3>
+          <ul>
+            <li><strong>Cooperative I:</strong> immune to hostile effects of the owner's Divine Arts.</li>
+            <li><strong>Charge:</strong> after moving at least half speed straight toward a creature, the first hit deals
+            +4d8 damage, plus 2d8 per rank above C.</li>
+            <li><strong>Flying:</strong> gain a flying speed equal to normal movement.</li>
+          </ul>
+          <h3>B-Rank Features</h3>
+          <ul>
+            <li><strong>Cooperative II:</strong> the owner is immune to hostile effects of the Rinne-Beast's Divine Arts.</li>
+            <li><strong>Tail:</strong> gain an additional attack that can knock a target Prone.</li>
+            <li><strong>Mounted:</strong> a rider cannot be forcibly removed unless Incapacitated.</li>
+          </ul>
+          <h3>A-Rank Features</h3>
+          <ul>
+            <li><strong>Brute:</strong> after moving 40 feet straight toward a creature, double remaining movement, gain
+            advantage on the first melee attack, and maximize that hit's damage.</li>
+            <li><strong>Mighty:</strong> combo attacks count as three attacks and may ignore one keyword restriction; use
+            Constitution against Charisma.</li>
+            <li><strong>Camouflage:</strong> as an Action make a Stealth check with +10.</li>
+          </ul>
+          <h3>S-Rank Features</h3>
+          <ul>
+            <li>Immune to non-Chakra damage and resistant to Bludgeoning, Piercing, and Slashing damage.</li>
+            <li><strong>Splitting:</strong> each single 20-damage instance creates a Split Beast and reduces maximum Hit
+            Points by 10. Splits share scores, attack, and speed, have 50 Hit Points, and cannot use jutsu. Consuming a killed
+            split heals 5d8. If the main body reaches 0 Hit Points, the strongest split becomes the main body and gains its
+            jutsu slots. One command controls all split bodies.</li>
+          </ul>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 11
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-rinne-beast-construction
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    6dd1bb71083e1052:
+      _id: 6dd1bb71083e1052
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Create an isolated helper Actor using the chosen rank, role, ability allocation, size, jutsu, and features.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Build or Update Rinne-Beast
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinne-beast.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: complete-rank-stat-role-ability-jutsu-and-feature-tables
+          mode: prompt
+        - clause: source-undefined-natural-weapon-die-hit-points-and-variable-helper-actor
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!5301b57dea2cd9c2"

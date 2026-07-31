@@ -1,0 +1,211 @@
+folder: 55be1e571eb68368
+name: Hijutsu Prodigy
+type: spell
+_id: 6d530429ad403cf3
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+system:
+  description:
+    value: >-
+      <h2>Hijutsu Prodigy</h2><p><strong>DNA Point Cost:</strong> 5<br><strong>Genetic Degradation:</strong>
+      1+<br><strong>Casting Time:</strong> 1 Bonus Action<br><strong>Range:</strong>
+      Special<br><strong>Duration:</strong> Instant</p><p>As part of casting this Art, cast a Hijutsu with a casting
+      time of 1 Action or Bonus Action. Reduce its chakra cost by its rank plus the amount of Genetic Degradation
+      incurred by this Art.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-hijutsu-prodigy
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components: []
+    keywords:
+      - genetic-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 5 DNA Points allocated; 1+ Genetic Degradation when used
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:master-geneticist
+  activities:
+    28db04963854e9d2:
+      _id: 28db04963854e9d2
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this Genetic Art is learned. Do not spend this purchase cost when casting it.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Allocate DNA Cost (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    08d8ec193937414a:
+      _id: 08d8ec193937414a
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: >-
+          Choose total Degradation, then manually cast the selected Action/Bonus Action Hijutsu and reduce its chakra
+          cost by rank + Degradation.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "1"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast Hijutsu Prodigy
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: one-time-dna-allocation-and-per-use-degradation
+          mode: native
+        - clause: trigger-and-cross-jutsu-resolution
+          mode: midi-enhanced
+        - clause: choices-and-irreversible-results
+          mode: prompt
+    classmodArt:
+      classmod: master-geneticist
+      classification: Genetic Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!6d530429ad403cf3"

@@ -209,6 +209,18 @@
                 {{/each}}
             </nav>
 
+            {{#if catalogLoading}}
+            <div class="npc-builder-load-state">
+                <i class="fa-solid fa-spinner fa-spin" inert></i>
+                <span>{{ localize "N5EB.NPCBuilder.LoadingContent" }}</span>
+            </div>
+            {{else if catalogError}}
+            <div class="npc-builder-load-state error">
+                <span>{{ localize "N5EB.NPCBuilder.LoadError" }}</span>
+                <button type="button" data-action="retryContent">{{ localize "N5EB.NPCBuilder.Retry" }}</button>
+            </div>
+            {{/if}}
+
             <div class="adversary-preview" data-preview data-uuid="{{ preview.uuid }}">
                 <img src="{{ preview.img }}" alt="{{ preview.name }}" data-preview-image>
                 <div class="preview-copy">

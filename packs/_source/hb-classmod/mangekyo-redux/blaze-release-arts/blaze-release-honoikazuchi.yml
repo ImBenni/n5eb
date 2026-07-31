@@ -1,0 +1,1036 @@
+folder: d00d1559ebb41b28
+name: "Blaze Release: Honoikazuchi"
+type: spell
+_id: 072bb20080361c7a
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+system:
+  description:
+    value: >-
+      <h3>Blaze Release Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Blaze Release
+      Art</dd><dt>Casting Time:</dt><dd>1 Reaction</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Until the
+      start/end of your next turn</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>D-rank 4 Chakra, +3 Chakra per
+      rank; Malefic casting also pays Amaterasu (9 Chakra and 3 Burn)</dd><dt>Keywords:</dt><dd>Ninjutsu, Blaze Release,
+      Fire, Malefic</dd></dl><h3>Description:</h3><p>As a reaction when damaged, until the start of your next turn
+      reduce incoming damage by 2d8 plus your Ninjutsu modifier. A melee attacker takes Fire damage equal to the
+      reduction, ignoring Damage Reduction. Each rank above D adds 3 Chakra and 2d8 to the reduction.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-blaze-release-honoikazuchi
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - blaze-release
+      - fire
+      - malefic
+    countsKnown: false
+  chakra:
+    cost: "4"
+    scaling:
+      mode: rank
+      value: 3
+    special: D-rank 4 Chakra, +3 Chakra per rank; Malefic casting also pays Amaterasu (9 Chakra and 3 Burn)
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:mangekyo-redux
+  activities:
+    0ed8c67df8afc851:
+      _id: 0ed8c67df8afc851
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: "Malefic mode: also pay 9 Chakra for Amaterasu (7 if mastered)."
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 2d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    709fe79bd5072ff7:
+      _id: 709fe79bd5072ff7
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 2 less Chakra and 1 less Burn.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast (Mastered)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 2d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    2beb3537852b27a3:
+      _id: 2beb3537852b27a3
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Pay 7 Chakra plus Amaterasu's Chakra cost; apply 2 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at C-Rank (Malefic)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 4d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    946981acf2e210c9:
+      _id: 946981acf2e210c9
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Kagutsuchi II. Pay 7 Chakra, remove Malefic, and apply 2 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at C-Rank (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 4d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    37c53ad8084afacc:
+      _id: 37c53ad8084afacc
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 7 Chakra plus 7 Chakra; apply 2 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at C-Rank (Mastered Amaterasu)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 4d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    a0abef51c6ceba35:
+      _id: a0abef51c6ceba35
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Pay 10 Chakra plus Amaterasu's Chakra cost; apply 3 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at B-Rank (Malefic)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 6d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    7562778e1238c936:
+      _id: 7562778e1238c936
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Kagutsuchi II. Pay 10 Chakra, remove Malefic, and apply 3 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at B-Rank (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 6d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    5fa13b674b78a15f:
+      _id: 5fa13b674b78a15f
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 10 Chakra plus 7 Chakra; apply 3 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at B-Rank (Mastered Amaterasu)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 6d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    65af887edac1bfd7:
+      _id: 65af887edac1bfd7
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Pay 13 Chakra plus Amaterasu's Chakra cost; apply 4 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at A-Rank (Malefic)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 8d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    089371296282f2a5:
+      _id: 089371296282f2a5
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Kagutsuchi II. Pay 13 Chakra, remove Malefic, and apply 4 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at A-Rank (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 8d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    b441a7274ab182ea:
+      _id: b441a7274ab182ea
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 13 Chakra plus 7 Chakra; apply 4 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at A-Rank (Mastered Amaterasu)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 8d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    5c167536df1f24db:
+      _id: 5c167536df1f24db
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Pay 16 Chakra plus Amaterasu's Chakra cost; apply 5 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at S-Rank (Malefic)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 10d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    aacfe4cdd94dbbed:
+      _id: aacfe4cdd94dbbed
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Kagutsuchi II. Pay 16 Chakra, remove Malefic, and apply 5 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at S-Rank (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 10d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    6663bd6f2a857acd:
+      _id: 6663bd6f2a857acd
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 16 Chakra plus 7 Chakra; apply 5 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at S-Rank (Mastered Amaterasu)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 10d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+    10cd2f09b5f4876e:
+      _id: 10cd2f09b5f4876e
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Kagutsuchi II. Pay only the Blaze Art's ranked Chakra cost; remove the Malefic keyword.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast as Ordinary Jutsu (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 2d8 + @mod
+        name: Honoikazuchi Damage Reduction
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: d-rank-base-chakra-burn-save-attack-and-damage
+          mode: native
+        - clause: rank-scaling-and-kagutsuchi-ordinary-mode
+          mode: prompt
+        - clause: burned-ranks-chakra-sight-and-special-surface-clauses
+          mode: manual
+    classmodArt:
+      classmod: mangekyo-redux
+      classification: Blaze Release Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!072bb20080361c7a"

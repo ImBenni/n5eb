@@ -1,0 +1,149 @@
+folder: 9c2e009f4ba2c742
+name: Beast Summoning
+type: spell
+_id: 11b4b9158b5a46ef
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Beast Summoning</h2><h3>Vermillion Art</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Vermillion Art</dd><dt>Casting Time:</dt><dd>Full Turn
+      Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Not
+      specified</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>100 Twisted
+      Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Vermillion</dd></dl><h3>Description:</h3><p>As a Full Turn Action,
+      spend 100 Twisted Chakra to summon an avatar of the sealed beast from inside you. It has free will but is bound to
+      your commands during the summoning. Use Sealed Beast Avatar Construction for the source's variable statistics; the
+      source does not specify duration, Hit Points, or completed rank traits.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 15
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-beast-summoning
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - vermillion
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 100 Twisted Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:sealed-beast-redux
+  activities:
+    82962d0ae2413d61:
+      _id: 82962d0ae2413d61
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Full Turn Action. Place the GM-built avatar and determine its duration.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "100"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Summon Beast Avatar
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: twisted-chakra-cost
+          mode: native
+        - clause: full-turn-action-avatar-selection-and-placement
+          mode: prompt
+        - clause: source-omits-hit-points-duration-and-completed-rank-traits
+          mode: manual
+    classmodArt:
+      classmod: sealed-beast-redux
+      classification: Vermillion Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!11b4b9158b5a46ef"

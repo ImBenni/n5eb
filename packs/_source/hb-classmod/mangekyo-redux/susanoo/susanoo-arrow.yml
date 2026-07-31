@@ -1,0 +1,187 @@
+folder: a470f929b8d97dab
+name: Susanoo Arrow
+type: feat
+_id: 31f93c132e6bfa58
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/susanoo.webp
+system:
+  description:
+    value: >-
+      <p>While Armored Susanoo is active, make a Ninjutsu attack with its bow: a ranged Malefic attack at 90/120 feet
+      whose damage gains dice equal to your class-mod level.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 11
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-susanoo-arrow
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    43ca089581dc7c98:
+      _id: 43ca089581dc7c98
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. Prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-awakening
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (6 Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/susanoo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    258d6c423a576182:
+      _id: 258d6c423a576182
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          While Armored Susanoo is active, make a Ninjutsu attack with its bow: a ranged Malefic attack at 90/120 feet
+          whose damage gains dice equal to your class-mod level.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 90
+        units: ft
+        special: Long range 120 feet
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Use Talent
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/susanoo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: rules-text-and-explicit-numeric-resolution
+          mode: native
+        - clause: cross-item-prerequisites-and-tactical-decisions
+          mode: prompt
+        - clause: source-ambiguous-or-narrative-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!31f93c132e6bfa58"

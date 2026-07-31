@@ -1,0 +1,138 @@
+folder: ed2cd2c3ff513c6f
+name: Twisted Chakra Mode, Stage 3 Training
+type: feat
+_id: 237f3b6bdc453dd1
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Twisted Chakra Mode, Stage 3 Training</h2><p><strong>Prerequisites:</strong> Twisted Chakra Mode and class-mod
+      level 3. Gain Twisted Chakra Mode, Stage 3.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties:
+    - advancement
+  identifier: sealed-beast-redux-twisted-chakra-mode-stage-3-training
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    921cf04ae60e9a68:
+      _id: 921cf04ae60e9a68
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-awakening
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (6 Twisted Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement:
+    abee2015b3d56f8b:
+      _id: abee2015b3d56f8b
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-classmod.Item.1a570f37ecf98995
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 1
+      title: ""
+      hint: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: awakening-purchase-and-granted-transformation
+          mode: native
+        - clause: prerequisite-validation
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!237f3b6bdc453dd1"

@@ -1,0 +1,120 @@
+folder: 55ecc51b6b20d621
+name: Iron Will Eternal
+type: feat
+_id: da79668288b61816
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Iron Will Eternal</h2><p><strong>Cost:</strong> 2 Unholy Blessings. When you succeed on a Genjutsu save, react
+      to reflect it. The original caster saves against the original DC or your Unholy Art DC, whichever is higher,
+      suffering the full Genjutsu on failure. Every successful Genjutsu save counts as critical; a natural critical
+      success grants immunity to that Genjutsu for 24 hours.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 24
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-iron-will-eternal
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    8c66c990e226dc49:
+      _id: 8c66c990e226dc49
+      type: save
+      activation:
+        type: reaction
+        value: 1
+        condition: Use the higher of the original Genjutsu DC or Unholy Art DC.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Reflect Genjutsu
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: custom
+          formula: 12 + @prof + floor(@details.level / 2)
+      damage:
+        parts: []
+        onSave: none
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: iron-will-eternal-static-or-rolled-benefits
+          mode: native
+        - clause: iron-will-eternal-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: iron-will-eternal-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!da79668288b61816"

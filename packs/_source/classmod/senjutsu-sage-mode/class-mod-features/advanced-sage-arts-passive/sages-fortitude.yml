@@ -2,7 +2,7 @@ folder: ZIpGWJxGDvOYUu0X
 name: Sages Fortitude
 type: feat
 _id: 7xdffJNC9LAAxCxr
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -19,9 +19,10 @@ system:
       You can gain 1 Will of Fire in this way every short rest.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: special
     cost: null
@@ -84,7 +85,250 @@ system:
     level: null
   properties: []
   identifier: sages-fortitude
-effects: []
+  activities:
+    1e18672e7881463b:
+      _id: 1e18672e7881463b
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Requires senjutsu-sage-mode.active. Use once each round to pay upkeep and renew the effect.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sage-chakra-lvl-1
+            value: 6 - 2 * floor(@classmods.senjutsu-sage-mode.levels / 3)
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: 7ef96bbeec55b8c8
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply / Renew (1 Round)
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - 7ef96bbeec55b8c8
+effects:
+  - name: Sages Fortitude Benefits
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+    origin: Item.7xdffJNC9LAAxCxr
+    transfer: false
+    disabled: false
+    duration:
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: 7ef96bbeec55b8c8
+    type: base
+    system:
+      changes:
+        - key: system.abilities.con.value
+          value: 24
+          priority: 20
+          type: override
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!7xdffJNC9LAAxCxr.7ef96bbeec55b8c8'
+  - name: Sages Fortitude Benefits
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+    origin: Item.7xdffJNC9LAAxCxr
+    transfer: false
+    disabled: false
+    duration:
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: 7ef96bbeec55b8c8
+    type: base
+    system:
+      changes:
+        - key: system.abilities.con.value
+          value: 24
+          priority: 20
+          type: override
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!7xdffJNC9LAAxCxr.7ef96bbeec55b8c8'
+  - name: Sages Fortitude Benefits
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+    origin: Item.7xdffJNC9LAAxCxr
+    transfer: false
+    disabled: false
+    duration:
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: 7ef96bbeec55b8c8
+    type: base
+    system:
+      changes:
+        - key: system.abilities.con.value
+          value: 24
+          priority: 20
+          type: override
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!7xdffJNC9LAAxCxr.7ef96bbeec55b8c8'
+  - name: Sages Fortitude Benefits
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+    origin: Item.7xdffJNC9LAAxCxr
+    transfer: false
+    disabled: false
+    duration:
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: 7ef96bbeec55b8c8
+    type: base
+    system:
+      changes:
+        - key: system.abilities.con.value
+          value: 24
+          priority: 20
+          type: override
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!7xdffJNC9LAAxCxr.7ef96bbeec55b8c8'
 sort: 0
 ownership:
   default: 0
@@ -195,6 +439,13 @@ flags:
         prerequisites:
           level: null
         properties: []
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

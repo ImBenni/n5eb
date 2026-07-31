@@ -1,0 +1,455 @@
+folder: e805a8dd197f0bfc
+name: "Genetic Overdrive: Grace"
+type: feat
+_id: 39ba097628875710
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+system:
+  description:
+    value: >-
+      <h2>Genetic Overdrive: Grace</h2><p><strong>DNA Point Cost:</strong> 6<br><strong>Base Genetic
+      Degradation:</strong> 3</p><p>Your speed and agility are enhanced beyond normal human limitations.</p><ul><li>Your
+      speed is doubled, becoming tripled at class-mod level 3. This stacks with other multipliers.</li><li>As a Bonus
+      Action, take Dash, Disengage, Dodge, or Hide.</li><li>Your Dexterity score increases by 2, becoming 4 at level
+      4.</li></ul>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-genetic-overdrive-grace
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    cdb80953182179e6:
+      _id: cdb80953182179e6
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this modification is installed. Its Degradation becomes part of your minimum.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Install Modification (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    74fc6f3309a2ad6a:
+      _id: 74fc6f3309a2ad6a
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Choose Dash, Disengage, Dodge, or Hide.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Grace Mobility Action
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    e0cbad98b860cbb6:
+      _id: e0cbad98b860cbb6
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires Master Geneticist level 3. Apply in addition to the base x2 Effect.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: d4471872a61f83a6
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Level 3 Speed Upgrade
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - d4471872a61f83a6
+    d9600214d281e23c:
+      _id: d9600214d281e23c
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires Master Geneticist level 4.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: 613b5c7c2f934857
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Level 4 Ability Upgrade
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 613b5c7c2f934857
+effects:
+  - name: "Genetic Overdrive: Grace"
+    img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+    origin: Item.39ba097628875710
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 1
+        value: "2"
+        priority: 20
+      - key: system.abilities.dex.value
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: ff79df9a1ba18005
+    type: base
+    system: {}
+    description: ""
+    tint: "#74508f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: master-geneticist
+          form: ""
+          sourceItemId: 39ba097628875710
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785452400000
+      modifiedTime: 1785452400000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!39ba097628875710.ff79df9a1ba18005"
+  - name: "Grace: Level 3 Speed Upgrade"
+    img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+    origin: Item.39ba097628875710
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 1
+        value: "1.5"
+        priority: 20
+    statuses: []
+    _id: d4471872a61f83a6
+    type: base
+    system: {}
+    description: ""
+    tint: "#74508f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: master-geneticist
+          form: ""
+          sourceItemId: 39ba097628875710
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785452400000
+      modifiedTime: 1785452400000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!39ba097628875710.d4471872a61f83a6"
+  - name: "Grace: Level 4 Ability Upgrade"
+    img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+    origin: Item.39ba097628875710
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.dex.value
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: 613b5c7c2f934857
+    type: base
+    system: {}
+    description: ""
+    tint: "#74508f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: master-geneticist
+          form: ""
+          sourceItemId: 39ba097628875710
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785452400000
+      modifiedTime: 1785452400000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!39ba097628875710.613b5c7c2f934857"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: dna-allocation-and-base-degradation
+          mode: native
+        - clause: passive-benefits-expressible-as-active-effects
+          mode: native
+        - clause: existing-clan-resource-and-feature-interactions
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!39ba097628875710"

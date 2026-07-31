@@ -882,12 +882,14 @@ export default class NPCData extends CreatureTemplate {
 
   /** @inheritDoc */
   prepareDerivedData() {
-    const rollData = this.parent.getRollData({ deterministic: true });
+    let rollData = this.parent.getRollData({ deterministic: true });
     const { originalSaves, originalSkills } = this.parent.getOriginalStats();
 
     this.prepareAbilities({ rollData, originalSaves });
     this.prepareSkills({ rollData, originalSkills });
     this.prepareTools({ rollData });
+    AttributesFields.prepareJutsuCasting.call(this, rollData);
+    rollData = this.parent.getRollData({ deterministic: true });
     AttributesFields.prepareArmorClass.call(this, rollData);
     AttributesFields.prepareConcentration.call(this, rollData);
     AttributesFields.prepareEncumbrance.call(this, rollData);
@@ -895,7 +897,6 @@ export default class NPCData extends CreatureTemplate {
     AttributesFields.prepareInitiative.call(this, rollData);
     AttributesFields.prepareMovement.call(this, rollData);
     AttributesFields.prepareSpellcastingAbility.call(this);
-    AttributesFields.prepareJutsuCasting.call(this, rollData);
     SourceField.prepareData.call(this.source, this.parent._stats?.compendiumSource ?? this.parent.uuid);
     TraitsFields.prepareLanguages.call(this);
     TraitsFields.prepareResistImmune.call(this);

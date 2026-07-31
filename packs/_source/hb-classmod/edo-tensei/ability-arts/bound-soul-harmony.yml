@@ -1,0 +1,148 @@
+folder: 950c36b399efec17
+name: Bound Soul Harmony
+type: spell
+_id: 77cc81b1c4a3fb6f
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Bound Soul Harmony</h2><h3>Edo Tensei Art Type: Ability</h3><dl class="n5eb-classmod-summary"><dt>Casting
+      Time:</dt><dd>Bonus Action</dd><dt>Range:</dt><dd>Self and allies within 60 feet</dd><dt>Duration:</dt><dd>1
+      minute</dd><dt>Components:</dt><dd>HS, CS, CM</dd><dt>Cost:</dt><dd>1 Unholy
+      Charge</dd><dt>Keywords:</dt><dd>Kinjutsu</dd></dl><h3>Description:</h3><p>As a bonus action, spend 1 Unholy
+      Charge and link with one active Edo Tensei for 1 minute. You and all allies within 60 feet gain one of that Edo
+      Tensei's traits, chosen when activated. The Edo Tensei retains the trait.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 9
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-bound-soul-harmony
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - hs
+      - cs
+      - cm
+    keywords:
+      - kinjutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Unholy Charge
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:edo-tensei
+  activities:
+    9aff11cfcf3ae229:
+      _id: 9aff11cfcf3ae229
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:edo-tensei-unholy-charges
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Bind Soul Harmony
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: source-rule-and-numeric-resolution
+          mode: native
+        - clause: target-choice-prerequisite-or-trigger
+          mode: prompt
+        - clause: cross-actor-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: edo-tensei
+      classification: Ability
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!77cc81b1c4a3fb6f"

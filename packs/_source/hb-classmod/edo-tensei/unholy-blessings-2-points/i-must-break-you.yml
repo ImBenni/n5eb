@@ -1,0 +1,194 @@
+folder: 55ecc51b6b20d621
+name: I Must Break You
+type: feat
+_id: 94a7423a5c5bca4a
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>I Must Break You</h2><p><strong>Cost:</strong> 2 Unholy Blessings. As an action, hostile creatures within 160
+      feet make a Wisdom save or become Berserk for 1 minute. They may target only you, you resist all damage they deal,
+      and they take 2d10 psychic damage at each turn start.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 24
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-i-must-break-you
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    cd9559e734731e2b:
+      _id: cd9559e734731e2b
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 160
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Compel Berserk
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: custom
+          formula: 12 + @prof + floor(@details.level / 2)
+      damage:
+        parts: []
+        onSave: none
+    2012bc74e654dd8d:
+      _id: 2012bc74e654dd8d
+      type: save
+      activation:
+        type: turnStart
+        value: null
+        condition: Do not repeat the save; apply damage to a creature already Berserk.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 160
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Berserk Psychic Damage
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: custom
+          formula: 12 + @prof + floor(@details.level / 2)
+      damage:
+        parts:
+          - number: 2
+            denomination: 10
+            bonus: ""
+            types:
+              - psychic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: i-must-break-you-static-or-rolled-benefits
+          mode: native
+        - clause: i-must-break-you-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: i-must-break-you-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!94a7423a5c5bca4a"

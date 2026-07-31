@@ -1,0 +1,111 @@
+folder: dd45ff85f2d30899
+name: Beacon of Light
+type: feat
+_id: 965876a8ab6333d0
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <p>You emit Bright Light 30ft away from you and din light 30ft further. This light goes through physical walls and
+      walls created by chakra. Jutsu that create darkness are dispelled inside this area. Creatures inside the bright
+      light cannot become hidden from you.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '117'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yang-seal-trait-beacon-of-light
+  type:
+    value: adversaryTrait
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    72fa6283d53b8fcc:
+      _id: 72fa6283d53b8fcc
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: ''
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Beacon of Light
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!965876a8ab6333d0'

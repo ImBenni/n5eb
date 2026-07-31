@@ -1,0 +1,212 @@
+folder: 10122c201db62f62
+name: Beast Deflection
+type: spell
+_id: 83e9fdb51378f89f
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/baryon-tail-breaker.webp
+system:
+  description:
+    value: >-
+      <h2>Beast Deflection</h2><h3>Vermillion Art</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Vermillion Art</dd><dt>Casting Time:</dt><dd>1
+      Reaction</dd><dt>Range:</dt><dd>Self; 15-foot
+      cone</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>20 Twisted
+      Chakra</dd><dt>Keywords:</dt><dd>Taijutsu, Vermillion</dd></dl><h3>Description:</h3><p>Requires a Transformation
+      Art unless in Desperate Rage. As a Reaction when an attack would damage you, roll 5d12 + character level and
+      reduce that damage by the result. The triggering creature and every creature in a 15-foot cone make a Dexterity
+      save, taking damage equal to the amount reduced.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 10
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-beast-deflection
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - taijutsu
+      - vermillion
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 20 Twisted Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:sealed-beast-redux
+  activities:
+    848e0745ed577ceb:
+      _id: 848e0745ed577ceb
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Deflect Damage
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/baryon-tail-breaker.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 5d12 + @details.level
+        name: Beast Deflection Damage Reduction
+        prompt: false
+        visible: true
+    573eaf97507a29c5:
+      _id: 573eaf97507a29c5
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: Roll damage equal to the triggering damage reduced.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: cone
+          size: "15"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve Deflection Cone
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/baryon-tail-breaker.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: 12 + @classmods.sealed-beast-redux.levels + @prof
+      damage:
+        parts: []
+        onSave: none
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: activation-resource-save-attack-range-and-damage
+          mode: native
+        - clause: transformation-prerequisite-conditions-and-forced-movement
+          mode: prompt
+        - clause: construct-damage-and-dynamic-cross-activity-results
+          mode: manual
+    classmodArt:
+      classmod: sealed-beast-redux
+      classification: Vermillion Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!83e9fdb51378f89f"

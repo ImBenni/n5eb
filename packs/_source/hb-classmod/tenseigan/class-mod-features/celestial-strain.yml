@@ -1,0 +1,763 @@
+folder: ccc5494764162de4
+name: Celestial Strain
+type: feat
+_id: be830adf6398e149
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: |-
+      <h2>Celestial Strain</h2><p>For every 3 Celestial Chakra you spend casting a single Hyūga Clan Jutsu,
+          gain 1 rank of Celestial Strain. Celestial Arts impose the Strain listed in their text. A Full Rest reduces Strain
+          by 2. One week of downtime spent recuperating reduces it by 5.</p>
+          <table><thead><tr><th>Ranks</th><th>Effect</th></tr></thead><tbody>
+          <tr><td>1+</td><td>Reduce your maximum Hit Die by 1 for every 4 ranks.</td></tr>
+          <tr><td>5+</td><td>−2 to Wisdom ability checks and saving throws.</td></tr>
+          <tr><td>8+</td><td>−2 to Charisma ability checks and saving throws.</td></tr>
+          <tr><td>11+</td><td>−2 to Constitution ability checks and saving throws.</td></tr>
+          <tr><td>15+</td><td>While Tenseigan is active, take 1d6 + 1 irreducible necrotic damage at the start of each turn.</td></tr>
+          <tr><td>20+</td><td>You must maintain concentration on Tenseigan; it does not count against your concentration limit.</td></tr>
+          <tr><td>25+</td><td>Reduce your maximum Hit Die by 1 for every 2 ranks instead.</td></tr>
+          <tr><td>30+</td><td>You can only concentrate on one Jutsu or Art and have disadvantage on Constitution (Chakra
+          Control) checks to maintain concentration.</td></tr></tbody></table>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: "99"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: celestial-strain
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    939cc18a774a7b58:
+      _id: 939cc18a774a7b58
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Spend 1 use for each complete 3 Celestial Chakra spent on the single Hyūga Clan Jutsu.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Incur Hyūga Jutsu Strain
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    3fc034d8d1673658:
+      _id: 3fc034d8d1673658
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Reduce this Item's spent uses by 2 after a Full Rest.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Reduce Strain after Full Rest
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "2"
+        name: Celestial Strain Reduction
+        prompt: false
+        visible: true
+    390136196e037baa:
+      _id: 390136196e037baa
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Reduce this Item's spent uses by 5 after one week of downtime spent recuperating.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Reduce Strain after Recuperation Week
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "5"
+        name: Celestial Strain Reduction
+        prompt: false
+        visible: true
+    92e727d21021f8b9:
+      _id: 92e727d21021f8b9
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply only while Celestial Strain is at least 5.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: 4770a34edc616a89
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply 5+ Strain Threshold
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 4770a34edc616a89
+    998cb6022755e340:
+      _id: 998cb6022755e340
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply only while Celestial Strain is at least 8.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: 39c8e87c3543fcaf
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply 8+ Strain Threshold
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 39c8e87c3543fcaf
+    4895042dcc8f77fe:
+      _id: 4895042dcc8f77fe
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply only while Celestial Strain is at least 11.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: a1ad9389dfbc73c5
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply 11+ Strain Threshold
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - a1ad9389dfbc73c5
+    3b2acd0717b5a990:
+      _id: 3b2acd0717b5a990
+      type: utility
+      activation:
+        type: turnStart
+        value: null
+        condition: Use at the start of each turn while Tenseigan is active and Strain is at least 15.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve 15+ Strain Damage
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d6 + 1
+        name: Irreducible Necrotic Damage
+        prompt: false
+        visible: true
+    7fabb3311acf2eb3:
+      _id: 7fabb3311acf2eb3
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply only while Celestial Strain is at least 30.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: 0cbb9fb0c3e83a72
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply 30+ Strain Threshold
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 0cbb9fb0c3e83a72
+effects:
+  - name: Celestial Strain 5+
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.be830adf6398e149
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.wis.bonuses.check
+        mode: 2
+        value: "-2"
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: "-2"
+        priority: 20
+    statuses: []
+    _id: 4770a34edc616a89
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: ""
+          sourceItemId: be830adf6398e149
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!be830adf6398e149.4770a34edc616a89"
+  - name: Celestial Strain 8+
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.be830adf6398e149
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.cha.bonuses.check
+        mode: 2
+        value: "-2"
+        priority: 20
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: "-2"
+        priority: 20
+    statuses: []
+    _id: 39c8e87c3543fcaf
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: ""
+          sourceItemId: be830adf6398e149
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!be830adf6398e149.39c8e87c3543fcaf"
+  - name: Celestial Strain 11+
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.be830adf6398e149
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.con.bonuses.check
+        mode: 2
+        value: "-2"
+        priority: 20
+      - key: system.abilities.con.bonuses.save
+        mode: 2
+        value: "-2"
+        priority: 20
+    statuses: []
+    _id: a1ad9389dfbc73c5
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: ""
+          sourceItemId: be830adf6398e149
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!be830adf6398e149.a1ad9389dfbc73c5"
+  - name: Celestial Strain 30+
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.be830adf6398e149
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.concentration.limit
+        mode: 5
+        value: "1"
+        priority: 20
+    statuses: []
+    _id: 0cbb9fb0c3e83a72
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: ""
+          sourceItemId: be830adf6398e149
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!be830adf6398e149.0cbb9fb0c3e83a72"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: strain-tracker-hyuga-and-art-consumption-and-ability-penalties
+          mode: native
+        - clause: full-rest-and-downtime-refunds-start-turn-damage-and-threshold-toggling
+          mode: prompt
+        - clause: maximum-hit-die-reduction-concentration-requirement-and-ccl-disadvantage
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!be830adf6398e149"

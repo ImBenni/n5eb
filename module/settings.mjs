@@ -574,7 +574,8 @@ export function registerSystemSettings() {
       none: "SETTINGS.DND5E.VARIANT.Encumbrance.None",
       normal: "SETTINGS.DND5E.VARIANT.Encumbrance.Normal",
       variant: "SETTINGS.DND5E.VARIANT.Encumbrance.Variant"
-    }
+    },
+    onChange: async () => Promise.all(game.actors.map(actor => actor.updateEncumbrance()))
   });
 
   game.settings.register("n5eb", "honorScore", {

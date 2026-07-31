@@ -1,0 +1,173 @@
+folder: 3624d4c7d6d19680
+name: Threads of Life and Death
+type: feat
+_id: 6b7814eb11950a48
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <p>At class-mod level 2 you learn three Threaded Arts. Learn one more at levels 3 and 4, and two more at level 5.
+      Your Threaded Art Save DC equals 10 + your Earth Grudge Fear level + your proficiency bonus + half your Ninjutsu,
+      Taijutsu, or Genjutsu modifier. Choose the applicable modifier with the GM when the Art is used because the source
+      does not specify a universal discipline.</p><p>Your Threaded Art Attack Bonus equals twice your proficiency bonus
+      + your Earth Grudge Fear level.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-threads-of-life-and-death
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    c725f1e3a89312a7:
+      _id: c725f1e3a89312a7
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Review Threaded Art DC
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 10 + @classmods.earth-grudge-fear.levels + @prof
+        name: Base Threaded Art DC (add half chosen modifier)
+        prompt: true
+        visible: true
+    d13b4aba1be7adc9:
+      _id: d13b4aba1be7adc9
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Threaded Art Attack
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + 2 * @prof + @classmods.earth-grudge-fear.levels
+        name: Threaded Art Attack
+        prompt: true
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: attack-bonus-and-base-dc-rolls
+          mode: native
+        - clause: chosen-half-nin-tai-gen-modifier
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!6b7814eb11950a48"

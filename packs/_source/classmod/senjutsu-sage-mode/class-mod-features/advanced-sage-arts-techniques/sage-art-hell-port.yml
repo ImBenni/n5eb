@@ -2,7 +2,7 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Hell Port'
 type: spell
 _id: 1s7sTIooQkb9EaOF
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -21,9 +21,10 @@ system:
       the damage die by 1 step (D10 &gt; D12)</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -108,7 +109,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -118,17 +119,89 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    b734675122870606:
+      _id: b734675122870606
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 90
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Hell Port'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts:
+          - number: null
+            denomination: 0
+            bonus: ''
+            types: []
+            custom:
+              enabled: true
+              formula: 4d10+
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: none
 effects:
   - name: Staggered
     origin: Compendium.n5eb.classmod.Item.1s7sTIooQkb9EaOF
     duration:
-      rounds: null
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
     disabled: false
     flags:
       dae:
@@ -160,29 +233,29 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/staggered.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: XpcvjSxWlhGP8jYa
     type: base
-    system: {}
-    changes:
-      - key: StatusEffect
-        mode: 0
-        value: staggered
-        priority: 20
-      - key: system.abilities.str.bonuses.check
-        mode: 2
-        value: '-5'
-        priority: 20
-      - key: system.abilities.dex.bonuses.check
-        mode: 2
-        value: '-5'
-        priority: 20
-      - key: system.abilities.con.bonuses.check
-        mode: 2
-        value: '-5'
-        priority: 20
+    system:
+      changes:
+        - key: StatusEffect
+          value: staggered
+          priority: 20
+          type: custom
+        - key: system.abilities.str.bonuses.check
+          value: -5
+          priority: 20
+          type: add
+        - key: system.abilities.dex.bonuses.check
+          value: -5
+          priority: 20
+          type: add
+        - key: system.abilities.con.bonuses.check
+          value: -5
+          priority: 20
+          type: add
     description: >-
-      <p><strong>Max Ranks</strong>: 1</p><hr /><p>A <strong>Staggered</strong> creature has been completely overwhelmed
+      <p><strong>Max Ranks</strong>: 1</p><hr><p>A <strong>Staggered</strong> creature has been completely overwhelmed
       by pain or has otherwise had their battle stance shaken.</p><ul><li><p>A <strong>Staggered</strong> creature is
       counted as Bruised 5 for the purposes of interacting with Features, Traits and Jutsu and cannot gain Ranks of
       Bruised for the duration.</p></li><li><p>A <strong>Staggered</strong> creature cannot take the Disengage, Dash or
@@ -198,12 +271,16 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.wgbuxnP6HRnrbF8l.ActiveEffect.rgnmPqkNAj46ac09
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!1s7sTIooQkb9EaOF.XpcvjSxWlhGP8jYa'
 sort: 0
 ownership:
@@ -321,6 +398,15 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
   midiProperties:
     confirmTargets: default
     saveDamage: default

@@ -1,0 +1,131 @@
+folder: 9ae5934b9a3512d1
+name: The Sealed Beast Redux
+type: classmod
+_id: 76e56a137739e590
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: |-
+      <h2>The Sealed Beast Redux</h2>
+        <p>A five-level homebrew class mod about drawing power from a sealed Chakra beast, risking Frenzy, choosing a path
+        of Dominion, Wrath, Partnership, or the Beast, and buying Vermillion Arts and passives with Twisted Awakening.</p>
+        <h3>Progression</h3>
+        <table><thead><tr><th>Level</th><th>Character Level</th><th>Twisted Awakening</th><th>Features</th></tr></thead><tbody>
+          <tr><td>1</td><td>4</td><td>45</td><td>Sealed Beast, Vermillion Arts, Twisted Chakra, Dormant Beast, Desperate Rage, Frenzy</td></tr>
+          <tr><td>2</td><td>7</td><td>110</td><td>Frenzied Drawbacks, choose Path of the Beast</td></tr>
+          <tr><td>3</td><td>10</td><td>175</td><td>Chosen Path advances</td></tr>
+          <tr><td>4</td><td>15</td><td>220</td><td>Chosen Path advances</td></tr>
+          <tr><td>5</td><td>17</td><td>275</td><td>Chosen Path advances</td></tr>
+        </tbody></table>
+        <h3>Vermillion Formulas</h3>
+        <p><strong>Save DC:</strong> 12 + class-mod level + proficiency bonus.</p>
+        <p><strong>Attack Bonus:</strong> twice proficiency bonus + class-mod level.</p>
+        <h3>Source</h3>
+        <p><a href="https://homebrewery.naturalcrit.com/share/JVm5FLmyWZ2r">Sealed Beast Redux - Beta on Homebrewery</a>.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux
+  levels: 1
+  advancement:
+    90b96b52978b8cd8:
+      _id: 90b96b52978b8cd8
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-classmod.Item.22b5328b4d28ad88
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.6379345868cea21c
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.6c15e699bbc47fd9
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.8a30ce800daf82a4
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.80c82b7ffed19a9a
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.648a167c72849316
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.206e147e25c0e89e
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.afcf0291737231ee
+            optional: false
+          - uuid: Compendium.n5eb.hb-classmod.Item.a26d53ef4a8f9c2b
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 1
+      title: ""
+      hint: ""
+    16621fb2dd2cf21d:
+      _id: 16621fb2dd2cf21d
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-classmod.Item.859bd48e708ac9c0
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 2
+      title: ""
+      hint: ""
+    fbc55ea7073d8e87:
+      _id: fbc55ea7073d8e87
+      type: ItemChoice
+      configuration:
+        choices:
+          "2":
+            count: 1
+            replacement: false
+        allowDrops: false
+        type: null
+        pool:
+          - uuid: Compendium.n5eb.hb-classmod.Item.60fb200b0bae5578
+          - uuid: Compendium.n5eb.hb-classmod.Item.544c9c82ec61028f
+          - uuid: Compendium.n5eb.hb-classmod.Item.b933f433060a1a4a
+          - uuid: Compendium.n5eb.hb-classmod.Item.b130c63fc6a4ba23
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      level: 2
+      title: Choose one Path of the Beast
+      hint: ""
+  save:
+    formula: 12 + @classmods.sealed-beast-redux.levels + @prof
+  attackBonus:
+    formula: 2 * @prof + @classmods.sealed-beast-redux.levels
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: level-progression-formulas-mandatory-grants-and-path-choice
+          mode: native
+        - clause: minimum-character-level-prerequisites
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!76e56a137739e590"

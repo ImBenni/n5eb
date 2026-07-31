@@ -1,0 +1,119 @@
+folder: 362f8ef897d65258
+name: Driven Break
+type: feat
+_id: 276ef66c08c3bb06
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <p>Casting Time: Action Description: You quickly analyze the situation you are in, and simply decide to not be
+      bothered it. You touch one creature, object or area, and dispel all jutsu of A-rank or less currently affecting
+      it. If the target creature is unwilling, you must make a melee Yin Attack, dispelling the jutsu on a hit.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '121'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: driven-break
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    167fd9ff6304a921:
+      _id: 167fd9ff6304a921
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires yin-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Driven Break
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!276ef66c08c3bb06'

@@ -1,0 +1,197 @@
+folder: acf0311ea381da42
+name: Chakra Barrier
+type: spell
+_id: 66b7d7e74cf274b9
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Chakra Barrier</h2><h3>Divine Art</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Divine
+      Art</dd><dt>Casting Time:</dt><dd>Bonus Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>1 minute or
+      until the first qualifying hit</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>15 Chakra or 2 Chakra
+      Dice</dd><dt>Keywords:</dt><dd>Divine</dd></dl><h3>Description:</h3><p>As a Bonus Action for 1 minute, absorb the
+      next Ninjutsu or Divine Art that affects you, negate it, and end the barrier. Gain temporary Chakra equal to half
+      its cost, usable only for Divine Arts, for 1 minute. If the absorbed Chakra is cursed or sage Chakra, make a
+      Constitution save against DC 8 + amount absorbed or become Petrified.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-chakra-barrier
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - divine
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 15 Chakra or 2 Chakra Dice
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:rinnegan-redux
+  activities:
+    92c9445931cb15e6:
+      _id: 92c9445931cb15e6
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: >-
+          Negate the next qualifying effect, record half its cost as temporary Divine-Art-only Chakra, and resolve
+          special Chakra risk.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "15"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: ad5bfb1bc7983258
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast Chakra Barrier
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - ad5bfb1bc7983258
+effects:
+  - name: Chakra Barrier Active
+    img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+    origin: Item.66b7d7e74cf274b9
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: ad5bfb1bc7983258
+    type: base
+    system: {}
+    description: ""
+    tint: "#68428f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: rinnegan-redux
+          form: ""
+          sourceItemId: 66b7d7e74cf274b9
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!66b7d7e74cf274b9.ad5bfb1bc7983258"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: source-rule-and-explicit-numeric-resolution
+          mode: native
+        - clause: timing-target-choice-and-prerequisite-resolution
+          mode: prompt
+        - clause: cross-item-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: rinnegan-redux
+      classification: Divine Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!66b7d7e74cf274b9"

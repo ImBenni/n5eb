@@ -1,0 +1,150 @@
+folder: fc47bb38af3b70c1
+name: Gift of Light
+type: spell
+_id: a50ccc390db97d5f
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+system:
+  description:
+    value: >-
+      <h3>Light Art Type: Light Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Light
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>120 feet</dd><dt>Duration:</dt><dd>1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>50 Light Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu,
+      Light Release, Enhancement</dd></dl><h3>Description:</h3><p>Choose one willing creature within range. It gains
+      your Light Chakra Cloak, Light Arts, and Bane of the Dark features for the duration, but can use only Light Arts
+      that you know. It can convert 2 normal Chakra into 1 Light Chakra. You can have only one creature empowered this
+      way and can end the gift as a bonus action.</p><p>When the effect ends, the creature is Dazed and Weakened and
+      gains 2 ranks of Exhaustion for 1 hour or until it rests.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: gift-of-light
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - light-release
+      - enhancement
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 50 Light Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:light-release
+  activities:
+    332d0f508457121d:
+      _id: 332d0f508457121d
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires an active Light Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:light-chakra
+            value: "50"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 120
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: light-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: light-release
+      classification: Light Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!a50ccc390db97d5f"

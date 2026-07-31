@@ -356,21 +356,12 @@ export default class CharacterActorSheet extends BaseActorSheet {
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
 
-    // The downtime tab edits only part of the downtime object inline. Preserve actor-local activity instances and
-    // hidden week counters when changing sheet modes or submitting unrelated character fields.
+    // The downtime tab edits only part of the downtime object inline. A partial SchemaField update replaces omitted
+    // siblings, so always start with the complete stored value and overlay only fields present in this submission.
     const source = this.actor._source?.system?.downtime ?? this.actor.system._source?.downtime;
     if ( source ) {
-      const fields = Object.keys(formData.object ?? {});
-      const downtime = foundry.utils.getProperty(submitData, "system.downtime") ?? {};
-      if ( !fields.some(field => field.startsWith("system.downtime.activities")) ) {
-        downtime.activities = foundry.utils.deepClone(source.activities ?? []);
-      }
-      downtime.weeks ??= {};
-      const weeks = source.weeks ?? {};
-      for ( const key of ["available", "spent", "source", "notes"] ) {
-        if ( fields.includes(`system.downtime.weeks.${key}`) ) continue;
-        if ( key in weeks ) downtime.weeks[key] = weeks[key];
-      }
+      const submitted = foundry.utils.getProperty(submitData, "system.downtime") ?? {};
+      const downtime = foundry.utils.mergeObject(foundry.utils.deepClone(source), submitted, { inplace: false });
       foundry.utils.setProperty(submitData, "system.downtime", downtime);
     }
 

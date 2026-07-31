@@ -1,6 +1,6 @@
 export const DEFAULT_CLASSMOD_ARTS_COLOR = "#3b145f";
 export const CLASSMOD_ARTS_PREFIX = "classmod:";
-export const CLASSMOD_ARTS_MECHANICAL_RANK = "s";
+export const CLASSMOD_ARTS_MECHANICAL_RANK = "art";
 export const CLASSMOD_ARTS_DISPLAY_RANK = "art";
 
 /* -------------------------------------------- */
@@ -26,6 +26,7 @@ function getClassmodArtFlag(item) {
 export function isClassmodArtItem(item) {
   if ( item?.type && (item.type !== "spell") ) return false;
   const system = item?.system ?? item;
+  if ( system?.rank === CLASSMOD_ARTS_MECHANICAL_RANK ) return true;
   if ( system?.classmodIdentifier ) return true;
   if ( isClassmodArtsCastingKey(system?.sourceItem) ) return true;
   return Boolean(getClassmodArtFlag(item));

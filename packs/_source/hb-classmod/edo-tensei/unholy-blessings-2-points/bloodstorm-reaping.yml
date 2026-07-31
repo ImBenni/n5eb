@@ -1,0 +1,210 @@
+folder: 55ecc51b6b20d621
+name: Bloodstorm Reaping
+type: feat
+_id: da62ec9655502d30
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Bloodstorm Reaping</h2><p><strong>Cost:</strong> 2 Unholy Blessings. When you reduce a creature to 0 hit
+      points, chosen creatures within 30 feet make a Dexterity save or take 3d8 necrotic damage. Once per encounter,
+      trigger Bloodstorm: hostile creatures in a 60-foot radius make a Dexterity save against 20d8 necrotic damage;
+      creatures killed by it are obliterated without a corpse.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 23
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-bloodstorm-reaping
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    b6be0d11aa91ae3c:
+      _id: b6be0d11aa91ae3c
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 30
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: radius
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Reaping Burst
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: custom
+          formula: 12 + @prof + floor(@details.level / 2)
+      damage:
+        parts:
+          - number: 3
+            denomination: 8
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    7ea4a9944c71c20a:
+      _id: 7ea4a9944c71c20a
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: radius
+          size: "60"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery:
+          - period: initiative
+            type: recoverAll
+        max: "1"
+      sort: 0
+      name: Bloodstorm
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: custom
+          formula: 12 + @prof + floor(@details.level / 2)
+      damage:
+        parts:
+          - number: 20
+            denomination: 8
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: bloodstorm-reaping-static-or-rolled-benefits
+          mode: native
+        - clause: bloodstorm-reaping-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: bloodstorm-reaping-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!da62ec9655502d30"

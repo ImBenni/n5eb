@@ -79,6 +79,20 @@ function formatFlagList(value) {
 }
 
 /**
+ * Normalize multi-checkbox form values into the arrays expected by SetField.
+ * Foundry forms normally provide an object of checkbox booleans, while module-provided
+ * item editors may provide an already-normalized Array or Set.
+ * @param {object|string[]|Set<string>} value  Submitted multi-checkbox value.
+ * @returns {string[]} Normalized selected keys.
+ */
+function normalizeMultiCheckboxValue(value) {
+  if ( value instanceof Set ) return Array.from(value);
+  if ( Array.isArray(value) ) return value;
+  if ( foundry.utils.getType(value) === "Object" ) return filteredKeys(value);
+  return [];
+}
+
+/**
  * Resolve nested Feature rank choices for the selected Feature type/subtype.
  * @param {object} source  Item system source data.
  * @returns {object|null}
@@ -934,13 +948,13 @@ export default class ItemSheet5e extends PrimarySheetMixin(DocumentSheet5e) {
 
     // Handle properties
     if ( foundry.utils.hasProperty(submitData, "system.properties") ) {
-      submitData.system.properties = filteredKeys(submitData.system.properties);
+      submitData.system.properties = normalizeMultiCheckboxValue(submitData.system.properties);
     }
     if ( foundry.utils.hasProperty(submitData, "system.jutsu.components") ) {
-      submitData.system.jutsu.components = filteredKeys(submitData.system.jutsu.components);
+      submitData.system.jutsu.components = normalizeMultiCheckboxValue(submitData.system.jutsu.components);
     }
     if ( foundry.utils.hasProperty(submitData, "system.jutsu.keywords") ) {
-      submitData.system.jutsu.keywords = filteredKeys(submitData.system.jutsu.keywords);
+      submitData.system.jutsu.keywords = normalizeMultiCheckboxValue(submitData.system.jutsu.keywords);
     }
     if ( foundry.utils.hasProperty(submitData, "system.rank") ) {
       submitData.system.level = CONFIG.DND5E.jutsuSpellLevelByRank[submitData.system.rank] ?? submitData.system.level;

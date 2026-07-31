@@ -18,6 +18,12 @@
                  label="N5EB.JUTSU.Keywords" localize=true input=inputs.createMultiCheckboxInput stacked=true
                  classes="checkbox-grid checkbox-grid-3" rootId=partId }}
 
+    {{!-- Compatibility properties used by Foundry and automation modules --}}
+    {{ formField fields.properties value=properties.object options=properties.options
+                 label="N5EB.JUTSU.CompatibilityProperties" localize=true
+                 input=inputs.createMultiCheckboxInput stacked=true
+                 classes="checkbox-grid checkbox-grid-3" rootId=partId }}
+
     <div class="collapsible genjutsu-stimuli {{#unless genjutsuStimuli.expanded}}collapsed{{/unless}}"
          data-expand-id="{{ genjutsuStimuli.expandId }}">
         <button type="button" class="unbutton genjutsu-stimuli-toggle" data-action="toggleCollapsed">

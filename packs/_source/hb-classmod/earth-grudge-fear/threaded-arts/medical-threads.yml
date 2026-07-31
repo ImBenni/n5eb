@@ -1,0 +1,296 @@
+folder: 453486bacac9d208
+name: Medical Threads
+type: spell
+_id: 8ea718797b8338b9
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/stitch.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Passive</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Threaded
+      Art</dd><dt>Casting Time:</dt><dd>1 Bonus Action or 1
+      Action</dd><dt>Range:</dt><dd>Touch</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M</dd><dt>Cost:</dt><dd>4
+      Decay for treatment</dd><dt>Keywords:</dt><dd>Threaded Art, Medical</dd></dl><h3>Description:</h3><p>You may learn
+      Medical Release Jutsu regardless of knowing that release. As a bonus action incur 4 Decay and allow a creature to
+      spend Hit Dice up to its maximum to heal; you may also reattach a severed limb. As an action, revive a creature
+      killed outright if less than one minute has passed and physical remains exist.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-medical-threads
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - m
+    keywords:
+      - threaded-art
+      - medical
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 4 Decay for treatment
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    52daa5000e504ec7:
+      _id: 52daa5000e504ec7
+      type: heal
+      activation:
+        type: bonus
+        value: 1
+        condition: Target chooses and spends Hit Dice; optionally reattach a limb.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Medical Threads Treatment
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/stitch.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: "0"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+    f1d52f252d8b819c:
+      _id: f1d52f252d8b819c
+      type: heal
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires Mastered Earth Grudge Fear. Target chooses and spends Hit Dice.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Medical Treatment (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/stitch.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: "0"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+    b88e4fe8625dc09e:
+      _id: b88e4fe8625dc09e
+      type: heal
+      activation:
+        type: action
+        value: 1
+        condition: Target was killed outright less than 1 minute ago and physical remains exist.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Revive (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/stitch.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: "1"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: decay-cost-target-and-revival-healing-activity
+          mode: native
+        - clause: target-selected-hit-dice-and-limb-reattachment
+          mode: prompt
+        - clause: death-state-reversal
+          mode: manual
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!8ea718797b8338b9"

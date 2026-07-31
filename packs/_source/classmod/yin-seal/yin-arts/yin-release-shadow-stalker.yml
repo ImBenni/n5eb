@@ -1,0 +1,156 @@
+folder: b4916b858daefb43
+name: 'Yin Release: Shadow Stalker'
+type: spell
+_id: 900608221816ecf9
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/shadow-stitching.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Yin Art</dd><dt>Casting Time:</dt><dd>Bonus
+      Action</dd><dt>Range:</dt><dd>120ft</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>1
+      Yin Charge</dd><dt>Keywords:</dt><dd>Taijutsu, Yin Release</dd></dl><h3>Description:</h3><p>You turn your body
+      into a shadow, making it able to reach impossible places with a simple thought. Choose one free space within range
+      that you can see. You teleport yourself to the chosen space, ending the grappled and restrained conditions on
+      yourself, and the next melee attack you make before the end of the current turn is made at advantage.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '124'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yin-release-shadow-stalker
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+    keywords:
+      - taijutsu
+      - yin-release
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Yin Charge
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yin-seal
+  activities:
+    58fd48ee4e086fb9:
+      _id: 58fd48ee4e086fb9
+      type: attack
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires yin-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: 120
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/shadow-stitching.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ''
+        bonus: ''
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ''
+        includeBase: false
+        parts: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yin-seal
+      classification: Yin Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!900608221816ecf9'

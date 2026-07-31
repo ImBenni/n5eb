@@ -1,0 +1,296 @@
+folder: ec821982e1597c80
+name: 'Yin-Yang Release: Majestic Attire: Guardian of the Land'
+type: spell
+_id: ddf69a294448bfb1
+img: systems/n5eb/assets/content/classmod-icons/yin-yang/majestic-attire-susanoo.webp
+system:
+  description:
+    value: >-
+      <h3>GUARDIAN OF THE LAND</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Yin-Yang
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>1
+      minute</dd><dt>Components:</dt><dd>CM, HS, CS</dd><dt>Cost:</dt><dd>10 Yang Chakra, 1 Yin
+      Charge</dd><dt>Keywords:</dt><dd>Ninjutsu, Yin-Yang Release, Fuinjutsu,
+      Construct</dd></dl><h3>Description:</h3><p><strong>An enhanced version of Yang Release:</strong> Guardian of the
+      Land , The Yang release wielders summons a luminous Pseudo -Tailed Beast made of Yang Chakra, which is then
+      covered in dark and twisted Yin Chakra. The perfect union of the Savior and the Avenger turning this being into
+      the ultimate warrior. The Majestic Attire has the same statistics as a Guardian of the Land , but it loses its
+      Yang of Many trait.</p><p>At the start of each of their turns, the Yang Seal wielder must spend 10 Yang Chakra to
+      maintain concentration, while the Yin Seal wielder must spend 1 Yin Charge at the start of each of its turns.
+      Finally, the Guardian of the Land gains the following: Yin-Yang of Two. The Guardian of the Land takes the Turns
+      of both casters, using their actions, bonus actions, and reactions. Perfectly Balanced.</p><p>The Guardian of the
+      Land is threated as having 6 people inside of it, for the purpose of Calculating Hit Points, Speed, AC, Attacks,
+      and damage rolls. Majestic Drive. The Guardian of the Land can use the Yin Abilities of its caster, spending its
+      Yin Charges. once per round, you can use one Yin Ability, as a free action.</p><p>Majestic Blades When you deal
+      Slashing damage with your Guardian Fist Attacks, you ignore resistance, Immunity, and Damage Reduction. Creatures
+      that take damage from your Guardian Fist cannot regain hit points until the start of your next turn.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '130'
+    license: ''
+    rules: n5eb
+  uses:
+    max: '1'
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: yin-yang-release-majestic-attire-guardian-of-the-land
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+      - hs
+      - cs
+    keywords:
+      - ninjutsu
+      - yin-yang-release
+      - fuinjutsu
+      - construct
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Yang Chakra, 1 Yin Charge
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yin-yang-release
+  activities:
+    8cb16a086618056a:
+      _id: 8cb16a086618056a
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Both willing bonded casters must have their Seal active. The partner spends their reaction.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ''
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: '1'
+        units: minute
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yin-yang/majestic-attire-susanoo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+    32f77d9b4454fb5c:
+      _id: 32f77d9b4454fb5c
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: >-
+          Use on the actor providing yang chakra. Resolve both participant costs before resolving the main Cast
+          activity.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '10'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: '1'
+          type: ally
+          choice: true
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Yang Participant Cost
+      img: systems/n5eb/assets/content/classmod-icons/yin-yang/majestic-attire-susanoo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+    45cd4639c6d26461:
+      _id: 45cd4639c6d26461
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Use on the actor providing yin charges. Resolve both participant costs before resolving the main Cast
+          activity.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: '1'
+          type: ally
+          choice: true
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Yin Participant Cost (Reaction)
+      img: systems/n5eb/assets/content/classmod-icons/yin-yang/majestic-attire-susanoo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-yang-release
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yin-yang-release
+      classification: Yin-Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!ddf69a294448bfb1'

@@ -256,6 +256,10 @@ export default class FeatData extends ItemDataModel.mixin(
   static #migrateType(source) {
     if ( !("type" in source) ) return;
     if ( !source.type ) source.type = {value: "", subtype: ""};
+    if ( ["classmodfeat", "class-mod"].includes(source.type.value) ) {
+      source.type.value = "classmod";
+      source.type.subtype = "";
+    }
   }
 
   /* -------------------------------------------- */

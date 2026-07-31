@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset data-damage-path="damage.parts">
     <legend>
         <span>{{ localize "DND5E.ATTACK.FIELDS.damage.label" }}</span>
         <button type="button" class="unbutton control-button" data-action="addDamagePart"
@@ -13,3 +13,16 @@
     {{ formField fields.damage.fields.critical.fields.bonus value=source.damage.critical.bonus rootId=partId }}
     {{> "systems/n5eb/templates/activity/parts/damage-parts.hbs" }}
 </fieldset>
+
+{{#if showVersatileDamage}}
+<fieldset data-damage-path="damage.versatile.parts">
+    <legend>
+        <span>{{ localize "DND5E.VersatileDamage" }}</span>
+        <button type="button" class="unbutton control-button" data-action="addDamagePart"
+                data-tooltip aria-label="{{ localize "DND5E.DAMAGE.Part.Action.Create" }}">
+            <i class="fas fa-plus" inert></i>
+        </button>
+    </legend>
+    {{> "systems/n5eb/templates/activity/parts/damage-parts.hbs" damageParts=versatileDamageParts }}
+</fieldset>
+{{/if}}

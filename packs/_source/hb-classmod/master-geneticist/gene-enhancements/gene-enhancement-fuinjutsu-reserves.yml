@@ -1,0 +1,183 @@
+folder: bfc4777b66084063
+name: "Gene Enhancement: Fuinjutsu Reserves"
+type: feat
+_id: 925292e104ece65e
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+system:
+  description:
+    value: >-
+      <h2>Gene Enhancement: Fuinjutsu Reserves</h2><p><strong>Prerequisite:</strong> Uzumaki Clan or
+      Splice<br><strong>DNA Point Cost:</strong> 6<br><strong>Base Genetic Degradation:</strong> 3</p><p>Increase the
+      save DC of all Fuinjutsu you cast by 2 and gain Reserve Cells equal to twice your Master Geneticist level.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 10
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-gene-enhancement-fuinjutsu-reserves
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    597d2e4ccde73732:
+      _id: 597d2e4ccde73732
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this modification is installed. Its Degradation becomes part of your minimum.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Install Modification (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    fcb4a4c91bcf9624:
+      _id: fcb4a4c91bcf9624
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply this enhancement to the named owned clan feature or resource while its prerequisite is met.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve Gene Enhancement
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: dna-allocation-and-base-degradation
+          mode: native
+        - clause: prerequisite-and-existing-clan-feature-or-resource-adjustment
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!925292e104ece65e"

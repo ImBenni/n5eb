@@ -20,9 +20,10 @@ system:
       cast as a Susanoo Art, the damage dice is increased to 7d12.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 71–104
   activation:
     type: action
     cost: 1
@@ -106,7 +107,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -116,6 +117,65 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:mangekyo-sharingan
+  activities:
+    40c2d1faf1ca4e9c:
+      _id: 40c2d1faf1ca4e9c
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires mangekyo-sharingan.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: 5d10
+        name: Effect
+        prompt: false
+        visible: true
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Malefic Empowered Assault
+      img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+      visibility:
+        level:
+          min: null
+          max: null
 effects: []
 sort: 0
 ownership:
@@ -251,6 +311,15 @@ flags:
           value: 0
     classmodArt:
       classmod: mangekyo-sharingan
+    classmodCompendium:
+      classmod: mangekyo-sharingan
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

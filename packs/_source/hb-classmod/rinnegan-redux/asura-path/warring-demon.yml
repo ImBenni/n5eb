@@ -1,0 +1,166 @@
+folder: e8e1e7cd04d78ecc
+name: Warring Demon
+type: spell
+_id: 997e1707769627af
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+system:
+  description:
+    value: >-
+      <h2>Warring Demon</h2><h3>Divine Art</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Divine
+      Art</dd><dt>Casting
+      Time:</dt><dd>Action</dd><dt>Range:</dt><dd>Ranged</dd><dt>Duration:</dt><dd>Instantaneous</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>16
+      Chakra or 2 Chakra Dice</dd><dt>Keywords:</dt><dd>Divine</dd></dl><h3>Description:</h3><p>As an Action, launch a
+      Rocket Punch as a ranged Divine Art attack. On a hit deal 10d8 bludgeoning damage and Grapple the target.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-warring-demon
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - divine
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 16 Chakra or 2 Chakra Dice
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:rinnegan-redux
+  activities:
+    6faac96d4ecd823f:
+      _id: 6faac96d4ecd823f
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: On hit the target is Grappled by the Rocket Punch.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "16"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Rocket Punch
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: 2 * @prof + @classmods.rinnegan-redux.levels
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 10
+            denomination: 8
+            bonus: ""
+            types:
+              - bludgeoning
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: source-rule-and-explicit-numeric-resolution
+          mode: native
+        - clause: timing-target-choice-and-prerequisite-resolution
+          mode: prompt
+        - clause: cross-item-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: rinnegan-redux
+      classification: Divine Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!997e1707769627af"

@@ -1,0 +1,168 @@
+folder: b4916b858daefb43
+name: 'Yin Release: Wailing Sky'
+type: spell
+_id: 6d24311f74ee715e
+img: systems/n5eb/assets/content/classmod-icons/mangekyo/tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Yin Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>60 feet (20 feet radius)</dd><dt>Duration:</dt><dd>1 Minute
+      (Concentration)</dd><dt>Components:</dt><dd>HS, CM</dd><dt>Cost:</dt><dd>1 Yin
+      Charge</dd><dt>Keywords:</dt><dd>Ninjutsu, Yin Release</dd></dl><h3>Description:</h3><p>You make handsigns as a
+      cloud of Yin Release Chakra is formed on a place within range. This cloud then starts raining black flames that
+      cause rot and destroy creatures where they fall. All creatures within 20ft of the chosen space must make a
+      constitution saving throw, taking 8d12 Necrotic damage and being knocked prone on a failed save, or taking half as
+      much damage on a success.</p><p>Each time a creature starts their turn inside this area, or move into this area
+      for the first time on a turn, it repeats this saving throw, taking 8d12 Necrotic damage and being knocked prone on
+      a failed save, half as much damage on a success.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '125'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yin-release-wailing-sky
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - yin-release
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Yin Charge
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yin-seal
+  activities:
+    3aae108081f5afa8:
+      _id: 3aae108081f5afa8
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yin-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: true
+        value: '1'
+        units: minute
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo/tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 8
+            denomination: 12
+            bonus: ''
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yin-seal
+      classification: Yin Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!6d24311f74ee715e'

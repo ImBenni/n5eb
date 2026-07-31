@@ -1,7 +1,7 @@
 import * as Trait from "../../../documents/actor/trait.mjs";
 import Item5e from "../../../documents/item.mjs";
 import {
-  formatLength, formatNumber, parseInputDelta, simplifyBonus, splitSemicolons, staticID
+  filteredKeys, formatLength, formatNumber, parseInputDelta, simplifyBonus, splitSemicolons, staticID
 } from "../../../utils.mjs";
 import {
   CLASSMOD_ARTS_MECHANICAL_RANK, getClassmodArtRankLabel, isClassmodArtItem
@@ -42,6 +42,67 @@ import JutsuLookup from "../../jutsu-lookup.mjs";
 const { BooleanField, NumberField, SchemaField, StringField } = foundry.data.fields;
 const SKILL_ABILITY_SORT_ORDER = ["str", "dex", "con", "wis", "int", "cha"];
 const SKILL_ABILITY_SORT_INDEX = Object.fromEntries(SKILL_ABILITY_SORT_ORDER.map((key, index) => [key, index]));
+
+/**
+ * Serialize a SetField-compatible value for embedded Item creation.
+ * @param {Set<string>|string[]|object} value  Source value.
+ * @returns {string[]} Serialized values.
+ */
+function serializeSetField(value) {
+  if ( value instanceof Set ) return Array.from(value);
+  if ( Array.isArray(value) ) return Array.from(value);
+  if ( foundry.utils.getType(value) === "Object" ) return filteredKeys(value);
+  return [];
+}
+
+/**
+ * Prepare dropped Item data for creation on an Actor without losing Jutsu SetField values.
+ * @param {Item5e|object} item  Dropped Item or plain Item data.
+ * @returns {object} Serialized Item data.
+ */
+function prepareActorDropItemData(item) {
+  const isDocument = item instanceof foundry.abstract.Document;
+  const itemData = isDocument
+    ? (item.pack
+      ? game.items.fromCompendium(item, { clearSort: false, keepId: true, clearOwnership: false })
+      : item.toObject())
+    : foundry.utils.deepClone(item);
+  if ( itemData.type !== "spell" ) return itemData;
+
+  const jutsu = isDocument ? item.system?.jutsu : itemData.system?.jutsu;
+  if ( !jutsu ) return itemData;
+  itemData.system.jutsu ??= {};
+  itemData.system.jutsu.components = serializeSetField(jutsu.components);
+  itemData.system.jutsu.keywords = serializeSetField(jutsu.keywords);
+  return itemData;
+}
+
+/**
+ * Reconcile Jutsu SetField values on newly-created actor copies.
+ * @param {Item5e[]} items    Created embedded Items.
+ * @param {object[]} sources  Serialized creation data in matching order.
+ * @returns {Promise<void>}
+ */
+async function reconcileDroppedJutsuMetadata(items, sources) {
+  await Promise.all(items.map((item, index) => {
+    if ( item.type !== "spell" ) return null;
+    const jutsu = sources[index]?.system?.jutsu;
+    if ( !jutsu ) return null;
+
+    const components = serializeSetField(jutsu.components);
+    const keywords = serializeSetField(jutsu.keywords);
+    const hasComponents = (item.system.jutsu.components.size === components.length)
+      && components.every(component => item.system.jutsu.components.has(component));
+    const hasKeywords = (item.system.jutsu.keywords.size === keywords.length)
+      && keywords.every(keyword => item.system.jutsu.keywords.has(keyword));
+    if ( hasComponents && hasKeywords ) return null;
+
+    return item.update({
+      "system.jutsu.components": components,
+      "system.jutsu.keywords": keywords
+    }, { render: false });
+  }));
+}
 
 /**
  * @import { DropEffectValue } from "../../../_types.mjs"
@@ -1720,7 +1781,7 @@ export default class BaseActorSheet extends PrimarySheetMixin(
    * @param {Event} event         Triggering click event.
    * @param {HTMLElement} target  Button that was clicked.
    */
-  static #togglePip(event, target) {
+  static async #togglePip(event, target) {
     const n = Number(target.closest("[data-n]")?.dataset.n);
     const prop = target.dataset.prop ?? target.closest("[data-prop]")?.dataset.prop;
     if ( !Number.isNumeric(n) || !prop ) return;
@@ -1728,7 +1789,7 @@ export default class BaseActorSheet extends PrimarySheetMixin(
     if ( (value === n) && prop.endsWith(".spent") ) value++;
     else if ( value === n ) value--;
     else value = n;
-    this.submit({ updateData: { [prop]: value } });
+    await this.actor.update({ [prop]: value });
   }
 
   /* -------------------------------------------- */
@@ -1848,6 +1909,12 @@ export default class BaseActorSheet extends PrimarySheetMixin(
     const submitData = super._processFormData(event, form, formData);
     this._preserveExpertiseMasteryRanks(submitData, event);
     this._setManualMasteryOverrides(submitData);
+
+    // Will of Fire is updated directly by its pips. Never allow an unrelated, stale form submission to overwrite it.
+    const willOfFire = foundry.utils.getProperty(this.actor._source, "system.attributes.inspiration");
+    if ( Number.isFinite(willOfFire) ) {
+      foundry.utils.setProperty(submitData, "system.attributes.inspiration", willOfFire);
+    }
 
     // Remove any flags that are false-ish
     for ( const [key, value] of Object.entries(submitData.flags?.n5eb ?? {}) ) {
@@ -2039,7 +2106,8 @@ export default class BaseActorSheet extends PrimarySheetMixin(
     }
 
     // Otherwise, create a new copy inside the container
-    const toCreate = await Item5e.createWithContents([item], {
+    const dropItem = item.type === "spell" ? prepareActorDropItemData(item) : item;
+    const toCreate = await Item5e.createWithContents([dropItem], {
       container,
       transformFirst: itemData => {
         if ( itemData instanceof foundry.abstract.Document ) itemData = itemData.toObject();
@@ -2047,6 +2115,7 @@ export default class BaseActorSheet extends PrimarySheetMixin(
       }
     });
     const created = await Item5e.createDocuments(toCreate, { parent: this.inventorySource, keepId: true });
+    await reconcileDroppedJutsuMetadata(created, toCreate);
     if ( event._behavior === "move" ) item.delete({ deleteContents: true });
     return created;
   }
@@ -2093,6 +2162,9 @@ export default class BaseActorSheet extends PrimarySheetMixin(
       i.actor?.system.isNPC && (i.actor !== this.actor) && i.system.asGear ? i.system.asGear() : i
     ));
 
+    // Serialize Jutsu SetField values while the source documents are still available.
+    items = items.map(item => item.type === "spell" ? prepareActorDropItemData(item) : item);
+
     // Create the owned items & contents as normal
     const toCreate = await Item5e.createWithContents(items, {
       transformFirst: item => {
@@ -2101,6 +2173,7 @@ export default class BaseActorSheet extends PrimarySheetMixin(
       }
     });
     const created = await Item5e.createDocuments(toCreate, { parent: this.inventorySource, keepId: true });
+    await reconcileDroppedJutsuMetadata(created, toCreate);
     await this._onDropNormalizeJutsuRanks(created);
     if ( behavior === "move" ) items.forEach(i => i.delete({ deleteContents: true }));
     return created;

@@ -1,0 +1,373 @@
+folder: 3624d4c7d6d19680
+name: Earth Grudge Fear Mode
+type: feat
+_id: 04c88bb81507a47f
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <h2>Earth Grudge Fear Mode</h2><p>As a bonus action, spend 10 Chakra to activate Earth Grudge Fear for up to 10
+      minutes or until your Chakra reaches 0. You may dismiss and resume it without paying Chakra again, but every
+      activation consumes at least 1 minute of the ten-minute duration even if it lasts fewer than ten rounds. Once the
+      duration expires or your Chakra reaches 0, it cannot be activated again until a Full Rest.</p><h3>Active
+      Benefits</h3><ul><li>Gain the temporary HP and Chakra supplied by your absorbed hearts.</li><li>Gain access to
+      your Threaded Arts.</li><li>Your reach with melee attacks and with Jutsu or Arts whose range is Touch (5 feet)
+      increases by 10 feet.</li></ul><h3>Refuse Death</h3><p>If you would die while the mode is active, you may instead
+      incur 100 Decay and regain half your maximum Hit Points.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: earth-grudge-fear-mode
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    2b7f647eebb6b107:
+      _id: 2b7f647eebb6b107
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: First activation after a Full Rest. Each use of this tracker represents at least one minute.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:egf-duration-minutes
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "10"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 63ce64c63dca684f
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate EGF Mode
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 63ce64c63dca684f
+    31c1f2ec403c2f11:
+      _id: 31c1f2ec403c2f11
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Only after voluntarily dismissing this Full-Rest activation; costs no additional Chakra.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-duration-minutes
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: Remaining duration
+        override: false
+      effects:
+        - _id: f915eac035354324
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resume EGF Mode
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - f915eac035354324
+    0525f40d13cf168b:
+      _id: 0525f40d13cf168b
+      type: heal
+      activation:
+        type: special
+        value: null
+        condition: Use instead of dying while EGF is active; confirm the death trigger and Decay overflow.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "100"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Refuse Death (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: floor(@attributes.hp.max/2)
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+effects:
+  - name: Earth Grudge Fear Active
+    img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+    origin: Item.04c88bb81507a47f
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 63ce64c63dca684f
+    type: base
+    system: {}
+    description: ""
+    tint: "#4b1f29"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: earth-grudge-fear
+          form: earth-grudge-fear
+          sourceItemId: 04c88bb81507a47f
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!04c88bb81507a47f.63ce64c63dca684f"
+  - name: Earth Grudge Fear Active
+    img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+    origin: Item.04c88bb81507a47f
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: f915eac035354324
+    type: base
+    system: {}
+    description: ""
+    tint: "#4b1f29"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: earth-grudge-fear
+          form: earth-grudge-fear
+          sourceItemId: 04c88bb81507a47f
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!04c88bb81507a47f.f915eac035354324"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: chakra-cost-duration-pool-form-state-and-half-max-healing
+          mode: native
+        - clause: temporary-heart-benefits-and-ten-foot-reach
+          mode: prompt
+        - clause: death-replacement-heart-destruction-and-overflow
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!04c88bb81507a47f"

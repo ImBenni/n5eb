@@ -1,0 +1,214 @@
+folder: 453486bacac9d208
+name: Advanced Hearts
+type: spell
+_id: b71f90d10a226ec6
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Passive</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Threaded
+      Art</dd><dt>Casting Time:</dt><dd>1
+      Reaction</dd><dt>Range:</dt><dd>Special</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M</dd><dt>Cost:</dt><dd>4
+      Decay to clash</dd><dt>Keywords:</dt><dd>Threaded Art</dd></dl><h3>Description:</h3><p>When absorbing a heart, you
+      may take its highest-known Taijutsu, Bukijutsu, Genjutsu, or Hijutsu instead of Ninjutsu. Class or clan features
+      benefiting a nature release apply to Jutsu learned from hearts. When targeted by Ninjutsu or Taijutsu, use a
+      reaction and incur 4 Decay to clash with a Heart Jutsu. Roll d20 + twice your proficiency bonus + your class-mod
+      level, with advantage if the opposing Jutsu lacks Clash.</p><p>This does not increase your maximum absorbed
+      hearts.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-advanced-hearts
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - m
+    keywords:
+      - threaded-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 4 Decay to clash
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    f5ccb0408e8e38c7:
+      _id: f5ccb0408e8e38c7
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: "Trigger: targeted by Ninjutsu or Taijutsu. Roll with advantage if it lacks Clash."
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Heart Jutsu Clash
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + 2 * @prof + @classmods.earth-grudge-fear.levels
+        name: Heart Jutsu Clash
+        prompt: false
+        visible: true
+    ad7c80f9909e292d:
+      _id: ad7c80f9909e292d
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires Mastered Earth Grudge Fear.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Heart Jutsu Clash (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + 2 * @prof + @classmods.earth-grudge-fear.levels
+        name: Heart Jutsu Clash
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: decay-cost-primary-roll-and-template
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: ambiguous-or-permanent-clauses
+          mode: prompt
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!b71f90d10a226ec6"

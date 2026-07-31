@@ -2,7 +2,7 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Strength of Thounsands'
 type: spell
 _id: BKtHXTz3l1NUKPCN
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -17,9 +17,10 @@ system:
       that your tribe has entrusted you with. If you do, you may select yourself for this Art.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -102,7 +103,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -112,6 +113,65 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    795ab899a1f265d2:
+      _id: 795ab899a1f265d2
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Strength of Thounsands'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
 effects: []
 sort: 0
 ownership:
@@ -225,6 +285,15 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
   midiProperties:
     confirmTargets: default
     autoFailFriendly: false

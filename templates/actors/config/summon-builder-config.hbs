@@ -259,6 +259,18 @@
                 {{/each}}
             </nav>
 
+            {{#if catalogLoading}}
+            <div class="npc-builder-load-state">
+                <i class="fa-solid fa-spinner fa-spin" inert></i>
+                <span>{{ localize "N5EB.NPCBuilder.LoadingContent" }}</span>
+            </div>
+            {{else if catalogError}}
+            <div class="npc-builder-load-state error">
+                <span>{{ localize "N5EB.NPCBuilder.LoadError" }}</span>
+                <button type="button" data-action="retryContent">{{ localize "N5EB.NPCBuilder.Retry" }}</button>
+            </div>
+            {{/if}}
+
             <div class="adversary-preview" data-preview data-uuid="{{ preview.uuid }}">
                 <img src="{{ preview.img }}" alt="{{ preview.name }}" data-preview-image>
                 <div class="preview-copy">
@@ -288,10 +300,12 @@
             <div class="adversary-content-panel" data-content-panel="features">
                 {{> ".filters" ranks=filterRanks kinds=featureKinds categories=featureCategories sources=featurePacks tribes=tribeFilters types=typeFilters }}
                 {{#if suggestions.features.length}}
-                <div class="adversary-suggestions">
+                <div class="adversary-suggestions" data-suggestion-list="features">
+                    {{#if renderFeatureRows}}
                     {{#each suggestions.features}}
                     {{> ".suggestion" }}
                     {{/each}}
+                    {{/if}}
                 </div>
                 {{/if}}
                 <p class="empty-filter" data-filter-empty hidden>{{ localize "N5EB.Summon.Builder.NoSuggestions" }}</p>
@@ -300,10 +314,12 @@
             <div class="adversary-content-panel" data-content-panel="weapons" hidden>
                 {{> ".filters" ranks=filterRanks kinds=weaponKinds categories=weaponCategories sources=weaponPacks tribes=tribeFilters types=typeFilters }}
                 {{#if suggestions.weapons.length}}
-                <div class="adversary-suggestions">
+                <div class="adversary-suggestions" data-suggestion-list="weapons">
+                    {{#if renderWeaponRows}}
                     {{#each suggestions.weapons}}
                     {{> ".suggestion" }}
                     {{/each}}
+                    {{/if}}
                 </div>
                 {{/if}}
                 <p class="empty-filter" data-filter-empty hidden>{{ localize "N5EB.Summon.Builder.NoSuggestions" }}</p>
@@ -312,10 +328,12 @@
             <div class="adversary-content-panel" data-content-panel="jutsu" hidden>
                 {{> ".filters" ranks=filterRanks kinds=jutsuKinds categories=jutsuCategories sources=jutsuPacks tribes=tribeFilters types=typeFilters }}
                 {{#if suggestions.jutsu.length}}
-                <div class="adversary-suggestions">
+                <div class="adversary-suggestions" data-suggestion-list="jutsu">
+                    {{#if renderJutsuRows}}
                     {{#each suggestions.jutsu}}
                     {{> ".suggestion" }}
                     {{/each}}
+                    {{/if}}
                 </div>
                 {{/if}}
                 <p class="empty-filter" data-filter-empty hidden>{{ localize "N5EB.Summon.Builder.NoSuggestions" }}</p>
@@ -392,7 +410,7 @@
 {{/inline}}
 
 {{#*inline ".suggestion"}}
-<label class="adversary-suggestion {{#if disabled}}is-added{{/if}}"
+<label class="adversary-suggestion {{#if disabled}}is-added{{/if}} {{#if selected}}selected{{/if}}"
        data-uuid="{{ uuid }}"
        data-name="{{ name }}"
        data-img="{{ img }}"
@@ -412,8 +430,8 @@
        data-roles="{{ roles }}"
        data-ranks="{{ ranks }}"
        data-search="{{ search }}">
-    <input type="checkbox" name="itemUuids" value="{{ uuid }}" {{ disabled disabled }}>
-    <img src="{{ img }}" alt="">
+    <input type="checkbox" name="itemUuids" value="{{ uuid }}" {{ disabled disabled }} {{#if selected}}checked{{/if}}>
+    <img src="{{ img }}" alt="" loading="lazy" decoding="async">
     <span class="name">{{ name }}</span>
     <span class="meta">
         {{#if rankLabel}}<span>{{ rankLabel }}</span>{{/if}}
@@ -423,6 +441,5 @@
     {{#if disabled}}
     <span class="status">{{ localize "N5EB.Summon.Builder.Added" }}</span>
     {{/if}}
-    <template>{{{ description }}}</template>
 </label>
 {{/inline}}

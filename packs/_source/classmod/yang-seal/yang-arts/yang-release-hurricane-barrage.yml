@@ -1,0 +1,185 @@
+folder: 64fa38d1b95e9c96
+name: 'Yang Release: Hurricane Barrage'
+type: spell
+_id: ba1a4781f06d9e8e
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/eighty-gods-vacuum-fists.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Yang Ninjutsu</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>60ft</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>6
+      Yang Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Yang Release, Clash</dd></dl><h3>Description:</h3><p>You put your
+      hands together, as you collect Yang release chakra in between them, to create an spherical barrier. When you cast
+      this art, you can launch this sphere towards one creature within range, make a ranged Yang attack, dealing 21d10
+      force damage on a hit, and forcing the target to make a strength saving throw, on a failed save, it becomes dazed,
+      is knocked pro ne, and thrown 30ft away from you.</p><p><strong>Yang Power:</strong> Allied creatures, other than
+      yourself, within 30ft of you can spend their reaction to enhance this art. For each creature that spends its
+      reaction this way, increase this art damage by +3d10 and the knockback by 30ft.</p><p>In addition, if you have
+      access to any nature release, when you can this art, you can choose one nature release that you have, changing
+      this attack's damage type and granting it additional effects: Earth Release: The barrier takes a dark color, as it
+      starts to absorb its surroundings like a black hole. The damage type of this attack becomes earth.</p><p>Creatures
+      within 30ft of the target, other than yourself, must make a strength saving throw, on a failed save, a creatu re
+      takes half as much damage as the original target, and is pulled towards the original target until it reaches the
+      free space nearest to it. Fire Release: The chakra barrier spins and becomes so compressed that superheated Yang
+      chakra starts emanating from it.</p><p>The attack's damage type changes to fire, its critical threat range
+      increases by +1, and on a critical hit the target gains 5 ranks of burned. Lightning Release: The barrier is
+      filled with lightning release chakra, which turns its inner side into a storm. The attack's damage type changes to
+      lightning, and on a failed save the target is statically charged.</p><p>Until the start of your next turn, each
+      time the target woul d take damage, it takes an additional 2d10 lightning damage. Water Release: The barrier takes
+      a lighter color, as it is filled with water release chakra resembling an ocean, which explodes on impact. The
+      damage type of the attack becomes cold, and the target as disadvantage on its strength saving throw.</p><p>On a
+      failed save, the range the target is pushed is doubled, and it becomes stunned, instead of dazed. Wind Release:
+      You fill the barrier with multiple smaller chakra spheres, which disperse on the affected area. This attack's
+      damage type changes to wind and it deals half as much damage on a miss.</p><p>Creatures, other than yourself,
+      within 5ft of the target must make a dexterity saving throw, taking half as much damage on a failed save.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '110'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yang-release-hurricane-barrage
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - yang-release
+      - clash
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 6 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    cb601afb01ef2996:
+      _id: cb601afb01ef2996
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '6'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/eighty-gods-vacuum-fists.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 21
+            denomination: 10
+            bonus: ''
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!ba1a4781f06d9e8e'

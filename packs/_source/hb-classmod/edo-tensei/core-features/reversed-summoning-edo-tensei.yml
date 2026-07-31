@@ -1,0 +1,243 @@
+folder: 71fb6fb35e87ae98
+name: "Reversed Summoning: Edo Tensei"
+type: feat
+_id: a171af3d67976f7b
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Reversed Summoning: Edo Tensei</h2><p>Upon death, within 1 minute attempt a Ninshou Check with DC 28 minus
+      class-mod level, without bonuses from Jutsu, feats, or external effects. On success, permanently lose 1 maximum
+      Unholy Charge, destroy one Edo Tensei forever, and replace it at its location after 1d4 turns with 8d10 hit
+      points. On failure, your soul is consumed and you are permanently dead.</p><p>Each later use increases the DC by 2
+      per lost maximum Unholy Charge; an effect that prevents resurrection or reanimation increases the DC by 5.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-reversed-summoning-edo-tensei
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    9ce4db20189b1655:
+      _id: 9ce4db20189b1655
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Within 1 minute of death; exclude all Jutsu, feat, and external bonuses.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Reversed Summoning Check
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.nsh.total
+        name: Ninshou Check (DC 28 - class-mod level)
+        prompt: false
+        visible: true
+    fe1eb689009a5244:
+      _id: fe1eb689009a5244
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Resurrection Delay
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d4
+        name: Turns Until Reappearance
+        prompt: false
+        visible: true
+    5d9009aebd0295e4:
+      _id: 5d9009aebd0295e4
+      type: heal
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Returned Hit Points
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: 8
+        denomination: 10
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: false
+          formula: ""
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: ninshou-check-delay-and-returned-hit-point-rolls
+          mode: native
+        - clause: choose-sacrificed-summon-and-dc-modifiers
+          mode: prompt
+        - clause: permanent-charge-summon-and-soul-loss
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!a171af3d67976f7b"

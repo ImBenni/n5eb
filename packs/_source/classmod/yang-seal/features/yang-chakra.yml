@@ -1,0 +1,70 @@
+folder: 08a23f16cde087b8
+name: Yang Chakra
+type: feat
+_id: 8e8f002b17bad071
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <p>Also, at 1st level of this class mod, your Yang Seal has begun to alter your chakra network, generating Yang
+      Chakra, the manifestation of combining your chakra, with the power of Nature chakra coursing through the Seal. You
+      begin with a pool of 20 Yang Cha kra that you gain access to while your Yang seal is active, as a result of the
+      Yang Power class mod feature.</p><p>Your Maximum Yang Chakra increases as you form new bonds, each bond increasing
+      your Yang Chakra Maximum by +10. Spent Yang Chakra recovers when you spend Chakra Die to regain normal chakra. You
+      regain Yang Chakra equal to twice the result of normal chakra regained. You recover all Light Chakra on a Full
+      -Rest.</p><p>When your Yang Seal is active, you cannot spend Normal Chakra and must spend Yang chakra Yan g Chakra
+      its place. When your Yang Seal is active, you cannot spend Normal Chakra and must spend Yang Chakra Yang Chakra
+      its place. Jutsu you cast that that use Yang Chakra have the following modifiers applied to
+      them;</p><ul><li>Ninjutsu, Genjutsu, Taijutsu and Bukijutsu you cast using Yang Chakra that another creature
+      attempts to end or dispel, forced that creature to attempt their ability check, with a -2
+      penalty.</li><li>Ninjutsu, Genjutsu, Taijutsu and Bukijutsu you cast using Yang Chakra now cost an amount equal to
+      their rank, regardless of circumstance.</li><li><strong>D-Rank:</strong> 3 Yang
+      Chakra,</li><li><strong>C-Rank:</strong> 7 Yang Chakra,</li><li><strong>B-Rank:</strong> 11 Yang
+      Chakra,</li><li><strong>A-Rank:</strong> 15 Yang Chakra,</li><li><strong>S-Rank:</strong> 20 Yang
+      Chakra.</li><li>Jutsu you cast with Yang Chakra, with the combination keyword, have a +5 Yang Chakra cost
+      increase. While they do split their chakra cost evenly with all non-Yang Chakra users, + 5. This cannot be reduced
+      by any effects, outside of this Class Mod.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '106'
+    license: ''
+    rules: n5eb
+  uses:
+    max: 20 + 20 * (@classmods.yang-seal.levels - 1)
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: yang-chakra
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: resource-tracking
+          mode: native
+        - clause: special-recovery-or-growth
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!8e8f002b17bad071'

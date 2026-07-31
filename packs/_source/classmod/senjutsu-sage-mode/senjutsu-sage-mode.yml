@@ -1,15 +1,64 @@
 folder: ydKgfcdE1FFJF3Z9
 name: Senjutsu Sage Mode
 type: classmod
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
-    value: ''
+    value: >-
+      <h2>Senjutsu Sage Mode</h2><p>Unlocking the power of Senjutsu is a normally unheard- of feat. The power to harness
+      the worlds naturally occurring energy supply is a monstrously difficult task and not to be taken lightly in any
+      sense of the word. Senjutsu involves the process of drawing natural energy into one's self and blending it with
+      their own chakra to create Sage Chakra.</p><p>Those who have undergone the challenges presented when learning to
+      harness such a power have come out in one of two ways; Either dead or with the power of a Sage. Sages are usually
+      the bearers of change. The protectors of the natural order. They are usually the ones standing in between disaster
+      and peace in most eras of shinobi history.</p><p>Senjutsu is a powerful tool that can be used for both plot &amp;
+      mechanical relevance. Both the GM and the player can benefit from including this into the narrative. Senjutsu has
+      been designed to fit into any story. Senjutsu is a High-powered class mod, so if providing players, the option to
+      gain it, take into consideration what Class Mods are provided to other players.</p><p>Due to the amount of power
+      Sage Mode provides it is not intended to be used by characters who are below 11th level. Characters who gain this
+      powerful class mod, should only do so after arduous training with narrative purpose behind it.</p><h3>Gaining Sage
+      Mode</h3><p>Gaining Sage Mode should be from a series of trials in which, players should be aware the potential
+      death of their character could incur while grasping as this potential. This should not be something that is
+      planned for during character creation, nor should it be handwaved with a second-hand explanation. Power of this
+      magnitude should come from serious narrative complications and implications.</p><p>Gaining Senjutsu is one that
+      does not come from character choice, but is instead initiated by a Sage or Sage Beast from a Tribe the PC has
+      grown close to. This requires the GM to initiate such an event as it is entirely out of the players hands. There
+      are a few steps in between learning of the existence of Sage Mode and actually learning to harness it.</p><p>While
+      following each step of the process, you must first select one skill to focus on if more than one is listed. Be
+      sure the skill selected is the skill you wish to focus on because once selected, you cannot go back and change
+      this selection. Once selected, you must make the chosen skill check five times, and of these five checks, you must
+      succeed at least three times.</p><p>For each step in the process, you can cast one jutsu of your choice, once, to
+      help you succeed one of the five checks. At the PC's sole discretion, they can spend extra DT focusing on the
+      current step. For each additional DT spent, they gain a +2 bonus to all of that step's skill checks. If the PC
+      fail any of the steps, they shinobi suffers the listed condition.</p><p><strong>Failing Step 1:</strong> After
+      failing to succeed the physically taxing portion of the Sage Training, the PC find themselves broken, bruised and
+      with a shattered body. They require 4 DT to recover. Until all 4 DT to recover is spent, they have 3 ranks of
+      Exhaustion;</p><p><strong>Failing Step 2:</strong> After failing to grasp the concepts of Sage Arts and how to
+      manipulate Nature Energy while using them, their mentor instructs them to take a break to recover an regroup. They
+      cannot attempt to practice Senjutsu for 4 weeks (This does not cost DT).</p><p><strong>Failing Step 3:</strong>
+      After failing to recognize the differences between Nature Energy or other darker malevolent forces in the world,
+      the PC's body has become slightly corrupted by this mixed intake of Chakra. They lose the ability to Mold Chakra
+      (CM). They require 4 DT of rest to recover.</p><p>If they failed any of their skill checks by 10 or more, they
+      lose the ability to Mold Chakra until healed by a Ninjutsu with the Medical keyword that removes Conditions, of
+      A-Rank or higher.</p><p><strong>Failing Step 4:</strong> After failing to correctly mold and mix the nature energy
+      inside of their body, they lose themselves as their body converts into whatever creature or nature affinity they
+      are most connected with while training.</p><p>Their mentor is able to save them, but only as a onetime deal. Their
+      mentor, nor can anyone else save the PC a second time. If they attempt and fail this step twice, they are lost as
+      nature energy changes them beyond repair becoming one of the many beast tribes' speechless tribesman or turning
+      into a pure elemental spirit, lost to the world.</p><h3>Leveling Up Sage Mode</h3><p>Leveling up Sage mode is a
+      difficult and time- consuming process. Unlike normal shinobi classes that require the player to gain XP to reach
+      their next level, Sage Mode requires the user to consistently train with the form, both in combat and through
+      passive downtime training. But to do this a person would need to also assume the risks of potentially failing such
+      a training process.</p><p>At Character level 13, 15, 17, and 19, you can further your sage training to ascend to
+      the next level of Senjutsu. Return to your tribes or mentors sage domain. When you do, you must redo steps 1-4,
+      but reduce the number of checks made by 1. If the number of checks made would fall below the number of successes
+      needed, you instead must succeed all checks made.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   identifier: senjutsu-sage-mode
   levels: 1
   advancement:
@@ -457,6 +506,11 @@ flags:
           formula: 10+floor(@details.level/2)+@prof
         attackBonus:
           formula: floor(@details.level/2)+@classmods.senjutsu-sage-mode.levels+@prof
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: remaining-pdf-clauses
+          mode: prompt
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

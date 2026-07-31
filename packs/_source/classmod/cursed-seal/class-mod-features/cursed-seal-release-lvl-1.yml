@@ -2,25 +2,26 @@ folder: 9oB7JBEWRfhwU3zb
 name: Cursed Seal Release [Lvl 1]
 type: feat
 _id: 0zd6pJPOG65rX7H3
-img: icons/magic/symbols/circled-gem-pink.webp
+img: systems/n5eb/assets/content/classmod-icons/cursed-seal/cursemark-second-state.webp
 system:
   description:
     value: >-
       <p>Your Cursed Seal begins to hum often, beckoning you to use it. Telling you that you aren't enough on your own.
-      Telling you that your strength alone can be greater. All you need to do is let it in. </p><p>You cannot release
-      the power sealed within your Cursed Seal without first accepting the Corruption that comes with it. By willingly
+      Telling you that your strength alone can be greater. All you need to do is let it in. You cannot release the power
+      sealed within your Cursed Seal without first accepting the Corruption that comes with it.</p><p>By willingly
       accepting 1 rank of Corruption, you release a portion of the latent power with this Cursed seal. This allows you
       to enter a special state called Cursed Seal Release often described as activating your Cursed Seal. So long as you
       have at least 10 Cursed Chakra you can, as a Bonus action, activate your Cursed Seal, entering your Cursed Seal
-      Release state. This state is often referred to in different Stages. You begin with access to Stage 1. The specific
-      benefits of your Cursed Seal can be found under your Cursed Seal Type later in this class mod. Universally, all
-      Cursed Seal users gain the following benefits and have the following restrictions from their cursed seal based on
-      the Stage they are in.</p>
+      Release state. This state is often referred to in different Stages.</p><p>You begin with access to Stage 1. The
+      specific benefits of your Cursed Seal can be found under your Cursed Seal Type later in this class mod.
+      Universally, all Cursed Seal users gain the following benefits and have the following restrictions from their
+      cursed seal based on the Stage they are in.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 36–70
   activation:
     type: bonus
     cost: 1
@@ -83,7 +84,120 @@ system:
     level: null
   properties: []
   identifier: cursed-seal-release-lvl-1
-effects: []
+  activities:
+    0f516a769a143564:
+      _id: 0f516a769a143564
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires at least 10 cursed chakra lvl 1. Use this tier at Class Mod level 1 or higher.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: f0b95bff4eb4cfbb
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate
+      img: systems/n5eb/assets/content/classmod-icons/cursed-seal/cursemark-second-state.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - f0b95bff4eb4cfbb
+effects:
+  - name: Cursed Seal Release [Lvl 1] — Class Mod 1+
+    img: systems/n5eb/assets/content/classmod-icons/cursed-seal/cursemark-second-state.webp
+    origin: Item.0zd6pJPOG65rX7H3
+    transfer: false
+    disabled: false
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    statuses: []
+    _id: f0b95bff4eb4cfbb
+    type: base
+    system:
+      changes: []
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      n5eb:
+        classmodForm:
+          classmod: cursed-seal
+          form: cursed-seal
+          exclusive: ''
+          minimumLevel: 1
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!0zd6pJPOG65rX7H3.f0b95bff4eb4cfbb'
 sort: 0
 ownership:
   default: 0
@@ -192,6 +306,11 @@ flags:
         prerequisites:
           level: null
         properties: []
+    classmodCompendium:
+      classmod: cursed-seal
+      coverage:
+        - clause: remaining-pdf-clauses
+          mode: prompt
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

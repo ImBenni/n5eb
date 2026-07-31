@@ -1,0 +1,121 @@
+folder: 12cb413cf58fe844
+name: Alone
+type: feat
+_id: 685abd87c2884339
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <p>You have been burdened with this power, which will lash out indiscriminately even at your allies at every
+      opportunity. When you cast a Yin Art targeting a hostile creature, while you have a conscious ally within 30ft,
+      make a constitution ability check, with the DC being 5 + the number of Wills that you have Subsumed. On a failure,
+      the Seal takes control of you, and redirect the art to also affect an ally.</p><p>Starting at 3rd level, you have
+      a hard time coordinating with your allies while locking into a target. While your Yin Seal is active, you cannot
+      benefit from bonuses to damage, AC, Saving Throws, Attack Rolls, Skills checks, and ability checks granted by o
+      ther creatures. Finally at 5th level, your power cannot be used with others in tow.</p><p>You cannot benefit from
+      an Active Yin Seal while an allied creature is within 30 feet of you. The Seal remains active, but you cannot
+      benefit from this class mod's features, other than this one, or cast Yin Arts until all allies leave this
+      range.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '119'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: alone
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    da77d8ad49797b15:
+      _id: da77d8ad49797b15
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Resolve only while the PDF's 30-foot proximity condition is met.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 30
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: creature
+          choice: true
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Alone
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!685abd87c2884339'

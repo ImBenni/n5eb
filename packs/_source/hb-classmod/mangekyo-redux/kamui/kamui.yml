@@ -1,0 +1,357 @@
+folder: 3a98eed7393cb841
+name: Kamui
+type: spell
+_id: 7180e6ecf4ff3685
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/kamui.webp
+system:
+  description:
+    value: >-
+      <h3>Malefic Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Malefic Art</dd><dt>Casting
+      Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>15
+      Chakra and 2 Burn; Mastered: 13 Chakra and 1 Burn</dd><dt>Keywords:</dt><dd>Ninjutsu, Space-Time,
+      Malefic</dd></dl><h3>Description:</h3><p>Create a personal pocket dimension that is a sphere 500 feet in diameter.
+      If it is destroyed, a new one forms when you gain the benefit of a Long Rest. As an action, enter it or leave it,
+      reappearing at the same location from which you entered. Features below extend Kamui to creatures, attacks,
+      defense, and projectiles.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-kamui
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - space-time
+      - malefic
+    countsKnown: false
+  chakra:
+    cost: "15"
+    scaling:
+      mode: none
+      value: 0
+    special: "15 Chakra and 2 Burn; Mastered: 13 Chakra and 1 Burn"
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:mangekyo-redux
+  activities:
+    1f70b6cebdf5bd70:
+      _id: 1f70b6cebdf5bd70
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. Prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-awakening
+            value: "18"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (18 Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/kamui.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    c3d01d4f7eed11ba:
+      _id: c3d01d4f7eed11ba
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires Mastered Kamui. Spend its restricted Awakening instead of general Awakening.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-mastered-kamui-awakening
+            value: "18"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase with Mastered Kamui (18)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/kamui.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    9595be70c97804db:
+      _id: 9595be70c97804db
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Enter or exit your 500-foot-sphere pocket dimension at the corresponding location.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/kamui.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    28d775f8f2a94cef:
+      _id: 28d775f8f2a94cef
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered Kamui. Pay 2 less Chakra and 1 less Burn.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast (Mastered)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/kamui.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: rules-text-and-explicit-numeric-resolution
+          mode: native
+        - clause: cross-item-prerequisites-and-tactical-decisions
+          mode: prompt
+        - clause: source-ambiguous-or-narrative-adjudication
+          mode: manual
+    classmodArt:
+      classmod: mangekyo-redux
+      classification: Malefic Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!7180e6ecf4ff3685"

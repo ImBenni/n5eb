@@ -1,0 +1,147 @@
+folder: b4916b858daefb43
+name: 'Yin Release: Divine Thunder'
+type: spell
+_id: b1879fd144a41ca8
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/shadow-style-thunder-blast.webp
+system:
+  description:
+    value: >-
+      <p>Classification: Yin Art Casting Time: Bonus Action Range: 60 feet Duration: 1 Minute (Concentration)
+      Components: CM Cost: 1 Yin Charge Keywords: Ninjutsu, Yin Release, Lightning Release Description: You enhance your
+      Lightning Release with Yin Chakra, causing your attacks to gain a dark aura. For this art's duration, jutsu with
+      the lightning release keyword that you cast have their damage ignore resistance, immunity and damage reduction,
+      and can be overcharged as a free action.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '122'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yin-release-divine-thunder
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - yin-release
+      - lightning-release
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Yin Charge
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yin-seal
+  activities:
+    ed93b34505ced4cf:
+      _id: ed93b34505ced4cf
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires yin-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: true
+        value: '1'
+        units: minute
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/shadow-style-thunder-blast.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yin-seal
+      classification: Yin Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!b1879fd144a41ca8'

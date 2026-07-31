@@ -1,0 +1,143 @@
+folder: 950c36b399efec17
+name: Soul Transference
+type: spell
+_id: e4e36f3ee60b0431
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Soul Transference</h2><h3>Edo Tensei Art Type: Ability</h3><dl class="n5eb-classmod-summary"><dt>Casting
+      Time:</dt><dd>Special, once per turn</dd><dt>Range:</dt><dd>Ally within 60 feet; Edo Tensei within 120
+      feet</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>HS, CS,
+      CM</dd><dt>Cost:</dt><dd>Special</dd><dt>Keywords:</dt><dd>Kinjutsu</dd></dl><h3>Description:</h3><p>Once per
+      turn, when an ally within 60 feet would be reduced to 0 hit points, transfer up to half the current hit points of
+      one controlled Edo Tensei within 120 feet to that ally. Excess healing becomes temporary hit points. The Edo
+      Tensei loses the transferred hit points directly.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 9
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-soul-transference
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - hs
+      - cs
+      - cm
+    keywords:
+      - kinjutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: ""
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:edo-tensei
+  activities:
+    a59e6fba3daa1529:
+      _id: a59e6fba3daa1529
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Choose a controlled Edo Tensei within 120 feet and transfer up to half its current hit points.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Transfer Soul Vitality
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: source-rule-and-numeric-resolution
+          mode: native
+        - clause: target-choice-prerequisite-or-trigger
+          mode: prompt
+        - clause: cross-actor-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: edo-tensei
+      classification: Ability
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e4e36f3ee60b0431"

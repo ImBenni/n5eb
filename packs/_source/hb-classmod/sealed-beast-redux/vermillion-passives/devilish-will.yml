@@ -1,0 +1,234 @@
+folder: 2331589f7466a27d
+name: Devilish Will
+type: feat
+_id: d0f97b790d35f380
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Devilish Will</h2><p>Gain +2 to Intelligence, Wisdom, and Charisma Saving Throws, and +2 to all saves against
+      Fuinjutsu. During Frenzy or a Transformation Art, spend 10 Chakra to immediately end one Genjutsu effect on
+      you.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-devilish-will
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    1a5fcc438324688e:
+      _id: 1a5fcc438324688e
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-awakening
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (8 Twisted Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    2b6bc45521722f35:
+      _id: 2b6bc45521722f35
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Spend 10 normal Chakra to end a Genjutsu effect while Frenzied or transformed.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Passive Choice or Conditional Benefit
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects:
+  - name: Devilish Will Passive
+    img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+    origin: Item.d0f97b790d35f380
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.int.bonuses.save
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.abilities.wis.bonuses.save
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.abilities.cha.bonuses.save
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: 190cfcb463e6baba
+    type: base
+    system: {}
+    description: ""
+    tint: "#a54a1b"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: sealed-beast-redux
+          form: ""
+          sourceItemId: d0f97b790d35f380
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!d0f97b790d35f380.190cfcb463e6baba"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: awakening-purchase-and-unconditional-passive-bonuses
+          mode: native
+        - clause: choice-prerequisite-form-frenzy-and-cross-item-effects
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!d0f97b790d35f380"

@@ -109,6 +109,7 @@
  * @property {CriticalDamageConfiguration} [critical]  Critical configuration for all rolls.
  * @property {boolean} [isCritical]                    Treat each roll as a critical unless otherwise specified.
  * @property {number} [scaling=0]                      Scale increase above base damage.
+ * @property {"primary"|"versatile"} [damageVariant]  Damage set selected for this roll.
  */
 
 /**

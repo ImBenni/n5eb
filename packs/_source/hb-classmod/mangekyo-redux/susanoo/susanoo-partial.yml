@@ -1,0 +1,357 @@
+folder: a470f929b8d97dab
+name: "Susanoo: Partial"
+type: spell
+_id: b64f42f223d18baf
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/susanoo.webp
+system:
+  description:
+    value: >-
+      <h3>Malefic Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Susanoo Art</dd><dt>Casting
+      Time:</dt><dd>1 Bonus Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>16 Chakra and 4
+      Burn</dd><dt>Keywords:</dt><dd>Ninjutsu, Malefic, Susanoo</dd></dl><h3>Description:</h3><p>Manifest this Susanoo
+      form for 1 minute. It has 80 Hit Points, Damage Reduction 15, and Damage Threshold 15, and increases you by 2 size
+      categories. Its Hit Points coexist with temporary Hit Points, and damage dealt to them does not count as damage to
+      you. Apply its Damage Threshold after Damage Reduction and resistance; condition damage ignores the
+      threshold.</p><p>As a bonus action, restore half its maximum Hit Points for half the activation Chakra and Burn
+      costs, rounding each cost down.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 9
+    license: ""
+    rules: n5eb
+  uses:
+    max: "80"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-susanoo-partial
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - malefic
+      - susanoo
+    countsKnown: false
+  chakra:
+    cost: "16"
+    scaling:
+      mode: none
+      value: 0
+    special: 16 Chakra and 4 Burn
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:mangekyo-redux
+  activities:
+    5ce619defc2d4fc6:
+      _id: 5ce619defc2d4fc6
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. Prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-awakening
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: activityUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+        max: "1"
+      sort: 0
+      name: Purchase (10 Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/susanoo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    00a1cb6362ad762c:
+      _id: 00a1cb6362ad762c
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Only one Susanoo form can be active at a time. Refill this form's Hit Point tracker on activation.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "-80"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 7264fa1b0d91f451
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/susanoo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 7264fa1b0d91f451
+    19d8c5fdb73db6c9:
+      _id: 19d8c5fdb73db6c9
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Spend 8 Chakra and 2 Burn; restore 40 Hit Points.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "-40"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Restore Susanoo
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/susanoo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects:
+  - name: "Susanoo: Partial"
+    img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/susanoo.webp
+    origin: Item.b64f42f223d18baf
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.traits.dr.value
+        mode: 2
+        value: "15"
+        priority: 20
+    statuses: []
+    _id: 7264fa1b0d91f451
+    type: base
+    system: {}
+    description: ""
+    tint: "#7d1025"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: mangekyo-redux
+          form: susanoo
+          sourceItemId: b64f42f223d18baf
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!b64f42f223d18baf.7264fa1b0d91f451"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: activation-chakra-burn-duration-hit-points-and-damage-reduction
+          mode: native
+        - clause: damage-threshold-size-and-special-hit-point-routing
+          mode: prompt
+        - clause: exclusive-form-and-restoration-rounding
+          mode: manual
+    classmodArt:
+      classmod: mangekyo-redux
+      classification: Susanoo Art
+    classmodForm:
+      classmod: mangekyo-redux
+      group: susanoo
+      exclusive: true
+    classmodLevel: 2
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!b64f42f223d18baf"

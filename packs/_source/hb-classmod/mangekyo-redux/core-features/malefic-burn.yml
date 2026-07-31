@@ -1,0 +1,239 @@
+folder: da2af3e5b72f2803
+name: Malefic Burn
+type: feat
+_id: 05ec1b9e38ece148
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+system:
+  description:
+    value: >-
+      <p>Malefic Arts and Talents add their listed Burn by consuming this tracker; Foundry records current Burn as spent
+      uses. Your Burn threshold is 10/15/20/25/30 at class-mod levels 1–5, increased by Malefic Prodigy. After a Short
+      Rest, reduce Burn by your Constitution as written in the source. Once between Long Rests, a Long Rest can halve
+      current Burn; a Full Rest removes all Burn.</p><p>If Burn exceeds the threshold, it cannot be reduced until a Full
+      Rest. At that Full Rest, subtract the threshold, add half the remaining Burn to Darkness (round down), then remove
+      all remaining Burn. Before Eternal Mangekyo, the extra 200 points on this tracker permit overflow to be recorded
+      without truncation; the threshold, not this display maximum, is the rules limit.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: >-
+      (5 + 5 * @classmods.mangekyo-redux.levels) + 200 * (1 - min(1, max(0, @classmods.mangekyo-redux.levels - 2))) + (5
+      + 5 * @classmods.mangekyo-redux.levels) * min(1, max(0, @classmods.mangekyo-redux.levels - 2))
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-malefic-burn
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    051d14e38f4591a7:
+      _id: 051d14e38f4591a7
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Reduce spent uses by Constitution only if current Burn has not exceeded the threshold.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Record Short-Rest Burn Reduction
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    3eb6d280447b07e4:
+      _id: 3eb6d280447b07e4
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Once between Long Rests, halve current Burn, rounding down; not available above the threshold.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Record Once-per-Long-Rest Halving
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    47d5f3541aafc4b2:
+      _id: 47d5f3541aafc4b2
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: If above threshold, convert overflow to Darkness first; otherwise remove all Burn.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve Full Rest
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: art-and-talent-burn-consumption
+          mode: native
+        - clause: threshold-and-rest-reduction
+          mode: prompt
+        - clause: constitution-meaning-and-overflow-darkness-conversion
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!05ec1b9e38ece148"

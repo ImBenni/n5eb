@@ -2,21 +2,22 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Light Fang'
 type: spell
 _id: yeXgawC58KMRH6dp
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
-      <p>Reduced Cost: 5 Sage Chakra</p><p>You use Sage Chakra to generate a beam of light sharp enough to cut through
-      anything. This beam moves at the speed of light and is almost impossible to dodge. All creatures in a 30-foot cone
-      must make a Dexterity saving throw, taking 15d10 slashing damage on a failed save or half as much on a
-      success.</p><p>If a creature who's passive perception is less than 25 makes a saving throw against this Art, they
-      make their save at Disadvantage. If a creature passes this save by 10 or more, they take no damage from this
+      <p><strong>Reduced Cost:</strong> 5 Sage Chakra You use Sage Chakra to generate a beam of light sharp enough to
+      cut through anything. This beam moves at the speed of light and is almost impossible to dodge. All creatures in a
+      30-foot cone must make a Dexterity saving throw, taking 15d10 slashing damage on a failed save or half as much on
+      a success.</p><p>If a creature who's passive perception is less than 25 makes a saving throw against this Art,
+      they make their save at Disadvantage. If a creature passes this save by 10 or more, they take no damage from this
       art.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -100,7 +101,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -110,6 +111,81 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    70fe75071cbc213a:
+      _id: 70fe75071cbc213a
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Light Fang'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts:
+          - number: null
+            denomination: 0
+            bonus: ''
+            types:
+              - slashing
+            custom:
+              enabled: true
+              formula: 15d10
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
 effects: []
 sort: 0
 ownership:
@@ -220,6 +296,15 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
   midi-qol:
     AoETargetType: any
     AoETargetTypeIncludeSelf: true

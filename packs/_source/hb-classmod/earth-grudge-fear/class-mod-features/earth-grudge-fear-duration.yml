@@ -1,0 +1,121 @@
+folder: 3624d4c7d6d19680
+name: Earth Grudge Fear Duration
+type: feat
+_id: b9f83b83f854674f
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <p>This tracker records the ten minutes of Earth Grudge Fear available between Full Rests before class-mod level
+      3. Activating or resuming the mode always spends at least 1 minute, even when it remains active for fewer than ten
+      rounds. Spend an additional use for each further minute it remains active. When all ten uses are spent, the mode
+      cannot be activated again until a Full Rest.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: "10"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: egf-duration-minutes
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    e3f55501fa40ef75:
+      _id: e3f55501fa40ef75
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Spend after each complete additional minute Earth Grudge Fear remains active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend Additional Active Minute
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: ten-minute-full-rest-duration-pool
+          mode: native
+        - clause: automatic-continuous-minute-spending
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!b9f83b83f854674f"

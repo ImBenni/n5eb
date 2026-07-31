@@ -1,0 +1,177 @@
+folder: 82ae2f37d8cd86c9
+name: Adept Yang Seal
+type: feat
+_id: 16e0f57886c187ba
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <p><strong>Category:</strong> Class Mod Prerequisite: Level 10+, 2 Bonds or spend 25 Downtime Your Yang seal grows
+      in strength, as it is charged by the power of your bonds. This makes you recognized as an, Adept Yang. You gain
+      the following benefits:</p><ul><li>Once per Full-Rest, you can spend a Full -Turn Action to enter Adept Yang. When
+      you do, your seal glows a Yellow light. You can remain in this state for no more than 10 minutes.</li><li>While in
+      Adept Yang you gain 5 Yang Charges and your Adept Yang benefits. You can spend these charges to cast a Yang
+      Art.</li><li>You gain 1 additional Truth-Seeking Orb.</li><li>You gain a Sage Cloak of your choice, which affects
+      allied creatures within 15ft of you. You can spend a Yang Charge to activate this cloak until the start of your
+      next turn.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '115'
+    license: ''
+    rules: n5eb
+  uses:
+    max: '1'
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: adept-yang-seal
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    7ffe3e06e9a1952c:
+      _id: 7ffe3e06e9a1952c
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Use this tier at Class Mod level 1 or higher. End any mutually exclusive form before applying this one.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ''
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: ce0c8f99cb5a521a
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - ce0c8f99cb5a521a
+effects:
+  - name: Adept Yang Seal — Class Mod 1+
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+    origin: Item.16e0f57886c187ba
+    transfer: false
+    disabled: false
+    duration:
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startTime: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: ce0c8f99cb5a521a
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      n5eb:
+        classmodForm:
+          classmod: yang-seal
+          form: adept-yang-seal
+          exclusive: yang-feat-form
+          minimumLevel: 1
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!16e0f57886c187ba.ce0c8f99cb5a521a'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!16e0f57886c187ba'

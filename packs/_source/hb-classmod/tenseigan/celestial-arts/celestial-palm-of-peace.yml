@@ -1,0 +1,577 @@
+folder: 10a1a7fb0f5d333c
+name: Celestial Palm of Peace
+type: spell
+_id: e67254c2489a6c7b
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: >-
+      <h2>Celestial Palm of Peace</h2><dl class="n5eb-classmod-summary"><dt>Origin:</dt><dd>Gentle
+      Counter</dd><dt>Classification:</dt><dd>Celestial Art</dd><dt>Casting Time:</dt><dd>1 Reaction, when targeted with
+      or damaged by a melee
+      attack</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M</dd><dt>Cost:</dt><dd>8
+      Celestial Chakra</dd><dt>Celestial Strain:</dt><dd>+1</dd><dt>Keywords:</dt><dd>Hijutsu,
+      Taijutsu</dd></dl><h3>Description</h3><p>You gently counter an enemy mid-attack, preventing it and attempting to
+      prevent further attacks.
+          Make a melee Celestial Art attack. If your result is higher than the triggering creature’s attack, nullify and
+          cancel its attack, then immediately make a number of Unarmed attacks equal to your character level divided by 4,
+          rounded up, minimum 1.</p><h3>Art Magnification</h3><p>Increase the cost by 2 to make 1 additional Unarmed attack.
+          Celestial Chakra Mode doubles this benefit.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: celestial-palm-of-peace
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: taijutsu
+    ability: ""
+    components:
+      - m
+    keywords:
+      - hijutsu
+      - taijutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 8 Celestial Chakra; +1 Celestial Strain
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:tenseigan
+  activities:
+    24dd65f72a571be7:
+      _id: 24dd65f72a571be7
+      type: attack
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Requires an active Tenseigan. Use when targeted with or damaged by a melee attack. Compare this result to the
+          triggering attack.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 8 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Counter Melee Attack
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts: []
+    baa219c2b9d9a4b5:
+      _id: baa219c2b9d9a4b5
+      type: attack
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires an active Tenseigan. On a successful counter, make 1 additional Unarmed attack.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 10 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Counter Melee Attack — Magnified
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts: []
+    0e720e795faba4c0:
+      _id: 0e720e795faba4c0
+      type: attack
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Use when targeted with or
+          damaged by a melee attack. Compare this result to the triggering attack.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 5 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Counter Melee Attack (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "4"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts: []
+    67e6cda27184569b:
+      _id: 67e6cda27184569b
+      type: attack
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. On a successful counter,
+          make 2 additional Unarmed attacks because the magnification benefit is doubled.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "7"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 7 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Counter Melee Attack — Magnified (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "4"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts: []
+    3ed0bb7c68e3b8e3:
+      _id: 3ed0bb7c68e3b8e3
+      type: attack
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Use when targeted with or damaged
+          by a melee attack. Compare this result to the triggering attack.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 4 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Counter Melee Attack (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "6"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts: []
+    82b83f687f9fd98a:
+      _id: 82b83f687f9fd98a
+      type: attack
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. On a successful counter, make 2
+          additional Unarmed attacks because the magnification benefit is doubled.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 6 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Counter Melee Attack — Magnified (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "6"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: reaction-art-cost-strain-and-celestial-attack-roll
+          mode: native
+        - clause: opposed-attack-nullification-and-character-level-unarmed-follow-ups
+          mode: midi-enhanced
+        - clause: magnification-and-mode-doubled-extra-attacks
+          mode: prompt
+    classmodArt:
+      classmod: tenseigan
+      classification: Celestial Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e67254c2489a6c7b"

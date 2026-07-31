@@ -2037,6 +2037,9 @@ DND5E.featureTypes = {
       martial: "N5EB.Feature.ClassFeat.Martial"
     }
   },
+  classmod: {
+    label: "N5EB.Feature.ClassMod.Label"
+  },
   latentAbility: {
     label: "DND5E.Feature.LatentAbility"
   },
@@ -2338,6 +2341,7 @@ DND5E.validProperties = {
     "bulwark",
     "camouflage",
     "fashionable",
+    "blo",
     "foc",
     "fortified",
     "heavyweight",
@@ -3644,7 +3648,8 @@ DND5E.jutsuRankValues = {
   c: 2,
   b: 3,
   a: 4,
-  s: 5
+  s: 5,
+  art: 5
 };
 
 /**
@@ -3657,9 +3662,17 @@ DND5E.jutsuRanks = {
   c: { label: "N5EB.JUTSU.Rank.C", abbreviation: "N5EB.JUTSU.Rank.CAbbr", level: 3, minimumAbility: 0 },
   b: { label: "N5EB.JUTSU.Rank.B", abbreviation: "N5EB.JUTSU.Rank.BAbbr", level: 5, minimumAbility: 14 },
   a: { label: "N5EB.JUTSU.Rank.A", abbreviation: "N5EB.JUTSU.Rank.AAbbr", level: 7, minimumAbility: 16 },
-  s: { label: "N5EB.JUTSU.Rank.S", abbreviation: "N5EB.JUTSU.Rank.SAbbr", level: 9, minimumAbility: 18 }
+  s: { label: "N5EB.JUTSU.Rank.S", abbreviation: "N5EB.JUTSU.Rank.SAbbr", level: 9, minimumAbility: 18 },
+  art: { label: "N5EB.JUTSU.Rank.Art", abbreviation: "N5EB.JUTSU.Rank.ArtAbbr", level: 9, minimumAbility: 0 }
 };
 preLocalize("jutsuRanks", { keys: ["label", "abbreviation"] });
+
+/**
+ * Jutsu ranks available when authoring an Item. Art is intentionally excluded from jutsuRankOrder so normal jutsu
+ * progression and upcasting cannot advance beyond S-rank into a class-mod Art.
+ * @type {string[]}
+ */
+DND5E.jutsuItemRankOrder = [...DND5E.jutsuRankOrder, "art"];
 
 /**
  * Compatibility mapping from legacy spell level to jutsu rank.
@@ -5165,8 +5178,8 @@ DND5E.maxLevel = 20;
  * @type {number[]}
  */
 DND5E.CHARACTER_EXP_LEVELS = [
-  0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000,
-  120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000
+  0, 50, 75, 100, 150, 200, 350, 475, 600, 725, 850, 1000,
+  1200, 1400, 1600, 1800, 2100, 2400, 2700, 3000
 ];
 
 /* -------------------------------------------- */

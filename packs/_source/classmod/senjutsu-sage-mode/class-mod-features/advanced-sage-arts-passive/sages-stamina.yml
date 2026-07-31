@@ -2,7 +2,7 @@ folder: ZIpGWJxGDvOYUu0X
 name: Sages Stamina
 type: feat
 _id: a7ppiQ2MG0NRuEXQ
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -19,9 +19,10 @@ system:
       throw. On a success, you end any one condition currently affecting you.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: special
     cost: null
@@ -84,7 +85,238 @@ system:
     level: null
   properties: []
   identifier: sages-stamina
-effects: []
+  activities:
+    0766aa02be5697b0:
+      _id: 0766aa02be5697b0
+      type: save
+      activation:
+        type: special
+        value: 1
+        condition: Requires senjutsu-sage-mode.active. Use once each round to pay upkeep and renew the effect.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sage-chakra-lvl-1
+            value: 4 - 2 * floor(@classmods.senjutsu-sage-mode.levels / 3)
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: 4e21344224e2eeff
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply / Renew (1 Round)
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: ''
+          formula: '25'
+      damage:
+        parts: []
+        onSave: none
+      appliedEffects:
+        - 4e21344224e2eeff
+effects:
+  - name: Sages Stamina Benefits
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+    origin: Item.a7ppiQ2MG0NRuEXQ
+    transfer: false
+    disabled: false
+    duration:
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: 4e21344224e2eeff
+    type: base
+    system:
+      changes: []
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!a7ppiQ2MG0NRuEXQ.4e21344224e2eeff'
+  - name: Sages Stamina Benefits
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+    origin: Item.a7ppiQ2MG0NRuEXQ
+    transfer: false
+    disabled: false
+    duration:
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: 4e21344224e2eeff
+    type: base
+    system:
+      changes: []
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!a7ppiQ2MG0NRuEXQ.4e21344224e2eeff'
+  - name: Sages Stamina Benefits
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+    origin: Item.a7ppiQ2MG0NRuEXQ
+    transfer: false
+    disabled: false
+    duration:
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: 4e21344224e2eeff
+    type: base
+    system:
+      changes: []
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!a7ppiQ2MG0NRuEXQ.4e21344224e2eeff'
+  - name: Sages Stamina Benefits
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+    origin: Item.a7ppiQ2MG0NRuEXQ
+    transfer: false
+    disabled: false
+    duration:
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: 4e21344224e2eeff
+    type: base
+    system:
+      changes: []
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!a7ppiQ2MG0NRuEXQ.4e21344224e2eeff'
 sort: 0
 ownership:
   default: 0
@@ -195,6 +427,13 @@ flags:
         prerequisites:
           level: null
         properties: []
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

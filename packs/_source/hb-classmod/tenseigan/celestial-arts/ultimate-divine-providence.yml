@@ -1,0 +1,386 @@
+folder: 10a1a7fb0f5d333c
+name: Ultimate Divine Providence
+type: spell
+_id: e522301c816d55e0
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: >-
+      <h2>Ultimate Divine Providence</h2><dl
+      class="n5eb-classmod-summary"><dt>Origin:</dt><dd>—</dd><dt>Classification:</dt><dd>Celestial Art</dd><dt>Casting
+      Time:</dt><dd>1 Full Turn Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Concentration, up to 1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>30 Celestial Chakra</dd><dt>Celestial
+      Strain:</dt><dd>+10</dd><dt>Keywords:</dt><dd>Hijutsu, Ninjutsu, Fuinjutsu</dd></dl><h3>Description</h3><p>Use
+      Celestial Chakra and Fūinjutsu to conjure a giant construct made of Celestial Chakra and the
+          most abundant inorganic substance nearby. Its design is your choice and its size makes mountains look small. You
+          may unsummon it as a bonus action.</p><p>The seven-headed construct acts in your place on your turn, using your
+          Action, Bonus Action, movement, and reaction as you decide. You cannot act while it is active. You are inside it,
+          hidden from all other creatures and unable to be targeted.</p><p>Use the source-linked Ultimate Divine Providence
+          helper Actor for its complete statistics, traits, head tracking, attacks, Sacrificial Defense, and Celestial Art:
+          Subjugate.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: ultimate-divine-providence
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - hijutsu
+      - ninjutsu
+      - fuinjutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 30 Celestial Chakra; +10 Celestial Strain
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:tenseigan
+  activities:
+    6771ac8e605467ed:
+      _id: 6771ac8e605467ed
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan. This consumes a Full Turn Action. Set the helper Actor's CR to your Tenseigan
+          level before use.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "30"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 30 Celestial Chakra and incur 10 Celestial Strain.
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Conjure Ultimate Divine Providence
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: false
+        proficiency: true
+        saves: false
+      profiles:
+        - count: "1"
+          name: Ultimate Divine Providence
+          _id: 0a1eb1e5a5cbb9a4
+          uuid: Compendium.n5eb.hb-adversary.Actor.c5803ab2d4c8ebc8
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: ultimate-divine-providence
+        mode: ""
+        prompt: true
+    1a7cb3f1cc8789e4:
+      _id: 1a7cb3f1cc8789e4
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. This consumes a Full Turn
+          Action. Set the helper Actor's CR to your Tenseigan level before use.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "27"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "9"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 27 Celestial Chakra and incur 9 Celestial Strain.
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Conjure Ultimate Divine Providence (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: false
+        proficiency: true
+        saves: false
+      profiles:
+        - count: "1"
+          name: Ultimate Divine Providence
+          _id: e68fdb8a6f2fdb7f
+          uuid: Compendium.n5eb.hb-adversary.Actor.c5803ab2d4c8ebc8
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: ultimate-divine-providence
+        mode: ""
+        prompt: true
+    52341b91364a9986:
+      _id: 52341b91364a9986
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. This consumes a Full Turn Action.
+          Set the helper Actor's CR to your Tenseigan level before use.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "26"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 26 Celestial Chakra and incur 8 Celestial Strain.
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Conjure Ultimate Divine Providence (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: false
+        proficiency: true
+        saves: false
+      profiles:
+        - count: "1"
+          name: Ultimate Divine Providence
+          _id: 1aeb581f236957e8
+          uuid: Compendium.n5eb.hb-adversary.Actor.c5803ab2d4c8ebc8
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: ultimate-divine-providence
+        mode: ""
+        prompt: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: cost-strain-concentration-duration-and-source-linked-helper-summon
+          mode: native
+        - clause: full-turn-action-caster-action-lock-hidden-state-and-untargetability
+          mode: prompt
+        - clause: nearby-material-selection-design-and-mountain-scale-narrative
+          mode: manual
+    classmodArt:
+      classmod: tenseigan
+      classification: Celestial Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e522301c816d55e0"

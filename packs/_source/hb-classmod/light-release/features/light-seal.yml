@@ -1,0 +1,303 @@
+folder: 81b11a79503ed8c5
+name: Light Seal
+type: feat
+_id: bf8ce4d057cc1c4e
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+system:
+  description:
+    value: >-
+      <p>A pale, dormant mark appears on your body. As a bonus action, activate it for up to 1 minute. When the Seal
+      deactivates, every class-mod effect ends. On activation, you and allied creatures within 30 feet recover (2 × your
+      Light Release level)d6 + your character level Hit Points. A creature other than you can receive this healing only
+      once per Short Rest.</p><p>You can activate the Seal twice per Long Rest and cannot reactivate it for 10 minutes
+      after an activation ends. As a bonus action while touching a willing creature, you may create a permanent Bond. A
+      pale mark appears on it.</p><p>Each Bond permanently seals one of your Hit Dice and one of your Chakra Dice and
+      transfers them to the Bond, which rolls those dice and adds its Constitution modifier to increase its Hit Point
+      and Chakra totals. If a Bond dies, its soul is torn asunder and cannot be revived, and the transferred dice do not
+      return.</p><p>Bond creation, Bond death, soul loss, and permanent die changes require explicit GM confirmation and
+      must be recorded reversibly.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: "2"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: light-seal
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    57d6d7dfb1686c47:
+      _id: 57d6d7dfb1686c47
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Cannot be used within 10 minutes of the previous activation ending.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 13cc63fd26f3d584
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Light Seal
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 13cc63fd26f3d584
+    2847748af93a3538:
+      _id: 2847748af93a3538
+      type: heal
+      activation:
+        type: special
+        value: null
+        condition: Use immediately after activation. Each other creature can benefit once per Short Rest.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Release Healing Light
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: (2 * @classmods.light-release.levels)d6 + @details.level
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+    7d81bf223b151493:
+      _id: 7d81bf223b151493
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Confirm the permanent Bond and transferred Hit/Chakra Dice with the GM before recording them.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: Physical contact
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Bond (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects:
+  - name: Light Seal Active
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+    origin: Item.bf8ce4d057cc1c4e
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 13cc63fd26f3d584
+    type: base
+    system: {}
+    description: ""
+    tint: "#fff6b0"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: light-release
+          form: light-seal
+          sourceItemId: bf8ce4d057cc1c4e
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!bf8ce4d057cc1c4e.13cc63fd26f3d584"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: light-release
+      coverage:
+        - clause: activation-uses-duration-and-healing-roll
+          mode: native
+        - clause: per-creature-short-rest-healing-limit-and-cooldown
+          mode: prompt
+        - clause: bond-creation-permanent-die-transfer-and-bond-death
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!bf8ce4d057cc1c4e"

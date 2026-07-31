@@ -1,0 +1,315 @@
+folder: 03825f75ca2db9a8
+name: Dormant Beast
+type: feat
+_id: 80c82b7ffed19a9a
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Dormant Beast</h2><p>As a Bonus Action, activate Dormant Beast for 1 minute. On activation and at the start of
+      each turn, lose Chakra equal to your proficiency bonus and gain the same Twisted Chakra. While
+      active:</p><ul><li>Increase Strength and Dexterity by 2.</li><li>Your unarmed damage die becomes d8 unless already
+      greater.</li><li>Unarmed and weapon attacks count as Chakra enhanced.</li><li>Whenever you deal damage, increase
+      its damage die by one step.</li><li>Gain +2 on any save against a jutsu cast by a hostile creature.</li></ul>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-dormant-beast
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    5af409da2685984c:
+      _id: 5af409da2685984c
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 9c56518f5f4a5dad
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Dormant Beast
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 9c56518f5f4a5dad
+    2f3b1df3339e8a88:
+      _id: 2f3b1df3339e8a88
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use on activation and at the start of each turn.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "@prof"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "-@prof"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Dormant Beast Exchange
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    efffca3c1bd2849c:
+      _id: efffca3c1bd2849c
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: While Frenzied, the exchange loses and gains twice the normal amount.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: 2 * @prof
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "-2 * @prof"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Dormant Beast Exchange (Frenzy)
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects:
+  - name: Dormant Beast Active
+    img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+    origin: Item.80c82b7ffed19a9a
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.str.value
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.abilities.dex.value
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: 9c56518f5f4a5dad
+    type: base
+    system: {}
+    description: ""
+    tint: "#a54a1b"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: sealed-beast-redux
+          form: dormant-beast
+          sourceItemId: 80c82b7ffed19a9a
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!80c82b7ffed19a9a.9c56518f5f4a5dad"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: activation-duration-ability-bonuses-and-base-exchange
+          mode: native
+        - clause: turn-upkeep-frenzy-exchange-and-conditional-save
+          mode: prompt
+        - clause: unarmed-die-chakra-enhancement-and-damage-die-step
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!80c82b7ffed19a9a"

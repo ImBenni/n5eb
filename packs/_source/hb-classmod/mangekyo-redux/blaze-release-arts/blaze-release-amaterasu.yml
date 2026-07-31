@@ -1,0 +1,1277 @@
+folder: d00d1559ebb41b28
+name: "Blaze Release: Amaterasu"
+type: spell
+_id: f2b3de17d47d7913
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+system:
+  description:
+    value: >-
+      <h3>Blaze Release Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Blaze Release
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>60
+      feet</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>D-rank 4 Chakra, +3
+      Chakra per rank; Malefic casting also pays Amaterasu (9 Chakra and 3 Burn)</dd><dt>Keywords:</dt><dd>Ninjutsu,
+      Blaze Release, Fire, Malefic</dd></dl><h3>Description:</h3><p>Choose a creature within 60 feet. It makes a
+      Dexterity save. On failure, it takes 3d10 + 3 Fire damage and gains 1 rank of Burned; on success, it takes half
+      damage and gains no Burned. A target without Chakra Sight takes a -2 penalty to the save. Each rank above D adds 3
+      Chakra, 3d10 + 3 damage, and 1 Burned rank.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-blaze-release-amaterasu
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - blaze-release
+      - fire
+      - malefic
+    countsKnown: false
+  chakra:
+    cost: "4"
+    scaling:
+      mode: rank
+      value: 3
+    special: D-rank 4 Chakra, +3 Chakra per rank; Malefic casting also pays Amaterasu (9 Chakra and 3 Burn)
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:mangekyo-redux
+  activities:
+    33cd5006a46d3c23:
+      _id: 33cd5006a46d3c23
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: "Malefic mode: also pay 9 Chakra for Amaterasu (7 if mastered)."
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 3
+            denomination: 10
+            bonus: "3"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    b4b96945fa32443a:
+      _id: b4b96945fa32443a
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 2 less Chakra and 1 less Burn.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast (Mastered)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 3
+            denomination: 10
+            bonus: "3"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    69f4099a77e8ca0d:
+      _id: 69f4099a77e8ca0d
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Pay 7 Chakra plus Amaterasu's Chakra cost; apply 2 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at C-Rank (Malefic)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 6
+            denomination: 10
+            bonus: "6"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    fd6591da35a21452:
+      _id: fd6591da35a21452
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Kagutsuchi II. Pay 7 Chakra, remove Malefic, and apply 2 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at C-Rank (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 6
+            denomination: 10
+            bonus: "6"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    bdd0710216843171:
+      _id: bdd0710216843171
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 7 Chakra plus 7 Chakra; apply 2 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at C-Rank (Mastered Amaterasu)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 6
+            denomination: 10
+            bonus: "6"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    f1e114cb7f8d7788:
+      _id: f1e114cb7f8d7788
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Pay 10 Chakra plus Amaterasu's Chakra cost; apply 3 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at B-Rank (Malefic)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 9
+            denomination: 10
+            bonus: "9"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    5f93cca124e73267:
+      _id: 5f93cca124e73267
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Kagutsuchi II. Pay 10 Chakra, remove Malefic, and apply 3 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at B-Rank (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 9
+            denomination: 10
+            bonus: "9"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    434e142739a36e2b:
+      _id: 434e142739a36e2b
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 10 Chakra plus 7 Chakra; apply 3 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at B-Rank (Mastered Amaterasu)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 9
+            denomination: 10
+            bonus: "9"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    43b785fc0da77c6c:
+      _id: 43b785fc0da77c6c
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Pay 13 Chakra plus Amaterasu's Chakra cost; apply 4 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at A-Rank (Malefic)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: "12"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    e67d0e9c3a29be63:
+      _id: e67d0e9c3a29be63
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Kagutsuchi II. Pay 13 Chakra, remove Malefic, and apply 4 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at A-Rank (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: "12"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    6797da998244b1d1:
+      _id: 6797da998244b1d1
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 13 Chakra plus 7 Chakra; apply 4 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at A-Rank (Mastered Amaterasu)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: "12"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    a40335698bc2cecb:
+      _id: a40335698bc2cecb
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Pay 16 Chakra plus Amaterasu's Chakra cost; apply 5 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at S-Rank (Malefic)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 15
+            denomination: 10
+            bonus: "15"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    871a60993a8af961:
+      _id: 871a60993a8af961
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Kagutsuchi II. Pay 16 Chakra, remove Malefic, and apply 5 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at S-Rank (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 15
+            denomination: 10
+            bonus: "15"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    d4a343c9f7c3328b:
+      _id: d4a343c9f7c3328b
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered Amaterasu. Pay 16 Chakra plus 7 Chakra; apply 5 Burned ranks where applicable.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast at S-Rank (Mastered Amaterasu)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 15
+            denomination: 10
+            bonus: "15"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    2882ee45708ab251:
+      _id: 2882ee45708ab251
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Kagutsuchi II. Pay only the Blaze Art's ranked Chakra cost; remove the Malefic keyword.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast as Ordinary Jutsu (Kagutsuchi II)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 3
+            denomination: 10
+            bonus: "3"
+            types:
+              - fire
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: d-rank-base-chakra-burn-save-attack-and-damage
+          mode: native
+        - clause: rank-scaling-and-kagutsuchi-ordinary-mode
+          mode: prompt
+        - clause: burned-ranks-chakra-sight-and-special-surface-clauses
+          mode: manual
+    classmodArt:
+      classmod: mangekyo-redux
+      classification: Blaze Release Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!f2b3de17d47d7913"

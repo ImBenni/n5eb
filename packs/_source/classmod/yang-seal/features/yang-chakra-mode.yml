@@ -1,0 +1,396 @@
+folder: 08a23f16cde087b8
+name: Yang Chakra Mode
+type: feat
+_id: 5531ed3796fc07f2
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <p>Starting at 3rd level, your control over the Yang Chakra coursing through you becomes greater, allowing you to
+      cover yourself in it, enhancing your abilities. Your Yang Seal can remain active for 10 minutes, as your body
+      adapts to the Yang Chakra it creates. In addition, while your Yang Seal is active, you can spend an action and
+      reduce your current and maximum Chakra dice by 2 to activate Yang Chakra Mode.</p><p>While Yang Chakra Mode is
+      active, you gain the following:</p><ul><li>You emit bright light within your Sage Cloak radius, and din light
+      twice that distance. Darkness created by jutsu or other non -class mod effects is dispelled inside this
+      area.</li><li>You gain a +4 bonus, instead of +2, to your AC, saving throws, ability checks and skill
+      checks.</li><li>You gain 3 additional Truth -Seeking Orbs.</li><li>Your speed increases by 20ft, instead of
+      10ft.</li><li>You gain a flight speed equal to your walking speed. Yang Chakra Mode last for 1 minute, until you
+      fall unconscious, or until you deactivate it as a bonus action, whichever happens first. Ending your Yang Seal
+      activation also ends Yang Chakra Mode.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '108'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yang-chakra-mode
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    2112f856e50239cc:
+      _id: 2112f856e50239cc
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Use this tier at Class Mod level 3–4. End any mutually exclusive form before applying this one.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: 78bb5ed46008db37
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate (Class Mod 3–4)
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - 78bb5ed46008db37
+    ea494066b331c386:
+      _id: ea494066b331c386
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Use this tier at Class Mod level 5 or higher. End any mutually exclusive form before applying this one.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: c3ae813215dd3743
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate (Class Mod 5+)
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - c3ae813215dd3743
+    362a2d0c966a8f36:
+      _id: 362a2d0c966a8f36
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: >-
+          Before applying the form, open Chakra Dice on the actor sheet and reduce the available total by 4. This
+          records the dice as spent on the class Item, prevents their use, and lets the normal Full Rest workflow
+          restore them.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: Spend and lock 4 Chakra Dice until the next Full Rest.
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend and Lock 4 Chakra Dice (Prompt)
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects:
+  - name: Yang Chakra Mode — Class Mod 3+
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+    origin: Item.5531ed3796fc07f2
+    transfer: false
+    disabled: false
+    duration:
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startTime: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '4'
+        priority: 20
+      - key: system.bonuses.abilities.save
+        mode: 2
+        value: '4'
+        priority: 20
+      - key: system.bonuses.abilities.check
+        mode: 2
+        value: '4'
+        priority: 20
+      - key: system.bonuses.abilities.skill
+        mode: 2
+        value: '4'
+        priority: 20
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '20'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '@attributes.movement.walk'
+        priority: 20
+    statuses: []
+    _id: 78bb5ed46008db37
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      n5eb:
+        classmodForm:
+          classmod: yang-seal
+          form: yang-chakra-mode
+          exclusive: yang-form
+          minimumLevel: 3
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!5531ed3796fc07f2.78bb5ed46008db37'
+  - name: Yang Chakra Mode — Class Mod 5+
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+    origin: Item.5531ed3796fc07f2
+    transfer: false
+    disabled: false
+    duration:
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startTime: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '4'
+        priority: 20
+      - key: system.bonuses.abilities.save
+        mode: 2
+        value: '4'
+        priority: 20
+      - key: system.bonuses.abilities.check
+        mode: 2
+        value: '4'
+        priority: 20
+      - key: system.bonuses.abilities.skill
+        mode: 2
+        value: '4'
+        priority: 20
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '20'
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: '@attributes.movement.walk'
+        priority: 20
+    statuses: []
+    _id: c3ae813215dd3743
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      n5eb:
+        classmodForm:
+          classmod: yang-seal
+          form: yang-chakra-mode
+          exclusive: yang-form
+          minimumLevel: 5
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!5531ed3796fc07f2.c3ae813215dd3743'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+        - clause: chakra-die-lock
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!5531ed3796fc07f2'

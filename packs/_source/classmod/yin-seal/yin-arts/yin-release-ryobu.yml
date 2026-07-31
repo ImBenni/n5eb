@@ -1,0 +1,148 @@
+folder: b4916b858daefb43
+name: 'Yin Release: Ryobu'
+type: spell
+_id: f9e3e4a7cd5f224b
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Yin Art</dd><dt>Casting Time:</dt><dd>Bonus
+      Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>1 Minute
+      (Concentration)</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>1 Yin
+      Charge</dd><dt>Keywords:</dt><dd>Ninjutsu, Yin Release, Earth release</dd></dl><h3>Description:</h3><p>You enhance
+      your Wind Release with Yin Chakra, causing it to be filled with a Brownish -orange gas, and its power to increase.
+      For this art's duration, jutsu with the wind release keyword that you cast ignore resistance and immunity to their
+      damage, their range and the size of their area of effect is doubled, and creatures that would gain a rank of a
+      condition due to swirl, gain 2 ranks instead.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '123'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yin-release-ryobu
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - yin-release
+      - earth-release
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Yin Charge
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yin-seal
+  activities:
+    28c28b8d2409ecda:
+      _id: 28c28b8d2409ecda
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires yin-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: true
+        value: '1'
+        units: minute
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yin-seal
+      classification: Yin Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!f9e3e4a7cd5f224b'

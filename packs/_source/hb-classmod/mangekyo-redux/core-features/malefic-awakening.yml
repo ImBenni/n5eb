@@ -1,0 +1,54 @@
+folder: da2af3e5b72f2803
+name: Malefic Awakening
+type: feat
+_id: 5321995bc4ae2b45
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+system:
+  description:
+    value: >-
+      <p>This tracker contains the Awakening available to buy Mangekyo Arts and Talents. Its class-mod progression is 40
+      at level 1, 80 at level 2, 110 at level 3, 140 at level 4, and 170 at level 5. Purchase activities on eligible
+      Items spend the listed amount. Awakening is not recovered. The tracker shows remaining points.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: 10 + 30 * @classmods.mangekyo-redux.levels + 10 * min(1, @classmods.mangekyo-redux.levels - 1)
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-malefic-awakening
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities: {}
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: level-based-awakening-pool
+          mode: native
+        - clause: purchase-consumption
+          mode: native
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!5321995bc4ae2b45"

@@ -1,0 +1,120 @@
+folder: 08a23f16cde087b8
+name: The Savior
+type: feat
+_id: a4e35fc59062d6ca
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <p>Finally, you begin to understand the meaning of the Yin, that is, to become a light of Hope and understanding
+      that will lead the world. Starting at 3rd level, while your Yang Seal is active, you regain 3 Yang Chakra for each
+      allied creature within 30ft of you, that is not a clone or construct. At 5th level, accepting this philosophy let
+      you master you Yang Release Chakra.</p><p>Your Yang Seal can remain active for 1 hour, and Yang Chakra Mode can
+      remain active 10 minutes. Also at 5th level, when an allied creature, other than yourself, would be reduced to 0
+      hit points, you can spend 10 Yang chakra to reduce it to 1 hit point instead. YANG ARTS YANG NINJUTSU</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '108'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: the-savior
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    bdf3ee86ecf3ba61:
+      _id: bdf3ee86ecf3ba61
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: ''
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '10'
+            scaling:
+              mode: amount
+              formula: ''
+        scaling:
+          allowed: true
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: The Savior
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!a4e35fc59062d6ca'

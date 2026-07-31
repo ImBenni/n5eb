@@ -1,0 +1,375 @@
+folder: ccc5494764162de4
+name: Tenseigan
+type: feat
+_id: f0a6b5a905c8e6ff
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: |-
+      <h2>Tenseigan</h2><p>Beginning at 1st level of this class mod, you have unlocked the power of the
+          Tenseigan. When the Tenseigan is activated, the ordinarily featureless Byakugan gains blue eyes filled with what
+          resemble overlapping white flower patterns. One of your Byakugan transforms into the Tenseigan.</p>
+          <h3>Activation</h3><p>As a bonus action, you can spend 10 Chakra to activate the Tenseigan. The Tenseigan remains
+          active for 1 minute, or until your Chakra Points or Celestial Chakra reach 0. While active, your Tenseigan counts as
+          your Byakugan for any features or Jutsu that require it. You may deactivate the Tenseigan as a bonus action on your
+          turn.</p><h3>Perfect Vision</h3><p>You gain 120 feet of Truesight, your vision can never be obscured, and you are
+          immune to the Blinded condition.</p><h3>Otherworldly Sight</h3><p>You can see the world between life and death. You
+          can see pocket dimensions, spatial distortions, and the souls of living and dead creatures.</p>
+          <h3>Celestial Oversight</h3><p>You have 1,000 feet of Chakra Sight and can see through up to 50 feet of material
+          within your Chakra Sight range.</p><h3>Second Level</h3><p>Beginning at 2nd level of this class mod, your Tenseigan
+          envelops your second Byakugan and can remain active for up to 10 minutes.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: tenseigan-eye
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    c47f8fa942af907b:
+      _id: c47f8fa942af907b
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Use at class-mod level 1. The form also ends if Chakra Points or Celestial Chakra reach 0.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 006d1ff0b9b5d73b
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Tenseigan (1 Minute)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 006d1ff0b9b5d73b
+    283a8d96a8c621c5:
+      _id: 283a8d96a8c621c5
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires class-mod level 2. Do not apply together with the 1-minute Tenseigan effect.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "10"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: c3d938359f4c7553
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Tenseigan (10 Minutes)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - c3d938359f4c7553
+    728f6bcf00f4f650:
+      _id: 728f6bcf00f4f650
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Remove the active Tenseigan effect.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Deactivate Tenseigan
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects:
+  - name: Tenseigan Active
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.f0a6b5a905c8e6ff
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.senses.truesight
+        mode: 5
+        value: "120"
+        priority: 20
+      - key: system.attributes.senses.ranges.chakrasight
+        mode: 5
+        value: "1000"
+        priority: 20
+      - key: system.traits.ci.value
+        mode: 2
+        value: blinded
+        priority: 20
+    statuses: []
+    _id: 006d1ff0b9b5d73b
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: tenseigan
+          sourceItemId: f0a6b5a905c8e6ff
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!f0a6b5a905c8e6ff.006d1ff0b9b5d73b"
+  - name: Tenseigan Active
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.f0a6b5a905c8e6ff
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.senses.truesight
+        mode: 5
+        value: "120"
+        priority: 20
+      - key: system.attributes.senses.ranges.chakrasight
+        mode: 5
+        value: "1000"
+        priority: 20
+      - key: system.traits.ci.value
+        mode: 2
+        value: blinded
+        priority: 20
+    statuses: []
+    _id: c3d938359f4c7553
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: tenseigan
+          sourceItemId: f0a6b5a905c8e6ff
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!f0a6b5a905c8e6ff.c3d938359f4c7553"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: ten-chakra-activation-duration-senses-and-blinded-immunity
+          mode: native
+        - clause: byakugan-qualification-vision-never-obscured-and-see-through-material
+          mode: prompt
+        - clause: pocket-dimensions-spatial-distortions-and-souls
+          mode: manual
+        - clause: zero-chakra-or-celestial-chakra-expiry-and-mutual-exclusion
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!f0a6b5a905c8e6ff"

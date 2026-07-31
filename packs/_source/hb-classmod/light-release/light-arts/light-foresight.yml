@@ -1,0 +1,237 @@
+folder: fc47bb38af3b70c1
+name: Light Foresight
+type: spell
+_id: e436b8e6364d2145
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+system:
+  description:
+    value: >-
+      <h3>Light Art Type: Light Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Light
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Concentration, up
+      to 1 minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>15 Light
+      Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Light Release, Enhancement,
+      Concentration</dd></dl><h3>Description:</h3><p>For the duration, while you are not Blinded, you gain +2 AC, +2 to
+      attack rolls, and +2 to saving throws.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: light-foresight
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - light-release
+      - enhancement
+      - concentration
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 15 Light Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:light-release
+  activities:
+    761939d5de4dc203:
+      _id: 761939d5de4dc203
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires an active Light Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:light-chakra
+            value: "15"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 5c76ca9443515c63
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 5c76ca9443515c63
+effects:
+  - name: Light Foresight
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+    origin: Item.e436b8e6364d2145
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.abilities.save
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.mwak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.rwak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.mnak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.rnak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.mgak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.rgak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.mtak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.rtak.attack
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: 5c76ca9443515c63
+    type: base
+    system: {}
+    description: ""
+    tint: "#fff6b0"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: light-release
+          form: ""
+          sourceItemId: e436b8e6364d2145
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!e436b8e6364d2145.5c76ca9443515c63"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: light-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: light-release
+      classification: Light Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e436b8e6364d2145"

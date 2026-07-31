@@ -2,20 +2,21 @@ folder: ikC5UJAQnhe17FkE
 name: Passive Absorption
 type: feat
 _id: 1jC9y52dnveQtUXN
-img: icons/magic/symbols/circled-gem-pink.webp
+img: systems/n5eb/assets/content/classmod-icons/cursed-seal/cursemark-second-state.webp
 system:
   description:
     value: >-
       <p>While your Cursed Seal Release is active at any stage, your cursed seal provides you with a unique ability to
-      absorb the chakra of creatures you strike.</p><p>On successful unarmed attacks, you deal additional chakra damage
-      equal to the result. For every 5 Chakra damage dealt as a result of your unarmed attack, you regain 1 Cursed
+      absorb the chakra of creatures you strike. On successful unarmed attacks, you deal additional chakra damage equal
+      to the result. For every 5 Chakra damage dealt as a result of your unarmed attack, you regain 1 Cursed
       Chakra.</p><p>Once you have gained 20 Cursed Chakra in this way, you cannot regain Cursed Chakra from this
       mutation until you complete a Full-Rest. You still retain the chakra damage it deals.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 36–70
   activation:
     type: ''
     cost: null
@@ -183,6 +184,13 @@ flags:
         prerequisites:
           level: null
         properties: []
+    classmodCompendium:
+      classmod: cursed-seal
+      coverage:
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

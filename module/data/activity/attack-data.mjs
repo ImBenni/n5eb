@@ -38,7 +38,10 @@ export default class BaseAttackActivityData extends BaseActivityData {
           bonus: new FormulaField()
         }),
         includeBase: new BooleanField({ initial: true }),
-        parts: new ArrayField(new DamageField())
+        parts: new ArrayField(new DamageField()),
+        versatile: new SchemaField({
+          parts: new ArrayField(new DamageField())
+        })
       })
     };
   }
@@ -177,7 +180,14 @@ export default class BaseAttackActivityData extends BaseActivityData {
           bonus: source.system.critical?.damage
         },
         includeBase: true,
-        parts: damageParts.map(part => this.transformDamagePartData(source, part)) ?? []
+        parts: damageParts.map(part => this.transformDamagePartData(source, part)) ?? [],
+        versatile: {
+          parts: ((source.type !== "weapon") && source.system.damage?.versatile)
+            ? [this.transformDamagePartData(source, [source.system.damage.versatile, ""], {
+              scaling: source.system.versatileScaling
+            })]
+            : []
+        }
       }
     });
   }
@@ -297,7 +307,11 @@ export default class BaseAttackActivityData extends BaseActivityData {
    * @returns {AttackDamageRollProcessConfiguration}
    */
   getDamageConfig(config={}) {
-    const rollConfig = super.getDamageConfig(config);
+    const damageVariant = (config.damageVariant === "versatile") && this.damage.versatile.parts.length
+      ? "versatile"
+      : "primary";
+    const parts = damageVariant === "versatile" ? this.damage.versatile.parts : this.damage.parts;
+    const rollConfig = super.getDamageConfig({ ...config, damageVariant }, { parts });
 
     // Handle ammunition
     const ammo = config.ammunition?.system;

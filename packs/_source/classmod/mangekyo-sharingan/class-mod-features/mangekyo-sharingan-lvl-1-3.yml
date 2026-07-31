@@ -28,9 +28,10 @@ system:
       when making an attack against you, reduce the number of dice they roll by 1, starting with the smallest die.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 71–104
   activation:
     type: bonus
     cost: 1
@@ -93,7 +94,296 @@ system:
     level: null
   properties: []
   identifier: mangekyo-sharingan-lvl-1-and-3
-effects: []
+  activities:
+    064aa41bbedbc792:
+      _id: 064aa41bbedbc792
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Use this tier at Class Mod level 1–2.
+        override: false
+      consumption:
+        targets:
+          - type: hitDice
+            target: smallest
+            value: '2'
+            scaling:
+              mode: ''
+              formula: ''
+          - type: hitDice
+            target: smallest
+            value: '2'
+            scaling:
+              mode: ''
+              formula: ''
+          - type: hitDice
+            target: smallest
+            value: '2'
+            scaling:
+              mode: ''
+              formula: ''
+          - type: hitDice
+            target: smallest
+            value: '2'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: 6ab929529f0b8734
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate (Class Mod 1–2)
+      img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - 6ab929529f0b8734
+    60677d03dd04c2e6:
+      _id: 60677d03dd04c2e6
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Use this tier at Class Mod level 3 or higher.
+        override: false
+      consumption:
+        targets:
+          - type: hitDice
+            target: smallest
+            value: '2'
+            scaling:
+              mode: ''
+              formula: ''
+          - type: hitDice
+            target: smallest
+            value: '2'
+            scaling:
+              mode: ''
+              formula: ''
+          - type: hitDice
+            target: smallest
+            value: '2'
+            scaling:
+              mode: ''
+              formula: ''
+          - type: hitDice
+            target: smallest
+            value: '2'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: cf6fa89761dc5f73
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate (Class Mod 3+)
+      img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - cf6fa89761dc5f73
+effects:
+  - name: Mangekyo Sharingan [Lvl 1 & 3] — Class Mod 1+
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+    origin: Item.Wnaz2wbXNcZIU5aM
+    transfer: false
+    disabled: false
+    duration:
+      value: 60
+      units: seconds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: 6ab929529f0b8734
+    type: base
+    system:
+      changes:
+        - key: system.attributes.ac.bonus
+          value: 2
+          priority: 20
+          type: add
+        - key: system.abilities.dex.bonuses.save
+          value: 2
+          priority: 20
+          type: add
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      n5eb:
+        classmodForm:
+          classmod: mangekyo-sharingan
+          form: mangekyo-sharingan
+          exclusive: ''
+          minimumLevel: 1
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!Wnaz2wbXNcZIU5aM.6ab929529f0b8734'
+  - name: Mangekyo Sharingan [Lvl 1 & 3] — Class Mod 3+
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+    origin: Item.Wnaz2wbXNcZIU5aM
+    transfer: false
+    disabled: false
+    duration:
+      value: 600
+      units: seconds
+      expiry: turnStart
+      expired: false
+    statuses: []
+    _id: cf6fa89761dc5f73
+    type: base
+    system:
+      changes:
+        - key: system.attributes.ac.bonus
+          value: 3
+          priority: 20
+          type: add
+        - key: system.abilities.dex.bonuses.save
+          value: 3
+          priority: 20
+          type: add
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      n5eb:
+        classmodForm:
+          classmod: mangekyo-sharingan
+          form: mangekyo-sharingan
+          exclusive: ''
+          minimumLevel: 3
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+      compendiumSource: null
+    start: null
+    showIcon: 1
+    folder: null
+    _key: '!items.effects!Wnaz2wbXNcZIU5aM.cf6fa89761dc5f73'
 sort: 0
 ownership:
   default: 0
@@ -213,6 +503,13 @@ flags:
         prerequisites:
           level: null
         properties: []
+    classmodCompendium:
+      classmod: mangekyo-sharingan
+      coverage:
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

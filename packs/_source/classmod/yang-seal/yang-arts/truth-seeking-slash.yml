@@ -1,0 +1,172 @@
+folder: 64fa38d1b95e9c96
+name: 'Truth Seeking: Slash'
+type: spell
+_id: 8f46fd792e8f4681
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/nunoboko.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Truth-Seeking</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>Special</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M, W (Yang
+      Weapon)</dd><dt>Cost:</dt><dd>6 Yang Chakra</dd><dt>Keywords:</dt><dd>Bukijutsu, Truth -Seeking,
+      Clash</dd></dl><h3>Description:</h3><p>Using the power of your Truth -Seeking Orbs, you expand the size and power
+      of your weapon before releasing a shockwave of Yang Chakra from its edge. All creatures in a cone originating from
+      you must make a dexterity saving throw. The size of this cone is equal to your weapon's reach.</p><p>A creature
+      takes 13d10 Slashing damage +1d10 Slashing damage for each Orb part of the Yang Weapon on a failed save, and half
+      as much damage on a success. This Slash has the power to cut the world. Structures and construct with less than
+      100 hit points are instantly destroyed and do not intercept this art's damage. When this happens, creatures behind
+      these structures take maximum damage.</p><p><strong>Truth-Seeking:</strong> You can spend additional Truth-Seeking
+      Orbs as part of casting this jutsu. For each additional Orb you spend, increase the damage of this art by +1d10
+      and the reach by +5ft.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '113'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: truth-seeking-slash
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: bukijutsu
+    ability: ''
+    components:
+      - m
+      - w-yang-weapon
+    keywords:
+      - bukijutsu
+      - truth--seeking
+      - clash
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 6 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    cf68dee069006b92:
+      _id: cf68dee069006b92
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '6'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: null
+        units: spec
+        special: Special
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/nunoboko.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 13
+            denomination: 10
+            bonus: ''
+            types:
+              - slashing
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!8f46fd792e8f4681'

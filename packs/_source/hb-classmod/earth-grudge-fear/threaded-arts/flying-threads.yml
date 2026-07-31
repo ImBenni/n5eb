@@ -1,0 +1,356 @@
+folder: 453486bacac9d208
+name: Flying Threads
+type: spell
+_id: bd4440ed07dd65d2
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Passive</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Threaded
+      Art</dd><dt>Casting Time:</dt><dd>Passive or 1 Bonus Action</dd><dt>Range:</dt><dd>Self or 120
+      feet</dd><dt>Duration:</dt><dd>Permanent or Instant</dd><dt>Components:</dt><dd>M</dd><dt>Cost:</dt><dd>3 Decay
+      for blast</dd><dt>Keywords:</dt><dd>Threaded Art, Movement</dd></dl><h3>Description:</h3><p>Gain a flying speed
+      equal to twice your movement speed. As a bonus action, incur 3 Decay and choose a 30-foot-radius sphere within 120
+      feet. Creatures in it make a Dexterity save, taking 8d8 necrotic damage on a failure or half as much on a
+      success.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-flying-threads
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - m
+    keywords:
+      - threaded-art
+      - movement
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 3 Decay for blast
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    be2bbed147dbba35:
+      _id: be2bbed147dbba35
+      type: save
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 120
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Thread Blast
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    40fa24a92a7ca0f9:
+      _id: 40fa24a92a7ca0f9
+      type: save
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires Mastered Earth Grudge Fear.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 120
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Thread Blast (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    f54acf3ff9ef75c3:
+      _id: f54acf3ff9ef75c3
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: 8eff75ef1acceaee
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Flying Threads
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 8eff75ef1acceaee
+effects:
+  - name: Flying Threads
+    img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+    origin: Item.bd4440ed07dd65d2
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: "@attributes.movement.walk * 2"
+        priority: 20
+    statuses: []
+    _id: 8eff75ef1acceaee
+    type: base
+    system: {}
+    description: ""
+    tint: "#4b1f29"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: earth-grudge-fear
+          form: ""
+          sourceItemId: bd4440ed07dd65d2
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!bd4440ed07dd65d2.8eff75ef1acceaee"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: decay-cost-primary-roll-and-template
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: ambiguous-or-permanent-clauses
+          mode: prompt
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!bd4440ed07dd65d2"

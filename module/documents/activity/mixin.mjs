@@ -80,7 +80,8 @@ function promptClashSetup(activity) {
   const art = isClassmodArtItem(item);
   const defaultRoll = getDefaultClashRoll(item);
   const nature = getClashNature(item);
-  const rankOptions = Object.entries(CONFIG.DND5E.jutsuRanks).map(([value, config]) => {
+  const rankOptions = CONFIG.DND5E.jutsuRankOrder.map(value => {
+    const config = CONFIG.DND5E.jutsuRanks[value];
     const label = config.label ?? value.toUpperCase();
     return `<option value="${value}" ${(!art && (value === rank)) ? "selected" : ""}>${label}</option>`;
   });
@@ -1130,6 +1131,9 @@ export default function ActivityMixin(Base) {
       const rollConfig = this.getDamageConfig(config);
       rollConfig.hookNames = [...(config.hookNames ?? []), "damage"];
       rollConfig.subject = this;
+      const damageFlavor = rollConfig.damageVariant === "versatile"
+        ? game.i18n.localize("DND5E.VersatileDamage")
+        : this.damageFlavor;
 
       const dialogConfig = foundry.utils.mergeObject({
         options: {
@@ -1139,7 +1143,7 @@ export default function ActivityMixin(Base) {
             left: window.innerWidth - 710
           },
           window: {
-            title: this.damageFlavor,
+            title: damageFlavor,
             subtitle: this.item.name,
             icon: this.item.img
           }
@@ -1149,12 +1153,12 @@ export default function ActivityMixin(Base) {
       const messageConfig = foundry.utils.mergeObject({
         create: true,
         data: {
-          flavor: `${this.item.name} - ${this.damageFlavor}`,
+          flavor: `${this.item.name} - ${damageFlavor}`,
           flags: {
             n5eb: {
               ...this.messageFlags,
               messageType: "roll",
-              roll: { type: "damage" }
+              roll: { type: "damage", damageVariant: rollConfig.damageVariant ?? "primary" }
             }
           },
           speaker: ChatMessage.getSpeaker({ actor: this.actor })
@@ -1171,7 +1175,8 @@ export default function ActivityMixin(Base) {
       }, {});
       if ( canUpdate && !foundry.utils.isEmpty(lastDamageTypes)
         && (this.actor && this.actor.items.has(this.item.id)) ) {
-        await this.item.setFlag("n5eb", `last.${this.id}.damageType`, lastDamageTypes);
+        const damageVariant = rollConfig.damageVariant ?? "primary";
+        await this.item.setFlag("n5eb", `last.${this.id}.damageType.${damageVariant}`, lastDamageTypes);
       }
 
       /**

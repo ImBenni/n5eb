@@ -186,12 +186,13 @@ export default class CharacterData extends CreatureTemplate {
       return;
     }
 
-    if ( (value === false) || (value === undefined) || (value === null) || !Number.isNumeric(value) ) {
+    const number = Number(value);
+    if ( (value === false) || (value === undefined) || (value === null) || !Number.isFinite(number) ) {
       source.attributes.inspiration = 0;
       return;
     }
 
-    source.attributes.inspiration = Math.clamp(Math.floor(Number(value)), 0, MAX_WILL_OF_FIRE);
+    source.attributes.inspiration = Math.clamp(Math.floor(number), 0, MAX_WILL_OF_FIRE);
   }
 
   /* -------------------------------------------- */
@@ -259,7 +260,7 @@ export default class CharacterData extends CreatureTemplate {
    * Prepare remaining character data.
    */
   prepareDerivedData() {
-    const rollData = this.parent.getRollData({ deterministic: true });
+    let rollData = this.parent.getRollData({ deterministic: true });
     const { originalSaves, originalSkills } = this.parent.getOriginalStats();
 
     this.details.tier = Math.ceil((this.details.level - 4) / 6) + 1;
@@ -268,13 +269,14 @@ export default class CharacterData extends CreatureTemplate {
     this.prepareAbilities({ rollData, originalSaves });
     this.prepareSkills({ rollData, originalSkills });
     this.prepareTools({ rollData });
+    AttributesFields.prepareJutsuCasting.call(this, rollData);
+    rollData = this.parent.getRollData({ deterministic: true });
     AttributesFields.prepareArmorClass.call(this, rollData);
     AttributesFields.prepareConcentration.call(this, rollData);
     AttributesFields.prepareEncumbrance.call(this, rollData);
     AttributesFields.prepareInitiative.call(this, rollData);
     AttributesFields.prepareMovement.call(this, rollData);
     AttributesFields.prepareSpellcastingAbility.call(this);
-    AttributesFields.prepareJutsuCasting.call(this, rollData);
     TraitsFields.prepareLanguages.call(this);
     TraitsFields.prepareResistImmune.call(this);
 
@@ -523,6 +525,9 @@ function makeDowntimeField(schemaOptions={}) {
  * @param {object} source  Source system data.
  */
 function migrateDowntime(source) {
+  // Data-model migrations also receive partial update payloads. Adding defaults when downtime is absent from a
+  // partial update turns an unrelated actor change into `system.downtime = {}`, replacing all persisted tracking.
+  if ( !Object.hasOwn(source, "downtime") ) return;
   source.downtime ??= {};
   source.downtime.weeks ??= {};
   source.downtime.weeks.available ??= 0;

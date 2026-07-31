@@ -1,0 +1,118 @@
+folder: 61c289ceee8656c2
+name: Rinne Body Construction
+type: feat
+_id: 12b1ddb2b4d32a3c
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Rinne Body Construction</h2><p>Use this reference to build each corpse-dependent Rinne Body: body level =
+      twice Rinnegan class-mod level + body rank; d10 Hit Dice; 10 + Constitution modifier Hit Points and one Chakra Die
+      per body level; speed 30 feet; physical scores 18, 16, 14 assigned as desired; mental scores copied from the
+      creator; one unique Path and one free Art of that Path; only its Path's Arts and Talents;</p><p>Black Receiver and
+      linked vision. The source defines no single fixed corpse, Path, tier, or talent loadout, so the GM creates an
+      isolated helper Actor for each body.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-rinne-body-construction
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    62edfb68a6d1a332:
+      _id: 62edfb68a6d1a332
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Create an isolated helper Actor with the corpse, Path, rank, free Art, and invested Talents selected by the
+          GM.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Build or Update Rinne Body
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: complete-body-construction-formulas-and-options
+          mode: prompt
+        - clause: variable-corpse-path-tier-and-talent-helper-actor
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!12b1ddb2b4d32a3c"

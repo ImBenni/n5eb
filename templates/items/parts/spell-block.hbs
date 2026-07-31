@@ -21,10 +21,13 @@
     <li>
         <strong>{{ localize "DND5E.Components" }}:</strong>
         <span class="value">
-            {{ labels.components.vsm }}
-            {{#if (and (not fullWidth) labels.materials)}}
-            <span class="materials">({{ labels.materials }})</span>
-            {{/if}}
+            {{#if labels.jutsuComponents.full}}{{ labels.jutsuComponents.full }}{{else}}&mdash;{{/if}}
+        </span>
+    </li>
+    <li>
+        <strong>{{ localize "N5EB.JUTSU.Keywords" }}:</strong>
+        <span class="value">
+            {{#if labels.jutsuKeywords.full}}{{ labels.jutsuKeywords.full }}{{else}}&mdash;{{/if}}
         </span>
     </li>
     <li>

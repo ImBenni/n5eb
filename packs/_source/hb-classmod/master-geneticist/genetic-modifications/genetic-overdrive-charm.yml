@@ -1,0 +1,281 @@
+folder: e805a8dd197f0bfc
+name: "Genetic Overdrive: Charm"
+type: feat
+_id: 4d81c113e1712f6b
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+system:
+  description:
+    value: >-
+      <h2>Genetic Overdrive: Charm</h2><p><strong>DNA Point Cost:</strong> 6<br><strong>Base Genetic
+      Degradation:</strong> 3</p><p>Your personal magnetism is enhanced beyond normal human limitations.</p><ul><li>You
+      and allies within 10 feet have advantage against Charmed, Fear, Berserk, and Maddened; the range becomes 30 feet
+      at level 3.</li><li>Any creature within 30 feet gains Genetic Superiority's speed increase and damage
+      reduction.</li><li>Your Charisma score increases by 2, becoming 4 at class-mod level 4.</li></ul>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-genetic-overdrive-charm
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    8b42c217d76e58de:
+      _id: 8b42c217d76e58de
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this modification is installed. Its Degradation becomes part of your minimum.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Install Modification (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    62b82f22e0b3253d:
+      _id: 62b82f22e0b3253d
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires Master Geneticist level 4.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: 523b40d2850c0279
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Level 4 Ability Upgrade
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 523b40d2850c0279
+effects:
+  - name: "Genetic Overdrive: Charm"
+    img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+    origin: Item.4d81c113e1712f6b
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.cha.value
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: a775e58ab20144a8
+    type: base
+    system: {}
+    description: ""
+    tint: "#74508f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: master-geneticist
+          form: ""
+          sourceItemId: 4d81c113e1712f6b
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785452400000
+      modifiedTime: 1785452400000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!4d81c113e1712f6b.a775e58ab20144a8"
+  - name: "Charm: Level 4 Upgrade"
+    img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+    origin: Item.4d81c113e1712f6b
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.cha.value
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: 523b40d2850c0279
+    type: base
+    system: {}
+    description: ""
+    tint: "#74508f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: master-geneticist
+          form: ""
+          sourceItemId: 4d81c113e1712f6b
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785452400000
+      modifiedTime: 1785452400000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!4d81c113e1712f6b.523b40d2850c0279"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: dna-allocation-and-base-degradation
+          mode: native
+        - clause: passive-benefits-expressible-as-active-effects
+          mode: native
+        - clause: existing-clan-resource-and-feature-interactions
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!4d81c113e1712f6b"

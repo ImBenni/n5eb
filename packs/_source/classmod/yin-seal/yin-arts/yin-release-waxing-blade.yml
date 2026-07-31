@@ -1,0 +1,182 @@
+folder: b4916b858daefb43
+name: 'Yin Release: Waxing Blade'
+type: spell
+_id: ac686ff77f790b61
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Yin Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>5 feet</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM, M, W (Melee
+      Slashing)</dd><dt>Cost:</dt><dd>1 Yin Charge</dd><dt>Keywords:</dt><dd>Bukijutsu, Yin
+      Release</dd></dl><h3>Description:</h3><p>You release Yin Chakra through your weapon, causing it to grow a glowing
+      black edge, before striking at your opponent with a lightning -fast attack. Make a melee Yin attack against a
+      creature within range, dealing 15d10 Slashing damage on a hit. Also, on a hit the target must make a constitution
+      saving throw, gaining 3d4 ranks of lacerated on a failure.</p><p>YIN SEAL – EXTRAS The following are a list of
+      Feats designed with a lower power-level in mind. These feats are a part of the overall Class Mod category of
+      feats. These feats are intended to give the user the feel of the Yin Seal without oppressively shifting the
+      balance of a normal level 1 -20 play through. Here are the following rules and requirements in regards to even
+      gaining these Class Mod feats.</p><ul><li>Each Class Mod feat after the first requires you to subsume a certain
+      number of creatures or spend 25 downtime to gain the next feat.</li><li>A character can only access the first feat
+      if a monster, sage creature or similar creature implants them a Yin Seal.</li><li>All Yin Arts, and Yin Abilities
+      you gain from a Class Mod feat can be used in any Yin Seal variant you have access to. (Imperfect, Adept,
+      etc.)</li><li>All Yin Seal variants have a unique set of bonuses and effects, which can be found on the Yin Seal
+      Variants table at the end of these feats.</li><li>You can exit any Yin Seal variant as a Bonus
+      action.</li><li>Regardless of the Yin Seal variant you access, they all share the same Full -Rest recharge
+      limitation.</li><li>Yin Charges are a special resource intended to allow you to cast Yin Arts.</li><li>Each Yin
+      Seal variant has its own Yin Charge pool and limitations on what you can spend your charges on.</li><li>If a Yin
+      Art requires concentration, you do not need to spend Chakra or Yin Charges to maintain concentration.</li><li>Yin
+      Arts cast with these Yin Charges rolls half their dice values for damage, healing and damage
+      reduction.</li><li>The bonus to damage, healing and damage reduction granted by Moon Phases is determined by your
+      current Yin Seal variant.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '125'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yin-release-waxing-blade
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: bukijutsu
+    ability: ''
+    components:
+      - cm
+      - m
+      - w-melee-slashing
+    keywords:
+      - bukijutsu
+      - yin-release
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Yin Charge
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yin-seal
+  activities:
+    c3e5a08f23a725ba:
+      _id: c3e5a08f23a725ba
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yin-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 15
+            denomination: 10
+            bonus: ''
+            types:
+              - slashing
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: none
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yin-seal
+      classification: Yin Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!ac686ff77f790b61'

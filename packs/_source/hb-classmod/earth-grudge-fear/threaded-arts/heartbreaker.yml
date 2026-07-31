@@ -1,0 +1,139 @@
+folder: 453486bacac9d208
+name: Heartbreaker
+type: spell
+_id: d1a38f58f8148e9a
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Passive</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Threaded
+      Art</dd><dt>Casting Time:</dt><dd>1 Long
+      Rest</dd><dt>Range:</dt><dd>Touch</dd><dt>Duration:</dt><dd>Permanent</dd><dt>Components:</dt><dd>M</dd><dt>Cost:</dt><dd>GM-determined
+      Decay</dd><dt>Keywords:</dt><dd>Threaded Art</dd></dl><h3>Description:</h3><p>Requires a heart from a class-mod
+      user. Over a Long Rest, absorb the heart and steal one feature or Art chosen by the GM. You may replace up to your
+      maximum hearts with hearts from different class mods; these hearts cannot create Thread Monsters or a Chimera.
+      Passive abilities activate only while Earth Grudge Fear is active, and active abilities can be used only then. The
+      GM determines Decay costs.</p><p>This is an optional, high-power Art; stolen abilities and permanent heart changes
+      require explicit GM confirmation.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-heartbreaker
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - m
+    keywords:
+      - threaded-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: GM-determined Decay
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    d9a1acb992425d0f:
+      _id: d9a1acb992425d0f
+      type: utility
+      activation:
+        type: longRest
+        value: null
+        condition: GM selects one feature or Art, Decay cost, reversible access record, and unique source class mod.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Absorb Class-Mod Heart (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: optional-stolen-class-mod-feature-and-cost
+          mode: manual
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!d1a38f58f8148e9a"

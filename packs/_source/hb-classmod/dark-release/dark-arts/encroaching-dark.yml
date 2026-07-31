@@ -1,0 +1,155 @@
+folder: 340d32452873a125
+name: Encroaching Dark
+type: spell
+_id: 35a18cfa92d069bc
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <h3>Dark Art Type: Dark Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Dark
+      Art</dd><dt>Casting Time:</dt><dd>1 Reaction</dd><dt>Range:</dt><dd>Self (40-foot
+      sphere)</dd><dt>Duration:</dt><dd>1 round</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>20 Dark
+      Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Dark Release, Reaction, Area</dd></dl><h3>Description:</h3><p>When you
+      take damage, creatures in a 40-foot sphere centered on you make a Constitution saving throw. Divide the triggering
+      damage evenly among the creatures that fail. If every creature succeeds, you take the damage normally. The draft's
+      prose mentions a 35-foot sphere while its range line says 40 feet; this Activity uses the 40-foot listed range and
+      leaves the discrepancy visible for GM adjudication.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 14
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: encroaching-dark
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - dark-release
+      - reaction
+      - area
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 20 Dark Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:dark-release
+  activities:
+    b9f36e4d3eeb5167:
+      _id: b9f36e4d3eeb5167
+      type: save
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires an active Dark Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:dark-chakra
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "40"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: dark-release
+      classification: Dark Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!35a18cfa92d069bc"

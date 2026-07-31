@@ -1,0 +1,275 @@
+folder: 55be1e571eb68368
+name: "Limit Removal: Hijutsu"
+type: spell
+_id: 172113de28df5ac8
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+system:
+  description:
+    value: >-
+      <h2>Limit Removal: Hijutsu</h2><p><strong>DNA Point Cost:</strong> 6<br><strong>Genetic Degradation:</strong>
+      4<br><strong>Casting Time:</strong> Special<br><strong>Range:</strong> Self<br><strong>Duration:</strong>
+      Instant</p><p>When casting a Hijutsu, incur 4 Genetic Degradation to double its damage dice.</p><p><strong>Limit
+      Breaker:</strong> Incur 11 additional Degradation to deal maximum damage.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-limit-removal-hijutsu
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components: []
+    keywords:
+      - genetic-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 6 DNA Points allocated; 4 Genetic Degradation when used
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:master-geneticist
+  activities:
+    13a315682c1bca36:
+      _id: 13a315682c1bca36
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this Genetic Art is learned. Do not spend this purchase cost when casting it.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Allocate DNA Cost (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    55b7e1f6c65856e2:
+      _id: 55b7e1f6c65856e2
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use as part of casting a Hijutsu, then double that Jutsu's damage dice.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Double Hijutsu Damage Dice
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    96bd8431a90ff4c5:
+      _id: 96bd8431a90ff4c5
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          The 15 cost is base 4 + additional 11. Use as part of casting a Hijutsu; double its damage dice and treat
+          every die as maximum.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "15"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Limit Breaker: Maximum Hijutsu Damage"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: one-time-dna-allocation-and-per-use-degradation
+          mode: native
+        - clause: trigger-and-cross-jutsu-resolution
+          mode: midi-enhanced
+        - clause: choices-and-irreversible-results
+          mode: prompt
+    classmodArt:
+      classmod: master-geneticist
+      classification: Genetic Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!172113de28df5ac8"

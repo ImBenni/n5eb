@@ -1,0 +1,348 @@
+folder: e805a8dd197f0bfc
+name: "Genetic Overdrive: Cunning"
+type: feat
+_id: e4697c916155b3c6
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+system:
+  description:
+    value: >-
+      <h2>Genetic Overdrive: Cunning</h2><p><strong>DNA Point Cost:</strong> 6<br><strong>Base Genetic
+      Degradation:</strong> 3</p><p>Your mental processing is enhanced beyond normal human limitations.</p><ul><li>Twice
+      per Long Rest, force a creature that passes a save against your Jutsu or Art to reroll and take the new
+      result.</li><li>You can concentrate on one additional Jutsu.</li><li>Your Intelligence score increases by 2,
+      becoming 4 at level 4.</li></ul>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: "2"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: master-geneticist-genetic-overdrive-cunning
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    c4af0fe1508f502d:
+      _id: c4af0fe1508f502d
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this modification is installed. Its Degradation becomes part of your minimum.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Install Modification (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    decb9ec2ad72a63d:
+      _id: decb9ec2ad72a63d
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Trigger when the target passes a saving throw against your Jutsu or Art; it must use the new result.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Force Successful Save Reroll
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    38fb55f79b817b66:
+      _id: 38fb55f79b817b66
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires Master Geneticist level 4.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: 5df6deed0266818b
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Level 4 Ability Upgrade
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 5df6deed0266818b
+effects:
+  - name: "Genetic Overdrive: Cunning"
+    img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+    origin: Item.e4697c916155b3c6
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.int.value
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: 273adacab4a74161
+    type: base
+    system: {}
+    description: ""
+    tint: "#74508f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: master-geneticist
+          form: ""
+          sourceItemId: e4697c916155b3c6
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785452400000
+      modifiedTime: 1785452400000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!e4697c916155b3c6.273adacab4a74161"
+  - name: "Cunning: Level 4 Upgrade"
+    img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+    origin: Item.e4697c916155b3c6
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.abilities.int.value
+        mode: 2
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: 5df6deed0266818b
+    type: base
+    system: {}
+    description: ""
+    tint: "#74508f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: master-geneticist
+          form: ""
+          sourceItemId: e4697c916155b3c6
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785452400000
+      modifiedTime: 1785452400000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!e4697c916155b3c6.5df6deed0266818b"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: dna-allocation-base-degradation-uses-and-ability-score
+          mode: native
+        - clause: post-save-reroll-targeting
+          mode: midi-enhanced
+        - clause: second-concentration-slot
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e4697c916155b3c6"

@@ -1,0 +1,401 @@
+folder: 453486bacac9d208
+name: Threaded Combat
+type: spell
+_id: ed1ad8bad8cf8d82
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Passive</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Threaded
+      Art</dd><dt>Casting Time:</dt><dd>1 Bonus Action or 1 Reaction</dd><dt>Range:</dt><dd>Self or
+      Melee</dd><dt>Duration:</dt><dd>1 minute</dd><dt>Components:</dt><dd>M</dd><dt>Cost:</dt><dd>4 Decay to run
+      wild</dd><dt>Keywords:</dt><dd>Threaded Art, Taijutsu</dd></dl><h3>Description:</h3><p>Your unarmed attacks deal
+      an additional 3d6 necrotic damage. As a bonus action incur 4 Decay to let your threads run wild for 1 minute.
+      During it, use a bonus action to make a Threaded Art Attack against a creature in melee, dealing 8d10 necrotic on
+      a hit. When damaged by Ninjutsu, Taijutsu, or a weapon attack, use your reaction to reduce that damage by
+      6d12.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-threaded-combat
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - m
+    keywords:
+      - threaded-art
+      - taijutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 4 Decay to run wild
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    13d1b8c47c1240d0:
+      _id: 13d1b8c47c1240d0
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: adbbc7009e1c237b
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Let Threads Run Wild
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - adbbc7009e1c237b
+    f638cb99b8c2b83f:
+      _id: f638cb99b8c2b83f
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires Mastered Earth Grudge Fear.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Run Wild (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    218516d3d5597b36:
+      _id: 218516d3d5597b36
+      type: attack
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires the Let Threads Run Wild effect.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Wild Thread Attack
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 8
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    71e0766ceb7a548f:
+      _id: 71e0766ceb7a548f
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: "Trigger: damage from Ninjutsu, Taijutsu, or a weapon attack."
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Thread Deflection
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 6d12
+        name: Damage Reduction
+        prompt: false
+        visible: true
+effects:
+  - name: Threads Running Wild
+    img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+    origin: Item.ed1ad8bad8cf8d82
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: adbbc7009e1c237b
+    type: base
+    system: {}
+    description: ""
+    tint: "#4b1f29"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: earth-grudge-fear
+          form: ""
+          sourceItemId: ed1ad8bad8cf8d82
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!ed1ad8bad8cf8d82.adbbc7009e1c237b"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: decay-cost-primary-roll-and-template
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: ambiguous-or-permanent-clauses
+          mode: prompt
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!ed1ad8bad8cf8d82"

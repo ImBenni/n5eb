@@ -1,0 +1,213 @@
+folder: 453486bacac9d208
+name: Puppeteer's Monsters
+type: spell
+_id: 72cf949c3f601b99
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Passive</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Threaded
+      Art</dd><dt>Casting Time:</dt><dd>Passive or
+      Special</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Special</dd><dt>Components:</dt><dd>M</dd><dt>Cost:</dt><dd>Reduces
+      creation by 1 Decay; 5 Decay per resummoned heart</dd><dt>Keywords:</dt><dd>Threaded Art,
+      Summoning</dd></dl><h3>Description:</h3><p>Reduce Thread Monster creation cost by 1 Decay per monster. Your
+      monsters may use reactions and bonus actions, and their HP increases by another four times your Threaded Art Save
+      DC. After a monster dies, spend 5 Decay per heart to permit resummoning before a rest.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-puppeteers-monsters
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - m
+    keywords:
+      - threaded-art
+      - summoning
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: Reduces creation by 1 Decay; 5 Decay per resummoned heart
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    ed144fc6bcff427e:
+      _id: ed144fc6bcff427e
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Spend 5 Decay for each destroyed heart being made summonable again before a rest.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "5"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Restore Monster Summoning
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    3d4ca79c661d7317:
+      _id: 3d4ca79c661d7317
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires Mastered Earth Grudge Fear. Spend 3 Decay per heart.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "3"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Restore Summoning (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: decay-cost-primary-roll-and-template
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: ambiguous-or-permanent-clauses
+          mode: prompt
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!72cf949c3f601b99"

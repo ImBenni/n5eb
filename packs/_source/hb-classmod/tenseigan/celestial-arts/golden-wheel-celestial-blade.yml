@@ -1,0 +1,766 @@
+folder: 10a1a7fb0f5d333c
+name: Golden Wheel Celestial Blade
+type: spell
+_id: 954cec6e236d77a1
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: >-
+      <h2>Golden Wheel Celestial Blade</h2><dl class="n5eb-classmod-summary"><dt>Origin:</dt><dd>Mountain
+      Crusher</dd><dt>Classification:</dt><dd>Celestial Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>Self (60-foot cone)</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M,
+      CM</dd><dt>Cost:</dt><dd>14 Celestial Chakra</dd><dt>Celestial
+      Strain:</dt><dd>+2</dd><dt>Keywords:</dt><dd>Hijutsu, Taijutsu</dd></dl><h3>Description</h3><p>Create a golden
+      blade of Celestial Chakra from your hand and swing it through creatures in a
+          60-foot cone. Each creature makes a Constitution saving throw. On a failure, it takes 12d10 force damage and loses
+          Chakra equal to half the result.</p><p>A creature whose Chakra reaches 0 from this Art is Weakened for 1 hour. If a
+          creature has 0 Chakra before the Art, deal triple damage to its Hit Points and no Chakra damage.</p>
+          <h3>Art Magnification</h3><p>Increase the cost by 2 to deal 2d8 additional damage. Celestial Chakra Mode doubles
+          this benefit.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: golden-wheel-celestial-blade
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: taijutsu
+    ability: ""
+    components:
+      - m
+      - cm
+    keywords:
+      - hijutsu
+      - taijutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 14 Celestial Chakra; +2 Celestial Strain
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:tenseigan
+  activities:
+    88071269f7946c62:
+      _id: 88071269f7946c62
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan. Apply half the force result as Chakra damage. Resolve triple HP damage instead
+          against a target already at 0 Chakra.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "14"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 14 Celestial Chakra and incur 2 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: cone
+          size: "60"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Celestial Blade
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    923e79089a81818a:
+      _id: 923e79089a81818a
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan. Apply half the force result as Chakra damage. Resolve triple HP damage instead
+          against a target already at 0 Chakra.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "16"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 16 Celestial Chakra and incur 2 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: cone
+          size: "60"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Celestial Blade — Magnified
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+          - number: 2
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    591554f5914a54c5:
+      _id: 591554f5914a54c5
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Apply half the force result
+          as Chakra damage. Resolve triple HP damage instead against a target already at 0 Chakra.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "11"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 11 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: cone
+          size: "60"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Celestial Blade (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: custom
+          formula: 14 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    8aeb6c0e5a728788:
+      _id: 8aeb6c0e5a728788
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Apply half the force result
+          as Chakra damage. Resolve triple HP damage instead against a target already at 0 Chakra.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "13"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 13 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: cone
+          size: "60"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Celestial Blade — Magnified (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: custom
+          formula: 14 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+          - number: 4
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    2dd89a58811e0d32:
+      _id: 2dd89a58811e0d32
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Apply half the force result as
+          Chakra damage. Resolve triple HP damage instead against a target already at 0 Chakra.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 10 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: cone
+          size: "60"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Celestial Blade (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: custom
+          formula: 15 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    c26d4f1f1c0cdf4e:
+      _id: c26d4f1f1c0cdf4e
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Apply half the force result as
+          Chakra damage. Resolve triple HP damage instead against a target already at 0 Chakra.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "12"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 12 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: cone
+          size: "60"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Celestial Blade — Magnified (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: custom
+          formula: 15 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+          - number: 4
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    3683e2d6313243db:
+      _id: 3683e2d6313243db
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply only when this Art reduces the target's Chakra to 0.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: hour
+        special: ""
+        override: false
+      effects:
+        - _id: 9756b3d55619a654
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Weakened at 0 Chakra
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 9756b3d55619a654
+effects:
+  - name: Weakened
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.954cec6e236d77a1
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 3600
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses:
+      - weakened
+    _id: 9756b3d55619a654
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: ""
+          sourceItemId: 954cec6e236d77a1
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!954cec6e236d77a1.9756b3d55619a654"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: constitution-save-force-damage-cost-strain-magnification-and-weakened-effect
+          mode: native
+        - clause: half-result-chakra-damage-and-zero-chakra-conditional-application
+          mode: midi-enhanced
+        - clause: triple-hit-point-damage-against-predepleted-target
+          mode: prompt
+    classmodArt:
+      classmod: tenseigan
+      classification: Celestial Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!954cec6e236d77a1"

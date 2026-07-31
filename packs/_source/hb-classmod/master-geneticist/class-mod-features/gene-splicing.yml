@@ -1,0 +1,422 @@
+folder: 913bd9464e829b26
+name: Gene Splicing
+type: feat
+_id: 425eb620232ae08b
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+system:
+  description:
+    value: >-
+      <h2>Gene Splicing</h2><p>Beginning at 2nd level, spend 10 minutes obtaining DNA from a willing or incapacitated
+      creature and store it in a vial. If its clan is unknown, learn it over a Short Rest.</p><h3>Create a
+      Serum</h3><p>Spend one week of downtime researching and preparing the DNA. Make DC 15 Investigation, Medicine, and
+      Craft checks. Succeeding all three creates a one-use injectable serum and destroys the stored DNA.</p><h3>Inject
+      the Serum</h3><p>As an Action, make a DC 25 Constitution ability check. Reduce the DC by 5 for each serum-creation
+      check that succeeded by 5 or more. On success, gain 10 points to distribute as though you gained that clan's
+      Latent Bloodline feat. On failure, gain 10 Genetic Degradation.</p><p>You may splice a clan already present to
+      gain another 6 points in its latent abilities, at most a number of times equal to your class-mod level. A serum is
+      inert in another creature. After successfully using one creature's DNA, you must find another member of that clan
+      for a future splice.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-gene-splicing
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    e91916433c144a4b:
+      _id: e91916433c144a4b
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: The creature must be willing or incapacitated.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "10"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Collect DNA
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    9a8bb08ebba4a07e:
+      _id: 9a8bb08ebba4a07e
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Serum: Investigation Check"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.inv.total
+        name: DC 15 Investigation
+        prompt: false
+        visible: true
+    d95d2a6987c36f9d:
+      _id: d95d2a6987c36f9d
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Serum: Medicine Check"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.med.total
+        name: DC 15 Medicine
+        prompt: false
+        visible: true
+    0b3ee20821a6bfff:
+      _id: 0b3ee20821a6bfff
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Serum: Craft Check"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.cra.total
+        name: DC 15 Craft
+        prompt: false
+        visible: true
+    2f324646932d211a:
+      _id: 2f324646932d211a
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Reduce the DC by 5 per preparation check that succeeded by at least 5. On success record a Gene Splice Slot.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Inject Gene Splice Serum
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.con.mod
+        name: Constitution Check (Base DC 25)
+        prompt: false
+        visible: true
+    98061f034725166d:
+      _id: 98061f034725166d
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use only after failing the serum injection Constitution check.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Record Rejected Serum
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: collection-duration-preparation-rolls-injection-roll-and-failure-degradation
+          mode: native
+        - clause: dc-reduction-success-record-and-latent-bloodline-point-selection
+          mode: prompt
+        - clause: unique-donor-and-clan-splice-roster
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!425eb620232ae08b"

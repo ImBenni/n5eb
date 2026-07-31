@@ -1,0 +1,164 @@
+folder: 61c289ceee8656c2
+name: Rinnegan Mastery
+type: feat
+_id: 204d38f4686e7577
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Rinnegan Mastery</h2><p>At 3rd level, your Rinnegan is permanently active and no longer requires its
+      activation cost or duration.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-rinnegan-mastery
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    544acf0fc02fdbb6:
+      _id: 544acf0fc02fdbb6
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: fa572add75c71b77
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply Permanent Rinnegan
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - fa572add75c71b77
+  advancement: {}
+effects:
+  - name: Permanent Rinnegan
+    img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+    origin: Item.204d38f4686e7577
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.senses.ranges.chakrasight
+        mode: 2
+        value: "120"
+        priority: 20
+    statuses: []
+    _id: fa572add75c71b77
+    type: base
+    system: {}
+    description: ""
+    tint: "#68428f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: rinnegan-redux
+          form: rinnegan
+          sourceItemId: 204d38f4686e7577
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!204d38f4686e7577.fa572add75c71b77"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: permanent-chakra-sight
+          mode: native
+        - clause: permanent-see-invisible-and-ignore-activation
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!204d38f4686e7577"

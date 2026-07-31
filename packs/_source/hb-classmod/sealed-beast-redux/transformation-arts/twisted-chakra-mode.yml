@@ -1,0 +1,297 @@
+folder: ed2cd2c3ff513c6f
+name: Twisted Chakra Mode
+type: spell
+_id: a26d53ef4a8f9c2b
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Twisted Chakra Mode</h2><h3>Vermillion Art</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Transformation Art</dd><dt>Casting Time:</dt><dd>1 Bonus
+      Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>10 Twisted
+      Chakra</dd><dt>Keywords:</dt><dd>Transformation, Vermillion</dd></dl><h3>Description:</h3><p>Tier One. Twisted
+      Chakra forms a bubbling cloak around you. For 1 minute:</p><ul><li>Speed increases by 15 feet.</li><li>Strength
+      and Dexterity increase by 2.</li><li>Gain +1 to all Saving Throws.</li><li>Gain 50 temporary Hit
+      Points.</li><li>Gain 15 Twisted Hit Points.</li><li>At the start of a turn below 15 Twisted Hit Points, regain
+      them up to 15.</li></ul>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: "15"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-twisted-chakra-mode
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - transformation
+      - vermillion
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Twisted Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:sealed-beast-redux
+  activities:
+    865ea77a67127eb6:
+      _id: 865ea77a67127eb6
+      type: heal
+      activation:
+        type: bonus
+        value: 1
+        condition: Only one Transformation Art can be active at a time.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "-15"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: d5d76b0c7c62b05f
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - temphp
+        custom:
+          enabled: true
+          formula: "50"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+      appliedEffects:
+        - d5d76b0c7c62b05f
+    6f9d958e937ebebd:
+      _id: 6f9d958e937ebebd
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: At the start of your turn, restore this form's Twisted Hit Points to 15.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "-15"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Refresh Twisted Hit Points
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects:
+  - name: Twisted Chakra Mode Active
+    img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+    origin: Item.a26d53ef4a8f9c2b
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: "15"
+        priority: 20
+      - key: system.abilities.str.value
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.abilities.dex.value
+        mode: 2
+        value: "2"
+        priority: 20
+      - key: system.bonuses.abilities.save
+        mode: 2
+        value: "1"
+        priority: 20
+    statuses: []
+    _id: d5d76b0c7c62b05f
+    type: base
+    system: {}
+    description: ""
+    tint: "#a54a1b"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: sealed-beast-redux
+          form: twisted-chakra-mode
+          sourceItemId: a26d53ef4a8f9c2b
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!a26d53ef4a8f9c2b.d5d76b0c7c62b05f"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: twisted-chakra-cost-duration-temporary-hit-points-and-form-bonuses
+          mode: native
+        - clause: turn-start-twisted-hit-point-refresh
+          mode: prompt
+        - clause: twisted-hit-point-routing-reach-and-exclusive-form-cleanup
+          mode: manual
+    classmodArt:
+      classmod: sealed-beast-redux
+      classification: Transformation Art
+    classmodForm:
+      classmod: sealed-beast-redux
+      group: sealed-beast-transformation
+      exclusive: true
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!a26d53ef4a8f9c2b"

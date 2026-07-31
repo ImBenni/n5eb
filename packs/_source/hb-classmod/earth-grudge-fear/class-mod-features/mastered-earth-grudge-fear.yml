@@ -1,0 +1,171 @@
+folder: 3624d4c7d6d19680
+name: Mastered Earth Grudge Fear
+type: feat
+_id: cb0fe86b9718a607
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <p>At class-mod level 5, reduce every instance of Decay you incur by 2, to a minimum of 1. Use the Mastered
+      Activity variant supplied on each Decay-incurring feature or Art. You also reduce all non-psychic damage you take
+      by 20. If you have exactly one absorbed heart, you incur no weekly Decay.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-mastered-earth-grudge-fear
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    72dbc29e72523218:
+      _id: 72dbc29e72523218
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply only to damage that is not psychic.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Reduce Incoming Damage
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "20"
+        name: Non-Psychic Damage Reduction
+        prompt: false
+        visible: true
+    9d0b183ca3d76ffe:
+      _id: 9d0b183ca3d76ffe
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use only when exactly one heart is currently absorbed.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Confirm Weekly Decay Immunity
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: mastered-decay-cost-variants-and-damage-reduction-roll
+          mode: native
+        - clause: damage-type-check-and-single-heart-weekly-gate
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!cb0fe86b9718a607"

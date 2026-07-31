@@ -5,7 +5,8 @@ import {
   isLegacyN5eBVersion, LEGACY_MIGRATION_REPORT_TITLE, summarizeLegacyDocument
 } from "./legacy-migration.mjs";
 import * as Seals from "./seals.mjs";
-import { formatIdentifier, log } from "./utils.mjs";
+import { formatIdentifier, log, staticID } from "./utils.mjs";
+import { normalizeAttackActionType } from "./activity-utils.mjs";
 
 const LEGACY_CURRENCY_CONVERSIONS = {
   pp: 0.1,
@@ -28,7 +29,7 @@ const N5EB_ASSET_REFERENCE_RE =
 const N5EB_BOOK_PARITY_FIX_VERSION = "5.3.10";
 
 const N5EB_AFFINITY_KEYS = new Set(["fire", "water", "wind", "earth", "lightning", "medical"]);
-const N5EB_JUTSU_RANK_KEYS = new Set(["e", "d", "c", "b", "a", "s"]);
+const N5EB_JUTSU_RANK_KEYS = new Set(["e", "d", "c", "b", "a", "s", "art"]);
 const N5EB_JUTSU_RANK_BY_SPELL_LEVEL = {
   0: "e",
   1: "d",
@@ -778,25 +779,58 @@ const N5EB_EQUIPMENT_PACK_ALIASES = {
   }
 };
 
+const N5EB_STORAGE_CONTAINER_MIGRATIONS = [
+  {
+    capacityBonus: 10,
+    capacityType: "shinobi-backpack",
+    identifiers: ["shinobi-backpack", "shinobi-backpack-items-2"]
+  },
+  {
+    capacityBonus: 5,
+    capacityType: "shinobi-waist-bag",
+    identifiers: ["shinobi-waist-bag", "shinobi-waist-bag-items-2", "shinobi-waist-bag-items-3"]
+  },
+  {
+    capacityBonus: 3,
+    capacityType: "shinobi-belt-pouch",
+    identifiers: ["shinobi-belt-pouch", "shinobi-belt-pouch-items-2"]
+  },
+  {
+    capacityBonus: 2,
+    capacityType: "shinobi-leg-pouch",
+    identifiers: ["shinobi-leg-pouch", "shinobi-leg-pouch-items-2", "shinobi-leg-pouch-items-3"]
+  }
+];
+
+const N5EB_SEALED_PACK_IDENTIFIERS = [
+  "captain-s-pack", "captains-pack", "crafter-s-pack", "explorer-s-pack", "explorers-pack",
+  "infiltrator-s-pack", "traveler-s-pack", "travelers-pack", "entertainer-s-pack", "gamer-s-pack",
+  "investigator-s-pack", "martial-artist-s-pack", "sailor-s-pack", "scholar-s-pack", "scientist-s-pack"
+];
+
 const N5EB_CONTAINER_ITEM_MIGRATIONS = {
-  "shinobi-backpack": { capacity: { weight: { value: 10, units: "bulk" } }, currency: 0 },
-  "shinobi-waist-bag": { capacity: { weight: { value: 5, units: "bulk" } }, currency: 0 },
-  "shinobi-belt-pouch": { capacity: { weight: { value: 3, units: "bulk" } }, currency: 0 },
-  "shinobi-leg-pouch": { capacity: { weight: { value: 2, units: "bulk" } }, currency: 0 },
-  "captains-pack": {
+  ...Object.fromEntries(N5EB_STORAGE_CONTAINER_MIGRATIONS.flatMap(storage => storage.identifiers.map(identifier => [
+    identifier,
+    {
+      capacity: { weight: { value: storage.capacityBonus, units: "bulk" } },
+      currency: 0,
+      bulk: { capacityBonus: storage.capacityBonus, capacityType: storage.capacityType }
+    }
+  ]))),
+  ...Object.fromEntries(N5EB_SEALED_PACK_IDENTIFIERS.map(identifier => [identifier, {
+    currency: 0, properties: ["weightlessContents"], weight: 1
+  }])),
+  "item-scroll": {
     capacity: { weight: { value: 5, units: "bulk" } },
     currency: 0,
-    properties: ["weightlessContents"]
+    properties: ["weightlessContents"],
+    weight: 1
   },
-  "explorers-pack": {
+  "weapon-scroll": {
     capacity: { weight: { value: 5, units: "bulk" } },
     currency: 0,
-    properties: ["weightlessContents"]
-  },
-  "travelers-pack": {
-    capacity: { weight: { value: 5, units: "bulk" } },
-    currency: 0,
-    properties: ["weightlessContents"]
+    properties: ["weightlessContents"],
+    weight: 1
   },
   wallet: { capacity: { weight: { value: 0, units: "bulk" } }, currency: 0 },
   "wallet-100-ryo": { capacity: { weight: { value: 0, units: "bulk" } }, currency: 100 },
@@ -1595,6 +1629,7 @@ export function migrateItemData(item, itemData, migrationData, flags={}) {
   _migrateN5eBClanFeatureTypes(itemData, updateData);
   _migrateN5eBBackgroundSources(itemData, updateData);
   _migrateN5eBBackgroundFeatureTypes(itemData, updateData);
+  _migrateN5eBClassmodFeatureTypes(itemData, updateData);
   _migrateN5eBBackgroundText(itemData, updateData);
   _migrateRyoCurrency(itemData.system, updateData);
   _migrateDowntimeTemplateCost(itemData, updateData);
@@ -1602,6 +1637,7 @@ export function migrateItemData(item, itemData, migrationData, flags={}) {
   _migrateBulkWeight(itemData.system, updateData, "system");
   _migrateN5eBContainerItem(itemData, updateData);
   _migrateN5eBArmorAndSeals(itemData, updateData);
+  _migrateN5eBJutsuAttackActivities(itemData, updateData);
   _migrateN5eBJutsuRank(itemData, updateData);
   _migrateN5eBClassmodArtJutsu(itemData, updateData);
   _migrateJutsuChakraScaling(itemData, updateData);
@@ -3080,6 +3116,76 @@ function _migrateN5eBWeaponProperties(itemData, updateData) {
 /* -------------------------------------------- */
 
 /**
+ * Repair legacy N5eB attack jutsu which were initially converted into Damage activities.
+ * @param {object} itemData    Item data being migrated.
+ * @param {object} updateData  Existing updates being applied. *Will be mutated.*
+ * @returns {object}           Modified version of update data.
+ * @private
+ */
+function _migrateN5eBJutsuAttackActivities(itemData, updateData) {
+  if ( itemData.type !== "spell" ) return updateData;
+
+  const original = foundry.utils.getProperty(itemData, "flags.n5eb.legacyMigration.originalSystem")
+    ?? foundry.utils.getProperty(itemData, "flags.n5eb.legacyImport.originalSystem")
+    ?? {};
+  const actionType = normalizeAttackActionType(original.actionType ?? itemData.system?.actionType);
+  if ( !["mwak", "rwak", "msak", "rsak"].includes(actionType) ) return updateData;
+
+  const activities = foundry.utils.deepClone(itemData.system?.activities ?? {});
+  const primaryId = staticID("dnd5eactivity");
+  const primary = activities[primaryId];
+  const attacks = Object.values(activities).filter(activity => activity?.type === "attack");
+  const existingAttack = primary?.type === "attack" ? primary : (attacks.length === 1 ? attacks[0] : null);
+  if ( !existingAttack && attacks.length ) return updateData;
+  if ( !existingAttack && (primary?.type !== "damage") ) return updateData;
+
+  const scratch = foundry.utils.deepClone(itemData);
+  scratch.system = foundry.utils.mergeObject(itemData.system ?? {}, original, { inplace: false });
+  scratch.system.actionType = actionType;
+  scratch.system.activities = {};
+  CONFIG.DND5E.activityTypes.attack.documentClass.createInitialActivity(scratch);
+  const repaired = scratch.system.activities[primaryId];
+  if ( !repaired ) return updateData;
+
+  const versatileId = primaryId.replace("0", "2");
+  const versatile = activities[versatileId];
+  const generatedVersatile = (versatile?.type === "damage") && !`${versatile.name ?? ""}`.trim();
+
+  if ( existingAttack ) {
+    if ( existingAttack.damage?.versatile?.parts?.length ) return updateData;
+    const versatileParts = generatedVersatile
+      ? foundry.utils.deepClone(versatile.damage?.parts ?? [])
+      : foundry.utils.deepClone(repaired.damage.versatile.parts);
+    if ( !generatedVersatile && !versatileParts.length ) return updateData;
+    existingAttack.damage ??= {};
+    existingAttack.damage.versatile ??= {};
+    existingAttack.damage.versatile.parts = versatileParts;
+    if ( generatedVersatile ) delete activities[versatileId];
+    updateData["system.==activities"] = activities;
+    return updateData;
+  }
+
+  for ( const key of [
+    "name", "img", "sort", "activation", "consumption", "description", "duration", "effects", "flags", "range",
+    "target", "uses", "visibility"
+  ] ) {
+    if ( primary[key] !== undefined ) repaired[key] = foundry.utils.deepClone(primary[key]);
+  }
+  if ( primary.damage?.parts ) repaired.damage.parts = foundry.utils.deepClone(primary.damage.parts);
+
+  if ( generatedVersatile ) {
+    repaired.damage.versatile.parts = foundry.utils.deepClone(versatile.damage?.parts ?? []);
+    delete activities[versatileId];
+  }
+
+  activities[primaryId] = repaired;
+  updateData["system.==activities"] = activities;
+  return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Convert early N5eB physical container content from loot/equipment to real container items.
  * @param {object} itemData    Item data being migrated.
  * @param {object} updateData  Existing updates being applied. *Will be mutated.*
@@ -3097,16 +3203,46 @@ function _migrateN5eBContainerItem(itemData, updateData) {
     if ( Object.hasOwn(system, key) ) updateData[`system.-=${key}`] = null;
   }
 
-  if ( (itemData.type !== "container") || foundry.utils.isEmpty(system.capacity ?? {}) ) {
+  if ( config.capacity && ((itemData.type !== "container") || foundry.utils.isEmpty(system.capacity ?? {})) ) {
     updateData["system.capacity"] = foundry.utils.deepClone(config.capacity);
   }
 
-  if ( !Number.isNumeric(system.currency?.ryo) ) updateData["system.currency.ryo"] = config.currency;
+  if ( Number.isNumeric(config.currency) && !Number.isNumeric(system.currency?.ryo) ) {
+    updateData["system.currency.ryo"] = config.currency;
+  }
+
+  if ( Number.isNumeric(config.weight) ) {
+    const migratedWeight = updateData["system.weight"] ?? system.weight;
+    const weightValue = foundry.utils.getType(migratedWeight) === "Object" ? migratedWeight.value : migratedWeight;
+    if ( !Number.isNumeric(weightValue) || (Number(weightValue) <= 0) ) {
+      if ( foundry.utils.getType(migratedWeight) === "Object" ) {
+        if ( Object.hasOwn(updateData, "system.weight") ) {
+          updateData["system.weight"].value = config.weight;
+          updateData["system.weight"].units = "bulk";
+        } else {
+          updateData["system.weight.value"] = config.weight;
+          updateData["system.weight.units"] = "bulk";
+        }
+      } else {
+        updateData["system.weight"] = { value: config.weight, units: "bulk" };
+      }
+    }
+  }
 
   if ( config.properties?.length ) {
     const current = new Set(system.properties ?? []);
     const properties = new Set([...current, ...config.properties]);
     if ( properties.size !== current.size ) updateData["system.properties"] = Array.from(properties);
+  }
+
+  if ( config.bulk ) {
+    const current = foundry.utils.getProperty(itemData, "flags.n5eb.bulk") ?? {};
+    if ( Number(current.capacityBonus) !== config.bulk.capacityBonus ) {
+      updateData["flags.n5eb.bulk.capacityBonus"] = config.bulk.capacityBonus;
+    }
+    if ( current.capacityType !== config.bulk.capacityType ) {
+      updateData["flags.n5eb.bulk.capacityType"] = config.bulk.capacityType;
+    }
   }
 
   if ( !Object.hasOwn(system, "attunement") ) updateData["system.attunement"] = "";
@@ -3903,7 +4039,7 @@ function _migrateN5eBJutsuRank(itemData, updateData) {
 /* -------------------------------------------- */
 
 /**
- * Normalize classmod Art jutsu to their mechanical S-rank representation.
+ * Normalize classmod Art jutsu to their dedicated Art rank representation.
  * @param {object} itemData    Item data being migrated.
  * @param {object} updateData  Existing updates being applied to item. *Will be mutated.*
  * @returns {object}           Modified version of update data.
@@ -3919,6 +4055,32 @@ function _migrateN5eBClassmodArtJutsu(itemData, updateData) {
     updateData["system.rank"] = CLASSMOD_ARTS_MECHANICAL_RANK;
   }
   if ( Number(system.level) !== level ) updateData["system.level"] = level;
+  return updateData;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize class-mod feature Items to the dedicated Class Mod Feature category.
+ * @param {object} itemData    Item data being migrated.
+ * @param {object} updateData  Existing updates being applied to item. *Will be mutated.*
+ * @returns {object}           Modified version of update data.
+ * @private
+ */
+function _migrateN5eBClassmodFeatureTypes(itemData, updateData) {
+  if ( itemData.type !== "feat" ) return updateData;
+
+  const type = itemData.system?.type ?? {};
+  const sourceUuid = itemData.flags?.core?.sourceId ?? itemData._stats?.compendiumSource ?? "";
+  const classmodSource = /^Compendium\.n5eb\.(?:classmod|hb-classmod|t7-classmod)\.Item\./.test(sourceUuid);
+  const classmodFlags = Boolean(itemData.flags?.n5eb?.classmodCompendium);
+  const legacyType = ["classmod", "classmodfeat", "class-mod"].includes(type.value);
+  if ( !classmodSource && !classmodFlags && !legacyType ) return updateData;
+
+  if ( (updateData["system.type.value"] ?? type.value) !== "classmod" ) {
+    updateData["system.type.value"] = "classmod";
+  }
+  if ( updateData["system.type.subtype"] ?? type.subtype ) updateData["system.type.subtype"] = "";
   return updateData;
 }
 

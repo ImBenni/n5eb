@@ -1,0 +1,119 @@
+folder: 55ecc51b6b20d621
+name: Howl of the Forgotten
+type: feat
+_id: 5db5af8805fd0207
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Howl of the Forgotten</h2><p><strong>Cost:</strong> 2 Unholy Blessings. As an action, unleash a 60-foot cone.
+      Chosen creatures make a Wisdom save or become Demoralized and Blinded for 1 minute; failure by 5 or more also
+      Stuns for 1 round. Repeat the save at the end of each turn.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 24
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-howl-of-the-forgotten
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    71747fea05ee3f5c:
+      _id: 71747fea05ee3f5c
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: cone
+          size: "60"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Howl of the Forgotten
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: custom
+          formula: 12 + @prof + floor(@details.level / 2)
+      damage:
+        parts: []
+        onSave: none
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: howl-of-the-forgotten-static-or-rolled-benefits
+          mode: native
+        - clause: howl-of-the-forgotten-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: howl-of-the-forgotten-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!5db5af8805fd0207"
