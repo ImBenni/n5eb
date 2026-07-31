@@ -1,0 +1,247 @@
+folder: 6a56b67e590001fb
+name: Creating an Edo Tensei
+type: feat
+_id: 9475bbdafa58dcf8
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: |-
+      <h2>Creating an Edo Tensei</h2>
+          <h3>1. Secure a Vessel</h3>
+          <p>Use a fresh body, decayed corpse, or living sacrifice. Grave Robbing during a Full Rest uses 1d100: 1–90
+          produces a decayed body and 91–100 an intact body. A battlefield body is judged by the GM. A Black Market purchase
+          costs 1 Downtime; requesting a specific Clan adds 10,000 Ryo.</p>
+          <ul><li><strong>Decayed:</strong> Summoning DC +3.</li><li><strong>Living Host:</strong> An incapacitated or willing
+          host reduces the DC by 0 Minion, 1 Standard, 2 Elite, or 5 Solo.</li></ul>
+          <h3>2. DNA Acquisition</h3>
+          <p>Make an Intelligence DNA Check with DC 15 − class-mod level.</p>
+          <ul><li><strong>Combat Harvest:</strong> Elite DC +1; Solo DC +2. On success, choose 3 Traits with the GM and inherit
+          the clan.</li><li><strong>Black Market (1 DT):</strong> Standard 1,000 Ryo, Elite 2,000 Ryo and DC +1, Solo 3,000
+          Ryo and DC +2. Specify the clan; the GM chooses 3 Traits.</li><li><strong>Research (1 DT):</strong> A living lead
+          requires Combat Harvest. Dead remains use Black Market with DNA DC −3; choose the clan and 3 Traits with the GM.</li></ul>
+          <h3>3. Essence Transmutation</h3>
+          <p>Choose rank, Standard/Elite/Solo class, role, inherited Traits, and Unholy Blessings. Calculate the Actor from
+          the rank and class records in this folder.</p>
+          <h3>4. Summoning Check</h3>
+          <p>Base Ninshou DC 15, +1 per rank above D, +2 Elite, +4 Solo, +1 per Blessing point, +3 for a decayed vessel, and
+          −1 to −5 for a living host.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 12
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-creating-an-edo-tensei
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    109dcae8a7d71c12:
+      _id: 109dcae8a7d71c12
+      type: utility
+      activation:
+        type: longRest
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Grave Robbing Vessel Quality
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d100
+        name: Vessel Quality
+        prompt: false
+        visible: true
+    c8159bfc061cbdf9:
+      _id: c8159bfc061cbdf9
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: DNA Check
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.int.mod
+        name: DNA Check (DC 15 - class-mod level)
+        prompt: false
+        visible: true
+    14046e35259405cd:
+      _id: 14046e35259405cd
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Base DC 15; apply rank, class, Blessing, vessel, and active-summon modifiers.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Summoning Check
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.nsh.total
+        name: Ninshou Summoning Check
+        prompt: false
+        visible: true
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: vessel-quality-dna-and-summoning-rolls
+          mode: native
+        - clause: costs-downtime-dc-modifiers-trait-clan-role-and-blessing-choices
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!9475bbdafa58dcf8"

@@ -1,0 +1,1061 @@
+folder: 10a1a7fb0f5d333c
+name: Celestial Perfect Revolution
+type: spell
+_id: 99651d161927a2da
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: >-
+      <h2>Celestial Perfect Revolution</h2><dl class="n5eb-classmod-summary"><dt>Origin:</dt><dd>Palm
+      Rotation</dd><dt>Classification:</dt><dd>Celestial Art</dd><dt>Casting Time:</dt><dd>1 Action; or 1 Reaction when
+      targeted by an attack or when you would take damage</dd><dt>Range:</dt><dd>Self (30-foot-radius
+      sphere)</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M, CM</dd><dt>Cost:</dt><dd>11 Celestial
+      Chakra</dd><dt>Celestial Strain:</dt><dd>+3</dd><dt>Keywords:</dt><dd>Hijutsu, Taijutsu,
+      Clash</dd></dl><h3>Description</h3><p>You spiral Celestial Chakra around your body, creating a vortex like Palm
+      Rotation. The vortex
+          pulls in surrounding creatures and forms spiraling blades around its edge.</p><h3>Action</h3><p>Select up to 5
+          creatures unaffected by the Art. Every other creature and structure in range makes a Strength saving throw. On a
+          failure, it is pulled toward you, takes 8d8 force damage, is knocked back 30 feet in a straight line, and falls
+          prone. There is no effect on a success. If a structure blocks the push, that structure is destroyed and the
+          creature takes an additional 4d8 bludgeoning damage for every 5 feet it is pushed through.</p>
+          <h3>Reaction</h3><p>Reduce the triggering damage by 12d8 + three times your Tenseigan level.</p>
+          <h3>Art Magnification</h3><p>Increase the cost by 2 to increase action damage by 4d8 or reaction damage reduction by
+          3d8. Celestial Chakra Mode doubles the selected benefit.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: celestial-perfect-revolution
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: taijutsu
+    ability: ""
+    components:
+      - m
+      - cm
+    keywords:
+      - hijutsu
+      - taijutsu
+      - clash
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 11 Celestial Chakra; +3 Celestial Strain
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:tenseigan
+  activities:
+    24027c3ea9ac51eb:
+      _id: 24027c3ea9ac51eb
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan. On failure, pull in, push 30 feet, and knock prone. Resolve structures and
+          collision damage separately.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "11"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 11 Celestial Chakra and incur 3 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: Choose up to 5 unaffected creatures
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Vortex
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    c9671b785bf96105:
+      _id: c9671b785bf96105
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan. On failure, pull in, push 30 feet, and knock prone. Resolve structures and
+          collision damage separately.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "13"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 13 Celestial Chakra and incur 3 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: Choose up to 5 unaffected creatures
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Vortex — Magnified
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 12
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    5c653f028d843780:
+      _id: 5c653f028d843780
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires an active Tenseigan. Use when targeted by an attack or when you would take damage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "11"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 11 Celestial Chakra and incur 3 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spiraling Defense
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 12d8 + 3 * @classmods.tenseigan.levels
+        name: Damage Reduction
+        prompt: false
+        visible: true
+    d64101e212d7f899:
+      _id: d64101e212d7f899
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires an active Tenseigan. Use when targeted by an attack or when you would take damage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "13"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 13 Celestial Chakra and incur 3 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spiraling Defense — Magnified
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 15d8 + 3 * @classmods.tenseigan.levels
+        name: Damage Reduction
+        prompt: false
+        visible: true
+    2432514247777f13:
+      _id: 2432514247777f13
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. On failure, pull in, push 30
+          feet, and knock prone. Resolve structures and collision damage separately.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 8 Celestial Chakra and incur 2 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: Choose up to 5 unaffected creatures
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Vortex (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: custom
+          formula: 14 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    18d703198ff535a1:
+      _id: 18d703198ff535a1
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. On failure, pull in, push 30
+          feet, and knock prone. Resolve structures and collision damage separately.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 10 Celestial Chakra and incur 2 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: Choose up to 5 unaffected creatures
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Vortex — Magnified (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: custom
+          formula: 14 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 16
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    e72dbfe252ed890a:
+      _id: e72dbfe252ed890a
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Use when targeted by an
+          attack or when you would take damage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 8 Celestial Chakra and incur 2 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spiraling Defense (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 12d8 + 3 * @classmods.tenseigan.levels
+        name: Damage Reduction
+        prompt: false
+        visible: true
+    84e9f86f689c7b22:
+      _id: 84e9f86f689c7b22
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4. Use when targeted by an
+          attack or when you would take damage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 10 Celestial Chakra and incur 2 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spiraling Defense — Magnified (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 18d8 + 3 * @classmods.tenseigan.levels
+        name: Damage Reduction
+        prompt: false
+        visible: true
+    7d95154ce4bddf6d:
+      _id: 7d95154ce4bddf6d
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. On failure, pull in, push 30
+          feet, and knock prone. Resolve structures and collision damage separately.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "7"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 7 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: Choose up to 5 unaffected creatures
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Vortex (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: custom
+          formula: 15 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 8
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    b8e7ade3d1c29a61:
+      _id: b8e7ade3d1c29a61
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. On failure, pull in, push 30
+          feet, and knock prone. Resolve structures and collision damage separately.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "9"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 9 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: Choose up to 5 unaffected creatures
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Vortex — Magnified (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: custom
+          formula: 15 + @classmods.tenseigan.levels + @prof
+      damage:
+        parts:
+          - number: 16
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: none
+    b194c41a6eb674e5:
+      _id: b194c41a6eb674e5
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Use when targeted by an attack or
+          when you would take damage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "7"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 7 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spiraling Defense (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 12d8 + 3 * @classmods.tenseigan.levels
+        name: Damage Reduction
+        prompt: false
+        visible: true
+    2b7db72683965cfe:
+      _id: 2b7db72683965cfe
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5. Use when targeted by an attack or
+          when you would take damage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "9"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 9 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spiraling Defense — Magnified (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 18d8 + 3 * @classmods.tenseigan.levels
+        name: Damage Reduction
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: action-save-damage-reaction-reduction-cost-strain-and-magnified-rolls
+          mode: native
+        - clause: five-exempt-creatures-pull-push-prone-and-collision-distance
+          mode: midi-enhanced
+        - clause: structure-destruction-and-per-five-foot-collision-damage
+          mode: manual
+    classmodArt:
+      classmod: tenseigan
+      classification: Celestial Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!99651d161927a2da"

@@ -1,0 +1,155 @@
+folder: 25ce697c3a7f94ce
+name: "Jigokudo: Judgement"
+type: spell
+_id: 261f40aba90d3934
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Jigokudo: Judgement</h2><h3>Divine Art</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Divine Art</dd><dt>Casting Time:</dt><dd>Bonus
+      Action</dd><dt>Range:</dt><dd>30
+      feet</dd><dt>Duration:</dt><dd>Instantaneous</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>20 Chakra or 2
+      Chakra Dice</dd><dt>Keywords:</dt><dd>Divine</dd></dl><h3>Description:</h3><p>As a Bonus Action, for each dead
+      creature within 30 feet regain 2d8 + 2 Hit Points. Each soul is consumed permanently and cannot be revived except
+      by this class mod. Soulless creatures do not qualify.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-jigokudo-judgement
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - divine
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 20 Chakra or 2 Chakra Dice
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:rinnegan-redux
+  activities:
+    994a8780126d51e3:
+      _id: 994a8780126d51e3
+      type: heal
+      activation:
+        type: bonus
+        value: 1
+        condition: Scale once per qualifying dead creature; permanently mark each soul consumed.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 30
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Cast Jigokudo: Judgement"
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: 2
+        denomination: 8
+        bonus: "2"
+        types:
+          - healing
+        custom:
+          enabled: false
+          formula: ""
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: source-rule-and-explicit-numeric-resolution
+          mode: native
+        - clause: timing-target-choice-and-prerequisite-resolution
+          mode: prompt
+        - clause: cross-item-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: rinnegan-redux
+      classification: Divine Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!261f40aba90d3934"

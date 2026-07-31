@@ -2,36 +2,37 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Tribal Seal'
 type: spell
 _id: AdqZAGNvl83gx6D9
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
-      <p>Reduced Cost: 7 Sage Chakra</p><p>This Senjutsu can only be cast if you have a Sage Affinity that is not
-      elemental. You use Sage Chakra to generate a powerful seal beyond all but the most experienced Uzumaki. Your sage
-      tribe has entrusted you with their sealing technique design to seal away even the greatest of threats. When you
-      cast this Art a sealing circle expands from you, filling a 15-foot cube originating from you. All creatures within
-      this sealing circle become targets of this Art, and thus are under its effects. Each affected creature once this
-      art is cast, are still counted as affected and a target even if they would move or be teleported to a different
-      location after this Art is cast.</p><p>All affected creatures must make a Charisma saving throw. On a failed save,
-      they are teleported into the belly of your tribes largest Sage Beast. While inside the belly of this Sage Beast
-      they lose access to all jutsu that would allow them to teleport and become bound to this location. A creature
-      bound to this location is incapable of damaging the space they exist within. A bound creature cannot die here and
-      while not incapacitated or unconscious they are in a form of temporal stasis. This Art cannot be dispelled unless
-      its caster dies, the Sage Beast the bound creature is within dies, the caster find a way to dispel it or the bound
-      creature finds a way to escape through non-Jutsu based means.</p><p>Once you cast this Senjutsu, you cannot cast
-      it again until they find another Sage Beast willing to house bound creatures. Sage Beasts acting as hosts for a
-      bound creature becomes unable to be summoned. Additionally, once you seal any number of creatures with this
-      Senjutsu with a single casting, you become incapable of casting it again, until you choose to dispel this Art
-      willingly by traveling to your Sage Tribes home and begging for the seal to be released on the Sealed individual
-      by completing some form of challenge or trial decided on by the Sage Beast the bound creature is inside
-      of.</p><p>Sage Affinity Synergy: If you have the Rodent Senjutsu class mod feature, when you cast this Senjutsu,
-      you may utilize the techniques that your tribe has entrusted you with. If you do, all affected creatures makes
-      their charisma saving throw with a -1d4 penalty.</p>
+      <p><strong>Reduced Cost:</strong> 7 Sage Chakra This Senjutsu can only be cast if you have a Sage Affinity that is
+      not elemental. You use Sage Chakra to generate a powerful seal beyond all but the most experienced Uzumaki. Your
+      sage tribe has entrusted you with their sealing technique design to seal away even the greatest of threats. When
+      you cast this Art a sealing circle expands from you, filling a 15-foot cube originating from you.</p><p>All
+      creatures within this sealing circle become targets of this Art, and thus are under its effects. Each affected
+      creature once this art is cast, are still counted as affected and a target even if they would move or be
+      teleported to a different location after this Art is cast. All affected creatures must make a Charisma saving
+      throw.</p><p>On a failed save, they are teleported into the belly of your tribes largest Sage Beast. While inside
+      the belly of this Sage Beast they lose access to all jutsu that would allow them to teleport and become bound to
+      this location. A creature bound to this location is incapable of damaging the space they exist within.</p><p>A
+      bound creature cannot die here and while not incapacitated or unconscious they are in a form of temporal stasis.
+      This Art cannot be dispelled unless its caster dies, the Sage Beast the bound creature is within dies, the caster
+      find a way to dispel it or the bound creature finds a way to escape through non-Jutsu based means.</p><p>Once you
+      cast this Senjutsu, you cannot cast it again until they find another Sage Beast willing to house bound creatures.
+      Sage Beasts acting as hosts for a bound creature becomes unable to be summoned.</p><p>Additionally, once you seal
+      any number of creatures with this Senjutsu with a single casting, you become incapable of casting it again, until
+      you choose to dispel this Art willingly by traveling to your Sage Tribes home and begging for the seal to be
+      released on the Sealed individual by completing some form of challenge or trial decided on by the Sage Beast the
+      bound creature is inside of.</p><p><strong>Sage Affinity Synergy:</strong> If you have the Rodent Senjutsu class
+      mod feature, when you cast this Senjutsu, you may utilize the techniques that your tribe has entrusted you with.
+      If you do, all affected creatures makes their charisma saving throw with a -1d4 penalty.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -114,7 +115,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -124,6 +125,69 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    18421ead2e9ccda5:
+      _id: 18421ead2e9ccda5
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Tribal Seal'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - cha
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts: []
+        onSave: none
 effects: []
 sort: 0
 ownership:
@@ -250,6 +314,15 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
   midi-qol:
     AoETargetType: any
     AoETargetTypeIncludeSelf: true

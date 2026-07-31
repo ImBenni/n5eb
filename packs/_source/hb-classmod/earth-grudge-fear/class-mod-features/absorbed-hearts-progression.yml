@@ -1,0 +1,119 @@
+folder: 3624d4c7d6d19680
+name: Absorbed Hearts Progression
+type: feat
+_id: 3b6c6283fe679d83
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <p>This lifetime counter records the 60 qualifying hearts required for Earth Grudge Fear advancement. Spending one
+      use records one absorbed heart; destroyed hearts do not reduce this lifetime total. Class-mod level 2 requires 10
+      absorbed hearts, level 3 requires 20 hearts and character level 12, level 4 requires 40 hearts, and level 5
+      requires 60 hearts and character level 16.</p><p>Class-mod level 1 requires character level 4.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: "60"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-absorbed-hearts-progression
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    f1c0ebe60ab07fb9:
+      _id: f1c0ebe60ab07fb9
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use only after the same qualifying-heart confirmation required by Stolen Hearts.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Record Qualifying Heart
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: lifetime-heart-counter
+          mode: native
+        - clause: character-level-and-heart-milestone-enforcement
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!3b6c6283fe679d83"

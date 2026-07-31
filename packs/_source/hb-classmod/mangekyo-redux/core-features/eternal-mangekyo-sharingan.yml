@@ -1,0 +1,116 @@
+folder: da2af3e5b72f2803
+name: Eternal Mangekyo Sharingan
+type: feat
+_id: f7dbd92e99766203
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+system:
+  description:
+    value: >-
+      <p>At class-mod level 3, implant the eyes of a deceased Mangekyo Sharingan bearer. Set Darkness to 0 and do not
+      gain Darkness again. You may remove Burn at every rest instead of only once between rest types. If Burn exceeds
+      twice your threshold, Mangekyo Sharingan automatically deactivates and cannot activate until Burn is below twice
+      the threshold.</p><p>The level-3 Awakening increase is already included in the Awakening tracker progression.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-eternal-mangekyo-sharingan
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    0a52d81031871d91:
+      _id: 0a52d81031871d91
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Set Darkness spent uses to 0 when Eternal Mangekyo is gained.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Clear Darkness
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: clear-and-prevent-darkness
+          mode: prompt
+        - clause: burn-removal-at-every-rest
+          mode: prompt
+        - clause: automatic-deactivation-above-double-threshold
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!f7dbd92e99766203"

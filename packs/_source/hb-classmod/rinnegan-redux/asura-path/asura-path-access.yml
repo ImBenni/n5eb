@@ -1,0 +1,217 @@
+folder: e8e1e7cd04d78ecc
+name: Asura Path Access
+type: feat
+_id: 5dbdb7e717e445ca
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+system:
+  description:
+    value: >-
+      <h2>Asura Path Access</h2><p>Spend 12 Divine Awakening to access Asura Path. Gain one of its base Divine Arts
+      without additional cost.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties:
+    - advancement
+  identifier: rinnegan-redux-asura-path-access
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    f012748d6d3812e8:
+      _id: f012748d6d3812e8
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-divine-awakening
+            value: "12"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (12 Divine Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    93e34a6030e9ef93:
+      _id: 93e34a6030e9ef93
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use only if Asura Path is your chosen specialized Path; all listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-specialized-divine-awakening
+            value: "12"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (12 Specialized Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/asura-path.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement:
+    9ae2919c6001b8d0:
+      _id: 9ae2919c6001b8d0
+      type: ItemChoice
+      configuration:
+        choices:
+          "1":
+            count: 1
+            replacement: false
+        allowDrops: false
+        type: null
+        pool:
+          - uuid: Compendium.n5eb.hb-classmod.Item.997e1707769627af
+          - uuid: Compendium.n5eb.hb-classmod.Item.0035a0a087d63277
+        spell: null
+        restriction: {}
+      value:
+        added: {}
+        replaced: {}
+      level: 1
+      title: Choose a Asura Path Art
+      hint: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: twelve-point-general-or-matching-specialized-purchase
+          mode: native
+        - clause: one-free-base-art-choice
+          mode: native
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!5dbdb7e717e445ca"

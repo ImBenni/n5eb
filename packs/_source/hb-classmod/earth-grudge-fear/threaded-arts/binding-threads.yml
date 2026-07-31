@@ -1,0 +1,363 @@
+folder: 453486bacac9d208
+name: Binding Threads
+type: spell
+_id: e260b7cee7d6edfc
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/stitch.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Technique</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Kinjutsu</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>Self (90-foot-radius
+      sphere)</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M</dd><dt>Cost:</dt><dd>6
+      Decay</dd><dt>Keywords:</dt><dd>Threaded Art</dd></dl><h3>Description:</h3><p>Make one Threaded Art Attack roll
+      without disadvantage and compare it with the AC of each chosen creature. Each hit target is restrained and takes
+      6d8 necrotic damage. At the end of each restrained target's turn it may make Athletics against your Threaded Art
+      DC; while still bound at the end of its turn it takes 4d8 necrotic damage.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-binding-threads
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - m
+    keywords:
+      - threaded-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 6 Decay
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    fd59a9bf75455fbf:
+      _id: fd59a9bf75455fbf
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: Roll once without disadvantage and compare the result against each chosen creature's AC.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: a96cb56ed2b15813
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "90"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Bind
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/stitch.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 6
+            denomination: 8
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+      appliedEffects:
+        - a96cb56ed2b15813
+    3322d32ad802673a:
+      _id: 3322d32ad802673a
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: At the end of a still-restrained target's turn after its Athletics check.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Bound Target Damage
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/stitch.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 4d8
+        name: Binding Threads Necrotic Damage
+        prompt: false
+        visible: true
+    fba98eeb68f4a2f7:
+      _id: fba98eeb68f4a2f7
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: Roll once without disadvantage and compare the result against each chosen creature's AC.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "90"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Mastered Bind
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/stitch.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 6
+            denomination: 8
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+effects:
+  - name: Binding Threads
+    img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/stitch.webp
+    origin: Item.e260b7cee7d6edfc
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses:
+      - restrained
+    _id: a96cb56ed2b15813
+    type: base
+    system: {}
+    description: ""
+    tint: "#4b1f29"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: earth-grudge-fear
+          form: ""
+          sourceItemId: e260b7cee7d6edfc
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!e260b7cee7d6edfc.a96cb56ed2b15813"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: decay-cost-primary-roll-and-template
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: ambiguous-or-permanent-clauses
+          mode: prompt
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e260b7cee7d6edfc"

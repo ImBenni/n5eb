@@ -1,0 +1,894 @@
+folder: 453486bacac9d208
+name: Earth Grudge Fear Shot
+type: spell
+_id: 71075d45bdf273ae
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Technique</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Kinjutsu</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>120-foot line, 25 feet
+      wide</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM, HS</dd><dt>Cost:</dt><dd>10–50
+      Decay</dd><dt>Keywords:</dt><dd>Threaded Art</dd></dl><h3>Description:</h3><p>Requires that no Thread Monsters are
+      summoned. Creatures in the line make a Constitution save, taking full damage on a failure or half on a success. At
+      10, 20, 30, 40, or 50 Decay deal respectively 20d10, 30d10, 40d10, 50d10, or 60d10 using one, two, three, four, or
+      five absorbed nature releases. Water deals cold; a non-elemental heart can deal necrotic.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-earth-grudge-fear-shot
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+      - hs
+    keywords:
+      - threaded-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10–50 Decay
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    49102e4f48957abf:
+      _id: 49102e4f48957abf
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: No Thread Monsters summoned; choose 1 absorbed heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 10 Decay Shot
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 20
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    2de4a3421c8623b3:
+      _id: 2de4a3421c8623b3
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered EGF; no Thread Monsters; choose 1 heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 10 Decay Shot (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 20
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    fd87a5f2432e459f:
+      _id: fd87a5f2432e459f
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: No Thread Monsters summoned; choose 2 absorbed heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 20 Decay Shot
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 30
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    60c5a8443722e2f0:
+      _id: 60c5a8443722e2f0
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered EGF; no Thread Monsters; choose 2 heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "18"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 20 Decay Shot (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 30
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    ad34615ec212d4ac:
+      _id: ad34615ec212d4ac
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: No Thread Monsters summoned; choose 3 absorbed heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "30"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 30 Decay Shot
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 40
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    17994fcb5bf29dc6:
+      _id: 17994fcb5bf29dc6
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered EGF; no Thread Monsters; choose 3 heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "28"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 30 Decay Shot (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 40
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    c8d711b4d516a085:
+      _id: c8d711b4d516a085
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: No Thread Monsters summoned; choose 4 absorbed heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "40"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 40 Decay Shot
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 50
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    96a721cb45044a8f:
+      _id: 96a721cb45044a8f
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered EGF; no Thread Monsters; choose 4 heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "38"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 40 Decay Shot (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 50
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    ee0672514a00eb43:
+      _id: ee0672514a00eb43
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: No Thread Monsters summoned; choose 5 absorbed heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "50"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 50 Decay Shot
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 60
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    c8aeabb31d63a3ee:
+      _id: c8aeabb31d63a3ee
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered EGF; no Thread Monsters; choose 5 heart damage type(s).
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "48"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "25"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 50 Decay Shot (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/rare-folly.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 60
+            denomination: 10
+            bonus: ""
+            types:
+              - necrotic
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: decay-cost-primary-roll-and-template
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: ambiguous-or-permanent-clauses
+          mode: prompt
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!71075d45bdf273ae"

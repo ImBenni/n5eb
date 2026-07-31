@@ -1,0 +1,170 @@
+folder: b4916b858daefb43
+name: 'Yin Release: Selfish Thoughts'
+type: spell
+_id: 66ab8e599f56afba
+img: systems/n5eb/assets/content/classmod-icons/mangekyo/izanami.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Yin Art</dd><dt>Casting
+      Time:</dt><dd>Action</dd><dt>Range:</dt><dd>60
+      feet</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM, HS</dd><dt>Cost:</dt><dd>1 Yin
+      Charge</dd><dt>Keywords:</dt><dd>Genjutsu, Yin Release, Visual, Actile</dd></dl><h3>Description:</h3><p>You
+      overwhelm the target with Yin Chakra, forcing it to see your face wherever it looks until it can no longer think
+      of anything else. One creature within range must make a wisdom saving throw: Success: The target takes half as
+      much damage as a failure . Failure: The target takes 12d10 psychic damage and end concentration on all jutsu it is
+      concentrating on.</p><p>You can choose to not deal damage and end concentration on all arts it currently is
+      concentrating on. Critical Failure: Same as a failure, but the target also becomes unable to cast jutsu and arts
+      that require concentration for the next minute.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '124'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yin-release-selfish-thoughts
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+      - hs
+    keywords:
+      - genjutsu
+      - yin-release
+      - visual
+      - actile
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Yin Charge
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yin-seal
+  activities:
+    7bed27d5ce98dd96:
+      _id: 7bed27d5ce98dd96
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yin-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo/izanami.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 12
+            denomination: 10
+            bonus: ''
+            types:
+              - psychic
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yin-seal
+      classification: Yin Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!66ab8e599f56afba'

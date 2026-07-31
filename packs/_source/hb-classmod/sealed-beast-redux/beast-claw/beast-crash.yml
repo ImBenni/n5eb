@@ -1,0 +1,283 @@
+folder: 10122c201db62f62
+name: Beast Crash
+type: spell
+_id: 65c4f943f27b0e95
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/baryon-tail-breaker.webp
+system:
+  description:
+    value: >-
+      <h2>Beast Crash</h2><h3>Vermillion Art</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Vermillion Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>120
+      feet</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>20 Twisted
+      Chakra</dd><dt>Keywords:</dt><dd>Taijutsu, Vermillion</dd></dl><h3>Description:</h3><p>Requires a Transformation
+      Art unless in Desperate Rage. Move up to 120 feet and make a melee Vermillion attack. On hit, deal 30d4 Force
+      damage, then the target makes a Strength save; on failure it falls Prone and is Dazed until the end of your next
+      turn.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 10
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-beast-crash
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - taijutsu
+      - vermillion
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 20 Twisted Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:sealed-beast-redux
+  activities:
+    1c28fc4594f03cd8:
+      _id: 1c28fc4594f03cd8
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 120
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Crash Attack
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/baryon-tail-breaker.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "@classmods.sealed-beast-redux.attack"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 30
+            denomination: 4
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    e77b231f7a52750f:
+      _id: e77b231f7a52750f
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: No additional cost; use only after a hit.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects:
+        - _id: d158f092b875dcff
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Crash Strength Save
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/baryon-tail-breaker.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: 12 + @classmods.sealed-beast-redux.levels + @prof
+      damage:
+        parts: []
+        onSave: none
+      appliedEffects:
+        - d158f092b875dcff
+effects:
+  - name: "Beast Crash: Prone and Dazed"
+    img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/baryon-tail-breaker.webp
+    origin: Item.65c4f943f27b0e95
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: 1
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses:
+      - prone
+      - dazed
+    _id: d158f092b875dcff
+    type: base
+    system: {}
+    description: ""
+    tint: "#a54a1b"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: sealed-beast-redux
+          form: ""
+          sourceItemId: 65c4f943f27b0e95
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!65c4f943f27b0e95.d158f092b875dcff"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: activation-resource-save-attack-range-and-damage
+          mode: native
+        - clause: transformation-prerequisite-conditions-and-forced-movement
+          mode: prompt
+        - clause: construct-damage-and-dynamic-cross-activity-results
+          mode: manual
+    classmodArt:
+      classmod: sealed-beast-redux
+      classification: Vermillion Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!65c4f943f27b0e95"

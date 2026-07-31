@@ -362,9 +362,11 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
    * Transform an old damage part into the new damage part format.
    * @param {object} source  Item's candidate source data to transform.
    * @param {string[]} part  The damage part to transform.
+   * @param {object} [options]
+   * @param {object} [options.scaling]  Scaling data to use instead of the item's primary scaling data.
    * @returns {object}       Creation data for new activity.
    */
-  static transformDamagePartData(source, [formula, type]) {
+  static transformDamagePartData(source, [formula, type], { scaling: scalingData=source?.system.scaling }={}) {
     const data = {
       number: null,
       denomination: null,
@@ -375,9 +377,9 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
         formula: ""
       },
       scaling: {
-        mode: source?.system.scaling?.mode !== "none" ? "whole" : "",
+        mode: scalingData?.mode !== "none" ? "whole" : "",
         number: null,
-        formula: source?.system.scaling?.formula ?? ""
+        formula: scalingData?.formula ?? ""
       }
     };
 
@@ -393,7 +395,7 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
 
     // If scaling denomination matches the damage denomination, set scaling using number rather than formula
     const scaling = data.scaling.formula.match(/^\s*(\d+)d(\d+)\s*$/i);
-    if ( (scaling && (Number(scaling[2]) === data.denomination)) || (source.system.scaling?.mode === "cantrip") ) {
+    if ( (scaling && (Number(scaling[2]) === data.denomination)) || (scalingData?.mode === "cantrip") ) {
       data.scaling.number = Number(scaling?.[1] || 1);
       data.scaling.formula = "";
     }
@@ -743,14 +745,15 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
    * @param {Partial<DamageRollProcessConfiguration>} [config={}]  Existing damage configuration to merge into this one.
    * @param {object} [options]                                     Damage configuration options.
    * @param {ActivityRollData} [options.rollData]                  Use pre-existing roll data.
+   * @param {DamageData[]} [options.parts]                         Damage parts to use instead of the primary parts.
    * @returns {DamageRollProcessConfiguration}
    */
-  getDamageConfig(config={}, { rollData }={}) {
-    if ( !this.damage?.parts ) return foundry.utils.mergeObject({ rolls: [] }, config);
+  getDamageConfig(config={}, { rollData, parts=this.damage?.parts }={}) {
+    if ( !parts ) return foundry.utils.mergeObject({ rolls: [] }, config);
 
     const rollConfig = foundry.utils.deepClone(config);
     rollData ??= this.getRollData();
-    rollConfig.rolls = this.damage.parts
+    rollConfig.rolls = parts
       .map((d, index) => this._processDamagePart(d, rollConfig, rollData, index))
       .filter(d => d.parts.length)
       .concat(config.rolls ?? []);
@@ -793,7 +796,9 @@ export default class BaseActivityData extends foundry.abstract.DataModel {
       }
     }
 
-    const lastType = this.item.getFlag("n5eb", `last.${this.id}.damageType.${index}`);
+    const damageVariant = rollConfig.damageVariant ?? "primary";
+    const lastType = this.item.getFlag("n5eb", `last.${this.id}.damageType.${damageVariant}.${index}`)
+      ?? this.item.getFlag("n5eb", `last.${this.id}.damageType.${index}`);
 
     return {
       data, parts,

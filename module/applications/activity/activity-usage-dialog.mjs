@@ -424,7 +424,8 @@ export default class ActivityUsageDialog extends Dialog5e {
       const labelRank = rank => isArt && (rank === CLASSMOD_ARTS_MECHANICAL_RANK)
         ? getClassmodArtRankLabel()
         : CONFIG.DND5E.jutsuRanks[rank]?.label ?? rank;
-      const rankOptions = rankOrder.slice(baseIndex).map(rank => ({
+      const availableRanks = isArt ? [CLASSMOD_ARTS_MECHANICAL_RANK] : rankOrder.slice(baseIndex);
+      const rankOptions = availableRanks.map(rank => ({
         value: rank,
         label: labelRank(rank),
         selected: rank === currentRank

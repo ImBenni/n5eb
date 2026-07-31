@@ -1,0 +1,177 @@
+folder: 82ae2f37d8cd86c9
+name: Morning Light
+type: feat
+_id: 97bf03ff3a458969
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <p><strong>Category:</strong> Class Mod Prerequisite: Level 8+, granted Yang seal. You have been marked by the
+      power of Yang release, combining your fate with that of other creatures. This mark has yet to grow in strength to
+      its full potential, making some experts call it an Imperfect binding. You gain the following
+      benefits:</p><ul><li>Once per Full-Rest, you can spend a Full -Turn Action to activate Imperfect Yang. When you
+      do, your Yang seal starts to shine a white light granting you this variants bonuses. You can remain in this state
+      for no more than 10 minutes.</li><li>While in Imperfect Yang you gain 3 Yang Charges and the Imperfect benefits of
+      having your Yang Seal active. You can spend these charges to cast a Yang Art.</li><li>You gain 2 Yang Arts. That
+      cost 6 Yang Chakra or less.</li><li>You gain 1 Truth-Seeking Orb.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '115'
+    license: ''
+    rules: n5eb
+  uses:
+    max: '1'
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: morning-light
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    ee6d2056c80fcac3:
+      _id: ee6d2056c80fcac3
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Use this tier at Class Mod level 1 or higher. End any mutually exclusive form before applying this one.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ''
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: 952884c4fe3c0188
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - 952884c4fe3c0188
+effects:
+  - name: Morning Light — Class Mod 1+
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+    origin: Item.97bf03ff3a458969
+    transfer: false
+    disabled: false
+    duration:
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startTime: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 952884c4fe3c0188
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      n5eb:
+        classmodForm:
+          classmod: yang-seal
+          form: morning-light
+          exclusive: yang-feat-form
+          minimumLevel: 1
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!97bf03ff3a458969.952884c4fe3c0188'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!97bf03ff3a458969'

@@ -171,6 +171,24 @@ export function getEquippedArmor(actor) {
 
 /* -------------------------------------------- */
 
+/**
+ * Get the non-stacking AC bonus from equipped weapons or shields with the Blocking property.
+ * @param {Actor5e} actor  Actor whose equipped weapons should be inspected.
+ * @returns {number} The Blocking AC bonus.
+ */
+export function getBlockingBonus(actor) {
+  const equipped = actor?.itemTypes?.weapon?.filter(item => item.system.equipped) ?? [];
+  const blockingWeapon = equipped.some(item => {
+    if ( !item.system.properties?.has?.("blo") ) return false;
+    return !item.system.properties.has("una") || (equipped.length === 1);
+  });
+  const blockingShield = actor?.itemTypes?.equipment?.some(item => item.system.equipped
+    && (item.system.type?.value === "shield") && item.system.properties?.has?.("blo"));
+  return Number(blockingWeapon || blockingShield);
+}
+
+/* -------------------------------------------- */
+
 export function isArmorProficient(actor, armor) {
   if ( !actor || !armor ) return true;
   if ( actor.system?.isNPC ) return true;

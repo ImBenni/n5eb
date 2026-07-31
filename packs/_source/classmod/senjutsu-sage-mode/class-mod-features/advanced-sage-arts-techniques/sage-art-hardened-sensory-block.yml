@@ -2,7 +2,7 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Hardened Sensory Block'
 type: spell
 _id: K6IYDFIFR1g94H97
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -20,9 +20,10 @@ system:
       make a Wisdom saving throw. On a failed save, they gain 4 ranks of Concussed and Confused.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -107,7 +108,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -117,17 +118,73 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    8e5041f1e3f54dae:
+      _id: 8e5041f1e3f54dae
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Hardened Sensory Block'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
 effects:
   - name: Confused
     origin: Compendium.n5eb.classmod.Item.K6IYDFIFR1g94H97
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -159,32 +216,32 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/confused.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: Whc2J57DCY465rRG
     type: base
-    system: {}
-    changes:
-      - key: StatusEffect
-        mode: 0
-        value: confused
-        priority: 20
-      - key: system.abilities.wis.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.wis.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: flags.midi-qol.OverTime
-        mode: 2
-        value: |-
-          saveDC=15,
-          saveAbility=int,
-          rollType=check,
-          saveRemove=true,
-          actionSave=dialog,
-        priority: 20
+    system:
+      changes:
+        - key: StatusEffect
+          value: confused
+          priority: 20
+          type: custom
+        - key: system.abilities.wis.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.wis.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: flags.midi-qol.OverTime
+          value: |-
+            saveDC=15,
+            saveAbility=int,
+            rollType=check,
+            saveRemove=true,
+            actionSave=dialog,
+          priority: 20
+          type: add
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><p>A Confused creature has difficulty distinguishing friend from foe and
       experiences lapsing judgement.</p><ul><li><p>A Confused creature suffers a -1 penalty to all Wisdom based checks,
@@ -202,12 +259,16 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.T4ZSbPxGKQwZ0WRG.ActiveEffect.TlQn0pODrzXO8IRz
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!K6IYDFIFR1g94H97.Whc2J57DCY465rRG'
 sort: 0
 ownership:
@@ -325,6 +386,15 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
   midi-qol:
     AoETargetType: any
     AoETargetTypeIncludeSelf: true

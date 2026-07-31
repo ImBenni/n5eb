@@ -1,0 +1,235 @@
+folder: 81b11a79503ed8c5
+name: Light Seal Mastery
+type: feat
+_id: 182192d62437a979
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+system:
+  description:
+    value: >-
+      <p>At 3rd level, use this feature instead of the base Light Seal use tracker. You can activate your Light Seal
+      twice per Short Rest. While it is active, you can sense the conditions affecting each Bond and its general
+      location. The Seal still lasts no longer than 1 minute and retains its 10-minute reactivation restriction.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: "2"
+    recovery:
+      - period: sr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: light-seal-mastery
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    5236ae699180e337:
+      _id: 5236ae699180e337
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Supersedes the base Light Seal use tracker at class-mod level 3; retain its 10-minute cooldown.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: e5c35b3ae88c6e69
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Mastered Light Seal
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - e5c35b3ae88c6e69
+    e6fbb33893634369:
+      _id: e6fbb33893634369
+      type: heal
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Release Mastered Healing Light
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: (2 * @classmods.light-release.levels)d6 + @details.level
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+effects:
+  - name: Light Seal Active
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+    origin: Item.182192d62437a979
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: e5c35b3ae88c6e69
+    type: base
+    system: {}
+    description: ""
+    tint: "#fff6b0"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: light-release
+          form: light-seal
+          sourceItemId: 182192d62437a979
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!182192d62437a979.e5c35b3ae88c6e69"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: light-release
+      coverage:
+        - clause: feature-use-and-tracking
+          mode: native
+        - clause: target-decisions-and-special-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!182192d62437a979"

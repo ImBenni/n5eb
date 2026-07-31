@@ -1,0 +1,200 @@
+folder: 61c289ceee8656c2
+name: Black Receiver Kunai
+type: feat
+_id: 89baa423e2e211e4
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Black Receiver Kunai</h2><p>This Chakra-enhanced kunai is a summoned Black Receiver. You are proficient with
+      it; it is unbreakable and cannot be used by a creature without the Rinnegan. On a damage hit you may impale the
+      target. It makes a Constitution save against Divine Art DC; on failure it cannot Mold Chakra until another
+      creature removes the receiver with a Strength (Athletics) check against that DC.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-black-receiver-kunai
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    b1d1b6ccab7984bf:
+      _id: b1d1b6ccab7984bf
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Attack with Black Receiver Kunai
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: str
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: weapon
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 1
+            denomination: 4
+            bonus: ""
+            types:
+              - piercing
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    76ede3718afa6741:
+      _id: 76ede3718afa6741
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: Use after this receiver deals damage. A failed save prevents Mold Chakra until removed.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Impale with Black Receiver
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: 12 + @classmods.rinnegan-redux.levels + @prof
+      damage:
+        parts: []
+        onSave: none
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: native-weapon-attack-profile-and-divine-dc-save
+          mode: native
+        - clause: optional-impalement-on-damage
+          mode: prompt
+        - clause: unbreakable-user-restriction-mold-chakra-lock-and-athletics-removal
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!89baa423e2e211e4"

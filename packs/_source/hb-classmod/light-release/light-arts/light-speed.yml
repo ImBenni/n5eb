@@ -1,0 +1,150 @@
+folder: fc47bb38af3b70c1
+name: Light Speed
+type: spell
+_id: 89f108bce0207bd8
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+system:
+  description:
+    value: >-
+      <h3>Light Art Type: Light Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Light
+      Art</dd><dt>Casting Time:</dt><dd>1 Bonus
+      Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Concentration, up to 1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>10 Light Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu,
+      Light Release, Space-Time, Concentration</dd></dl><h3>Description:</h3><p>For the duration, whenever you move, you
+      can teleport to a location you can see within your movement range. This movement does not provoke opportunity
+      attacks, and you can carry one willing or unresisting creature.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: light-speed
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - light-release
+      - space-time
+      - concentration
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Light Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:light-release
+  activities:
+    5a675e7b0d3ab7a6:
+      _id: 5a675e7b0d3ab7a6
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires an active Light Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:light-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: light-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: light-release
+      classification: Light Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!89f108bce0207bd8"

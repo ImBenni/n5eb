@@ -1,0 +1,180 @@
+folder: d8b9c237b68542ef
+name: Ascended Dark Arts
+type: feat
+_id: e966ee204b0ce9ce
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <p>At 4th level, whenever you cast a Dark Art, chosen creatures within 30 feet have their maximum Hit Points
+      reduced by half the Dark Chakra spent for 1 minute. You also gain +1 to your next roll for every 5 Dark Chakra
+      spent. The maximum-Hit-Point reduction has no stated use limit; the roll bonus can be gained at most twice per
+      Long Rest.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 11
+    license: ""
+    rules: n5eb
+  uses:
+    max: "2"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: ascended-dark-arts
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    5e12248797512c19:
+      _id: 5e12248797512c19
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Apply half the Dark Chakra spent as maximum Hit Point reduction.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "30"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Ascended Art Reduction
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    3e02c15db78e68e8:
+      _id: 3e02c15db78e68e8
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Gain +1 to the next roll per 5 Dark Chakra spent.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Claim Ascended Roll Bonus
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: feature-use-and-tracking
+          mode: native
+        - clause: target-decisions-and-special-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e966ee204b0ce9ce"

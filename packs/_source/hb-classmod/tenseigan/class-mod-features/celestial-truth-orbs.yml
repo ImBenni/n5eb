@@ -1,0 +1,900 @@
+folder: ccc5494764162de4
+name: Celestial Truth Orbs
+type: feat
+_id: 7667583dbd3c0c90
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: |-
+      <h2>Celestial Truth Orbs</h2><p>At 4th level, when you enter Celestial Chakra Mode, create 6
+          crystallized Celestial Chakra orbs that orbit you and obey your mental commands. Spent orbs cannot be recreated
+          until after a Long Rest.</p><h3>Actions</h3><ul><li><strong>1 Orb:</strong> make a ranged Celestial Art attack
+          against a creature within 90 feet. On a hit, it takes 10d6 force damage, loses Chakra equal to half the result, and
+          makes a Strength save or is knocked back 45 feet.</li><li><strong>2 Orbs:</strong> a target gains 45 temporary Hit
+          Points for 1 minute.</li><li><strong>3 Orbs:</strong> launch a sphere within 120 feet that fills a 90-foot sphere.
+          Creatures make a Dexterity save, taking 16d8 force damage and becoming unable to mold Chakra until after a Short
+          Rest on a failure, or half damage on a success. A creature reduced to 0 Hit Points is turned into Celestial Chakra;
+          you gain temporary Celestial Chakra equal to its level, which can stack.</li></ul>
+          <h3>Bonus Actions</h3><ul><li><strong>1 Orb:</strong> pay the cost of one Art Magnification or Celestial Art upcast
+          instead of Chakra Dice.</li><li><strong>2+ Orbs:</strong> spend any number of remaining orbs; the next time you
+          would take damage, one orb intercepts it and shatters.</li></ul><h3>Reactions</h3><ul>
+          <li><strong>2 Orbs:</strong> negate a Ninjutsu, Genjutsu, or Taijutsu that targets or affects you.</li>
+          <li><strong>3 Orbs:</strong> absorb a Ninjutsu or Genjutsu that targets or affects you and release it at the
+          triggering creature using your Celestial Attack Bonus or Save DC.</li><li><strong>4 Orbs:</strong> when you clash,
+          add your class-mod level to the check. On a success, the loser suffers Golden Wheel Reincarnation Unlife as if both
+          attacks hit it.</li></ul>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: "6"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: celestial-truth-orbs
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    923b81cec98e170e:
+      _id: 923b81cec98e170e
+      type: attack
+      activation:
+        type: action
+        value: 1
+        condition: On a hit, apply half the force result as Chakra damage and call for a Strength save or 45-foot push.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 90
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 1 Orb — Celestial Assault
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: ""
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: ranged
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 10
+            denomination: 6
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+    acd839e5478a5ea9:
+      _id: acd839e5478a5ea9
+      type: heal
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 90
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 2 Orbs — Celestial Protection
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - temphp
+        custom:
+          enabled: true
+          formula: "45"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+    074a97e2243d8583:
+      _id: 074a97e2243d8583
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          On a failed save, the creature cannot mold Chakra until after a Short Rest. Resolve the 0-HP conversion
+          manually.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 120
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "90"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 3 Orbs — Celestial Annihilation
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts:
+          - number: 16
+            denomination: 8
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+    dcfa08baf56a9c19:
+      _id: dcfa08baf56a9c19
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 1 Orb — Magnification or Upcast
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    80179be4a3296b84:
+      _id: 80179be4a3296b84
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: 2 reserved orbs intercept the next 2 damage events, one orb per event, then shatter.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 2 Orbs — Intercept Damage
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    5db5ec314ba5c912:
+      _id: 5db5ec314ba5c912
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: 3 reserved orbs intercept the next 3 damage events, one orb per event, then shatter.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 3 Orbs — Intercept Damage
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    eb87b321596430d9:
+      _id: eb87b321596430d9
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: 4 reserved orbs intercept the next 4 damage events, one orb per event, then shatter.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 4 Orbs — Intercept Damage
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    84546e17549a95f3:
+      _id: 84546e17549a95f3
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: 5 reserved orbs intercept the next 5 damage events, one orb per event, then shatter.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 5 Orbs — Intercept Damage
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    69d9ef5a3f193097:
+      _id: 69d9ef5a3f193097
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: 6 reserved orbs intercept the next 6 damage events, one orb per event, then shatter.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 6 Orbs — Intercept Damage
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    41f8a02d6138ca26:
+      _id: 41f8a02d6138ca26
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Use when targeted or affected by a Ninjutsu, Genjutsu, or Taijutsu.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 2 Orbs — Negate Jutsu
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    d4a5b245dd54f407:
+      _id: d4a5b245dd54f407
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Use when targeted or affected by a Ninjutsu or Genjutsu; resolve its reflected attack or save.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 3 Orbs — Absorb and Reflect
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    d870af878e56274a:
+      _id: d870af878e56274a
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Use when clashing. On success, resolve both Golden Wheel Reincarnation Unlife attacks against the loser.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Spend 4 Orbs — Reincarnation Clash
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: "@classmods.tenseigan.levels"
+        name: Bonus to Clash Check
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: six-orb-long-rest-tracker-all-activity-costs-primary-damage-and-temporary-hit-points
+          mode: native
+        - clause: attack-rider-save-push-chakra-damage-molding-lock-and-damage-interception
+          mode: prompt
+        - clause: jutsu-negation-reflection-and-clash-resolution
+          mode: midi-enhanced
+        - clause: zero-hit-point-conversion-and-temporary-celestial-chakra
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!7667583dbd3c0c90"

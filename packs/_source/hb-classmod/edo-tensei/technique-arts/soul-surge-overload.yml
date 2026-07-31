@@ -1,0 +1,228 @@
+folder: 811f3b07e20c97e7
+name: Soul Surge Overload
+type: spell
+_id: 0370d42048e1aa0d
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Soul Surge Overload</h2><h3>Edo Tensei Art Type: Technique</h3><dl class="n5eb-classmod-summary"><dt>Casting
+      Time:</dt><dd>Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Concentration, up to 1
+      minute</dd><dt>Components:</dt><dd>HS, CM</dd><dt>Cost:</dt><dd>2 Unholy
+      Charges</dd><dt>Keywords:</dt><dd>Ninjutsu, Kinjutsu</dd></dl><h3>Description:</h3><p>While concentrating, your
+      Edo Tensei has advantage on attacks, skills, ability checks, and saves; enemies attack it with disadvantage; its
+      speed triples; and its regeneration and healing double. Once per turn when it deals damage, it deals an additional
+      18d12 damage.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 10
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-soul-surge-overload
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - hs
+      - cm
+    keywords:
+      - ninjutsu
+      - kinjutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 2 Unholy Charges
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:edo-tensei
+  activities:
+    a09d69016cc6e5bf:
+      _id: a09d69016cc6e5bf
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:edo-tensei-unholy-charges
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Soul Surge
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    f1ca5114a0ef5051:
+      _id: f1ca5114a0ef5051
+      type: attack
+      activation:
+        type: special
+        value: null
+        condition: Once per turn after the affected Edo Tensei deals damage; do not make another attack roll.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Soul Surge Bonus Damage
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      attack:
+        ability: ""
+        bonus: "0"
+        critical:
+          threshold: null
+        flat: false
+        type:
+          value: melee
+          classification: spell
+      damage:
+        critical:
+          bonus: ""
+        includeBase: false
+        parts:
+          - number: 18
+            denomination: 12
+            bonus: ""
+            types: []
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: source-rule-and-numeric-resolution
+          mode: native
+        - clause: target-choice-prerequisite-or-trigger
+          mode: prompt
+        - clause: cross-actor-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: edo-tensei
+      classification: Technique
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!0370d42048e1aa0d"

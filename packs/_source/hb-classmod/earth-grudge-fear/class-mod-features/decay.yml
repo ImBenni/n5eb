@@ -1,0 +1,180 @@
+folder: 3624d4c7d6d19680
+name: Decay
+type: feat
+_id: be4b31f84b2d894d
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <p>Decay measures the deterioration of your absorbed hearts. The tracker shows how much capacity remains before a
+      heart must be destroyed: spending uses here incurs Decay. Each full week of downtime incurs 2 Decay for every
+      currently absorbed heart. Dying and Threaded Arts can incur additional Decay.</p><p>When the tracker reaches 100,
+      choose one absorbed heart to destroy with GM confirmation, reset the tracker, and immediately re-apply any excess
+      Decay. Destroying the last heart reversibly disables access to the class mod until another qualifying heart is
+      absorbed.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: "100"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-decay
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    62486968fd805d71:
+      _id: 62486968fd805d71
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Spend 2 Decay for each currently absorbed heart after a full week of downtime.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "2"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Weekly Decay
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    84be8d2137176c2e:
+      _id: 84be8d2137176c2e
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Confirm the chosen heart, reversible access state, tracker reset, and any excess Decay.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve 100 Decay (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: owned-resource-uses-tracker
+          mode: native
+        - clause: heart-destruction-and-narrative-roster
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!be4b31f84b2d894d"

@@ -4,6 +4,12 @@ import BaseConfigSheet from "../api/base-config-sheet.mjs";
 import AdvancementManager from "../../advancement/advancement-manager.mjs";
 import CompendiumBrowser from "../../compendium-browser.mjs";
 import { switchNpcBuilderMode } from "./npc-builder-mode-switch.mjs";
+import {
+  createNpcBuilderCache,
+  getNpcBuilderDescription,
+  invalidateNpcBuilderDescription,
+  mapWithConcurrency
+} from "./npc-builder-cache.mjs";
 
 const RANK_ORDER = ["d", "c", "b", "a", "s"];
 const LEGACY_RANKS = {
@@ -16,7 +22,7 @@ const LEGACY_RANKS = {
 };
 const DEFAULT_ICON = "icons/svg/mystery-man.svg";
 const INDEX_FIELDS = [
-  "img", "type", "system.description.value", "system.identifier", "system.rank", "system.jutsu.type",
+  "img", "type", "system.identifier", "system.rank", "system.jutsu.type",
   "system.type.value", "system.type.subtype", "system.type.nestedsubtype",
   "flags.n5eb.legacyImport.sourcePath", "_stats.legacyImport.sourcePath",
   "flags.n5eb.summonDefinition.kind", "flags.n5eb.summonDefinition.key",
@@ -27,6 +33,8 @@ const INDEX_FIELDS = [
   "flags.n5eb.summonContent.tribes", "flags.n5eb.summonContent.types",
   "flags.n5eb.summonContent.roles", "flags.n5eb.summonContent.ranks"
 ];
+let summonCatalogCacheHooksRegistered = false;
+const summonCatalogCache = createNpcBuilderCache(collectBaseSummonCatalog);
 
 /**
  * NPC sheet child application for configuring N5eB summons.
@@ -40,6 +48,7 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
       applyDefaults: SummonBuilderConfig.#applyDefaults,
       createDefinition: SummonBuilderConfig.#createDefinition,
       openDefinition: SummonBuilderConfig.#openDefinition,
+      retryContent: SummonBuilderConfig.#retryContent,
       save: SummonBuilderConfig.#save,
       selectBreed: SummonBuilderConfig.#selectBreed,
       selectTribe: SummonBuilderConfig.#selectTribe,
@@ -66,6 +75,22 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
 
   #definitions = null;
 
+  #catalog = null;
+
+  #suggestions = getEmptySummonSuggestions();
+
+  #suggestionLookup = new Map();
+
+  #selectedUuids = new Set();
+
+  #loadState = "idle";
+
+  #loadPromise = null;
+
+  #previewRequest = 0;
+
+  #catalogGeneration = -1;
+
   /** @override */
   get title() {
     return game.i18n.format("N5EB.NPCBuilder.Title", { name: this.document.name });
@@ -74,10 +99,14 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
   /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
+    if ( (this.#loadState === "ready") && (this.#catalogGeneration !== summonCatalogCache.generation) ) {
+      this.#catalog = null;
+      this.#loadState = "idle";
+    }
     context.actor = this.document;
     context.builderMode = "summon";
     const source = getSummonSource(this.document);
-    context.definitions = await getSummonDefinitions();
+    context.definitions = this.#catalog?.definitions ?? getCoreSummonDefinitions();
     this.#definitions = context.definitions;
     context.source = source;
     context.summonTribeOptions = getSummonChoiceOptions("tribe", source.tribe, context.definitions);
@@ -90,7 +119,18 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
     context.identity = getSummonIdentity(source, context.definitions);
     context.summary = getSummonSummary(source);
     context.warnings = getSummonWarnings(this.document, source);
-    context.suggestions = await getSummonSuggestions(this.document, source, context.definitions);
+    context.suggestions = this.#catalog
+      ? prepareSummonSuggestions(this.document, source, context.definitions, this.#catalog.candidates)
+      : getEmptySummonSuggestions();
+    this.#suggestions = context.suggestions;
+    this.#suggestionLookup = buildSummonSuggestionLookup(context.suggestions);
+    pruneSummonSelections(this.#suggestionLookup, this.#selectedUuids);
+    applySummonSelectionState(context.suggestions, this.#selectedUuids);
+    context.catalogLoading = ["idle", "loading"].includes(this.#loadState);
+    context.catalogError = this.#loadState === "error";
+    context.renderFeatureRows = this.#activeTab === "features";
+    context.renderWeaponRows = this.#activeTab === "weapons";
+    context.renderJutsuRows = this.#activeTab === "jutsu";
     context.contentTabs = [
       {
         id: "features",
@@ -135,7 +175,7 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
       ?? context.suggestions.features[0]
       ?? context.suggestions.weapons[0]
       ?? context.suggestions.jutsu[0]
-      ?? null;
+      ?? { img: DEFAULT_ICON, name: "", uuid: "" };
     return context;
   }
 
@@ -146,9 +186,28 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
     this.#bindBuilderControls();
     this.#syncSummary();
     this.#syncIdentity();
-    this.#refreshAllFilters();
-    this.#refreshSelection();
-    this.#previewInitialSuggestion();
+    if ( this.#loadState === "idle" ) void this.#loadCatalog();
+  }
+
+  async #loadCatalog() {
+    if ( this.#loadPromise ) return this.#loadPromise;
+    this.#loadState = "loading";
+    this.#loadPromise = getCachedSummonCatalog()
+      .then(catalog => {
+        this.#catalog = catalog;
+        this.#catalogGeneration = summonCatalogCache.generation;
+        this.#loadState = "ready";
+        if ( this.element?.isConnected ) this.render();
+      })
+      .catch(err => {
+        console.error("n5eb | NPC summon catalog failed to load", err);
+        this.#loadState = "error";
+        if ( this.element?.isConnected ) this.render();
+      })
+      .finally(() => {
+        this.#loadPromise = null;
+      });
+    return this.#loadPromise;
   }
 
   static async #save(event, target) {
@@ -161,8 +220,8 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
     event.preventDefault();
     await this.#saveSummon();
 
-    const selected = Array.from(this.element.querySelectorAll("input[name='itemUuids']:checked:not(:disabled)"))
-      .map(input => input.value);
+    const selected = Array.from(this.#selectedUuids)
+      .filter(uuid => !this.#suggestionLookup.get(uuid)?.disabled);
     const existing = new Set(this.document.items.map(item => item.getFlag("n5eb", "summonBuilder.sourceUuid")));
     const toCreate = [];
     for ( const uuid of selected ) {
@@ -175,6 +234,7 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
       toCreate.push(data);
     }
     if ( toCreate.length ) await this.document.createEmbeddedDocuments("Item", toCreate);
+    this.#selectedUuids.clear();
     this.render();
   }
 
@@ -197,6 +257,8 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
     const definition = buildNewDefinitionData(kind, summon, this.#definitions);
     const item = await Item.create(definition, { renderSheet: false });
     item?.sheet?.render(true);
+    this.#catalog = null;
+    this.#loadState = "idle";
     this.render();
   }
 
@@ -285,6 +347,13 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
     await switchNpcBuilderMode(this, AdversaryBuilderConfig);
   }
 
+  static async #retryContent(event, target) {
+    event.preventDefault();
+    this.#catalog = null;
+    this.#loadState = "idle";
+    this.render();
+  }
+
   static async #switchTab(event, target) {
     event.preventDefault();
     this.#activeTab = target.dataset.tab ?? "features";
@@ -298,15 +367,17 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
     root.addEventListener("input", event => {
       const target = event.target;
       if ( !(target instanceof HTMLElement) ) return;
-      if ( target.matches(".adversary-filter") ) this.#applyFilters(target.closest("[data-content-panel]"));
+      if ( target.matches(".adversary-filter") ) this.#applyActiveFilters(target.closest("[data-content-panel]"));
       if ( ["summon.level", "summon.toughness"].includes(target.name) ) this.#syncSummary();
     });
 
     root.addEventListener("change", event => {
       const target = event.target;
       if ( !(target instanceof HTMLElement) ) return;
-      if ( target.matches(".adversary-filter") ) this.#applyFilters(target.closest("[data-content-panel]"));
+      if ( target.matches(".adversary-filter") ) this.#applyActiveFilters(target.closest("[data-content-panel]"));
       if ( target.matches("input[name='itemUuids']") ) {
+        if ( target.checked ) this.#selectedUuids.add(target.value);
+        else this.#selectedUuids.delete(target.value);
         target.closest(".adversary-suggestion")?.classList.toggle("selected", target.checked);
         this.#refreshSelection();
       }
@@ -349,8 +420,99 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
     for ( const panel of this.element.querySelectorAll("[data-content-panel]") ) {
       panel.hidden = panel.dataset.contentPanel !== this.#activeTab;
     }
+    this.#ensureActiveRows();
+    this.#unloadInactiveRows();
     this.#refreshSelection();
+    this.#applyFilters(this.#activeContentPanel());
     this.#previewInitialSuggestion();
+  }
+
+  #ensureActiveRows() {
+    const suggestions = this.#suggestions[this.#activeTab];
+    const list = this.element.querySelector(`[data-suggestion-list='${this.#activeTab}']`);
+    if ( !list || list.childElementCount || !suggestions ) return;
+    const fragment = document.createDocumentFragment();
+    for ( const suggestion of suggestions ) fragment.append(this.#renderSuggestionRow(suggestion));
+    list.append(fragment);
+  }
+
+  #unloadInactiveRows() {
+    for ( const panel of this.element.querySelectorAll("[data-content-panel]") ) {
+      const tab = panel.dataset.contentPanel;
+      if ( (tab === this.#activeTab) || !["features", "weapons", "jutsu"].includes(tab) ) continue;
+      panel.querySelector("[data-suggestion-list]")?.replaceChildren();
+    }
+  }
+
+  #renderSuggestionRow(suggestion) {
+    const row = document.createElement("label");
+    row.className = "adversary-suggestion";
+    row.classList.toggle("is-added", Boolean(suggestion.disabled));
+    row.classList.toggle("selected", this.#selectedUuids.has(suggestion.uuid));
+    this.#setSuggestionDataset(row, suggestion);
+
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "itemUuids";
+    input.value = suggestion.uuid;
+    input.disabled = Boolean(suggestion.disabled);
+    input.checked = this.#selectedUuids.has(suggestion.uuid) && !suggestion.disabled;
+
+    const image = document.createElement("img");
+    image.src = suggestion.img || DEFAULT_ICON;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    const name = document.createElement("span");
+    name.className = "name";
+    name.textContent = suggestion.name ?? "";
+
+    const meta = document.createElement("span");
+    meta.className = "meta";
+    for ( const value of [suggestion.rankLabel, suggestion.kindLabel, suggestion.pack] ) {
+      if ( value ) meta.append(this.#renderMeta(value));
+    }
+
+    row.append(input, image, name, meta);
+    if ( suggestion.disabled ) {
+      const status = document.createElement("span");
+      status.className = "status";
+      status.textContent = game.i18n.localize("N5EB.Summon.Builder.Added");
+      row.append(status);
+    }
+    return row;
+  }
+
+  #renderMeta(value) {
+    const span = document.createElement("span");
+    span.textContent = value;
+    return span;
+  }
+
+  #setSuggestionDataset(row, suggestion) {
+    const data = {
+      uuid: suggestion.uuid,
+      name: suggestion.name,
+      img: suggestion.img,
+      rank: suggestion.rank,
+      rankLabel: suggestion.rankLabel,
+      kind: suggestion.kind,
+      kindLabel: suggestion.kindLabel,
+      category: suggestion.category,
+      categoryLabel: suggestion.categoryLabel,
+      typeLabel: suggestion.typeLabel,
+      pack: suggestion.packKey,
+      packLabel: suggestion.pack,
+      source: suggestion.sourceKey,
+      sourceLabel: suggestion.sourceLabel,
+      tribes: suggestion.tribes,
+      types: suggestion.types,
+      roles: suggestion.roles,
+      ranks: suggestion.ranks,
+      search: suggestion.search
+    };
+    for ( const [key, value] of Object.entries(data) ) row.dataset[key] = `${value ?? ""}`;
   }
 
   #syncSummary() {
@@ -391,8 +553,13 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
     }
   }
 
-  #refreshAllFilters() {
-    for ( const panel of this.element.querySelectorAll("[data-content-panel]") ) this.#applyFilters(panel);
+  #applyActiveFilters(panel) {
+    if ( panel?.dataset.contentPanel !== this.#activeTab ) return;
+    this.#applyFilters(panel);
+  }
+
+  #activeContentPanel() {
+    return this.element.querySelector(`[data-content-panel='${this.#activeTab}']`);
   }
 
   #applyFilters(panel) {
@@ -433,76 +600,93 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
     if ( row ) this.#previewSuggestion(row);
   }
 
-  #previewSuggestion(row) {
+  async #previewSuggestion(row) {
     const preview = this.element.querySelector("[data-preview]");
     if ( !preview ) return;
-    preview.dataset.uuid = row.dataset.uuid ?? "";
-    preview.querySelector("[data-preview-name]")?.replaceChildren(row.dataset.name ?? "");
-    preview.querySelector("[data-preview-type]")?.replaceChildren(row.dataset.typeLabel ?? "");
-    preview.querySelector("[data-preview-rank]")?.replaceChildren(row.dataset.rankLabel ?? "");
-    preview.querySelector("[data-preview-pack]")?.replaceChildren(row.dataset.packLabel ?? "");
-    preview.querySelector("[data-preview-kind]")?.replaceChildren(row.dataset.kindLabel ?? "");
+    const suggestion = this.#suggestionLookup.get(row.dataset.uuid ?? "");
+    const name = suggestion?.name ?? row.dataset.name ?? "";
+    preview.dataset.uuid = suggestion?.uuid ?? row.dataset.uuid ?? "";
+    preview.querySelector("[data-preview-name]")?.replaceChildren(name);
+    preview.querySelector("[data-preview-type]")?.replaceChildren(suggestion?.typeLabel ?? row.dataset.typeLabel ?? "");
+    preview.querySelector("[data-preview-rank]")?.replaceChildren(suggestion?.rankLabel ?? row.dataset.rankLabel ?? "");
+    preview.querySelector("[data-preview-pack]")?.replaceChildren(suggestion?.pack ?? row.dataset.packLabel ?? "");
+    preview.querySelector("[data-preview-kind]")?.replaceChildren(suggestion?.kindLabel ?? row.dataset.kindLabel ?? "");
 
     const image = preview.querySelector("[data-preview-image]");
     if ( image ) {
-      image.src = row.dataset.img || DEFAULT_ICON;
-      image.alt = row.dataset.name ?? "";
+      image.src = suggestion?.img || row.dataset.img || DEFAULT_ICON;
+      image.alt = name;
     }
 
     const description = preview.querySelector("[data-preview-description]");
-    const template = row.querySelector("template");
-    if ( description ) description.innerHTML = template?.innerHTML?.trim()
-      || `<p>${game.i18n.localize("N5EB.Summon.Builder.NoPreview")}</p>`;
+    const request = ++this.#previewRequest;
+    if ( description ) {
+      description.innerHTML = `<p>${game.i18n.localize("N5EB.NPCBuilder.LoadingPreview")}</p>`;
+    }
 
     for ( const candidate of this.element.querySelectorAll(".adversary-suggestion.previewed") ) {
       candidate.classList.remove("previewed");
     }
     row.classList.add("previewed");
+
+    if ( !description ) return;
+    try {
+      const html = await getNpcBuilderDescription(preview.dataset.uuid);
+      if ( (request !== this.#previewRequest) || !preview.isConnected ) return;
+      description.innerHTML = html.trim() || `<p>${game.i18n.localize("N5EB.Summon.Builder.NoPreview")}</p>`;
+    } catch(err) {
+      console.warn("n5eb | Could not load NPC builder preview", err);
+      if ( (request === this.#previewRequest) && preview.isConnected ) {
+        description.innerHTML = `<p>${game.i18n.localize("N5EB.Summon.Builder.NoPreview")}</p>`;
+      }
+    }
   }
 
   #refreshSelection() {
-    const rows = Array.from(this.element.querySelectorAll("input[name='itemUuids']:checked"))
-      .map(input => input.closest(".adversary-suggestion"))
-      .filter(row => row);
+    const selected = Array.from(this.#selectedUuids)
+      .map(uuid => this.#suggestionLookup.get(uuid))
+      .filter(suggestion => suggestion && !suggestion.disabled);
 
     for ( const counter of this.element.querySelectorAll("[data-selected-count]") ) {
-      counter.replaceChildren(`${rows.length}`);
+      counter.replaceChildren(`${selected.length}`);
     }
 
     for ( const button of this.element.querySelectorAll("[data-action='addSelected']") ) {
-      button.disabled = !rows.length;
+      button.disabled = !selected.length;
     }
 
     const list = this.element.querySelector("[data-selected-list]");
     const empty = this.element.querySelector("[data-selected-empty]");
     if ( !list || !empty ) return;
     list.replaceChildren();
-    empty.hidden = rows.length > 0;
+    empty.hidden = selected.length > 0;
 
-    for ( const row of rows ) list.append(this.#renderSelectedRow(row));
+    for ( const suggestion of selected ) list.append(this.#renderSelectedRow(suggestion));
   }
 
-  #renderSelectedRow(row) {
+  #renderSelectedRow(suggestion) {
     const item = document.createElement("li");
     item.className = "adversary-selected-item";
 
     const icon = document.createElement("img");
-    icon.src = row.dataset.img || DEFAULT_ICON;
+    icon.src = suggestion.img || DEFAULT_ICON;
     icon.alt = "";
+    icon.loading = "lazy";
+    icon.decoding = "async";
 
     const name = document.createElement("span");
     name.className = "name";
-    name.textContent = row.dataset.name ?? "";
+    name.textContent = suggestion.name ?? "";
 
     const meta = document.createElement("span");
     meta.className = "meta";
-    meta.textContent = [row.dataset.rankLabel, row.dataset.kindLabel, row.dataset.sourceLabel]
+    meta.textContent = [suggestion.rankLabel, suggestion.kindLabel, suggestion.sourceLabel]
       .filter(Boolean).join(" | ");
 
     const remove = document.createElement("button");
     remove.type = "button";
     remove.className = "unbutton";
-    remove.dataset.removeSelected = row.dataset.uuid ?? "";
+    remove.dataset.removeSelected = suggestion.uuid ?? "";
     remove.ariaLabel = game.i18n.localize("N5EB.Summon.Builder.RemoveSelected");
     remove.innerHTML = '<i class="fa-solid fa-xmark" inert></i>';
 
@@ -512,6 +696,7 @@ export default class SummonBuilderConfig extends BaseConfigSheet {
 
   #removeSelected(uuid) {
     if ( !uuid ) return;
+    this.#selectedUuids.delete(uuid);
     const input = Array.from(this.element.querySelectorAll("input[name='itemUuids']"))
       .find(candidate => candidate.value === uuid);
     if ( input ) {
@@ -865,45 +1050,45 @@ function getSummonWarnings(actor, summon) {
   return warnings;
 }
 
-async function getSummonSuggestions(actor, summon, definitions=null) {
+function prepareSummonSuggestions(actor, summon, definitions, candidates) {
   const existing = getExistingSourceKeys(actor);
-  const features = [];
-  const weapons = [];
-  const jutsu = [];
-
-  for ( const pack of getSummonItemPacks({ includeCustom: true }) ) {
-    const index = await pack.getIndex({ fields: INDEX_FIELDS });
-    for ( const entry of index ) {
-      if ( entry.type === "class" ) continue;
-      if ( entry.type === "feat" && isSummonFeature(entry, pack) ) {
-        features.push(formatSuggestion(entry, pack, "feat", existing, definitions));
-      }
-      else if ( entry.type === "weapon" && isSummonWeapon(entry, pack) ) {
-        weapons.push(formatSuggestion(entry, pack, "weapon", existing, definitions));
-      }
-      else if ( entry.type === "spell" && isSummonJutsu(entry, pack) ) {
-        jutsu.push(formatSuggestion(entry, pack, "spell", existing, definitions));
-      }
-    }
-  }
-
-  for ( const item of game.items ) {
-    if ( item.type === "feat" && isSummonFeature(item, null) ) {
-      features.push(formatSuggestion(item, null, "feat", existing, definitions));
-    }
-    else if ( item.type === "weapon" && isSummonWeapon(item, null) ) {
-      weapons.push(formatSuggestion(item, null, "weapon", existing, definitions));
-    }
-    else if ( item.type === "spell" && isSummonJutsu(item, null) ) {
-      jutsu.push(formatSuggestion(item, null, "spell", existing, definitions));
-    }
-  }
+  const formatRows = rows => rows.map(({ entry, pack, type }) => {
+    return formatSuggestion(entry, pack, type, existing, definitions);
+  });
 
   return {
-    features: dedupeSuggestions(features).toSorted((lhs, rhs) => sortSummonSuggestion(lhs, rhs, summon)).slice(0, 160),
-    weapons: dedupeSuggestions(weapons).toSorted((lhs, rhs) => sortSummonSuggestion(lhs, rhs, summon)).slice(0, 80),
-    jutsu: dedupeSuggestions(jutsu).toSorted((lhs, rhs) => sortSummonSuggestion(lhs, rhs, summon)).slice(0, 80)
+    features: dedupeSuggestions(formatRows(candidates.features))
+      .toSorted((lhs, rhs) => sortSummonSuggestion(lhs, rhs, summon)).slice(0, 160),
+    weapons: dedupeSuggestions(formatRows(candidates.weapons))
+      .toSorted((lhs, rhs) => sortSummonSuggestion(lhs, rhs, summon)).slice(0, 80),
+    jutsu: dedupeSuggestions(formatRows(candidates.jutsu))
+      .toSorted((lhs, rhs) => sortSummonSuggestion(lhs, rhs, summon)).slice(0, 80)
   };
+}
+
+function getEmptySummonSuggestions() {
+  return { features: [], weapons: [], jutsu: [] };
+}
+
+function buildSummonSuggestionLookup(suggestions) {
+  const lookup = new Map();
+  for ( const type of ["features", "weapons", "jutsu"] ) {
+    for ( const suggestion of suggestions[type] ?? [] ) lookup.set(suggestion.uuid, suggestion);
+  }
+  return lookup;
+}
+
+function applySummonSelectionState(suggestions, selectedUuids) {
+  for ( const type of ["features", "weapons", "jutsu"] ) {
+    for ( const suggestion of suggestions[type] ?? [] ) suggestion.selected = selectedUuids.has(suggestion.uuid);
+  }
+}
+
+function pruneSummonSelections(lookup, selectedUuids) {
+  for ( const uuid of selectedUuids ) {
+    const suggestion = lookup.get(uuid);
+    if ( !suggestion || suggestion.disabled ) selectedUuids.delete(uuid);
+  }
 }
 
 function getExistingSourceKeys(actor) {
@@ -973,7 +1158,6 @@ function formatSuggestion(entry, pack, type, existing, definitions=null) {
   const sourceLabel = pack?.metadata.label ?? game.i18n.localize("N5EB.Summon.Builder.WorldItems");
   const sourceKey = pack?.collection.slugify({ strict: true }) ?? "world-items";
   const rankLabel = rank ? CONFIG.DND5E.summonRanks[rank]?.abbreviation ?? rank.toUpperCase() : "";
-  const description = foundry.utils.getProperty(entry, "system.description.value") ?? "";
   const nameKey = entry.name?.slugify({ strict: true });
   const disabled = existing.has(uuid) || existing.has(sourcePath) || existing.has(nameKey);
   const tagLabels = [
@@ -987,7 +1171,6 @@ function formatSuggestion(entry, pack, type, existing, definitions=null) {
   return {
     category: labels.category,
     categoryLabel: labels.categoryLabel,
-    description,
     disabled,
     img: entry.img || DEFAULT_ICON,
     kind: labels.kind,
@@ -1136,29 +1319,57 @@ function getSourceTribeLabel(entry, definitions=null) {
   return tribe ? getSummonDefinitionLabel("tribe", tribe, definitions) : "";
 }
 
-async function getSummonDefinitions() {
+function getCoreSummonDefinitions() {
+  return finalizeSummonDefinitions(createSummonDefinitionRegistry());
+}
+
+async function getCachedSummonCatalog() {
+  registerSummonCatalogCacheHooks();
+  return summonCatalogCache.get();
+}
+
+async function collectBaseSummonCatalog() {
   const registry = createSummonDefinitionRegistry();
-
-  for ( const pack of getSummonItemPacks({ includeCustom: true }) ) {
-    let index;
+  const candidates = getEmptySummonSuggestions();
+  const packIndexes = await mapWithConcurrency(getSummonItemPacks({ includeCustom: true }), 6, async pack => {
     try {
-      index = await pack.getIndex({ fields: INDEX_FIELDS });
+      return { pack, index: await pack.getIndex({ fields: INDEX_FIELDS }) };
     } catch(err) {
-      console.warn(`n5eb | Could not index summon definitions from ${pack.collection}`, err);
-      continue;
+      console.warn(`n5eb | Could not index summon content from ${pack.collection}`, err);
+      return { pack, index: [] };
     }
-    for ( const entry of index ) {
-      const definition = formatSummonDefinition(entry, pack);
-      if ( definition ) addSummonDefinition(registry, definition);
-    }
-  }
+  });
 
-  for ( const item of game.items ) {
-    const definition = formatSummonDefinition(item, null);
+  const collect = (entry, pack=null) => {
+    const definition = formatSummonDefinition(entry, pack);
     if ( definition ) addSummonDefinition(registry, definition);
-  }
+    if ( entry.type === "feat" && isSummonFeature(entry, pack) ) {
+      candidates.features.push({ entry, pack, type: "feat" });
+    } else if ( entry.type === "weapon" && isSummonWeapon(entry, pack) ) {
+      candidates.weapons.push({ entry, pack, type: "weapon" });
+    } else if ( entry.type === "spell" && isSummonJutsu(entry, pack) ) {
+      candidates.jutsu.push({ entry, pack, type: "spell" });
+    }
+  };
 
-  return finalizeSummonDefinitions(registry);
+  for ( const { pack, index } of packIndexes ) {
+    for ( const entry of index ) {
+      if ( entry.type !== "class" ) collect(entry, pack);
+    }
+  }
+  for ( const item of game.items ) collect(item);
+  return { candidates, definitions: finalizeSummonDefinitions(registry) };
+}
+
+function registerSummonCatalogCacheHooks() {
+  if ( summonCatalogCacheHooksRegistered ) return;
+  summonCatalogCacheHooksRegistered = true;
+  const invalidate = item => {
+    if ( item?.parent?.documentName === "Actor" ) return;
+    summonCatalogCache.invalidate();
+    invalidateNpcBuilderDescription(item?.uuid);
+  };
+  for ( const hook of ["createItem", "updateItem", "deleteItem"] ) Hooks.on(hook, invalidate);
 }
 
 function createSummonDefinitionRegistry() {

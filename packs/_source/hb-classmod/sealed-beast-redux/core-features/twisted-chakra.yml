@@ -1,0 +1,117 @@
+folder: 03825f75ca2db9a8
+name: Twisted Chakra
+type: feat
+_id: 8a30ce800daf82a4
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Twisted Chakra</h2><p>Twisted Chakra is this class mod's main resource. One Twisted Chakra counts as two
+      Chakra for anything you spend Chakra on, and a jutsu cast using Twisted Chakra becomes a Vermillion Art. If your
+      current Twisted Chakra is ever higher than your current normal Chakra, you enter Frenzy. The 500-point tracker
+      also supports the explicit Path of the Beast pact pool; the source gives no normal recovery or universal
+      maximum.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: "500"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-twisted-chakra
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    c95e9522998755ea:
+      _id: c95e9522998755ea
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use for source-directed gains, transfers, and GM adjustments.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Adjust Twisted Chakra
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: canonical-twisted-chakra-tracker-and-native-spending
+          mode: native
+        - clause: two-for-one-substitution-and-frenzy-threshold
+          mode: prompt
+        - clause: uncapped-normal-pool
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!8a30ce800daf82a4"

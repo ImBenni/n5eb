@@ -1,0 +1,194 @@
+folder: c214cc850a8d621d
+name: Ten Tails
+type: feat
+_id: af0b2ee5138165c5
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/gedo-statue.webp
+system:
+  description:
+    value: >-
+      <h2>Ten Tails</h2><p><strong>Prerequisites:</strong> Demonic Statue and class-mod level 4. Demonic Chains gains +5
+      to hit Tailed Beasts and Jinchuriki and treats them as vulnerable. On hit make an unmodified Charisma contest
+      against the beast's Charisma - 10; a Jinchuriki adds its Charisma. Failure grants that target 1-minute immunity.
+      Success stores the beast in the statue and permanently raises capacity by 100; chains may still attack stored
+      beasts.</p><p>A Jinchuriki falls to 0 current Hit Points and 10 maximum Hit Points, cannot heal, and loses 1
+      maximum Hit Point per turn until death; A-rank or higher Medical healing stalls the loss and 1 minute restores it.
+      Storing nine Tailed Beasts creates the Ten Tails as an ally. Absorbing it removes the Rinnegan class mod and
+      grants level 1 Ten Tails Jinchuriki.</p><p>All captures, permanent capacity changes, character loss, and class-mod
+      replacement require explicit player and GM confirmation and are never automated.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 17
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-ten-tails
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    1acb02ffaa5967a5:
+      _id: 1acb02ffaa5967a5
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-divine-awakening
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (4 Divine Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/gedo-statue.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    d8290552c908d259:
+      _id: d8290552c908d259
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Resolve the prerequisite, triggering Outer Art, targets, rolls, duration, and confirmed consequences described
+          above.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Use Ten Tails
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/gedo-statue.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: four-point-general-divine-awakening-purchase
+          mode: native
+        - clause: outer-talent-timing-roll-target-duration-and-prerequisite
+          mode: prompt
+        - clause: irreversible-eye-death-capacity-creature-capture-or-classmod-consequence
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!af0b2ee5138165c5"

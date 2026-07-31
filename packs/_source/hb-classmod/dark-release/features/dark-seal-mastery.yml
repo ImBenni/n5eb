@@ -1,0 +1,292 @@
+folder: d8b9c237b68542ef
+name: Dark Seal Mastery
+type: feat
+_id: 6ccbc6555c86054e
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <p>At 3rd level, use this feature instead of the base Dark Seal use tracker. You can activate your Dark Seal twice
+      per Short Rest. When it activates, you may exclude creatures from its life-energy consumption within 120 feet. You
+      also sense power levels within 120 feet as lower when at least 2 levels below you, equal when within 1 level, or
+      higher when at least 2 levels above you.</p><p>The Seal still lasts no longer than 1 minute and retains its
+      10-minute reactivation restriction.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 12
+    license: ""
+    rules: n5eb
+  uses:
+    max: "2"
+    recovery:
+      - period: sr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: dark-seal-mastery
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    fc629038f063b8ae:
+      _id: fc629038f063b8ae
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Supersedes the base Dark Seal use tracker at class-mod level 3; retain its 10-minute cooldown.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 8ba21c29535d9f21
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Mastered Dark Seal
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 8ba21c29535d9f21
+    c0dc3691106e33af:
+      _id: c0dc3691106e33af
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: Choose which creatures to affect, then choose Hit Points or Chakra for each failed target.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "120"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Release Mastered Dark Seal Wave
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+    4bd05404b460f72e:
+      _id: 4bd05404b460f72e
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Roll once after resolving the activation saving throws.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Mastered Seal Reduction
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 2d6 + @details.level
+        name: Hit Point or Chakra Reduction
+        prompt: false
+        visible: true
+effects:
+  - name: Dark Seal Active
+    img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+    origin: Item.6ccbc6555c86054e
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 8ba21c29535d9f21
+    type: base
+    system: {}
+    description: ""
+    tint: "#30104f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: dark-release
+          form: dark-seal
+          sourceItemId: 6ccbc6555c86054e
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!6ccbc6555c86054e.8ba21c29535d9f21"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: feature-use-and-tracking
+          mode: native
+        - clause: target-decisions-and-special-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!6ccbc6555c86054e"

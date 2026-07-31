@@ -41,6 +41,7 @@ const REQUIRED_CODE_MARKERS = {
     "applyDowntimeCraftingTarget",
     "claimDowntimeCraftingResult",
     "getDowntimeCraftingContribution",
+    "mergeObject(foundry.utils.deepClone(source), submitted",
     "Math.ceil(price / 2)",
     "mastery >= 1 ? 150 : 100",
     "game.items.fromCompendium",
@@ -50,6 +51,7 @@ const REQUIRED_CODE_MARKERS = {
   ],
   "module/data/actor/character.mjs": [
     "downtime:",
+    "Object.hasOwn(source, \"downtime\")",
     "identifier",
     "result",
     "itemUuid",

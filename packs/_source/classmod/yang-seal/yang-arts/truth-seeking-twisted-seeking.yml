@@ -1,0 +1,189 @@
+folder: 64fa38d1b95e9c96
+name: 'Truth Seeking: Twisted Seeking'
+type: spell
+_id: 1363274da01856e9
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Truth-Seeking</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>60
+      feet</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M, W (Truth-Seeking
+      Orb)</dd><dt>Cost:</dt><dd>5 Yang Chakra</dd><dt>Keywords:</dt><dd>Bukijutsu, Truth
+      -Seeking</dd></dl><h3>Description:</h3><p>You take your Truth -Seeking Orb and turn them into drills, which skewer
+      a creature within range. One creature within range must make a strength saving throw, taking 14d10 piercing
+      damage, being dazed knocked prone, and restrained on a failed save, half as much damage on a success.</p><p>A
+      creature restrained this way becomes pinned to the floor, unable to s tand up and automatically failing dexterity
+      saving throws for the duration. A creature can spend an action to repeat its strength saving throw, ending the
+      prone and restrained conditions on a success. Truth-Seeking: You can spend additional Truth-Seeking Orbs as part
+      of casting this jutsu.</p><p>For each additional Orb you spend, increase the damage of this art by +1d10. If you
+      spend 3 or more additional Orbs, all creatures within 5ft of the target must make a constitution saving throw,
+      taking half as much damage and being dazed on a fail. If you spend 6 or more additional Orbs, all affected
+      creatures take the full damage and effects on a failed save, and half as much damage and no effects on a
+      success.</p><p>YANG SEAL – EXTRAS The following are a list of Feats designed with a lower power-level in mind.
+      These feats are a part of the overall Class Mod category of feats. These feats are intended to give the user the
+      feel of the Yang Seal without oppressively shifting the balance of a normal level 1 -20 play through. Here are the
+      following rules and requirements in regards to even gaining these Class Mod feats.</p><ul><li>Each Class Mod feat
+      after the first requires you to form a certain amount of bonds or spend 25 downtime to gain the next
+      feat.</li><li>A character can only access the first feat if a master, sage creature or similar creature implants
+      them a Yang Seal.</li><li>All Yang Arts, and Sage Cloaks you gain from a Class Mod feat can be used in any Yang
+      Seal variant you have access to. (Imperfect, Adept, etc.)</li><li>All Yang Seal variants have a unique set of
+      bonuses and effects, which can be found on the Yang Seal Variants table at the end of these feats.</li><li>You can
+      exit any Yang Seal variant as a Bonus action.</li><li>Regardless of the Yang Seal variant you access, they all
+      share the same Full -Rest recharge limitation.</li><li>Yang Charges are a special resource intended to allow you
+      to cast Yang Arts.</li><li>Each Yang Seal variant has its own Yang Charge pool and limitations on what you can
+      spend your charges on.</li><li>If a Yang Art requires concentration, you do not need to spend Chakra or Yang
+      Charges to maintain concentration.</li><li>Yang Arts cast with Yang Charges rolls half their dice values for
+      damage, healing and damage reduction. Damage granted by spending additional Truth-Seeking Orbs is not
+      halved.</li><li>The maximum number of Truth -Seeking Orbs you can spend on a single Truth-Seeking action is
+      defined by your current Yang Seal variant.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '114'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: truth-seeking-twisted-seeking
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: bukijutsu
+    ability: ''
+    components:
+      - m
+      - w-truth-seeking-orb
+    keywords:
+      - bukijutsu
+      - truth--seeking
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 5 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    8a0e68474c6337ed:
+      _id: 8a0e68474c6337ed
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '5'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 14
+            denomination: 10
+            bonus: ''
+            types:
+              - piercing
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!1363274da01856e9'

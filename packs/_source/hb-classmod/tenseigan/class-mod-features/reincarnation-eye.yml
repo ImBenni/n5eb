@@ -1,0 +1,242 @@
+folder: ccc5494764162de4
+name: Reincarnation Eye
+type: feat
+_id: a83189a126d1b4d0
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: |-
+      <h2>Reincarnation Eye</h2><p>At 2nd level, for the duration of Tenseigan you can see a person’s name
+          as if floating above their head, whether they belong on this plane or dimension, and whether they lie to you. You
+          can see whether a creature’s spirit has been reincarnated, who it was in different lives, and when the weave of
+          reality is damaged or bent out of shape.</p><h3>Collect Celestial Energy</h3><p>As an action, begin collecting
+          Celestial Energy into a single point within you. Your body glows with a soft golden hue. For the next minute, at the
+          end of each turn after activation, roll 1d10 + four times your Tenseigan level and add it to your previous total,
+          up to your maximum Celestial Chakra.</p><p>As an action, consume the energy to grant yourself and chosen allies
+          within 60 feet temporary Hit Points equal to half the total. The feature ends and cannot be used again until after
+          a Long Rest.</p><h3>Reincarnation</h3><p>If your Hit Points fall to 0 while collecting, the feature immediately
+          activates and prevents further damage. You are destroyed and reformed simultaneously, regaining Hit Points equal
+          to the stored total. This ignores decapitation, disintegration, soul theft, or removal. If a Jutsu, ability, or
+          feature uses your soul as part of its cost or effect, it immediately ends and is negated.</p><p>Alternatively, you
+          may imbue a creature dead no longer than 10 minutes with the collected energy, reincarnating it as though it gained
+          these benefits. After either alternative effect, no effect of this feature can be used for 4d4 weeks.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: reincarnation-eye
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    048733173994a643:
+      _id: 048733173994a643
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires an active Tenseigan. Reset Collected Celestial Energy spent uses to 0 before starting.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: b3c03bcfbcbabe98
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Begin Collecting Celestial Energy
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - b3c03bcfbcbabe98
+    6815fe6d3585b656:
+      _id: 6815fe6d3585b656
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use only after the self-reformation or ally-reincarnation alternative.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Alternative-Effect Lockout
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 4d4
+        name: Weeks until Reincarnation Eye Returns
+        prompt: true
+        visible: true
+effects:
+  - name: Collecting Celestial Energy
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.a83189a126d1b4d0
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: b3c03bcfbcbabe98
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: reincarnation-eye
+          sourceItemId: a83189a126d1b4d0
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!a83189a126d1b4d0.b3c03bcfbcbabe98"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: action-once-per-long-rest-collection-state-and-lockout-roll
+          mode: native
+        - clause: names-lies-planes-past-lives-and-damaged-reality
+          mode: manual
+        - clause: zero-hit-point-trigger-self-reformation-and-soul-cost-negation
+          mode: prompt
+        - clause: ally-reincarnation-and-four-d4-week-lockout
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!a83189a126d1b4d0"

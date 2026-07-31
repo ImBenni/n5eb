@@ -59,6 +59,8 @@
  *                                                damage or first damage part.
  * @property {boolean} damage.includeBase         Should damage defined by the item be included with other damage parts?
  * @property {DamageData[]} damage.parts          Parts of damage to inflict.
+ * @property {object} damage.versatile
+ * @property {DamageData[]} damage.versatile.parts  Alternate damage which replaces primary damage when selected.
  */
 
 /**

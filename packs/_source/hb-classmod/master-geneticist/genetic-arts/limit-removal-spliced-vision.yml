@@ -1,0 +1,333 @@
+folder: 55be1e571eb68368
+name: "Limit Removal: Spliced Vision"
+type: spell
+_id: acf16ab804167d72
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+system:
+  description:
+    value: >-
+      <h2>Limit Removal: Spliced Vision</h2><p><strong>DNA Point Cost:</strong> 6<br><strong>Genetic
+      Degradation:</strong> 2<br><strong>Casting Time:</strong> 1 Bonus Action<br><strong>Range:</strong>
+      Self<br><strong>Duration:</strong> 1 Minute</p><p>While active, automatically know the Clan or Species of any
+      creature within 60 feet and whether it has cellular modifications. This does not work on
+      Constructs.</p><p><strong>Limit Breaker:</strong> Alternatively incur 4 Degradation to also see a creature's Clan,
+      Class, Role, and Hit or Chakra Points.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-limit-removal-spliced-vision
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components: []
+    keywords:
+      - genetic-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 6 DNA Points allocated; 2 Genetic Degradation when used
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:master-geneticist
+  activities:
+    f3c7bd9554df0b53:
+      _id: f3c7bd9554df0b53
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this Genetic Art is learned. Do not spend this purchase cost when casting it.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Allocate DNA Cost (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    c6913a5f0fe69f91:
+      _id: c6913a5f0fe69f91
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 5d04ea763d3bfc3b
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Spliced Vision
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 5d04ea763d3bfc3b
+    c6d1145efc38dbff:
+      _id: c6d1145efc38dbff
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Use this 4-Degradation alternative instead of the normal activation.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 5d04ea763d3bfc3b
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Limit Breaker: Advanced Spliced Vision"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 5d04ea763d3bfc3b
+effects:
+  - name: "Limit Removal: Spliced Vision"
+    img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+    origin: Item.acf16ab804167d72
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 5d04ea763d3bfc3b
+    type: base
+    system: {}
+    description: Inspect creatures within 60 feet according to the chosen activation. Constructs are immune.
+    tint: "#74508f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: master-geneticist
+          form: ""
+          sourceItemId: acf16ab804167d72
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785452400000
+      modifiedTime: 1785452400000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!acf16ab804167d72.5d04ea763d3bfc3b"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: one-time-dna-allocation-and-per-use-degradation
+          mode: native
+        - clause: trigger-and-cross-jutsu-resolution
+          mode: midi-enhanced
+        - clause: choices-and-irreversible-results
+          mode: prompt
+    classmodArt:
+      classmod: master-geneticist
+      classification: Genetic Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!acf16ab804167d72"

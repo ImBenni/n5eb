@@ -2,7 +2,7 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Voice of the Falling Sky'
 type: spell
 _id: 78SnDQQGevPF8eT3
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -22,9 +22,10 @@ system:
       Chilled, Corroded, Envenomed &amp; Shocked) (Physical: Bruised, Bleeding, Lacerated, Weakened)</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -106,7 +107,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -116,17 +117,77 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    c446abac3299bf80:
+      _id: c446abac3299bf80
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Voice of the Falling Sky'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts: []
+        onSave: none
 effects:
   - name: Burned
     origin: Compendium.n5eb.classmod.Item.78SnDQQGevPF8eT3
     duration:
-      rounds: 10
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 10
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -158,31 +219,31 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/burning.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: k30f29iKzsOilGb0
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.OverTime
-        mode: 5
-        value: |-
-          turn=start,
-          rollType=skill,
-          saveAbility=sur,
-          saveDC=15,
-          actionSave=dialog,
-          damageBeforeSave=true,
-          damageRoll=1d8,
-          damageType=fire,
-          saveRemove=true,
-          name=Burned,
-          chatFlavor=It's very hot!,
-          fastForwardDamage=true,
-        priority: 20
-      - key: system.attributes.concentration.bonuses.save
-        mode: 2
-        value: '-2 * @stackCount'
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.OverTime
+          value: |-
+            turn=start,
+            rollType=skill,
+            saveAbility=sur,
+            saveDC=15,
+            actionSave=dialog,
+            damageBeforeSave=true,
+            damageRoll=1d8,
+            damageType=fire,
+            saveRemove=true,
+            name=Burned,
+            chatFlavor=It's very hot!,
+            fastForwardDamage=true,
+          priority: 20
+          type: override
+        - key: system.attributes.concentration.bonuses.save
+          value: '-2 * @stackCount'
+          priority: 20
+          type: add
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it
       has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration
@@ -198,23 +259,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!78SnDQQGevPF8eT3.k30f29iKzsOilGb0'
   - name: Chilled
     origin: Compendium.n5eb.classmod.Item.78SnDQQGevPF8eT3
     duration:
-      rounds: 10
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 10
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -246,35 +308,35 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/chilled.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: VekhQ1oNX8bw8fys
     type: base
-    system: {}
-    changes:
-      - key: system.attributes.movement.walk
-        mode: 2
-        value: '-5'
-        priority: 20
-      - key: system.attributes.movement.fly
-        mode: 2
-        value: '-5'
-        priority: 20
-      - key: system.attributes.movement.burrow
-        mode: 2
-        value: '-5'
-        priority: 20
-      - key: system.attributes.movement.swim
-        mode: 2
-        value: '-5'
-        priority: 20
-      - key: system.abilities.dex.bonuses.check
-        mode: 2
-        value: '-1'
-        priority: 20
-      - key: system.abilities.dex.bonuses.save
-        mode: 2
-        value: '-1'
-        priority: 20
+    system:
+      changes:
+        - key: system.attributes.movement.walk
+          value: -5
+          priority: 20
+          type: add
+        - key: system.attributes.movement.fly
+          value: -5
+          priority: 20
+          type: add
+        - key: system.attributes.movement.burrow
+          value: -5
+          priority: 20
+          type: add
+        - key: system.attributes.movement.swim
+          value: -5
+          priority: 20
+          type: add
+        - key: system.abilities.dex.bonuses.check
+          value: -1
+          priority: 20
+          type: add
+        - key: system.abilities.dex.bonuses.save
+          value: -1
+          priority: 20
+          type: add
     description: ''
     tint: '#ffffff'
     transfer: false
@@ -283,23 +345,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.dA6M7Es85XogMEc6.ActiveEffect.nX1BXMe4KCK4ngMY
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!78SnDQQGevPF8eT3.VekhQ1oNX8bw8fys'
   - name: Corroded
     origin: Compendium.n5eb.classmod.Item.78SnDQQGevPF8eT3
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -331,36 +394,36 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/corroded.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: jLohhubHVL0OFsdd
     type: base
-    system: {}
-    changes:
-      - key: system.abilities.con.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.con.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: flags.midi-qol.DR.all
-        mode: 2
-        value: '-2 * @stackCount'
-        priority: 20
-      - key: flags.midi-qol.OverTime
-        mode: 0
-        value: |-
-          saveDC=15,
-          label=Corroded,
-          saveAbility=dex|con,
-          saveRemove=true,
-          rollType=check,
-          chatFlavor=This shit sticky yo,
-          actionSave=dialog,
-        priority: 20
+    system:
+      changes:
+        - key: system.abilities.con.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.con.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: flags.midi-qol.DR.all
+          value: '-2 * @stackCount'
+          priority: 20
+          type: add
+        - key: flags.midi-qol.OverTime
+          value: |-
+            saveDC=15,
+            label=Corroded,
+            saveAbility=dex|con,
+            saveRemove=true,
+            rollType=check,
+            chatFlavor=This shit sticky yo,
+            actionSave=dialog,
+          priority: 20
+          type: custom
     description: >-
-      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Corroded</strong> creature has been exposed to some kind of
+      <p><strong>Max Ranks</strong>: 5</p><hr><p>A <strong>Corroded</strong> creature has been exposed to some kind of
       acidic compound, causing their flesh and equipment to wither and deteriorate if left untreated.</p><ul><li><p>A
       <strong>Corroded</strong> creature gains a -2 penalty to its DR (damage reduction) for each rank it
       has.</p></li><li><p>A <strong>Corroded</strong> creature gains a -1 penalty to all Constitution based checks &amp;
@@ -373,23 +436,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.TJkoBRRPODGhibDp.ActiveEffect.gXQCDxapEi50ixYD
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!78SnDQQGevPF8eT3.jLohhubHVL0OFsdd'
   - name: Poisoned/Envenomed
     origin: Compendium.n5eb.classmod.Item.78SnDQQGevPF8eT3
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -421,31 +485,31 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: cqtAxFUS1DhWCVOp
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.OverTime
-        mode: 5
-        value: |-
-          turn=start,
-          damageRoll=1d6,
-          damageType=poison,
-          label=Poisoned/Envenomed,
-          chatFlavor=YUCK I feel SICK,
-          fastForwardDamage=true,
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: poisoned
-        priority: 20
-      - key: system.attributes.ac.bonus
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.OverTime
+          value: |-
+            turn=start,
+            damageRoll=1d6,
+            damageType=poison,
+            label=Poisoned/Envenomed,
+            chatFlavor=YUCK I feel SICK,
+            fastForwardDamage=true,
+          priority: 20
+          type: override
+        - key: StatusEffect
+          value: poisoned
+          priority: 20
+          type: custom
+        - key: system.attributes.ac.bonus
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
     description: >-
-      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
+      <p><strong>Max Ranks</strong>: 5</p><hr><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
       been exposed to some kind of venom or toxin, causing their vitality and immune health to drop
       rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it
       has, at the start of each of their turns for the duration of this condition</p></li><li><p>An
@@ -460,23 +524,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!78SnDQQGevPF8eT3.cqtAxFUS1DhWCVOp'
   - name: Shocked
     origin: Compendium.n5eb.classmod.Item.78SnDQQGevPF8eT3
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -508,29 +573,29 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/shocked.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: GtrsYyuTg6akAXi3
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.OverTime
-        mode: 2
-        value: |-
-          saveDC=15,
-          rollType=skill,
-          saveAbility=sur,
-          actionSave=dialog,
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.OverTime
+          value: |-
+            saveDC=15,
+            rollType=skill,
+            saveAbility=sur,
+            actionSave=dialog,
+          priority: 20
+          type: add
     description: >-
-      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Shocked creature’s nervous system has been flooded with
-      electricity, causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a
-      reaction, takes 1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A
-      <strong>Shocked</strong> creature who takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a
-      failure, they double the cost of the jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC
-      12).</p></li><li><p>A creature resistant to Lightning damage makes their flat check at advantage and also has
-      resistance to this condition. A creature immune to Lightning damage has immunity to this
-      condition.</p></li><li><p>A creature can spend an Action to make a DC 15 Constitution (Survival) Check to ground
-      themselves, dispersing the electricity in their body ending this condition.</p></li></ul>
+      <p><strong>Max Ranks</strong>: 5</p><hr><p>A Shocked creature’s nervous system has been flooded with electricity,
+      causing muscle spasms and brain fog.</p><ul><li><p>A <strong>Shocked</strong> creature who takes a reaction, takes
+      1d6 Lightning damage, for each rank it has, once per turn.</p></li><li><p>A <strong>Shocked</strong> creature who
+      takes a Reaction to cast a jutsu must first make a DC 8 Flat check. On a failure, they double the cost of the
+      jutsu. For rank of shocked beyond the first, increase this DC by +1 (Max DC 12).</p></li><li><p>A creature
+      resistant to Lightning damage makes their flat check at advantage and also has resistance to this condition. A
+      creature immune to Lightning damage has immunity to this condition.</p></li><li><p>A creature can spend an Action
+      to make a DC 15 Constitution (Survival) Check to ground themselves, dispersing the electricity in their body
+      ending this condition.</p></li></ul>
     tint: '#ffffff'
     transfer: false
     statuses: []
@@ -538,23 +603,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.ykWxQwl41OnznbsF.ActiveEffect.aBkvMKV34CVJUTIE
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!78SnDQQGevPF8eT3.GtrsYyuTg6akAXi3'
   - name: Bleeding
     origin: Compendium.n5eb.classmod.Item.78SnDQQGevPF8eT3
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -586,32 +652,32 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/bleeding.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: HS1QQkJalqPNQt0l
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.OverTime
-        mode: 5
-        value: |-
-          turn=start,
-          damageRoll=1d4, damageType=necrotic,
-          label=Bleeding,
-          damageBeforeSave=true,
-          actionSave=dialog,
-          saveRemove=true,
-          saveDC=15,
-          chatFlavor=Lil paper cut fr,
-          rollType=skill,
-          saveAbility=med,
-          fastForwardDamage=true,
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: bleeding
-        priority: 0
+    system:
+      changes:
+        - key: flags.midi-qol.OverTime
+          value: |-
+            turn=start,
+            damageRoll=1d4, damageType=necrotic,
+            label=Bleeding,
+            damageBeforeSave=true,
+            actionSave=dialog,
+            saveRemove=true,
+            saveDC=15,
+            chatFlavor=Lil paper cut fr,
+            rollType=skill,
+            saveAbility=med,
+            fastForwardDamage=true,
+          priority: 20
+          type: override
+        - key: StatusEffect
+          value: bleeding
+          priority: 0
+          type: custom
     description: >-
-      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A Bleeding creature has suffered a minor abrasion to their flesh,
+      <p><strong>Max Ranks</strong>: 5</p><hr><p>A Bleeding creature has suffered a minor abrasion to their flesh,
       causing slow blood loss if untreated.</p><ul><li><p>At the start of their turn, a bleeding creature takes 1d4
       necrotic damage for each rank of Bleed they have.</p></li><li><p>A Bleeding creature cannot gain the benefits of a
       rest.</p></li><li><p>As an Action, a Bleeding creature may attempt to stop the bleeding by succeeding on a DC 15
@@ -628,23 +694,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.R5TffwBlhJzos3Dr.ActiveEffect.4qbOL9DebfIrn0PS
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!78SnDQQGevPF8eT3.HS1QQkJalqPNQt0l'
   - name: Bruised
     origin: Compendium.n5eb.classmod.Item.78SnDQQGevPF8eT3
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -784,27 +851,27 @@ effects:
                 type: 0
                 self: false
               weaponProperties: []
-    img: systems/n5eb/icons/svg/statuses/bruised.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: IW9YBh531SeeQJyL
     type: base
-    system: {}
-    changes:
-      - key: system.abilities.str.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.dex.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.con.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: bruised
-        priority: 20
+    system:
+      changes:
+        - key: system.abilities.str.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.dex.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.con.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: bruised
+          priority: 20
+          type: custom
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Bruised creature suffers a -1 penalty to all Strength, Dexterity
       &amp; Constitution based attack rolls and checks for each rank they have.</p></li><li><p>A Bruised creature takes
@@ -822,23 +889,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.6jTSe6avKTHv61xR.ActiveEffect.E8EMTtQE84gz6Kjy
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    showIcon: 2
+    start: null
+    folder: null
     _key: '!items.effects!78SnDQQGevPF8eT3.IW9YBh531SeeQJyL'
   - name: Lacerated
     origin: Compendium.n5eb.classmod.Item.78SnDQQGevPF8eT3
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -870,32 +938,32 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/lacerated.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: JNvDj1NgldTtsPd1
     type: base
-    system: {}
-    changes:
-      - key: StatusEffect
-        mode: 0
-        value: lacerated
-        priority: 0
-      - key: flags.midi-qol.OverTime
-        mode: 2
-        value: |-
-          turn=start,
-          damageRoll=1d6,
-          damageType=necrotic,
-          label=Lacerated,
-          chatFlavor=THIS A BIG CUT CUH,
-          saveDC=20,
-          actionSave=dialog,
-          rollType=skill,
-          actionSave=true,
-          saveAbility=med,
-          fastForwardDamage=true,
-        priority: 20
+    system:
+      changes:
+        - key: StatusEffect
+          value: lacerated
+          priority: 0
+          type: custom
+        - key: flags.midi-qol.OverTime
+          value: |-
+            turn=start,
+            damageRoll=1d6,
+            damageType=necrotic,
+            label=Lacerated,
+            chatFlavor=THIS A BIG CUT CUH,
+            saveDC=20,
+            actionSave=dialog,
+            rollType=skill,
+            actionSave=true,
+            saveAbility=med,
+            fastForwardDamage=true,
+          priority: 20
+          type: add
     description: >-
-      <p><strong>Max Ranks</strong>: 100</p><hr /><p>A <strong>Lacerated</strong> creature has suffered a major wound on
+      <p><strong>Max Ranks</strong>: 100</p><hr><p>A <strong>Lacerated</strong> creature has suffered a major wound on
       their body and begins to bleed profusely, the rushing blood causing the wound to grow in intensity with each
       passing second.</p><ul><li><p>A <strong>Lacerated</strong> creature is counted as <strong>Bleeding</strong> for
       the purposes of interacting with Features, Traits and Jutsu</p></li><li><p>At the beginning of a
@@ -914,23 +982,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.0imnrcSgN8C9eC29.ActiveEffect.Uydv91vQ1g52vDiO
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!78SnDQQGevPF8eT3.JNvDj1NgldTtsPd1'
   - name: Weakened
     origin: Compendium.n5eb.classmod.Item.78SnDQQGevPF8eT3
     duration:
-      rounds: 10
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 10
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -962,19 +1031,19 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/weakened.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: uLeM6kaIwrWOh3nw
     type: base
-    system: {}
-    changes:
-      - key: system.bonuses.All-Damage
-        mode: 2
-        value: '-4 * @stackCount'
-        priority: 20
-      - key: system.abilities.str.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
+    system:
+      changes:
+        - key: system.bonuses.All-Damage
+          value: '-4 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.str.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
     description: ''
     tint: '#ffffff'
     transfer: false
@@ -984,12 +1053,16 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.DFjAW6o3pBiWJrCu.ActiveEffect.lmKCCwudyDvJoYtm
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    showIcon: 2
+    start: null
+    folder: null
     _key: '!items.effects!78SnDQQGevPF8eT3.uLeM6kaIwrWOh3nw'
 sort: 0
 ownership:
@@ -1107,6 +1180,15 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
   midi-qol:
     AoETargetType: any
     AoETargetTypeIncludeSelf: true

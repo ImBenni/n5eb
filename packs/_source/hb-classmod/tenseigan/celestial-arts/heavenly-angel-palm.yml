@@ -1,0 +1,445 @@
+folder: 10a1a7fb0f5d333c
+name: Heavenly Angel Palm
+type: spell
+_id: 003c5428dc7ad628
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: >-
+      <h2>Heavenly Angel Palm</h2><dl class="n5eb-classmod-summary"><dt>Origin:</dt><dd>Lion
+      Palm</dd><dt>Classification:</dt><dd>Celestial Art</dd><dt>Casting Time:</dt><dd>1 Bonus
+      Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Concentration, up to 1
+      minute</dd><dt>Components:</dt><dd>M, CM</dd><dt>Cost:</dt><dd>15 Celestial Chakra</dd><dt>Celestial
+      Strain:</dt><dd>+3</dd><dt>Keywords:</dt><dd>Hijutsu, Taijutsu</dd></dl><h3>Description</h3><p>Celestial Chakra
+      coats your palms and forearms in a fiery emerald shape of your choice. You do not
+          spend additional Celestial Chakra to maintain concentration.</p><p>While in the Gentle Fist stance, all Unarmed
+          attacks deal 4d12 + your Taijutsu ability modifier to Hit Points and reduce Chakra by the same result. Hyūga Clan
+          Jutsu you cast have their damage die become d12 and ignore damage reduction, resistance, and immunity.</p>
+          <p>When you deal damage with an Unarmed attack, if the creature is not benefiting from a Jutsu, Feature, or Art
+          that grants an AC bonus or temporary Hit Points, treat it as vulnerable to your Unarmed attacks.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: heavenly-angel-palm
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: taijutsu
+    ability: ""
+    components:
+      - m
+      - cm
+    keywords:
+      - hijutsu
+      - taijutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 15 Celestial Chakra; +3 Celestial Strain
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:tenseigan
+  activities:
+    9992465a80a3ccf2:
+      _id: 9992465a80a3ccf2
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires an active Tenseigan.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "15"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 15 Celestial Chakra and incur 3 Celestial Strain.
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 586b44b7705b1eb8
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Heavenly Angel Palm
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 586b44b7705b1eb8
+    2812606e0b6628d9:
+      _id: 2812606e0b6628d9
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 3 or 4.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "12"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 12 Celestial Chakra and incur 2 Celestial Strain.
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 28bdd6e263c7cfd0
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Heavenly Angel Palm (Celestial Chakra Mode)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 28bdd6e263c7cfd0
+    66f3b44f1a783027:
+      _id: 66f3b44f1a783027
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires an active Tenseigan and Celestial Chakra Mode at class-mod level 5.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "11"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:celestial-strain
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: Spend 11 Celestial Chakra and incur 1 Celestial Strain.
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 4b89c6c156bb7e89
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Heavenly Angel Palm (Celestial Chakra Mode 2)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 4b89c6c156bb7e89
+effects:
+  - name: Heavenly Angel Palm
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.003c5428dc7ad628
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 586b44b7705b1eb8
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: heavenly-angel-palm
+          sourceItemId: 003c5428dc7ad628
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!003c5428dc7ad628.586b44b7705b1eb8"
+  - name: Heavenly Angel Palm
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.003c5428dc7ad628
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 28bdd6e263c7cfd0
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: heavenly-angel-palm
+          sourceItemId: 003c5428dc7ad628
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!003c5428dc7ad628.28bdd6e263c7cfd0"
+  - name: Heavenly Angel Palm
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.003c5428dc7ad628
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 4b89c6c156bb7e89
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: heavenly-angel-palm
+          sourceItemId: 003c5428dc7ad628
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!003c5428dc7ad628.4b89c6c156bb7e89"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: bonus-action-cost-strain-concentration-duration-and-state-effect
+          mode: native
+        - clause: unarmed-hit-and-chakra-damage-hyuga-die-replacement-and-bypass
+          mode: prompt
+        - clause: conditional-unarmed-vulnerability
+          mode: midi-enhanced
+    classmodArt:
+      classmod: tenseigan
+      classification: Celestial Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!003c5428dc7ad628"

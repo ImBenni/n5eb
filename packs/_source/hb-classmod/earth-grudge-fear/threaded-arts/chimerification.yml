@@ -1,0 +1,329 @@
+folder: 453486bacac9d208
+name: Chimerification
+type: spell
+_id: ff049a05d15ac24f
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <h3>Threaded Art Type: Technique</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Kinjutsu</dd><dt>Casting Time:</dt><dd>1 Bonus
+      Action</dd><dt>Range:</dt><dd>20 feet</dd><dt>Duration:</dt><dd>Up to 1 hour</dd><dt>Components:</dt><dd>CM,
+      HS</dd><dt>Cost:</dt><dd>10 Decay + upkeep</dd><dt>Keywords:</dt><dd>Threaded
+      Art</dd></dl><h3>Description:</h3><p>Requires summoned Thread Monsters. Combine them into one Threaded Chimera,
+      which acts immediately after your turn and can be dismissed as a bonus action. At the end of each of its turns,
+      incur 5 Decay reduced by 1 for each Earth Grudge Fear level. The helper Actor uses its CR field as your class-mod
+      level and prompts for combined Chakra and the original monsters' Jutsu.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-chimerification
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+      - hs
+    keywords:
+      - threaded-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Decay + upkeep
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:earth-grudge-fear
+  activities:
+    7377dbc5cb334cb4:
+      _id: 7377dbc5cb334cb4
+      type: summon
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires summoned Thread Monsters; remove their tokens while the Chimera exists.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: hour
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 20
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Threaded Chimera
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: true
+        proficiency: true
+        saves: true
+      profiles:
+        - count: ""
+          name: Threaded Chimera
+          _id: 242a7328c468bf5f
+          uuid: Compendium.n5eb.npc.Actor.d8c429224f4010f9
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: earth-grudge-threaded-chimera
+        mode: ""
+        prompt: true
+    3daaac7a1026785e:
+      _id: 3daaac7a1026785e
+      type: summon
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires Mastered EGF and summoned Thread Monsters.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: hour
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 20
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Chimera (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: true
+        proficiency: true
+        saves: true
+      profiles:
+        - count: ""
+          name: Threaded Chimera
+          _id: f7aab3741cf126e3
+          uuid: Compendium.n5eb.npc.Actor.d8c429224f4010f9
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: earth-grudge-threaded-chimera
+        mode: ""
+        prompt: true
+    9daa16b5596feec2:
+      _id: 9daa16b5596feec2
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: End of each Chimera turn. At level 5 the source formula reaches 0 Decay.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: 5 - @classmods.earth-grudge-fear.levels
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Chimera Upkeep
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: summon-initial-decay-duration-and-owner-stat-matching
+          mode: native
+        - clause: per-turn-upkeep-original-monster-removal-and-jutsu-roster
+          mode: prompt
+    classmodArt:
+      classmod: earth-grudge-fear
+      classification: Threaded Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!ff049a05d15ac24f"

@@ -1,0 +1,489 @@
+folder: 028b5f0a2340c176
+name: Tsukuyomi
+type: spell
+_id: b1d4f9d80b512bbc
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <h3>Malefic Genjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Malefic Art</dd><dt>Casting
+      Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>60 feet; eye contact</dd><dt>Duration:</dt><dd>Until the end of your
+      turn</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>14 Chakra and 3 Burn; Mastered: 12 Chakra and 2
+      Burn</dd><dt>Keywords:</dt><dd>Genjutsu, Visual, Malefic</dd></dl><h3>Description:</h3><p>A creature within range
+      that makes eye contact makes a Wisdom save with disadvantage unless it has Chakra Sight. On failure, trap it
+      within an illusion for 4d12 perceived mental years, ending at the end of your turn. You may torture it for 1d8
+      Psychic damage per perceived year; it is Weakened until a Long Rest, and doing so doubles this Art's Burn
+      cost.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-tsukuyomi
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: genjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - genjutsu
+      - visual
+      - malefic
+    countsKnown: false
+  chakra:
+    cost: "14"
+    scaling:
+      mode: none
+      value: 0
+    special: "14 Chakra and 3 Burn; Mastered: 12 Chakra and 2 Burn"
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:mangekyo-redux
+  activities:
+    c905dc4b44766246:
+      _id: c905dc4b44766246
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. Prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-awakening
+            value: "18"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (18 Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    6344f9f82e1af1c1:
+      _id: 6344f9f82e1af1c1
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Requires Mastered Tsukuyomi. Spend its restricted Awakening instead of general Awakening.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-mastered-tsukuyomi-awakening
+            value: "18"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase with Mastered Tsukuyomi (18)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    a4d5fd5c892ea828:
+      _id: a4d5fd5c892ea828
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires eye contact. The save has disadvantage unless the target has Chakra Sight.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+    c3b6d236aa6761b2:
+      _id: c3b6d236aa6761b2
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered Tsukuyomi. Pay 2 less Chakra and 1 less Burn.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast (Mastered)
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+    4531ef1558e479d1:
+      _id: 4531ef1558e479d1
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Perceived Years
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 4d12
+        name: Perceived Mental Years
+        prompt: false
+        visible: true
+    e194679be8864a9a:
+      _id: e194679be8864a9a
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Roll 1d8 Psychic damage separately for each perceived year; this activity is a per-year roll and prompt.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:mangekyo-redux-malefic-burn
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Resolve Torture
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d8
+        name: Psychic Torture per Perceived Year
+        prompt: false
+        visible: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: chakra-burn-save-range-and-year-roll
+          mode: native
+        - clause: eye-contact-and-chakra-sight-disadvantage
+          mode: prompt
+        - clause: per-year-damage-weakened-and-doubled-burn
+          mode: manual
+    classmodArt:
+      classmod: mangekyo-redux
+      classification: Malefic Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!b1d4f9d80b512bbc"

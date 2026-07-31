@@ -1,0 +1,154 @@
+folder: 340d32452873a125
+name: Alone
+type: spell
+_id: e4bc864b4fdee960
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <h3>Dark Art Type: Dark Genjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Dark
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>90 feet</dd><dt>Duration:</dt><dd>Concentration,
+      up to 1 minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>10 Dark
+      Chakra</dd><dt>Keywords:</dt><dd>Genjutsu, Dark Release, Concentration,
+      Mental</dd></dl><h3>Description:</h3><p>Choose a creature within range. It makes a Wisdom saving throw. On a
+      failed save, it is phased into a layer of reality where it can see and interact only with you; other creatures
+      cannot see or interact with it for the duration.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: dark-release-alone
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: genjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - genjutsu
+      - dark-release
+      - concentration
+      - mental
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Dark Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:dark-release
+  activities:
+    b5a515247aa91edb:
+      _id: b5a515247aa91edb
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires an active Dark Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:dark-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 90
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: dark-release
+      classification: Dark Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!e4bc864b4fdee960"

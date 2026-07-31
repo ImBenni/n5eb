@@ -2,7 +2,7 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Mists of Destruction'
 type: spell
 _id: H54cmW2sXfw48TsB
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -22,9 +22,10 @@ system:
       damage and half as many ranks on a success.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -108,7 +109,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -118,17 +119,88 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    cb768be409214272:
+      _id: cb768be409214272
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Mists of Destruction'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts:
+          - number: null
+            denomination: 0
+            bonus: ''
+            types: []
+            custom:
+              enabled: true
+              formula: 14d8
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
 effects:
   - name: Corroded
     origin: Compendium.n5eb.classmod.Item.H54cmW2sXfw48TsB
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -160,36 +232,36 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/corroded.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: xByXLJ1flEtgwd0D
     type: base
-    system: {}
-    changes:
-      - key: system.abilities.con.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.con.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: flags.midi-qol.DR.all
-        mode: 2
-        value: '-2 * @stackCount'
-        priority: 20
-      - key: flags.midi-qol.OverTime
-        mode: 0
-        value: |-
-          saveDC=15,
-          label=Corroded,
-          saveAbility=dex|con,
-          saveRemove=true,
-          rollType=check,
-          chatFlavor=This shit sticky yo,
-          actionSave=dialog,
-        priority: 20
+    system:
+      changes:
+        - key: system.abilities.con.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.con.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: flags.midi-qol.DR.all
+          value: '-2 * @stackCount'
+          priority: 20
+          type: add
+        - key: flags.midi-qol.OverTime
+          value: |-
+            saveDC=15,
+            label=Corroded,
+            saveAbility=dex|con,
+            saveRemove=true,
+            rollType=check,
+            chatFlavor=This shit sticky yo,
+            actionSave=dialog,
+          priority: 20
+          type: custom
     description: >-
-      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Corroded</strong> creature has been exposed to some kind of
+      <p><strong>Max Ranks</strong>: 5</p><hr><p>A <strong>Corroded</strong> creature has been exposed to some kind of
       acidic compound, causing their flesh and equipment to wither and deteriorate if left untreated.</p><ul><li><p>A
       <strong>Corroded</strong> creature gains a -2 penalty to its DR (damage reduction) for each rank it
       has.</p></li><li><p>A <strong>Corroded</strong> creature gains a -1 penalty to all Constitution based checks &amp;
@@ -202,23 +274,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.TJkoBRRPODGhibDp.ActiveEffect.gXQCDxapEi50ixYD
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!H54cmW2sXfw48TsB.xByXLJ1flEtgwd0D'
   - name: Poisoned/Envenomed
     origin: Compendium.n5eb.classmod.Item.H54cmW2sXfw48TsB
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -250,31 +323,31 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/poisoned.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: lUrbcq28GYSGX2Hf
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.OverTime
-        mode: 5
-        value: |-
-          turn=start,
-          damageRoll=1d6,
-          damageType=poison,
-          label=Poisoned/Envenomed,
-          chatFlavor=YUCK I feel SICK,
-          fastForwardDamage=true,
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: poisoned
-        priority: 20
-      - key: system.attributes.ac.bonus
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.OverTime
+          value: |-
+            turn=start,
+            damageRoll=1d6,
+            damageType=poison,
+            label=Poisoned/Envenomed,
+            chatFlavor=YUCK I feel SICK,
+            fastForwardDamage=true,
+          priority: 20
+          type: override
+        - key: StatusEffect
+          value: poisoned
+          priority: 20
+          type: custom
+        - key: system.attributes.ac.bonus
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
     description: >-
-      <p><strong>Max Ranks</strong>: 5</p><hr /><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
+      <p><strong>Max Ranks</strong>: 5</p><hr><p>A <strong>Envenomed</strong> creature (sometimes called Poisoned) has
       been exposed to some kind of venom or toxin, causing their vitality and immune health to drop
       rapidly.</p><ul><li><p>An <strong>Envenomed</strong> creature or object takes 1d6 poison damage for each rank it
       has, at the start of each of their turns for the duration of this condition</p></li><li><p>An
@@ -289,23 +362,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.AgEbkILgtlF5naAS.ActiveEffect.0Nf1yI2bA3D4Ftd8
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!H54cmW2sXfw48TsB.lUrbcq28GYSGX2Hf'
   - name: Concussed
     origin: Compendium.n5eb.classmod.Item.H54cmW2sXfw48TsB
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -337,47 +411,47 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/concussed.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: M2t1KTIxKaYZXlFo
     type: base
-    system: {}
-    changes:
-      - key: system.abilities.int.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.cha.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.con.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.dex.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.int.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.str.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.wis.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.int.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: concussed
-        priority: 20
+    system:
+      changes:
+        - key: system.abilities.int.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.cha.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.con.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.dex.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.int.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.str.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.wis.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.int.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: concussed
+          priority: 20
+          type: custom
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental
       acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A
@@ -393,12 +467,16 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!H54cmW2sXfw48TsB.M2t1KTIxKaYZXlFo'
 sort: 0
 ownership:
@@ -518,6 +596,15 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
   midi-qol:
     AoETargetType: any
     AoETargetTypeIncludeSelf: true

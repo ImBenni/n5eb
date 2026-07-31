@@ -1,0 +1,174 @@
+folder: da2af3e5b72f2803
+name: Mangekyo Sharingan
+type: feat
+_id: ac950f4ed058d4e1
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+system:
+  description:
+    value: >-
+      <p>As a bonus action, activate your Mangekyo Sharingan for up to 10 minutes. You retain the benefits of the
+      Sharingan clan feature and can maintain this feature for a total of 1 hour per Long Rest. Your Malefic Arts and
+      Talents require it to be active. When gained, choose one additional Sharingan ability from each of the 1-Tomoe,
+      2-Tomoe, and 3-Tomoe lists. Every Sharingan ability you possess gains 2 additional uses.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: "60"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-mangekyo-sharingan
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    c4f9de5f9f8173df:
+      _id: c4f9de5f9f8173df
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Choose the number of minutes used, from 1 to 10, and scale the consumption by that amount.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "10"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 3a76da48b55f3069
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Mangekyo Sharingan
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 3a76da48b55f3069
+  advancement: {}
+effects:
+  - name: Mangekyo Sharingan Active
+    img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+    origin: Item.ac950f4ed058d4e1
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 3a76da48b55f3069
+    type: base
+    system: {}
+    description: ""
+    tint: "#7d1025"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: mangekyo-redux
+          form: mangekyo-sharingan
+          sourceItemId: ac950f4ed058d4e1
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!ac950f4ed058d4e1.3a76da48b55f3069"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: bonus-action-activation-duration-and-hourly-pool
+          mode: native
+        - clause: active-state-for-malefic-arts-and-talents
+          mode: native
+        - clause: three-sharingan-choices
+          mode: native
+        - clause: two-additional-uses-for-existing-sharingan-abilities
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!ac950f4ed058d4e1"

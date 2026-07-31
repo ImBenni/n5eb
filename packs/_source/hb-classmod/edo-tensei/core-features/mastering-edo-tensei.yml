@@ -1,0 +1,372 @@
+folder: 71fb6fb35e87ae98
+name: Mastering Edo Tensei
+type: feat
+_id: a77684b8c70743f9
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: |-
+      <h2>Mastering Edo Tensei</h2>
+          <p>Learning Edo Tensei is a GM-led, four-step ritual. Each step requires four checks in its listed skill, and at
+          least three of the four checks must succeed.</p>
+          <table><thead><tr><th>Step</th><th>Skill</th><th>DC</th><th>Minimum Downtime</th><th>Base Cost</th></tr></thead><tbody>
+          <tr><td>1</td><td>Investigation</td><td>25</td><td>6</td><td>250 Ryo</td></tr>
+          <tr><td>2</td><td>Chakra Control</td><td>25</td><td>6</td><td>250 Ryo</td></tr>
+          <tr><td>3</td><td>Medicine</td><td>25</td><td>6</td><td>500 Ryo</td></tr>
+          <tr><td>4</td><td>Ninshou</td><td>30</td><td>6</td><td>500 Ryo</td></tr>
+          </tbody></table>
+          <p>At each class-mod level above 1, each step's cost increases by its base amount. With each advancement at
+          character levels 13, 15, 17, and 19, the downtime cost of rituals decreases by 1.</p>
+          <h3>Failure</h3>
+          <ul>
+            <li><strong>Step 1:</strong> Gain 2 Exhaustion and spend 2 DT to recover.</li>
+            <li><strong>Step 2:</strong> You cannot attempt Edo Tensei again for 2 weeks.</li>
+            <li><strong>Step 3:</strong> Lose Mold Chakra and spend 3 DT to recover. If the failure is by 10 or more, Mold
+            Chakra remains lost until an A-Rank or higher condition-restoring Ninjutsu targets you.</li>
+            <li><strong>Step 4:</strong> Roll 1d10 on the Edo Tensei Corruption table. A second failure permanently loses
+            your soul.</li>
+          </ul>
+          <h3>Edo Tensei Corruption (1d10)</h3>
+          <ol><li>Living Tattoo</li><li>Reverse Shadow</li><li>Bone Whispers</li><li>Rotting Reflection</li>
+          <li>Extra Heart</li><li>Soul Leak</li><li>Hungering Nails</li><li>Grave Breath</li><li>Phantom Limb</li>
+          <li>Death Echo</li></ol>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-mastering-edo-tensei
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    71474662b0554b06:
+      _id: 71474662b0554b06
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Step 1: Investigation"
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.inv.total
+        name: Investigation Check (DC 25)
+        prompt: false
+        visible: true
+    e8becd430269ec43:
+      _id: e8becd430269ec43
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Step 2: Chakra Control"
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.ccl.total
+        name: Chakra Control Check (DC 25)
+        prompt: false
+        visible: true
+    96a8c876390654a3:
+      _id: 96a8c876390654a3
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Step 3: Medicine"
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.med.total
+        name: Medicine Check (DC 25)
+        prompt: false
+        visible: true
+    8113c63c7dbd3574:
+      _id: 8113c63c7dbd3574
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Step 4: Ninshou"
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @skills.nsh.total
+        name: Ninshou Check (DC 30)
+        prompt: false
+        visible: true
+    8f71e3a7cf506105:
+      _id: 8f71e3a7cf506105
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Edo Tensei Corruption
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d10
+        name: Edo Tensei Corruption
+        prompt: false
+        visible: true
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: four-skill-check-rolls-and-corruption-roll
+          mode: native
+        - clause: three-of-four-success-accounting-costs-downtime-and-recovery
+          mode: prompt
+        - clause: permanent-soul-loss-and-narrative-corruption
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!a77684b8c70743f9"

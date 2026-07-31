@@ -1,0 +1,151 @@
+folder: 340d32452873a125
+name: Dark Storm
+type: spell
+_id: 55ff3aec766b8d64
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <h3>Dark Art Type: Dark Ninjutsu</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Dark
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>Self (75-foot
+      cube)</dd><dt>Duration:</dt><dd>Concentration, up to 1
+      minute</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>15 Dark Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu,
+      Dark Release, Aura, Concentration, Area</dd></dl><h3>Description:</h3><p>A 75-foot cube of darkness follows you
+      for the duration. Your damaging Dark Arts that do not already reduce Chakra also reduce a target's Chakra by half
+      the damage dealt. Those Arts gain +2 damage dice for each Chakra Die the target is missing.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: dark-storm
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - dark-release
+      - aura
+      - concentration
+      - area
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 15 Dark Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:dark-release
+  activities:
+    4bbe8fd12b618c1c:
+      _id: 4bbe8fd12b618c1c
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires an active Dark Seal.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:dark-chakra
+            value: "15"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: true
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: cube
+          size: "75"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: resource-cost-and-primary-roll
+          mode: native
+        - clause: per-target-save-damage-and-effects
+          mode: midi-enhanced
+        - clause: remaining-art-choices
+          mode: prompt
+    classmodArt:
+      classmod: dark-release
+      classification: Dark Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!55ff3aec766b8d64"

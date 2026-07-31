@@ -1,4 +1,5 @@
 import CastActivity from "../../../documents/activity/cast.mjs";
+import { normalizeAttackActionType } from "../../../activity-utils.mjs";
 import SystemDataModel from "../../abstract/system-data-model.mjs";
 import { ActivitiesField } from "../../fields/activities-field.mjs";
 import UsesField from "../../shared/uses-field.mjs";
@@ -265,6 +266,7 @@ export default class ActivitiesTemplate extends SystemDataModel {
    * @param {object} source  The candidate source data from which the model will be constructed.
    */
   static #createInitialActivity(source) {
+    source.system.actionType = normalizeAttackActionType(source.system.actionType);
     let type = {
       mwak: "attack",
       rwak: "attack",
@@ -285,7 +287,7 @@ export default class ActivitiesTemplate extends SystemDataModel {
     if ( (type !== "save") && source.system.save?.ability ) {
       CONFIG.DND5E.activityTypes.save.documentClass.createInitialActivity(source, { offset: 1 });
     }
-    if ( (source.type !== "weapon") && source.system.damage?.versatile ) {
+    if ( (type !== "attack") && (source.type !== "weapon") && source.system.damage?.versatile ) {
       CONFIG.DND5E.activityTypes.damage.documentClass.createInitialActivity(source, { offset: 2, versatile: true });
     }
     if ( (type !== "utility") && source.system.formula ) {

@@ -2,7 +2,7 @@ folder: lAKW2wIWtDO9Aor8
 name: Malefic Illumination
 type: spell
 _id: Cpib32sRSPgQTxfm
-img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+img: systems/n5eb/assets/content/classmod-icons/mangekyo/amaterasu.webp
 system:
   description:
     value: >-
@@ -24,9 +24,10 @@ system:
       by +4 damage die.</p><img src="systems/n5eb/assets/content/cheat-sheets/malefic-illumination-keywords.webp" />
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 71–104
   activation:
     type: special
     cost: null
@@ -106,7 +107,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -116,6 +117,65 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:mangekyo-sharingan
+  activities:
+    84f3da520a013254:
+      _id: 84f3da520a013254
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Requires mangekyo-sharingan.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Malefic Illumination
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
 effects: []
 sort: 0
 ownership:
@@ -250,6 +310,15 @@ flags:
           value: 0
     classmodArt:
       classmod: mangekyo-sharingan
+    classmodCompendium:
+      classmod: mangekyo-sharingan
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

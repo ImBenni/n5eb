@@ -1,0 +1,113 @@
+folder: da2af3e5b72f2803
+name: Darkness
+type: feat
+_id: 0a43b78714cd0e3f
+img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+system:
+  description:
+    value: >-
+      <p>Darkness is permanent and is recorded as spent uses on this 100-point tracker. It is gained from Burn overflow
+      during a Full Rest. At 100 Darkness, you become blind in both eyes and lose this class mod and the Sharingan clan
+      feature. Eternal Mangekyo sets Darkness to 0 and prevents further Darkness.</p>
+    chat: ""
+  source:
+    custom: Mangekyo Redux
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: "100"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: mangekyo-redux-darkness
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    6f8407db75c8b23e:
+      _id: 6f8407db75c8b23e
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Add half the Burn remaining after subtracting the threshold, rounding down.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Record Burn Overflow
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo-redux/mangekyo-redux-eye.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: mangekyo-redux
+      coverage:
+        - clause: one-hundred-point-permanent-darkness-tracker
+          mode: native
+        - clause: blindness-and-feature-loss-at-one-hundred
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!0a43b78714cd0e3f"

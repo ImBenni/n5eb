@@ -1,0 +1,316 @@
+folder: d8b9c237b68542ef
+name: Dark Chakra
+type: feat
+_id: 2b14642b71195e28
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <p>You can access Dark Chakra only while your Dark Seal is active. Your base maximum is 10 + twice your current
+      proficiency bonus + 10 for each Dark Release level after the first, and each consumed spirit increases the maximum
+      by another 10. Record spirit-based increases on the owned tracker because Foundry cannot safely infer a narrative
+      spirit roster.</p><p>While the Seal is active, you must spend Dark Chakra instead of normal Chakra. Jutsu cast
+      with Dark Chakra gain a bonus to attack and damage rolls equal to your proficiency bonus. If a Jutsu has no attack
+      roll, its save DC increases by 1 per Dark Release level. If it has neither an attack nor a save, reduce its cost
+      by 1 per Dark Release level, to a minimum of 1.</p><p>As an action against a creature within 5 feet, you may spend
+      variable Dark Chakra to consume health; on a failed Constitution save, each point makes the target lose 1 Hit
+      Point and restores 1 to you, while on a success every 2 points make it lose 2 and restore 1. Spend 5 Dark Chakra
+      to attempt to transfer one condition to a creature within 5 feet; it resists with a Constitution save.</p><p>Spend
+      10 Dark Chakra to gain advantage on all checks and saves until your next turn; creatures within 5 feet cannot gain
+      advantage during that time. The draft does not specify a general recovery rule for spent Dark Chakra, so this
+      tracker does not invent one.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 11
+    license: ""
+    rules: n5eb
+  uses:
+    max: 10 + 2 * @prof + 10 * (@classmods.dark-release.levels - 1)
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: dark-chakra
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    4c8bf6dfea32f7c4:
+      _id: 4c8bf6dfea32f7c4
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Choose a Dark Chakra amount, deduct it from the tracker, then resolve the success/failure conversion.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Consume Health
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+    8fba71b706d7df28:
+      _id: 8fba71b706d7df28
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:dark-chakra
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Transfer Condition
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+    03d1dcb0b6c3950b:
+      _id: 03d1dcb0b6c3950b
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:dark-chakra
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects:
+        - _id: 6986f71a32a02fea
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Dark Advantage
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 6986f71a32a02fea
+effects:
+  - name: Dark Chakra Advantage
+    img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+    origin: Item.2b14642b71195e28
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: 1
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: flags.n5eb.advantage.ability.check.all
+        mode: 2
+        value: "1"
+        priority: 20
+      - key: flags.n5eb.advantage.ability.save.all
+        mode: 2
+        value: "1"
+        priority: 20
+    statuses: []
+    _id: 6986f71a32a02fea
+    type: base
+    system: {}
+    description: ""
+    tint: "#30104f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: dark-release
+          form: ""
+          sourceItemId: 2b14642b71195e28
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!2b14642b71195e28.6986f71a32a02fea"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: resource-uses-tracker
+          mode: native
+        - clause: draft-specific-resource-growth-or-recovery
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!2b14642b71195e28"

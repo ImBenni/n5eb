@@ -1,0 +1,172 @@
+folder: 64fa38d1b95e9c96
+name: 'Truth Seeking: Umbrella'
+type: spell
+_id: f15a37df2c2d7ccf
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/truthseeker-orbs-cycle.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Truth-Seeking</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>10 feet</dd><dt>Duration:</dt><dd>1 minute
+      (Concentration)</dd><dt>Components:</dt><dd>M, W (Truth-Seeking Orb)</dd><dt>Cost:</dt><dd>5 Yang
+      Chakra</dd><dt>Keywords:</dt><dd>Bukijutsu, Truth -Seeking</dd></dl><h3>Description:</h3><p>Turning a
+      Truth-Seeking Orb into a thrusting weapon, you attempt to impale a target and leave it out of the fight. Make a
+      Melee Yang Attack against a creature within range, dealing 18d8 piercing damage and forcing it to make a strength
+      saving throw, having the Truth -Seeking Orb impaled on a failed save. A creature who is impaled this way becomes
+      unable to Mold Chakra, and has its speed halved for the duration.</p><p>A creature can spend a full turn action to
+      repeat their saving throw, ending this art on a success. While a creature is impaled by this art, you know the
+      creature's exact location, and cannot recover the Truth-Seeking Orbs spend on this art until the art ends.
+      Truth-Seeking: You can spend additional Truth-Seeking Orbs as part of casting this jutsu.</p><p>For each
+      additional Orb you spend, increase the art's damage by 2d8 piercing damage. If you spend 3 or more additional
+      Orbs, the target has its speed reduced to 0 for the duration. If you spend 6 or more additional Orbs, you make
+      this attack at advantage, and the target makes its save at disadvantage.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '114'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: truth-seeking-umbrella
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: bukijutsu
+    ability: ''
+    components:
+      - m
+      - w-truth-seeking-orb
+    keywords:
+      - bukijutsu
+      - truth--seeking
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 5 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    95ad0a85ec8e3352:
+      _id: 95ad0a85ec8e3352
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '5'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: true
+        value: '1'
+        units: minute
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 10
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/truthseeker-orbs-cycle.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 18
+            denomination: 8
+            bonus: ''
+            types:
+              - piercing
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: none
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!f15a37df2c2d7ccf'

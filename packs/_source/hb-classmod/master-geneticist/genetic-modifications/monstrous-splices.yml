@@ -1,0 +1,188 @@
+folder: e805a8dd197f0bfc
+name: Monstrous Splices
+type: feat
+_id: a6eda2a3d69a3ca1
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+system:
+  description:
+    value: >-
+      <h2>Monstrous Splices</h2><p><strong>DNA Point Cost:</strong> 6<br><strong>Base Genetic Degradation:</strong>
+      4</p><p>You may create a Creature Splice from a non-clan creature. It occupies a Gene Splice Slot. When injected,
+      gain one Species Adversary Trait the donor possessed, chosen by the GM. You cannot create a Creature Splice from
+      an adversary that has a clan.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 6
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-monstrous-splices
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    d97289f0e8f9bf59:
+      _id: d97289f0e8f9bf59
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this modification is installed. Its Degradation becomes part of your minimum.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "4"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Install Modification (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    a0ca9aea1ec62dc7:
+      _id: a0ca9aea1ec62dc7
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Use the Gene Splicing checks, occupy one Gene Splice Slot on success, and have the GM choose one donor Species
+          Adversary Trait.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Creature Splice
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/multiple-striking-shadow-snake.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: dna-allocation-and-base-degradation
+          mode: native
+        - clause: passive-benefits-expressible-as-active-effects
+          mode: prompt
+        - clause: existing-clan-resource-and-feature-interactions
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!a6eda2a3d69a3ca1"

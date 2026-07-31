@@ -1,0 +1,272 @@
+folder: 55be1e571eb68368
+name: "Limit Removal: Technique"
+type: spell
+_id: 44d4c43d1aff519a
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+system:
+  description:
+    value: >-
+      <h2>Limit Removal: Technique</h2><p><strong>DNA Point Cost:</strong> 6<br><strong>Genetic Degradation:</strong>
+      5<br><strong>Casting Time:</strong> Special<br><strong>Range:</strong> Self<br><strong>Duration:</strong>
+      Instant</p><p>When you perform an Action or Bonus Action, incur 5 Genetic Degradation to immediately perform the
+      same Action a second time.</p><p><strong>Limit Breaker:</strong> At the start of your turn, incur 3 additional
+      Degradation to gain one additional Action and Bonus Action that turn.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 7
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-limit-removal-technique
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components: []
+    keywords:
+      - genetic-art
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 6 DNA Points allocated; 5 Genetic Degradation when used
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:master-geneticist
+  activities:
+    6f2dc0f2c342ac3b:
+      _id: 6f2dc0f2c342ac3b
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when this Genetic Art is learned. Do not spend this purchase cost when casting it.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-dna-points
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Allocate DNA Cost (Once)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    4e350b151dbd7efa:
+      _id: 4e350b151dbd7efa
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Immediately repeat the same Action or Bonus Action just performed.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "5"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Repeat Action or Bonus Action
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    2d9d3fe4c09d1b32:
+      _id: 2d9d3fe4c09d1b32
+      type: utility
+      activation:
+        type: turnStart
+        value: null
+        condition: The 8 cost is base 5 + additional 3. Gain one additional Action and Bonus Action this turn.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:master-geneticist-genetic-degradation
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Limit Breaker: Extra Action and Bonus Action"
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/chakra-scalpel.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: one-time-dna-allocation-and-per-use-degradation
+          mode: native
+        - clause: duplicate-action-and-extra-action-economy
+          mode: prompt
+    classmodArt:
+      classmod: master-geneticist
+      classification: Genetic Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!44d4c43d1aff519a"

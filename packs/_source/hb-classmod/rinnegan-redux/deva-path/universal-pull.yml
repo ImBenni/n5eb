@@ -1,0 +1,150 @@
+folder: 7bc2175b28f29a4d
+name: Universal Pull
+type: spell
+_id: 2b696cc5c950ff81
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/universal-pull.webp
+system:
+  description:
+    value: >-
+      <h2>Universal Pull</h2><h3>Divine Art</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Divine
+      Art</dd><dt>Casting Time:</dt><dd>Action</dd><dt>Range:</dt><dd>60
+      feet</dd><dt>Duration:</dt><dd>Instantaneous</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>10 Chakra or 1
+      Chakra Die</dd><dt>Keywords:</dt><dd>Divine</dd></dl><h3>Description:</h3><p>As an Action, choose up to three
+      creatures or objects within 60 feet and a point within 30 feet. Each target makes a Strength save. On failure,
+      pull it to end within 5 feet of the point; on success, pull it 5 feet.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-universal-pull
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - divine
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 10 Chakra or 1 Chakra Die
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:rinnegan-redux
+  activities:
+    e43fb8a06361cd3a:
+      _id: e43fb8a06361cd3a
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: "Choose a point within 30 feet. Failed save: pull to within 5 feet. Successful save: pull 5 feet."
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "3"
+          type: creatureOrObject
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast Universal Pull
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/universal-pull.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: 12 + @classmods.rinnegan-redux.levels + @prof
+      damage:
+        parts: []
+        onSave: none
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: source-rule-and-explicit-numeric-resolution
+          mode: native
+        - clause: timing-target-choice-and-prerequisite-resolution
+          mode: prompt
+        - clause: cross-item-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: rinnegan-redux
+      classification: Divine Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!2b696cc5c950ff81"

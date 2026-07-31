@@ -1,0 +1,122 @@
+folder: af0b1a9d3f3959d9
+name: Rot-Eater Savant
+type: feat
+_id: d9bf422de785f3c7
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Rot-Eater Savant</h2><p><strong>Cost:</strong> 1 Unholy Blessing. Gain Nature proficiency and +2 Mastery.
+      Speak with plants and animals at will. Once per encounter as a free action, enemies in a 20-foot radius make a
+      Strength save or become Restrained for 1 minute, repeating the save at the end of each turn.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 21
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-rot-eater-savant
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    33c51bfbf5eb86b8:
+      _id: 33c51bfbf5eb86b8
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: radius
+          size: "20"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery:
+          - period: initiative
+            type: recoverAll
+        max: "1"
+      sort: 0
+      name: Terrain Restraint
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - str
+        dc:
+          calculation: custom
+          formula: 12 + @prof + floor(@details.level / 2)
+      damage:
+        parts: []
+        onSave: none
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: rot-eater-savant-static-or-rolled-benefits
+          mode: native
+        - clause: rot-eater-savant-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: rot-eater-savant-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!d9bf422de785f3c7"

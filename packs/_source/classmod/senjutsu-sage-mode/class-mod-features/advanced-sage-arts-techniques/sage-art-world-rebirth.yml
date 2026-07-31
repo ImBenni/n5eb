@@ -2,21 +2,22 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: World Rebirth'
 type: spell
 _id: 5bxSG2tjKrlgCXsa
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
-      <p>Reduced Cost: 5 Sage Chakra</p><p>You use Sage Chakra to enhance your cellular recovery speed. This allows you
-      to keep fighting long after you should have fallen. For the duration, at the beginning of each of your turns you
-      regain 10d10+10 hit points. Reduce the amount of hit points regained at the end of each of your turns, by 1
-      die.</p><p>Sage Affinity Synergy: If you have the Reptilian Senjutsu class mod feature, when you cast this
-      Senjutsu, you may utilize the techniques that your tribe has entrusted you with. If you do, increase the healing
-      die by 1 step, to a d12.</p>
+      <p><strong>Reduced Cost:</strong> 5 Sage Chakra You use Sage Chakra to enhance your cellular recovery speed. This
+      allows you to keep fighting long after you should have fallen. For the duration, at the beginning of each of your
+      turns you regain 10d10+10 hit points. Reduce the amount of hit points regained at the end of each of your turns,
+      by 1 die.</p><p><strong>Sage Affinity Synergy:</strong> If you have the Reptilian Senjutsu class mod feature, when
+      you cast this Senjutsu, you may utilize the techniques that your tribe has entrusted you with. If you do, increase
+      the healing die by 1 step, to a d12.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -100,7 +101,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -110,6 +111,65 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    3304db9509e74914:
+      _id: 3304db9509e74914
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: 10d10+10
+        name: healing
+        prompt: false
+        visible: true
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: World Rebirth'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
 effects: []
 sort: 0
 ownership:
@@ -220,6 +280,13 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: manual
   midiProperties:
     confirmTargets: default
     autoFailFriendly: false

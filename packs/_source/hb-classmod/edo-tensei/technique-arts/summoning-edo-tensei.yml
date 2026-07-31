@@ -1,0 +1,429 @@
+folder: 811f3b07e20c97e7
+name: Summoning Edo Tensei
+type: spell
+_id: c88abf6438d2c174
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Summoning Edo Tensei</h2><h3>Edo Tensei Art Type: Technique</h3><dl class="n5eb-classmod-summary"><dt>Casting
+      Time:</dt><dd>Full Turn Action</dd><dt>Range:</dt><dd>10 feet</dd><dt>Duration:</dt><dd>1 minute in combat or 1
+      hour outside combat</dd><dt>Components:</dt><dd>HS, CS, CM</dd><dt>Cost:</dt><dd>1 Standard, 2 Elite, or 3 Solo
+      Unholy Charges</dd><dt>Keywords:</dt><dd>Ninjutsu, Fuinjutsu, Kinjutsu</dd></dl><h3>Description:</h3><p>Requires a
+      prepared vessel and the deceased warrior's DNA. Make a Ninshou Check against the vessel's Summoning DC. On
+      success, summon it in range. On failure, the charges are spent with no summon. On a failure by 5 or more, it
+      appears independent for 24 hours; regain control by reducing it to 0 hit points or convincing it to obey.</p><p>A
+      summon lasts 1 minute in combat or 1 hour outside combat; spend 1 Unholy Charge to refresh it. Command movement
+      freely and spend a bonus action to command its Action and Bonus Action. At level 3 it gains its own Reaction.
+      Multiple active summons increase the check DC by +1 per Standard, +2 per Elite, and +3 per Solo.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 9
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-summoning-edo-tensei
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - hs
+      - cs
+      - cm
+    keywords:
+      - ninjutsu
+      - fuinjutsu
+      - kinjutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Standard, 2 Elite, or 3 Solo Unholy Charges
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:edo-tensei
+  activities:
+    4e2dd3afd0bf46d0:
+      _id: 4e2dd3afd0bf46d0
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: Full Turn Action. Make the Ninshou Summoning Check before placing the summon.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:edo-tensei-unholy-charges
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 10
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Summon Standard Edo Tensei
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes:
+        - undead
+      match:
+        attacks: false
+        proficiency: true
+        saves: false
+      profiles:
+        - count: ""
+          name: D-Rank Standard Edo Tensei
+          _id: 42761f71d302b2f7
+          uuid: Compendium.n5eb.hb-adversary.Actor.ee182c5e122ac992
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: C-Rank Standard Edo Tensei
+          _id: ca8ed1699921fddb
+          uuid: Compendium.n5eb.hb-adversary.Actor.4d79540fa0c6dc78
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: B-Rank Standard Edo Tensei
+          _id: 7b85b17d4c29ee38
+          uuid: Compendium.n5eb.hb-adversary.Actor.c943c08b28f110f4
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: A-Rank Standard Edo Tensei
+          _id: a043b40214ae13cb
+          uuid: Compendium.n5eb.hb-adversary.Actor.6449693e3d4539f1
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: S-Rank Standard Edo Tensei
+          _id: b239e09e1a8e1e9c
+          uuid: Compendium.n5eb.hb-adversary.Actor.18b61b4e038beb10
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: edo-tensei-standard
+        mode: ""
+        prompt: true
+    578a7c146654f534:
+      _id: 578a7c146654f534
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: Full Turn Action. Make the Ninshou Summoning Check before placing the summon.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:edo-tensei-unholy-charges
+            value: "2"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 10
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Summon Elite Edo Tensei
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes:
+        - undead
+      match:
+        attacks: false
+        proficiency: true
+        saves: false
+      profiles:
+        - count: ""
+          name: D-Rank Elite Edo Tensei
+          _id: 220a6b8cec11cd04
+          uuid: Compendium.n5eb.hb-adversary.Actor.7cb0bbdc0215a7ce
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: C-Rank Elite Edo Tensei
+          _id: 2e382c8fc30a4e81
+          uuid: Compendium.n5eb.hb-adversary.Actor.b84a9dc8aa264045
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: B-Rank Elite Edo Tensei
+          _id: aee3d8d0405e5904
+          uuid: Compendium.n5eb.hb-adversary.Actor.4de9fba6b011466f
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: A-Rank Elite Edo Tensei
+          _id: 9a736aff0b0a6caf
+          uuid: Compendium.n5eb.hb-adversary.Actor.ddccf289c6cb07bd
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: S-Rank Elite Edo Tensei
+          _id: 91cf4f8e96de3d28
+          uuid: Compendium.n5eb.hb-adversary.Actor.c8d21c44cf91e468
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: edo-tensei-elite
+        mode: ""
+        prompt: true
+    aee078d5e6ebf15a:
+      _id: aee078d5e6ebf15a
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: Full Turn Action. Make the Ninshou Summoning Check before placing the summon.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:edo-tensei-unholy-charges
+            value: "3"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 10
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Summon Solo Edo Tensei
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes:
+        - undead
+      match:
+        attacks: false
+        proficiency: true
+        saves: false
+      profiles:
+        - count: ""
+          name: S-Rank Solo Edo Tensei
+          _id: b8998ef582656a6e
+          uuid: Compendium.n5eb.hb-adversary.Actor.a1359cfdee5b50dd
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: edo-tensei-solo
+        mode: ""
+        prompt: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: source-rule-and-numeric-resolution
+          mode: native
+        - clause: target-choice-prerequisite-or-trigger
+          mode: prompt
+        - clause: cross-actor-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: edo-tensei
+      classification: Technique
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!c88abf6438d2c174"

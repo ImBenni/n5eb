@@ -1,0 +1,118 @@
+folder: af0b1a9d3f3959d9
+name: Ashen Lorekeeper
+type: feat
+_id: b4bc4700342fae80
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Ashen Lorekeeper</h2><p><strong>Cost:</strong> 1 Unholy Blessing. Gain History proficiency and +2 Mastery.
+      Instinctively know the purpose and origin of nonmagical, non-Chakra objects. Once per short rest, ask the GM one
+      historical fact about the surroundings as if using Commune with Spirits.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 19
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-ashen-lorekeeper
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    840beed26c7292f7:
+      _id: 840beed26c7292f7
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery:
+          - period: sr
+            type: recoverAll
+        max: "1"
+      sort: 0
+      name: Commune with Forgotten History
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: ashen-lorekeeper-static-or-rolled-benefits
+          mode: native
+        - clause: ashen-lorekeeper-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: ashen-lorekeeper-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!b4bc4700342fae80"

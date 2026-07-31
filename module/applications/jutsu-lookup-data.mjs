@@ -1,6 +1,7 @@
 import { getClassmodArtRankLabel, isClassmodArtItem } from "../classmod-arts.mjs";
+import { mapWithConcurrency } from "./actor/config/npc-builder-cache.mjs";
 
-const RANK_ORDER = ["e", "d", "c", "b", "a", "s"];
+const RANK_ORDER = ["e", "d", "c", "b", "a", "s", "art"];
 const RANK_ALIASES = {
   erank: "e",
   "e-rank": "e",
@@ -13,11 +14,14 @@ const RANK_ALIASES = {
   arank: "a",
   "a-rank": "a",
   srank: "s",
-  "s-rank": "s"
+  "s-rank": "s",
+  art: "art"
 };
 const DEFAULT_ICON = "icons/svg/mystery-man.svg";
 const jutsuLookupCaches = new Map();
+const jutsuLookupCacheGenerations = new Map();
 let jutsuLookupCacheHooksRegistered = false;
+let jutsuLookupCacheGeneration = 0;
 
 export const JUTSU_INDEX_FIELDS = [
   "img", "type", "system.description.value", "system.rank", "system.level", "system.identifier",
@@ -65,19 +69,28 @@ export async function getCachedJutsuLookupEntries({
   const cacheKey = `${systemOnly ? "system" : "all"}:${labelPrefix}`;
   if ( refresh ) invalidateJutsuLookupCache(cacheKey);
   let cache = jutsuLookupCaches.get(cacheKey);
+  const generation = getJutsuLookupCacheGeneration(cacheKey);
+  if ( cache && (cache.generation !== generation) ) {
+    jutsuLookupCaches.delete(cacheKey);
+    cache = null;
+  }
   if ( cache?.entries ) return cache.entries;
   if ( cache?.promise ) return cache.promise;
 
   cache = {
     entries: null,
+    generation,
     promise: collectBaseJutsuLookupEntries({ systemOnly, labelPrefix })
       .then(entries => {
+        if ( cache.generation !== getJutsuLookupCacheGeneration(cacheKey) ) {
+          return getCachedJutsuLookupEntries({ systemOnly, labelPrefix });
+        }
         cache.entries = entries;
         cache.promise = null;
         return entries;
       })
       .catch(err => {
-        jutsuLookupCaches.delete(cacheKey);
+        if ( jutsuLookupCaches.get(cacheKey) === cache ) jutsuLookupCaches.delete(cacheKey);
         throw err;
       })
   };
@@ -92,8 +105,39 @@ export async function getCachedJutsuLookupEntries({
  * @param {string} [cacheKey]  Specific cache key to clear.
  */
 export function invalidateJutsuLookupCache(cacheKey) {
-  if ( cacheKey ) jutsuLookupCaches.delete(cacheKey);
-  else jutsuLookupCaches.clear();
+  if ( cacheKey ) {
+    jutsuLookupCacheGenerations.set(cacheKey, (jutsuLookupCacheGenerations.get(cacheKey) ?? 0) + 1);
+    jutsuLookupCaches.delete(cacheKey);
+  } else {
+    jutsuLookupCacheGeneration++;
+    jutsuLookupCacheGenerations.clear();
+    jutsuLookupCaches.clear();
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get the current version of a jutsu lookup cache.
+ * @param {object} [options]
+ * @param {boolean} [options.systemOnly=false]  Only scan N5eB system packs.
+ * @param {string} [options.labelPrefix="N5EB.JutsuLookup"]  Localization prefix.
+ * @returns {string}
+ */
+export function getJutsuLookupCacheVersion({ systemOnly=false, labelPrefix="N5EB.JutsuLookup" }={}) {
+  const cacheKey = `${systemOnly ? "system" : "all"}:${labelPrefix}`;
+  return getJutsuLookupCacheGeneration(cacheKey);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get the current generation marker for one jutsu cache key.
+ * @param {string} cacheKey  Jutsu cache key.
+ * @returns {string}
+ */
+function getJutsuLookupCacheGeneration(cacheKey) {
+  return `${jutsuLookupCacheGeneration}:${jutsuLookupCacheGenerations.get(cacheKey) ?? 0}`;
 }
 
 /* -------------------------------------------- */
@@ -141,8 +185,10 @@ export async function collectJutsuLookupEntries({ actor=null, systemOnly=false, 
 async function collectBaseJutsuLookupEntries({ systemOnly=false, labelPrefix="N5EB.JutsuLookup" }={}) {
   const jutsu = [];
 
-  for ( const pack of getJutsuItemPacks({ systemOnly }) ) {
-    const index = await pack.getIndex({ fields: JUTSU_INDEX_FIELDS });
+  const packIndexes = await mapWithConcurrency(getJutsuItemPacks({ systemOnly }), 6, async pack => {
+    return { pack, index: await pack.getIndex({ fields: JUTSU_INDEX_FIELDS }) };
+  });
+  for ( const { pack, index } of packIndexes ) {
     for ( const entry of index ) {
       if ( entry.type !== "spell" ) continue;
       jutsu.push(formatJutsuLookupEntry(entry, pack, null, { labelPrefix }));

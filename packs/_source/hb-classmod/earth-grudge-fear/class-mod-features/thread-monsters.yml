@@ -1,0 +1,489 @@
+folder: 3624d4c7d6d19680
+name: Thread Monsters
+type: feat
+_id: 12306c126240775e
+img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+system:
+  description:
+    value: >-
+      <p>At class-mod level 2, as an action eject any number of hearts to create one Thread Monster per heart and incur
+      4 Decay per monster. All monsters act as part of your turn when commanded with one bonus action or reaction; each
+      takes one Action and movement and has no bonus action. A monster's HP and temporary Chakra each equal four times
+      your Threaded Art Save DC, and its AC equals that DC.</p><p>It uses your saves, attacks, and save DC, can cast its
+      heart's Jutsu using its own Chakra, and has a designed natural weapon dealing 3d6 + your class-mod level necrotic
+      damage with 15-foot reach. You cannot use that heart's Jutsu while its monster is summoned. Unsummon an adjacent
+      monster as an action. A dead monster incurs 10 Decay, drops its heart, and cannot be summoned again until after a
+      rest.</p><p>An unrecovered heart is permanently lost only with GM confirmation.</p>
+    chat: ""
+  source:
+    custom: ""
+    book: Homebrew
+    page: PDF 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: egf-thread-monsters
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    c9f0fa0e37f635dd:
+      _id: c9f0fa0e37f635dd
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: Spend 4 Decay per monster and configure each summon from its heart.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "4"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: Until unsummoned, destroyed, or EGF ends
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Thread Monster
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: true
+        proficiency: true
+        saves: true
+      profiles:
+        - count: ""
+          name: Thread Monster
+          _id: 3d4a61af2fb561c1
+          uuid: Compendium.n5eb.npc.Actor.908bbcd4f194ca8e
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: earth-grudge-thread-monster
+        mode: ""
+        prompt: true
+    a8666fa96f8fceae:
+      _id: a8666fa96f8fceae
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: Requires Puppeteer's Monsters. Spend 3 Decay per monster.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "3"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: Until unsummoned, destroyed, or EGF ends
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Monster (Puppeteer's Monsters)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: true
+        proficiency: true
+        saves: true
+      profiles:
+        - count: ""
+          name: Thread Monster
+          _id: 33c8bdec1206ef5a
+          uuid: Compendium.n5eb.npc.Actor.908bbcd4f194ca8e
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: earth-grudge-thread-monster
+        mode: ""
+        prompt: true
+    21de7168abc19651:
+      _id: 21de7168abc19651
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: Requires Mastered Earth Grudge Fear. Spend 2 Decay per monster.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "2"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: Until unsummoned, destroyed, or EGF ends
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Monster (Mastered EGF)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: true
+        proficiency: true
+        saves: true
+      profiles:
+        - count: ""
+          name: Thread Monster
+          _id: f605873a42da21e7
+          uuid: Compendium.n5eb.npc.Actor.908bbcd4f194ca8e
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: earth-grudge-thread-monster
+        mode: ""
+        prompt: true
+    d8b1db7d261d0bc8:
+      _id: d8b1db7d261d0bc8
+      type: summon
+      activation:
+        type: action
+        value: 1
+        condition: Requires Puppeteer's Monsters and Mastered Earth Grudge Fear. Spend 1 Decay per monster.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "1"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: Until unsummoned, destroyed, or EGF ends
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Monster (Mastered Puppeteer)
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes: []
+      match:
+        attacks: true
+        proficiency: true
+        saves: true
+      profiles:
+        - count: ""
+          name: Thread Monster
+          _id: 5293b6c14f91de4e
+          uuid: Compendium.n5eb.npc.Actor.908bbcd4f194ca8e
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: earth-grudge-thread-monster
+        mode: ""
+        prompt: true
+    fd5eb11b71e37063:
+      _id: fd5eb11b71e37063
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use when a Thread Monster is destroyed; leave its heart at the token location.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:egf-decay
+            value: "10"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Monster Destroyed
+      img: systems/n5eb/assets/content/classmod-icons/earth-grudge-fear/final-shot.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: earth-grudge-fear
+      coverage:
+        - clause: summon-decay-cost-owner-stat-matching-and-token-placement
+          mode: native
+        - clause: heart-jutsu-selection-command-economy-and-adjacency-dismissal
+          mode: prompt
+        - clause: unrecovered-heart-permanent-loss
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!12306c126240775e"

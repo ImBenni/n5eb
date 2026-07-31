@@ -1,0 +1,286 @@
+folder: ec821982e1597c80
+name: 'Yin-Yang Release: Creation of All Things Technique'
+type: spell
+_id: 8a7390b3b64f35ca
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <h3>THINGS TECHNIQUE</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Yin-Yang
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>10
+      miles</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM,
+      HS</dd><dt>Cost:</dt><dd>Special</dd><dt>Keywords:</dt><dd>Ninjutsu, Medical, Yin -Yang
+      Release</dd></dl><h3>Description:</h3><p>The ultimate healing technique. By imitating the power used by the Sage
+      of Six paths, one can create life where there is nothing, or restore to life that which cannot be healed. Choose
+      any number of creatures that have died in the last 24 hours. These creatures are restored to live, recovering any
+      missing limps, ending all conditions, healing all poisons and diseases, and having their full hit points
+      restored.</p><p>This can even bring back to life creature that had their soul destroyed or that had their bodies
+      completely disintegrated. After casting this Art, both casters spend all their Yang Chakra and Yin Charges, and
+      once their Seal Release ends, they cannot use these Class Mods ever again.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '130'
+    license: ''
+    rules: n5eb
+  uses:
+    max: '1'
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: yin-yang-release-creation-of-all-things-technique
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+      - hs
+    keywords:
+      - ninjutsu
+      - medical
+      - yin--yang-release
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: Special
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yin-yang-release
+  activities:
+    786b36dd10a31387:
+      _id: 786b36dd10a31387
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Both willing bonded casters must have their Seal active. The partner spends their reaction.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ''
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: null
+        units: spec
+        special: 10 miles
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+    e5f4ada61c5e4758:
+      _id: e5f4ada61c5e4758
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: >-
+          Use on the actor providing yang chakra. Increase the consumption amount to spend every remaining use. Resolve
+          both participant costs before resolving the main Cast activity.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '1'
+            scaling:
+              mode: amount
+              formula: ''
+        scaling:
+          allowed: true
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: '1'
+          type: ally
+          choice: true
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Yang Participant Cost
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+    988dbea4775a20b3:
+      _id: 988dbea4775a20b3
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: >-
+          Use on the actor providing yin charges. Increase the consumption amount to spend every remaining use. Resolve
+          both participant costs before resolving the main Cast activity.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: amount
+              formula: ''
+        scaling:
+          allowed: true
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: '1'
+          type: ally
+          choice: true
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Yin Participant Cost (Reaction)
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-yang-release
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: manual
+    classmodArt:
+      classmod: yin-yang-release
+      classification: Yin-Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!8a7390b3b64f35ca'

@@ -64,6 +64,7 @@ export default class AttackSheet extends ActivitySheet {
     ];
 
     context.hasBaseDamage = this.item.system.offersBaseDamage;
+    context.showVersatileDamage = this.item.type !== "weapon";
 
     return context;
   }

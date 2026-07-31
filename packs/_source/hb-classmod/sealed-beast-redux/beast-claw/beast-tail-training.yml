@@ -1,0 +1,138 @@
+folder: 10122c201db62f62
+name: Beast Tail Training
+type: feat
+_id: 5bd2e43f85ed1fe1
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/baryon-tail-breaker.webp
+system:
+  description:
+    value: >-
+      <h2>Beast Tail Training</h2><p><strong>Prerequisite:</strong> Beast Claw. Gain the Beast Tail alternative
+      Vermillion Art.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 10
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties:
+    - advancement
+  identifier: sealed-beast-redux-beast-tail-training
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    c505c0bdaddce258:
+      _id: c505c0bdaddce258
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-awakening
+            value: "6"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (6 Twisted Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/baryon-tail-breaker.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement:
+    c3557d6b8317ba6b:
+      _id: c3557d6b8317ba6b
+      type: ItemGrant
+      configuration:
+        items:
+          - uuid: Compendium.n5eb.hb-classmod.Item.a6877d17082b1277
+            optional: false
+        optional: false
+        spell: null
+      value: {}
+      level: 1
+      title: ""
+      hint: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: awakening-purchase-and-granted-art
+          mode: native
+        - clause: prerequisite-validation
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!5bd2e43f85ed1fe1"

@@ -1,0 +1,97 @@
+folder: af0b1a9d3f3959d9
+name: Iron Husk
+type: feat
+_id: b88eed657cb4c60d
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Iron Husk</h2><p><strong>Cost:</strong> 1 Unholy Blessing. Gain +3 AC. You are immune to effects that reduce
+      AC or treat it as lower. While not bloodied, treat critical hits as normal hits.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 21
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-iron-husk
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities: {}
+  advancement: {}
+effects:
+  - name: Iron Husk
+    img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+    origin: Item.b88eed657cb4c60d
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: "3"
+        priority: 20
+    statuses: []
+    _id: 6aa412bdb0e4373b
+    type: base
+    system: {}
+    description: ""
+    tint: "#4a394f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: edo-tensei
+          form: ""
+          sourceItemId: b88eed657cb4c60d
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!b88eed657cb4c60d.6aa412bdb0e4373b"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: iron-husk-static-or-rolled-benefits
+          mode: native
+        - clause: iron-husk-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: iron-husk-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!b88eed657cb4c60d"

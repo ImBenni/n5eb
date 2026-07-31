@@ -1,0 +1,115 @@
+folder: 03825f75ca2db9a8
+name: Frenzied Drawbacks
+type: feat
+_id: 859bd48e708ac9c0
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Frenzied Drawbacks</h2><p>At the beginning of each turn while Frenzied, make a Wisdom ability check against
+      your Desperate Rage DC. On failure, you cannot perceive allies and focus only on the Desperate Rage target; area
+      effects affect all creatures in range. Make a free unarmed or natural weapon attack against each creature in the
+      most direct path to the target while moving past them; a hit knocks it 20 feet in any direction.</p><p>If
+      Desperate Rage did not trigger the Frenzy, the closest creature at the start of the turn is your target.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-frenzied-drawbacks
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    76edbf1a9dc30964:
+      _id: 76edbf1a9dc30964
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Frenzied Drawback Check
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.wis.mod
+        name: Frenzied Drawback Check vs Desperate Rage DC
+        prompt: false
+        visible: true
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: turn-start-wisdom-check
+          mode: native
+        - clause: target-selection-area-inclusion-path-attacks-and-forced-movement
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!859bd48e708ac9c0"

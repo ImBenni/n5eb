@@ -1,0 +1,121 @@
+folder: 913bd9464e829b26
+name: Implanted Knowledge
+type: feat
+_id: 403b51c9a579551c
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+system:
+  description:
+    value: >-
+      <h2>Implanted Knowledge</h2><p>Also at 3rd level, when creating a Splice you may instead make an Information
+      Splice. On use, it grants one Jutsu and one skill proficiency known by the DNA donor. You must meet all
+      prerequisites for the Jutsu.</p><p>You can have active Information Splices equal to your Master Geneticist level.
+      If you exceed the maximum, choose a previous Information Splice whose benefits are lost.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: "@classmods.master-geneticist.levels"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-implanted-knowledge
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    b1f6ac333ba61911:
+      _id: b1f6ac333ba61911
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Add the chosen qualifying Jutsu and skill proficiency. Replace and refund a previous use if already at the
+          active maximum.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Record Information Splice
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: level-scaled-active-information-splice-limit
+          mode: native
+        - clause: donor-jutsu-prerequisite-and-skill-selection
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!403b51c9a579551c"

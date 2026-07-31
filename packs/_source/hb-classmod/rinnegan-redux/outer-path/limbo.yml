@@ -1,0 +1,218 @@
+folder: c214cc850a8d621d
+name: Limbo
+type: spell
+_id: 990e36a862e988ec
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/limbo.webp
+system:
+  description:
+    value: >-
+      <h2>Limbo</h2><h3>Divine Art</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Divine
+      Art</dd><dt>Casting Time:</dt><dd>Action</dd><dt>Range:</dt><dd>Self</dd><dt>Duration:</dt><dd>Not
+      specified</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>20 Chakra or 2 Chakra
+      Dice</dd><dt>Keywords:</dt><dd>Divine</dd></dl><h3>Description:</h3><p>As an Action, create two Limbo clones, to a
+      maximum of four. They are invisible except to Truesight or the Rinnegan, have one-quarter your maximum Hit Points,
+      share your ability scores, proficiencies, Divine attack bonus, and Divine save DC, make two unarmed attacks
+      dealing 2d8 + your modifier, and act only when commanded. As a Bonus Action command each clone.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 15
+    license: ""
+    rules: n5eb
+  uses:
+    max: "1"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-limbo
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - divine
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 20 Chakra or 2 Chakra Dice
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:rinnegan-redux
+  activities:
+    6d8a5984ac7b9d15:
+      _id: 6d8a5984ac7b9d15
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Use once when adding this purchase to the actor. All listed prerequisites remain required.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:rinnegan-redux-divine-awakening
+            value: "8"
+            scaling:
+              mode: ""
+              formula: ""
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Purchase (8 Divine Awakening)
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/limbo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    add212e518bf00ef:
+      _id: add212e518bf00ef
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Create two variable helper clones, not exceeding four total.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "20"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create Limbo Clones
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/limbo.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: level-two-free-choice-or-level-gated-eight-point-extra-purchase
+          mode: native
+        - clause: outer-art-timing-target-cost-roll-damage-duration-and-choice
+          mode: prompt
+        - clause: maximum-hit-point-sacrifice-clones-command-or-cross-item-state
+          mode: manual
+    classmodArt:
+      classmod: rinnegan-redux
+      classification: Divine Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!990e36a862e988ec"

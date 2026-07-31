@@ -17,6 +17,15 @@ import ItemDescriptionTemplate from "./templates/item-description.mjs";
 const { BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 /**
+ * Return display labels in source order without duplicates or empty values.
+ * @param {...(string|string[])} values  Labels to combine.
+ * @returns {string[]} Unique display labels.
+ */
+function uniqueDisplayLabels(...values) {
+  return Array.from(new Set(values.flat().filter(_ => _)));
+}
+
+/**
  * @import { SpellItemSystemData } from "./_types.mjs";
  * @import { ActivitiesTemplateData ItemDescriptionTemplateData } from "./templates/_types.mjs";
  */
@@ -228,7 +237,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
 
   /** @override */
   get canConfigureScaling() {
-    return this.level > 0;
+    return !this.isClassmodArt && (this.level > 0);
   }
 
   /* -------------------------------------------- */
@@ -245,7 +254,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
 
   /** @override */
   get canScale() {
-    return this.level > 0;
+    return !this.isClassmodArt && (this.level > 0);
   }
 
   /* -------------------------------------------- */
@@ -262,14 +271,16 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    * @type {string[]}
    */
   get chatProperties() {
-    return [
-      this.parent.labels.rank,
-      this.parent.labels.jutsuType,
-      this.parent.labels.chakra,
-      this.parent.labels.jutsuComponents?.short,
-      ...this.parent.labels.components.tags,
-      this.parent.labels.duration
-    ].filter(_ => _);
+    const labels = this.parent.labels;
+    return uniqueDisplayLabels(
+      labels.rank,
+      labels.jutsuType,
+      labels.chakra,
+      labels.jutsuComponents?.short,
+      labels.jutsuKeywords?.all.map(keyword => keyword.label) ?? [],
+      labels.components.tags,
+      labels.duration
+    );
   }
 
   /* -------------------------------------------- */
@@ -382,6 +393,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    * @type {number}
    */
   get baseRankIndex() {
+    if ( this.isClassmodArt ) return CONFIG.DND5E.jutsuRankOrder.indexOf("s");
     return Math.max(CONFIG.DND5E.jutsuRankOrder.indexOf(this.effectiveRank), 0);
   }
 
@@ -393,6 +405,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    * @returns {number}
    */
   getRankDelta(rank=this.effectiveRank) {
+    if ( this.isClassmodArt || (rank === CLASSMOD_ARTS_MECHANICAL_RANK) ) return 0;
     const rankIndex = CONFIG.DND5E.jutsuRankOrder.indexOf(rank);
     return Math.max((rankIndex >= 0 ? rankIndex : this.baseRankIndex) - this.baseRankIndex, 0);
   }
@@ -405,6 +418,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
    * @returns {string}
    */
   rankForDelta(delta=0) {
+    if ( this.isClassmodArt ) return CLASSMOD_ARTS_MECHANICAL_RANK;
     const rankOrder = CONFIG.DND5E.jutsuRankOrder;
     const targetIndex = Math.clamp(this.baseRankIndex + (Number(delta) || 0), this.baseRankIndex, rankOrder.length - 1);
     return rankOrder[targetIndex] ?? this.effectiveRank;
@@ -568,25 +582,39 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
       return [];
     };
 
-    const oldProperties = getKeys(source.properties);
-    const oldKeywords = getKeys(source.keywords);
-    source.jutsu ??= {};
-    const components = new Set(getKeys(source.jutsu.components));
-    const keywords = new Set([...getKeys(source.jutsu.keywords), ...oldKeywords]);
+    const hasProperties = Object.hasOwn(source, "properties");
+    const hasLegacyKeywords = Object.hasOwn(source, "keywords");
+    const hasJutsuComponents = Object.hasOwn(source.jutsu ?? {}, "components");
+    const hasJutsuKeywords = Object.hasOwn(source.jutsu ?? {}, "keywords");
+    const oldProperties = hasProperties ? getKeys(source.properties) : [];
+    const oldKeywords = hasLegacyKeywords ? getKeys(source.keywords) : [];
+    const components = new Set(hasJutsuComponents ? getKeys(source.jutsu.components) : []);
+    const keywords = new Set(hasJutsuKeywords ? getKeys(source.jutsu.keywords) : []);
+    oldKeywords.forEach(keyword => keywords.add(keyword));
+    let migratedComponent = false;
+    let migratedKeyword = false;
 
     const jutsuType = schoolMap[source.school];
     if ( jutsuType ) {
+      source.jutsu ??= {};
       if ( !source.jutsu.type ) source.jutsu.type = jutsuType;
       keywords.add(jutsuType);
       if ( source.school === "hi" ) keywords.add("hijutsu");
       source.school = jutsuType === "genjutsu" ? "ill" : "trs";
+      migratedKeyword = true;
     }
 
     for ( const property of oldProperties ) {
       const component = componentMap[property];
-      if ( component ) components.add(component);
+      if ( component ) {
+        components.add(component);
+        migratedComponent = true;
+      }
       const keyword = keywordMap[property];
-      if ( keyword ) keywords.add(keyword);
+      if ( keyword ) {
+        keywords.add(keyword);
+        migratedKeyword = true;
+      }
     }
 
     if ( "chakraCost" in source ) {
@@ -596,10 +624,19 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
     }
     SpellData.#migrateChakraScaling(source);
 
-    source.jutsu.components = Array.from(components);
-    source.jutsu.keywords = Array.from(keywords);
-    source.properties = oldProperties.filter(p => ["concentration", "material", "ritual", "somatic", "vocal"].includes(p));
-    delete source.keywords;
+    if ( hasJutsuComponents || migratedComponent ) {
+      source.jutsu ??= {};
+      source.jutsu.components = Array.from(components);
+    }
+    if ( hasJutsuKeywords || hasLegacyKeywords || migratedKeyword ) {
+      source.jutsu ??= {};
+      source.jutsu.keywords = Array.from(keywords);
+    }
+    if ( hasProperties ) {
+      source.properties = oldProperties
+        .filter(p => ["concentration", "material", "ritual", "somatic", "vocal"].includes(p));
+    }
+    if ( hasLegacyKeywords ) delete source.keywords;
 
     if ( "actionType" in source ) {
       source.actionType = {
@@ -927,9 +964,11 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
       if ( !config ) return null;
       return { key: keyword, label: config.label, limited: config.limited };
     }).filter(_ => _);
+    const formattedKeywords = game.i18n.getListFormatter().format(keywordLabels.map(k => k.label));
     labels.jutsuKeywords = {
       all: keywordLabels,
-      short: game.i18n.getListFormatter().format(keywordLabels.map(k => k.label))
+      short: formattedKeywords,
+      full: formattedKeywords
     };
 
     const uuid = this.parent._stats.compendiumSource ?? this.parent.uuid;
@@ -971,9 +1010,21 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
   async getCardData(enrichmentOptions={}) {
     const context = await super.getCardData(enrichmentOptions);
     context.isSpell = true;
-    const { activation, chakra, duration, jutsuComponents, jutsuType, rank, range, target } = this.parent.labels;
-    context.properties = [rank, jutsuType, chakra, jutsuComponents?.short, activation, duration, range, target]
-      .filter(_ => _);
+    const {
+      activation, chakra, duration, jutsuComponents, jutsuKeywords, jutsuType, rank, range, target
+    } = this.parent.labels;
+    context.properties = uniqueDisplayLabels(
+      rank,
+      jutsuType,
+      chakra,
+      jutsuComponents?.short,
+      jutsuKeywords?.all.map(keyword => keyword.label) ?? [],
+      activation,
+      duration,
+      range,
+      target
+    );
+    context.hasProperties = context.tags?.length || context.properties.length;
     if ( !this.properties.has("material") ) delete context.materials;
     return context;
   }
@@ -1112,7 +1163,7 @@ export default class SpellData extends ItemDataModel.mixin(ActivitiesTemplate, I
 
     // Spellcasting
     context.canPrepare = this.canPrepare;
-    context.jutsuRankOptions = CONFIG.DND5E.jutsuRankOrder.map(rank => ({
+    context.jutsuRankOptions = CONFIG.DND5E.jutsuItemRankOrder.map(rank => ({
       value: rank,
       label: CONFIG.DND5E.jutsuRanks[rank].label
     }));

@@ -2,6 +2,7 @@ import CreateDocumentDialog from "../applications/create-document-dialog.mjs";
 import * as Conditions from "../conditions.mjs";
 import FormulaField from "../data/fields/formula-field.mjs";
 import MappingField from "../data/fields/mapping-field.mjs";
+import * as Seals from "../seals.mjs";
 import { parseOrString, staticID } from "../utils.mjs";
 import { assignSystemFlagAliases, getSystemFlagAlias } from "./flag-compatibility.mjs";
 import Item5e from "./item.mjs";
@@ -46,6 +47,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   static FORMULA_FIELDS = new Set([
     "system.attributes.ac.bonus",
     "system.attributes.ac.min",
+    "system.attributes.ac.override",
     "system.attributes.encumbrance.bonuses.encumbered",
     "system.attributes.encumbrance.bonuses.heavilyEncumbered",
     "system.attributes.encumbrance.bonuses.maximum",
@@ -136,6 +138,9 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     if ( this.parent instanceof dnd5e.documents.Item5e ) {
       if ( this.parent.areEffectsSuppressed ) return true;
       if ( this.dependentOrigin?.active === false ) return true;
+      const requiresNoArmor = this.getFlag("n5eb", "requiresNoArmor")
+        || ((this.parent.identifier === "martial-defense") && (this.name === "Martial Defense"));
+      if ( requiresNoArmor && Seals.getEquippedArmor(this.target) ) return true;
     }
     return false;
   }
@@ -197,6 +202,42 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
         change.mode = CONST.ACTIVE_EFFECT_MODES.ADD;
         change.value = 1;
       }
+      if ( (data.name === "Armor of Psychosis") && (change.key === "system.attributes.ac.formula")
+        && (change.value === "@attributes.ac.armor + @abilities.wis.mod") ) {
+        change.value = "@attributes.ac.armor + @attributes.jutsu.genjutsu.mod";
+      }
+      if ( (data.name === "Martial Defense") && (change.key === "system.attributes.ac.formula")
+        && (change.value === "10 + @abilities.dex.mod") ) {
+        change.value = "10 + @attributes.prof + @abilities.dex.mod";
+      }
+      if ( (data.name === "Nin Dog AC Calc") && (change.key === "system.attributes.ac.formula") ) {
+        change.mode = CONST.ACTIVE_EFFECT_MODES.OVERRIDE;
+      }
+      if ( (data.name === "Defender Ability: AC") && (change.key === "system.attributes.ac.value")
+        && (change.value === "@attributes.ac.value") ) {
+        change.key = "system.attributes.ac.override";
+        change.value = "@origin.attributes.ac.value";
+      }
+    }
+    if ( data.name === "Martial Defense" ) {
+      foundry.utils.setProperty(data, "flags.n5eb.requiresNoArmor", true);
+      data.changes = data.changes?.filter(change => change.key !== "system.attributes.ac.prof");
+    }
+    if ( data.name === "Light Armor Mastery" ) {
+      data.changes = data.changes?.filter(change => change.key !== "system.attributes.ac.armor");
+    }
+
+    // Native N5eB condition preparation applies these penalties directly from condition rank. Old imported
+    // @stackCount changes no longer have valid roll data and would either show as zero or apply the penalty twice.
+    let conditionId = Conditions.getEffectConditionId(data);
+    conditionId ??= Conditions.canonicalizeConditionId(
+      data.changes?.find(change => change.key === "StatusEffect")?.value
+    );
+    conditionId ??= Conditions.canonicalizeConditionId(String(data.name ?? "").replace(/\s+\d+$/, ""));
+    if ( ["exhaustion", "envenomed"].includes(conditionId) ) {
+      data.changes = data.changes?.filter(change => !(
+        (change.key === "system.attributes.ac.bonus") && String(change.value).includes("@stackCount")
+      ));
     }
     return data;
   }
@@ -207,6 +248,8 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
 
   /** @inheritDoc */
   apply(doc, change) {
+    change = this._prepareOriginDataChange(change);
+
     // Apply shims to moved fields
     change = this._applyChangeShim(change);
 
@@ -232,6 +275,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
 
   /** @inheritDoc */
   static applyChange(model, change, options={}) {
+    change = change.effect._prepareOriginDataChange(change);
     change = change.effect._applyChangeShim(change);
     if ( change.key.startsWith("flags.n5eb.") ) change = change.effect._prepareFlagChange(model, change);
     if ( ActiveEffect5e.FORMULA_FIELDS.has(change.key) ) {
@@ -364,6 +408,25 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
       shim.warning
     );
     return { ...change, key: shim.key };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve formula references to the Actor that originated this effect.
+   * @param {EffectChangeData} change  Effect change being applied.
+   * @returns {EffectChangeData} A cloned change with origin references replaced.
+   * @protected
+   */
+  _prepareOriginDataChange(change) {
+    if ( (typeof change.value !== "string") || !change.value.includes("@origin.") ) return change;
+    const origin = fromUuidSync(this.origin);
+    const actor = origin instanceof Actor ? origin : origin?.actor;
+    if ( !actor ) return change;
+    const value = Roll.replaceFormulaData(change.value, {
+      origin: actor.getRollData({ deterministic: true })
+    }, { missing: null });
+    return { ...change, value };
   }
 
   /* -------------------------------------------- */
@@ -696,6 +759,18 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
 
   /** @inheritDoc */
   async _preDelete(options, user) {
+    if ( (this.id === this.constructor.ID.ENCUMBERED) && (this.parent instanceof Actor)
+      && !options.n5eb?.automaticEncumbrance
+      && (game.settings.get("n5eb", "encumbrance") === "variant")
+      && this.parent.system.attributes?.encumbrance?.encumbered ) {
+      const encumbrance = this.parent.system.attributes.encumbrance;
+      ui.notifications.warn(game.i18n.format("N5EB.Encumbrance.DeleteBlocked", {
+        value: encumbrance.value,
+        maximum: encumbrance.thresholds.maximum
+      }));
+      return false;
+    }
+
     const dependents = this.getDependents();
     if ( dependents.length && !game.users.activeGM ) {
       ui.notifications.warn("DND5E.ConcentrationBreakWarning", { localize: true });

@@ -2,7 +2,7 @@ folder: lAKW2wIWtDO9Aor8
 name: Malefic Moon Eater
 type: spell
 _id: tXmy8gEdzCWdTtgB
-img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+img: systems/n5eb/assets/content/classmod-icons/mangekyo/amaterasu.webp
 system:
   description:
     value: >-
@@ -21,9 +21,10 @@ system:
       effect ends.</p><p>Critical Failure: Same effect as failure but this lasts for 1d4 of their turns.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 71–104
   activation:
     type: reaction
     cost: 1
@@ -106,7 +107,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -116,6 +117,70 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:mangekyo-sharingan
+  activities:
+    e5d6034bf91f9585:
+      _id: e5d6034bf91f9585
+      type: save
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires mangekyo-sharingan.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Malefic Moon Eater
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo/amaterasu.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - int
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts: []
+        onSave: none
 effects: []
 sort: 0
 ownership:
@@ -252,6 +317,15 @@ flags:
           value: 0
     classmodArt:
       classmod: mangekyo-sharingan
+    classmodCompendium:
+      classmod: mangekyo-sharingan
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

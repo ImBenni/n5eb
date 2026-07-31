@@ -1,0 +1,118 @@
+folder: 61c289ceee8656c2
+name: Rinne Bodies
+type: feat
+_id: 09a39b2204d726ac
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Rinne Bodies</h2><p>At 2nd level, during a Full Rest convert a dead humanoid into a Rinne Body. Assign
+      physical scores 18, 16, and 14; it shares your mental scores. A body has one unique six-Path assignment, gains one
+      Art from that Path without cost, can use only Arts of its Path, and has a Black Receiver and linked
+      vision.</p><p>Its level is twice your class-mod level plus body rank; it has d10 Hit Dice, one Chakra Die, 10 +
+      Constitution modifier Hit Points and one Chakra Die per body level, and 30-foot speed. Command up to two bodies
+      with your Action and Bonus Action together. Otherwise they only move toward you or a preassigned lead.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-rinne-bodies
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    3ba19460d026f0e5:
+      _id: 3ba19460d026f0e5
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Also uses your Bonus Action. Assign their actions; otherwise only the source's default movement applies.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "2"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Command up to Two Rinne Bodies
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: action-and-bonus-command-limit
+          mode: native
+        - clause: default-movement-linked-vision-and-unique-path-assignment
+          mode: prompt
+        - clause: corpse-dependent-statistics-free-art-black-receiver-hit-points-chakra-and-level
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!09a39b2204d726ac"

@@ -2,7 +2,7 @@ folder: lAKW2wIWtDO9Aor8
 name: Malefic Fate
 type: spell
 _id: JCyNkn9Zo2FwWwNy
-img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+img: systems/n5eb/assets/content/classmod-icons/mangekyo/izanami.webp
 system:
   description:
     value: >-
@@ -25,9 +25,10 @@ system:
       to be at work, regardless of circumstances.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 71–104
   activation:
     type: reaction
     cost: 1
@@ -108,7 +109,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -118,6 +119,70 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:mangekyo-sharingan
+  activities:
+    7cb87a89df2dca0f:
+      _id: 7cb87a89df2dca0f
+      type: save
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires mangekyo-sharingan.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Malefic Fate
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo/izanami.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts: []
+        onSave: none
 effects: []
 sort: 0
 ownership:
@@ -255,6 +320,15 @@ flags:
           value: 0
     classmodArt:
       classmod: mangekyo-sharingan
+    classmodCompendium:
+      classmod: mangekyo-sharingan
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

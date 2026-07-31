@@ -1,0 +1,359 @@
+folder: d8b9c237b68542ef
+name: Dark Seal
+type: feat
+_id: 240fcb496355191c
+img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+system:
+  description:
+    value: >-
+      <p>A dormant mark appears on your body. As a bonus action, activate it for up to 1 minute. When the Seal
+      deactivates, every class-mod effect ends. On activation, every creature other than you within 60 feet makes a
+      Constitution saving throw. Choose Hit Points or Chakra for each failed target; that current total is reduced by
+      2d6 + your character level.</p><p>If you chose Hit Points, you gain temporary Hit Points equal to the reduction
+      for the activation. If you chose Chakra, you gain bonus Dark Chakra equal to the reduction. You can activate the
+      Seal twice per Long Rest and cannot reactivate it for 10 minutes after an activation ends. Spirit Consumption: a
+      qualifying target must be at 0 Hit Points but not dead.</p><p>You may Sever the Bond of a person important to you
+      or someone important to such a person, or Devour a Foe of equal or higher level that is an Elite or Solo
+      adversary. Its spirit becomes irretrievable. Each consumed spirit permanently seals one of your Hit Dice and one
+      Chakra Die and increases your maximum Dark Chakra by 10.</p><p>Spirit consumption, irretrievable souls, and
+      permanent die changes require explicit GM confirmation and must be recorded reversibly.</p>
+    chat: ""
+  source:
+    custom: Light - Dark Release (Draft)
+    book: Naruto 5e Homebrew
+    page: PDF 10
+    license: ""
+    rules: n5eb
+  uses:
+    max: "2"
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: dark-seal
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    6a9ba78ff8ef8aeb:
+      _id: 6a9ba78ff8ef8aeb
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Cannot be used within 10 minutes of the previous activation ending.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 0be3fc2d17ba9d5e
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Dark Seal
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 0be3fc2d17ba9d5e
+    c4201ae9fd0e9d6e:
+      _id: c4201ae9fd0e9d6e
+      type: save
+      activation:
+        type: special
+        value: null
+        condition: Exclude yourself. For each failed target choose Hit Points or Chakra, then award the matching benefit.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: sphere
+          size: "60"
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Release Dark Seal Wave
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - con
+        dc:
+          calculation: spellcasting
+          formula: ""
+      damage:
+        parts: []
+        onSave: none
+    d3b2fdfb9b53a02c:
+      _id: d3b2fdfb9b53a02c
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Roll once after resolving the activation saving throws.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Seal Reduction
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 2d6 + @details.level
+        name: Hit Point or Chakra Reduction
+        prompt: false
+        visible: true
+    0d75bd3e7568f4e6:
+      _id: 0d75bd3e7568f4e6
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Confirm the qualifying target, irretrievable spirit, permanent dice locks, and +10 maximum Dark Chakra.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: touch
+        special: Physical contact
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: enemy
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Consume Spirit (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects:
+  - name: Dark Seal Active
+    img: systems/n5eb/assets/content/classmod-icons/dark-release/karma-linchpin-strange-taste.webp
+    origin: Item.240fcb496355191c
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 0be3fc2d17ba9d5e
+    type: base
+    system: {}
+    description: ""
+    tint: "#30104f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: dark-release
+          form: dark-seal
+          sourceItemId: 240fcb496355191c
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!240fcb496355191c.0be3fc2d17ba9d5e"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: dark-release
+      coverage:
+        - clause: activation-uses-duration-save-and-reduction-roll
+          mode: native
+        - clause: per-target-hit-point-or-chakra-choice-and-awarded-benefit
+          mode: prompt
+        - clause: spirit-consumption-irretrievable-soul-and-permanent-die-locks
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!240fcb496355191c"

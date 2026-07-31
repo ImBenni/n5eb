@@ -20,9 +20,10 @@ system:
       Concussed, Confused, Slowed, or Dazzled.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 71–104
   activation:
     type: special
     cost: null
@@ -104,7 +105,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -114,17 +115,73 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:mangekyo-sharingan
+  activities:
+    8453f4c414124681:
+      _id: 8453f4c414124681
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Requires mangekyo-sharingan.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Malefic Instinct
+      img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+      visibility:
+        level:
+          min: null
+          max: null
 effects:
   - name: Concussed
     origin: Compendium.n5eb.classmod.Item.e8jARLKx6Q7njsvE
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -156,47 +213,47 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/concussed.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: A5rDIK6GNoHRltDY
     type: base
-    system: {}
-    changes:
-      - key: system.abilities.int.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.cha.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.con.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.dex.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.int.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.str.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.wis.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.int.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: concussed
-        priority: 20
+    system:
+      changes:
+        - key: system.abilities.int.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.cha.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.con.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.dex.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.int.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.str.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.wis.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.int.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: concussed
+          priority: 20
+          type: custom
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental
       acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A
@@ -212,12 +269,16 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!e8jARLKx6Q7njsvE.A5rDIK6GNoHRltDY'
 sort: 0
 ownership:
@@ -348,6 +409,15 @@ flags:
           value: 0
     classmodArt:
       classmod: mangekyo-sharingan
+    classmodCompendium:
+      classmod: mangekyo-sharingan
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

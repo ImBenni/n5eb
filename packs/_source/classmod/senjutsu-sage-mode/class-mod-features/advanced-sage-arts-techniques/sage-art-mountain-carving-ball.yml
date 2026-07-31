@@ -2,7 +2,7 @@ folder: uuWsvr4SleZah3pq
 name: 'Sage Art: Mountain Carving Ball'
 type: spell
 _id: NCCc0U0NmJ4IC1iN
-img: systems/n5eb/assets/content/jutsu-icons/sage-mode.webp
+img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
 system:
   description:
     value: >-
@@ -29,9 +29,10 @@ system:
       Shock.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 6–35
   activation:
     type: action
     cost: 1
@@ -115,7 +116,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -125,17 +126,90 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:senjutsu-sage-mode
+  activities:
+    af59fa6c425e6de6:
+      _id: af59fa6c425e6de6
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires senjutsu-sage-mode.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 20
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: 'Sage Art: Mountain Carving Ball'
+      img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts:
+          - number: null
+            denomination: 0
+            bonus: ''
+            types:
+              - force
+            custom:
+              enabled: true
+              formula: 24d8
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
 effects:
   - name: Burned
     origin: Compendium.n5eb.classmod.Item.NCCc0U0NmJ4IC1iN
     duration:
-      rounds: 10
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 10
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -167,31 +241,31 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/burning.svg
+    img: systems/n5eb/assets/content/classmod-icons/senjutsu/sage-mode.webp
     _id: Rl4Wx6RD6XqIWpsm
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.OverTime
-        mode: 5
-        value: |-
-          turn=start,
-          rollType=skill,
-          saveAbility=sur,
-          saveDC=15,
-          actionSave=dialog,
-          damageBeforeSave=true,
-          damageRoll=1d8,
-          damageType=fire,
-          saveRemove=true,
-          name=Burned,
-          chatFlavor=It's very hot!,
-          fastForwardDamage=true,
-        priority: 20
-      - key: system.attributes.concentration.bonuses.save
-        mode: 2
-        value: '-2 * @stackCount'
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.OverTime
+          value: |-
+            turn=start,
+            rollType=skill,
+            saveAbility=sur,
+            saveDC=15,
+            actionSave=dialog,
+            damageBeforeSave=true,
+            damageRoll=1d8,
+            damageType=fire,
+            saveRemove=true,
+            name=Burned,
+            chatFlavor=It's very hot!,
+            fastForwardDamage=true,
+          priority: 20
+          type: override
+        - key: system.attributes.concentration.bonuses.save
+          value: '-2 * @stackCount'
+          priority: 20
+          type: add
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><ul><li><p>A Burned Creature or object takes 1d8 fire damage for each rank it
       has, at the start of each of their turns.</p></li><li><p>A Burned creature takes a -2 penalty to Concentration
@@ -207,12 +281,16 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.2QOny7ErdFRizZ08.ActiveEffect.WJy8QaapVm2BHJxx
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!NCCc0U0NmJ4IC1iN.Rl4Wx6RD6XqIWpsm'
 sort: 0
 ownership:
@@ -338,6 +416,15 @@ flags:
           charged: false
     classmodArt:
       classmod: senjutsu-sage-mode
+    classmodCompendium:
+      classmod: senjutsu-sage-mode
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
   midi-qol:
     AoETargetType: any
     AoETargetTypeIncludeSelf: true

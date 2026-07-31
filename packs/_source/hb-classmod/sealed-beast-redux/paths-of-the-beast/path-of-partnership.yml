@@ -1,0 +1,188 @@
+folder: f866a16edc684215
+name: Path of Partnership
+type: feat
+_id: b933f433060a1a4a
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+system:
+  description:
+    value: >-
+      <h2>Path of Partnership</h2><p>At level 2, at the start of a Dormant Beast turn make a Charisma check against the
+      Desperate Rage DC. On success, choose up to 10 times class-mod level normal Chakra for the beast; it grants equal
+      Twisted Chakra. On failure, lose the normal Dormant Beast amount. Frenzy no longer requires matching normal Chakra
+      when spending Twisted Chakra. At level 3 the beast grants twice as much Twisted Chakra on success.</p><p>At level
+      4, do not add sealed-beast level to the Desperate Rage DC. At level 5 no check is required to share Chakra.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-path-of-partnership
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    c45a000a4e69dcd5:
+      _id: c45a000a4e69dcd5
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Request Shared Chakra
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + @abilities.cha.mod
+        name: Partnership Check vs Desperate Rage DC
+        prompt: false
+        visible: true
+    2a812bcde0183e0f:
+      _id: 2a812bcde0183e0f
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          On success at level 2, or without a check at level 5. Scale by Chakra offered; at level 3+, manually double
+          the Twisted Chakra gained.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "1"
+            scaling:
+              mode: amount
+              formula: ""
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "-1"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: 10 * @classmods.sealed-beast-redux.levels
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Partnership Exchange
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/kurama-link-mode.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: path-progression-and-explicit-resource-exchanges
+          mode: prompt
+        - clause: desperate-rage-modifiers-relationship-and-death-outcomes
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!b933f433060a1a4a"

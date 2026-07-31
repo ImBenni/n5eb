@@ -5,6 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import { normalizeAttackActionType } from "../module/activity-utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,6 +47,7 @@ const REQUIRED_INTERNAL_HELPERS = [
   "_migrateActorDowntimeCosts",
   "_migrateDowntimeTemplateCost",
   "_migrateN5eBArmorAndSeals",
+  "_migrateN5eBJutsuAttackActivities",
   "_migrateN5eBBookParityFixes",
   "_migrateN5eBActorToolKits",
   "_migrateJutsuChakraScaling",
@@ -105,6 +107,10 @@ function buildReport() {
       fetchesRequiredJson: [],
       missingFetches: []
     },
+    activityRepair: {
+      aliases: [],
+      issues: []
+    },
     settings: {
       present: [],
       missing: []
@@ -124,10 +130,39 @@ function buildReport() {
   auditManifest(report);
   auditPackageScripts(report);
   auditMigrationModule(report);
+  auditActivityRepair(report);
   auditSettings(report);
   auditLegacyModule(report);
   auditMigrationJson(report);
   return report;
+}
+
+function auditActivityRepair(report) {
+  const aliases = {
+    mgak: "msak", mnak: "msak", mtak: "msak",
+    rgak: "rsak", rnak: "rsak", rtak: "rsak"
+  };
+  for ( const [legacy, canonical] of Object.entries(aliases) ) {
+    const actual = normalizeAttackActionType(legacy);
+    report.activityRepair.aliases.push({ legacy, canonical: actual });
+    if ( actual !== canonical ) report.activityRepair.issues.push(`${legacy} normalized to ${actual}, expected ${canonical}.`);
+  }
+  for ( const canonical of ["mwak", "rwak", "msak", "rsak"] ) {
+    if ( normalizeAttackActionType(canonical) !== canonical ) {
+      report.activityRepair.issues.push(`Canonical action type ${canonical} was modified.`);
+    }
+  }
+
+  const migration = fs.readFileSync(MIGRATION_MODULE, "utf8");
+  for ( const marker of [
+    "staticID(\"dnd5eactivity\")",
+    "activity?.type === \"attack\"",
+    "existingAttack.damage.versatile.parts",
+    "delete activities[versatileId]",
+    "updateData[\"system.==activities\"]"
+  ] ) {
+    if ( !migration.includes(marker) ) report.activityRepair.issues.push(`Jutsu activity repair missing ${marker}.`);
+  }
 }
 
 function auditManifest(report) {
@@ -285,6 +320,7 @@ function hasFailures(report) {
     || report.migrationModule.missingExports.length
     || report.migrationModule.missingHelpers.length
     || report.migrationModule.missingFetches.length
+    || report.activityRepair.issues.length
     || report.settings.missing.length
     || report.legacyModule.issues.length
     || report.json.issues.length
@@ -299,6 +335,7 @@ function printReport(report) {
   console.log(`JSON files: ${report.json.files.map(row => `${row.file}=${row.count}`).join(", ")}`);
   console.log(`Migration exports: ${report.migrationModule.exports.length}/${REQUIRED_MIGRATION_EXPORTS.length}`);
   console.log(`Migration helpers: ${report.migrationModule.helpers.length}/${REQUIRED_INTERNAL_HELPERS.length}`);
+  console.log(`Legacy attack aliases: ${report.activityRepair.aliases.length}/6`);
   console.log(`Migration settings: ${report.settings.present.length}/${REQUIRED_SETTINGS.length}`);
   console.log(`Asset path targets missing: ${report.json.missingAssetTargets.length}`);
   console.log(`Book parity source files missing: ${report.json.missingBookParitySources.length}`);
@@ -310,6 +347,7 @@ function printReport(report) {
     ...report.migrationModule.missingExports.map(name => `Missing migration export: ${name}`),
     ...report.migrationModule.missingHelpers.map(name => `Missing migration helper: ${name}`),
     ...report.migrationModule.missingFetches.map(name => `getMigrationData does not fetch ${name}`),
+    ...report.activityRepair.issues,
     ...report.settings.missing.map(name => `Missing migration setting: ${name}`),
     ...report.legacyModule.issues,
     ...report.json.issues,

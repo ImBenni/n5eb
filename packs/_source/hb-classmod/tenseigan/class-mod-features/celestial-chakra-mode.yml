@@ -1,0 +1,350 @@
+folder: ccc5494764162de4
+name: Celestial Chakra Mode
+type: feat
+_id: aac47f66c52af039
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: |-
+      <h2>Celestial Chakra Mode</h2><p>At 3rd level, as a bonus action, coat your body in an emerald green,
+          golden yellow, or ashy white cloak of Chakra. It lasts for 1 minute and can be ended as a bonus action.</p>
+          <h3>Class-Mod Levels 3–4</h3><ul><li>Your Taijutsu Ability Score becomes 24.</li><li>Your Speed is doubled.</li>
+          <li>Celestial Art costs are reduced by 3.</li><li>Celestial Art Strain is reduced by 1, minimum 1.</li>
+          <li>Each Celestial Chakra spent on a Hyūga Clan Jutsu counts as 3 Chakra Points.</li><li>Those Hyūga Clan Jutsu are
+          treated as one rank higher.</li><li>When you benefit from a single Art Magnification, double its benefits.</li>
+          <li>Increase your Celestial Art Save DC by 2 and Attack Bonus by 4.</li></ul>
+          <h3>Class-Mod Level 5</h3><ul><li>Your Taijutsu Ability Score becomes 28.</li><li>You gain a flying speed equal to
+          your movement speed.</li><li>Celestial Art costs are reduced by a total of 4.</li><li>Celestial Art Strain is
+          reduced by 2, minimum 1.</li><li>Each Celestial Chakra spent on a Hyūga Clan Jutsu counts as 5 Chakra Points.</li>
+          <li>Increase your Celestial Art Save DC by 3 and Attack Bonus by 6.</li></ul>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: celestial-chakra-mode
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    3f6e660711f80518:
+      _id: 3f6e660711f80518
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires class-mod level 3 or 4 and an active Tenseigan.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 6b76292834b6bbd3
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Celestial Chakra Mode
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 6b76292834b6bbd3
+    82364f15cef81afd:
+      _id: 82364f15cef81afd
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Requires class-mod level 5 and an active Tenseigan. Remove the lower-level mode effect first.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: minute
+        special: ""
+        override: false
+      effects:
+        - _id: 8af95541e7e58f72
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate Celestial Chakra Mode (Level 5)
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      appliedEffects:
+        - 8af95541e7e58f72
+    ca43b1619d8fd668:
+      _id: ca43b1619d8fd668
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: Remove the active Celestial Chakra Mode effect.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: End Celestial Chakra Mode
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects:
+  - name: Celestial Chakra Mode
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.aac47f66c52af039
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 1
+        value: "2"
+        priority: 20
+    statuses: []
+    _id: 6b76292834b6bbd3
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: celestial-chakra-mode
+          sourceItemId: aac47f66c52af039
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!aac47f66c52af039.6b76292834b6bbd3"
+  - name: Celestial Chakra Mode (Level 5)
+    img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+    origin: Item.aac47f66c52af039
+    transfer: false
+    disabled: false
+    duration:
+      startTime: null
+      seconds: 60
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 1
+        value: "2"
+        priority: 20
+      - key: system.attributes.movement.fly
+        mode: 5
+        value: "@attributes.movement.walk"
+        priority: 20
+    statuses: []
+    _id: 8af95541e7e58f72
+    type: base
+    system: {}
+    description: ""
+    tint: "#8fefff"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: tenseigan
+          form: celestial-chakra-mode
+          sourceItemId: aac47f66c52af039
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785456000000
+      modifiedTime: 1785456000000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!aac47f66c52af039.8af95541e7e58f72"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: bonus-action-duration-speed-and-level-five-flight
+          mode: native
+        - clause: art-cost-strain-save-attack-and-magnification-variants
+          mode: native
+        - clause: taijutsu-score-hyuga-conversion-ratio-and-rank-increase
+          mode: prompt
+        - clause: level-five-replacement-and-effect-mutual-exclusion
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!aac47f66c52af039"

@@ -1,0 +1,164 @@
+folder: 988dfcc2ab9c9979
+name: Beast Beam
+type: spell
+_id: 4efff7512a1cfed0
+img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/false-fox-blast.webp
+system:
+  description:
+    value: >-
+      <h2>Beast Beam</h2><h3>Vermillion Art</h3><dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Vermillion
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>Self; 120-foot-long, 15-foot-wide
+      line</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>30 Twisted
+      Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Vermillion</dd></dl><h3>Description:</h3><p>Requires any Transformation
+      Art unless in Desperate Rage. Creatures in a 15-foot-wide, 120-foot-long line make a Dexterity save, taking 16d12
+      Force damage on failure or half on success. A creature failing by 5 or more has all non-Chakra-enhanced weapons
+      and equipment destroyed. This Art deals four times damage to constructs and structures.</p>
+    chat: ""
+  source:
+    custom: Sealed Beast Redux - Beta
+    book: Homebrew
+    page: Homebrewery 8
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: sealed-beast-redux-beast-beam
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - ninjutsu
+      - vermillion
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 30 Twisted Chakra
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:sealed-beast-redux
+  activities:
+    62bd1b87bec01c97:
+      _id: 62bd1b87bec01c97
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires a Transformation Art or Desperate Rage.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:sealed-beast-redux-twisted-chakra
+            value: "30"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: "1"
+          contiguous: false
+          type: line
+          size: "120"
+          width: "15"
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: creature
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/sealed-beast-redux/false-fox-blast.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: 12 + @classmods.sealed-beast-redux.levels + @prof
+      damage:
+        parts:
+          - number: 16
+            denomination: 12
+            bonus: ""
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ""
+            scaling:
+              mode: ""
+              number: null
+              formula: ""
+        onSave: half
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: sealed-beast-redux
+      coverage:
+        - clause: activation-resource-save-attack-range-and-damage
+          mode: native
+        - clause: transformation-prerequisite-conditions-and-forced-movement
+          mode: prompt
+        - clause: construct-damage-and-dynamic-cross-activity-results
+          mode: manual
+    classmodArt:
+      classmod: sealed-beast-redux
+      classification: Vermillion Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!4efff7512a1cfed0"

@@ -9,14 +9,15 @@ system:
       <p>Also, beginning at 1st level of this class mod, your Mangekyō Sharingan begins filled with Light. Light
       functions as a very limited resource for your MS. You begin with 100 Light. You only spend Light you have when you
       have gone over your use limits for your Mangekyō Arts. If you would reach 0 Light, or spend more Light then you
-      have remaining, your MS loses its light. You becomes permanently blinded and cannot have this condition removed by
-      any means. Additionally, you lose this class mod and your Sharingan Uchiha clan feature and all feats that
-      required your Sharingan to function.</p>
+      have remaining, your MS loses its light.</p><p>You becomes permanently blinded and cannot have this condition
+      removed by any means. Additionally, you lose this class mod and your Sharingan Uchiha clan feature and all feats
+      that required your Sharingan to function.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: '74'
   activation:
     type: special
     cost: null
@@ -37,11 +38,9 @@ system:
     long: null
     units: ''
   uses:
-    value: 100
     max: '100'
-    per: charges
-    recovery: ''
-    prompt: true
+    recovery: []
+    spent: 0
   consume:
     type: ''
     target: null
@@ -184,6 +183,13 @@ flags:
         prerequisites:
           level: null
         properties: []
+    classmodCompendium:
+      classmod: mangekyo-sharingan
+      coverage:
+        - clause: mangekyo-light-pool
+          mode: native
+        - clause: permanent-blindness-and-classmod-loss
+          mode: manual
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

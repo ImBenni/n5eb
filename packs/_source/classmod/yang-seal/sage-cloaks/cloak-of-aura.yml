@@ -1,0 +1,182 @@
+folder: 27d4a5076e87ddd3
+name: Cloak of Aura
+type: feat
+_id: ed5029e0f85669f9
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <p>• Creatures within range gain temporary hit points equal to twice your character level, start of each of your
+      turns. They also gain 10 damage reduction for the duration of these temporary hit points.</p><ul><li>Creatures
+      that have temporary hit points granted by this cloak become immune to the charmed and demoralized conditions, and
+      have advantage on saving throws against genjutsu.</li><li>Creatures that have temporary hit points granted by this
+      cloak automatically succeed saving throws against being moved against their will, and are immune to the prone
+      condition.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '108'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: cloak-of-aura
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    64f3891fd019d267:
+      _id: 64f3891fd019d267
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Use once each round to pay upkeep and renew the effect.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '5'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: 6f1bf3743f1c82a1
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: spec
+        special: 'Class Mod 2+: 30 feet; Class Mod 4+: 60 feet'
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: ally
+          choice: true
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: 2 * @details.level
+        name: Temporary Hit Points
+        prompt: false
+        visible: true
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply / Renew (1 Round)
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - 6f1bf3743f1c82a1
+effects:
+  - name: Cloak of Aura Benefits
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+    origin: Item.ed5029e0f85669f9
+    transfer: false
+    disabled: false
+    duration:
+      seconds: null
+      combat: null
+      rounds: 1
+      turns: null
+      startTime: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.traits.ci.value
+        mode: 2
+        value: charmed
+        priority: 20
+      - key: system.traits.ci.value
+        mode: 2
+        value: demoralized
+        priority: 20
+      - key: system.traits.ci.value
+        mode: 2
+        value: prone
+        priority: 20
+    statuses: []
+    _id: 6f1bf3743f1c82a1
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!ed5029e0f85669f9.6f1bf3743f1c82a1'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!ed5029e0f85669f9'

@@ -1,0 +1,98 @@
+folder: af0b1a9d3f3959d9
+name: Tempest Wraith
+type: feat
+_id: 4da19fe0363b2ffc
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Tempest Wraith</h2><p><strong>Cost:</strong> 1 Unholy Blessing. Gain Wind Release Affinity and wind
+      resistance. Chosen creatures that fail saves against your Wind Release Jutsu are pushed 20 feet times the
+      summoner's class-mod level.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 22
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-tempest-wraith
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities: {}
+  advancement: {}
+effects:
+  - name: Tempest Wraith
+    img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+    origin: Item.4da19fe0363b2ffc
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.traits.dr.value
+        mode: 2
+        value: wind
+        priority: 20
+    statuses: []
+    _id: 3d84ef77999e26cc
+    type: base
+    system: {}
+    description: ""
+    tint: "#4a394f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: edo-tensei
+          form: ""
+          sourceItemId: 4da19fe0363b2ffc
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!4da19fe0363b2ffc.3d84ef77999e26cc"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: tempest-wraith-static-or-rolled-benefits
+          mode: native
+        - clause: tempest-wraith-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: tempest-wraith-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!4da19fe0363b2ffc"

@@ -1,0 +1,169 @@
+folder: 64fa38d1b95e9c96
+name: 'Truth Seeking: Body Flicker'
+type: spell
+_id: 8f26e20712782109
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Truth-Seeking</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>60 feet
+      line</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M, W (Truth-Seeking
+      Orb)</dd><dt>Cost:</dt><dd>5 Yang Chakra</dd><dt>Keywords:</dt><dd>Bukijutsu, Truth
+      -Seeking</dd></dl><h3>Description:</h3><p>You cover yourself with your Truth-Seeking Orb and smash through
+      creatures in front of you. Choose one point within 60ft of you. You move at match speed towards that point,
+      phasing through all creatures in between without provoking attacks of opportunity.</p><p>All creatures within 5ft
+      of the spaces you passed through must make an strength saving throw , taking 14d10 bludgeoning damage, gaining a
+      rank of lacerated and dazed on a failed save, half as much damage on a success. Truth-Seeking: You can spend
+      additional Truth-Seeking Orbs as part of casting this jutsu.</p><p>For each additional Orb, increase this jutsu's
+      damage by +1d10, and for each 2 additional Orbs increase the ranks of lacerated by +1.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '112'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: truth-seeking-body-flicker
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: bukijutsu
+    ability: ''
+    components:
+      - m
+      - w-truth-seeking-orb
+    keywords:
+      - bukijutsu
+      - truth--seeking
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 5 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    4aea12e57ffc9667:
+      _id: 4aea12e57ffc9667
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '5'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 14
+            denomination: 10
+            bonus: ''
+            types:
+              - bludgeoning
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
+      save:
+        ability:
+          - str
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!8f26e20712782109'

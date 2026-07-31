@@ -24,9 +24,10 @@ system:
       and also gains 5 ranks of Fear and Slowed.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 71–104
   activation:
     type: action
     cost: 1
@@ -111,7 +112,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -121,17 +122,90 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:mangekyo-sharingan
+  activities:
+    bda24894ef259a86:
+      _id: bda24894ef259a86
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires mangekyo-sharingan.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Malefic Moon Breaker
+      img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: art
+          formula: ''
+      damage:
+        parts:
+          - number: null
+            denomination: 0
+            bonus: ''
+            types:
+              - psychic
+            custom:
+              enabled: true
+              formula: 20d6
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: none
 effects:
   - name: Incapacitated
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: 1
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -163,35 +237,35 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/incapacitated.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: RTrAtzvlWUa6G2NI
     type: base
-    system: {}
-    changes:
-      - key: system.attributes.movement.walk
-        mode: 5
-        value: '0'
-        priority: 20
-      - key: system.attributes.movement.climb
-        mode: 5
-        value: '0'
-        priority: 20
-      - key: system.attributes.movement.swim
-        mode: 5
-        value: '0'
-        priority: 20
-      - key: system.attributes.movement.fly
-        mode: 5
-        value: '0'
-        priority: 20
-      - key: system.attributes.movement.burrow
-        mode: 5
-        value: '0'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: incapacitated
-        priority: 20
+    system:
+      changes:
+        - key: system.attributes.movement.walk
+          value: 0
+          priority: 20
+          type: override
+        - key: system.attributes.movement.climb
+          value: 0
+          priority: 20
+          type: override
+        - key: system.attributes.movement.swim
+          value: 0
+          priority: 20
+          type: override
+        - key: system.attributes.movement.fly
+          value: 0
+          priority: 20
+          type: override
+        - key: system.attributes.movement.burrow
+          value: 0
+          priority: 20
+          type: override
+        - key: StatusEffect
+          value: incapacitated
+          priority: 20
+          type: custom
     description: ''
     tint: '#ffffff'
     transfer: false
@@ -201,23 +275,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.oPKLZHKQOBZsE7k5.ActiveEffect.4SS62Wm6W6fzv1z7
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    showIcon: 2
+    start: null
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.RTrAtzvlWUa6G2NI'
   - name: Concussed
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -249,47 +324,47 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/concussed.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: AEhovkluXxDMn5Gd
     type: base
-    system: {}
-    changes:
-      - key: system.abilities.int.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.cha.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.con.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.dex.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.int.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.str.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.wis.dc
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.int.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: concussed
-        priority: 20
+    system:
+      changes:
+        - key: system.abilities.int.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.cha.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.con.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.dex.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.int.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.str.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.wis.dc
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.int.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: concussed
+          priority: 20
+          type: custom
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><p>A Concussed creature has experienced a traumatic blow causing their mental
       acuity to momentarily decrease as they find themselves struggling to use complex technique.</p><ul><li><p>A
@@ -305,23 +380,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.ZirT2bW02OqnAw4s.ActiveEffect.22NWi0T1qfEqIiml
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.AEhovkluXxDMn5Gd'
   - name: Confused
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: 99
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 99
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -353,32 +429,32 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/confused.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: b0FaukeTnv2ueQ8Q
     type: base
-    system: {}
-    changes:
-      - key: StatusEffect
-        mode: 0
-        value: confused
-        priority: 20
-      - key: system.abilities.wis.bonuses.check
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.wis.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: flags.midi-qol.OverTime
-        mode: 2
-        value: |-
-          saveDC=15,
-          saveAbility=int,
-          rollType=check,
-          saveRemove=true,
-          actionSave=dialog,
-        priority: 20
+    system:
+      changes:
+        - key: StatusEffect
+          value: confused
+          priority: 20
+          type: custom
+        - key: system.abilities.wis.bonuses.check
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.wis.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: flags.midi-qol.OverTime
+          value: |-
+            saveDC=15,
+            saveAbility=int,
+            rollType=check,
+            saveRemove=true,
+            actionSave=dialog,
+          priority: 20
+          type: add
     description: >-
       <p><strong>Max Ranks</strong>: 5</p><p>A Confused creature has difficulty distinguishing friend from foe and
       experiences lapsing judgement.</p><ul><li><p>A Confused creature suffers a -1 penalty to all Wisdom based checks,
@@ -396,23 +472,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.T4ZSbPxGKQwZ0WRG.ActiveEffect.TlQn0pODrzXO8IRz
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.b0FaukeTnv2ueQ8Q'
   - name: Fear/Demoralized
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: 100
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 100
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -444,50 +521,50 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/frightened.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: VJ0emYwmS1dw6kLR
     type: base
-    system: {}
-    changes:
-      - key: system.abilities.str.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.con.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.dex.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.int.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.wis.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: system.abilities.cha.bonuses.save
-        mode: 2
-        value: '-1 * @stackCount'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: frightened
-        priority: 20
-      - key: flags.midi-qol.OverTime
-        mode: 2
-        value: |-
-          turn=end,
-          saveDC=13,
-          saveAbility=cha,
-          allowIncapacitated=true,
-          label=Save to overcome Demoralized
-        priority: 20
+    system:
+      changes:
+        - key: system.abilities.str.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.con.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.dex.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.int.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.wis.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: system.abilities.cha.bonuses.save
+          value: '-1 * @stackCount'
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: frightened
+          priority: 20
+          type: custom
+        - key: flags.midi-qol.OverTime
+          value: |-
+            turn=end,
+            saveDC=13,
+            saveAbility=cha,
+            allowIncapacitated=true,
+            label=Save to overcome Demoralized
+          priority: 20
+          type: add
     description: >-
-      <p><strong>Max Ranks</strong>: 5</p><hr /><p>Creatures who would gain ranks of <strong>Fear</strong> (<strong>or
+      <p><strong>Max Ranks</strong>: 5</p><hr><p>Creatures who would gain ranks of <strong>Fear</strong> (<strong>or
       Frightened</strong>), gain ranks of <strong>Demoralized</strong>. A <strong>Demoralized</strong> creature is
       disturbed by a particular target in some fashion, making them seek to avoid interaction with them if possible.
       This heightened stress causes the defenses of the Demoralized target to wane.</p><ul><li><p>A
@@ -506,23 +583,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.7akNoMKyXsqOX25U.ActiveEffect.Pv2eAiGjrXpfqDdC
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.VJ0emYwmS1dw6kLR'
   - name: Slowed
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: 10
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 10
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -554,19 +632,19 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/slowed.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: 7oLPoA17bujKMN0R
     type: base
-    system: {}
-    changes:
-      - key: system.attributes.movement.walk
-        mode: 2
-        value: '-(10 * @stackCount)'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: slowed
-        priority: 20
+    system:
+      changes:
+        - key: system.attributes.movement.walk
+          value: '-(10 * @stackCount)'
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: slowed
+          priority: 20
+          type: custom
     description: ''
     tint: '#ffffff'
     transfer: false
@@ -575,23 +653,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.hoVkhvYESiXwvBmT.ActiveEffect.6OUagYTTSjghAeJW
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.7oLPoA17bujKMN0R'
   - name: Dazed
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: null
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
     disabled: false
     flags:
       dae:
@@ -624,15 +703,15 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/dazed.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: tZfcSsiXWhICh34T
     type: base
-    system: {}
-    changes:
-      - key: StatusEffect
-        mode: 0
-        value: dazed
-        priority: 20
+    system:
+      changes:
+        - key: StatusEffect
+          value: dazed
+          priority: 20
+          type: custom
     description: >-
       <p>A <strong>Dazed</strong> creature is recovering from a powerful blow and cannot take as many actions as
       usual.</p><ul><li><p>A Dazed creature can only either move or take an action, not both.</p></li><li><p>A Dazed
@@ -645,23 +724,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.lBcTvpDJ8Muk95PF.ActiveEffect.DMk6sLu23lgNj7V4
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.tZfcSsiXWhICh34T'
   - name: Staggered
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: null
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
     disabled: false
     flags:
       dae:
@@ -693,29 +773,29 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/staggered.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: xH2x6y0bOHpGYx17
     type: base
-    system: {}
-    changes:
-      - key: StatusEffect
-        mode: 0
-        value: staggered
-        priority: 20
-      - key: system.abilities.str.bonuses.check
-        mode: 2
-        value: '-5'
-        priority: 20
-      - key: system.abilities.dex.bonuses.check
-        mode: 2
-        value: '-5'
-        priority: 20
-      - key: system.abilities.con.bonuses.check
-        mode: 2
-        value: '-5'
-        priority: 20
+    system:
+      changes:
+        - key: StatusEffect
+          value: staggered
+          priority: 20
+          type: custom
+        - key: system.abilities.str.bonuses.check
+          value: -5
+          priority: 20
+          type: add
+        - key: system.abilities.dex.bonuses.check
+          value: -5
+          priority: 20
+          type: add
+        - key: system.abilities.con.bonuses.check
+          value: -5
+          priority: 20
+          type: add
     description: >-
-      <p><strong>Max Ranks</strong>: 1</p><hr /><p>A <strong>Staggered</strong> creature has been completely overwhelmed
+      <p><strong>Max Ranks</strong>: 1</p><hr><p>A <strong>Staggered</strong> creature has been completely overwhelmed
       by pain or has otherwise had their battle stance shaken.</p><ul><li><p>A <strong>Staggered</strong> creature is
       counted as Bruised 5 for the purposes of interacting with Features, Traits and Jutsu and cannot gain Ranks of
       Bruised for the duration.</p></li><li><p>A <strong>Staggered</strong> creature cannot take the Disengage, Dash or
@@ -731,23 +811,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.wgbuxnP6HRnrbF8l.ActiveEffect.rgnmPqkNAj46ac09
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.xH2x6y0bOHpGYx17'
   - name: Stunned
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: 1
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -779,27 +860,27 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/stunned.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: bVLUZTYf3hsrbnoQ
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.fail.ability.save.dex
-        mode: 2
-        value: '1'
-        priority: 20
-      - key: flags.midi-qol.fail.ability.save.str
-        mode: 2
-        value: '1'
-        priority: 20
-      - key: flags.midi-qol.grants.advantage.attack.all
-        mode: 2
-        value: '1'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: stunned
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.fail.ability.save.dex
+          value: 1
+          priority: 20
+          type: add
+        - key: flags.midi-qol.fail.ability.save.str
+          value: 1
+          priority: 20
+          type: add
+        - key: flags.midi-qol.grants.advantage.attack.all
+          value: 1
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: stunned
+          priority: 20
+          type: custom
     description: >-
       <ul><li><p>A stunned creature is incapacitated (see the condition), can’t move, and can speak only
       falteringly.</p></li><li><p>The creature automatically fails Strength and Dexterity saving
@@ -811,23 +892,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.enO8CeLFBWknZZu0.ActiveEffect.N2v8XhCbxcqgpAKc
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.bVLUZTYf3hsrbnoQ'
   - name: Dazzled
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: 1
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: 1
+      units: rounds
+      expiry: turnStart
+      expired: false
     disabled: false
     flags:
       dae:
@@ -859,19 +941,19 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/dazzled.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: NkrdxIFsFeCn76Z6
     type: base
-    system: {}
-    changes:
-      - key: system.bonuses.All-Attacks
-        mode: 2
-        value: '-2 * @stackCount'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: dazzled
-        priority: 20
+    system:
+      changes:
+        - key: system.bonuses.All-Attacks
+          value: '-2 * @stackCount'
+          priority: 20
+          type: add
+        - key: StatusEffect
+          value: dazzled
+          priority: 20
+          type: custom
     description: >-
       <p><strong>Max Ranks:</strong> 5</p><p>• A <strong>Dazzled</strong> creatures eyes become overloaded with flashes
       of colors, gaining a -2 penalty to all checks that rely on sight for each rank it has. • A
@@ -887,23 +969,24 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.Aa2bI0MeSmyi3eOJ.ActiveEffect.rNLK6dZIg5pamybW
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.NkrdxIFsFeCn76Z6'
   - name: Prone
     origin: Compendium.n5eb.classmod.Item.G49s0gViB2vJOPR3
     duration:
-      rounds: null
-      startTime: null
-      seconds: null
-      combat: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
     disabled: false
     flags:
       dae:
@@ -935,19 +1018,19 @@ effects:
         hostile: false
         onlyOnce: false
         wallsBlock: system
-    img: systems/n5eb/icons/svg/statuses/prone.svg
+    img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
     _id: RpY1AlcVSSnw2xEE
     type: base
-    system: {}
-    changes:
-      - key: flags.midi-qol.disadvantage.attack.all
-        mode: 5
-        value: '1'
-        priority: 20
-      - key: StatusEffect
-        mode: 0
-        value: prone
-        priority: 20
+    system:
+      changes:
+        - key: flags.midi-qol.disadvantage.attack.all
+          value: 1
+          priority: 20
+          type: override
+        - key: StatusEffect
+          value: prone
+          priority: 20
+          type: custom
     description: ''
     tint: '#ffffff'
     transfer: false
@@ -956,12 +1039,16 @@ effects:
     _stats:
       compendiumSource: Compendium.n5eb.conditions.Item.9XpYXI88GXI91NGQ.ActiveEffect.5AUgZAgeKgGER409
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '14.360'
       systemId: n5eb
       systemVersion: 1,2,1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
+      exportSource: null
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!G49s0gViB2vJOPR3.RpY1AlcVSSnw2xEE'
 sort: 0
 ownership:
@@ -1105,6 +1192,15 @@ flags:
           value: 0
     classmodArt:
       classmod: mangekyo-sharingan
+    classmodCompendium:
+      classmod: mangekyo-sharingan
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

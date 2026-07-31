@@ -1,0 +1,155 @@
+folder: 64fa38d1b95e9c96
+name: 'Yang Release: Hands of Bonds'
+type: spell
+_id: 385305c68e4b8ee2
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Yang Ninjutsu</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>Reaction, when you or another creature within range would take
+      damage</dd><dt>Range:</dt><dd>30ft</dd><dt>Duration:</dt><dd>1 Round</dd><dt>Components:</dt><dd>CM,
+      HS</dd><dt>Cost:</dt><dd>5 Yang Chakra</dd><dt>Keywords:</dt><dd>Ninjutsu, Yang
+      Release</dd></dl><h3>Description:</h3><p>You make handsigns, before you form colossal chakra hands, that stop
+      whatever attacks is coming towards you. When you cast this art, hostile creatures inside this art's range are
+      harmlessly pushed to the closest free space outside its range. And until this art ends, creatures other than your
+      allies cannot enter this range.</p><p>You gain +5 AC and all allied creatures other than yourself within range
+      gain total cover from against damage and hostile effects originating outside of this art's range. This art last
+      until the start of your next turn, or until you are reduced to 0 hit points, whichever happens first. Yang Power:
+      Allied creatures, other than yourself, within 30ft of you can spend their reaction to enhance this art.</p><p>Each
+      creature that spends its reaction this way grants you 10 DR against the triggering damage, and half as much DR
+      against all other damage until the s tart of your next turn.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '110'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yang-release-hands-of-bonds
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+      - hs
+    keywords:
+      - ninjutsu
+      - yang-release
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 5 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    bdef32d929b6ad7e:
+      _id: bdef32d929b6ad7e
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '5'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: '1'
+        units: round
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: 30
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!385305c68e4b8ee2'

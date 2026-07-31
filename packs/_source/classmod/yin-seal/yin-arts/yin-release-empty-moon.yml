@@ -1,0 +1,152 @@
+folder: b4916b858daefb43
+name: 'Yin Release: Empty Moon'
+type: spell
+_id: 021784918dfd8280
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Yin Art</dd><dt>Casting Time:</dt><dd>1
+      Action</dd><dt>Range:</dt><dd>self</dd><dt>Duration:</dt><dd>1 minute
+      (Concentration)</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>1 Yin
+      Charge</dd><dt>Keywords:</dt><dd>Ninijutsu, Yin Release</dd></dl><h3>Description:</h3><p>You turn your Yin Chakra
+      inwards. Causing it to enhance your fighting ability at the cost of your Lifespan. For the duration, you gain the
+      following:</p><ul><li>+1d4 bonus to attack rolls</li><li>+2 to your jutsu save DC</li><li>+2 Yin save
+      DC</li><li>Yin Arts you cast increase their damage by +1 die for each level you have in this class mod, once per
+      casting.</li><li>You lose one Hit Die at the start of each of your turns. If you have no Hit Die at the start of
+      your turns, your drop to 0 hit points and make death saving throws at disadvantage until your next long rest. This
+      Art's concentration cannot be broken, willingly or unwillingly, by normal means. To end concentration on this art,
+      you must spend a bonus action to do so, or be reduced to 0 hit points.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '122'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yin-release-empty-moon
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ''
+    components:
+      - cm
+    keywords:
+      - ninijutsu
+      - yin-release
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Yin Charge
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yin-seal
+  activities:
+    0b06e58d507e1c42:
+      _id: 0b06e58d507e1c42
+      type: utility
+      activation:
+        type: action
+        value: 1
+        condition: Requires yin-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yin-charges
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: true
+        value: '1'
+        units: minute
+        special: ''
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
+    classmodArt:
+      classmod: yin-seal
+      classification: Yin Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!021784918dfd8280'

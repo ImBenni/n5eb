@@ -1,0 +1,171 @@
+folder: 64fa38d1b95e9c96
+name: 'Truth Seeking: Saving Light'
+type: spell
+_id: 52dc23c138f9c22f
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Truth-Seeking</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>60 feet (10 feet radius
+      sphere)</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M, W (Truth-Seeking
+      Orb)</dd><dt>Cost:</dt><dd>5 Yang Chakra</dd><dt>Keywords:</dt><dd>Bukijutsu, Truth
+      -Seeking</dd></dl><h3>Description:</h3><p>You throw a Truth -Seeking Orb forward, where it floats in place before
+      exploding on a blinding light. Choose one point you can see within range, the Truth-Seeking Orb moves to that
+      point before exploding. All creatures in a 10ft radius centered on the Orb must make a wisdom saving throw, taking
+      17d8 force damage and becoming blinded for 1 minute on a faile d save.</p><p>A creature that fails its saving
+      throw by 5 or more takes this art's maximum damage and becomes permanently blinded. This blindness cannot be
+      healed by jutsu of A-rank or less. Truth-Seeking: You can spend additional Truth-Seeking Orbs as part of casting
+      this jutsu. For each additional Orb you spend, increase the art's damage by +1d8. If you spend 3 or more
+      additional Orbs, affected creatures become dazed on a fail.</p><p>If you use 6 or more additional Orbs, the target
+      becomes stunned on a failed save.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '113'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: truth-seeking-saving-light
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: bukijutsu
+    ability: ''
+    components:
+      - m
+      - w-truth-seeking-orb
+    keywords:
+      - bukijutsu
+      - truth--seeking
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 5 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    07bcf50e0e56f5c5:
+      _id: 07bcf50e0e56f5c5
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '5'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/hard-light.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 17
+            denomination: 8
+            bonus: ''
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: none
+      save:
+        ability:
+          - wis
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: manual
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!52dc23c138f9c22f'

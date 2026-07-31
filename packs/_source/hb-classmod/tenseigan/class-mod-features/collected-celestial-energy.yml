@@ -1,0 +1,323 @@
+folder: ccc5494764162de4
+name: Collected Celestial Energy
+type: feat
+_id: 00339587c188ade6
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: |-
+      <h2>Collected Celestial Energy</h2><p>While Reincarnation Eye is collecting energy, the spent value
+          of this tracker is the amount collected. At the end of each turn after activation, add 1d10 + four times your
+          class-mod level, up to your maximum Celestial Chakra.</p><p>Consume the stored energy to grant chosen allies within
+          60 feet temporary Hit Points equal to half the total, to reform yourself with Hit Points equal to the total when
+          the source trigger is met, or to reincarnate a creature dead no longer than 10 minutes.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 5
+    license: ""
+    rules: n5eb
+  uses:
+    max: 15 + 15 * @classmods.tenseigan.levels + 10 * max(0, @classmods.tenseigan.levels - 4)
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: collected-celestial-energy
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    a505285fe223a267:
+      _id: a505285fe223a267
+      type: utility
+      activation:
+        type: turnEnd
+        value: null
+        condition: Requires the Collecting Celestial Energy effect. Collection cannot exceed this Item's maximum.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: 1d10 + 4 * @classmods.tenseigan.levels
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Collect at End of Turn
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+    d2ba47d171982137:
+      _id: d2ba47d171982137
+      type: heal
+      activation:
+        type: action
+        value: 1
+        condition: Apply the same temporary Hit Point total to each chosen ally, then reset this tracker and end collection.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: ally
+          choice: true
+          special: You and chosen allies
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Release Energy as Protection
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - temphp
+        custom:
+          enabled: true
+          formula: floor(@item.uses.spent / 2)
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+    bc49650a0f878a2c:
+      _id: bc49650a0f878a2c
+      type: heal
+      activation:
+        type: special
+        value: null
+        condition: Use only with player and GM confirmation when reduced to 0 Hit Points while collection is active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Reform at 0 Hit Points
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: "@item.uses.spent"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+    554278e9a548c6b5:
+      _id: 554278e9a548c6b5
+      type: heal
+      activation:
+        type: action
+        value: 1
+        condition: Target must have been dead no longer than 10 minutes. GM confirmation required.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "1"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Reincarnate Recent Dead
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: "@item.uses.spent"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: end-turn-capped-collection-and-protection-self-healing-rolls
+          mode: native
+        - clause: multi-ally-temporary-hit-points-tracker-reset-and-zero-hit-point-trigger
+          mode: prompt
+        - clause: reincarnation-death-state-and-body-or-soul-restoration
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!00339587c188ade6"

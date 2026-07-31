@@ -1,7 +1,17 @@
 import BaseConfigSheet from "../api/base-config-sheet.mjs";
 import CompendiumBrowser from "../../compendium-browser.mjs";
 import { switchNpcBuilderMode } from "./npc-builder-mode-switch.mjs";
-import { collectJutsuLookupEntries } from "../../jutsu-lookup-data.mjs";
+import {
+  applyJutsuLookupOwnership,
+  getCachedJutsuLookupEntries,
+  getJutsuLookupCacheVersion
+} from "../../jutsu-lookup-data.mjs";
+import {
+  createNpcBuilderCache,
+  getNpcBuilderDescription,
+  invalidateNpcBuilderDescription,
+  mapWithConcurrency
+} from "./npc-builder-cache.mjs";
 
 const CLAN_PACKS = ["clan", "t7-clan", "hb-clan"];
 const RANK_ORDER = ["e", "d", "c", "b", "a", "s"];
@@ -157,7 +167,7 @@ const AFFILIATION_SEARCH_ALIASES = {
   "puppet-tool": ["Puppet Tool"]
 };
 const FEATURE_INDEX_FIELDS = [
-  "img", "type", "system.description.value", "system.type.value", "system.type.subtype",
+  "img", "type", "system.type.value", "system.type.subtype",
   "system.type.nestedsubtype", "system.prerequisites.level", "system.requirements",
   "system.identifier", "flags.n5eb.legacyImport.sourcePath", "_stats.legacyImport.sourcePath",
   "_stats.compendiumSource"
@@ -165,6 +175,8 @@ const FEATURE_INDEX_FIELDS = [
 const CLAN_INDEX_FIELDS = ["img", "type", "system.identifier"];
 
 let clanChoicesCache = null;
+let adversaryFeatureCacheHooksRegistered = false;
+const adversaryFeatureCache = createNpcBuilderCache(collectBaseAdversaryFeatures);
 
 /**
  * NPC sheet child application for configuring N5eB adversaries.
@@ -178,6 +190,7 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
       applyDefaults: AdversaryBuilderConfig.#applyDefaults,
       chooseClan: AdversaryBuilderConfig.#chooseClan,
       clearClan: AdversaryBuilderConfig.#clearClan,
+      retryContent: AdversaryBuilderConfig.#retryContent,
       save: AdversaryBuilderConfig.#save,
       switchBuilderMode: AdversaryBuilderConfig.#switchBuilderMode,
       switchTab: AdversaryBuilderConfig.#switchTab
@@ -238,6 +251,40 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
    */
   #selectedUuids = new Set();
 
+  /**
+   * Cached base feature entries used to derive actor-specific suggestions.
+   * @type {object[]}
+   */
+  #featureEntries = [];
+
+  /**
+   * Cached base jutsu entries used to derive actor-specific suggestions.
+   * @type {object[]}
+   */
+  #jutsuEntries = [];
+
+  /**
+   * Current catalog load state.
+   * @type {"idle"|"loading"|"ready"|"error"}
+   */
+  #loadState = "idle";
+
+  /**
+   * Active instance load promise.
+   * @type {Promise<void>|null}
+   */
+  #loadPromise = null;
+
+  /**
+   * Monotonic preview request id used to ignore late description responses.
+   * @type {number}
+   */
+  #previewRequest = 0;
+
+  #featureCacheGeneration = -1;
+
+  #jutsuCacheGeneration = "";
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -252,10 +299,22 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
   /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
+    const jutsuCacheGeneration = getJutsuLookupCacheVersion({
+      systemOnly: true,
+      labelPrefix: "N5EB.Adversary.Builder"
+    });
+    if ( (this.#loadState === "ready") && ((this.#featureCacheGeneration !== adversaryFeatureCache.generation)
+      || (this.#jutsuCacheGeneration !== jutsuCacheGeneration)) ) {
+      this.#featureEntries = [];
+      this.#jutsuEntries = [];
+      this.#loadState = "idle";
+    }
     context.actor = this.document;
     context.builderMode = "adversary";
     const source = getAdversarySource(this.document);
-    source.clanDisplay = await getClanDisplay(source.clan);
+    source.clanDisplay = this.#loadState === "ready"
+      ? await getClanDisplay(source.clan)
+      : getFallbackClanDisplay(source.clan);
     source.affiliationChoice = getAffiliationChoice(source.affiliation);
     source.affiliationCustom = source.affiliationChoice === "custom" ? titleCaseKey(source.affiliation) : "";
     source.affiliationIsCustom = source.affiliationChoice === "custom";
@@ -272,11 +331,15 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
 
     context.identity = getAdversaryIdentity(source);
     context.summary = getAdversarySummary(source);
-    context.suggestions = await getAdversarySuggestions(this.document, source);
+    context.suggestions = this.#loadState === "ready"
+      ? prepareAdversarySuggestions(this.document, source, this.#featureEntries, this.#jutsuEntries)
+      : getEmptyAdversarySuggestions();
     this.#suggestionLookup = buildSuggestionLookup(context.suggestions);
     pruneSelectedSuggestions(this.#suggestionLookup, this.#selectedUuids);
     applySelectionState(context.suggestions, this.#selectedUuids);
     this.#suggestions = context.suggestions;
+    context.catalogLoading = ["idle", "loading"].includes(this.#loadState);
+    context.catalogError = this.#loadState === "error";
     context.warnings = getAdversaryWarnings(this.document, source, context.suggestions);
     context.renderFeatureRows = this.#activeTab === "features";
     context.renderJutsuRows = this.#activeTab === "jutsu";
@@ -321,7 +384,7 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
       ?? context.suggestions.jutsu.find(s => !s.disabled)
       ?? context.suggestions.features[0]
       ?? context.suggestions.jutsu[0]
-      ?? null;
+      ?? getBlankBuilderPreview();
     return context;
   }
 
@@ -335,6 +398,43 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
     this.#syncAffiliationCustom();
     this.#syncSummary();
     this.#syncIdentity();
+    if ( this.#loadState === "idle" ) void this.#loadCatalog();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Load reusable feature and jutsu catalogs after the application shell has rendered.
+   * @returns {Promise<void>}
+   */
+  async #loadCatalog() {
+    if ( this.#loadPromise ) return this.#loadPromise;
+    this.#loadState = "loading";
+
+    this.#loadPromise = Promise.all([
+      getCachedAdversaryFeatures(),
+      getCachedJutsuLookupEntries({ systemOnly: true, labelPrefix: "N5EB.Adversary.Builder" })
+    ])
+      .then(([features, jutsu]) => {
+        this.#featureEntries = features;
+        this.#jutsuEntries = jutsu;
+        this.#featureCacheGeneration = adversaryFeatureCache.generation;
+        this.#jutsuCacheGeneration = getJutsuLookupCacheVersion({
+          systemOnly: true,
+          labelPrefix: "N5EB.Adversary.Builder"
+        });
+        this.#loadState = "ready";
+        if ( this.element?.isConnected ) this.render();
+      })
+      .catch(err => {
+        console.error("n5eb | NPC adversary catalog failed to load", err);
+        this.#loadState = "error";
+        if ( this.element?.isConnected ) this.render();
+      })
+      .finally(() => {
+        this.#loadPromise = null;
+      });
+    return this.#loadPromise;
   }
 
   /* -------------------------------------------- */
@@ -455,6 +555,20 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
     event.preventDefault();
     this.#setClanField("", { label: game.i18n.localize("N5EB.Adversary.Builder.NoClan"), img: DEFAULT_ICON });
     await this.#saveAdversary();
+    this.render();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Retry a failed catalog load.
+   * @this {AdversaryBuilderConfig}
+   * @param {Event} event         Triggering event.
+   * @param {HTMLElement} target  Action target.
+   */
+  static async #retryContent(event, target) {
+    event.preventDefault();
+    this.#loadState = "idle";
     this.render();
   }
 
@@ -1010,7 +1124,7 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
    * Update the preview panel from a suggestion row.
    * @param {HTMLElement} row  Suggestion row.
    */
-  #previewSuggestion(row) {
+  async #previewSuggestion(row) {
     const preview = this.element.querySelector("[data-preview]");
     if ( !preview ) return;
     const suggestion = this.#suggestionLookup.get(row.dataset.uuid ?? "");
@@ -1033,13 +1147,27 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
     }
 
     const description = preview.querySelector("[data-preview-description]");
-    if ( description ) description.innerHTML = suggestion?.description?.trim()
-      || `<p>${game.i18n.localize("N5EB.Adversary.Builder.NoPreview")}</p>`;
+    const request = ++this.#previewRequest;
+    const cachedDescription = suggestion?.description?.trim();
+    if ( description ) description.innerHTML = cachedDescription
+      || `<p>${game.i18n.localize("N5EB.NPCBuilder.LoadingPreview")}</p>`;
 
     for ( const candidate of this.element.querySelectorAll(".adversary-suggestion.previewed") ) {
       candidate.classList.remove("previewed");
     }
     row.classList.add("previewed");
+
+    if ( cachedDescription || !description ) return;
+    try {
+      const html = await getNpcBuilderDescription(preview.dataset.uuid);
+      if ( (request !== this.#previewRequest) || !preview.isConnected ) return;
+      description.innerHTML = html.trim() || `<p>${game.i18n.localize("N5EB.Adversary.Builder.NoPreview")}</p>`;
+    } catch(err) {
+      console.warn("n5eb | Could not load NPC builder preview", err);
+      if ( (request === this.#previewRequest) && preview.isConnected ) {
+        description.innerHTML = `<p>${game.i18n.localize("N5EB.Adversary.Builder.NoPreview")}</p>`;
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -1083,6 +1211,8 @@ export default class AdversaryBuilderConfig extends BaseConfigSheet {
     const icon = document.createElement("img");
     icon.src = suggestion.img || DEFAULT_ICON;
     icon.alt = "";
+    icon.loading = "lazy";
+    icon.decoding = "async";
 
     const name = document.createElement("span");
     name.className = "name";
@@ -1399,37 +1529,16 @@ function setOptionalPreviewTag(preview, key, value) {
 /* -------------------------------------------- */
 
 /**
- * Collect eligible adversary content from system packs.
- * @param {Actor5e} actor      Actor being configured.
- * @param {object} adversary   Adversary metadata.
- * @returns {Promise<object>}
+ * Prepare actor-aware adversary suggestions from reusable source catalogs.
+ * @param {Actor5e} actor        Actor being configured.
+ * @param {object} adversary     Adversary metadata.
+ * @param {object[]} featureRows Cached feature source rows.
+ * @param {object[]} jutsuRows   Cached base jutsu suggestions.
+ * @returns {object}
  */
-async function getAdversarySuggestions(actor, adversary) {
-  const existing = getExistingSuggestionKeys(actor);
-  const features = [];
-
-  for ( const pack of getN5eItemPacks() ) {
-    const index = await pack.getIndex({ fields: FEATURE_INDEX_FIELDS });
-    for ( const entry of index ) {
-      if ( entry.type !== "feat" ) continue;
-      const featureType = foundry.utils.getProperty(entry, "system.type.value");
-      if ( !ADVERSARY_FEATURE_TYPES.has(featureType) ) continue;
-      features.push(formatSuggestion(entry, pack, featureType, existing, adversary));
-    }
-  }
-
-  for ( const item of game.items ) {
-    if ( item.type !== "feat" ) continue;
-    const featureType = item.system.type?.value;
-    if ( !ADVERSARY_FEATURE_TYPES.has(featureType) ) continue;
-    features.push(formatSuggestion(item, null, featureType, existing, adversary));
-  }
-
-  const jutsu = (await collectJutsuLookupEntries({
-    actor,
-    systemOnly: true,
-    labelPrefix: "N5EB.Adversary.Builder"
-  })).map(suggestion => ({
+function prepareAdversarySuggestions(actor, adversary, featureRows, jutsuRows) {
+  const features = prepareAdversaryFeatureSuggestions(actor, adversary, featureRows);
+  const jutsu = applyJutsuLookupOwnership(jutsuRows, actor).map(suggestion => ({
     ...suggestion,
     filterSearch: getCompactJutsuSearch(suggestion)
   }));
@@ -1440,6 +1549,95 @@ async function getAdversarySuggestions(actor, adversary) {
     featureGroups: getFeatureSuggestionGroups(sortedFeatures),
     jutsu: jutsu.toSorted(sortSuggestion)
   };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Prepare actor-aware feature suggestions without loading the jutsu catalog.
+ * @param {Actor5e} actor        Actor being configured.
+ * @param {object} adversary     Adversary metadata.
+ * @param {object[]} featureRows Cached feature source rows.
+ * @returns {object[]}
+ */
+function prepareAdversaryFeatureSuggestions(actor, adversary, featureRows) {
+  const existing = getExistingSuggestionKeys(actor);
+  return featureRows.map(({ entry, pack, featureType }) => {
+    return formatSuggestion(entry, pack, featureType, existing, adversary);
+  });
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get an empty suggestion collection while catalogs are loading.
+ * @returns {object}
+ */
+function getEmptyAdversarySuggestions() {
+  return { features: [], featureGroups: [], jutsu: [] };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get placeholder preview data for the loading shell.
+ * @returns {object}
+ */
+function getBlankBuilderPreview() {
+  return { img: DEFAULT_ICON, name: "", uuid: "" };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get cached eligible adversary feature sources.
+ * @returns {Promise<object[]>}
+ */
+async function getCachedAdversaryFeatures() {
+  registerAdversaryFeatureCacheHooks();
+  return adversaryFeatureCache.get();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build eligible adversary feature sources from system packs and world Items.
+ * @returns {Promise<object[]>}
+ */
+async function collectBaseAdversaryFeatures() {
+  const rows = [];
+  const packIndexes = await mapWithConcurrency(getN5eItemPacks(), 6, async pack => {
+    return { pack, index: await pack.getIndex({ fields: FEATURE_INDEX_FIELDS }) };
+  });
+
+  const addEntry = (entry, pack=null) => {
+    if ( entry.type !== "feat" ) return;
+    const featureType = foundry.utils.getProperty(entry, "system.type.value") ?? entry.system?.type?.value;
+    if ( ADVERSARY_FEATURE_TYPES.has(featureType) ) rows.push({ entry, pack, featureType });
+  };
+  for ( const { pack, index } of packIndexes ) {
+    for ( const entry of index ) addEntry(entry, pack);
+  }
+  for ( const item of game.items ) addEntry(item);
+  return rows;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Invalidate the feature source cache when a non-embedded source Item changes.
+ */
+function registerAdversaryFeatureCacheHooks() {
+  if ( adversaryFeatureCacheHooksRegistered ) return;
+  adversaryFeatureCacheHooksRegistered = true;
+  const invalidate = item => {
+    if ( item?.parent?.documentName === "Actor" ) return;
+    if ( item?.type !== "feat" ) return;
+    adversaryFeatureCache.invalidate();
+    invalidateNpcBuilderDescription(item?.uuid);
+    clanChoicesCache = null;
+  };
+  for ( const hook of ["createItem", "updateItem", "deleteItem"] ) Hooks.on(hook, invalidate);
 }
 
 /* -------------------------------------------- */
@@ -1978,7 +2176,7 @@ function getPassiveRequiredLevel(entry, subtype, sourcePath) {
  */
 async function addAutomaticPassives(actor, adversary) {
   const suppressed = new Set(actor.system.details.adversary.suppressedAutoPassives ?? []);
-  const { features } = await getAdversarySuggestions(actor, adversary);
+  const features = prepareAdversaryFeatureSuggestions(actor, adversary, await getCachedAdversaryFeatures());
   const existing = getExistingSuggestionKeys(actor);
   const toCreate = [];
 
@@ -2110,6 +2308,21 @@ async function getClanDisplay(key) {
     key,
     label: clan?.label ?? titleCaseKey(key),
     img: clan?.img ?? DEFAULT_ICON
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get a synchronous clan display while the content catalog is loading.
+ * @param {string} key  Normalized clan key.
+ * @returns {object}
+ */
+function getFallbackClanDisplay(key) {
+  return {
+    key,
+    label: key ? titleCaseKey(key) : game.i18n.localize("N5EB.Adversary.Builder.NoClan"),
+    img: DEFAULT_ICON
   };
 }
 

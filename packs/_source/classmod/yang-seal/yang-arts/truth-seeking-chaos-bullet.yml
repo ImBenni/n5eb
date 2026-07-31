@@ -1,0 +1,170 @@
+folder: 64fa38d1b95e9c96
+name: 'Truth Seeking: Chaos Bullet'
+type: spell
+_id: ae9a70c77d1838f2
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/truth-seeking-scorch.webp
+system:
+  description:
+    value: >-
+      <dl class="n5eb-classmod-summary"><dt>Yang Art Type:</dt><dd>Truth-Seeking</dd><dt>Classification:</dt><dd>Yang
+      Art</dd><dt>Casting Time:</dt><dd>1 Action</dd><dt>Range:</dt><dd>60 feet
+      cone</dd><dt>Duration:</dt><dd>Instant</dd><dt>Components:</dt><dd>M, W (Truth-Seeking
+      Orb)</dd><dt>Cost:</dt><dd>6 Yang Chakra</dd><dt>Keywords:</dt><dd>Bukijutsu, Truth
+      -Seeking</dd></dl><h3>Description:</h3><p>You move your Truth -Seeking Orbs in front of you, as they morph into
+      dozens of droplets of blueish-white energy. Afterwards, these droplets move at hypersonic speed towards your
+      target. All creatures in a 60ft cone in front of you must make a Dexterity saving throw. This saving throw cannot
+      be made at advantage.</p><p>A creature takes 15d8 force damage and becomes confused on a failed save, and takes
+      half as much damage on a success. Also on a failed save, the next time a creature confused by this art would cast
+      a jutsu or art, you can redirect the jutsu or art to affect another creature within range. Truth-Seeking: You can
+      spend additional Truth-Seeking Orbs as part of casting this jutsu.</p><p>For each additional Orb, increase this
+      jutsu's damage by +1d8 and the cone size by 5ft.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '112'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: truth-seeking-chaos-bullet
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: bukijutsu
+    ability: ''
+    components:
+      - m
+      - w-truth-seeking-orb
+    keywords:
+      - bukijutsu
+      - truth--seeking
+    countsKnown: false
+  chakra:
+    cost: '0'
+    scaling:
+      mode: none
+      value: 0
+    special: 6 Yang Chakra
+  materials:
+    value: ''
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:yang-seal
+  activities:
+    b1feaa4c49f88061:
+      _id: b1feaa4c49f88061
+      type: save
+      activation:
+        type: action
+        value: 1
+        condition: Requires yang-seal.active.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '6'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: inst
+        special: Instant
+        override: false
+      effects: []
+      range:
+        value: 60
+        units: ft
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/truth-seeking-scorch.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      damage:
+        parts:
+          - number: 15
+            denomination: 8
+            bonus: ''
+            types:
+              - force
+            custom:
+              enabled: false
+              formula: ''
+            scaling:
+              mode: ''
+              number: null
+              formula: ''
+        onSave: half
+      save:
+        ability:
+          - dex
+        dc:
+          calculation: spellcasting
+          formula: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+    classmodArt:
+      classmod: yang-seal
+      classification: Yang Art
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!ae9a70c77d1838f2'

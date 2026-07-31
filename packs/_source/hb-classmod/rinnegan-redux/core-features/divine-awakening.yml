@@ -1,0 +1,111 @@
+folder: 61c289ceee8656c2
+name: Divine Awakening
+type: feat
+_id: 14fa71252dc4d5d6
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Divine Awakening</h2><p>This nonrecovering tracker records Divine Awakening used to buy Path access, second
+      Path Arts, and Path Talents. The totals are 40 at level 1, 60 at level 2, 80 at level 3, 100 at level 4, and 120
+      at level 5.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 2
+    license: ""
+    rules: n5eb
+  uses:
+    max: 40 + 20 * max(0, min(4, @classmods.rinnegan-redux.levels - 1))
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-divine-awakening
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    f8bc8bdc66e5a61e:
+      _id: f8bc8bdc66e5a61e
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Purchases consume this tracker automatically; spent points do not recover.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Review Divine Awakening
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: level-scaled-nonrecovering-purchase-resource
+          mode: native
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!14fa71252dc4d5d6"

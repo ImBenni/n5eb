@@ -102,11 +102,20 @@ export default class TurnMessageData extends ChatMessageDataModel {
 
     if ( context.actor?.isOwner ) {
       context.activities = ActivationsField.processActivations.call(this.activations, this.actor);
+      const effects = Array.from(this.actor.concentration.effects);
+      const turn = this.actor.constructor.getConcentrationTurnKey(this.combat, this.combatant);
+      const chakra = this.actor.getChakraAvailable();
       context.concentration = this.concentration.map(entry => {
         entry = entry.toObject?.() ?? { ...entry };
+        const effect = effects.find(effect => effect.id === entry.effect);
+        const ended = entry.ended || !effect;
+        const paid = !ended && (entry.paid
+          || (effect.getFlag("n5eb", "concentration")?.paidTurn === turn));
         return {
           ...entry,
-          canPay: !entry.paid && !entry.ended,
+          ended,
+          insufficient: !paid && !ended && (entry.cost > chakra),
+          paid,
           rankLabel: game.i18n.localize(entry.rankLabel)
         };
       });
@@ -155,8 +164,9 @@ export default class TurnMessageData extends ChatMessageDataModel {
     try {
       const effectId = target.closest("[data-effect-id]")?.dataset.effectId;
       if ( !effectId || !this.actor?.isOwner ) return;
-      await this.actor.endConcentration(effectId);
-      await this.#updateConcentrationEntry(effectId, { ended: true });
+      const ended = await this.actor.endConcentration(effectId);
+      const effectExists = Array.from(this.actor.concentration.effects).some(effect => effect.id === effectId);
+      if ( ended.length || !effectExists ) await this.#updateConcentrationEntry(effectId, { ended: true });
     } finally {
       target.disabled = false;
     }
@@ -176,6 +186,14 @@ export default class TurnMessageData extends ChatMessageDataModel {
       if ( entry.effect !== effectId ) return entry;
       return { ...entry, ...changes };
     });
-    await this.parent.update({ "system.concentration": concentration });
+    if ( this.parent.isOwner ) {
+      await this.parent.update({ "system.concentration": concentration });
+      return;
+    }
+
+    // Turn cards are commonly authored by the GM who advances combat. Actor owners may use their buttons, but cannot
+    // persist changes to a GM-owned ChatMessage, so keep their local card in sync with the authoritative actor state.
+    this.parent.updateSource({ "system.concentration": concentration });
+    await ui.chat.updateMessage(this.parent);
   }
 }

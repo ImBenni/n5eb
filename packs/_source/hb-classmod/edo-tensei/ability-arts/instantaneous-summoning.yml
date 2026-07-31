@@ -1,0 +1,208 @@
+folder: 950c36b399efec17
+name: Instantaneous Summoning
+type: spell
+_id: 968f6cf1dcd97ed8
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Instantaneous Summoning</h2><h3>Edo Tensei Art Type: Ability</h3><dl class="n5eb-classmod-summary"><dt>Casting
+      Time:</dt><dd>Bonus Action</dd><dt>Range:</dt><dd>10 feet</dd><dt>Duration:</dt><dd>1 hour in combat or 24 hours
+      outside combat</dd><dt>Components:</dt><dd>HS, CS, CM</dd><dt>Cost:</dt><dd>1 Unholy
+      Charge</dd><dt>Keywords:</dt><dd>Kinjutsu</dd></dl><h3>Description:</h3><p>As a bonus action, spend 1 Unholy
+      Charge and perform the Edo Tensei Summoning with advantage. On success the summon acts immediately, does not count
+      against the normal control limit, and lasts 1 hour in combat or 24 hours outside combat. Refresh the duration at
+      any time by spending 1 Unholy Charge.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 9
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-instantaneous-summoning
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - hs
+      - cs
+      - cm
+    keywords:
+      - kinjutsu
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 1 Unholy Charge
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:edo-tensei
+  activities:
+    5945f686b7644166:
+      _id: 5945f686b7644166
+      type: summon
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:edo-tensei-unholy-charges
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: hour
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 10
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: space
+          choice: false
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Instantaneous Summoning
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+      bonuses:
+        ac: ""
+        hd: ""
+        hp: ""
+        attackDamage: ""
+        saveDamage: ""
+        healing: ""
+      creatureSizes: []
+      creatureTypes:
+        - undead
+      match:
+        attacks: false
+        proficiency: true
+        saves: false
+      profiles:
+        - count: ""
+          name: D-Rank Standard Edo Tensei
+          _id: 6f5e2533ae98cd0d
+          uuid: Compendium.n5eb.hb-adversary.Actor.ee182c5e122ac992
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: C-Rank Standard Edo Tensei
+          _id: 21bcec24280e4637
+          uuid: Compendium.n5eb.hb-adversary.Actor.4d79540fa0c6dc78
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: B-Rank Standard Edo Tensei
+          _id: 917e3033968c1413
+          uuid: Compendium.n5eb.hb-adversary.Actor.c943c08b28f110f4
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: A-Rank Standard Edo Tensei
+          _id: 5e1940b9409e91f6
+          uuid: Compendium.n5eb.hb-adversary.Actor.6449693e3d4539f1
+          level:
+            min: null
+            max: null
+          types: []
+        - count: ""
+          name: S-Rank Standard Edo Tensei
+          _id: 6623ad279644170d
+          uuid: Compendium.n5eb.hb-adversary.Actor.18b61b4e038beb10
+          level:
+            min: null
+            max: null
+          types: []
+      summon:
+        identifier: edo-tensei-instantaneous
+        mode: ""
+        prompt: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: source-rule-and-numeric-resolution
+          mode: native
+        - clause: target-choice-prerequisite-or-trigger
+          mode: prompt
+        - clause: cross-actor-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: edo-tensei
+      classification: Ability
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!968f6cf1dcd97ed8"

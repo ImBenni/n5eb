@@ -67,7 +67,9 @@ export default class ActivitySheet extends PseudoDocumentSheet {
    * Key paths to the parts of the submit data stored in arrays that will need special handling on submission.
    * @type {string[]}
    */
-  static CLEAN_ARRAYS = ["consumption.targets", "damage.parts", "effects", "uses.recovery"];
+  static CLEAN_ARRAYS = [
+    "consumption.targets", "damage.parts", "damage.versatile.parts", "effects", "uses.recovery"
+  ];
 
   /* -------------------------------------------- */
 
@@ -307,12 +309,12 @@ export default class ActivitySheet extends PseudoDocumentSheet {
         { value: "maximum", label: "DND5E.HEAL.Type.Maximum" },
         { value: "maxcp", label: "DND5E.HEAL.Type.MaximumChakra" }
       ];
-      const makePart = (data, index) => this._prepareDamagePartContext(context, {
+      const makePart = (data, index, { path="damage.parts", fields }={}) => this._prepareDamagePartContext(context, {
         data, index, scalingOptions, typeOptions,
         locked: data.locked || (index === undefined),
         canScale: this.activity.canScaleDamage,
-        fields: this.activity.schema.fields.damage.fields.parts.element.fields,
-        prefix: index !== undefined ? `damage.parts.${index}.` : "_.",
+        fields: fields ?? this.activity.schema.fields.damage.fields.parts.element.fields,
+        prefix: index !== undefined ? `${path}.${index}.` : "_.",
         source: data
       });
       context.damageParts = [
@@ -321,6 +323,12 @@ export default class ActivitySheet extends PseudoDocumentSheet {
           .map((data, index) => makePart(data)),
         ...context.source.damage.parts.map((data, index) => makePart(data, index))
       ];
+      if ( context.activity.damage.versatile?.parts ) {
+        const path = "damage.versatile.parts";
+        const fields = this.activity.schema.fields.damage.fields.versatile.fields.parts.element.fields;
+        context.versatileDamageParts = context.source.damage.versatile.parts
+          .map((data, index) => makePart(data, index, { path, fields }));
+      }
     }
 
     return context;
@@ -493,8 +501,10 @@ export default class ActivitySheet extends PseudoDocumentSheet {
    * @param {HTMLElement} target  Button that was clicked.
    */
   static #addDamagePart(event, target) {
-    if ( !this.activity.damage?.parts ) return;
-    this.activity.update({ "damage.parts": [...this.activity.toObject().damage.parts, {}] });
+    const path = target.closest("[data-damage-path]")?.dataset.damagePath ?? "damage.parts";
+    const parts = foundry.utils.getProperty(this.activity.toObject(), path);
+    if ( !Array.isArray(parts) ) return;
+    this.activity.update({ [path]: [...parts, {}] });
   }
 
   /* -------------------------------------------- */
@@ -573,10 +583,11 @@ export default class ActivitySheet extends PseudoDocumentSheet {
    * @param {HTMLElement} target  Button that was clicked.
    */
   static #deleteDamagePart(event, target) {
-    if ( !this.activity.damage?.parts ) return;
-    const parts = this.activity.toObject().damage.parts;
+    const path = target.closest("[data-damage-path]")?.dataset.damagePath ?? "damage.parts";
+    const parts = foundry.utils.getProperty(this.activity.toObject(), path);
+    if ( !Array.isArray(parts) ) return;
     parts.splice(target.closest("[data-index]").dataset.index, 1);
-    this.activity.update({ "damage.parts": parts });
+    this.activity.update({ [path]: parts });
   }
 
   /* -------------------------------------------- */

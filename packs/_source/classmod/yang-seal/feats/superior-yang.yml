@@ -1,0 +1,176 @@
+folder: 82ae2f37d8cd86c9
+name: Superior Yang
+type: feat
+_id: d1e94837874e64d0
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <p><strong>Category:</strong> Class Mod Prerequisite: Level 15+, 6 Bonds or spend 25 Downtime. Your Yang seal has
+      totally bonded with your body granting you the peak of its power and a new stage called, Superior Yang. You gain
+      the following benefits:</p><ul><li>Once per Full-Rest, you can spend a Full -Turn Action to enter Superior Yang.
+      When you do, are completely covered by the Yellow -white aura, which resembles a large cloak made of flames. You
+      can remain in this state for no more than 10 minutes.</li><li>While in Superior Yang you gain 9 Yang Charges. You
+      can spend these charges to cast Yang Arts or activate Sage Cloaks</li><li>You gain 2 additional Truth-Seeking
+      Orbs.</li><li>You gain 1 additional Yang Arts That cost 7 Yang Chakra or less.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '115'
+    license: ''
+    rules: n5eb
+  uses:
+    max: '1'
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: superior-yang
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    d6731feb9a6ed551:
+      _id: d6731feb9a6ed551
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Use this tier at Class Mod level 1 or higher. End any mutually exclusive form before applying this one.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ''
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: b511d5964d58ca7b
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - b511d5964d58ca7b
+effects:
+  - name: Superior Yang — Class Mod 1+
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+    origin: Item.d1e94837874e64d0
+    transfer: false
+    disabled: false
+    duration:
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startTime: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: b511d5964d58ca7b
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      n5eb:
+        classmodForm:
+          classmod: yang-seal
+          form: superior-yang
+          exclusive: yang-feat-form
+          minimumLevel: 1
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!d1e94837874e64d0.b511d5964d58ca7b'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!d1e94837874e64d0'

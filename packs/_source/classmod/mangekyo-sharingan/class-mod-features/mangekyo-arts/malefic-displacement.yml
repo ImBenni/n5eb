@@ -2,7 +2,7 @@ folder: lAKW2wIWtDO9Aor8
 name: Malefic Displacement
 type: spell
 _id: 6FIyafn2Tyiedtln
-img: systems/n5eb/assets/content/eyes/mangekyo-sharingan.webp
+img: systems/n5eb/assets/content/classmod-icons/mangekyo/heavenly-hand-power.webp
 system:
   description:
     value: >-
@@ -19,9 +19,10 @@ system:
       Evoker Type class mod feature, this art lasts until the end of the next turn.</p>
     chat: ''
   source:
-    custom: ''
+    custom: Class Mod Compendium
     rules: n5eb
     book: Naruto 5e
+    page: 71–104
   activation:
     type: reaction
     cost: 1
@@ -101,7 +102,7 @@ system:
     countsKnown: true
     ability: ''
     type: ninjutsu
-  rank: s
+  rank: art
   chakra:
     cost: '0'
     scaling:
@@ -111,6 +112,65 @@ system:
   method: spell
   prepared: 0
   sourceItem: classmod:mangekyo-sharingan
+  activities:
+    50e856e4332511da:
+      _id: 50e856e4332511da
+      type: utility
+      activation:
+        type: reaction
+        value: 1
+        condition: Requires mangekyo-sharingan.active.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Malefic Displacement
+      img: systems/n5eb/assets/content/classmod-icons/mangekyo/heavenly-hand-power.webp
+      visibility:
+        level:
+          min: null
+          max: null
 effects: []
 sort: 0
 ownership:
@@ -241,6 +301,15 @@ flags:
         chakraCost: 0
     classmodArt:
       classmod: mangekyo-sharingan
+    classmodCompendium:
+      classmod: mangekyo-sharingan
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
 _stats:
   duplicateSource: null
   coreVersion: '12.331'

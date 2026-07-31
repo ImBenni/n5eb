@@ -1,0 +1,241 @@
+folder: ccc5494764162de4
+name: Celestial Arts
+type: feat
+_id: ddaf37c484870af0
+img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+system:
+  description:
+    value: |-
+      <h2>Celestial Arts</h2><p>While your Tenseigan is active, you gain a pool of Celestial Chakra. It can
+          only power Hyūga Clan Jutsu and Celestial Arts.</p><p>If you use Celestial Chakra to cast a Hyūga Clan Jutsu, each
+          1 Celestial Chakra spent counts as 2 Chakra Points and the Jutsu is also treated as a Celestial Art in addition to
+          a Hyūga Clan Jutsu.</p><p>Celestial Arts are extremely powerful amplified versions of existing Hyūga Clan Jutsu.
+          You do not need to know the originating Hyūga Clan Jutsu to use one.</p><p>You learn 2 Celestial Arts at 1st level
+          of this class mod and one additional Celestial Art at each later level.</p>
+          <h3>Celestial Art Formulas</h3><p><strong>Save DC:</strong> 12 + your class-mod level + your proficiency bonus.</p>
+          <p><strong>Attack Bonus:</strong> twice your proficiency bonus + your class-mod level.</p>
+    chat: ""
+  source:
+    custom: Tenseigan Class Mod (Kingsare4ever, 2021)
+    book: Naruto 5e Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: celestial-arts
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    35f70825518a5126:
+      _id: 35f70825518a5126
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Review Celestial Art Save DC
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 12 + @classmods.tenseigan.levels + @prof
+        name: Celestial Art Save DC
+        prompt: true
+        visible: true
+    b6909ae8f5bd0d9a:
+      _id: b6909ae8f5bd0d9a
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Roll Celestial Art Attack
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: 1d20 + 2 * @prof + @classmods.tenseigan.levels
+        name: Celestial Art Attack
+        prompt: true
+        visible: true
+    d31494c5c2f91241:
+      _id: d31494c5c2f91241
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Spend the selected Celestial Chakra and count each point as 2 Chakra Points; also incur Celestial Strain.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:celestial-chakra
+            value: "1"
+            scaling:
+              mode: amount
+              formula: ""
+        scaling:
+          allowed: true
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Cast Hyūga Jutsu with Celestial Chakra
+      img: systems/n5eb/assets/content/classmod-icons/tenseigan/tenseigan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: tenseigan
+      coverage:
+        - clause: art-choice-counts-save-dc-attack-formula-and-hyuga-conversion-spend
+          mode: native
+        - clause: hyuga-jutsu-eligibility-and-conversion-label
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785456000000
+  modifiedTime: 1785456000000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!ddaf37c484870af0"

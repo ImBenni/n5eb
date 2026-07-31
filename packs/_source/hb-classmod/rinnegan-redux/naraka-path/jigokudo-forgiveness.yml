@@ -1,0 +1,157 @@
+folder: 25ce697c3a7f94ce
+name: "Jigokudo: Forgiveness"
+type: spell
+_id: 864fd6b116db77b4
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Jigokudo: Forgiveness</h2><h3>Divine Art</h3><dl
+      class="n5eb-classmod-summary"><dt>Classification:</dt><dd>Divine Art</dd><dt>Casting
+      Time:</dt><dd>Action</dd><dt>Range:</dt><dd>5 feet</dd><dt>Duration:</dt><dd>Until the end of your next
+      turn</dd><dt>Components:</dt><dd>CM</dd><dt>Cost:</dt><dd>30 Chakra or 3 Chakra
+      Dice</dd><dt>Keywords:</dt><dd>Divine</dd></dl><h3>Description:</h3><p>As an Action, choose up to five willing
+      creatures within 5 feet. Remove them from initiative until the end of your next turn. They return with 75 Hit
+      Points restored and enter initiative immediately after you.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 13
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-jigokudo-forgiveness
+  level: 9
+  rank: art
+  school: none
+  jutsu:
+    type: ninjutsu
+    ability: ""
+    components:
+      - cm
+    keywords:
+      - divine
+    countsKnown: false
+  chakra:
+    cost: "0"
+    scaling:
+      mode: none
+      value: 0
+    special: 30 Chakra or 3 Chakra Dice
+  materials:
+    value: ""
+    consumed: false
+    cost: 0
+    supply: 0
+  method: spell
+  prepared: 1
+  sourceItem: classmod:rinnegan-redux
+  activities:
+    2b80176d4b52f63f:
+      _id: 2b80176d4b52f63f
+      type: heal
+      activation:
+        type: action
+        value: 1
+        condition: >-
+          Remove willing targets from initiative and return them at the end of your next turn, immediately after your
+          initiative.
+        override: false
+      consumption:
+        targets:
+          - type: attribute
+            target: attributes.cp.value
+            value: "30"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: "1"
+        units: round
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: 5
+        units: ft
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: "5"
+          type: ally
+          choice: true
+          special: ""
+        prompt: true
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: "Cast Jigokudo: Forgiveness"
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      healing:
+        number: null
+        denomination: 0
+        bonus: ""
+        types:
+          - healing
+        custom:
+          enabled: true
+          formula: "75"
+        scaling:
+          mode: ""
+          number: null
+          formula: ""
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: source-rule-and-explicit-numeric-resolution
+          mode: native
+        - clause: timing-target-choice-and-prerequisite-resolution
+          mode: prompt
+        - clause: cross-item-state-or-GM-adjudication
+          mode: manual
+    classmodArt:
+      classmod: rinnegan-redux
+      classification: Divine Art
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!864fd6b116db77b4"

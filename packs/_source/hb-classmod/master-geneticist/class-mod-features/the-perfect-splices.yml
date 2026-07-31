@@ -1,0 +1,121 @@
+folder: 913bd9464e829b26
+name: The Perfect Splices
+type: feat
+_id: 85f5ef399e459975
+img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+system:
+  description:
+    value: >-
+      <h2>The Perfect Splices</h2><p>At 5th level, choose two clans. If they are already among your Gene Splices, you
+      immediately gain this feature's benefits. Otherwise, create two more Splices using the normal rules. You gain the
+      full benefits of both clans as if naturally part of them, permanently. They do not count against your maximum Gene
+      Splices.</p>
+    chat: ""
+  source:
+    custom: Master Geneticist by SheikHatake and KadenUchiha
+    book: Homebrew
+    page: PDF 4
+    license: ""
+    rules: n5eb
+  uses:
+    max: "2"
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: master-geneticist-perfect-splices
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    bfc967797f947845:
+      _id: bfc967797f947845
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: >-
+          Record the chosen clan and grant its full benefits. This permanent choice requires GM confirmation and does
+          not occupy a normal Gene Splice Slot.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ""
+            value: "1"
+            scaling:
+              mode: ""
+              formula: ""
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Record Perfect Splice (GM Confirmed)
+      img: systems/n5eb/assets/content/classmod-icons/master-geneticist/cellular-activation.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: master-geneticist
+      coverage:
+        - clause: two-perfect-splice-choice-slots
+          mode: native
+        - clause: full-clan-benefit-grant-and-permanent-choice
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785452400000
+  modifiedTime: 1785452400000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!85f5ef399e459975"

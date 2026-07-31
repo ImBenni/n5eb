@@ -1,0 +1,116 @@
+folder: 61c289ceee8656c2
+name: Creating Rinne Bodies
+type: feat
+_id: 89a027bc855bbc16
+img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+system:
+  description:
+    value: >-
+      <h2>Creating Rinne Bodies</h2><p>Spend 6 Divine Awakening and permanently reduce maximum Hit Points by 10 to make
+      a Tier 1 Rinne Body during a Full Rest. You may have at most six. Invest another 6 Divine Awakening per tier;
+      bodies may be no more than one rank apart and all bodies must reach Tier 2 before any reaches Tier 3. Invested
+      Divine Awakening is doubled for that body's own-Path Talents.</p><p>During a Full Rest create or repair bodies,
+      reclaim invested power, or downrank within the constraints. Unmade bodies crumble and restored investment returns
+      maximum Hit Points and Awakening.</p>
+    chat: ""
+  source:
+    custom: Rinnegan Redux
+    book: Homebrew
+    page: Homebrewery 3
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: rinnegan-redux-creating-rinne-bodies
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    49f9a6eefe0c2b29:
+      _id: 49f9a6eefe0c2b29
+      type: utility
+      activation:
+        type: special
+        value: null
+        condition: Full Rest. Spend or reclaim the source resources and enforce the six-body, tier-gap, and all-Tier-2 gates.
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Create or Advance Rinne Body
+      img: systems/n5eb/assets/content/classmod-icons/rinnegan-redux/rinnegan.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: rinnegan-redux
+      coverage:
+        - clause: full-rest-construction-repair-and-six-body-limit
+          mode: prompt
+        - clause: awakening-investment-max-hit-point-reduction-tier-gates-doubled-body-budget-and-reclamation
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!89a027bc855bbc16"

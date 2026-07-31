@@ -14,7 +14,7 @@ const PACK_SOURCE_ROOT = path.join(SYSTEM_ROOT, "packs", "_source");
 const FEAT_PACKS = ["feats", "t7-feats", "hb-feats"];
 const VALID_FEATURE_TYPES = new Set([
   "background", "class", "monster", "race", "clanfeat", "classfeat", "latentAbility", "adversaryTrait",
-  "adversaryPassive", "enchantment", "feat", "supernaturalGift", "vehicle", "summon"
+  "adversaryPassive", "classmod", "enchantment", "feat", "supernaturalGift", "vehicle", "summon"
 ]);
 const VALID_SUBTYPES = {
   classfeat: new Set(["archetype", "caster", "martial"]),

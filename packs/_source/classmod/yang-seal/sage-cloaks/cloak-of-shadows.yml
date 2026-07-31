@@ -1,0 +1,168 @@
+folder: 27d4a5076e87ddd3
+name: Cloak of Shadows
+type: feat
+_id: 3f09db544dc37b23
+img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+system:
+  description:
+    value: >-
+      <p>• Creatures within range become invisible until they leave this cloak's range. • Creatures within range can
+      take the hide, disengage or dodge actions, as a bonus action or reaction. • Creatures within range can spend their
+      action taking the attack action or casting a jutsu, without breaking stealth.</p>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '108'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: cloak-of-shadows
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    3f2d4bfe4e923c16:
+      _id: 3f2d4bfe4e923c16
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Use once each round to pay upkeep and renew the effect.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: feat:yang-chakra
+            value: '5'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: 58e5c2a2f45cbf14
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        value: null
+        units: spec
+        special: 'Class Mod 2+: 30 feet; Class Mod 4+: 60 feet'
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: ally
+          choice: true
+          special: ''
+        prompt: true
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Apply / Renew (1 Round)
+      img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - 58e5c2a2f45cbf14
+effects:
+  - name: Cloak of Shadows Benefits
+    img: systems/n5eb/assets/content/classmod-icons/yang-seal/six-paths-chakra-rebirth.webp
+    origin: Item.3f09db544dc37b23
+    transfer: false
+    disabled: false
+    duration:
+      seconds: null
+      combat: null
+      rounds: 1
+      turns: null
+      startTime: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses:
+      - invisible
+    _id: 58e5c2a2f45cbf14
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      dae:
+        stackable: none
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!3f09db544dc37b23.58e5c2a2f45cbf14'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yang-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!3f09db544dc37b23'

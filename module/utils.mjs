@@ -898,7 +898,7 @@ export function parseOrString(raw) {
  * @returns {Promise}
  */
 export async function preloadHandlebarsTemplates() {
-  const partials = [
+  const partials = new Set([
     // Shared Partials
     "systems/n5eb/templates/shared/active-effects.hbs",
     "systems/n5eb/templates/apps/parts/trait-list.hbs",
@@ -968,13 +968,52 @@ export async function preloadHandlebarsTemplates() {
     // Advancement Partials
     "systems/n5eb/templates/advancement/parts/advancement-controls.hbs",
     "systems/n5eb/templates/advancement/parts/advancement-spell-config.hbs"
+  ]);
+
+  const dnd5eActivityPartials = [
+    "activity-consumption",
+    "activity-effect-level-limit",
+    "activity-effect-settings",
+    "activity-effects",
+    "activity-identity",
+    "activity-targeting",
+    "activity-time",
+    "activity-usage-notes",
+    "activity-visibility",
+    "attack-damage",
+    "attack-details",
+    "attack-identity",
+    "cast-details",
+    "cast-spell",
+    "check-details",
+    "damage-damage",
+    "damage-part",
+    "damage-parts",
+    "enchant-enchantments",
+    "enchant-restrictions",
+    "heal-healing",
+    "save-damage",
+    "save-details",
+    "save-effect-settings",
+    "summon-changes",
+    "summon-profiles",
+    "transform-profiles",
+    "transform-settings"
   ];
+
+  const compatibilityAliases = {};
+  for ( const name of dnd5eActivityPartials ) {
+    const n5ebPath = `systems/n5eb/templates/activity/parts/${name}.hbs`;
+    partials.add(n5ebPath);
+    compatibilityAliases[`systems/dnd5e/templates/activity/parts/${name}.hbs`] = n5ebPath;
+  }
 
   const paths = {};
   for ( const path of partials ) {
     paths[path.replace(".hbs", ".html")] = path;
     paths[`dnd5e.${path.split("/").pop().replace(".hbs", "")}`] = path;
   }
+  Object.assign(paths, compatibilityAliases);
 
   return foundry.applications.handlebars.loadTemplates(paths);
 }

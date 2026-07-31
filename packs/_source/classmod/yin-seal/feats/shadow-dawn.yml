@@ -1,0 +1,178 @@
+folder: 6fe66cdcb5b965c6
+name: Shadow Dawn
+type: feat
+_id: 388957f69a86e769
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <p><strong>Category:</strong> Class Mod Prerequisite: Level 8+, granted Yin seal. You have been marked by the
+      power of Yin release, giving you the will of a Conqueror. This mark has yet to grow in strength to its full
+      potential, making some experts call it an Imperfect binding. You gain the following benefits:</p><ul><li>Once per
+      Full-Rest, you can spend a Full -Turn Action to activate Imperfect Yin. When you do, your Yin seal starts to emit
+      a faint, purple light, granting you this variants bonuses. You can remain in this state for no more than 10
+      minutes.</li><li>While in Imperfect Yin you gain 3 Yin Charges and the Imperfect benefits of having your Yin Seal
+      active. You can spend these charges to cast a Yin Art.</li><li>You gain 2 Yin Arts of your choice.</li><li>You
+      enter a Moon Phase as part of activating this Seal, without spending Yin Charges . Whenever you activate any Yin
+      Seal variant, you can enter the same Moon Phase or another one.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '126'
+    license: ''
+    rules: n5eb
+  uses:
+    max: '1'
+    recovery:
+      - period: lr
+        type: recoverAll
+    spent: 0
+  properties: []
+  identifier: shadow-dawn
+  type:
+    value: classmod
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    4b709f8c0faf3809:
+      _id: 4b709f8c0faf3809
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: Use this tier at Class Mod level 1 or higher. End any mutually exclusive form before applying this one.
+        override: false
+      consumption:
+        targets:
+          - type: itemUses
+            target: ''
+            value: '1'
+            scaling:
+              mode: ''
+              formula: ''
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects:
+        - _id: 011296d1a1c1b843
+          level:
+            min: null
+            max: null
+          riders:
+            activity: []
+            effect: []
+            item: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Activate
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      appliedEffects:
+        - 011296d1a1c1b843
+effects:
+  - name: Shadow Dawn — Class Mod 1+
+    img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+    origin: Item.388957f69a86e769
+    transfer: false
+    disabled: false
+    duration:
+      seconds: 600
+      combat: null
+      rounds: null
+      turns: null
+      startTime: null
+      startRound: null
+      startTurn: null
+    changes: []
+    statuses: []
+    _id: 011296d1a1c1b843
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags:
+      n5eb:
+        classmodForm:
+          classmod: yin-seal
+          form: shadow-dawn
+          exclusive: yin-feat-form
+          minimumLevel: 1
+      dae:
+        stackable: noneName
+        durationExpression: ''
+        macroRepeat: none
+        specialDuration: []
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!388957f69a86e769.011296d1a1c1b843'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!388957f69a86e769'

@@ -87,6 +87,14 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
         action: "rollDamage"
       }
     });
+    if ( this.damage.versatile.parts.length ) buttons.push({
+      label: game.i18n.localize("DND5E.VersatileDamage"),
+      icon: '<i class="fa-solid fa-burst" inert></i>',
+      dataset: {
+        action: "rollDamage",
+        damageVariant: "versatile"
+      }
+    });
     return buttons.concat(super._usageChatButtons(message));
   }
 
@@ -350,7 +358,8 @@ export default class AttackActivity extends ActivityMixin(BaseAttackActivityData
     const dialogConfig = {};
     if ( isCritical ) dialogConfig.options = { defaultButton: "critical" };
 
-    this.rollDamage({ event, ammunition, attackMode, isCritical }, dialogConfig);
+    const damageVariant = target.dataset.damageVariant ?? "primary";
+    this.rollDamage({ event, ammunition, attackMode, damageVariant, isCritical }, dialogConfig);
   }
 
   /* -------------------------------------------- */

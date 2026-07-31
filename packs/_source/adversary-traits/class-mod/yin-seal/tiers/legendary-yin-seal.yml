@@ -1,0 +1,160 @@
+folder: 2291244a53d127a3
+name: Legendary Yin Seal
+type: feat
+_id: c2ebb38df8db894c
+img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+system:
+  description:
+    value: >-
+      <p>unique to it as follows; LESSER YIN SEAL Tier Bonus: +2</p><ul><li>Gain 2 Yin Seal Traits. These traits count
+      as both an Affiliation Trait and Role Trait.</li><li>Gain 2 Yin Arts</li><li>+2 Bonus to AC and all saving
+      throws.</li><li>+10 Damage Reduction.</li><li>+20 Movement Speed.</li><li>+6 Stat points.</li><li>All jutsu this
+      adversary cast increase the number of damage, healing, temporary hit point or damage reduction dice by +2. GREATER
+      YIN SEAL Tier Bonus: +4</li><li>Gain 4 Yin Seal Traits. These traits count as both an Affiliation Trait and Role
+      Trait.</li><li>Gain 4 Yin Arts</li><li>+3 Bonus to AC and all saving throws.</li><li>+15 Damage
+      Reduction.</li><li>+30 Movement Speed.</li><li>+8 Stat points.</li><li>All jutsu this adversary cast increase the
+      number of damage, healing, temporary hit point or damage reduction dice by +3. LEGENDARY YIN SEAL Tier Bonus:
+      +8</li><li>Gain 6 Yin Seal Traits. These traits count as both an Affiliation Trait and Role Trait.</li><li>Gain 6
+      Yin Arts</li><li>+3 Bonus to AC and all saving throws.</li><li>+25 Damage Reduction.</li><li>+30 Movement
+      Speed.</li><li>+10 Stat points.</li><li>All jutsu this adversary cast increase the number of damage, healing,
+      temporary hit point or damage reduction dice by +4.</li></ul>
+    chat: ''
+  source:
+    custom: Class Mod Compendium
+    book: Naruto 5e
+    page: '127'
+    license: ''
+    rules: n5eb
+  uses:
+    max: ''
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: yin-seal-legendary-yin-seal
+  type:
+    value: adversaryTrait
+    subtype: ''
+  prerequisites:
+    level: null
+  activities:
+    c354289e748300e7:
+      _id: c354289e748300e7
+      type: utility
+      activation:
+        type: special
+        value: 1
+        condition: ''
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ''
+        spellSlot: false
+      description:
+        chatFlavor: ''
+      duration:
+        concentration: false
+        value: ''
+        units: ''
+        special: ''
+        override: false
+      effects: []
+      range:
+        units: self
+        special: ''
+        override: false
+      target:
+        template:
+          count: ''
+          contiguous: false
+          type: ''
+          size: ''
+          width: ''
+          height: ''
+          units: ft
+        affects:
+          count: ''
+          type: self
+          choice: false
+          special: ''
+        prompt: false
+        override: false
+      roll:
+        formula: ''
+        name: ''
+        prompt: false
+        visible: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Legendary Yin Seal
+      img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+      visibility:
+        level:
+          min: null
+          max: null
+effects:
+  - name: Legendary Yin Seal Benefits
+    img: systems/n5eb/assets/content/classmod-icons/yin-seal/infinite-tsukuyomi.webp
+    origin: Item.c2ebb38df8db894c
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+    changes:
+      - key: system.attributes.ac.bonus
+        mode: 2
+        value: '3'
+        priority: 20
+      - key: system.bonuses.abilities.save
+        mode: 2
+        value: '3'
+        priority: 20
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: '30'
+        priority: 20
+    statuses: []
+    _id: cb16970659fba28f
+    type: base
+    system: {}
+    description: ''
+    tint: '#ffffff'
+    sort: 0
+    flags: {}
+    _stats:
+      duplicateSource: null
+      coreVersion: '14.360'
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785283200000
+      modifiedTime: 1785283200000
+      lastModifiedBy: dnd5ebuilder0000
+      exportSource: null
+    _key: '!items.effects!c2ebb38df8db894c.cb16970659fba28f'
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: yin-seal
+      coverage:
+        - clause: activation-and-base-roll
+          mode: native
+        - clause: per-target-resolution
+          mode: midi-enhanced
+        - clause: remaining-pdf-clauses
+          mode: prompt
+_stats:
+  duplicateSource: null
+  coreVersion: '14.360'
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785283200000
+  modifiedTime: 1785283200000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: '!items!c2ebb38df8db894c'

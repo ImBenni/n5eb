@@ -1,0 +1,156 @@
+folder: af0b1a9d3f3959d9
+name: Shadow Gale Movement
+type: feat
+_id: 9c2c629067c64008
+img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+system:
+  description:
+    value: >-
+      <h2>Shadow Gale Movement</h2><p><strong>Cost:</strong> 1 Unholy Blessing. Increase base speed by 30 feet, ignore
+      difficult terrain, Dash as a Bonus Action, and gain a climbing speed equal to movement speed.</p>
+    chat: ""
+  source:
+    custom: Edo Tensei - Class Mod
+    book: Homebrew
+    page: Homebrewery 22
+    license: ""
+    rules: n5eb
+  uses:
+    max: ""
+    recovery: []
+    spent: 0
+  properties: []
+  identifier: edo-tensei-blessing-shadow-gale-movement
+  type:
+    value: classmod
+    subtype: ""
+  prerequisites:
+    level: null
+  activities:
+    513db10b2d1a88d5:
+      _id: 513db10b2d1a88d5
+      type: utility
+      activation:
+        type: bonus
+        value: 1
+        condition: ""
+        override: false
+      consumption:
+        targets: []
+        scaling:
+          allowed: false
+          max: ""
+        spellSlot: false
+      description:
+        chatFlavor: ""
+      duration:
+        concentration: false
+        value: ""
+        units: inst
+        special: ""
+        override: false
+      effects: []
+      range:
+        value: null
+        units: self
+        special: ""
+        override: false
+      target:
+        template:
+          count: ""
+          contiguous: false
+          type: ""
+          size: ""
+          width: ""
+          height: ""
+          units: ft
+        affects:
+          count: ""
+          type: self
+          choice: false
+          special: ""
+        prompt: false
+        override: false
+      uses:
+        spent: 0
+        recovery: []
+      sort: 0
+      name: Shadow Gale Dash
+      img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+      visibility:
+        level:
+          min: null
+          max: null
+      roll:
+        formula: ""
+        name: ""
+        prompt: false
+        visible: false
+  advancement: {}
+effects:
+  - name: Shadow Gale Movement
+    img: systems/n5eb/assets/content/classmod-icons/edo-tensei/edo-tensei.webp
+    origin: Item.9c2c629067c64008
+    transfer: true
+    disabled: false
+    duration:
+      startTime: null
+      seconds: null
+      combat: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    changes:
+      - key: system.attributes.movement.walk
+        mode: 2
+        value: "30"
+        priority: 20
+    statuses: []
+    _id: 5532b6623216dd1a
+    type: base
+    system: {}
+    description: ""
+    tint: "#4a394f"
+    sort: 0
+    flags:
+      n5eb:
+        classmodState:
+          classmod: edo-tensei
+          form: ""
+          sourceItemId: 9c2c629067c64008
+          dependentEffects: []
+    _stats:
+      duplicateSource: null
+      coreVersion: "14.360"
+      systemId: n5eb
+      systemVersion: 3.1.1
+      createdTime: 1785369600000
+      modifiedTime: 1785369600000
+      lastModifiedBy: n5ebbuilder00000
+      exportSource: null
+    _key: "!items.effects!9c2c629067c64008.5532b6623216dd1a"
+sort: 0
+ownership:
+  default: 0
+flags:
+  n5eb:
+    classmodCompendium:
+      classmod: edo-tensei
+      coverage:
+        - clause: shadow-gale-movement-static-or-rolled-benefits
+          mode: native
+        - clause: shadow-gale-movement-trigger-target-and-choice-resolution
+          mode: prompt
+        - clause: shadow-gale-movement-cross-document-or-GM-adjudication
+          mode: manual
+_stats:
+  duplicateSource: null
+  coreVersion: "14.360"
+  systemId: n5eb
+  systemVersion: 3.1.1
+  createdTime: 1785369600000
+  modifiedTime: 1785369600000
+  lastModifiedBy: n5ebbuilder00000
+  exportSource: null
+_key: "!items!9c2c629067c64008"
